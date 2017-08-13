@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.2",
+    "counterpart": "^0.18.1",
+    "form-data": "^2.2.0",
     "react": "^15.6.1",
+    "react-alert": "^2.2.0",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.11"
+    "react-router": "3",
+    "react-scripts": "1.0.11",
+    "sha256": "^0.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=8000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
