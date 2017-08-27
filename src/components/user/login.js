@@ -2,10 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import * as constant from '../constants';
 import AlertContainer from 'react-alert';
-import * as sha256 from 'sha256';
 
 let translate = require('counterpart');
-var FormData = require('form-data');
 
 class UserLogin extends Component {
   constructor(props) {
@@ -18,15 +16,15 @@ class UserLogin extends Component {
 
   componentWillMount() {
     if(localStorage.rocket_chat_user != null) {
-      window.location = 'localhost:3000' + constant.HOME_URI;
+      window.location = constant.BASE_URL;
     }
   }
 
-  showAlert = () => {
-    this.msg.show('Some text or component', {
+  showAlert = (text) => {
+    this.msg.show(text, {
       time: 2000,
       type: 'success',
-      icon: <img alt='123' src='../../images/success.ico' />
+      icon: <img alt='warning' src='images/warning.png' />
     })
   }
 
@@ -42,12 +40,21 @@ class UserLogin extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    let formData = new FormData();
+    var formData = new URLSearchParams();
     formData.append('username', this.state.username);
     formData.append('password', this.state.password);
     axios.post(constant.API_BASE_URL + constant.API_SIGN_IN, formData)
     .then(response => {
-      console.log(response);
+      let rocket_chat_user = {
+        auth_token: response.data.data.authToken,
+        user_id: response.data.data.userId
+      };
+
+      localStorage.setItem('rocket_chat_user', JSON.stringify(rocket_chat_user));
+      window.location = constant.BASE_URL;
+    })
+    .catch(error => {
+      alert(error);
     });
   }
 

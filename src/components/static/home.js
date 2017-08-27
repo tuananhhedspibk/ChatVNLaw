@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
 
+import NavBar from './navbar';
+import GraphQL from './graphql'
+
 class Home extends Component {
   render() {
     return(
-      <div>123</div>
+      <div>
+        <NavBar/>
+        <GraphQL/>
+      </div>
     )
   }
 }
