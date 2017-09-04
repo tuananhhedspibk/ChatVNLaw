@@ -5,7 +5,7 @@ import axios from 'axios';
 import * as constant from '../constants';
 
 let translate = require('counterpart');
-let authen = require('../lib/api/authentication');
+let authen = require('../../lib/api/authentication');
 
 class NavBar extends Component {
   constructor(props) {

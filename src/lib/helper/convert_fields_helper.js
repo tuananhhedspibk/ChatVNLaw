@@ -1,4 +1,4 @@
-var constant = require('../../constants');
+var constant = require('../../components/constants');
 
 module.exports = {
     convert_fields = function(fields = DEFAULT_FIELDS){

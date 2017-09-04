@@ -3,7 +3,7 @@ import * as constant from '../constants';
 import AlertContainer from 'react-alert';
 
 let translate = require('counterpart');
-var authen = require('../lib/api/authentication.js');
+var authen = require('../../lib/api/authentication.js');
 
 class UserLogin extends Component {
   constructor(props) {
