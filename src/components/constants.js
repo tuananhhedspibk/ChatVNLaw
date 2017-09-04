@@ -1,6 +1,8 @@
-// STORAGE DATA
 export const STORAGE_ITEM = "rocket_chat_user";
-// BASE URL
+
+export const BASE_URL = 'http://localhost:8000';
+export const API_BASE_URL = 'http://localhost:4000';
+export const SIGN_IN_URI = '/login';
 export const HOME_URI = '/home';
 export const BASE_URL = 'http://localhost:8000';
 export const API_BASE_URL = 'http://localhost:4000';
