@@ -5,7 +5,8 @@ import axios from 'axios';
 import * as constant from '../constants';
 
 let translate = require('counterpart');
-var authen = require('../lib/api/authentication');
+let authen = require('../lib/api/authentication');
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -20,12 +21,6 @@ class NavBar extends Component {
   homeClick() {
     window.location = constant.BASE_URL;
   }
-
- /*axios.post(constant.API_BASE_URL + constant.API_SIGN_OUT,
-      querystring.stringify({
-        'X-Auth-Token':JSON.parse(localStorage.rocket_chat_user).auth_token,
-        'X-User-Id':JSON.parse(localStorage.rocket_chat_user).user_id,
-      })) */
 
   signOut(evt) {
     evt.preventDefault();
