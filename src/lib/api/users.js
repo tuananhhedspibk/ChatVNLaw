@@ -1,6 +1,7 @@
 var axios = require('axios');
 var constant = require('../../components/constants');
 var convert_fields_helper = require('../helper/convert_fields_helper');
+var convert_query_helper = require('../helper/convert_query_helper');
 
 module.exports = {
     create: function(){
@@ -52,10 +53,10 @@ module.exports = {
             return error;
         });
     },
-    list: function(fields = constant.DEFAULT_FIELDS, query){
+    list: function(fields = constant.DEFAULT_FIELDS, query = constant.DEFAULT_QUERY){
        var formData = new URLSearchParams();
-       formData.append(constant.API_ARGUMENT_FIELDS,convert_fields_helper.convert_fields(fields)); 
-    //    formData.append(constant.API_ARGUMENT_QUERY, query);
+       formData.append(constant.API_ARGUMENT_FIELDS, convert_fields_helper.convert_fields(fields)); 
+       formData.append(constant.API_ARGUMENT_QUERY, convert_query_helper.convert_query(query));
        
        var config= {
            method: 'GET',
