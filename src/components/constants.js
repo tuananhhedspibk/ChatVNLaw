@@ -1,10 +1,32 @@
-export const BASE_URL = 'http://localhost:8000';
-export const API_BASE_URL = 'http://localhost:3000';
-export const SIGN_IN_URI = '/login';
+// STORAGE DATA
+export const STORAGE_ITEM = "rocket_chat_user";
+// BASE URL
 export const HOME_URI = '/home';
-export const API_SIGN_IN = '/api/v1/login';
-export const API_SIGN_OUT = '/api/v1/logout';
-export const API_USER_INFO = '/api/v1/users.info';
+export const BASE_URL = 'http://localhost:8000';
+export const API_BASE_URL = 'http://localhost:4000';
+
+// API URL
+// Authentication
+export const API_LOGIN_URL = '/api/v1/login';
+export const API_LOGOUT_URL = '/api/v1/logout';
+export const API_ME_URL = '/api/v1/me';
+// User
+export const API_USER_CREATE_URL = '/api/v1/users.create';
+export const API_USER_CREATE_TOKEN_URL = '/api/v1/users.createToken';
+export const API_USER_DELETE_URL ='/api/v1/users.delete';
+export const API_User_GET_AVATAR_URL = '/api/v1/users.getAvatar';
+export const API_USER_GET_PRESENCE_URL = '/api/v1/users.getPresence';
+export const API_USER_INFORMATION_URL = '/api/v1/users.info';
+export const API_USER_LIST = '/api/v1/users.list';
+export const API_USER_REGISTER_URL = '/api/v1/users.register';
+export const API_USER_RESET_AVATAR_URL = '/api/v1/users.resetAvatar';
+export const API_USER_SET_AVATAR_URL = '/api/v1/users.setAvatar';
+export const API_USER_UPDATE_URL = '/api/v1/users.update';
+
+// API ARGUMENT
+// Authentication
+export const API_ARGUMENT_USERNAME = "username";
+export const API_ARGUMENT_PASSWORD = "password";
 
 let alertOptions = {
   offset: 14,
