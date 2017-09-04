@@ -29,6 +29,9 @@ export const API_USER_UPDATE_URL = '/api/v1/users.update';
 // Authentication
 export const API_ARGUMENT_USERNAME = "username";
 export const API_ARGUMENT_PASSWORD = "password";
+export const API_ARGUMENT_PASS     = "pass";
+export const API_ARGUMENT_EMAIL    = "email";
+export const API_ARGUMENT_NAME     = "name";
 
 let alertOptions = {
   offset: 14,
