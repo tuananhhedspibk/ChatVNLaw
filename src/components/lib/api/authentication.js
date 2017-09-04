@@ -11,37 +11,57 @@ module.exports ={
     formData.append(constant.API_ARGUMENT_USERNAME, username);
     formData.append(constant.API_ARGUMENT_PASSWORD, password);
     
-    axios.post(constant.API_BASE_URL + constant.API_LOGIN_URL, formData)
+    var config = {
+        method: 'POST',
+        url: constant.API_BASE_URL + constant.API_LOGIN_URL,
+        data: formData
+    }
+    axios.request(config)
     .then(response => {
       let rocket_chat_user = {
         auth_token: response.data.data.authToken,
         user_id: response.data.data.userId
       };
       localStorage.setItem(constant.STORAGE_ITEM, JSON.stringify(rocket_chat_user));
-      window.location = constant.BASE_URL;    
+      window.location = constant.BASE_URL;  
+      return response;  
     })
     .catch(error => {
       alert(error); 
+      return error;
     });
   },
 
   logout: function(){
-    axios.get(constant.API_BASE_URL + constant.API_LOGOUT_URL,constant.headers)
+    var config = {
+        method: 'POST',
+        url: constant.API_BASE_URL + constant.API_LOGOUT_URL,
+        headers: constant.headers
+    }
+    axios.request(config)
     .then((response) => {
       localStorage.removeItem(constant.STORAGE_ITEM);
+      return response;
     })
     .catch(function (error) {
       console.log(error);
+      return error;
     });
   },
     
   me: function(){
-    axios.get(constant.API_BASE_URL + constant.API_ME_URL, constant.headers)
+    var config = {
+        method: 'GET',
+        url: constant.API_BASE_URL + constant.API_ME_URL,
+        headers: constant.headers
+    }
+    axios.request(config)
     .then((response)=>{
       return response;
     })
     .catch(function(error){
       console.log(error);
+      return error;
     })
   }
 };

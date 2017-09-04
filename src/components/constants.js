@@ -4,8 +4,6 @@ export const BASE_URL = 'http://localhost:8000';
 export const API_BASE_URL = 'http://localhost:4000';
 export const SIGN_IN_URI = '/login';
 export const HOME_URI = '/home';
-export const BASE_URL = 'http://localhost:8000';
-export const API_BASE_URL = 'http://localhost:4000';
 
 // API URL
 // Authentication
@@ -32,7 +30,9 @@ export const API_ARGUMENT_PASSWORD = "password";
 export const API_ARGUMENT_PASS     = "pass";
 export const API_ARGUMENT_EMAIL    = "email";
 export const API_ARGUMENT_NAME     = "name";
-
+export const API_ARGUMENT_USERID   = "userId";
+export const API_ARGUMENT_FIELDS   = "fields";
+export const API_ARGUMENT_QUERY    = "query";
 let alertOptions = {
   offset: 14,
   position: 'top right',
@@ -45,11 +45,25 @@ let header = {};
 
 if(localStorage.rocket_chat_user != null) {
   header = {
-    headers: {
-      'X-Auth-Token': JSON.parse(localStorage.rocket_chat_user).auth_token,
-      'X-User-Id': JSON.parse(localStorage.rocket_chat_user).user_id
-    }
+    'X-Auth-Token': JSON.parse(localStorage.rocket_chat_user).auth_token,
+    'X-User-Id': JSON.parse(localStorage.rocket_chat_user).user_id
   }
+}
+
+export const DEFAULT_FIELDS ={
+  avatarOrigin: 0,
+  emails: 0,
+  phone: 0,
+  statusConnection: 0,
+  createdAt: 0,
+  lastLogin: 0,
+  services: 0,
+  requirePasswordChange: 0,
+  requirePasswordChangeReason: 0,
+  roles: 0,
+  statusDefault: 0,
+  _updatedAt: 0,
+  customFields: 0
 }
 
 export const headers = header;
