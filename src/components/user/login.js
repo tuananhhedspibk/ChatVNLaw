@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import * as constant from '../constants';
 import AlertContainer from 'react-alert';
 
 let translate = require('counterpart');
+var authen = require('../lib/api/authentication.js');
 
 class UserLogin extends Component {
   constructor(props) {
@@ -40,22 +40,7 @@ class UserLogin extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    var formData = new URLSearchParams();
-    formData.append('username', this.state.username);
-    formData.append('password', this.state.password);
-    axios.post(constant.API_BASE_URL + constant.API_SIGN_IN, formData)
-    .then(response => {
-      let rocket_chat_user = {
-        auth_token: response.data.data.authToken,
-        user_id: response.data.data.userId
-      };
-
-      localStorage.setItem('rocket_chat_user', JSON.stringify(rocket_chat_user));
-      window.location = constant.BASE_URL;
-    })
-    .catch(error => {
-      alert(error);
-    });
+    authen.login(this.state.username, this.state.password);
   }
 
   render() {
