@@ -50,7 +50,7 @@ if(localStorage.rocket_chat_user != null) {
   }
 }
 
-export const DEFAULT_FIELDS ={
+export const DEFAULT_FIELDS = {
   avatarOrigin: 0,
   emails: 0,
   phone: 0,
@@ -66,5 +66,15 @@ export const DEFAULT_FIELDS ={
   customFields: 0
 }
 
+export const DEFAULT_QUERY = {
+  _id: [],
+	type: [],
+	status: [],
+	active: [],
+	name: [],
+	roles: [],
+	statusConnection: [],
+	username: []
+}
 export const headers = header;
 export const ALERT_OPTIONS = alertOptions;

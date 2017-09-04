@@ -5,8 +5,8 @@ module.exports = {
         var str = ""
         str += "{"	
         var key;
-        for (key in DEFAULT_FIELDS){
-            str+= "\""+key+"\":"+DEFAULT_FIELDS[key]+",";
+        for (key in fields){
+            str+= "\""+key+"\":"+fields[key]+",";
         }
         str = str.slice(0, -1);
         str += "}"
