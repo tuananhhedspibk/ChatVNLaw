@@ -3,7 +3,7 @@
  */
 
 var axios = require('axios');
-var constant = require('../../constants');
+var constant = require('../../components/constants');
 
 module.exports ={
   login: function(username, password){

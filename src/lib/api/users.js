@@ -1,5 +1,5 @@
 var axios = require('axios');
-var constant = require('../../constants');
+var constant = require('../../components/constants');
 var convert_fields_helper = require('../helper/convert_fields_helper');
 
 module.exports = {
@@ -55,7 +55,7 @@ module.exports = {
     list: function(fields = constant.DEFAULT_FIELDS, query){
        var formData = new URLSearchParams();
        formData.append(constant.API_ARGUMENT_FIELDS,convert_fields_helper.convert_fields(fields)); 
-       formData.append(constant.API_ARGUMENT_QUERY, query);
+    //    formData.append(constant.API_ARGUMENT_QUERY, query);
        
        var config= {
            method: 'GET',
