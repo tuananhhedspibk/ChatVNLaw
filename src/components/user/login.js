@@ -40,7 +40,7 @@ class UserLogin extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    authen.login(this.state.username, this.state.password);
+    authen.login(this.state.username, this.state.password, function(response){});
   }
 
   render() {

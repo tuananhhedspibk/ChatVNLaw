@@ -1,7 +1,7 @@
 var constant = require('../../components/constants');
 
 module.exports = {
-    convert_fields = function(fields = DEFAULT_FIELDS){
+    convert_fields = function(fields = DEFAULT_FIELDS, callback){
         var str = ""
         str += "{"	
         var key;
@@ -10,6 +10,6 @@ module.exports = {
         }
         str = str.slice(0, -1);
         str += "}"
-        return str;
+        return callback(str);
     }
 };

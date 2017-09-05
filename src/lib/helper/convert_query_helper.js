@@ -1,7 +1,7 @@
 var constant = require('../../components/constants');
 
 module.exports = {
-    convert_query: function(query = constant.DEFAULT_QUERY){
+    convert_query: function(query = constant.DEFAULT_QUERY, callback){
         var str = ""
         str += "{"
         for(key in query){
@@ -18,6 +18,6 @@ module.exports = {
             str = str.slice(0, -1);
         }
         str += "}";
-        return str;
+        return callback(str);
     }
 }
