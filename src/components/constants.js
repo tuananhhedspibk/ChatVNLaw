@@ -14,7 +14,7 @@ export const API_ME_URL = '/api/v1/me';
 export const API_USER_CREATE_URL = '/api/v1/users.create';
 export const API_USER_CREATE_TOKEN_URL = '/api/v1/users.createToken';
 export const API_USER_DELETE_URL ='/api/v1/users.delete';
-export const API_User_GET_AVATAR_URL = '/api/v1/users.getAvatar';
+export const API_USER_GET_AVATAR_URL = '/api/v1/users.getAvatar';
 export const API_USER_GET_PRESENCE_URL = '/api/v1/users.getPresence';
 export const API_USER_INFORMATION_URL = '/api/v1/users.info';
 export const API_USER_LIST = '/api/v1/users.list';
@@ -74,7 +74,22 @@ export const DEFAULT_QUERY = {
 	name: [],
 	roles: [],
 	statusConnection: [],
-	username: []
+  username: [],
+  "emails.address" : []
+}
+
+export const DEFAULT_DATA = {
+  "data.email": "",
+  "data.name": "",
+  "data.password": "",
+  "data.username": "",
+  "data.active": true,
+  "data.roles": ['user'],
+  "data.joinDefaultChannels": true,
+  "data.requirePasswordChange": false,
+  "data.sendWelcomeEmail": false,
+  "data.verified": false,
+  "data.customFields": "undefined"
 }
 export const headers = header;
 export const ALERT_OPTIONS = alertOptions;

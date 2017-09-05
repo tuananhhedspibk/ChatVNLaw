@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Navbar, Nav, MenuItem, NavDropdown} from 'react-bootstrap';
-import axios from 'axios';
 
 import * as constant from '../constants';
 
@@ -24,7 +23,7 @@ class NavBar extends Component {
 
   signOut(evt) {
     evt.preventDefault();
-    authen.logout();
+    authen.logout(function(response){});
   }
 
   componentWillMount() {
