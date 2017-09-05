@@ -1,0 +1,7 @@
+.ui.menu {
+  background-color: #2185d0;
+  border: none;
+  box-shadow: 1px 1px 2px 2px #c7c7c7; }
+  .ui.menu a {
+    color: #fff;
+    font-weight: bold; }

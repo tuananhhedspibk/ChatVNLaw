@@ -1,0 +1,20 @@
+body {
+  text-align: center; }
+
+.authen-box {
+  background-color: #fff;
+  box-shadow: 2px 1px 3px 2px #c7c7c7;
+  display: inline-block;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: left;
+  width: 420px; }
+  .authen-box .authen-form {
+    padding: 0 35px 35px; }
+  .authen-box .title {
+    background-color: #2185d0;
+    color: #fff;
+    font-size: 2.1em;
+    margin-bottom: 25px;
+    padding: 25px 20px;
+    width: 100%; }

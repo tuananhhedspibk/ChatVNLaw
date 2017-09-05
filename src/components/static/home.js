@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
 
 import NavBar from './navbar';
-import GraphQL from './graphql'
+import * as constant from '../constants';
 
 class Home extends Component {
+  renderView() {
+    if (localStorage.rocket_chat_user == null) {
+     window.location = constant.BASE_URL + constant.SIGN_IN_URI; 
+    }
+    else{
+
+    }
+  }
   render() {
-    return(
+    return (
       <div>
-        <NavBar/>
-        <GraphQL/>
+        {this.renderView()}
       </div>
     )
   }
