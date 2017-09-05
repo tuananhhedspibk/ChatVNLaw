@@ -1,77 +1,44 @@
 import React, {Component} from 'react';
-import {Navbar, Nav, MenuItem, NavDropdown} from 'react-bootstrap';
+
+import { Menu } from 'semantic-ui-react';
+
+import '../../assets/styles/navbar.css';
 
 import * as constant from '../constants';
-
 let translate = require('counterpart');
-let authen = require('../../lib/api/authentication');
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      user_id: '',
-      auth_token: '',
-      is_signed: false
+      activeItem: ''
     }
   }
 
-  homeClick() {
-    window.location = constant.BASE_URL;
-  }
-
-  signOut(evt) {
-    evt.preventDefault();
-    authen.logout(function(response){});
-  }
-
-  componentWillMount() {
-    if(localStorage.rocket_chat_user != null) {
-      let rocket_chat_user = JSON.parse(localStorage.rocket_chat_user);
-      this.setState({
-        is_signed: true,
-        user_id: rocket_chat_user.user_id,
-        auth_token: rocket_chat_user.auth_token
-      });
+  componentDidMount() {
+    console.log(window.location.href);
+    if(window.location.href == constant.BASE_URL + '/' || window.location.href == constant.BASE_URL + constant.HOME_URI) {
+      this.setState({activeItem: 'home'});
     }
-    else {
-      this.setState({
-        is_signed: false
-      });
+    else if(window.location.href == constant.BASE_URL + constant.SIGN_IN_URI) {
+      this.setState({activeItem: 'login'});
     }
   }
 
   render() {
-    return(
-      <Navbar collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a onClick={this.homeClick.bind(this)}>{translate('app.identifier.app_name')}</a>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-        <Nav pullRight>
-            <NavDropdown eventKey={3} title={translate('app.identifier.language')}
-              id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>{translate('app.identifier.vi')}</MenuItem>
-              <MenuItem eventKey={3.2}>{translate('app.identifier.en')}</MenuItem>
-            </NavDropdown>
-          </Nav>
-          <Nav pullRight>
-            {this.state.is_signed &&
-              <NavDropdown eventKey={3} title={this.state.user_id} id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>{translate('app.identifier.setting')}</MenuItem>
-                <MenuItem divider />
-                <MenuItem eventKey={3.2} onClick={this.signOut.bind(this)}>
-                  {translate('app.identifier.logout')}
-                </MenuItem>
-              </NavDropdown>
-            }
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+    return( 
+      <Menu>
+        <Menu.Item active={this.state.activeItem === 'home'}>
+          <a href={constant.BASE_URL}>
+            {translate("app.identifier.home")}
+          </a>
+        </Menu.Item>
+        <Menu.Item active={this.state.activeItem === 'login'}>
+          <a href={constant.BASE_URL + constant.SIGN_IN_URI}>
+            {translate("app.identifier.login")}
+          </a>
+        </Menu.Item>
+      </Menu>
     )
   }
 }
