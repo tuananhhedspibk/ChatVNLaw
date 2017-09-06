@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'DroidSerif';
+  src: font-url("fonts/Droid_Serif/DroidSerif-Regular.ttf"); }
+
+body {
+  background-image: url("../images/home-wallpaper.jpg");
+  font-family: 'DroidSerif', sans-serif; }

@@ -1,4 +1,3 @@
-var axios = require('axios');
 var constant = require('../../components/constants');
 var convert_fields_helper = require('../helper/convert_fields_helper');
 var convert_query_helper = require('../helper/convert_query_helper');

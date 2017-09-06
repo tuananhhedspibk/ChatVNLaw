@@ -1,9 +1,9 @@
 import React from 'react';
 import {Router, Route} from 'react-router';
+
 import UserLogin from './components/user/login';
 import UserSignUp from './components/user/signup';
 import Home from './components/static/home';
-import Navbar from './components/static/navbar';
 
 const Routes = props => (
   <Router {...props}>

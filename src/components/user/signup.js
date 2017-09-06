@@ -55,9 +55,9 @@ class UserSignUp extends Component {
       var component = this;
       user.register(this.state.username, this.state.email, 
         this.state.password, this.state.name, function(response) {
-          if (response.status == 200) {
+          if (response.status === 200) {
             authen.login(username, password, function(response) {
-              if (response.status == 200) {
+              if (response.status === 200) {
                 window.location = constant.BASE_URL;
               }
             });
