@@ -5,8 +5,8 @@ module.exports = {
         var str = ""
         str += "{"
         for(var key in query){
-            if(Object.keys(query[key]).length != 0){
-                str += "\""+key+"\":{\"\$in\":[";
+            if(Object.keys(query[key]).length !== 0){
+                str += "\""+key+"\":{\"$in\":[";
                 for(var key1 in query[key]){
                     str+="\""+query[key][key1]+"\",";
                 }

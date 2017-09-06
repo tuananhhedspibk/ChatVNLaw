@@ -1,8 +1,9 @@
 module.exports = {
   app: {
     identifier: {
-      app_name: 'Chat VN Law',
+      app_name: 'VN Law',
       language: 'Language',
+      slogan: 'Always make an awesome support',
       vi: 'Vietnamese',
       en: 'English',
       setting: 'Setting',

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import NavBar from './navbar';
 import * as constant from '../constants';
 
 class Home extends Component {

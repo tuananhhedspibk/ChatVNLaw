@@ -2,19 +2,38 @@ body {
   text-align: center; }
 
 .authen-box {
-  background-color: #fff;
-  box-shadow: 2px 1px 3px 2px #c7c7c7;
+  background-color: rgba(0, 0, 0, 0.3);
   display: inline-block;
-  margin-top: 60px;
+  font-size: 1.2em;
+  margin-top: 45px;
   margin-bottom: 60px;
   text-align: left;
   width: 420px; }
+  .authen-box .ui .input > input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    color: white;
+    padding-left: 0; }
+    .authen-box .ui .input > input:focus {
+      background-color: transparent;
+      border-color: #fff;
+      border-radius: 0;
+      color: #fff; }
+  .authen-box .ui.primary.button {
+    width: 100%;
+    background-color: #fd9d16; }
+  .authen-box .ui.form .field {
+    margin-bottom: 25px; }
+  .authen-box .ui.form .field > label {
+    color: #fff;
+    font-size: 1.1em; }
   .authen-box .authen-form {
     padding: 0 35px 35px; }
   .authen-box .title {
-    background-color: #2185d0;
     color: #fff;
-    font-size: 2.1em;
-    margin-bottom: 25px;
-    padding: 25px 20px;
+    text-align: center;
+    font-size: 2em;
+    padding: 30px 20px 25px 20px;
     width: 100%; }

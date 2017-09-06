@@ -17,10 +17,10 @@ class NavBar extends Component {
 
   componentDidMount() {
     console.log(window.location.href);
-    if(window.location.href == constant.BASE_URL + '/' || window.location.href == constant.BASE_URL + constant.HOME_URI) {
+    if(window.location.href === constant.BASE_URL + '/' || window.location.href === constant.BASE_URL + constant.HOME_URI) {
       this.setState({activeItem: 'home'});
     }
-    else if(window.location.href == constant.BASE_URL + constant.SIGN_IN_URI) {
+    else if(window.location.href === constant.BASE_URL + constant.SIGN_IN_URI) {
       this.setState({activeItem: 'login'});
     }
   }

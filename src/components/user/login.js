@@ -4,8 +4,10 @@ import { Input, Form, Button } from 'semantic-ui-react';
 
 import * as constant from '../constants';
 import NavBar from '../static/navbar';
+import Brand from '../static/brand';
 
 import '../../assets/styles/authen.css';
+import '../../assets/styles/main.css';
 
 let translate = require('counterpart');
 var authen = require('../../lib/api/authentication.js');
@@ -29,7 +31,7 @@ class UserLogin extends Component {
     this.msg.show(text, {
       time: 2000,
       type: 'success',
-      icon: <img alt='warning' src='images/warning.png' />
+      icon: <img alt='warning' src='../../assets/images/warning.png' />
     })
   }
 
@@ -52,6 +54,7 @@ class UserLogin extends Component {
     return(
       <div>
         <NavBar/>
+        <Brand/>
         <div className='authen-box'>
           <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS} />
           <div className='title'>
