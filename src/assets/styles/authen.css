@@ -37,3 +37,16 @@ body {
     font-size: 2em;
     padding: 30px 20px 25px 20px;
     width: 100%; }
+
+.signup-box {
+  width: 840px; }
+  .signup-box .right {
+    float: right; }
+  .signup-box .ui.form .field {
+    display: inline-block;
+    width: 48%; }
+    .signup-box .ui.form .field label {
+      width: 100%;
+      display: inline-block; }
+    .signup-box .ui.form .field .ui.input {
+      width: 100%; }

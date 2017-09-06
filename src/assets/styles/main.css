@@ -1,3 +1,15 @@
+::-webkit-input-placeholder {
+  color: #fff; }
+
+::-moz-placeholder {
+  color: #fff; }
+
+:-ms-input-placeholder {
+  color: #fff; }
+
+:-moz-placeholder {
+  color: #fff; }
+
 @font-face {
   font-family: 'DroidSerif';
   src: font-url("fonts/Droid_Serif/DroidSerif-Regular.ttf"); }

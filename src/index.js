@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 import {browserHistory} from 'react-router';
+import './assets/styles/main.css';
 
 let translate = require('counterpart');
 translate.registerTranslations('en', require('./locales/en'));
