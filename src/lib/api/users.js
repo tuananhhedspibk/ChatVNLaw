@@ -76,6 +76,8 @@ module.exports = {
        convert_query_helper.convert_query(query, function(result){
            sendingQuery = result;
        });
+       console.log(sendingFields);
+       console.log(sendingQuery);
        formData.append(constant.API_ARGUMENT_FIELDS, sendingFields); 
        formData.append(constant.API_ARGUMENT_QUERY, sendingQuery);
        
@@ -85,7 +87,7 @@ module.exports = {
            method: 'GET',
            url: constant.API_BASE_URL + constant.API_USER_LIST,
            headers:constant.headers,
-           data: formData
+           params: formData
        }
        axios_helper.request(config, function(response){
            return callback(response);

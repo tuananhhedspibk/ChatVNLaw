@@ -1,6 +1,6 @@
 export const STORAGE_ITEM = "rocket_chat_user";
 
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'http://localhost:8000';
 export const API_BASE_URL = 'http://localhost:4000';
 
 export const HOME_URI = '/home';
@@ -23,6 +23,36 @@ export const API_USER_RESET_AVATAR_URL = '/api/v1/users.resetAvatar';
 export const API_USER_SET_AVATAR_URL = '/api/v1/users.setAvatar';
 export const API_USER_UPDATE_URL = '/api/v1/users.update';
 
+export const API_CHANNELS_ADD_ALL = '/api/v1/channels.addAll';
+export const API_CHANNELS_ADD_MODERATOR = '/api/v1/channels.addModerator';
+export const API_CHANNELS_ADD_OWNER = '/api/v1/channels.addOwner';
+export const API_CHANNELS_ARCHIVE = '/api/v1/channels.archive';
+export const API_CHANNELS_CLEAN_HISTORY = '/api/v1/channels.cleanHistory';
+export const API_CHANNELS_CLOSE = '/api/v1/channels.close';
+export const API_CHANNELS_CREATE = '/api/v1/channels.create';
+export const API_CHANNELS_GET_INTEGRATIONS = "/api/v1/channels.getIntegrations";
+export const API_CHANNELS_HISTORY = "/api/v1/channels.history";
+export const API_CHANNELS_INFO = "/api/v1/channels.info";
+export const API_CHANNELS_INVITE = "/api/v1/channels.invite";
+export const API_CHANNELS_KICK = "/api/v1/channels.kick";
+export const API_CHANNELS_LEAVE = "/api/v1/channels.leave";
+export const API_CHANNELS_LIST_JOINED = "/api/v1/channels.list.joined";
+export const API_CHANNELS_LIST = "/api/v1/channels.list";
+export const API_CHANNELS_OPEN = "/api/v1/channels.open";
+export const API_CHANNELS_REMOVE_MODERATOR = "/api/v1/channels.removeModerator";
+export const API_CHANNELS_REMOVE_OWNER = "/api/v1/channels.removeOwner";
+export const API_CHANNELS_RENAME = "/api/v1/channels.rename";
+export const API_CHANNELS_SET_DESCRIPTION = "/api/v1/channels.setDescription";
+export const API_CHANNELS_SET_JOIN_CODE = "/api/v1/channels.setJoinCode";
+export const API_CHANNELS_SET_PURPOSE = "/api/v1/channels.setPurpose";
+export const API_CHANNELS_SET_READ_ONLY = "/api/v1/channels.setReadOnly";
+export const API_CHANNELS_SET_TOPIC = "/api/v1/channels.setTopic";
+export const API_CHANNELS_SET_TYPE = "/api/v1/channels.setType";
+export const API_CHANNELS_UNARCHIVE = "/api/v1/channels.unarchive";
+
+export const API_CHAT_DELETE = "/api/v1/chat.delete";
+export const API_CHAT_POST_MESSAGE = "/api/v1/chat.postMessage";
+
 export const API_ARGUMENT_USERNAME = "username";
 export const API_ARGUMENT_PASSWORD = "password";
 export const API_ARGUMENT_PASS     = "pass";
@@ -31,6 +61,30 @@ export const API_ARGUMENT_NAME     = "name";
 export const API_ARGUMENT_USERID   = "userId";
 export const API_ARGUMENT_FIELDS   = "fields";
 export const API_ARGUMENT_QUERY    = "query";
+export const API_ARGUMENT_ROOMID   = "roomId";
+export const API_ARGUMENT_ACTIVE_USER_ONLY = "activeUsersOnly";
+export const API_ARGUMENT_LATEST = "latest";
+export const API_ARGUMENT_OLDEST = "oldest";
+export const API_ARGUMENT_INCLUSIVE = "inclusive";
+export const API_ARGUMENT_MEMBERS = "members";
+export const API_ARGUMENT_COUNT = "count";
+export const API_ARGUMENT_UNREADS = "unreads";
+export const API_ARGUMENT_ROOM_NAME = "roomName";
+export const API_ARGUMENT_DESCRIPTION = "description";
+export const API_ARGUMENT_JOIN_CODE = "joinCode";
+export const API_ARGUMENT_PURPOSE = "purpose";
+export const API_ARGUMENT_READ_ONLY = "readOnly";
+export const API_ARGUMENT_TOPIC = "topic";
+export const API_ARGUMENT_TYPE = "type";
+export const API_ARGUMENT_MSGID = "msgId";
+export const API_ARGUMENT_AS_USER = "asUser";
+export const API_ARGUMENT_CHANNEL = "channel";
+export const API_ARGUMENT_TEXT = "text";
+export const API_ARGUMENT_ALIAS = "alias";
+export const API_ARGUMENT_EMOJI = "emoji";
+export const API_ARGUMENT_AVATAR = "avatar";
+export const API_ARGUMENT_ATTACHMENTS = "attachments";
+
 
 let alertOptions = {
   offset: 14,
@@ -89,6 +143,30 @@ export const DEFAULT_DATA = {
   "data.sendWelcomeEmail": false,
   "data.verified": false,
   "data.customFields": "undefined"
+}
+
+export const DEFAULT_ATTACHMENTS = {
+  "color": "",
+  "text": "",
+  "ts": "",
+  "thumb_url": "",
+  "message_link": "",
+  "collapsed": "",
+  "author_name":"",
+  "author_link":"",
+  "author_icon":"",
+  "title":"",
+  "title_link":"",
+  "title_link_download":"",
+  "image_url":"",
+  "audio_url":"",
+  "video_url":"",
+  "fields":[]
+}
+export const DEFAULT_ATTACHMENTS_FIELDS = {
+  "short": false,
+  "title": "",
+  "value": "",
 }
 export const headers = header;
 export const ALERT_OPTIONS = alertOptions;
