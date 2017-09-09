@@ -19,7 +19,7 @@ module.exports = {
             return callback(response);
         });
     },
-    postMessage: function(roomId, channel, text="", alias="", emoji="", avatar="", attachments = [], callback){
+    postMessage: function(roomId, channel="", text="", alias="", emoji="", avatar="", attachments = [], callback){
         var formParam = new URLSearchParams();
 
         formParam.append(constant.API_ARGUMENT_ROOMID, roomId);

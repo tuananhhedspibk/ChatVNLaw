@@ -83,9 +83,11 @@ export const API_ARGUMENT_TEXT = "text";
 export const API_ARGUMENT_ALIAS = "alias";
 export const API_ARGUMENT_EMOJI = "emoji";
 export const API_ARGUMENT_AVATAR = "avatar";
+export const API_ARGUMENT_AVATAR_URL = "avatarUrl";
 export const API_ARGUMENT_ATTACHMENTS = "attachments";
+export const API_ARGUMENT_IMAGE = "image";
 
-
+export const DEFAULT_AVATAR_URL = "https://image.ibb.co/i23jUF/default_ava.png";
 let alertOptions = {
   offset: 14,
   position: 'top right',

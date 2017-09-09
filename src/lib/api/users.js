@@ -31,8 +31,10 @@ module.exports = {
         var config ={
             method: 'GET',
             url: constant.API_BASE_URL+constant.API_USER_GET_AVATAR_URL,
-            params: formData
+            params: formData,
+            followAllRedirects: false
         }
+        console.log(config);
         axios_helper.request(config, function(response){
             return callback(response);
         });
@@ -100,13 +102,13 @@ module.exports = {
         formData.append(constant.API_ARGUMENT_EMAIL, email);
         formData.append(constant.API_ARGUMENT_NAME,name);
 
-        var header = constant.headers;
-        header["Content-type"] = "application/x-www-form-urlencoded";
+        // var header = constant.headers;
+        // header["Content-type"] = "application/x-www-form-urlencoded";
         
         var config = {
             method: 'post',
             url: constant.API_BASE_URL + constant.API_USER_REGISTER_URL,
-            headers: header,
+            headers: constant.headers,
             data:formData
         }
         axios_helper.request(config, function(response){
@@ -128,5 +130,42 @@ module.exports = {
             return callback(response);
         })
     },
-    // userUpdate: function(userId, data = )
+    setAvatarWithFile: function(imageFile, callback){
+        var formData = new FormData();
+        formData.append(constant.API_ARGUMENT_IMAGE,imageFile); 
+        var header = {
+            'X-Auth-Token': JSON.parse(localStorage.rocket_chat_user).auth_token,
+            'X-User-Id': JSON.parse(localStorage.rocket_chat_user).user_id
+        };
+        var config = {
+            method: 'POST',
+            url: constant.API_BASE_URL + constant.API_USER_SET_AVATAR_URL,
+            headers: header,
+            data: formData
+        }
+        console.log(config);
+        axios_helper.request(config, function(response){
+            return callback(response);
+        })
+    },
+    setAvatarWithImageUrl: function(avatarUrl,callback){
+        var formData = new URLSearchParams();
+        formData.append("avatarUrl",avatarUrl);
+
+        var header = {
+            'X-Auth-Token': JSON.parse(localStorage.rocket_chat_user).auth_token,
+            'X-User-Id': JSON.parse(localStorage.rocket_chat_user).user_id,
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
+        var config = {
+            method: 'POST',
+            url: constant.API_BASE_URL + constant.API_USER_SET_AVATAR_URL,
+            headers: header,
+            data: formData
+        }
+        console.log(config);
+        axios_helper.request(config, function(response){
+            return callback(response);
+        })
+    }
 };

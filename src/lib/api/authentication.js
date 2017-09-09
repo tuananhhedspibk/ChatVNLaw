@@ -23,7 +23,7 @@ module.exports ={
           user_id: response.data.data.userId
         };
         localStorage.setItem(constant.STORAGE_ITEM, JSON.stringify(rocket_chat_user));
-        window.location = constant.BASE_URL; 
+        // window.location = constant.BASE_URL; 
       }
       return callback(response);
     });
