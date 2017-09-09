@@ -10,10 +10,26 @@
 :-moz-placeholder {
   color: #fff; }
 
+textarea::-webkit-input-placeholder {
+  color: #a2a2a2; }
+
+textarea::-moz-placeholder {
+  color: #a2a2a2; }
+
+textarea:-ms-input-placeholder {
+  color: #a2a2a2; }
+
+textarea:-moz-placeholder {
+  color: #a2a2a2; }
+
 @font-face {
   font-family: 'DroidSerif';
   src: font-url("fonts/Droid_Serif/DroidSerif-Regular.ttf"); }
 
 body {
-  background-image: url("../images/home-wallpaper.jpg");
   font-family: 'DroidSerif', sans-serif; }
+
+.wrapper {
+  background-image: url("../images/home-wallpaper.jpg");
+  width: 100%;
+  height: 100vh; }

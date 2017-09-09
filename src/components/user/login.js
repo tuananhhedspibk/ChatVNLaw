@@ -56,7 +56,7 @@ class UserLogin extends Component {
 
   render() {
     return(
-      <div>
+      <div className='wrapper'>
         <NavBar/>
         <Brand/>
         <div className='authen-box'>

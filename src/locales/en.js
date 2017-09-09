@@ -28,6 +28,14 @@ module.exports = {
       email: 'Email',
       name: 'Name',
       submit: 'Signup'
+    },
+    user: {
+      list: 'List users',
+      search: 'Search user'
+    },
+    chat: {
+      title: 'Chat',
+      input_place_holder: 'Input messages ...'
     }
   }
 }

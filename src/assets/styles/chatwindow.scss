@@ -1,0 +1,66 @@
+$gray-lighter: #e5ecf0;
+$blue: #4dadff;
+$white: #fff;
+
+.chat-window {
+  border-right: 1px solid $gray-lighter;
+  font-size: 1.2em;
+  float: left;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  width: 750px;
+
+  .title {
+    border-bottom: 1px solid $gray-lighter;
+    color: $blue;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+
+    .user-name {
+      display: inline-block;
+    }
+
+    .fa {
+      float: right;
+      margin-left: 15px;
+    }
+  }
+
+  .chats {
+    height: 575px;
+    overflow-y: scroll;
+    padding: 25px;
+  }
+
+  .text-box {
+    align-items: center;
+    background-color: $white;
+    border-top: 1px solid $gray-lighter;
+    display: flex;
+    font-size: 1em;
+    height: 55px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    textarea {
+      border: 0;
+      font-size: 0.9em;
+      height: 45px;
+      line-height: 0.9em;
+      margin-top: 5px;
+      overflow-y: hidden;
+      padding: 18px 12px 12px;
+      resize: none;
+      width: 550px;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+}

@@ -28,6 +28,14 @@ module.exports = {
       email: 'Email',
       name: 'Tên người dùng',
       submit: 'Đăng kí'
+    },
+    user: {
+      list: 'Danh sách người dùng',
+      search: 'Tìm kiếm người dùng'
+    },
+    chat: {
+      title: 'Chat',
+      input_place_holder: 'Nhập tin nhắn ...'
     }
   }
 }
