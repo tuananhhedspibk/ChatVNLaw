@@ -58,7 +58,11 @@ class UserSignUp extends Component {
           if (response.status === 200) {
             authen.login(username, password, function(response) {
               if (response.status === 200) {
-                window.location = constant.BASE_URL;
+                user.setAvatarWithImageUrl(constant.DEFAULT_AVATAR_URL.valueOf(),function(response){
+                  if(response.status === 200){
+                    window.location = constant.BASE_URL;            
+                  }
+                });
               }
             });
           }

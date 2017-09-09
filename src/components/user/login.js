@@ -47,7 +47,11 @@ class UserLogin extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    authen.login(this.state.username, this.state.password, function(response){});
+    authen.login(this.state.username, this.state.password, function(response){
+      if(response.status === 200){
+        window.location = constant.BASE_URL;
+      }
+    });
   }
 
   render() {
