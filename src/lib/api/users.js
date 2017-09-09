@@ -82,9 +82,7 @@ module.exports = {
        console.log(sendingQuery);
        formData.append(constant.API_ARGUMENT_FIELDS, sendingFields); 
        formData.append(constant.API_ARGUMENT_QUERY, sendingQuery);
-       
-    //    formData.append(constant.API_ARGUMENT_FIELDS, convert_fields_helper.convert_fields(fields)); 
-    //    formData.append(constant.API_ARGUMENT_QUERY, convert_query_helper.convert_query(query));
+
        var config= {
            method: 'GET',
            url: constant.API_BASE_URL + constant.API_USER_LIST,

@@ -78,7 +78,7 @@ class UserSignUp extends Component {
 
   render() {
     return(
-      <div>
+      <div className='wrapper'>
         <NavBar/>
         <div className='authen-box signup-box'>
           <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS} />
