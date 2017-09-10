@@ -1,6 +1,6 @@
 export const STORAGE_ITEM = "rocket_chat_user";
 
-export const BASE_URL = 'http://localhost:8000';
+export const BASE_URL = 'http://localhost:3000';
 export const API_BASE_URL = 'http://localhost:4000';
 
 export const HOME_URI = '/home';
@@ -52,6 +52,8 @@ export const API_CHANNELS_UNARCHIVE = "/api/v1/channels.unarchive";
 
 export const API_CHAT_DELETE = "/api/v1/chat.delete";
 export const API_CHAT_POST_MESSAGE = "/api/v1/chat.postMessage";
+
+export const API_IM_HISTORY = "/api/v1/im.history";
 
 export const API_ARGUMENT_USERNAME = "username";
 export const API_ARGUMENT_PASSWORD = "password";
