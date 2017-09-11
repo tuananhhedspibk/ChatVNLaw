@@ -31,6 +31,9 @@
     margin-top: 0;
     padding: 6px 15px;
     width: 100%; }
+    .list-users .ui.list a {
+      display: inline-block;
+      width: 100%; }
     .list-users .ui.list .item {
       align-items: center;
       cursor: pointer;

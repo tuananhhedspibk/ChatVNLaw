@@ -17,12 +17,16 @@ class UserChat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: []
+      messages: [],
+      current_user_name: ''
     }
   }
 
+  componentWillReceiveProps() {
+    this.setState({current_user_name: this.props.username});
+  }
+
   componentDidMount() {
-    console.log(this.props.params.user_name);
     var roomId = "saYeHsbZKwk55G9xw";
     var component = this;
     im.history(roomId, function(response){
@@ -75,9 +79,6 @@ class UserChat extends Component {
   }
 
   handleInputChange(evt) {
-
-    console.log(evt.shiftKey);
-    console.log(evt.which);
     if (evt.which === 13 && evt.shiftKey === false) {
       //this.handleSubmit();
       evt.preventDefault();
@@ -112,6 +113,7 @@ class UserChat extends Component {
           <div className='user-name'>
             {translate('app.chat.title')}
           </div>
+          {this.state.current_user_name}
           <FontAwesome name='video-camera'/>
           <FontAwesome name='phone'/>
         </div>

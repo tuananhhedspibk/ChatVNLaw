@@ -53,6 +53,11 @@ $white: #fff;
     padding: 6px 15px;
     width: 100%;
 
+    a{
+      display: inline-block;
+      width: 100%;
+    }
+
     .item {
       align-items: center;
       cursor: pointer;
