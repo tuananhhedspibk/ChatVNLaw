@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { List, Image, Input, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router';
 
+import UserChat from './userchat';
+
 import * as constant from '../constants';
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
 
@@ -16,7 +18,8 @@ class UsersIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: []
+      users: [],
+      current_user_name: ''
     }
   }
 
@@ -31,6 +34,8 @@ class UsersIndex extends Component {
 
     var component = this;
 
+    this.setState({current_user_name: this.props.params.user_name})
+
     user.list(fields,query,function(response){
       component.setState({users: response.data.users});
     });
@@ -44,45 +49,49 @@ class UsersIndex extends Component {
     });
   }
 
-  redirect(username) {
-    window.location = constant.BASE_URL + constant.CHAT_URI + '/' + username;
+  changeUserChat(username) {
+    this.setState({current_user_name: username});
   }
 
   render() {
     return (
-      <div className='list-users'>
-        <div className='header-index'>
-          <Dropdown icon='setting'>
-            <Dropdown.Menu>
-              <Dropdown.Item text={translate('app.identifier.logout')}
-                onClick={this.logout.bind(this)}/>
-            </Dropdown.Menu>
-          </Dropdown>
-          {translate('app.identifier.app_name')}
-        </div>
-        <List>
-          <div className='search-box'>
-            <Input icon='search'
-              placeholder={translate("app.user.search") +  '...'}/>
+      <div className='chat-ui'>
+        <div className='list-users'>
+          <div className='header-index'>
+            <Dropdown icon='setting'>
+              <Dropdown.Menu>
+                <Dropdown.Item text={translate('app.identifier.logout')}
+                  onClick={this.logout.bind(this)}/>
+              </Dropdown.Menu>
+            </Dropdown>
+            {translate('app.identifier.app_name')}
+            {this.state.current_user_name}
           </div>
-          {
-            this.state.users.map(user => (
-              <Link to={"/chat/" + user.username} key={user._id}
-                onClick={this.redirect.bind(this, user.username)}>
-                <List.Item key={user._id}>
-                  <Image avatar src={avaLawyer}/>
-                  <List.Content>
-                    <List.Header>{user.username}</List.Header>
-                    <List.Description>Online</List.Description>
-                  </List.Content>
-                  <List.Content floated='right'>
-                    <div className='status'></div>
-                  </List.Content>
-                </List.Item>
-              </Link>
-            ))
-          }
-        </List>
+          <List>
+            <div className='search-box'>
+              <Input icon='search'
+                placeholder={translate("app.user.search") +  '...'}/>
+            </div>
+            {
+              this.state.users.map(user => (
+                <Link to={"/chat/" + user.username} key={user._id}
+                  onClick={this.changeUserChat.bind(this, user.username)}>
+                  <List.Item key={user._id}>
+                    <Image avatar src={avaLawyer}/>
+                    <List.Content>
+                      <List.Header>{user.username}</List.Header>
+                      <List.Description>Online</List.Description>
+                    </List.Content>
+                    <List.Content floated='right'>
+                      <div className='status'></div>
+                    </List.Content>
+                  </List.Item>
+                </Link>
+              ))
+            }
+          </List>
+        </div>
+        <UserChat username={this.state.current_user_name} />
       </div>
     )
   }
