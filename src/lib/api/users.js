@@ -68,6 +68,20 @@ module.exports = {
             return callback(response);
         })
     },
+    infoByUserName: function(username, callback){
+        var formData = new URLSearchParams();
+        formData.append(constant.API_ARGUMENT_USERNAME, username);
+        
+        var config ={
+            method: 'GET',
+            url: constant.API_BASE_URL+constant.API_USER_INFORMATION_URL,
+            headers: constant.headers,
+            params: formData
+        }
+        axios_helper.request(config, function(response){
+            return callback(response);
+        })
+    },
     list: function(fields = constant.DEFAULT_FIELDS, query = constant.DEFAULT_QUERY, callback){
        var formData = new URLSearchParams();
        var sendingFields;

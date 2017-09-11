@@ -5,13 +5,20 @@ import $ from 'jquery';
 
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
 import avaUser from '../../assets/images/default-ava-user.png';
+import { Input, Button } from 'semantic-ui-react';
 
 import '../../assets/styles/chatwindow.css';
+var EJSON = require("ejson");
+
 
 let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
 let chat = require('../../lib/api/chat');
 let im = require('../../lib/api/im');
+let sub = require('../../lib/real_time_api/subscriptions');
+let user = require('../../lib/api/users');
+var roomId = "ELy2Z4zQn5HC9woc3";
+
 
 class UserChat extends Component {
   constructor(props) {
@@ -23,37 +30,70 @@ class UserChat extends Component {
   }
 
   componentWillReceiveProps() {
-    this.setState({current_user_name: this.props.username});
+	  this.setState({messages : []});
+	this.setState({current_user_name: this.props.username});
+	var component = this;
+	roomId = "ELy2Z4zQn5HC9woc3";
+	user.infoByUserName(this.props.username, function(response){
+		if(response.status === 200){
+			console.log(response.data.user._id);
+			roomId = roomId + response.data.user._id;
+			sub.streamRoomMessages(roomId, function(result){
+				result = EJSON.parse(result);
+				if(result.msg === 'changed'){
+				  var newStateMessages = component.state.messages;
+				  var messages = result.fields.args;
+				  console.log(messages);
+				  var item;
+				  if (messages[0].u._id === JSON.parse(localStorage.rocket_chat_user).user_id){
+					item = {
+						"type": 1,
+						"image": avaUser,
+						"text": messages[0].msg
+					}
+				  } else{
+					item = {
+						"type": 0,
+						"image": avaLawyer,
+						"text": messages[0].msg
+					}
+				  }
+				  newStateMessages.push(item);
+				  component.setState({"this.state.messages" : newStateMessages});
+				}
+			});
+			im.history(roomId, function(response){
+			  if(response.status === 200){
+				var newStateMessages = component.state.messages;
+				var messages = response.data.messages;
+				for( var i in messages){
+				  var item;
+				  if(messages[i].u._id !== JSON.parse(localStorage.rocket_chat_user).user_id){
+					item = {
+						"type": 0,
+						"image": avaLawyer,
+						"text": messages[i].msg
+					}
+				  } else{
+					item = {
+						"type": 1,
+						"image": avaUser,
+						"text": messages[i].msg
+					}
+				  }
+				  newStateMessages.push(item);
+				}
+				newStateMessages.reverse();
+				component.setState({"this.state.messages" : newStateMessages});
+			  }
+			});
+		}
+	});
   }
 
   componentDidMount() {
-    var roomId = "saYeHsbZKwk55G9xw";
-    var component = this;
-    im.history(roomId, function(response){
-      if(response.status === 200){
-        var newStateMessages = component.state.messages;
-        var messages = response.data.messages;
-        for( var i in messages){
-          var item;
-          if(messages[i].u._id === roomId){
-            item = {
-              "type": 0,
-              "image": avaLawyer,
-              "text": messages[i].msg
-            }
-          } else{
-            item = {
-              "type": 1,
-              "image": avaUser,
-              "text": messages[i].msg
-            }
-          }
-          newStateMessages.push(item);
-        }
-        newStateMessages.reverse();
-        component.setState({"this.state.messages" : newStateMessages});
-      }
-    });
+	
+	
   }
 
   autoExpand(elementId) {
@@ -80,7 +120,7 @@ class UserChat extends Component {
 
   handleInputChange(evt) {
     if (evt.which === 13 && evt.shiftKey === false) {
-      //this.handleSubmit();
+      this.handleSubmit();
       evt.preventDefault();
       this.clearContent('input-mess-box');
     }
@@ -91,23 +131,15 @@ class UserChat extends Component {
 
   handleSubmit() {
     var content = document.getElementById('input-mess-box').value;
-    var newStateMessages = this.state.messages;
-    var item = {
-      "type": 1,
-      "image": avaUser,
-      "text": content
-    }
-    var component = this;
-    chat.postMessage("saYeHsbZKwk55G9xw","",content,"","","",[], function(response){
-      if(response.status === 200){
-        newStateMessages.push(item);
-        component.setState({"this.state.messages" : newStateMessages});
-      }
+    chat.postMessage(roomId,"",content,"","","",[], function(response){
     });
   }
-
+  handleSubmitTest(){
+	  
+  }
   render() {
     return(
+		
       <div className='chat-window'>
         <div className='title'>
           <div className='user-name'>
@@ -122,6 +154,11 @@ class UserChat extends Component {
           <Form.TextArea id='input-mess-box'
             placeholder={translate('app.chat.input_place_holder')}
             onKeyDown={this.handleInputChange.bind(this)}/>
+			<Form className='authen-form' onSubmit={this.handleSubmitTest.bind(this)} method='post'>
+			<Button primary type='submit'>
+				{translate('app.login.submit')}
+				</Button>
+			</Form>
         </div>
       </div>
     )
