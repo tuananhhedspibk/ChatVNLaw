@@ -20,7 +20,8 @@ module.exports ={
       if (response.status === 200) {
         let rocket_chat_user = {
           auth_token: response.data.data.authToken,
-          user_id: response.data.data.userId
+          user_id: response.data.data.userId,
+          user_name: username
         };
         localStorage.setItem(constant.STORAGE_ITEM, JSON.stringify(rocket_chat_user));
         // window.location = constant.BASE_URL; 

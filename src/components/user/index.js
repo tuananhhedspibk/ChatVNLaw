@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { List, Image, Input, Dropdown } from 'semantic-ui-react';
+import { Link } from 'react-router';
 
 import * as constant from '../constants';
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
@@ -8,8 +9,7 @@ import '../../assets/styles/user_index.css';
 
 var authen = require('../../lib/api/authentication.js');
 
-let FontAwesome = require('react-fontawesome');
-let user = require('../../lib/api/users');
+let user = require('../../lib/api/users.js');
 let translate = require('counterpart');
 
 class UsersIndex extends Component {
@@ -44,6 +44,10 @@ class UsersIndex extends Component {
     });
   }
 
+  redirect(username) {
+    window.location = constant.BASE_URL + constant.CHAT_URI + '/' + username;
+  }
+
   render() {
     return (
       <div className='list-users'>
@@ -63,16 +67,19 @@ class UsersIndex extends Component {
           </div>
           {
             this.state.users.map(user => (
-              <List.Item key={user._id}>
-                <Image avatar src={avaLawyer}/>
-                <List.Content>
-                  <List.Header>{user.username}</List.Header>
-                  <List.Description>Online</List.Description>
-                </List.Content>
-                <List.Content floated='right'>
-                  <div className='status'></div>
-                </List.Content>
-              </List.Item>
+              <Link to={"/chat/" + user.username} key={user._id}
+                onClick={this.redirect.bind(this, user.username)}>
+                <List.Item key={user._id}>
+                  <Image avatar src={avaLawyer}/>
+                  <List.Content>
+                    <List.Header>{user.username}</List.Header>
+                    <List.Description>Online</List.Description>
+                  </List.Content>
+                  <List.Content floated='right'>
+                    <div className='status'></div>
+                  </List.Content>
+                </List.Item>
+              </Link>
             ))
           }
         </List>
