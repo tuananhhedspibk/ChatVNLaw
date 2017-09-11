@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChatBubble from 'react-chat-bubble';
-import { Input, Form } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
+import $ from 'jquery';
 
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
 import avaUser from '../../assets/images/default-ava-user.png';
@@ -29,7 +30,7 @@ class ChatWindow extends Component {
         var messages = response.data.messages;
         for( var i in messages){
           var item;
-          if(messages[i].u._id == roomId){
+          if(messages[i].u._id === roomId){
             item = {
               "type": 0,
               "image": avaLawyer,
@@ -50,17 +51,40 @@ class ChatWindow extends Component {
     });
   }
 
-  handleInputChange(evt) {
-    if (evt.which == 13) {
-      this.handleSubmit();
-    }
+  autoExpand(elementId) {
+    var input = document.getElementById(elementId);
+    var fieldParent = input.parentElement;
+    var chats = document.getElementsByClassName('chats')[0];
+    var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-    var input = document.getElementById('input-mess-box');
     input.style.height = '45px';
-    input.style.height = input.scrollHeight + 'px';
+    var contentHeight = document.getElementById(elementId).scrollHeight;
+    input.style.height = contentHeight + 'px';
 
     var textbox = document.getElementById('text-box');
-    textbox.style.height = input.scrollHeight + 'px';
+    textbox.style.height = contentHeight + 15 + 'px';
+    fieldParent.style.height = contentHeight + 'px';
+    chats.style.height = vh - 50 - contentHeight + 'px';
+  }
+
+  clearContent(elementId) {
+    $('#' + elementId).val($('#' + elementId).val().replace(/\t/g, 'a'));
+    $('#' + elementId).val('');
+    this.autoExpand(elementId);
+  }
+
+  handleInputChange(evt) {
+
+    console.log(evt.shiftKey);
+    console.log(evt.which);
+    if (evt.which === 13 && evt.shiftKey === false) {
+      //this.handleSubmit();
+      evt.preventDefault();
+      this.clearContent('input-mess-box');
+    }
+    else {
+      this.autoExpand('input-mess-box');
+    }
   }
 
   handleSubmit() {
@@ -94,7 +118,7 @@ class ChatWindow extends Component {
         <div className='text-box' id='text-box'>
           <Form.TextArea id='input-mess-box'
             placeholder={translate('app.chat.input_place_holder')}
-            onKeyPress={this.handleInputChange.bind(this)}/>
+            onKeyDown={this.handleInputChange.bind(this)}/>
         </div>
       </div>
     )

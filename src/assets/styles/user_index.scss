@@ -3,7 +3,7 @@ $blue-darker: #b2dbfd;
 $blue-lighter: #fdfdfd;
 $gray: #f6f7f9;
 $gray-darker: #c0c0c0;
-$gray-lighter: #e5ecf0;
+$gray-lighter: #e4e7e9;
 $white: #fff;
 
 .list-users {
@@ -43,6 +43,10 @@ $white: #fff;
     }
   }
 
+  .ui.dropdown {
+    float: left;
+  }
+
   .ui.list {
     display: inline-block;
     margin-top: 0;
@@ -51,12 +55,17 @@ $white: #fff;
 
     .item {
       align-items: center;
+      cursor: pointer;
       display: flex;
       margin-bottom: 6px;
       text-align: left;
 
       .content {
         padding-left: 15px;
+
+        .header {
+          font-size: 1.1em;
+        }
       }
 
       .description {
@@ -65,8 +74,8 @@ $white: #fff;
       }
 
       img {
-        width: 45px;
-        height: 45px;
+        width: 55px;
+        height: 55px;
 
         border: 1px solid $blue-darker;
       }

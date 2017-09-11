@@ -10,6 +10,9 @@
 :-moz-placeholder {
   color: #fff; }
 
+input:-webkit-autofill {
+  background-color: transparent !important; }
+
 textarea::-webkit-input-placeholder {
   color: #a2a2a2; }
 

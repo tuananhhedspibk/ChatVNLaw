@@ -8,6 +8,7 @@ import './assets/styles/main.css';
 let translate = require('counterpart');
 translate.registerTranslations('en', require('./locales/en'));
 translate.registerTranslations('vi', require('./locales/vi'));
+translate.registerTranslations('vn', require('./locales/vn'));
 
 if (localStorage.locale == null) {
   localStorage.setItem('locale', 'vi');
