@@ -6,6 +6,7 @@ export const API_BASE_URL = 'http://localhost:4000';
 export const HOME_URI = '/home';
 export const SIGN_IN_URI = '/login';
 export const SIGN_UP_URI = '/signup';
+export const CHAT_URI = '/chat';
 
 export const API_LOGIN_URL = '/api/v1/login';
 export const API_LOGOUT_URL = '/api/v1/logout';

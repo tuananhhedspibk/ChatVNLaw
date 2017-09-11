@@ -13,7 +13,7 @@ let FontAwesome = require('react-fontawesome');
 let chat = require('../../lib/api/chat');
 let im = require('../../lib/api/im');
 
-class ChatWindow extends Component {
+class UserChat extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +22,7 @@ class ChatWindow extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.params.user_name);
     var roomId = "saYeHsbZKwk55G9xw";
     var component = this;
     im.history(roomId, function(response){
@@ -125,4 +126,4 @@ class ChatWindow extends Component {
   }
 }
 
-export default ChatWindow;
+export default UserChat;
