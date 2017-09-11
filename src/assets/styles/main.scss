@@ -17,6 +17,10 @@ $gray: #a2a2a2;
   color: $white;
 }
 
+input:-webkit-autofill {
+  background-color: transparent !important;
+}
+
 textarea::-webkit-input-placeholder {
   color: $gray;
 }

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { List, Image, Input } from 'semantic-ui-react';
+import { List, Image, Input, Dropdown } from 'semantic-ui-react';
 
 import * as constant from '../constants';
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
 
 import '../../assets/styles/user_index.css';
+
+var authen = require('../../lib/api/authentication.js');
 
 let FontAwesome = require('react-fontawesome');
 let user = require('../../lib/api/users');
@@ -34,11 +36,24 @@ class UsersIndex extends Component {
     });
   }
 
+  logout() {
+    authen.logout(function(response){
+      if(response.status === 200) {
+        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+      }
+    });
+  }
+
   render() {
     return (
       <div className='list-users'>
         <div className='header-index'>
-          <FontAwesome name='cog'/>
+          <Dropdown icon='setting'>
+            <Dropdown.Menu>
+              <Dropdown.Item text={translate('app.identifier.logout')}
+                onClick={this.logout.bind(this)}/>
+            </Dropdown.Menu>
+          </Dropdown>
           {translate('app.identifier.app_name')}
         </div>
         <List>

@@ -31,7 +31,7 @@ $white: #fff;
   }
 
   .chats {
-    height: 575px;
+    height: calc(100vh - 95px);
     overflow-y: scroll;
     padding: 25px;
   }
@@ -42,19 +42,24 @@ $white: #fff;
     border-top: 1px solid $gray-lighter;
     display: flex;
     font-size: 1em;
-    height: 55px;
+    height: 60px;
+    overflow-y: hidden;
     position: absolute;
     bottom: 0;
     width: 100%;
+
+    .field {
+      height: 45px;
+      margin-bottom: 10px;
+      margin-top: 5px;
+    }
 
     textarea {
       border: 0;
       font-size: 0.9em;
       height: 45px;
-      line-height: 0.9em;
-      margin-top: 5px;
-      overflow-y: hidden;
-      padding: 18px 12px 12px;
+      overflow: hidden;
+      padding: 18px 15px 0 15px;
       resize: none;
       width: 550px;
 
