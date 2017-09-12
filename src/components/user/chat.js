@@ -5,11 +5,10 @@ import $ from 'jquery';
 
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
 import avaUser from '../../assets/images/default-ava-user.png';
-import { Input, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 import '../../assets/styles/chatwindow.css';
 var EJSON = require("ejson");
-
 
 let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
@@ -20,7 +19,7 @@ let user = require('../../lib/api/users');
 var roomId = "ELy2Z4zQn5HC9woc3";
 
 
-class UserChat extends Component {
+class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,71 +28,68 @@ class UserChat extends Component {
     }
   }
 
-  componentWillReceiveProps() {
-	  this.setState({messages : []});
-	this.setState({current_user_name: this.props.username});
-	var component = this;
-	roomId = "ELy2Z4zQn5HC9woc3";
-	user.infoByUserName(this.props.username, function(response){
-		if(response.status === 200){
-			console.log(response.data.user._id);
-			roomId = roomId + response.data.user._id;
-			sub.streamRoomMessages(roomId, function(result){
-				result = EJSON.parse(result);
-				if(result.msg === 'changed'){
-				  var newStateMessages = component.state.messages;
-				  var messages = result.fields.args;
-				  console.log(messages);
-				  var item;
-				  if (messages[0].u._id === JSON.parse(localStorage.rocket_chat_user).user_id){
-					item = {
-						"type": 1,
-						"image": avaUser,
-						"text": messages[0].msg
-					}
-				  } else{
-					item = {
-						"type": 0,
-						"image": avaLawyer,
-						"text": messages[0].msg
-					}
-				  }
-				  newStateMessages.push(item);
-				  component.setState({"this.state.messages" : newStateMessages});
-				}
-			});
-			im.history(roomId, function(response){
-			  if(response.status === 200){
-				var newStateMessages = component.state.messages;
-				var messages = response.data.messages;
-				for( var i in messages){
-				  var item;
-				  if(messages[i].u._id !== JSON.parse(localStorage.rocket_chat_user).user_id){
-					item = {
-						"type": 0,
-						"image": avaLawyer,
-						"text": messages[i].msg
-					}
-				  } else{
-					item = {
-						"type": 1,
-						"image": avaUser,
-						"text": messages[i].msg
-					}
-				  }
-				  newStateMessages.push(item);
-				}
-				newStateMessages.reverse();
-				component.setState({"this.state.messages" : newStateMessages});
-			  }
-			});
-		}
-	});
-  }
-
-  componentDidMount() {
-	
-	
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.username !== this.state.current_user_name){
+      this.setState({messages : []});
+      this.setState({current_user_name: nextProps.username});
+      var component = this;
+      roomId = "ELy2Z4zQn5HC9woc3";
+      user.infoByUserName(this.props.username, function(response){
+        if(response.status === 200){
+          console.log(response.data.user._id);
+          roomId = roomId + response.data.user._id;
+          sub.streamRoomMessages(roomId, function(result){
+            result = EJSON.parse(result);
+            if(result.msg === 'changed'){
+              var newStateMessages = component.state.messages;
+              var messages = result.fields.args;
+              console.log(messages);
+              var item;
+              if (messages[0].u._id === JSON.parse(localStorage.rocket_chat_user).user_id){
+              item = {
+                "type": 1,
+                "image": avaUser,
+                "text": messages[0].msg
+              }
+              } else{
+              item = {
+                "type": 0,
+                "image": avaLawyer,
+                "text": messages[0].msg
+              }
+              }
+              newStateMessages.push(item);
+              component.setState({"this.state.messages" : newStateMessages});
+            }
+          });
+          im.history(roomId, function(response){
+            if(response.status === 200){
+            var newStateMessages = component.state.messages;
+            var messages = response.data.messages;
+            for( var i in messages){
+              var item;
+              if(messages[i].u._id !== JSON.parse(localStorage.rocket_chat_user).user_id){
+              item = {
+                "type": 0,
+                "image": avaLawyer,
+                "text": messages[i].msg
+              }
+              } else{
+              item = {
+                "type": 1,
+                "image": avaUser,
+                "text": messages[i].msg
+              }
+              }
+              newStateMessages.push(item);
+            }
+            newStateMessages.reverse();
+            component.setState({"this.state.messages" : newStateMessages});
+            }
+          });
+        }
+      });
+    }
   }
 
   autoExpand(elementId) {
@@ -165,4 +161,4 @@ class UserChat extends Component {
   }
 }
 
-export default UserChat;
+export default Chat;
