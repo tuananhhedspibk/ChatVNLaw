@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { List, Image, Input, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router';
 
-import UserChat from './userchat';
+import Chat from '../user/chat';
 
 import * as constant from '../constants';
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
@@ -14,7 +14,7 @@ var authen = require('../../lib/api/authentication.js');
 let user = require('../../lib/api/users.js');
 let translate = require('counterpart');
 
-class UsersIndex extends Component {
+class ChatView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,10 +78,20 @@ class UsersIndex extends Component {
                   onClick={this.changeUserChat.bind(this, user.username)}>
                   <List.Item key={user._id}>
                     <Image avatar src={avaLawyer}/>
-                    <List.Content>
-                      <List.Header>{user.username}</List.Header>
-                      <List.Description>Online</List.Description>
-                    </List.Content>
+                    {
+                      (user.username === JSON.parse(localStorage.rocket_chat_user).user_name) ?
+                        (
+                          <List.Content>
+                            <List.Header>{translate('app.chat.my_chat')}</List.Header>
+                          </List.Content>
+                        ):
+                        (
+                          <List.Content>
+                            <List.Header>{user.username}</List.Header>
+                            <List.Description>Online</List.Description>
+                          </List.Content>
+                        )
+                      }
                     <List.Content floated='right'>
                       <div className='status'></div>
                     </List.Content>
@@ -91,10 +101,10 @@ class UsersIndex extends Component {
             }
           </List>
         </div>
-        <UserChat username={this.state.current_user_name} />
+        <Chat username={this.state.current_user_name} />
       </div>
     )
   }
 }
 
-export default UsersIndex;
+export default ChatView;

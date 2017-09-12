@@ -35,7 +35,8 @@ module.exports = {
     },
     chat: {
       title: 'Chat',
-      input_place_holder: 'Input messages ...'
+      input_place_holder: 'Input messages ...',
+      my_chat: 'My chat'
     }
   }
 }

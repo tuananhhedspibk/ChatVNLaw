@@ -35,7 +35,8 @@ module.exports = {
     },
     chat: {
       title: 'Chat',
-      input_place_holder: 'Nhập tin nhắn ...'
+      input_place_holder: 'Nhập tin nhắn ...',
+      my_chat: 'Chat cá nhân'
     }
   }
 }
