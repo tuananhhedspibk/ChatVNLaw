@@ -4,13 +4,15 @@ import {Router, Route} from 'react-router';
 import UserLogin from './components/user/login';
 import UserSignUp from './components/user/signup';
 import ChatView from './components/chat/chatview';
+import Chat from './components/user/chat';
 
 import Home from './components/static/home';
 
 const Routes = props => (
   <Router {...props}>
     <Route path='/' component={Home}/>
-    <Route path='chat/:user_name' component={ChatView}/>
+    <Route path='/chat/:user_name' component={ChatView}/>
+    <Route path='/chat/:user_name' component={Chat}/>
     <Route path='/login' component={UserLogin}/>
     <Route path='/signup' component={UserSignUp}/>
   </Router>

@@ -14,6 +14,10 @@ var authen = require('../../lib/api/authentication.js');
 let user = require('../../lib/api/users.js');
 let translate = require('counterpart');
 
+const activeStyle = {
+  backgroundColor: 'rgba(0, 0, 0, .05)'
+};
+
 class ChatView extends Component {
   constructor(props) {
     super(props);
@@ -78,7 +82,8 @@ class ChatView extends Component {
             {
               this.state.users.map(user => (
                 <Link to={"/chat/" + user.username} key={user._id}
-                  onClick={this.changeUserChat.bind(this, user.username)}>
+                  onClick={this.changeUserChat.bind(this, user.username)}
+                  activeStyle={activeStyle}>
                   <List.Item key={user._id}>
                     <Image avatar src={avaLawyer}/>
                     {
