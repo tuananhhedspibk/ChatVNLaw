@@ -55,6 +55,8 @@ export const API_CHAT_DELETE = "/api/v1/chat.delete";
 export const API_CHAT_POST_MESSAGE = "/api/v1/chat.postMessage";
 
 export const API_IM_HISTORY = "/api/v1/im.history";
+export const API_IM_OPEN = "/api/v1/im.open";
+export const API_IM_CREATE = "/api/v1/im.create";
 
 export const API_ARGUMENT_USERNAME = "username";
 export const API_ARGUMENT_PASSWORD = "password";
@@ -175,3 +177,4 @@ export const DEFAULT_ATTACHMENTS_FIELDS = {
 }
 export const headers = header;
 export const ALERT_OPTIONS = alertOptions;
+export const DEFAULT_MY_CHAT_CHANEL = "my.chat";

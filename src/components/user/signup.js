@@ -10,6 +10,7 @@ import '../../assets/styles/authen.css';
 let translate = require('counterpart');
 let user = require('../../lib/api/users.js');
 let authen = require('../../lib/api/authentication.js');
+let chanel = require('../../lib/api/chanel');
 
 class UserSignUp extends Component {
   constructor(props) {
@@ -59,9 +60,11 @@ class UserSignUp extends Component {
             authen.login(username, password, function(response) {
               if (response.status === 200) {
                 user.setAvatarWithImageUrl(constant.DEFAULT_AVATAR_URL.valueOf(),function(response){
-                  if(response.status === 200){
-                    window.location = constant.BASE_URL;            
-                  }
+                  chanel.create(constant.DEFAULT_MY_CHAT_CHANEL,[],function(response){
+                    if(response.status === 200){
+                      window.location = constant.BASE_URL;     
+                    }
+                  })
                 });
               }
             });
