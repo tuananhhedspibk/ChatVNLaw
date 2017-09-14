@@ -1,9 +1,8 @@
 .list-users {
   background-color: #fdfdfd;
-  float: left;
   border: 1px solid #e4e7e9;
-  width: 280px;
-  height: 100vh; }
+  float: left;
+  width: 280px; }
   .list-users .header-index {
     background-color: #4dadff;
     color: #fff;
@@ -14,7 +13,7 @@
     .list-users .header-index .fa {
       float: left; }
   .list-users .search-box {
-    padding: 15px 0;
+    padding: 15px 0 8px 15px;
     text-align: left;
     text-transform: uppercase; }
     .list-users .search-box .ui.input {
@@ -28,7 +27,9 @@
     float: left; }
   .list-users .ui.list {
     display: inline-block;
+    height: calc(100vh - 50px);
     margin-top: 0;
+    overflow-y: scroll;
     padding: 6px 15px 6px 0;
     width: 100%; }
     .list-users .ui.list a {
@@ -50,6 +51,6 @@
         color: #c0c0c0;
         margin-top: 5px; }
       .list-users .ui.list .item img {
-        width: 55px;
-        height: 55px;
+        width: 50px;
+        height: 50px;
         border: 1px solid #b2dbfd; }

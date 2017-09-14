@@ -33,6 +33,7 @@ class ChatView extends Component {
     var query = constant.DEFAULT_QUERY;
 
     fields["username"] = 1;
+    fields["status"] = 1;
 
     query["roles"].push("user");
     query["roles"].push("bot");    
@@ -96,7 +97,7 @@ class ChatView extends Component {
                         (
                           <List.Content>
                             <List.Header>{user.username}</List.Header>
-                            <List.Description>Online</List.Description>
+                            <List.Description>{user.status}</List.Description>
                           </List.Content>
                         )
                       }

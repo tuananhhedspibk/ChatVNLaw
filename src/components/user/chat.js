@@ -5,7 +5,6 @@ import $ from 'jquery';
 
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
 import avaUser from '../../assets/images/default-ava-user.png';
-import { Button } from 'semantic-ui-react';
 
 import '../../assets/styles/chatwindow.css';
 var EJSON = require("ejson");
@@ -171,9 +170,9 @@ class Chat extends Component {
   }
 
   handleSubmit() {
-    // var content = document.getElementById('input-mess-box').value;
-    // chat.postMessage(roomId,"",content,"","","",[], function(response){
-    // });
+    var content = document.getElementById('input-mess-box').value;
+      chat.postMessage(roomId,"",content,"","","",[], function(response){
+    });
   }
 
   componentWillMount() {
@@ -199,11 +198,6 @@ class Chat extends Component {
           <Form.TextArea id='input-mess-box'
             placeholder={translate('app.chat.input_place_holder')}
             onKeyDown={this.handleInputChange.bind(this)}/>
-			<Form className='authen-form' onSubmit={this.handleSubmitTest.bind(this)} method='post'>
-			<Button primary type='submit'>
-				{translate('app.login.submit')}
-				</Button>
-			</Form>
         </div>
       </div>
     )

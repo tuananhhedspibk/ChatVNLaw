@@ -8,10 +8,9 @@ $white: #fff;
 
 .list-users {
   background-color: $blue-lighter;
-  float: left;
   border: 1px solid $gray-lighter;
+  float: left;
   width: 280px;
-  height: 100vh;
 
   .header-index {
     background-color: $blue;
@@ -27,7 +26,7 @@ $white: #fff;
   }
 
   .search-box {
-    padding: 15px 0;
+    padding: 15px 0 8px 15px;
     text-align: left;
     text-transform: uppercase;
 
@@ -49,7 +48,9 @@ $white: #fff;
 
   .ui.list {
     display: inline-block;
+    height: calc(100vh - 50px);
     margin-top: 0;
+    overflow-y: scroll;
     padding: 6px 15px 6px 0;
     width: 100%;
 
@@ -81,8 +82,8 @@ $white: #fff;
       }
 
       img {
-        width: 55px;
-        height: 55px;
+        width: 50px;
+        height: 50px;
 
         border: 1px solid $blue-darker;
       }
