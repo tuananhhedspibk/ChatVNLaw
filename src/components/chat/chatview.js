@@ -19,7 +19,8 @@ class ChatView extends Component {
     super(props);
     this.state = {
       users: [],
-      current_user_name: ''
+      current_user_name: '',
+      current_user_id: ''
     }
   }
 
@@ -50,7 +51,9 @@ class ChatView extends Component {
   }
 
   changeUserChat(username) {
-    this.setState({current_user_name: username});
+    if (this.state.current_user_name !== username) {
+      this.setState({current_user_name: username});
+    }
   }
 
   render() {
@@ -101,7 +104,7 @@ class ChatView extends Component {
             }
           </List>
         </div>
-        <Chat username={this.state.current_user_name} />
+        <Chat username={this.state.current_user_name}/>
       </div>
     )
   }
