@@ -30,7 +30,8 @@ textarea:-moz-placeholder {
   src: font-url("fonts/Droid_Serif/DroidSerif-Regular.ttf"); }
 
 body {
-  font-family: 'DroidSerif', sans-serif; }
+  font-family: 'DroidSerif', sans-serif;
+  overflow-y: hidden; }
 
 .wrapper {
   background-image: url("../images/home-wallpaper.jpg");
