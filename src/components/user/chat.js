@@ -5,6 +5,7 @@ import $ from 'jquery';
 
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
 import avaUser from '../../assets/images/default-ava-user.png';
+import * as constant from '../constants';
 
 import '../../assets/styles/chatwindow.css';
 var EJSON = require("ejson");
@@ -138,7 +139,7 @@ class Chat extends Component {
           });
         }
         else{
-          chanel.info(null, constant.DEFAULT_MY_CHAT_CHANEL,function(response){
+          chanel.info(null, target_id,function(response){
             roomId = response.data.channel._id;
             console.log(roomId);
             ddp.loadHistory(roomId, function( issuccess, result){
