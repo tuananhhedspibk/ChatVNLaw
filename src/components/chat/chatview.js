@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { List, Image, Input, Dropdown } from 'semantic-ui-react';
+import { List, Image, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router';
+import SearchInput, {createFilter} from 'react-search-input';
 
 import Chat from '../user/chat';
 
@@ -18,25 +19,32 @@ const activeStyle = {
   backgroundColor: 'rgba(0, 0, 0, .05)'
 };
 
+const KEYS_TO_FILTERS = ['username']
+
 class ChatView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
       current_user_name: '',
-      current_user_id: ''
+      current_user_id: '',
+      searchTerm: ''
     }
   }
 
   componentDidMount() {
+    if(localStorage.rocket_chat_user == null) {
+      window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+    }
     var fields = constant.DEFAULT_FIELDS;
     var query = constant.DEFAULT_QUERY;
 
     fields["username"] = 1;
     fields["status"] = 1;
+    fields["roles"] = 1;
 
     query["roles"].push("user");
-    query["roles"].push("bot");    
+    query["roles"].push("bot");
 
     var component = this;
 
@@ -61,7 +69,40 @@ class ChatView extends Component {
     }
   }
 
+  renderStatus(userStatus) {
+    if (userStatus === 'online') {
+      return(
+        <List.Content floated='right'>
+          <div className='online-status'>
+          </div>
+        </List.Content>
+      )
+    }
+    else if (userStatus === 'offline') {
+      return(
+        <List.Content floated='right'>
+          <div className='offline-status'>
+          </div>
+        </List.Content>
+      )
+    }
+    else if (userStatus === 'away') {
+      return(
+        <List.Content floated='right'>
+          <div className='away-status'>
+          </div>
+        </List.Content>
+      )
+    }
+  }
+
+  searchUpdated(term) {
+    this.setState({searchTerm: term});
+  } 
+
   render() {
+    const filteredUsers = this.state.users.filter(
+      createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div className='chat-ui'>
         <div className='list-users'>
@@ -73,15 +114,15 @@ class ChatView extends Component {
               </Dropdown.Menu>
             </Dropdown>
             {translate('app.identifier.app_name')}
-            {this.state.current_user_name}
           </div>
           <List>
             <div className='search-box'>
-              <Input icon='search'
-                placeholder={translate("app.user.search") +  '...'}/>
+              <SearchInput className="search-input"
+                onChange={this.searchUpdated.bind(this)}
+                placeholder={translate("app.user.search") + '...'} />
             </div>
             {
-              this.state.users.map(user => (
+              filteredUsers.map(user => (
                 <Link to={"/chat/" + user.username} key={user._id}
                   onClick={this.changeUserChat.bind(this, user.username)}
                   activeStyle={activeStyle}>
@@ -97,13 +138,10 @@ class ChatView extends Component {
                         (
                           <List.Content>
                             <List.Header>{user.username}</List.Header>
-                            <List.Description>{user.status}</List.Description>
                           </List.Content>
                         )
-                      }
-                    <List.Content floated='right'>
-                      <div className='status'></div>
-                    </List.Content>
+                    }
+                    {this.renderStatus(user.status)}
                   </List.Item>
                 </Link>
               ))

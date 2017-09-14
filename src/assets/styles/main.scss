@@ -1,25 +1,4 @@
-$white: #fff;
 $gray: #a2a2a2;
-
-::-webkit-input-placeholder {
-  color: $white;
-}
-
-::-moz-placeholder {
-  color: $white;
-}
-
-:-ms-input-placeholder {
-  color: $white;
-}
-
-:-moz-placeholder {
-  color: $white;
-}
-
-input:-webkit-autofill {
-  background-color: transparent !important;
-}
 
 textarea::-webkit-input-placeholder {
   color: $gray;
