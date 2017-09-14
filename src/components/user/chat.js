@@ -15,6 +15,7 @@ let chat = require('../../lib/api/chat');
 let im = require('../../lib/api/im');
 let user = require('../../lib/api/users');
 let ddp = require('../../lib/real_time_api/ddp_connection');
+let chanel = require('../../lib/api/chanel');
 
 var subscribeId = 0;
 var roomId = ''
@@ -102,33 +103,55 @@ class Chat extends Component {
     var component = this;
     user.infoByUserName(username, function(response){
       if(response.status === 200){
-        roomId = response.data.user._id + JSON.parse(localStorage.rocket_chat_user).user_id;
-        ddp.loadHistory(roomId, function( issuccess, result){
-          if(issuccess){
-            component.fletchMsg(result);
-            ddp.streamRoomMessages(roomId, function(id,msg){
-              subscribeId = id;
-              component.handleIncomingMess(msg);
-            });
-          }else{
-            roomId = JSON.parse(localStorage.rocket_chat_user).user_id + response.data.user._id;
+        var target_id = response.data.user._id;
+        if( target_id !== JSON.parse(localStorage.rocket_chat_user).user_id){
+          roomId = target_id + JSON.parse(localStorage.rocket_chat_user).user_id;
+          ddp.loadHistory(roomId, function( issuccess, result){
+            if(issuccess){
+              component.fletchMsg(result);
+              ddp.streamRoomMessages(roomId, function(id,msg){
+                subscribeId = id;
+                component.handleIncomingMess(msg);
+              });
+            }else{
+              roomId = JSON.parse(localStorage.rocket_chat_user).user_id + target_id;
+              ddp.loadHistory(roomId, function( issuccess, result){
+                if(issuccess){
+                  component.fletchMsg(result);      
+                  ddp.streamRoomMessages(roomId, function(id,msg){
+                    subscribeId = id;
+                    component.handleIncomingMess(msg);
+                  });      
+                }else{
+                  im.create(username, function(response){
+                    if(response.status === 200){
+                      roomId = response.data.room._id;
+                      ddp.streamRoomMessages(roomId, function(id,msg){
+                        subscribeId = id;
+                        component.handleIncomingMess(msg);
+                      });
+                    }
+                  })                
+                }
+              });
+            }
+          });
+        }
+        else{
+          chanel.info(null, constant.DEFAULT_MY_CHAT_CHANEL,function(response){
+            roomId = response.data.channel._id;
+            console.log(roomId);
             ddp.loadHistory(roomId, function( issuccess, result){
               if(issuccess){
-                component.fletchMsg(result);      
-                ddp.streamRoomMessages(roomId, function(id,msg){
-                  subscribeId = id;
-                  component.handleIncomingMess(msg);
-                });      
-              }else{
-                ddp.openRoom(roomId);
+                component.fletchMsg(result);
                 ddp.streamRoomMessages(roomId, function(id,msg){
                   subscribeId = id;
                   component.handleIncomingMess(msg);
                 });
               }
-            });
-          }
-        });
+            })
+          })
+        }
       }
     });
     
@@ -171,11 +194,8 @@ class Chat extends Component {
 
   handleSubmit() {
     var content = document.getElementById('input-mess-box').value;
-      chat.postMessage(roomId,"",content,"","","",[], function(response){
+    chat.postMessage(roomId,"",content,"","","",[], function(response){
     });
-  }
-
-  componentWillMount() {
   }
 
   handleSubmitTest(){

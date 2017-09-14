@@ -15,5 +15,20 @@ module.exports = {
         axios_helper.request(config,function(response){
             return callback(response);
         });
+    },
+    create: function(username, callback){
+        var formData = new URLSearchParams();
+        formData.append(constant.API_ARGUMENT_USERNAME, username);
+
+        var config = {
+            method: 'POST',
+            url: constant.API_BASE_URL + constant.API_IM_CREATE,
+            headers: constant.headers,
+            data: formData
+        }
+
+        axios_helper.request(config, function(response){
+            return callback(response);
+        })
     }
 }
