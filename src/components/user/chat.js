@@ -175,6 +175,10 @@ class Chat extends Component {
     // chat.postMessage(roomId,"",content,"","","",[], function(response){
     // });
   }
+
+  componentWillMount() {
+  }
+
   handleSubmitTest(){
 	  
   }
