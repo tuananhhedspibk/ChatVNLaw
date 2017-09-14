@@ -64,7 +64,7 @@ class UserSignUp extends Component {
                 user.setAvatarWithImageUrl(constant.DEFAULT_AVATAR_URL.valueOf(),function(response){
                   chanel.create(userId,[],function(response){
                     if(response.status === 200){
-                      window.location = constant.BASE_URL;     
+                      window.location = constant.BASE_URL;
                     }
                   })
                 });

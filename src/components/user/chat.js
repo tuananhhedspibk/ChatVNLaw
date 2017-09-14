@@ -10,6 +10,8 @@ import * as constant from '../constants';
 import '../../assets/styles/chatwindow.css';
 var EJSON = require("ejson");
 
+let constant = require('../constants');
+
 let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
 let chat = require('../../lib/api/chat');
@@ -208,9 +210,8 @@ class Chat extends Component {
       <div className='chat-window'>
         <div className='title'>
           <div className='user-name'>
-            {translate('app.chat.title')}
+            {this.state.current_user_name}
           </div>
-          {this.state.current_user_name}
           <FontAwesome name='video-camera'/>
           <FontAwesome name='phone'/>
         </div>
