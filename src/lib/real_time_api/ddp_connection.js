@@ -23,15 +23,27 @@ module.exports = {
         const tokenParams = {
             resume: JSON.parse(localStorage.rocket_chat_user).auth_token
        }
-       ddpClient.call('login', [tokenParams], function (err, result) { 
-           if(err){
-               console.log("error");
-           }else{
-               return callback();
-           }
-           
-       });	
+        ddpClient.call('login', [tokenParams], function (err, result) { 
+            if(err){
+                console.log("error");
+            }else{
+                return callback();
+            }
+            
+        });	
     }, 
+    loginWithUserParams: function(user_name, pass_word, callback){
+        const params = {
+            user : { username : user_name }, password : pass_word
+        }
+        ddpClient.call('login', [params], function (err, result) { 
+            if(err){
+                console.log("error");
+            }else{
+                return callback();
+            }
+        });	
+    },
     close: function(){
         ddpClient.close();
     },
