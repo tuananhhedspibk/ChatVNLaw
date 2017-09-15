@@ -5,6 +5,7 @@ import UserLogin from './components/user/login';
 import UserSignUp from './components/user/signup';
 import ChatView from './components/chat/chatview';
 import Chat from './components/user/chat';
+import NotFoundPage from './components/shared/notfound';
 
 import Home from './components/static/home';
 
@@ -15,6 +16,7 @@ const Routes = props => (
     <Route path='/chat/:user_name' component={Chat}/>
     <Route path='/login' component={UserLogin}/>
     <Route path='/signup' component={UserSignUp}/>
+    <Route path='*' component={NotFoundPage}/>
   </Router>
 );
 
