@@ -1,0 +1,18 @@
+.wrapper {
+  background-color: #fff; }
+
+#fof {
+  display: block;
+  line-height: 1.6em;
+  text-align: center;
+  width: 100%; }
+  #fof h1 {
+    font-size: 80px;
+    text-transform: uppercase; }
+  #fof img {
+    margin-bottom: 25px; }
+  #fof p {
+    display: block;
+    font-size: 16px;
+    margin: 0 0 25px 0;
+    padding: 0; }
