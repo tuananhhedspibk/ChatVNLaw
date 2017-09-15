@@ -10,8 +10,6 @@ import * as constant from '../constants';
 import '../../assets/styles/chatwindow.css';
 var EJSON = require("ejson");
 
-let constant = require('../constants');
-
 let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
 let chat = require('../../lib/api/chat');
@@ -59,24 +57,26 @@ class Chat extends Component {
       var newStateMessages = component.state.messages;
       var messages = result.fields.args;
       var item;
-      if (messages[0].u._id === JSON.parse(localStorage.rocket_chat_user).user_id){
+      if (messages[0].u._id !== JSON.parse(localStorage.rocket_chat_user).user_id){
         item = {
           "type": 1,
-          "image": avaUser,
+          "image": avaLawyer,
           "text": messages[0].msg
         }
       } else{
         item = {
           "type": 0,
-          "image": avaLawyer,
+          "image": avaUser,
           "text": messages[0].msg
         }
       }
       newStateMessages.push(item);
       component.setState({messages : newStateMessages});
+      this.autoScrollBottom();
     }
   }
-  fletchMsg(msgArr){
+
+  fetchMsg(msgArr){
     var component = this;  
     
     // msgArr =  EJSON.parse(msgArr);
@@ -84,16 +84,16 @@ class Chat extends Component {
     var messages = msgArr.messages;
     for( var i in messages){
       var item;
-      if(messages[i].u._id !== JSON.parse(localStorage.rocket_chat_user).user_id){
+      if(messages[i].u._id === JSON.parse(localStorage.rocket_chat_user).user_id){
         item = {
           "type": 0,
-          "image": avaLawyer,
+          "image": avaUser,
           "text": messages[i].msg
         }
       } else{
         item = {
           "type": 1,
-          "image": avaUser,
+          "image": avaLawyer,
           "text": messages[i].msg
         }
       }
@@ -101,7 +101,9 @@ class Chat extends Component {
     }
     newStateMessages.reverse();
     component.setState({messages : newStateMessages});
+    this.autoScrollBottom();
   }
+
   handleLoadMessage(username){
     var component = this;
     user.infoByUserName(username, function(response){
@@ -111,7 +113,7 @@ class Chat extends Component {
           roomId = target_id + JSON.parse(localStorage.rocket_chat_user).user_id;
           ddp.loadHistory(roomId, function( issuccess, result){
             if(issuccess){
-              component.fletchMsg(result);
+              component.fetchMsg(result);
               ddp.streamRoomMessages(roomId, function(id,msg){
                 subscribeId = id;
                 component.handleIncomingMess(msg);
@@ -120,7 +122,7 @@ class Chat extends Component {
               roomId = JSON.parse(localStorage.rocket_chat_user).user_id + target_id;
               ddp.loadHistory(roomId, function( issuccess, result){
                 if(issuccess){
-                  component.fletchMsg(result);      
+                  component.fetchMsg(result);      
                   ddp.streamRoomMessages(roomId, function(id,msg){
                     subscribeId = id;
                     component.handleIncomingMess(msg);
@@ -146,7 +148,7 @@ class Chat extends Component {
             console.log(roomId);
             ddp.loadHistory(roomId, function( issuccess, result){
               if(issuccess){
-                component.fletchMsg(result);
+                component.fetchMsg(result);
                 ddp.streamRoomMessages(roomId, function(id,msg){
                   subscribeId = id;
                   component.handleIncomingMess(msg);
@@ -159,9 +161,11 @@ class Chat extends Component {
     });
     
   }
+
   componentWillUnmount(){
     ddp.close();
   }
+
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
     var fieldParent = input.parentElement;
@@ -195,19 +199,24 @@ class Chat extends Component {
     }
   }
 
+  autoScrollBottom() {
+    $('.chats').stop().animate({
+      scrollTop: $('.chats')[0].scrollHeight}, 1000);
+  }
+
   handleSubmit() {
     var content = document.getElementById('input-mess-box').value;
-    chat.postMessage(roomId,"",content,"","","",[], function(response){
+    chat.postMessage(roomId, '', content, '', '', '', [], function(response){
     });
   }
 
   handleSubmitTest(){
 	  
   }
+
   render() {
     return(
-		
-      <div className='chat-window'>
+      <div className='chat-window' id='chat-window'>
         <div className='title'>
           <div className='user-name'>
             {this.state.current_user_name}
@@ -215,7 +224,7 @@ class Chat extends Component {
           <FontAwesome name='video-camera'/>
           <FontAwesome name='phone'/>
         </div>
-        <ChatBubble messages = {this.state.messages} />
+        <ChatBubble messages={this.state.messages} />
         <div className='text-box' id='text-box'>
           <Form.TextArea id='input-mess-box'
             placeholder={translate('app.chat.input_place_holder')}
