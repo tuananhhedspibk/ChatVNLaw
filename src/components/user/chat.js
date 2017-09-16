@@ -70,24 +70,38 @@ class Chat extends Component {
     }
   }
 
-  fetchMsg(msgArr){
+  fetchMsg(msgArr, reverse){
     var component = this;  
     
     // msgArr =  EJSON.parse(msgArr);
-    var newStateMessages = [];
+    var newStateMessages = component.state.messages;
+    if(reverse){
+      newStateMessages = newStateMessages.reverse();
+    }
     var messages = msgArr.messages;
     for( var i in messages){
       var item;
       if(messages[i].u._id === JSON.parse(localStorage.rocket_chat_user).user_id){
-        item = item_helper.newItem(0, avaUser, messages[i]);
+        if(reverse){
+          item = item_helper.newItemWithRestApi(0, avaUser, messages[i]);
+        } else{
+          item = item_helper.newItem(0, avaUser, messages[i]);          
+        }
       } else{
-        item = item_helper.newItem(1,avaLawyer,messages[i]);
+        if(reverse){
+          item = item_helper.newItemWithRestApi(1,avaLawyer,messages[i]);          
+        } else{
+          item = item_helper.newItem(1,avaLawyer,messages[i]);
+        }
       }
       newStateMessages.push(item);
     }
     newStateMessages.reverse();
     component.setState({messages : newStateMessages});
-    this.autoScrollBottom();
+    if (!reverse){
+      this.autoScrollBottom();
+      
+    }
   }
 
   handleLoadMessage(username){
@@ -97,18 +111,18 @@ class Chat extends Component {
         var target_id = response.data.user._id;
         if( target_id !== JSON.parse(localStorage.rocket_chat_user).user_id){
           roomId = target_id + JSON.parse(localStorage.rocket_chat_user).user_id;
-          ddp.loadHistory(roomId,null, function( issuccess, result){
+          ddp.loadHistory(roomId,function( issuccess, result){
             if(issuccess){
-              component.fetchMsg(result);
+              component.fetchMsg(result,false);
               ddp.streamRoomMessages(roomId, function(id,msg){
                 subscribeId = id;
                 component.handleIncomingMess(msg);
               });
             }else{
               roomId = JSON.parse(localStorage.rocket_chat_user).user_id + target_id;
-              ddp.loadHistory(roomId,null, function( issuccess, result){
+              ddp.loadHistory(roomId,function( issuccess, result){
                 if(issuccess){
-                  component.fetchMsg(result);      
+                  component.fetchMsg(result,false);      
                   ddp.streamRoomMessages(roomId, function(id,msg){
                     subscribeId = id;
                     component.handleIncomingMess(msg);
@@ -132,9 +146,9 @@ class Chat extends Component {
           chanel.info(null, target_id,function(response){
             roomId = response.data.channel._id;
             console.log(roomId);
-            ddp.loadHistory(roomId,null, function( issuccess, result){
+            ddp.loadHistory(roomId,function( issuccess, result){
               if(issuccess){
-                component.fetchMsg(result);
+                component.fetchMsg(result,false);
                 ddp.streamRoomMessages(roomId, function(id,msg){
                   subscribeId = id;
                   component.handleIncomingMess(msg);
@@ -153,8 +167,25 @@ class Chat extends Component {
   }
 
   componentDidMount() {
+    var component = this;
     document.getElementsByClassName('chats')[0].addEventListener('scroll',
-      this.handleScrollUp);
+      function(){
+        if(this.scrollTop === 0){
+          if(component.state.messages[0]){
+            
+            console.log(component.state.messages[0].ts_ISO);
+            // ddp.loadHistory(roomId,function(issuccess,result){
+            //   if(issuccess){
+            //     component.fetchMsg(result,true);
+            //   }
+            // })
+            chanel.history(roomId,component.state.messages[0].ts_ISO,15,function(response){
+              console.log(response.data);
+              component.fetchMsg(response.data,true);
+            })
+          }
+        }
+      });
   }
 
   autoExpand(elementId) {
@@ -201,11 +232,6 @@ class Chat extends Component {
     });
   }
 
-  handleScrollUp() {
-    if(this.scrollTop == 0) {
-      console.log("123");
-    }
-  }
 
   render() {
     return(

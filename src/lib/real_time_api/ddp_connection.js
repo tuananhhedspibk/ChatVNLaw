@@ -60,8 +60,8 @@ module.exports = {
             });            
         });
     },
-    loadHistory: function(roomId,timestamp, callback){
-        ddpClient.call('loadHistory',[roomId,timestamp, 10], function(err, result){
+    loadHistory: function(roomId, callback){
+        ddpClient.call('loadHistory',[roomId,null,15,null], function(err, result){
             if(err){
                 return callback(false, err);
             }else{
