@@ -28,7 +28,9 @@ class ChatView extends Component {
       users: [],
       current_chat_user_name: '',
       current_chat_user_id: '',
-      searchTerm: ''
+      searchTerm: '',
+      current_user_name: '',
+      user_names_list: ''
     }
   }
 
@@ -52,7 +54,30 @@ class ChatView extends Component {
 
     user.list(fields,query,function(response){
       component.setState({users: response.data.users});
+      var current_user = null;
+      component.setState({current_user_name:
+        JSON.parse(localStorage.rocket_chat_user).user_name});
+      component.state.users.map(user => {
+        if (user.username === JSON.parse(localStorage.rocket_chat_user).user_name) {
+          current_user = user;
+        }
+      });
+      if (current_user !== null) {
+        var users_list = component.state.users;
+        users_list.sort(function(x, y){
+          return x == current_user ? -1 : y == current_user ? 1 : 0;
+        });
+        component.setState({users: users_list});
+      }
     });
+    document.getElementsByClassName('chats')[0].addEventListener('scroll',
+      this.handleScrollUp);
+  }
+
+  handleScrollUp() {
+    if(this.scrollTop == 0) {
+      console.log("123");
+    }
   }
 
   logout() {
@@ -98,7 +123,7 @@ class ChatView extends Component {
 
   searchUpdated(term) {
     this.setState({searchTerm: term});
-  } 
+  }
 
   render() {
     const filteredUsers = this.state.users.filter(
@@ -123,7 +148,22 @@ class ChatView extends Component {
             </div>
             {
               filteredUsers.map(user => {
-                if(user.username === JSON.parse(localStorage.rocket_chat_user).user_name) {
+                if(user.username !== this.state.current_user_name) {
+                  return(
+                    <Link to={"/chat/" + user.username} key={user._id}
+                      onClick={this.changeUserChat.bind(this, user.username)}
+                      activeStyle={activeStyle}>
+                        <List.Item key={user._id}>
+                          <Image avatar src={avaLawyer}/>
+                          <List.Content>
+                            <List.Header>{user.username}</List.Header>
+                          </List.Content>
+                          {this.renderStatus(user.status)}
+                        </List.Item>
+                    </Link>
+                  );
+                }
+                else {
                   return(
                     <Link to={"/chat/" + user.username} key={user._id}
                       onClick={this.changeUserChat.bind(this, user.username)}
@@ -134,24 +174,6 @@ class ChatView extends Component {
                             <List.Header>
                               {translate('app.chat.my_chat')}
                             </List.Header>
-                          </List.Content>
-                        </List.Item>
-                    </Link>
-                  );
-                }
-              })
-            }
-            {
-              filteredUsers.map(user => {
-                if(user.username !== JSON.parse(localStorage.rocket_chat_user).user_name) {
-                  return(
-                    <Link to={"/chat/" + user.username} key={user._id}
-                      onClick={this.changeUserChat.bind(this, user.username)}
-                      activeStyle={activeStyle}>
-                        <List.Item key={user._id}>
-                          <Image avatar src={avaLawyer}/>
-                          <List.Content>
-                            <List.Header>{user.username}</List.Header>
                           </List.Content>
                           {this.renderStatus(user.status)}
                         </List.Item>
