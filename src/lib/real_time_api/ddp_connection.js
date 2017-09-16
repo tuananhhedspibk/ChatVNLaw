@@ -60,16 +60,44 @@ module.exports = {
             });            
         });
     },
-    loadHistory: function(roomId, callback){
-        ddpClient.call('loadHistory',[roomId], function(err, result){
+    loadHistory: function(roomId,timestamp, callback){
+        ddpClient.call('loadHistory',[roomId,timestamp, 10], function(err, result){
             if(err){
                 return callback(false, err);
             }else{
+                console.log(result);
                 return callback(true, result);
             }
         })
     },
     openRoom: function(roomId){
         ddpClient.call('openRoom',[roomId]);
+    },
+    createPrivateGroup: function(channel_name, callback){
+        ddpClient.call('createPrivateGroup',channel_name,function(err,result){
+            if(err){
+                return callback(false,err);
+            }else{
+                return callback(true,result);
+            }
+        })
+    },
+    userPresence: function(status, callback){
+        ddpClient.call('UserPresence:setDefaultStatus', [status], function(err,result){
+            if(err){
+                return callback(false,err);
+            } else{
+                return callback(true,result);
+            }
+        });
+    },
+    userData: function(userId,callback){
+        ddpClient.call('userData' , [userId],function(err,result){
+            if(err){
+                return callback(false,err);
+            } else{
+                return callback(true,result);
+            }
+        });
     }
 }
