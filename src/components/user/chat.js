@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ChatBubble from 'react-chat-bubble';
-import { Form } from 'semantic-ui-react';
+import { Input, Form, Button } from 'semantic-ui-react';
 import $ from 'jquery';
 
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
@@ -17,6 +17,7 @@ let im = require('../../lib/api/im');
 let user = require('../../lib/api/users');
 let ddp = require('../../lib/real_time_api/ddp_connection');
 let chanel = require('../../lib/api/chanel');
+let item_helper = require('../../lib/helper/item_chat_helper');
 
 var subscribeId = 0;
 var roomId = ''
@@ -49,26 +50,19 @@ class Chat extends Component {
       }
     }
   }
-
+  
   handleIncomingMess(result){
     var component = this;   
     result = EJSON.parse(result);
+    var newStateMessages = component.state.messages;
+    
     if(result.msg === 'changed'){
-      var newStateMessages = component.state.messages;
       var messages = result.fields.args;
       var item;
       if (messages[0].u._id !== JSON.parse(localStorage.rocket_chat_user).user_id){
-        item = {
-          "type": 1,
-          "image": avaLawyer,
-          "text": messages[0].msg
-        }
+        item = item_helper.newItem(1, avaLawyer,messages[0]);
       } else{
-        item = {
-          "type": 0,
-          "image": avaUser,
-          "text": messages[0].msg
-        }
+        item = item_helper.newItem(0,avaUser,messages[0]);
       }
       newStateMessages.push(item);
       component.setState({messages : newStateMessages});
@@ -85,17 +79,9 @@ class Chat extends Component {
     for( var i in messages){
       var item;
       if(messages[i].u._id === JSON.parse(localStorage.rocket_chat_user).user_id){
-        item = {
-          "type": 0,
-          "image": avaUser,
-          "text": messages[i].msg
-        }
+        item = item_helper.newItem(0, avaUser, messages[i]);
       } else{
-        item = {
-          "type": 1,
-          "image": avaLawyer,
-          "text": messages[i].msg
-        }
+        item = item_helper.newItem(1,avaLawyer,messages[i]);
       }
       newStateMessages.push(item);
     }
@@ -111,7 +97,7 @@ class Chat extends Component {
         var target_id = response.data.user._id;
         if( target_id !== JSON.parse(localStorage.rocket_chat_user).user_id){
           roomId = target_id + JSON.parse(localStorage.rocket_chat_user).user_id;
-          ddp.loadHistory(roomId, function( issuccess, result){
+          ddp.loadHistory(roomId,null, function( issuccess, result){
             if(issuccess){
               component.fetchMsg(result);
               ddp.streamRoomMessages(roomId, function(id,msg){
@@ -120,7 +106,7 @@ class Chat extends Component {
               });
             }else{
               roomId = JSON.parse(localStorage.rocket_chat_user).user_id + target_id;
-              ddp.loadHistory(roomId, function( issuccess, result){
+              ddp.loadHistory(roomId,null, function( issuccess, result){
                 if(issuccess){
                   component.fetchMsg(result);      
                   ddp.streamRoomMessages(roomId, function(id,msg){
@@ -146,7 +132,7 @@ class Chat extends Component {
           chanel.info(null, target_id,function(response){
             roomId = response.data.channel._id;
             console.log(roomId);
-            ddp.loadHistory(roomId, function( issuccess, result){
+            ddp.loadHistory(roomId,null, function( issuccess, result){
               if(issuccess){
                 component.fetchMsg(result);
                 ddp.streamRoomMessages(roomId, function(id,msg){
@@ -210,9 +196,7 @@ class Chat extends Component {
     });
   }
 
-  handleSubmitTest(){
-	  
-  }
+
 
   render() {
     return(

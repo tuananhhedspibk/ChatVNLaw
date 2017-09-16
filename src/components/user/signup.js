@@ -29,6 +29,9 @@ class UserSignUp extends Component {
     if(localStorage.rocket_chat_user != null) {
       window.location = constant.BASE_URL;
     }
+    ddp.connect(function(){
+
+    });
   }
 
   showAlert = (text) => {
