@@ -94,44 +94,48 @@ class UserSignUp extends Component {
             {translate('app.identifier.signup')}
           </div>
           <Form className='authen-form' onSubmit={this.handleSubmit.bind(this)} method='post'>
-            <Form.Field className='left'>
-              <label>{translate('app.signup.name')}</label>
-              <Input value={this.state.name}
-                name='name'
-                onChange={this.handleInputChange.bind(this)}
-                placeholder={translate('app.signup.name')} />
-            </Form.Field>
-            <Form.Field className='right'>
-              <label>{translate('app.signup.password')}</label>
-              <Input type='password'
-                value={this.state.password}
-                name='password'
-                onChange={this.handleInputChange.bind(this)}
-                placeholder={translate('app.signup.password')} />
-            </Form.Field>
-            <Form.Field className='left'>
-              <label>{translate('app.signup.username')}</label>
-              <Input value={this.state.username}
-                name='username'
-                onChange={this.handleInputChange.bind(this)}
-                placeholder={translate('app.signup.username')} />
-            </Form.Field>
-            <Form.Field className='right'>
-              <label>{translate('app.signup.password_confirmation')}</label>
-              <Input type='password'
-                value={this.state.password_confirmation}
-                name='password_confirmation'
-                onChange={this.handleInputChange.bind(this)}
-                placeholder={translate('app.signup.password_confirmation')} />
-            </Form.Field>
-            <Form.Field className='left'>
-              <label>{translate('app.signup.email')}</label>
-              <Input value={this.state.email}
-                name='email'
-                type='email'
-                onChange={this.handleInputChange.bind(this)}
-                placeholder={translate('app.signup.email')} />
-            </Form.Field>
+            <div className='left'>
+              <Form.Field>
+                <label>{translate('app.signup.name')}</label>
+                <Input value={this.state.name}
+                  name='name'
+                  onChange={this.handleInputChange.bind(this)}
+                  placeholder={translate('app.signup.name')} />
+              </Form.Field>
+              <Form.Field>
+                <label>{translate('app.signup.username')}</label>
+                <Input value={this.state.username}
+                  name='username'
+                  onChange={this.handleInputChange.bind(this)}
+                  placeholder={translate('app.signup.username')} />
+              </Form.Field>
+              <Form.Field>
+                <label>{translate('app.signup.email')}</label>
+                <Input value={this.state.email}
+                  name='email'
+                  type='email'
+                  onChange={this.handleInputChange.bind(this)}
+                  placeholder={translate('app.signup.email')} />
+              </Form.Field>
+            </div>
+            <div className='right'>
+              <Form.Field className='right'>
+                <label>{translate('app.signup.password')}</label>
+                <Input type='password'
+                  value={this.state.password}
+                  name='password'
+                  onChange={this.handleInputChange.bind(this)}
+                  placeholder={translate('app.signup.password')} />
+              </Form.Field>
+              <Form.Field className='right'>
+                <label>{translate('app.signup.password_confirmation')}</label>
+                <Input type='password'
+                  value={this.state.password_confirmation}
+                  name='password_confirmation'
+                  onChange={this.handleInputChange.bind(this)}
+                  placeholder={translate('app.signup.password_confirmation')} />
+              </Form.Field>
+            </div>
             <Button primary type='submit'>
               {translate('app.signup.submit')}
             </Button>

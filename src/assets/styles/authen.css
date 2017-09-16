@@ -30,7 +30,7 @@ body {
     color: #fff;
     font-size: 1.1em; }
   .authen-box .authen-form {
-    padding: 0 35px 35px; }
+    padding: 0 35px 20px 35px; }
   .authen-box .title {
     color: #fff;
     text-align: center;
@@ -40,13 +40,28 @@ body {
 
 .signup-box {
   width: 840px; }
+  .signup-box .left {
+    float: left;
+    width: 48%; }
   .signup-box .right {
-    float: right; }
+    float: right;
+    width: 48%; }
   .signup-box .ui.form .field {
     display: inline-block;
-    width: 48%; }
+    width: 100%; }
     .signup-box .ui.form .field label {
       width: 100%;
       display: inline-block; }
     .signup-box .ui.form .field .ui.input {
       width: 100%; }
+
+.signup-link {
+  border: 1px solid #fff;
+  border-radius: 3px;
+  color: #fff;
+  margin: 0 35px 35px;
+  padding: 15px;
+  text-align: center; }
+  .signup-link a {
+    color: #fd9d16;
+    margin-left: 10px; }

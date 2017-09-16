@@ -27,7 +27,8 @@ module.exports = {
       password_confirmation: 'Xác nhận mật khẩu',
       email: 'Email',
       name: 'Tên người dùng',
-      submit: 'Đăng kí'
+      submit: 'Đăng kí',
+      new_to_us: 'Thành viên mới?'
     },
     user: {
       list: 'Danh sách người dùng',
@@ -36,7 +37,9 @@ module.exports = {
     chat: {
       title: 'Chat',
       input_place_holder: 'Nhập tin nhắn ...',
-      my_chat: 'Chat cá nhân'
+      my_chat: 'Chat cá nhân',
+      shared_files: 'Tệp được chia sẻ',
+      shared_images: 'Ảnh được chia sẻ'
     }
   }
 }

@@ -84,6 +84,12 @@ class UserLogin extends Component {
               {translate('app.login.submit')}
             </Button>
           </Form>
+          <div className='signup-link'>
+            {translate('app.signup.new_to_us')}
+            <a href={constant.BASE_URL + constant.SIGN_UP_URI}>
+              {translate('app.signup.submit')}
+            </a>
+          </div>
         </div>
       </div>
     )

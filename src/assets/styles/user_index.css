@@ -2,7 +2,7 @@
   background-color: #fdfdfd;
   border: 1px solid #e4e7e9;
   float: left;
-  width: 280px; }
+  width: 320px; }
   .list-users .header-index {
     background-color: #4dadff;
     color: #fff;
@@ -43,27 +43,37 @@
       padding-left: 15px;
       text-align: left; }
       .list-users .ui.list .item .content {
-        padding-left: 15px; }
+        padding-left: 15px;
+        width: 170px; }
         .list-users .ui.list .item .content .header {
           font-size: 1.1em; }
       .list-users .ui.list .item .description {
         color: #c0c0c0;
         margin-top: 5px; }
       .list-users .ui.list .item img {
-        width: 50px;
+        border: 1px solid #b2dbfd;
         height: 50px;
-        border: 1px solid #b2dbfd; }
+        width: 50px; }
+
+.unread-mess {
+  background-color: #4dadff;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  padding: 5px; }
+
+.status {
+  margin-right: 10px;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  z-index: 100; }
 
 .online-status {
-  background-color: #2de0a5;
-  border-radius: 50%;
-  height: 10px;
-  width: 10px;
-  z-index: 100; }
+  background-color: #2de0a5; }
+
+.away-status {
+  background-color: #ffd21f; }
 
 .offline-status {
-  background-color: #f5455c;
-  border-radius: 50%;
-  height: 10px;
-  width: 10px;
-  z-index: 100; }
+  background-color: #f5455c; }

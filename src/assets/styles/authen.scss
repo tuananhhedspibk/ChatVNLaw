@@ -48,7 +48,7 @@ body{
   }
 
   .authen-form {
-    padding: 0 35px 35px;
+    padding: 0 35px 20px 35px;
   }
 
   .title {
@@ -62,13 +62,19 @@ body{
 
 .signup-box {
   width: 840px;
+  .left {
+    float: left;
+    width: 48%;
+  }
+
   .right {
     float: right;
+    width: 48%;
   }
 
   .ui.form .field {
     display: inline-block;
-    width: 48%;
+    width: 100%;
 
     label {
       width: 100%;
@@ -78,5 +84,19 @@ body{
     .ui.input {
       width: 100%;
     }
+  }
+}
+
+.signup-link {
+  border: 1px solid $white;
+  border-radius: 3px;
+  color: $white;
+  margin: 0 35px 35px;
+  padding: 15px;
+  text-align: center;
+
+  a {
+    color: $yellow-lighter;
+    margin-left: 10px;
   }
 }

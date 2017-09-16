@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import ChatBubble from 'react-chat-bubble';
-import { Input, Form, Button } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import $ from 'jquery';
+
+import ChatSetting from '../chat/chatsetting';
 
 import avaLawyer from '../../assets/images/default-ava-lawyer.png';
 import avaUser from '../../assets/images/default-ava-user.png';
 import * as constant from '../constants';
 
 import '../../assets/styles/chatwindow.css';
+
 var EJSON = require("ejson");
 
 let translate = require('counterpart');
@@ -27,24 +30,29 @@ class Chat extends Component {
     this.state = {
       messages: [],
       current_user_name: '',
-      current_user_id: ''
+      current_user_id: '',
+      current_user_type: ''
     }
   }
 
   componentWillReceiveProps(nextProps) {
     var component = this;  
     
-    if (nextProps.username !== this.state.current_user_name){
+    console.log("123");
+    console.log(nextProps);
+    console.log("123");
+    if (nextProps.currentChatUserName !== this.state.current_user_name){
       this.setState({messages : []});
-      this.setState({current_user_name: nextProps.username});
+      this.setState({current_user_name: nextProps.currentChatUserName});
+      this.setState({current_user_type: nextProps.currentChatUserType});
       if(subscribeId !== 0){
         ddp.unsubscribe(subscribeId, function(){
-          component.handleLoadMessage(nextProps.username);
+          component.handleLoadMessage(nextProps.currentChatUserName);
         });   
       } else{
         ddp.connect(function(){
           ddp.login(function(){
-            component.handleLoadMessage(nextProps.username)
+            component.handleLoadMessage(nextProps.currentChatUserName)
           });
         }); 
       }
@@ -104,9 +112,9 @@ class Chat extends Component {
     }
   }
 
-  handleLoadMessage(username){
+  handleLoadMessage(currentUserName){
     var component = this;
-    user.infoByUserName(username, function(response){
+    user.infoByUserName(currentUserName, function(response){
       if(response.status === 200){
         var target_id = response.data.user._id;
         component.setState({current_user_id: target_id});
@@ -130,7 +138,7 @@ class Chat extends Component {
                     component.handleIncomingMess(msg);
                   });      
                 }else{
-                  im.create(username, function(response){
+                  im.create(currentUserName, function(response){
                     if(response.status === 200){
                       roomId = response.data.room._id;
                       ddp.streamRoomMessages(roomId, function(id,msg){
@@ -160,8 +168,7 @@ class Chat extends Component {
           })
         }
       }
-    });
-    
+    }); 
   }
 
   componentWillUnmount() {
@@ -251,7 +258,8 @@ class Chat extends Component {
             placeholder={translate('app.chat.input_place_holder')}
             onKeyDown={this.handleInputChange.bind(this)}/>
         </div>
-
+        <ChatSetting currentChatUserName={this.state.current_user_name}
+          currentChatUserType={this.state.current_user_type}/>
       </div>
     )
   }
