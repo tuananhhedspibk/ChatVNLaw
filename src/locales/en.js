@@ -27,7 +27,8 @@ module.exports = {
       password_confirmation: 'Password confirmation',
       email: 'Email',
       name: 'Name',
-      submit: 'Signup'
+      submit: 'Signup',
+      new_to_us: 'New to us?'
     },
     user: {
       list: 'List users',
@@ -36,7 +37,9 @@ module.exports = {
     chat: {
       title: 'Chat',
       input_place_holder: 'Input messages ...',
-      my_chat: 'My chat'
+      my_chat: 'My chat',
+      shared_files: 'Shared files',
+      shared_images: 'Shared images'
     }
   }
 }

@@ -1,18 +1,22 @@
 $blue: #4dadff;
 $blue-darker: #b2dbfd;
 $blue-lighter: #fdfdfd;
+$blue-more-darker: #1d74f5;
 $gray: #f6f7f9;
 $gray-darker: #c0c0c0;
 $gray-lighter: #e4e7e9;
+
 $online-color: #2de0a5;
 $offline-color: #f5455c;
+$away-color: #ffd21f;
+
 $white: #fff;
 
 .list-users {
   background-color: $blue-lighter;
   border: 1px solid $gray-lighter;
   float: left;
-  width: 280px;
+  width: 320px;
 
   .header-index {
     background-color: $blue;
@@ -69,6 +73,7 @@ $white: #fff;
 
       .content {
         padding-left: 15px;
+        width: 170px;
 
         .header {
           font-size: 1.1em;
@@ -81,27 +86,38 @@ $white: #fff;
       }
 
       img {
-        width: 50px;
-        height: 50px;
-
         border: 1px solid $blue-darker;
+        height: 50px;
+        width: 50px;
       }
     }
   }
 }
 
-.online-status {
-  background-color: $online-color;
+.unread-mess {
+  background-color: $blue;
+  border-radius: 3px;
+  color: $white;
+  display: inline-block;
+  padding: 5px;
+}
+
+.status {
+  margin-right: 10px;
   border-radius: 50%;
   height: 10px;
   width: 10px;
   z-index: 100;
 }
 
+.online-status {
+  background-color: $online-color;
+}
+
+.away-status {
+  background-color: $away-color;
+}
+
 .offline-status {
   background-color: $offline-color;
-  border-radius: 50%;
-  height: 10px;
-  width: 10px;
-  z-index: 100;
 }
