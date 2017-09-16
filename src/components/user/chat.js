@@ -148,8 +148,13 @@ class Chat extends Component {
     
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     ddp.close();
+  }
+
+  componentDidMount() {
+    document.getElementsByClassName('chats')[0].addEventListener('scroll',
+      this.handleScrollUp);
   }
 
   autoExpand(elementId) {
@@ -196,7 +201,11 @@ class Chat extends Component {
     });
   }
 
-
+  handleScrollUp() {
+    if(this.scrollTop == 0) {
+      console.log("123");
+    }
+  }
 
   render() {
     return(

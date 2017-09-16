@@ -70,14 +70,6 @@ class ChatView extends Component {
         component.setState({users: users_list});
       }
     });
-    document.getElementsByClassName('chats')[0].addEventListener('scroll',
-      this.handleScrollUp);
-  }
-
-  handleScrollUp() {
-    if(this.scrollTop == 0) {
-      console.log("123");
-    }
   }
 
   logout() {
