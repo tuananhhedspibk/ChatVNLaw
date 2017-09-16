@@ -128,24 +128,26 @@ module.exports = {
     //     });
     // },
     // history: function(roomId, latest,oldest, inclusive = false, count = 20,unreads = false, callback){
-    //     var formData = new URLSearchParams();
-    //     formData.append(constant.API_ARGUMENT_ROOMID, roomId);
-    //     formData.append(constant.API_ARGUMENT_LATEST, latest);
-    //     formData.append(constant.API_ARGUMENT_OLDEST, oldest);
-    //     formData.append(constant.API_ARGUMENT_INCLUSIVE, inclusive);
-    //     formData.append(constant.API_ARGUMENT_COUNT, count);
-    //     formData.append(constant.API_ARGUMENT_UNREADS, unreads);
+    history: function(roomId, latest, count = 15, callback){
+            
+        var formData = new URLSearchParams();
+        formData.append(constant.API_ARGUMENT_ROOMID, roomId);
+        formData.append(constant.API_ARGUMENT_LATEST, latest);
+        // formData.append(constant.API_ARGUMENT_OLDEST, oldest);
+        // formData.append(constant.API_ARGUMENT_INCLUSIVE, inclusive);
+        formData.append(constant.API_ARGUMENT_COUNT, count);
+        // formData.append(constant.API_ARGUMENT_UNREADS, unreads);
 
-    //     var config = {
-    //         method: 'GET',
-    //         url: constant.API_BASE_URL + constant.API_CHANNELS_HISTORY,
-    //         headers: constant.headers,
-    //         params: formData
-    //     }
-    //     axios_helper.request(config, function(response){
-    //         return callback(response);
-    //     });
-    // },
+        var config = {
+            method: 'GET',
+            url: constant.API_BASE_URL + constant.API_CHANNELS_HISTORY,
+            headers: constant.headers,
+            params: formData
+        }
+        axios_helper.request(config, function(response){
+            return callback(response);
+        });
+    },
     info: function(roomId, roomName, callback){
         var formData = new URLSearchParams();
         if(typeof roomId !== 'undefined' && roomId){
