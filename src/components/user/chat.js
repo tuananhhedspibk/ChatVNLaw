@@ -109,6 +109,8 @@ class Chat extends Component {
     user.infoByUserName(username, function(response){
       if(response.status === 200){
         var target_id = response.data.user._id;
+        component.setState({current_user_id: target_id});
+        
         if( target_id !== JSON.parse(localStorage.rocket_chat_user).user_id){
           roomId = target_id + JSON.parse(localStorage.rocket_chat_user).user_id;
           ddp.loadHistory(roomId,function( issuccess, result){
@@ -172,17 +174,17 @@ class Chat extends Component {
       function(){
         if(this.scrollTop === 0){
           if(component.state.messages[0]){
-            
-            console.log(component.state.messages[0].ts_ISO);
-            // ddp.loadHistory(roomId,function(issuccess,result){
-            //   if(issuccess){
-            //     component.fetchMsg(result,true);
-            //   }
-            // })
-            chanel.history(roomId,component.state.messages[0].ts_ISO,15,function(response){
-              console.log(response.data);
-              component.fetchMsg(response.data,true);
-            })
+            if(component.state.current_user_id === JSON.parse(localStorage.rocket_chat_user).user_id ){
+              chanel.history(roomId,component.state.messages[0].ts_ISO,15,function(response){
+                console.log(response.data);
+                component.fetchMsg(response.data,true);
+              });
+            } else{
+              im.history(roomId,component.state.messages[0].ts_ISO,15,function(response){
+                console.log(response.data);
+                component.fetchMsg(response.data,true);
+              });
+            }   
           }
         }
       });
@@ -249,6 +251,7 @@ class Chat extends Component {
             placeholder={translate('app.chat.input_place_holder')}
             onKeyDown={this.handleInputChange.bind(this)}/>
         </div>
+
       </div>
     )
   }

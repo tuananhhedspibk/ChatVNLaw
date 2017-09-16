@@ -99,5 +99,15 @@ module.exports = {
                 return callback(true,result);
             }
         });
+    },
+    streamNotifyUser: function(userId){
+        var params = userId + "/notification";
+        console.log(params);
+        ddpClient.subscribe('stream-notify-user',[params,false] , function(){
+            ddpClient.on("message", function(msg) {
+                console.log(msg);
+                // return callback(id, msg);
+            }); 
+        })
     }
 }
