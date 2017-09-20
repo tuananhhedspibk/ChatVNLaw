@@ -10,8 +10,8 @@ import '../../assets/styles/authen.css';
 let translate = require('counterpart');
 let user = require('../../lib/api/users.js');
 let authen = require('../../lib/api/authentication.js');
-let chanel = require('../../lib/api/chanel');
 let ddp = require('../../lib/real_time_api/ddp_connection');
+let group = require('../../lib/api/group');
 
 class UserSignUp extends Component {
   constructor(props) {
@@ -65,9 +65,11 @@ class UserSignUp extends Component {
               if (response.status === 200) {
                 var userId = response.data.data.userId;
                 user.setAvatarWithImageUrl(constant.DEFAULT_AVATAR_URL.valueOf(),function(response){
-                  chanel.create(userId,[],function(response){
+                  group.create(userId,[],function(response){
                     if(response.status === 200){
                       window.location = constant.BASE_URL;
+                    }else{
+                      localStorage.removeItem(constant.STORAGE_ITEM);                      
                     }
                   })
                 });

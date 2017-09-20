@@ -19,8 +19,8 @@ let chat = require('../../lib/api/chat');
 let im = require('../../lib/api/im');
 let user = require('../../lib/api/users');
 let ddp = require('../../lib/real_time_api/ddp_connection');
-let chanel = require('../../lib/api/chanel');
 let item_helper = require('../../lib/helper/item_chat_helper');
+let group = require('../../lib/api/group');
 
 var subscribeId = 0;
 var roomId = ''
@@ -153,8 +153,8 @@ class Chat extends Component {
           });
         }
         else{
-          chanel.info(null, target_id,function(response){
-            roomId = response.data.channel._id;
+          group.info(null, JSON.parse(localStorage.rocket_chat_user).user_id,function(response){
+            roomId = response.data.group._id;
             console.log(roomId);
             ddp.loadHistory(roomId,function( issuccess, result){
               if(issuccess){
@@ -182,7 +182,7 @@ class Chat extends Component {
         if(this.scrollTop === 0){
           if(component.state.messages[0]){
             if(component.state.current_user_id === JSON.parse(localStorage.rocket_chat_user).user_id ){
-              chanel.history(roomId,component.state.messages[0].ts_ISO,15,function(response){
+              group.history(roomId,component.state.messages[0].ts_ISO,15,function(response){
                 console.log(response.data);
                 component.fetchMsg(response.data,true);
               });
