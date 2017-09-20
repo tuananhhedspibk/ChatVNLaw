@@ -51,6 +51,10 @@ export const API_CHANNELS_SET_TOPIC = "/api/v1/channels.setTopic";
 export const API_CHANNELS_SET_TYPE = "/api/v1/channels.setType";
 export const API_CHANNELS_UNARCHIVE = "/api/v1/channels.unarchive";
 
+export const API_GROUPS_INFO = "/api/v1/groups.info"
+export const API_GROUPS_HISTORY = "/api/v1/groups.history";
+export const API_GROUPS_CREATE = '/api/v1/groups.create';
+
 export const API_CHAT_DELETE = "/api/v1/chat.delete";
 export const API_CHAT_POST_MESSAGE = "/api/v1/chat.postMessage";
 
