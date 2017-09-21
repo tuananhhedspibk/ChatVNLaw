@@ -1,67 +1,102 @@
-body {
-  text-align: center; }
-
-.authen-box {
-  background-color: rgba(0, 0, 0, 0.3);
-  display: inline-block;
-  font-size: 1.2em;
-  margin-top: 45px;
-  margin-bottom: 60px;
-  text-align: left;
-  width: 420px; }
-  .authen-box .ui .input > input {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid white;
-    border-radius: 0;
-    color: white;
-    padding-left: 0; }
-    .authen-box .ui .input > input:focus {
-      background-color: transparent;
-      border-color: #fff;
-      border-radius: 0;
-      color: #fff; }
-  .authen-box .ui.primary.button {
-    width: 100%;
-    background-color: #fd9d16; }
-  .authen-box .ui.form .field {
-    margin-bottom: 25px; }
-  .authen-box .ui.form .field > label {
-    color: #fff;
-    font-size: 1.1em; }
-  .authen-box .authen-form {
-    padding: 0 35px 20px 35px; }
-  .authen-box .title {
-    color: #fff;
-    text-align: center;
-    font-size: 2em;
-    padding: 30px 20px 25px 20px;
-    width: 100%; }
-
-.signup-box {
-  width: 840px; }
-  .signup-box .left {
-    float: left;
-    width: 48%; }
-  .signup-box .right {
-    float: right;
-    width: 48%; }
-  .signup-box .ui.form .field {
-    display: inline-block;
-    width: 100%; }
-    .signup-box .ui.form .field label {
-      width: 100%;
-      display: inline-block; }
-    .signup-box .ui.form .field .ui.input {
-      width: 100%; }
-
-.signup-link {
-  border: 1px solid #fff;
-  border-radius: 3px;
+.login-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: #3ca2e0;
+  text-align: center;
   color: #fff;
-  margin: 0 35px 35px;
-  padding: 15px;
-  text-align: center; }
-  .signup-link a {
-    color: #fd9d16;
+  padding: 30px 42px 42px; }
+  .login-page h1 {
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 5px; }
+    .login-page h1 small {
+      color: rgba(255, 255, 255, 0.7); }
+  .login-page .form-group {
+    padding: 8px 0; }
+  .login-page .form-content {
+    padding: 20px 0 0; }
+
+.input-underline {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 0 !important;
+  color: #FFF !important; }
+  .input-underline::-moz-placeholder {
+    color: #bbe1f5 !important; }
+  .input-underline::-ms-input-placeholder {
+    color: #bbe1f5 !important; }
+  .input-underline::-webkit-input-placeholder {
+    color: #bbe1f5 !important; }
+  .input-underline:focus {
+    border-bottom: 2px solid #fff;
+    box-shadow: none; }
+
+.btn-outline {
+  background: none;
+  border-color: transparent;
+  font-weight: 400; }
+  .btn-outline:hover {
+    background: none;
+    border-color: transparent; }
+  .btn-outline.btn-white {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8) inset;
+    color: rgba(255, 255, 255, 0.8); }
+    .btn-outline.btn-white:hover {
+      box-shadow: 0 0 0 2px white inset;
+      color: white; }
+  .btn-outline.btn-primary {
+    box-shadow: 0 0 0 2px #2089c9 inset;
+    color: #2089c9; }
+    .btn-outline.btn-primary:hover {
+      box-shadow: 0 0 0 2px #3ca2e0 inset;
+      color: #3ca2e0; }
+  .btn-outline.btn-success {
+    box-shadow: 0 0 0 2px #449d44 inset;
+    color: #449d44; }
+    .btn-outline.btn-success:hover {
+      box-shadow: 0 0 0 2px #5cb85c inset;
+      color: #5cb85c; }
+  .btn-outline.btn-info {
+    box-shadow: 0 0 0 2px #31b0d5 inset;
+    color: #31b0d5; }
+    .btn-outline.btn-info:hover {
+      box-shadow: 0 0 0 2px #5bc0de inset;
+      color: #5bc0de; }
+  .btn-outline.btn-warning {
+    box-shadow: 0 0 0 2px #ec971f inset;
+    color: #ec971f; }
+    .btn-outline.btn-warning:hover {
+      box-shadow: 0 0 0 2px #f0ad4e inset;
+      color: #f0ad4e; }
+  .btn-outline.btn-danger {
+    box-shadow: 0 0 0 2px #c9302c inset;
+    color: #c9302c; }
+    .btn-outline.btn-danger:hover {
+      box-shadow: 0 0 0 2px #d9534f inset;
+      color: #d9534f; }
+
+.redirect-to {
+  font-size: 18px;
+  padding-left: 16px !important;
+  text-align: left; }
+  .redirect-to a {
+    color: #ffb460;
+    font-weight: bold;
     margin-left: 10px; }
+    .redirect-to a:focus {
+      outline: none;
+      color: #ffb460; }
+    .redirect-to a:hover {
+      color: #ffb460; }
+
+.btn-rounded {
+  border-radius: 50px; }
+
+.btn-lg {
+  border-radius: 50px !important; }

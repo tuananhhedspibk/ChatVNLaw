@@ -17,7 +17,8 @@ module.exports = {
       success: 'Đăng nhập thành công',
       username: 'Tên tài khoản',
       password: 'Mật khẩu',
-      submit: 'Đăng nhập'
+      submit: 'Đăng nhập',
+      had_account: 'Đã có tài khoản?'
     },
     signup: {
       signup_error: 'Sai thông tin đăng kí',

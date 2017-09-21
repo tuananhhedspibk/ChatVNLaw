@@ -17,7 +17,8 @@ module.exports = {
       success: 'Login Success',
       username: 'User name',
       password: 'Password',
-      submit: 'Login'
+      submit: 'Login',
+      had_account: 'Already have an account?'
     },
     signup: {
       signup_error: 'Signup infor wrong',

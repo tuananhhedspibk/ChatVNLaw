@@ -1,8 +1,4 @@
-$blue: #4dadff;
-$blue-lighter: #b2dbfd;
-$gray: #c1c1c1;
-$gray-lighter: #e5ecf0;
-$white: #fff;
+@import 'variables.scss';
 
 .chat-window {
   border-right: 1px solid $gray-lighter;

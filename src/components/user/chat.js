@@ -5,8 +5,6 @@ import $ from 'jquery';
 
 import ChatSetting from '../chat/chatsetting';
 
-import avaLawyer from '../../assets/images/default-ava-lawyer.png';
-import avaUser from '../../assets/images/default-ava-user.png';
 import * as constant from '../constants';
 
 import '../../assets/styles/chatwindow.css';
@@ -23,7 +21,8 @@ let item_helper = require('../../lib/helper/item_chat_helper');
 let group = require('../../lib/api/group');
 
 var subscribeId = 0;
-var roomId = ''
+var roomId = '';
+
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -68,9 +67,9 @@ class Chat extends Component {
       var messages = result.fields.args;
       var item;
       if (messages[0].u._id !== JSON.parse(localStorage.rocket_chat_user).user_id){
-        item = item_helper.newItem(1, avaLawyer,messages[0]);
+        item = item_helper.newItem(1, constant.avaLawyer,messages[0]);
       } else{
-        item = item_helper.newItem(0,avaUser,messages[0]);
+        item = item_helper.newItem(0, constant.avaUser,messages[0]);
       }
       newStateMessages.push(item);
       component.setState({messages : newStateMessages});
@@ -91,15 +90,15 @@ class Chat extends Component {
       var item;
       if(messages[i].u._id === JSON.parse(localStorage.rocket_chat_user).user_id){
         if(reverse){
-          item = item_helper.newItemWithRestApi(0, avaUser, messages[i]);
+          item = item_helper.newItemWithRestApi(0, constant.avaUser, messages[i]);
         } else{
-          item = item_helper.newItem(0, avaUser, messages[i]);          
+          item = item_helper.newItem(0, constant.avaUser, messages[i]);          
         }
       } else{
         if(reverse){
-          item = item_helper.newItemWithRestApi(1,avaLawyer,messages[i]);          
+          item = item_helper.newItemWithRestApi(1,constant.avaLawyer,messages[i]);          
         } else{
-          item = item_helper.newItem(1,avaLawyer,messages[i]);
+          item = item_helper.newItem(1,constant.avaLawyer,messages[i]);
         }
       }
       newStateMessages.push(item);
