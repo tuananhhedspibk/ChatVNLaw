@@ -7,9 +7,7 @@ import Chat from '../user/chat';
 
 import * as constant from '../constants';
 
-import avaLawyer from '../../assets/images/default-ava-lawyer.png';
-import avaBot from '../../assets/images/bot.png';
-
+import '../../assets/styles/bootstrap/css/bootstrap.min.css';
 import '../../assets/styles/user_index.css';
 
 var authen = require('../../lib/api/authentication.js');
@@ -44,12 +42,12 @@ class ChatView extends Component {
     var fields = constant.DEFAULT_FIELDS;
     var query = constant.DEFAULT_QUERY;
 
-    fields["username"] = 1;
-    fields["status"] = 1;
-    fields["type"] = 1;
+    fields['username'] = 1;
+    fields['status'] = 1;
+    fields['type'] = 1;
 
-    query["roles"].push("user");
-    query["roles"].push("bot");
+    query['roles'].push('user');
+    query['roles'].push('bot');
 
     var component = this;
 
@@ -75,14 +73,6 @@ class ChatView extends Component {
             component.setState({current_chat_user_name: component.props.params.user_name});
           }
         })
-      }
-    });
-  }
-
-  logout() {
-    authen.logout(function(response){
-      if(response.status === 200) {
-        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
       }
     });
   }
@@ -119,6 +109,14 @@ class ChatView extends Component {
     this.setState({searchTerm: term});
   }
 
+  logout() {
+    authen.logout(function(response){
+      if(response.status === 200) {
+        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+      }
+    });
+  }
+
   render() {
     const filteredUsers = this.state.users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
@@ -136,9 +134,9 @@ class ChatView extends Component {
           </div>
           <List>
             <div className='search-box'>
-              <SearchInput className="search-input"
+              <SearchInput className='search-input'
                 onChange={this.searchUpdated.bind(this)}
-                placeholder={translate("app.user.search") + '...'} />
+                placeholder={translate('app.user.search') + '...'} />
             </div>
             {
               filteredUsers.map(user => {
@@ -146,12 +144,12 @@ class ChatView extends Component {
                 if(user.username !== this.state.current_user_name) {
                   if(user.type !== 'bot') {
                     return(
-                      <Link to={"/chat/" + user.username} key={user._id}
+                      <Link to={'/chat/' + user.username} key={user._id}
                         onClick={this.changeUserChat.bind(this, user.username, user.type)}
                         activeStyle={activeStyle}>
                           <List.Item key={user._id}>
                             {this.renderStatus(user.status)}
-                            <Image avatar src={avaLawyer}/>
+                            <Image avatar src={constant.avaLawyer}/>
                             <List.Content>
                               <List.Header>{user.username}</List.Header>
                             </List.Content>
@@ -164,12 +162,12 @@ class ChatView extends Component {
                   }
                   else {
                     return(
-                      <Link to={"/chat/" + user.username} key={user._id}
+                      <Link to={'/chat/' + user.username} key={user._id}
                         onClick={this.changeUserChat.bind(this, user.username, user.type)}
                         activeStyle={activeStyle}>
                           <List.Item key={user._id}>
                             {this.renderStatus(user.status)}
-                            <Image avatar src={avaBot}/>
+                            <Image avatar src={constant.avaBot}/>
                             <List.Content>
                               <List.Header>{user.username}</List.Header>
                             </List.Content>
@@ -183,12 +181,12 @@ class ChatView extends Component {
                 }
                 else {
                   return(
-                    <Link to={"/chat/" + user.username} key={user._id}
+                    <Link to={'/chat/' + user.username} key={user._id}
                       onClick={this.changeUserChat.bind(this, user.username, user.type)}
                       activeStyle={activeStyle}>
                         <List.Item key={user._id}>
                           {this.renderStatus(user.status)}
-                          <Image avatar src={avaLawyer}/>
+                          <Image avatar src={constant.avaLawyer}/>
                           <List.Content>
                             <List.Header>
                               {translate('app.chat.my_chat')}

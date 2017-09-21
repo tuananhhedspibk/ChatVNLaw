@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
-import { Input, Form, Button } from 'semantic-ui-react';
-
-import NavBar from '../static/navbar';
 import * as constant from '../constants';
 
 import '../../assets/styles/authen.css';
@@ -12,6 +9,8 @@ let user = require('../../lib/api/users.js');
 let authen = require('../../lib/api/authentication.js');
 let ddp = require('../../lib/real_time_api/ddp_connection');
 let group = require('../../lib/api/group');
+
+let warningImage = require('../../assets/images/warning.png');
 
 class UserSignUp extends Component {
   constructor(props) {
@@ -38,7 +37,7 @@ class UserSignUp extends Component {
     this.msg.show(text, {
       time: 2000,
       type: 'success',
-      icon: <img alt='warning' src='images/warning.png' />
+      icon: <img alt='warning' src={warningImage} />
     })
   }
 
@@ -88,60 +87,71 @@ class UserSignUp extends Component {
 
   render() {
     return(
-      <div className='wrapper'>
-        <NavBar/>
-        <div className='authen-box signup-box'>
-          <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS} />
-          <div className='title'>
-            {translate('app.identifier.signup')}
+      <div className='login-page ng-scope ui-view'>
+        <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>
+        <div className='row'>
+          <div className='col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3'>
+            <img src={constant.logoPic} className='user-avatar' alt=''/>
+            <h1>{translate('app.identifier.app_name')} <small>
+              {translate('app.identifier.slogan')}</small></h1>
+            <form onSubmit={this.handleSubmit.bind(this)}
+              className='ng-pristine ng-valid'>
+              <div className='form-content'>
+                <div className='form-group'>
+                  <input type='text'
+                    name='name'
+                    value={this.state.name}
+                    onChange={this.handleInputChange.bind(this)}
+                    className='form-control input-underline input-lg'
+                    placeholder={translate('app.signup.name')}/>
+                </div>
+                <div className='form-group'>
+                  <input type='text'
+                    name='username'
+                    value={this.state.username}
+                    onChange={this.handleInputChange.bind(this)}
+                    className='form-control input-underline input-lg'
+                    placeholder={translate('app.signup.username')}/>
+                </div>
+                <div className='form-group'>
+                  <input
+                    name='email'
+                    type='email'
+                    value={this.state.email}
+                    onChange={this.handleInputChange.bind(this)}
+                    className='form-control input-underline input-lg'
+                    placeholder={translate('app.signup.email')}/>
+                </div>
+                <div className='form-group'>
+                  <input
+                    name='password'
+                    type='password'
+                    value={this.state.password}
+                    onChange={this.handleInputChange.bind(this)}
+                    className='form-control input-underline input-lg'
+                    placeholder={translate('app.signup.password')}/>
+                </div>
+                <div className='form-group'>
+                  <input
+                    name='password_confirmation'
+                    type='password'
+                    value={this.state.password_confirmation}
+                    onChange={this.handleInputChange.bind(this)}
+                    className='form-control input-underline input-lg'
+                    placeholder={translate('app.signup.password_confirmation')}/>
+                </div>
+                <div className='form-group redirect-to'>
+                  {translate('app.login.had_account')}
+                  <a href={constant.BASE_URL + constant.SIGN_IN_URI}>
+                    {translate('app.login.submit')}
+                  </a>
+                </div>
+              </div>
+              <button type='submit' className='btn btn-white btn-outline btn-lg btn-rounded'>
+                {translate('app.signup.submit')}
+              </button>
+            </form>
           </div>
-          <Form className='authen-form' onSubmit={this.handleSubmit.bind(this)} method='post'>
-            <div className='left'>
-              <Form.Field>
-                <label>{translate('app.signup.name')}</label>
-                <Input value={this.state.name}
-                  name='name'
-                  onChange={this.handleInputChange.bind(this)}
-                  placeholder={translate('app.signup.name')} />
-              </Form.Field>
-              <Form.Field>
-                <label>{translate('app.signup.username')}</label>
-                <Input value={this.state.username}
-                  name='username'
-                  onChange={this.handleInputChange.bind(this)}
-                  placeholder={translate('app.signup.username')} />
-              </Form.Field>
-              <Form.Field>
-                <label>{translate('app.signup.email')}</label>
-                <Input value={this.state.email}
-                  name='email'
-                  type='email'
-                  onChange={this.handleInputChange.bind(this)}
-                  placeholder={translate('app.signup.email')} />
-              </Form.Field>
-            </div>
-            <div className='right'>
-              <Form.Field className='right'>
-                <label>{translate('app.signup.password')}</label>
-                <Input type='password'
-                  value={this.state.password}
-                  name='password'
-                  onChange={this.handleInputChange.bind(this)}
-                  placeholder={translate('app.signup.password')} />
-              </Form.Field>
-              <Form.Field className='right'>
-                <label>{translate('app.signup.password_confirmation')}</label>
-                <Input type='password'
-                  value={this.state.password_confirmation}
-                  name='password_confirmation'
-                  onChange={this.handleInputChange.bind(this)}
-                  placeholder={translate('app.signup.password_confirmation')} />
-              </Form.Field>
-            </div>
-            <Button primary type='submit'>
-              {translate('app.signup.submit')}
-            </Button>
-          </Form>
         </div>
       </div>
     )

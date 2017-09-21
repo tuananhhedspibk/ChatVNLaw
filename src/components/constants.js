@@ -95,8 +95,13 @@ export const API_ARGUMENT_AVATAR = "avatar";
 export const API_ARGUMENT_AVATAR_URL = "avatarUrl";
 export const API_ARGUMENT_ATTACHMENTS = "attachments";
 export const API_ARGUMENT_IMAGE = "image";
-
 export const DEFAULT_AVATAR_URL = "https://image.ibb.co/i23jUF/default_ava.png";
+
+let logoPicture = require('../assets/images/flat-avatar.png');
+let avaUserPic = require('../assets/images/default-ava-user.png');
+let avaLawyerPic = require('../assets/images/default-ava-lawyer.png');
+let avaBotPic = require('../assets/images/bot.png');
+
 let alertOptions = {
   offset: 14,
   position: 'top right',
@@ -179,6 +184,11 @@ export const DEFAULT_ATTACHMENTS_FIELDS = {
   "title": "",
   "value": "",
 }
+
 export const headers = header;
 export const ALERT_OPTIONS = alertOptions;
 export const DEFAULT_MY_CHAT_CHANEL = "my.chat";
+export const logoPic = logoPicture;
+export const avaLawyer = avaLawyerPic;
+export const avaUser = avaUserPic;
+export const avaBot = avaBotPic;

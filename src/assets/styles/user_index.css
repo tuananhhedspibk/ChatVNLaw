@@ -1,23 +1,24 @@
 .list-users {
   background-color: #fdfdfd;
-  border: 1px solid #e4e7e9;
+  border: 1px solid #e5ecf0;
   float: left;
   width: 320px; }
   .list-users .header-index {
-    background-color: #4dadff;
+    background-color: #3ca2e0;
     color: #fff;
     float: left;
     font-size: 1.2em;
     padding: 15px;
+    text-align: center;
     width: 100%; }
     .list-users .header-index .fa {
       float: left; }
   .list-users .search-box {
-    padding: 15px;
+    padding: 17px 15px;
     text-align: left;
     text-transform: uppercase; }
     .list-users .search-box input {
-      background-color: #f6f7f9;
+      background-color: #e5ecf0;
       border: 0;
       height: 25px;
       padding: 18px;
@@ -29,10 +30,11 @@
     height: calc(100vh - 50px);
     margin-top: 0;
     overflow-y: scroll;
-    padding: 6px 0;
+    padding: 0 0 6px;
     width: 100%; }
     .list-users .ui.list a {
       display: inline-block;
+      text-decoration: none;
       width: 100%; }
     .list-users .ui.list .item {
       align-items: center;
@@ -51,12 +53,12 @@
         color: #c0c0c0;
         margin-top: 5px; }
       .list-users .ui.list .item img {
-        border: 1px solid #b2dbfd;
+        border: 1px solid #bbe1f5;
         height: 50px;
         width: 50px; }
 
 .unread-mess {
-  background-color: #4dadff;
+  background-color: #3ca2e0;
   border-radius: 3px;
   color: #fff;
   display: inline-block;
@@ -77,3 +79,6 @@
 
 .offline-status {
   background-color: #f5455c; }
+
+.ui.dropdown .menu > .item {
+  font-size: .6em; }

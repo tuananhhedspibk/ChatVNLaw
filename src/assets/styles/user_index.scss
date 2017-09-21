@@ -1,19 +1,7 @@
-$blue: #4dadff;
-$blue-darker: #b2dbfd;
-$blue-lighter: #fdfdfd;
-$blue-more-darker: #1d74f5;
-$gray: #f6f7f9;
-$gray-darker: #c0c0c0;
-$gray-lighter: #e4e7e9;
-
-$online-color: #2de0a5;
-$offline-color: #f5455c;
-$away-color: #ffd21f;
-
-$white: #fff;
+@import 'variables.scss';
 
 .list-users {
-  background-color: $blue-lighter;
+  background-color: $blue-more-lighter;
   border: 1px solid $gray-lighter;
   float: left;
   width: 320px;
@@ -24,6 +12,7 @@ $white: #fff;
     float: left;
     font-size: 1.2em;
     padding: 15px;
+    text-align: center;
     width: 100%;
 
     .fa {
@@ -32,12 +21,12 @@ $white: #fff;
   }
 
   .search-box {
-    padding: 15px;
+    padding: 17px 15px;
     text-align: left;
     text-transform: uppercase;
 
     input {
-      background-color: $gray;
+      background-color: $gray-lighter;
       border: 0;
       height: 25px;
       padding: 18px;
@@ -54,11 +43,12 @@ $white: #fff;
     height: calc(100vh - 50px);
     margin-top: 0;
     overflow-y: scroll;
-    padding: 6px 0;
+    padding: 0 0 6px;
     width: 100%;
 
     a{
       display: inline-block;
+      text-decoration: none;
       width: 100%;
     }
 
@@ -86,7 +76,7 @@ $white: #fff;
       }
 
       img {
-        border: 1px solid $blue-darker;
+        border: 1px solid $blue-lighter;
         height: 50px;
         width: 50px;
       }
@@ -120,4 +110,8 @@ $white: #fff;
 
 .offline-status {
   background-color: $offline-color;
+}
+
+.ui.dropdown .menu > .item {
+  font-size: .6em;
 }

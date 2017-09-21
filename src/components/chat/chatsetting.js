@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Dropdown } from 'semantic-ui-react';
 
-import avaLawyer from '../../assets/images/default-ava-lawyer.png';
-import avaBot from '../../assets/images/bot.png';
+import '../../assets/styles/chatsetting.css';
 
+import * as constant from '../constants';
+
+let authen = require('../../lib/api/authentication.js');
 let FontAwesome = require('react-fontawesome');
 let translate = require('counterpart');
 
@@ -15,6 +18,14 @@ class ChatSetting extends Component {
     }
   }
 
+  logout() {
+    authen.logout(function(response){
+      if(response.status === 200) {
+        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+      }
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentChatUserName !== this.state.current_user_name){
       this.setState({current_user_name: nextProps.currentChatUserName});
@@ -25,14 +36,29 @@ class ChatSetting extends Component {
   renderAva() {
     if(this.state.current_user_type === 'bot') {
       return(
-        <img src={avaBot} alt=''/>
+        <img src={constant.avaBot} alt='ava-bot'/>
       )
     }
     else {
       return(
-        <img src={avaLawyer} alt=''/>
+        <img src={constant.avaLawyer} alt='ava-lawyer'/>
       )
     }
+  }
+
+  renderConfig() {
+    if(this.state.current_user_name ===
+      JSON.parse(localStorage.rocket_chat_user).user_name) {
+      return(
+        <Dropdown icon='setting'>
+          <Dropdown.Menu>
+            <Dropdown.Item text={translate('app.identifier.logout')}
+              onClick={this.logout.bind(this)}/>
+          </Dropdown.Menu>
+        </Dropdown>
+      )
+    }
+    return null;
   }
 
   render() {
@@ -46,7 +72,7 @@ class ChatSetting extends Component {
             <div className='user-name'>{this.state.current_user_name}</div>
           </div>
           <div className='config'>
-            <FontAwesome name='cog'/>
+            {this.renderConfig()}
           </div>
         </div>
         <div className='content'>

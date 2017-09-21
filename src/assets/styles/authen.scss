@@ -1,102 +1,163 @@
-$blue-darker: #2185d0;
-$gray-lighter: #c7c7c7;
-$white: #fff;
+@import 'variables.scss';
+
+$gray-lighter: rgba(255, 255, 255, 0.7);
+$gray-darker: rgba(255, 255, 255, 0.4);
 $yellow-lighter: #fd9d16;
 $black: rgba(0, 0, 0, 0.3);
 
-body{
+.login-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: $blue;
   text-align: center;
-}
-
-.authen-box {
-  background-color: $black;
-  display: inline-block;
-  font-size: 1.2em;
-  margin-top: 45px;
-  margin-bottom: 60px;
-  text-align: left;
-  width: 420px;
-
-  .ui .input > input {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid white;
-    border-radius: 0;
-    color: white;
-    padding-left: 0;
-
-    &:focus {
-      background-color: transparent;
-      border-color: $white;
-      border-radius: 0;
-      color: $white;
-    }
-  }
-
-  .ui.primary.button {
-    width: 100%;
-    background-color: $yellow-lighter;    
-  }
-
-  .ui.form .field {
-    margin-bottom: 25px;
-  }
-
-  .ui.form .field > label {
-    color: $white;
-    font-size: 1.1em;
-  }
-
-  .authen-form {
-    padding: 0 35px 20px 35px;
-  }
-
-  .title {
-    color: $white;
-    text-align: center;
-    font-size: 2em;
-    padding: 30px 20px 25px 20px;
-    width: 100%;
-  }
-}
-
-.signup-box {
-  width: 840px;
-  .left {
-    float: left;
-    width: 48%;
-  }
-
-  .right {
-    float: right;
-    width: 48%;
-  }
-
-  .ui.form .field {
-    display: inline-block;
-    width: 100%;
-
-    label {
-      width: 100%;
-      display: inline-block;
-    }
-
-    .ui.input {
-      width: 100%;
-    }
-  }
-}
-
-.signup-link {
-  border: 1px solid $white;
-  border-radius: 3px;
   color: $white;
-  margin: 0 35px 35px;
-  padding: 15px;
-  text-align: center;
+  padding: 30px 42px 42px;
+
+  h1 {
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    small {
+      color: rgba(255,255,255,0.7);
+    }
+  }
+
+  .form-group {
+     padding: 8px 0;
+  }
+
+  .form-content {
+    padding: 20px 0 0;
+  }
+}
+
+.input-underline {
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+  border-bottom: 2px solid $gray-darker !important;
+  border-radius: 0 !important;
+  color: #FFF !important;
+  
+  &::-moz-placeholder {
+    color: $blue-lighter !important;
+  }
+  
+  &::-ms-input-placeholder {
+    color: $blue-lighter !important;
+  }
+  
+  &::-webkit-input-placeholder {
+    color: $blue-lighter !important;
+  }
+
+	&:focus {
+		border-bottom: 2px solid $white;
+		box-shadow: none;
+	}
+}
+
+.btn-outline {
+  background: none;
+  border-color: transparent;
+  font-weight: 400;
+  
+  &:hover {
+    background: none;
+    border-color: transparent;
+  }
+  
+  &.btn-white {
+    box-shadow: 0 0 0 2px rgba(255,255,255, 0.8) inset;
+    color: rgba(255,255,255, 0.8);
+  
+    &:hover {
+      box-shadow: 0 0 0 2px rgba(255,255,255, 1) inset;
+      color: rgba(255,255,255, 1);
+    }
+  }
+
+  &.btn-primary {
+    box-shadow: 0 0 0 2px darken($brand-primary, 10%) inset;
+    color: darken($brand-primary, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-primary inset;
+      color: $brand-primary;
+    }
+  }
+
+  &.btn-success {
+    box-shadow: 0 0 0 2px darken($brand-success, 10%) inset;
+    color: darken($brand-success, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-success inset;
+      color: $brand-success;
+    }
+  }
+  
+  &.btn-info {
+    box-shadow: 0 0 0 2px darken($brand-info, 10%) inset;
+    color: darken($brand-info, 10%);
+  
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-info inset;
+      color: $brand-info;
+    }
+  }
+  
+  &.btn-warning {
+    box-shadow: 0 0 0 2px darken($brand-warning, 10%) inset;
+    color: darken($brand-warning, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-warning inset;
+      color: $brand-warning;
+    }
+  }
+
+  &.btn-danger {
+    box-shadow: 0 0 0 2px darken($brand-danger, 10%) inset;
+    color: darken($brand-danger, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-danger inset;
+      color: $brand-danger;
+    }  
+  }
+}
+
+.redirect-to {
+  font-size: 18px;
+  padding-left: 16px !important;
+  text-align: left;
 
   a {
-    color: $yellow-lighter;
+    color: $orange-lighter;
+    font-weight: bold;
     margin-left: 10px;
+
+    &:focus {
+      outline: none;
+      color: $orange-lighter;
+    }
+
+    &:hover {
+      color: $orange-lighter;
+    }
   }
+}
+
+.btn-rounded {
+  border-radius: 50px;
+}
+
+.btn-lg {
+  border-radius: 50px !important;
 }
