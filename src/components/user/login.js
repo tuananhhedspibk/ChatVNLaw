@@ -3,9 +3,8 @@ import AlertContainer from 'react-alert';
 
 import * as constant from '../constants';
 
-import '../../assets/styles/authen.css';
-import '../../assets/styles/main.css';
-import '../../assets/styles/bootstrap/css/bootstrap.min.css';
+import '../../assets/styles/common/authen.css';
+import '../../assets/styles/common/main.css';
 
 let translate = require('counterpart');
 var authen = require('../../lib/api/authentication.js');

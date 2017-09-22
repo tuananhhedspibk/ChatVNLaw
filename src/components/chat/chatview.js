@@ -7,8 +7,8 @@ import Chat from '../user/chat';
 
 import * as constant from '../constants';
 
-import '../../assets/styles/bootstrap/css/bootstrap.min.css';
-import '../../assets/styles/user_index.css';
+import '../../assets/styles/common/main.css';
+import '../../assets/styles/common/user_index.css';
 
 var authen = require('../../lib/api/authentication.js');
 

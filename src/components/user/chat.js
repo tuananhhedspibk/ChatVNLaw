@@ -7,7 +7,7 @@ import ChatSetting from '../chat/chatsetting';
 
 import * as constant from '../constants';
 
-import '../../assets/styles/chatwindow.css';
+import '../../assets/styles/common/chatwindow.css';
 
 var EJSON = require("ejson");
 

@@ -1,0 +1,22 @@
+@import url(../bootstrap/bootstrap.css);
+textarea::-webkit-input-placeholder {
+  color: #a2a2a2; }
+
+textarea::-moz-placeholder {
+  color: #a2a2a2; }
+
+textarea:-ms-input-placeholder {
+  color: #a2a2a2; }
+
+textarea:-moz-placeholder {
+  color: #a2a2a2; }
+
+@font-face {
+  font-family: "DroidSerif";
+  src: font-url("fonts/Droid_Serif/DroidSerif-Regular.ttf"); }
+
+body {
+  font-family: "DroidSerif", sans-serif; }
+
+.ui.dropdown .menu {
+  font-size: 1.5em; }
