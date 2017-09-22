@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import '../../assets/styles/404.css';
+import '../../assets/styles/common/404.css';
 
 import image404 from '../../assets/images/404.png' 
 

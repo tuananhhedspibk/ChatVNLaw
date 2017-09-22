@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
 import * as constant from '../constants';
 
-import '../../assets/styles/authen.css';
+import '../../assets/styles/common/authen.css';
 
 let translate = require('counterpart');
 let user = require('../../lib/api/users.js');

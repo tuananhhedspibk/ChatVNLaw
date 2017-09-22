@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dropdown } from 'semantic-ui-react';
 
-import '../../assets/styles/chatsetting.css';
+import '../../assets/styles/common/chatsetting.css';
 
 import * as constant from '../constants';
 
