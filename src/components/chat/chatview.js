@@ -51,30 +51,30 @@ class ChatView extends Component {
 
     var component = this;
 
-    user.list(fields,query,function(response){
-      component.setState({users: response.data.users});
-      var current_user = null;
-      component.setState({current_user_name:
-        JSON.parse(localStorage.rocket_chat_user).user_name});
-      component.state.users.map(user => {
-        if (user.username === JSON.parse(localStorage.rocket_chat_user).user_name) {
-          current_user = user;  
-        }
-      });
-      if (current_user !== null) {
-        var users_list = component.state.users;
-        users_list.sort(function(x, y){
-          return x === current_user ? -1 : y === current_user ? 1 : 0;
-        });
-        component.setState({users: users_list});
-        component.state.users.map(user => {
-          if (user.username === component.props.params.user_name) {
-            component.setState({current_chat_user_type: user.type});
-            component.setState({current_chat_user_name: component.props.params.user_name});
-          }
-        })
-      }
-    });
+    // user.list(fields,query,function(response){
+    //   component.setState({users: response.data.users});
+    //   var current_user = null;
+    //   component.setState({current_user_name:
+    //     JSON.parse(localStorage.rocket_chat_user).user_name});
+    //   component.state.users.map(user => {
+    //     if (user.username === JSON.parse(localStorage.rocket_chat_user).user_name) {
+    //       current_user = user;  
+    //     }
+    //   });
+    //   if (current_user !== null) {
+    //     var users_list = component.state.users;
+    //     users_list.sort(function(x, y){
+    //       return x === current_user ? -1 : y === current_user ? 1 : 0;
+    //     });
+    //     component.setState({users: users_list});
+    //     component.state.users.map(user => {
+    //       if (user.username === component.props.params.user_name) {
+    //         component.setState({current_chat_user_type: user.type});
+    //         component.setState({current_chat_user_name: component.props.params.user_name});
+    //       }
+    //     })
+    //   }
+    // });
   }
 
   changeUserChat(username, usertype) {
@@ -140,7 +140,6 @@ class ChatView extends Component {
             </div>
             {
               filteredUsers.map(user => {
-                console.log(user.type);
                 if(user.username !== this.state.current_user_name) {
                   if(user.type !== 'bot') {
                     return(

@@ -8,13 +8,18 @@ import * as constant from '../constants';
 let authen = require('../../lib/api/authentication.js');
 let FontAwesome = require('react-fontawesome');
 let translate = require('counterpart');
+var firebase = require('firebase');
+var upfile_helper = require('../../lib/helper/upfile_helper');
 
 class ChatSetting extends Component {
   constructor(props) {
     super(props);
     this.state = {
       current_user_name: '',
-      current_user_type: ''
+      current_user_type: '',
+      current_room_id: '',
+      image_list:[],
+      file_list: []
     }
   }
 
@@ -27,12 +32,40 @@ class ChatSetting extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    var component = this;
     if (nextProps.currentChatUserName !== this.state.current_user_name){
-      this.setState({current_user_name: nextProps.currentChatUserName});
-      this.setState({current_user_type: nextProps.currentChatUserType});
+      this.setState({
+        current_user_name: nextProps.currentChatUserName,
+        current_user_type: nextProps.currentChatUserType,
+        current_room_id: nextProps.currentRoomId,
+        image_list: [],
+        file_list: []
+      });
+      var roomId = component.state.current_room_id;
+      console.log(roomId);
+      
+      if( roomId){
+        console.log(roomId);
+        var imageList = component.state.image_list;
+        // var ref = 'room_images/'+roomId.toString()+'/';
+        upfile_helper.getItemList('room_images',roomId.toString(), function(type, item){
+          if(type ===1){
+            imageList.push(item);
+            component.setState({image_list : imageList});
+          }
+        })
+      }  
+      // var fileList = component.state.file_list;
+      // upfile_helper.getItemList('room_files/'+roomId, function(type, item){
+      //   if(type === 1){
+      //     fileList.push(item);
+      //     component.setState({file_list : fileList});
+      //     console.log(fileList);
+      //   }
+      // })
     }
   }
-
+     
   renderAva() {
     if(this.state.current_user_type === 'bot') {
       return(

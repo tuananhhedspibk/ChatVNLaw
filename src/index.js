@@ -20,3 +20,4 @@ if (localStorage.locale == null) {
 ReactDOM.render(<Routes history={browserHistory}/>,
   document.getElementById('root'));
 registerServiceWorker();
+

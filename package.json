@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "browserify": "^14.4.0",
     "bufferutil": "^3.0.2",
     "chart.js": "^2.7.0",
     "counterpart": "^0.18.1",
     "ddp-client": "https://github.com/tranlinh265/node-ddp-client",
+    "firebase": "^4.4.0",
     "form-data": "^2.2.0",
     "jquery": "^3.2.1",
     "node": "^8.3.0",

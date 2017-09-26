@@ -19,9 +19,11 @@ let user = require('../../lib/api/users');
 let ddp = require('../../lib/real_time_api/ddp_connection');
 let item_helper = require('../../lib/helper/item_chat_helper');
 let group = require('../../lib/api/group');
-
+var firebase = require('firebase');
 var subscribeId = 0;
-var roomId = '';
+var roomId = ''
+
+var upfile = require('../../lib/helper/upfile_helper');
 
 class Chat extends Component {
   constructor(props) {
@@ -36,10 +38,7 @@ class Chat extends Component {
 
   componentWillReceiveProps(nextProps) {
     var component = this;  
-    
-    console.log("123");
-    console.log(nextProps);
-    console.log("123");
+
     if (nextProps.currentChatUserName !== this.state.current_user_name){
       this.setState({messages : []});
       this.setState({current_user_name: nextProps.currentChatUserName});
@@ -62,17 +61,19 @@ class Chat extends Component {
     var component = this;   
     result = EJSON.parse(result);
     var newStateMessages = component.state.messages;
-    
     if(result.msg === 'changed'){
       var messages = result.fields.args;
       var item;
+
       if (messages[0].u._id !== JSON.parse(localStorage.rocket_chat_user).user_id){
         item = item_helper.newItem(1, constant.avaLawyer,messages[0]);
       } else{
         item = item_helper.newItem(0, constant.avaUser,messages[0]);
       }
-      newStateMessages.push(item);
-      component.setState({messages : newStateMessages});
+      if(newStateMessages[newStateMessages.length - 1]._id !== item._id){
+        newStateMessages.push(item);
+        component.setState({messages : newStateMessages});        
+      }
       this.autoScrollBottom();
     }
   }
@@ -154,7 +155,6 @@ class Chat extends Component {
         else{
           group.info(null, JSON.parse(localStorage.rocket_chat_user).user_id,function(response){
             roomId = response.data.group._id;
-            console.log(roomId);
             ddp.loadHistory(roomId,function( issuccess, result){
               if(issuccess){
                 component.fetchMsg(result,false);
@@ -175,19 +175,67 @@ class Chat extends Component {
   }
 
   componentDidMount() {
+
     var component = this;
+    var fileButton = document.getElementById('fileButton');
+
+    fileButton.addEventListener('change', function(e){
+      e.preventDefault();
+      var file = e.target.files[0];
+      // store file data on firebase storage and set a reference on firebase realtime database
+
+      var storageRef = firebase.storage().ref('room_files/'+roomId+'/'+component.state.current_user_id+'/'+ file.name);
+
+      var task =  storageRef.put(file);
+
+      task.on('state_changed', 
+        function(snapshot){
+       
+        }
+        , function(error) {
+
+        }, function() {     
+        let downloadURL = task.snapshot.downloadURL;
+        let content = "<title>" + file.name + "</title>" + "<link>" + downloadURL + "</link>";
+        ddp.sendMessage(roomId, content, function(){
+          
+        });
+        var metadata = task.snapshot.metadata;
+        var name = metadata.name;
+        var size = metadata.size;
+        var ts = metadata.generation;
+        var refUri = "";
+
+        if(metadata.contentType.includes("image")){
+          refUri = firebase.database().ref().child('room_images').child(roomId);
+          // 'room_images/' + roomId+'/'+ts;
+        }else{
+          refUri = firebase.database().ref().child('room_files').child(roomId);
+          
+          // refUri = 'room_files/' + roomId + '/' + ts;
+        }
+        refUri.push().set({
+          name: name,
+          downloadURL: downloadURL,
+          size: size,
+          ts: ts
+        });
+        // firebase.database().ref('room_files/'+roomId).set({
+
+        // })
+      });
+    })
+    
     document.getElementsByClassName('chats')[0].addEventListener('scroll',
       function(){
         if(this.scrollTop === 0){
           if(component.state.messages[0]){
             if(component.state.current_user_id === JSON.parse(localStorage.rocket_chat_user).user_id ){
               group.history(roomId,component.state.messages[0].ts_ISO,15,function(response){
-                console.log(response.data);
                 component.fetchMsg(response.data,true);
               });
             } else{
               im.history(roomId,component.state.messages[0].ts_ISO,15,function(response){
-                console.log(response.data);
                 component.fetchMsg(response.data,true);
               });
             }   
@@ -236,8 +284,11 @@ class Chat extends Component {
 
   handleSubmit() {
     var content = document.getElementById('input-mess-box').value;
-    chat.postMessage(roomId, '', content, '', '', '', [], function(response){
+
+    ddp.sendMessage(roomId, content, function(){
+
     });
+    // ddp.uploadRequest('photo.png',15664,'image/png', roomId, function(){});
   }
 
 
@@ -253,12 +304,14 @@ class Chat extends Component {
         </div>
         <ChatBubble messages={this.state.messages} />
         <div className='text-box' id='text-box'>
+        <input type="file" id="fileButton" />
           <Form.TextArea id='input-mess-box'
             placeholder={translate('app.chat.input_place_holder')}
             onKeyDown={this.handleInputChange.bind(this)}/>
         </div>
         <ChatSetting currentChatUserName={this.state.current_user_name}
-          currentChatUserType={this.state.current_user_type}/>
+          currentChatUserType={this.state.current_user_type}
+          currentRoomId={roomId}/>
       </div>
     )
   }
