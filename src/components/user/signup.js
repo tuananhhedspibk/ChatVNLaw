@@ -13,6 +13,9 @@ let authen = require('../../lib/api/authentication.js');
 let ddp = require('../../lib/real_time_api/ddp_connection');
 let group = require('../../lib/api/group');
 
+let warningImage = require('../../assets/images/warning.png');
+var firebase = require('firebase');
+
 class UserSignUp extends Component {
   constructor(props) {
     super(props);
@@ -29,11 +32,11 @@ class UserSignUp extends Component {
     if(localStorage.rocket_chat_user != null) {
       window.location = constant.BASE_URL;
     }
-    ddp.connect(function(){
 
-    });
   }
+  componentDidMount(){
 
+  }
   showAlert = (text) => {
     this.msg.show(text, {
       time: 2000,
@@ -58,6 +61,7 @@ class UserSignUp extends Component {
       var username = this.state.username;
       var password = this.state.password;
       var component = this;
+<<<<<<< cf40e6e3c06252c4fa9bfd3ec09e3f9f283eceb3
       user.register(this.state.username, this.state.email, 
         this.state.password, this.state.name, function(response) {
           if (response.status === 200) {
@@ -84,6 +88,63 @@ class UserSignUp extends Component {
     }
     else {
       this.showAlert('Password and Password confirmation not the same'); 
+=======
+      var email = this.state.email;
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+      .catch(function(error){
+        console.log(error);
+      }).then(function(user){
+        if(user){
+          console.log(user);
+          firebase.database().ref().child('users').child(user.uid).set({
+            "username" : username,
+            "email" : user.email,
+            "role" : "user",
+            "status" : "online",
+            "avatarUrl" : constant.DEFAULT_AVATAR_URL
+          });
+         
+          let ref = firebase.database().ref().child('rooms');
+          let memebers = user.uid + '_' + user.uid;
+          ref.push().set({
+            "members" : [user.uid,user.uid,memebers]
+          })
+          ref.on('child_added', function(snapshot){
+            window.location = constant.BASE_URL;
+          });
+        }
+
+        
+      });
+      
+
+      
+    //   user.register(this.state.username, this.state.email, 
+    //     this.state.password, this.state.name, function(response) {
+    //       if (response.status === 200) {
+    //         authen.login(username, password, function(response) {
+    //           if (response.status === 200) {
+    //             var userId = response.data.data.userId;
+    //             user.setAvatarWithImageUrl(constant.DEFAULT_AVATAR_URL.valueOf(),function(response){
+    //               group.create(userId,[],function(response){
+    //                 if(response.status === 200){
+    //                   window.location = constant.BASE_URL;
+    //                 }else{
+    //                   localStorage.removeItem(constant.STORAGE_ITEM);                      
+    //                 }
+    //               })
+    //             });
+    //           }
+    //         });
+    //       }
+    //       else {
+    //         component.showAlert('Singup unsuccessfully, check information');
+    //       }
+    //     });
+    // }
+    // else {
+    //   this.showAlert('Password and Password confirmation not the same'); 
+>>>>>>> 123
     } 
   }
 

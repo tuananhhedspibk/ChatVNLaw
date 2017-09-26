@@ -109,5 +109,32 @@ module.exports = {
                 // return callback(id, msg);
             }); 
         })
+    },
+    sendMessage: function(rid, msg, callback){
+        var params = {
+            "rid" : rid,
+            "msg" : msg
+        }
+        ddpClient.call('sendMessage', [params], function(err,result){
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
+        })
+    },
+    uploadRequest: function(name, size, type, rid, callback){
+        var params = {
+            "name" : name,
+            "size" :size,
+            "type" : type
+        }
+        ddpClient.call('slingshot/uploadRequest', ["rocketchat_uploads",params, { "rid": rid }], function(err,result){
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
+        })
     }
 }

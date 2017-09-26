@@ -8,6 +8,7 @@ import '../../assets/styles/common/main.css';
 
 let translate = require('counterpart');
 var authen = require('../../lib/api/authentication.js');
+var firebase = require('firebase');
 
 class UserLogin extends Component {
   constructor(props) {
@@ -24,6 +25,10 @@ class UserLogin extends Component {
     }
   }
 
+  componentDidMount(){
+    
+  }
+  
   showAlert = (text) => {
     this.msg.show(text, {
       time: 2000,
@@ -45,10 +50,27 @@ class UserLogin extends Component {
   handleSubmit(evt) {
     var component = this;
     evt.preventDefault();
-    authen.login(this.state.username, this.state.password, function(response){
-      if(response.status === 200){
-        component.props.history.push(constant.CHAT_URI + '/' +
-          component.state.username);
+    // authen.login(this.state.username, this.state.password, function(response){
+    //   if(response.status === 200){
+    //     window.location = constant.BASE_URL;
+    //   }
+    // });
+    firebase.auth().signInWithEmailAndPassword(this.state.username,this.state.password).catch(function(error){
+      console.log(error);
+    }).then(function(user){
+      if(user){
+        let ref = firebase.database().ref().child('users').child(user.uid)
+        ref.update({
+          "status" : "online",
+        });
+        ref.on('child_changed',function(snapshot){
+          if(snapshot){
+            window.location = constant.BASE_URL;
+          }
+        });
+        ref.on('value', function(snapshot){
+          window.location = constant.BASE_URL;
+        })
       }
     });
   }

@@ -16,7 +16,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        {this.renderView()}
+        {/* {this.renderView()} */}
+		
       </div>
     )
   }
