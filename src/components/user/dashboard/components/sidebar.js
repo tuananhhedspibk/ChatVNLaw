@@ -40,6 +40,9 @@ class Sidebar extends Component {
       const classes = classNames( "nav-link", item.class);
       return (
         <NavItem key={key}>
+          <NavLink to={item.url} className={ classes } activeClassName="active">
+            <i className={item.icon}></i>{item.name}{badge(item.badge)}
+          </NavLink>
         </NavItem>
       )
     };

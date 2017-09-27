@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
 
 import * as constant from '../constants';
@@ -20,7 +20,7 @@ class UserLogin extends Component {
 
   componentWillMount() {
     if(localStorage.rocket_chat_user != null) {
-      window.location = constant.BASE_URL;
+      this.props.history.push();
     }
   }
 
@@ -28,7 +28,7 @@ class UserLogin extends Component {
     this.msg.show(text, {
       time: 2000,
       type: 'success',
-      icon: <img alt='warning' src='../../assets/images/warning.png' />
+      icon: <img alt='warning' src={constant.warning} />
     })
   }
 
@@ -43,10 +43,12 @@ class UserLogin extends Component {
   }
 
   handleSubmit(evt) {
+    var component = this;
     evt.preventDefault();
     authen.login(this.state.username, this.state.password, function(response){
       if(response.status === 200){
-        window.location = constant.BASE_URL;
+        component.props.history.push(constant.CHAT_URI + '/' +
+          component.state.username);
       }
     });
   }
@@ -55,8 +57,8 @@ class UserLogin extends Component {
     return(
       <div className='login-page ng-scope ui-view'>
         <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>
-        <div className='row'>
-          <div className='col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3'>
+        <div className='row justify-content-md-center'>
+          <div className='col-md-6'>
             <img src={constant.logoPic} className='user-avatar' alt=''/>
             <h1>{translate('app.identifier.app_name')} <small>
               {translate('app.identifier.slogan')}</small></h1>

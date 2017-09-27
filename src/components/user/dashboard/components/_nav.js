@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Dashboard',
-      url: '/dashboard',
+      url: '/lawyers/dashboard',
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
@@ -12,20 +12,20 @@ export default {
     {
       title: true,
       name: 'UI elements',
-      wrapper: {            // optional wrapper object
-        element: "span",      // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      wrapper: {
+        element: "span",
+        attributes: {}
       },
-      class: ""             // optional class names space delimited list for title item ex: "text-center"
+      class: ""
     },
     {
       name: 'Components',
-      url: '/components',
+      url: '/lawyers',
       icon: 'icon-puzzle',
       children: [
         {
           name: 'Buttons',
-          url: '/components/buttons',
+          url: '/lawyers/buttons',
           icon: 'icon-puzzle'
         },
         {
@@ -66,36 +66,6 @@ export default {
       ]
     },
     {
-      name: 'Icons',
-      url: '/icons',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'Font Awesome',
-          url: '/icons/font-awesome',
-          icon: 'icon-star',
-          badge: {
-            variant: 'secondary',
-            text: '4.7'
-          }
-        },
-        {
-          name: 'Simple Line Icons',
-          url: '/icons/simple-line-icons',
-          icon: 'icon-star'
-        }
-      ]
-    },
-    {
-      name: 'Widgets',
-      url: '/widgets',
-      icon: 'icon-calculator',
-      badge: {
-        variant: 'info',
-        text: 'NEW'
-      }
-    },
-    {
       name: 'Charts',
       url: '/charts',
       icon: 'icon-pie-chart'
@@ -106,33 +76,6 @@ export default {
     {
       title: true,
       name: 'Extras'
-    },
-    {
-      name: 'Pages',
-      url: '/pages',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'Login',
-          url: '/login',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Register',
-          url: '/register',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Error 404',
-          url: '/404',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Error 500',
-          url: '/500',
-          icon: 'icon-star'
-        }
-      ]
     }
   ]
 };

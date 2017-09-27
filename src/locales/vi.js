@@ -41,6 +41,13 @@ module.exports = {
       my_chat: 'Chat cá nhân',
       shared_files: 'Tệp được chia sẻ',
       shared_images: 'Ảnh được chia sẻ'
+    },
+    notfound: {
+      content: {
+        oh: 'Ohh.....',
+        main: 'Bạn yêu cầu trang hiện không có.',
+        back_home: 'Về trang chủ'
+      }
     }
   }
 }

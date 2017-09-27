@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
+
 import * as constant from '../constants';
 
 import '../../assets/styles/common/authen.css';
+
+let warningImage = require('../../assets/images/warning.png');
 
 let translate = require('counterpart');
 let user = require('../../lib/api/users.js');
 let authen = require('../../lib/api/authentication.js');
 let ddp = require('../../lib/real_time_api/ddp_connection');
 let group = require('../../lib/api/group');
-
-let warningImage = require('../../assets/images/warning.png');
 
 class UserSignUp extends Component {
   constructor(props) {
@@ -66,7 +67,8 @@ class UserSignUp extends Component {
                 user.setAvatarWithImageUrl(constant.DEFAULT_AVATAR_URL.valueOf(),function(response){
                   group.create(userId,[],function(response){
                     if(response.status === 200){
-                      window.location = constant.BASE_URL;
+                      component.props.history.push(constant.CHAT_URI + '/' +
+                        component.state.username);
                     }else{
                       localStorage.removeItem(constant.STORAGE_ITEM);                      
                     }
@@ -89,7 +91,7 @@ class UserSignUp extends Component {
     return(
       <div className='login-page ng-scope ui-view'>
         <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>
-        <div className='row'>
+        <div className='row justify-content-md-center'>
           <div className='col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3'>
             <img src={constant.logoPic} className='user-avatar' alt=''/>
             <h1>{translate('app.identifier.app_name')} <small>

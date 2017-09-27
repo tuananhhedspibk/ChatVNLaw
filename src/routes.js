@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Route} from 'react-router';
+import {Router, Route, Switch} from 'react-router-dom';
 
 import UserLogin from './components/user/login';
 import UserSignUp from './components/user/signup';
@@ -9,16 +9,15 @@ import ChatView from './components/chat/chatview';
 
 import NotFoundPage from './components/shared/notfound';
 
-import Home from './components/static/home';
-
 const Routes = props => (
   <Router {...props}>
-    <Route path='/' component={Home}/>
-    <Route path='/lawyers' component={UserDashBoard}/>
-    <Route path='/chat/:user_name' component={ChatView}/>
-    <Route path='/login' component={UserLogin}/>
-    <Route path='/signup' component={UserSignUp}/>
-    <Route path='*' component={NotFoundPage}/>
+    <Switch>
+      <Route path='/lawyers' component={UserDashBoard}/>
+      <Route path='/chat/:user_name' component={ChatView}/>
+      <Route path='/login' component={UserLogin}/>
+      <Route path='/signup' component={UserSignUp}/>
+      <Route path='*' component={NotFoundPage}/>
+    </Switch>
   </Router>
 );
 
