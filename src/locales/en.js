@@ -41,6 +41,13 @@ module.exports = {
       my_chat: 'My chat',
       shared_files: 'Shared files',
       shared_images: 'Shared images'
+    },
+    notfound: {
+      content: {
+        oh: 'Ohh.....',
+        main: 'You Requested the page that is no longer There.',
+        back_home: 'Back To Home'
+      }
     }
   }
 }

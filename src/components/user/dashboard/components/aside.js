@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {TabContent, TabPane, Nav, NavItem, NavLink, Progress, Label, Input} from 'reactstrap';
 import classnames from 'classnames';
 
-let ava1 = require('../../../../assets/styles/img/avatars/1.jpg');
 let ava2 = require('../../../../assets/styles/img/avatars/2.jpg');
 let ava3 = require('../../../../assets/styles/img/avatars/3.jpg');
 let ava4 = require('../../../../assets/styles/img/avatars/4.jpg');

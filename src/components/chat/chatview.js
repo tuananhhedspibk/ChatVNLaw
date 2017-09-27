@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { List, Image, Dropdown } from 'semantic-ui-react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 
 import Chat from '../user/chat';
@@ -10,8 +10,7 @@ import * as constant from '../constants';
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/user_index.css';
 
-var authen = require('../../lib/api/authentication.js');
-
+let authen = require('../../lib/api/authentication.js');
 let user = require('../../lib/api/users.js');
 let translate = require('counterpart');
 
@@ -68,9 +67,10 @@ class ChatView extends Component {
         });
         component.setState({users: users_list});
         component.state.users.map(user => {
-          if (user.username === component.props.params.user_name) {
+          if (user.username === component.props.match.params.user_name) {
             component.setState({current_chat_user_type: user.type});
-            component.setState({current_chat_user_name: component.props.params.user_name});
+            component.setState({current_chat_user_name:
+              component.props.match.params.user_name});
           }
         })
       }
@@ -140,13 +140,11 @@ class ChatView extends Component {
             </div>
             {
               filteredUsers.map(user => {
-                console.log(user.type);
                 if(user.username !== this.state.current_user_name) {
                   if(user.type !== 'bot') {
                     return(
                       <Link to={'/chat/' + user.username} key={user._id}
-                        onClick={this.changeUserChat.bind(this, user.username, user.type)}
-                        activeStyle={activeStyle}>
+                        onClick={this.changeUserChat.bind(this, user.username, user.type)}>
                           <List.Item key={user._id}>
                             {this.renderStatus(user.status)}
                             <Image avatar src={constant.avaLawyer}/>
@@ -163,8 +161,7 @@ class ChatView extends Component {
                   else {
                     return(
                       <Link to={'/chat/' + user.username} key={user._id}
-                        onClick={this.changeUserChat.bind(this, user.username, user.type)}
-                        activeStyle={activeStyle}>
+                        onClick={this.changeUserChat.bind(this, user.username, user.type)}>
                           <List.Item key={user._id}>
                             {this.renderStatus(user.status)}
                             <Image avatar src={constant.avaBot}/>
@@ -182,8 +179,7 @@ class ChatView extends Component {
                 else {
                   return(
                     <Link to={'/chat/' + user.username} key={user._id}
-                      onClick={this.changeUserChat.bind(this, user.username, user.type)}
-                      activeStyle={activeStyle}>
+                      onClick={this.changeUserChat.bind(this, user.username, user.type)}>
                         <List.Item key={user._id}>
                           {this.renderStatus(user.status)}
                           <Image avatar src={constant.avaLawyer}/>

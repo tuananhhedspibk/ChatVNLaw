@@ -27,6 +27,10 @@ $black: rgba(0, 0, 0, 0.3);
     }
   }
 
+  input {
+    font-size: 1.4em;
+  }
+
   .form-group {
      padding: 8px 0;
   }
@@ -135,7 +139,7 @@ $black: rgba(0, 0, 0, 0.3);
 
 .redirect-to {
   font-size: 18px;
-  padding-left: 16px !important;
+  padding-left: 10px !important;
   text-align: left;
 
   a {

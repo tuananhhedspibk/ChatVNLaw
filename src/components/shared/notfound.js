@@ -1,25 +1,34 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+
+import Navbar from './navbar';
+
+import * as constant from '../constants';
 
 import '../../assets/styles/common/404.css';
 
-import image404 from '../../assets/images/404.png' 
+let translate = require('counterpart');
 
-class NotFoundPage extends Component {
+class NotFound extends Component {
   render() {
-    return(
-      <div className='wrapper row2'>
-        <div id='container' className='clear'>
-          <section id='fof' className='clear'>
-            <h1>WHOOPS!</h1>
-            <img src={image404} alt=''/>
-            <p>The Page You Requested Could Not Be Found On Our Server</p>
-            <p>Go back to the <a href='javascript:history.go(-1)'>previous page</a>
-              or visit our <a href='/'>homepage</a></p>
-          </section>
+    return (
+      <div className='notfound-wrapper'>
+        <Navbar/>
+        <div className='container'>
+          <div className='row justify-content-md-center'>
+            <div className='error-pic'>
+              <img src={constant.notFound}/>
+            </div>
+            <div className='content'>
+              <div className='temp-content'>{translate('app.notfound.content.oh')}</div>
+              <div className='main-content'>{translate('app.notfound.content.main')}</div>
+            </div>
+            <Link to='/login' className='back-to-home'>{translate('app.notfound.content.back_home')}</Link>
+          </div>
         </div>
       </div>
     )
   }
 }
 
-export default NotFoundPage;
+export default NotFound;

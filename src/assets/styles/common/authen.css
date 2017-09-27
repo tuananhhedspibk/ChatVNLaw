@@ -15,6 +15,8 @@
     margin-bottom: 5px; }
     .login-page h1 small {
       color: rgba(255, 255, 255, 0.7); }
+  .login-page input {
+    font-size: 1.4em; }
   .login-page .form-group {
     padding: 8px 0; }
   .login-page .form-content {
@@ -83,7 +85,7 @@
 
 .redirect-to {
   font-size: 18px;
-  padding-left: 16px !important;
+  padding-left: 10px !important;
   text-align: left; }
   .redirect-to a {
     color: #ffb460;

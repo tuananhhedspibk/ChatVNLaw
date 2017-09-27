@@ -35,11 +35,7 @@ class Chat extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    var component = this;  
-    
-    console.log("123");
-    console.log(nextProps);
-    console.log("123");
+    var component = this;
     if (nextProps.currentChatUserName !== this.state.current_user_name){
       this.setState({messages : []});
       this.setState({current_user_name: nextProps.currentChatUserName});

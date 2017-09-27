@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
-import {browserHistory} from 'react-router';
+import {createBrowserHistory} from 'history';
+
 import './assets/styles/common/main.css';
 
 let translate = require('counterpart');
@@ -17,6 +18,8 @@ if (localStorage.locale == null) {
   translate.setLocale(localStorage.locale);
 }
 
-ReactDOM.render(<Routes history={browserHistory}/>,
+const history = createBrowserHistory();
+
+ReactDOM.render(<Routes history={history}/>,
   document.getElementById('root'));
 registerServiceWorker();

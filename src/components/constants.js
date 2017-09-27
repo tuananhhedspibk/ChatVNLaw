@@ -101,6 +101,8 @@ let logoPicture = require('../assets/images/flat-avatar.png');
 let avaUserPic = require('../assets/images/default-ava-user.png');
 let avaLawyerPic = require('../assets/images/default-ava-lawyer.png');
 let avaBotPic = require('../assets/images/bot.png');
+let warningPic = require('../assets/images/warning.png');
+let notFoundPic = require('../assets/images/error-img.png');
 
 let alertOptions = {
   offset: 14,
@@ -192,3 +194,5 @@ export const logoPic = logoPicture;
 export const avaLawyer = avaLawyerPic;
 export const avaUser = avaUserPic;
 export const avaBot = avaBotPic;
+export const warning = warningPic;
+export const notFound = notFoundPic;

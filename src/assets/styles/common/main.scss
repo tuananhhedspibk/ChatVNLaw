@@ -1,5 +1,5 @@
 @import "variables.scss";
-@import "../bootstrap/bootstrap.css";
+@import "../bootstrap/bootstrap.scss";
 
 textarea::-webkit-input-placeholder {
   color: $gray;
@@ -24,8 +24,26 @@ textarea:-moz-placeholder {
 
 body {
   font-family: "DroidSerif", sans-serif;
+  background-color: $white;
 }
 
 .ui.dropdown .menu{
   font-size: 1.5em;
+}
+
+.navbar {
+  background-color: $blue;
+  font-size: 1.4em;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+
+  a {
+    color: $white;
+    font-weight: bold;
+
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
 }
