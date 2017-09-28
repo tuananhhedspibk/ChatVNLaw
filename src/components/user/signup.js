@@ -111,8 +111,10 @@ class UserSignUp extends Component {
               })
   
               let ref = firebase.database().ref().child('rooms');
-              ref.push().set({
-                "members":[user.uid,user.uid,user.uid+'_'+user.uid]
+              let newPostRef = ref.push()
+              newPostRef.set({
+                "members":[user.uid,user.uid,user.uid+'_'+user.uid],
+                "messages":[]
               }).catch(function(error){
                 component.showAlert(error.message);
                 user.delete().then(function() {
@@ -122,26 +124,26 @@ class UserSignUp extends Component {
                 });
                 return;
               })
-              ref.on('child_added',function(snapshot){
-                console.log(snapshot);
-                var roomId = snapshot.key;
-                firebase.database().ref().child('reference').child(user.uid + user.uid).set({
-                  roomId
-                }).then(function(){
-                  success = success + 1;
-                  if(success === 2){
-                    window.location = constant.BASE_URL+'/chat/'+user.displayName;
-                  }
-                }).catch(function(error){
-                  component.showAlert(error.message);
-                  user.delete().then(function() {
-                    // User deleted.
-                  }).catch(function(error) {
-                    // An error happened.
-                  });
-                  return;    
-              
-                })
+              ref.child(newPostRef.key).on('child_added',function(snapshot){
+                if(snapshot.exists()){
+                  var roomId = newPostRef.key;
+                  firebase.database().ref().child('reference').child(user.uid + user.uid).set({
+                    roomId
+                  }).then(function(){
+                    success = success + 1;
+                    if(success === 2){
+                      window.location = constant.BASE_URL+'/chat/'+user.displayName;
+                    }
+                  }).catch(function(error){
+                    component.showAlert(error.message);
+                    user.delete().then(function() {
+                      // User deleted.
+                    }).catch(function(error) {
+                      // An error happened.
+                    });
+                    return; 
+                  })
+                }
               })
             }).catch(function(error) {
               // An error happened.
