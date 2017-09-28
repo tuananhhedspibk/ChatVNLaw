@@ -16,6 +16,7 @@ var firebase = require('firebase');
 var roomId = ''
 var currentUser;
 var messRef;
+
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -152,6 +153,7 @@ class Chat extends Component {
       this.autoExpand('input-mess-box');
     }
   }
+
   handleSubmit(){
     var component = this;
     var content = document.getElementById('input-mess-box').value;  

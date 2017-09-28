@@ -19,6 +19,11 @@ const activeStyle = {
 
 const KEYS_TO_FILTERS = ['username']
 
+const options = [
+  {key: 'user', text: 'user'},
+  {key: 'account', text: 'account'} 
+]
+
 class ChatView extends Component {
   constructor(props) {
     super(props);
@@ -130,7 +135,7 @@ class ChatView extends Component {
     }
   }
 
-  renderStatus(userStatus) {
+  elementBaseStatus(userStatus) {
     if (userStatus === 'online') {
       return(
         <div className='status online-status'>
@@ -149,6 +154,10 @@ class ChatView extends Component {
         </div>
       )
     }
+  }
+
+  renderStatus(userStatus) {
+    <Dropdown trigger={this.elementBaseStatus(userStatus)} options={options} pointing='top left'/>
   }
 
   searchUpdated(term) {
@@ -191,7 +200,7 @@ class ChatView extends Component {
                   if(user.type !== 'bot') {
                     return(
                       <Link to={'/chat/' + user.username} key={user._id}
-                        onClick={this.changeUserChat.bind(this, user.username, user.type,user._id)}>
+                        onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
                           <List.Item key={user._id}>
                             {this.renderStatus(user.status)}
                             <Image avatar src={user.avatarUrl}/>
@@ -226,7 +235,7 @@ class ChatView extends Component {
                 else {
                   return(
                     <Link to={'/chat/' + user.username} key={user._id}
-                      onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)>
+                      onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
                         <List.Item key={user._id}>
                           {this.renderStatus(user.status)}
                           <Image avatar src={constant.avaLawyer}/>

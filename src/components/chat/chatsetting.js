@@ -33,11 +33,10 @@ class ChatSetting extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    var component = this;
-    if (nextProps.currentChatUserName !== this.state.current_user_name){
+    if (nextProps.targetChatUserName != this.state.current_user_name){
       this.setState({
-        chat_target_uid : nextProps.targetChatUserId
-        // current_user_name: nextProps.targetChatUserName,
+        chat_target_uid : nextProps.targetChatUserId,
+        current_user_name: nextProps.targetChatUserName
         // current_user_type: nextProps.targetChatUserType,
         // current_room_id: nextProps.currentRoomId,
         // image_list: [],
@@ -68,6 +67,23 @@ class ChatSetting extends Component {
   //     // })
   //   }
   }
+
+  shouldComponentUpdate(nextProps){
+    if (nextProps.targetChatUserName != this.state.current_user_name){
+      this.setState({
+        chat_target_uid : nextProps.targetChatUserId,
+        current_user_name: nextProps.targetChatUserName,
+        // current_user_type: nextProps.targetChatUserType,
+        current_room_id: nextProps.currentRoomId
+        // image_list: [],
+        // file_list: []
+      });
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
      
   renderAva() {
     if(this.state.current_user_type === 'bot') {
@@ -83,8 +99,7 @@ class ChatSetting extends Component {
   }
 
   renderConfig() {
-    // var currentUser = firebase.auth().currentUser;
-    // console.log(currentUser);
+    var currentUser = firebase.auth().currentUser;
     // if(this.state.chat_target_uid === currentUser.uid) {
     //   return(
     //     <Dropdown icon='setting'>
@@ -99,6 +114,7 @@ class ChatSetting extends Component {
   }
 
   render() {
+    console.log("222");
     return(
       <div className='chat-setting'>
         <div className='header'>

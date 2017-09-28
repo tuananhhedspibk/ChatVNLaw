@@ -1,16 +1,5 @@
 var firebase = require('firebase');
 
-// var config = {
-//     apiKey: key.apiKey,
-//     authDomain: key.authDomain,
-//     databaseURL: key.databaseURL,
-//     projectId: key.projectId,
-//     storageBucket: key.storageBucket,
-//     messagingSenderId: key.messagingSenderId
-// };
-
-// firebase.initializeApp(config);
-
 module.exports = {
     getItemList : function(type, roomId, callback){
         var commentsRef = firebase.database().ref().child(type).child(roomId);
