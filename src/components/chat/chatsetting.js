@@ -10,7 +10,8 @@ let FontAwesome = require('react-fontawesome');
 let translate = require('counterpart');
 var firebase = require('firebase');
 var upfile_helper = require('../../lib/helper/upfile_helper');
-
+var imageRef;
+var fileRef;
 class ChatSetting extends Component {
   constructor(props) {
     super(props);
@@ -23,50 +24,54 @@ class ChatSetting extends Component {
       chat_target_uid:''
     }
   }
-
-  logout() {
-    authen.logout(function(response){
-      if(response.status === 200) {
-        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
-      }
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
+ 
+  shouldComponentUpdate(nextProps) {
     var component = this;
-    if (nextProps.currentChatUserName !== this.state.current_user_name){
+    if (nextProps.targetChatUserName !== this.state.current_user_name && nextProps.targetChatUserId && nextProps.currentRoomId){
       this.setState({
-        chat_target_uid : nextProps.targetChatUserId
-        // current_user_name: nextProps.targetChatUserName,
-        // current_user_type: nextProps.targetChatUserType,
-        // current_room_id: nextProps.currentRoomId,
-        // image_list: [],
-        // file_list: []
+        chat_target_uid : nextProps.targetChatUserId,
+        current_user_name: nextProps.targetChatUserName,
+        current_room_id: nextProps.currentRoomId,
+        image_list: [],
+        file_list: []
       });
+    var imagesList = [];
+    var filesList = [];
+    var roomId = nextProps.currentRoomId;
+    if ( typeof imageRef !== 'undefined' && imageRef){
+      imageRef.off();
     }
-  //     var roomId = component.state.current_room_id;
-  //     console.log(roomId);
-      
-  //     if( roomId){
-  //       console.log(roomId);
-  //       var imageList = component.state.image_list;
-  //       // var ref = 'room_images/'+roomId.toString()+'/';
-  //       upfile_helper.getItemList('room_images',roomId.toString(), function(type, item){
-  //         if(type ===1){
-  //           imageList.push(item);
-  //           component.setState({image_list : imageList});
-  //         }
-  //       })
-  //     }  
-  //     // var fileList = component.state.file_list;
-  //     // upfile_helper.getItemList('room_files/'+roomId, function(type, item){
-  //     //   if(type === 1){
-  //     //     fileList.push(item);
-  //     //     component.setState({file_list : fileList});
-  //     //     console.log(fileList);
-  //     //   }
-  //     // })
-  //   }
+    if ( typeof fileRef !== 'undefined' && fileRef){
+      fileRef.off();
+    }
+    imageRef = firebase.database().ref().child('rooms').child(roomId).child('room_images');
+    fileRef = firebase.database().ref().child('rooms').child(roomId).child('room_files');
+
+    imageRef.on('child_added',function(snapshot){
+      if(snapshot.exists()){
+        let item = {}
+        snapshot.forEach(function(element){
+          item[element.key] = element.val();
+        })
+        imagesList.push(item);
+        component.setState({image_list: imagesList});
+      }
+    })
+
+    fileRef.on('child_added', function(snapshot){
+      if(snapshot.exists()){
+        let item = {}
+        snapshot.forEach(function(element){
+          item[element.key] = element.val();
+        })
+        filesList.push(item);
+        component.setState({file_list: filesList});
+      }
+    })
+    return true;
+    } else{
+      return false;
+    }
   }
      
   renderAva() {
@@ -83,8 +88,7 @@ class ChatSetting extends Component {
   }
 
   renderConfig() {
-    // var currentUser = firebase.auth().currentUser;
-    // console.log(currentUser);
+    
     // if(this.state.chat_target_uid === currentUser.uid) {
     //   return(
     //     <Dropdown icon='setting'>
@@ -108,9 +112,9 @@ class ChatSetting extends Component {
           <div className='info'>
             <div className='user-name'>{this.state.current_user_name}</div>
           </div>
-          <div className='config'>
+          {/* <div className='config'>
             {this.renderConfig()}
-          </div>
+          </div> */}
         </div>
         <div className='content'>
           <div className='shared shared-files'>

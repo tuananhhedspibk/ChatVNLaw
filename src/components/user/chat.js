@@ -27,7 +27,55 @@ class Chat extends Component {
       current_room_id: ''
     }
   }
+  componentDidMount(){
+    var component = this;
+    var fileButton = document.getElementById('fileButton');
+    fileButton.addEventListener('change', function(e){
+      e.preventDefault();
+      var file = e.target.files[0];
+      // store file data on firebase storage and set a reference on firebase realtime database
 
+      var storageRef = firebase.storage().ref('room_files/'+component.state.current_room_id+'/'+currentUser.uid+'/'+ file.name);
+
+      var task =  storageRef.put(file);
+
+      task.on('state_changed', 
+        function(snapshot){
+       
+        }
+        , function(error) {
+
+        }, function() {     
+        let downloadURL = task.snapshot.downloadURL;
+        let content = "<title>" + file.name + "</title>" + "<link>" + downloadURL + "</link>";
+        var metadata = task.snapshot.metadata;
+        var name = metadata.name;
+        var size = metadata.size;
+        var ts = metadata.generation;
+        var refUri = "";
+
+        if(metadata.contentType.includes("image")){
+          refUri = firebase.database().ref().child('rooms').child(component.state.current_room_id).child('room_images');
+          // 'room_images/' + roomId+'/'+ts;
+        }else{
+          refUri = firebase.database().ref().child('rooms').child(component.state.current_room_id).child('room_files');
+          
+          // refUri = 'room_files/' + roomId + '/' + ts;
+        }
+        refUri.push().set({
+          name: name,
+          downloadURL: downloadURL,
+          size: size,
+          ts: ts,
+          sender_uid: currentUser.uid
+        });
+        // firebase.database().ref('room_files/'+roomId).set({
+
+        // })
+      });
+    })
+    
+  }
   componentWillReceiveProps(nextProps) {
     var component = this;  
     if(component.state.chat_target_uname !== nextProps.currentChatUserName && component.state.chat_target_uid !== nextProps.currentChatUserId){
@@ -91,7 +139,6 @@ class Chat extends Component {
     component.setState({messages: []})
     messRef = firebase.database().ref().child('rooms').child(component.state.current_room_id).child('messages');
     messRef.on('child_added',function(snapshot){
-      console.log("child_added");
       if(snapshot.exists()){
         console.log(snapshot);
         let item = {};
