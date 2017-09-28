@@ -14,6 +14,8 @@ let authen = require('../../lib/api/authentication.js');
 let user = require('../../lib/api/users.js');
 let translate = require('counterpart');
 
+var firebase = require('firebase');
+
 const activeStyle = {
   backgroundColor: 'rgba(0, 0, 0, .05)'
 };
@@ -34,53 +36,100 @@ class ChatView extends Component {
     }
   }
 
-  componentDidMount() {
-    if(localStorage.rocket_chat_user == null) {
-      window.location = constant.BASE_URL + constant.SIGN_IN_URI;
-    }
-    var fields = constant.DEFAULT_FIELDS;
-    var query = constant.DEFAULT_QUERY;
-
-    fields['username'] = 1;
-    fields['status'] = 1;
-    fields['type'] = 1;
-
-    query['roles'].push('user');
-    query['roles'].push('bot');
-
+  componentWillMount(){
     var component = this;
-
-    user.list(fields,query,function(response){
-      component.setState({users: response.data.users});
-      var current_user = null;
-      component.setState({current_user_name:
-        JSON.parse(localStorage.rocket_chat_user).user_name});
-      component.state.users.map(user => {
-        if (user.username === JSON.parse(localStorage.rocket_chat_user).user_name) {
-          current_user = user;  
-        }
-      });
-      if (current_user !== null) {
-        var users_list = component.state.users;
-        users_list.sort(function(x, y){
-          return x === current_user ? -1 : y === current_user ? 1 : 0;
-        });
-        component.setState({users: users_list});
-        component.state.users.map(user => {
-          if (user.username === component.props.match.params.user_name) {
-            component.setState({current_chat_user_type: user.type});
-            component.setState({current_chat_user_name:
-              component.props.match.params.user_name});
-          }
+    var current_user_name = this.props.location.pathname.split('/chat/');
+    this.setState({current_chat_user_name : current_user_name[1]})
+    firebase.database().ref('users').orderByChild('username').equalTo(current_user_name[1]).once('value')
+    .then(function(snapshot){
+      if(snapshot.exists()){
+        snapshot.forEach(function(element){
+          component.setState({current_chat_user_id: element.key});
         })
+      }else{
+        window.location = constant.BASE_URL + '/*';
       }
+    })
+  }
+  
+  componentDidMount() {
+    var component = this;
+    
+    firebase.auth().onAuthStateChanged(function(user) {
+      if(!user){
+        window.location = constant.BASE_URL + constant.SIGN_IN_URI; 
+      }
+      let ref = firebase.database().ref('users').orderByChild('role').equalTo('user');
+      ref.once('value')
+      .catch(function(error){
+
+      }).then(function(snapshot){
+        var userArr = []
+        ref.on('child_added', function(data) {
+          
+          var item = {
+            username: data.val().username,
+            displayName: data.val().username,
+            _id : data.key,
+            status: data.val().status,
+            avatarUrl: data.val().avatarUrl
+          }
+          if(data.key === user.uid){
+            item["displayName"] = "My.Chat";
+            userArr.unshift(item);
+            component.setState({users: userArr});                      
+            return;
+          }
+          userArr.push(item);
+          component.setState({users: userArr});          
+        });
+        ref.on('child_changed', function(data) {
+          let tmp = data.val().username;
+          if(data.key === user.uid){
+            tmp = "My.Chat";
+          }
+          userArr.every(function(element,index){           
+            if(element._id === data.key){
+              userArr[index] = {
+                username: data.val().username,
+                displayName: tmp,
+                _id : data.key,
+                status: data.val().status,
+                avatarUrl: data.val().avatarUrl
+              };
+              component.setState({users: userArr});              
+              return false;
+            }else{
+              return true;
+            }
+          })
+        });
+        ref.on('child_removed', function(data) {
+          if(data.key === user.uid){
+            return;
+          }
+          userArr.every(function(element,index){           
+            if(element._id === data.key){
+              userArr.splice(index,1);
+              component.setState({users: userArr});              
+              return false;
+            }else{
+              return true;
+            }
+          })
+        });
+
+      });    
+    }, function(error){
+      window.location = constant.BASE_URL + constant.SIGN_IN_URI;
     });
   }
 
-  changeUserChat(username, usertype) {
+  changeUserChat(username, usertype, userId) {
     if (this.state.current_chat_user_name !== username) {
       this.setState({current_chat_user_name: username});
       this.setState({current_chat_user_type: usertype});
+      this.setState({current_chat_user_id: userId});
     }
   }
 
@@ -110,10 +159,11 @@ class ChatView extends Component {
   }
 
   logout() {
-    authen.logout(function(response){
-      if(response.status === 200) {
-        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
-      }
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+    }).catch(function(error) {
+      // An error happened.
     });
   }
 
@@ -147,9 +197,9 @@ class ChatView extends Component {
                         onClick={this.changeUserChat.bind(this, user.username, user.type)}>
                           <List.Item key={user._id}>
                             {this.renderStatus(user.status)}
-                            <Image avatar src={constant.avaLawyer}/>
+                            <Image avatar src={user.avatarUrl}/>
                             <List.Content>
-                              <List.Header>{user.username}</List.Header>
+                              <List.Header>{user.displayName}</List.Header>
                             </List.Content>
                             <div className='unread-mess'>
                               123
@@ -161,7 +211,12 @@ class ChatView extends Component {
                   else {
                     return(
                       <Link to={'/chat/' + user.username} key={user._id}
+<<<<<<< 68b9fa78b4e228211b1bf627cedd44743eb779b7
                         onClick={this.changeUserChat.bind(this, user.username, user.type)}>
+=======
+                        onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}
+                        activeStyle={activeStyle}>
+>>>>>>> complete chat list
                           <List.Item key={user._id}>
                             {this.renderStatus(user.status)}
                             <Image avatar src={constant.avaBot}/>
@@ -196,8 +251,8 @@ class ChatView extends Component {
             }
           </List>
         </div>
-        <Chat currentChatUserName={this.state.current_chat_user_name}
-          currentChatUserType={this.state.current_chat_user_type}/>
+        {/* <Chat currentChatUserName={this.state.current_chat_user_name}
+          currentChatUserId={this.state.current_chat_user_id}/> */}
       </div>
     )
   }

@@ -39,7 +39,7 @@ class UserSignUp extends Component {
   }
   showAlert = (text) => {
     this.msg.show(text, {
-      time: 2000,
+      time: 5000,
       type: 'success',
       icon: <img alt='warning' src={warningImage} />
     })
@@ -57,95 +57,108 @@ class UserSignUp extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    if (this.state.password === this.state.password_confirmation) {
-      var username = this.state.username;
-      var password = this.state.password;
-      var component = this;
-<<<<<<< cf40e6e3c06252c4fa9bfd3ec09e3f9f283eceb3
-      user.register(this.state.username, this.state.email, 
-        this.state.password, this.state.name, function(response) {
-          if (response.status === 200) {
-            authen.login(username, password, function(response) {
-              if (response.status === 200) {
-                var userId = response.data.data.userId;
-                user.setAvatarWithImageUrl(constant.DEFAULT_AVATAR_URL.valueOf(),function(response){
-                  group.create(userId,[],function(response){
-                    if(response.status === 200){
-                      component.props.history.push(constant.CHAT_URI + '/' +
-                        component.state.username);
-                    }else{
-                      localStorage.removeItem(constant.STORAGE_ITEM);                      
-                    }
-                  })
-                });
-              }
-            });
-          }
-          else {
-            component.showAlert('Singup unsuccessfully, check information');
-          }
-        });
+    var username = this.state.username;
+    var component = this;
+    var password = this.state.password;
+    var password_confirmation = this.state.password_confirmation;
+    var email = this.state.email;
+    if( !username || !password || !password_confirmation || !email){
+      component.showAlert('missing required field');
+      return;
     }
-    else {
-      this.showAlert('Password and Password confirmation not the same'); 
-=======
-      var email = this.state.email;
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-      .catch(function(error){
-        console.log(error);
-      }).then(function(user){
-        if(user){
-          console.log(user);
-          firebase.database().ref().child('users').child(user.uid).set({
-            "username" : username,
-            "email" : user.email,
-            "role" : "user",
-            "status" : "online",
-            "avatarUrl" : constant.DEFAULT_AVATAR_URL
-          });
-         
-          let ref = firebase.database().ref().child('rooms');
-          let memebers = user.uid + '_' + user.uid;
-          ref.push().set({
-            "members" : [user.uid,user.uid,memebers]
-          })
-          ref.on('child_added', function(snapshot){
-            window.location = constant.BASE_URL;
-          });
-        }
-
-        
-      });
-      
-
-      
-    //   user.register(this.state.username, this.state.email, 
-    //     this.state.password, this.state.name, function(response) {
-    //       if (response.status === 200) {
-    //         authen.login(username, password, function(response) {
-    //           if (response.status === 200) {
-    //             var userId = response.data.data.userId;
-    //             user.setAvatarWithImageUrl(constant.DEFAULT_AVATAR_URL.valueOf(),function(response){
-    //               group.create(userId,[],function(response){
-    //                 if(response.status === 200){
-    //                   window.location = constant.BASE_URL;
-    //                 }else{
-    //                   localStorage.removeItem(constant.STORAGE_ITEM);                      
-    //                 }
-    //               })
-    //             });
-    //           }
-    //         });
-    //       }
-    //       else {
-    //         component.showAlert('Singup unsuccessfully, check information');
-    //       }
-    //     });
-    // }
-    // else {
-    //   this.showAlert('Password and Password confirmation not the same'); 
->>>>>>> 123
-    } 
+    if(password !== password_confirmation){
+      component.showAlert('password not match');
+      return;
+    }
+    firebase.auth().createUserWithEmailAndPassword(email,password)
+    .catch(function(error){
+      component.showAlert(error.message);
+    })
+    .then(function(user){
+      if(user){
+        firebase.database().ref('users').orderByChild('username').equalTo(username).once('value').then(function(result) {
+          if(result.exists()){
+            component.showAlert('exist username');
+            user.delete().then(function() {
+              // User deleted.
+            }).catch(function(error) {
+              // An error happened.
+            });
+          }else{            
+            user.updateProfile({
+              displayName: username,
+              photoURL: constant.DEFAULT_AVATAR_URL
+            }).then(function() {
+              // Update successful.
+              var success = 0;
+              
+              firebase.database().ref().child('users').child(user.uid).set({
+                "username" : username,
+                "email" : user.email,
+                "role" : "user",
+                "status" : "online",
+                "avatarUrl" : constant.DEFAULT_AVATAR_URL
+              }).then(function(){
+                success = success + 1;
+                if(success === 2){
+                  window.location = constant.BASE_URL+'/chat/'+user.displayName;
+                }
+              }).catch(function(error){
+                component.showAlert(error.message);
+                user.delete().then(function() {
+                  // User deleted.
+                }).catch(function(error) {
+                  // An error happened.
+                });
+                return;              
+              })
+  
+              let ref = firebase.database().ref().child('rooms');
+              ref.push().set({
+                "members":[user.uid,user.uid,user.uid+'_'+user.uid]
+              }).catch(function(error){
+                component.showAlert(error.message);
+                user.delete().then(function() {
+                  // User deleted.
+                }).catch(function(error) {
+                  // An error happened.
+                });
+                return;
+              })
+              ref.on('child_added',function(snapshot){
+                console.log(snapshot);
+                var roomId = snapshot.key;
+                firebase.database().ref().child('reference').child(user.uid + user.uid).set({
+                  roomId
+                }).then(function(){
+                  success = success + 1;
+                  if(success === 2){
+                    window.location = constant.BASE_URL+'/chat/'+user.displayName;
+                  }
+                }).catch(function(error){
+                  component.showAlert(error.message);
+                  user.delete().then(function() {
+                    // User deleted.
+                  }).catch(function(error) {
+                    // An error happened.
+                  });
+                  return;    
+              
+                })
+              })
+            }).catch(function(error) {
+              // An error happened.
+              component.showAlert(error.message);
+              user.delete().then(function() {
+                // User deleted.
+              }).catch(function(error) {
+                // An error happened.
+              });
+            }); 
+          }
+        })
+      }
+    })
   }
 
   render() {
@@ -160,14 +173,6 @@ class UserSignUp extends Component {
             <form onSubmit={this.handleSubmit.bind(this)}
               className='ng-pristine ng-valid'>
               <div className='form-content'>
-                <div className='form-group'>
-                  <input type='text'
-                    name='name'
-                    value={this.state.name}
-                    onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-underline input-lg'
-                    placeholder={translate('app.signup.name')}/>
-                </div>
                 <div className='form-group'>
                   <input type='text'
                     name='username'

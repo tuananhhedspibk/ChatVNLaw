@@ -31,7 +31,7 @@ class UserLogin extends Component {
   
   showAlert = (text) => {
     this.msg.show(text, {
-      time: 2000,
+      time: 5000,
       type: 'success',
       icon: <img alt='warning' src={constant.warning} />
     })
@@ -50,26 +50,17 @@ class UserLogin extends Component {
   handleSubmit(evt) {
     var component = this;
     evt.preventDefault();
-    // authen.login(this.state.username, this.state.password, function(response){
-    //   if(response.status === 200){
-    //     window.location = constant.BASE_URL;
-    //   }
-    // });
+    var component = this;
     firebase.auth().signInWithEmailAndPassword(this.state.username,this.state.password).catch(function(error){
-      console.log(error);
+      component.showAlert(error.message);
     }).then(function(user){
       if(user){
-        let ref = firebase.database().ref().child('users').child(user.uid)
-        ref.update({
+        firebase.database().ref().child('users').child(user.uid).update({
           "status" : "online",
-        });
-        ref.on('child_changed',function(snapshot){
-          if(snapshot){
-            window.location = constant.BASE_URL;
-          }
-        });
-        ref.on('value', function(snapshot){
-          window.location = constant.BASE_URL;
+        }).catch(function(error){
+          component.showAlert(error.message);
+        }).then(function(){
+          window.location = constant.BASE_URL+ '/chat/'+user.displayName;
         })
       }
     });
