@@ -10,11 +10,7 @@ import * as constant from '../constants';
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/user_index.css';
 
-var authen = require('../../lib/api/authentication.js');
-
-let user = require('../../lib/api/users.js');
 let translate = require('counterpart');
-
 var firebase = require('firebase');
 
 const activeStyle = {
@@ -195,7 +191,7 @@ class ChatView extends Component {
                   if(user.type !== 'bot') {
                     return(
                       <Link to={'/chat/' + user.username} key={user._id}
-                        onClick={this.changeUserChat.bind(this, user.username, user.type)}
+                        onClick={this.changeUserChat.bind(this, user.username, user.type,user._id)}
                         activeStyle={activeStyle}>
                           <List.Item key={user._id}>
                             {this.renderStatus(user.status)}
@@ -232,7 +228,7 @@ class ChatView extends Component {
                 else {
                   return(
                     <Link to={'/chat/' + user.username} key={user._id}
-                      onClick={this.changeUserChat.bind(this, user.username, user.type)}
+                      onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}
                       activeStyle={activeStyle}>
                         <List.Item key={user._id}>
                           {this.renderStatus(user.status)}
@@ -250,8 +246,8 @@ class ChatView extends Component {
             }
           </List>
         </div>
-        {/* <Chat currentChatUserName={this.state.current_chat_user_name}
-          currentChatUserId={this.state.current_chat_user_id}/> */}
+        <Chat currentChatUserName={this.state.current_chat_user_name}
+          currentChatUserId={this.state.current_chat_user_id}/>
       </div>
     )
   }
