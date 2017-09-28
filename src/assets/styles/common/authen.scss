@@ -1,0 +1,167 @@
+@import 'variables.scss';
+
+$gray-lighter: rgba(255, 255, 255, 0.7);
+$gray-darker: rgba(255, 255, 255, 0.4);
+$yellow-lighter: #fd9d16;
+$black: rgba(0, 0, 0, 0.3);
+
+.login-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: $blue;
+  text-align: center;
+  color: $white;
+  padding: 30px 42px 42px;
+
+  h1 {
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    small {
+      color: rgba(255,255,255,0.7);
+    }
+  }
+
+  input {
+    font-size: 1.4em;
+  }
+
+  .form-group {
+     padding: 8px 0;
+  }
+
+  .form-content {
+    padding: 20px 0 0;
+  }
+}
+
+.input-underline {
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+  border-bottom: 2px solid $gray-darker !important;
+  border-radius: 0 !important;
+  color: #FFF !important;
+  
+  &::-moz-placeholder {
+    color: $blue-lighter !important;
+  }
+  
+  &::-ms-input-placeholder {
+    color: $blue-lighter !important;
+  }
+  
+  &::-webkit-input-placeholder {
+    color: $blue-lighter !important;
+  }
+
+	&:focus {
+		border-bottom: 2px solid $white;
+		box-shadow: none;
+	}
+}
+
+.btn-outline {
+  background: none;
+  border-color: transparent;
+  font-weight: 400;
+  
+  &:hover {
+    background: none;
+    border-color: transparent;
+  }
+  
+  &.btn-white {
+    box-shadow: 0 0 0 2px rgba(255,255,255, 0.8) inset;
+    color: rgba(255,255,255, 0.8);
+  
+    &:hover {
+      box-shadow: 0 0 0 2px rgba(255,255,255, 1) inset;
+      color: rgba(255,255,255, 1);
+    }
+  }
+
+  &.btn-primary {
+    box-shadow: 0 0 0 2px darken($brand-primary, 10%) inset;
+    color: darken($brand-primary, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-primary inset;
+      color: $brand-primary;
+    }
+  }
+
+  &.btn-success {
+    box-shadow: 0 0 0 2px darken($brand-success, 10%) inset;
+    color: darken($brand-success, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-success inset;
+      color: $brand-success;
+    }
+  }
+  
+  &.btn-info {
+    box-shadow: 0 0 0 2px darken($brand-info, 10%) inset;
+    color: darken($brand-info, 10%);
+  
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-info inset;
+      color: $brand-info;
+    }
+  }
+  
+  &.btn-warning {
+    box-shadow: 0 0 0 2px darken($brand-warning, 10%) inset;
+    color: darken($brand-warning, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-warning inset;
+      color: $brand-warning;
+    }
+  }
+
+  &.btn-danger {
+    box-shadow: 0 0 0 2px darken($brand-danger, 10%) inset;
+    color: darken($brand-danger, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-danger inset;
+      color: $brand-danger;
+    }  
+  }
+}
+
+.redirect-to {
+  font-size: 18px;
+  padding-left: 10px !important;
+  text-align: left;
+
+  a {
+    color: $orange-lighter;
+    font-weight: bold;
+    margin-left: 10px;
+
+    &:focus {
+      outline: none;
+      color: $orange-lighter;
+    }
+
+    &:hover {
+      color: $orange-lighter;
+    }
+  }
+}
+
+.btn-rounded {
+  border-radius: 50px;
+}
+
+.btn-lg {
+  border-radius: 50px !important;
+}

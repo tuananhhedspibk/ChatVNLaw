@@ -1,0 +1,14 @@
+$blue-darker: rgba(0, 146, 255, 0.7);
+$white: #fff;
+
+.ui.menu {
+  background-color: $blue-darker;
+  border: none;
+  padding: 3px;
+
+  a {
+    color: $white;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+}

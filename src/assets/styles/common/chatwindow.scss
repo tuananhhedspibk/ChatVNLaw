@@ -1,0 +1,121 @@
+@import 'variables.scss';
+
+.chat-window {
+  border-right: 1px solid $gray-lighter;
+  font-size: 1.2em;
+  float: left;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  width: calc(100% - 320px);
+
+  .title {
+    border-bottom: 1px solid $gray-lighter;
+    color: $blue;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+
+    .user-name {
+      display: inline-block;
+    }
+
+    .fa {
+      float: right;
+      margin-left: 15px;
+    }
+  }
+
+  .chats {
+    border-right: 1px solid $gray-lighter;
+    float: left;
+    height: calc(100vh - 95px);
+    overflow-y: scroll;
+    padding: 25px;
+    width: calc(100% - 320px);
+  }
+
+  .text-box {
+    align-items: center;
+    background-color: $white;
+    border-top: 1px solid $gray-lighter;
+    border-right: 1px solid $gray-lighter;
+    bottom: 0;
+    display: flex;
+    font-size: 1em;
+    height: 60px;
+    overflow-y: hidden;
+    position: absolute;
+    width: calc(100% - 320px);
+
+    .field {
+      height: 45px;
+      margin-bottom: 10px;
+      margin-top: 5px;
+    }
+
+    textarea {
+      border: 0;
+      font-size: 0.9em;
+      height: 45px;
+      overflow: hidden;
+      padding: 18px 15px 0 15px;
+      resize: none;
+      width: 550px;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+}
+
+.chat-setting {
+  border-right: 1px solid $gray-lighter;
+  float: right;
+  height: 100%;
+  text-align: left;
+  width: 320px;
+
+  .header {
+    align-items: center;
+    border-bottom: 1px solid $gray-lighter;
+    display: flex;
+    padding: 15px 17px 11px 17px;
+
+    .ava {
+      margin-right: 12px;
+
+      img {
+        border: 1px solid $blue-lighter;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+      }
+    }
+
+    .info {
+      width: 215px;
+    }
+
+    .config {
+      color: $gray;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    .shared {
+      border-bottom: 1px solid $gray-lighter;
+      padding: 15px;
+    }
+
+    .content-title {
+      color: $gray;
+      font-size: 1em;
+      text-transform: none;
+    }
+  }
+}

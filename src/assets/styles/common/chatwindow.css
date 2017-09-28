@@ -1,0 +1,85 @@
+.chat-window {
+  border-right: 1px solid #e5ecf0;
+  font-size: 1.2em;
+  float: left;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  width: calc(100% - 320px); }
+  .chat-window .title {
+    border-bottom: 1px solid #e5ecf0;
+    color: #3ca2e0;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%; }
+    .chat-window .title .user-name {
+      display: inline-block; }
+    .chat-window .title .fa {
+      float: right;
+      margin-left: 15px; }
+  .chat-window .chats {
+    border-right: 1px solid #e5ecf0;
+    float: left;
+    height: calc(100vh - 95px);
+    overflow-y: scroll;
+    padding: 25px;
+    width: calc(100% - 320px); }
+  .chat-window .text-box {
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid #e5ecf0;
+    border-right: 1px solid #e5ecf0;
+    bottom: 0;
+    display: flex;
+    font-size: 1em;
+    height: 60px;
+    overflow-y: hidden;
+    position: absolute;
+    width: calc(100% - 320px); }
+    .chat-window .text-box .field {
+      height: 45px;
+      margin-bottom: 10px;
+      margin-top: 5px; }
+    .chat-window .text-box textarea {
+      border: 0;
+      font-size: 0.9em;
+      height: 45px;
+      overflow: hidden;
+      padding: 18px 15px 0 15px;
+      resize: none;
+      width: 550px; }
+      .chat-window .text-box textarea:focus {
+        outline: 0; }
+
+.chat-setting {
+  border-right: 1px solid #e5ecf0;
+  float: right;
+  height: 100%;
+  text-align: left;
+  width: 320px; }
+  .chat-setting .header {
+    align-items: center;
+    border-bottom: 1px solid #e5ecf0;
+    display: flex;
+    padding: 15px 17px 11px 17px; }
+    .chat-setting .header .ava {
+      margin-right: 12px; }
+      .chat-setting .header .ava img {
+        border: 1px solid #bbe1f5;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px; }
+    .chat-setting .header .info {
+      width: 215px; }
+    .chat-setting .header .config {
+      color: #a2a2a2;
+      cursor: pointer; }
+  .chat-setting .content .shared {
+    border-bottom: 1px solid #e5ecf0;
+    padding: 15px; }
+  .chat-setting .content .content-title {
+    color: #a2a2a2;
+    font-size: 1em;
+    text-transform: none; }

@@ -1,0 +1,8 @@
+.ui.menu {
+  background-color: rgba(0, 146, 255, 0.7);
+  border: none;
+  padding: 3px; }
+  .ui.menu a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1em; }
