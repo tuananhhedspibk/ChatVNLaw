@@ -1,16 +1,15 @@
-var key = require("./tmp/key.json");
 var firebase = require('firebase');
 
-var config = {
-    apiKey: key.apiKey,
-    authDomain: key.authDomain,
-    databaseURL: key.databaseURL,
-    projectId: key.projectId,
-    storageBucket: key.storageBucket,
-    messagingSenderId: key.messagingSenderId
-};
+// var config = {
+//     apiKey: key.apiKey,
+//     authDomain: key.authDomain,
+//     databaseURL: key.databaseURL,
+//     projectId: key.projectId,
+//     storageBucket: key.storageBucket,
+//     messagingSenderId: key.messagingSenderId
+// };
 
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
 
 module.exports = {
     getItemList : function(type, roomId, callback){

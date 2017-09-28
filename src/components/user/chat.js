@@ -39,16 +39,11 @@ class Chat extends Component {
   componentWillReceiveProps(nextProps) {
     var component = this;  
     if(component.state.current_user_name !== nextProps.currentChatUserName && component.state.current_user_id !== nextProps.currentChatUserId){
-      console.log("123"+nextProps.currentChatUserId);
       component.setState({current_user_name: nextProps.currentChatUserName});
       component.setState({current_user_id: nextProps.currentChatUserId});
       var currentUser = firebase.auth().currentUser;
-      console.log("456"+currentUser.uid);
-      console.log("567"+component.state.current_user_id);
       var roomid = currentUser.uid + nextProps.currentChatUserId;
-      console.log(roomid);
-      let ref = firebase.database().ref().child('reference').child(roomid.valueOf());
-      console.log(ref);
+      let ref = firebase.database().ref().child('reference').child(roomid);
       // ref.on('child_added',function(data){
       //   console.log(data);
       // })
