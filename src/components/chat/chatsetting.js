@@ -86,7 +86,6 @@ class ChatSetting extends Component {
   }
 
   renderConfig() {
-
   }
 
   render() {

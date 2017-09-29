@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import ChatBubble from 'react-chat-bubble';
 import { Form } from 'semantic-ui-react';
 import $ from 'jquery';
-
 import ChatSetting from '../chat/chatsetting';
-
 import * as constant from '../constants';
-
 import '../../assets/styles/common/chatwindow.css';
+import * as fileHelper from '../../lib/helper/upfile_helper';
+import * as im from '../../lib/helper/messages';
 
 let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
@@ -30,48 +29,24 @@ componentDidMount(){
   var fileButton = document.getElementById('fileButton');
   fileButton.addEventListener('change', function(e){
     e.preventDefault();
-    var file = e.target.files[0];
+    let file = e.target.files[0];
     // store file data on firebase storage and set a reference on firebase realtime database
-
-    var storageRef = firebase.storage().ref('room_files/'+component.state.current_room_id+'/'+currentUser.uid+'/'+ file.name);
-
-    var task =  storageRef.put(file);
-
-    task.on('state_changed', 
-      function(snapshot){
-      
-      }
-      , function(error) {
-
-      }, function() {     
-      let downloadURL = task.snapshot.downloadURL;
-      // let content = "<title>" + file.name + "</title>" + "<link>" + downloadURL + "</link>";
-      var metadata = task.snapshot.metadata;
-      var name = metadata.name;
-      var size = metadata.size;
-      var ts = metadata.generation;
-      var refUri = "";
-
-      if(metadata.contentType.includes("image")){
-        refUri = firebase.database().ref().child('rooms').child(component.state.current_room_id).child('room_images');
-        // 'room_images/' + roomId+'/'+ts;
-      }else{
-        refUri = firebase.database().ref().child('rooms').child(component.state.current_room_id).child('room_files');
-        
-        // refUri = 'room_files/' + roomId + '/' + ts;
-      }
-      refUri.push().set({
-        name: name,
-        downloadURL: downloadURL,
-        size: size,
-        ts: ts,
-        sender_uid: currentUser.uid
-      });
-      // firebase.database().ref('room_files/'+roomId).set({
-
-      // })
+    let properties = {}
+    properties["roomId"] = component.state.current_room_id;
+    properties["uid"] = currentUser.uid;
+    fileHelper.upfile(properties,file,function(){
     });
-  })
+  });
+
+  document.getElementsByClassName('chats')[0].addEventListener('scroll',
+    function(){
+      if(this.scrollTop === 0){
+        if(component.state.messages[0]){
+          let ts = component.state.messages[0].msg_ts;
+          component.loadHistory(ts,false);
+        }
+      }
+    });
   
 }
 componentWillReceiveProps(nextProps) {
@@ -79,6 +54,7 @@ componentWillReceiveProps(nextProps) {
   if(component.state.chat_target_uname !== nextProps.currentChatUserName && component.state.chat_target_uid !== nextProps.currentChatUserId){
     component.setState({chat_target_uname: nextProps.currentChatUserName});
     component.setState({chat_target_uid: nextProps.currentChatUserId});
+    component.setState({messages: []})
     currentUser = firebase.auth().currentUser;
     var roomid = currentUser.uid + nextProps.currentChatUserId;
     firebase.database().ref().child('reference').child(roomid).once('value').then(function(snapshot){
@@ -87,7 +63,8 @@ componentWillReceiveProps(nextProps) {
         snapshot.forEach(function(element){
           component.setState({current_room_id: element.val()});
         })
-        component.loadHistory();
+        component.streamingMessages();
+        component.loadHistory(""+(new Date()).getTime, true);
       }else{
         // create new room chat
         let ref = firebase.database().ref().child('rooms');
@@ -114,7 +91,8 @@ componentWillReceiveProps(nextProps) {
             }).catch(function(error){
               
             });
-            component.loadHistory();
+            component.streamingMessages();
+            component.loadHistory(""+(new Date()).getTime, true)
           }             
         })
         
@@ -127,40 +105,38 @@ componentWillReceiveProps(nextProps) {
   }
 }
 
-loadHistory(){
+loadHistory(timestamp, autoScroll){
+  let properties = {};
+  var component = this;
+  properties['ts'] = timestamp;
+  properties['rid'] = this.state.current_room_id;
+  properties['uid'] = currentUser.uid;
+  let currentMessArr = this.state.messages;
+  im.history(properties,15,function(item, index){
+    currentMessArr.splice(index, 0, item);
+    component.setState({messages: currentMessArr});
+    if(autoScroll){
+      component.autoScrollBottom();      
+    }
+  });
+  
+}
+streamingMessages(){
   var component = this;
   if ( typeof messRef !== 'undefined' && messRef){
-    console.log("off");
     messRef.off();
   }
-  var messArr = []
-  component.setState({messages: []})
-  messRef = firebase.database().ref().child('rooms').child(component.state.current_room_id).child('messages');
-  messRef.on('child_added',function(snapshot){
-    if(snapshot.exists()){
-      console.log(snapshot);
-      let item = {};
-      snapshot.forEach(function(element){
-        let key = element.key;
-        let value = element.val();
-        item[key] = value;
-      })
-      if(item["sender_uid"] === currentUser.uid){
-        item["type"] = 0;
-        item["image"] = constant.avaUser;
-      }else{
-        item["type"] = 1;
-        item["image"] = constant.avaLawyer;
-      }
+  var messArr = component.state.messages;
+  let properties = {}
+  properties['rid'] = component.state.current_room_id;
+  properties['uid'] = currentUser.uid;
+  properties['ts'] = "" + (new Date()).getTime();
+  im.notifyMessagesComming(properties,function(event, item, ref){
+    if(event === 'child_added'){
       messArr.push(item);
-      component.setState({messages: messArr})
+      component.setState({messages: messArr});
       component.autoScrollBottom();
-    }
-  })
-  messRef.on('child_changed', function(snapshot){
-    console.log("child_changed");
-    if(snapshot.exists()){
-      console.log(snapshot);
+      messRef = ref;
     }
   })
 }
@@ -199,13 +175,14 @@ handleInputChange(evt) {
 }
 handleSubmit(){
   var component = this;
-  var content = document.getElementById('input-mess-box').value;  
   var date = new Date();  
-  var ts  = ""+date.getTime();
-  firebase.database().ref().child('rooms').child(component.state.current_room_id).child('messages').push().set({
-    "text": content,
-    "sender_uid": currentUser.uid,
-    "msg_ts": ts
+  let properties = {}
+  properties["rid"] = component.state.current_room_id;
+  properties["content"] = document.getElementById('input-mess-box').value;  
+  properties["uid"] = currentUser.uid;
+  properties["ts"] = ""+date.getTime();
+  im.chat(properties,function(){
+
   });
 }
 autoScrollBottom() {
