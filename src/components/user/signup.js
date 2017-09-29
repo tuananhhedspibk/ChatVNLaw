@@ -6,7 +6,6 @@ import * as constant from '../constants';
 import '../../assets/styles/common/authen.css';
 
 let warningImage = require('../../assets/images/warning.png');
-
 let translate = require('counterpart');
 var firebase = require('firebase');
 

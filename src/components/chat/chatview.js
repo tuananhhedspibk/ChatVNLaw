@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { List, Image, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
+import $ from 'jquery';
 
 import Chat from '../user/chat';
 
@@ -17,12 +18,13 @@ const activeStyle = {
   backgroundColor: 'rgba(0, 0, 0, .05)'
 };
 
-const KEYS_TO_FILTERS = ['username']
+const KEYS_TO_FILTERS = ['username'];
 
 const options = [
-  {key: 'user', text: 'user'},
-  {key: 'account', text: 'account'} 
-]
+  {icon: 'status status-icon online-status'},
+  {icon: 'status status-icon offline-status'},
+  {icon: 'status status-icon away-status'}
+];
 
 class ChatView extends Component {
   constructor(props) {
@@ -34,15 +36,17 @@ class ChatView extends Component {
       current_chat_user_type: '',
       searchTerm: '',
       current_user_name: '',
+      current_user_id: '',
       user_names_list: ''
     }
   }
 
   componentWillMount(){
     var component = this;
-    var current_user_name = this.props.location.pathname.split('/chat/');
-    this.setState({current_chat_user_name : current_user_name[1]})
-    firebase.database().ref('users').orderByChild('username').equalTo(current_user_name[1]).once('value')
+    var user_name = this.props.match.params.user_name;
+    this.setState({current_chat_user_name : user_name});
+    firebase.database().ref('users').orderByChild('username')
+      .equalTo(user_name).once('value')
     .then(function(snapshot){
       if(snapshot.exists()){
         snapshot.forEach(function(element){
@@ -77,6 +81,8 @@ class ChatView extends Component {
             avatarUrl: data.val().avatarUrl
           }
           if(data.key === user.uid){
+            component.setState({current_user_name: item.username});
+            component.setState({current_user_id: user.uid});
             item["displayName"] = "My.Chat";
             userArr.unshift(item);
             component.setState({users: userArr});                      
@@ -138,26 +144,49 @@ class ChatView extends Component {
   elementBaseStatus(userStatus) {
     if (userStatus === 'online') {
       return(
-        <div className='status online-status'>
-        </div>
+        'status status-icon online-status icon'
       )
     }
     else if (userStatus === 'offline') {
       return(
-        <div className='status offline-status'>
-        </div>
+        'status status-icon offline-status icon'
       )
     }
     else if (userStatus === 'away') {
       return(
-        <div className='status away-status'>
-        </div>
+        'status status-icon away-status icon'
       )
     }
   }
 
-  renderStatus(userStatus) {
-    <Dropdown trigger={this.elementBaseStatus(userStatus)} options={options} pointing='top left'/>
+  changeStatus(event, data) {
+    firebase.database().ref('users')
+      .child(this.state.current_user_id).update({"status" : data.text});
+  }
+
+  renderStatus(userStatus, username) {
+    if (username === this.state.current_user_name) {
+      return(
+        <Dropdown id={this.state.current_user_id}
+          icon={this.elementBaseStatus(userStatus)}>
+          <Dropdown.Menu>
+            <Dropdown.Item text={translate('app.user.status.online')}
+              icon={options[0].icon}
+              onClick={this.changeStatus.bind(this)}/>
+            <Dropdown.Item text={translate('app.user.status.offline')}
+              icon={options[1].icon}
+              onClick={this.changeStatus.bind(this)}/>
+            <Dropdown.Item text={translate('app.user.status.away')}
+              icon={options[2].icon}
+              onClick={this.changeStatus.bind(this)}/>
+          </Dropdown.Menu>
+        </Dropdown>
+      );
+    }
+    return(
+      <Dropdown
+        icon={this.elementBaseStatus(userStatus)}/>
+    );
   }
 
   searchUpdated(term) {
@@ -166,11 +195,8 @@ class ChatView extends Component {
 
   logout() {
     firebase.auth().signOut().then(function() {
-      // Sign-out successful.
       window.location = constant.BASE_URL + constant.SIGN_IN_URI;
-    }).catch(function(error) {
-      // An error happened.
-    });
+    }).catch(function(error) {});
   }
 
   render() {
@@ -199,53 +225,59 @@ class ChatView extends Component {
                 if(user.username !== this.state.current_user_name) {
                   if(user.type !== 'bot') {
                     return(
-                      <Link to={'/chat/' + user.username} key={user._id}
-                        onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
-                          <List.Item key={user._id}>
-                            {this.renderStatus(user.status)}
-                            <Image avatar src={user.avatarUrl}/>
-                            <List.Content>
-                              <List.Header>{user.displayName}</List.Header>
-                            </List.Content>
-                            <div className='unread-mess'>
-                              123
-                            </div>
-                          </List.Item>
-                      </Link>
+                      <div className='user' key={user._id}>
+                        {this.renderStatus(user.status, user.username)}
+                        <Link to={'/chat/' + user.username} key={user._id}
+                          onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
+                            <List.Item key={user._id}>
+                              <Image avatar src={user.avatarUrl}/>
+                              <List.Content>
+                                <List.Header>{user.displayName}</List.Header>
+                              </List.Content>
+                              <div className='unread-mess'>
+                                123
+                              </div>
+                            </List.Item>
+                        </Link>
+                      </div>
                     );
                   }
                   else {
                     return(
-                      <Link to={'/chat/' + user.username} key={user._id}
-                        onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
-                          <List.Item key={user._id}>
-                            {this.renderStatus(user.status)}
-                            <Image avatar src={constant.avaBot}/>
-                            <List.Content>
-                              <List.Header>{user.username}</List.Header>
-                            </List.Content>
-                            <div className='unread-mess'>
-                              123
-                            </div>
-                          </List.Item>
-                      </Link>
+                      <div className='user' key={user._id}>
+                        {this.renderStatus(user.status, user.username)}
+                        <Link to={'/chat/' + user.username} key={user._id}
+                          onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
+                            <List.Item key={user._id}>
+                              <Image avatar src={constant.avaBot}/>
+                              <List.Content>
+                                <List.Header>{user.username}</List.Header>
+                              </List.Content>
+                              <div className='unread-mess'>
+                                123
+                              </div>
+                            </List.Item>
+                        </Link>
+                      </div>
                     );
                   }
                 }
                 else {
                   return(
-                    <Link to={'/chat/' + user.username} key={user._id}
-                      onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
-                        <List.Item key={user._id}>
-                          {this.renderStatus(user.status)}
-                          <Image avatar src={constant.avaLawyer}/>
-                          <List.Content>
-                            <List.Header>
-                              {translate('app.chat.my_chat')}
-                            </List.Header>
-                          </List.Content>
-                        </List.Item>
-                    </Link>
+                    <div className='user' key={user._id}>
+                      {this.renderStatus(user.status, user.username)}
+                      <Link to={'/chat/' + user.username} key={user._id}
+                        onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
+                          <List.Item key={user._id}>
+                            <Image avatar src={constant.avaLawyer}/>
+                            <List.Content>
+                              <List.Header>
+                                {translate('app.chat.my_chat')}
+                              </List.Header>
+                            </List.Content>
+                          </List.Item>
+                      </Link>
+                    </div>
                   );
                 }
               })
