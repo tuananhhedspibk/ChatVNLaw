@@ -7,7 +7,6 @@ import '../../assets/styles/common/authen.css';
 import '../../assets/styles/common/main.css';
 
 let translate = require('counterpart');
-var authen = require('../../lib/api/authentication.js');
 var firebase = require('firebase');
 
 class UserLogin extends Component {
@@ -50,7 +49,6 @@ class UserLogin extends Component {
   handleSubmit(evt) {
     var component = this;
     evt.preventDefault();
-    var component = this;
     firebase.auth().signInWithEmailAndPassword(this.state.username,this.state.password).catch(function(error){
       component.showAlert(error.message);
     }).then(function(user){
