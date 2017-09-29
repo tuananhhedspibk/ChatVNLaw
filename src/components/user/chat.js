@@ -13,6 +13,7 @@ let FontAwesome = require('react-fontawesome');
 var firebase = require('firebase');
 var currentUser;
 var messRef;
+
 class Chat extends Component {
 constructor(props) {
   super(props);
@@ -24,9 +25,10 @@ constructor(props) {
     current_room_id: ''
   }
 }
+
 componentDidMount(){
   var component = this;
-  var fileButton = document.getElementById('fileButton');
+  var fileButton = document.getElementById('upfile');
   fileButton.addEventListener('change', function(e){
     e.preventDefault();
     let file = e.target.files[0];
@@ -70,8 +72,8 @@ componentWillReceiveProps(nextProps) {
         let ref = firebase.database().ref().child('rooms');
         let newPostRef = ref.push()
         newPostRef.set({
-          "members":[currentUser.uid,nextProps.currentChatUserId,currentUser.uid+'_'+nextProps.currentChatUserId],
-          "messages":[]
+          'members':[currentUser.uid,nextProps.currentChatUserId,currentUser.uid+'_'+nextProps.currentChatUserId],
+          'messages':[]
         })
         ref.child(newPostRef.key).on('child_added',function(data){   
           if(data.exists()){
@@ -173,6 +175,7 @@ handleInputChange(evt) {
     this.autoExpand('input-mess-box');
   }
 }
+
 handleSubmit(){
   var component = this;
   var date = new Date();  
@@ -185,9 +188,14 @@ handleSubmit(){
 
   });
 }
+
 autoScrollBottom() {
   $('.chats').stop().animate({
     scrollTop: $('.chats')[0].scrollHeight}, 1000);
+}
+
+upfile() {
+  $('#upfile:hidden').trigger('click');
 }
 
 render() {
@@ -202,10 +210,13 @@ render() {
       </div>
       <ChatBubble messages={this.state.messages} />
       <div className='text-box' id='text-box'>
-      <input type="file" id="fileButton" />
+        <input type='file' id='upfile'/>
         <Form.TextArea id='input-mess-box'
           placeholder={translate('app.chat.input_place_holder')}
           onKeyDown={this.handleInputChange.bind(this)}/>
+        <div className='addons-field'>
+          <FontAwesome onClick={this.upfile} name='file-image-o'/>
+        </div>
       </div>
       <ChatSetting targetChatUserName={this.state.chat_target_uname}
         targetChatUserType={this.state.chat_target_type}

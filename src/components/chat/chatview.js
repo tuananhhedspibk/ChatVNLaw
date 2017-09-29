@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { List, Image, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
-import $ from 'jquery';
 
 import Chat from '../user/chat';
 
@@ -13,10 +12,6 @@ import '../../assets/styles/common/user_index.css';
 
 let translate = require('counterpart');
 var firebase = require('firebase');
-
-const activeStyle = {
-  backgroundColor: 'rgba(0, 0, 0, .05)'
-};
 
 const KEYS_TO_FILTERS = ['username'];
 
@@ -86,7 +81,7 @@ class ChatView extends Component {
           if(data.key === user.uid){
             component.setState({current_user_name: item.username});
             component.setState({current_user_id: user.uid});
-            item["displayName"] = "My.Chat";
+            item['displayName'] = 'My.Chat';
             userArr.unshift(item);
             component.setState({users: userArr});                      
             return;
@@ -97,7 +92,7 @@ class ChatView extends Component {
         ref.on('child_changed', function(data) {
           let tmp = data.val().username;
           if(data.key === user.uid){
-            tmp = "My.Chat";
+            tmp = 'My.Chat';
           }
           userArr.every(function(element,index){           
             if(element._id === data.key){
@@ -164,7 +159,7 @@ class ChatView extends Component {
 
   changeStatus(event, data) {
     firebase.database().ref('users')
-      .child(this.state.current_user_id).update({"status" : data.text});
+      .child(this.state.current_user_id).update({'status' : data.text});
   }
 
   renderStatus(userStatus, username) {
@@ -228,10 +223,15 @@ class ChatView extends Component {
                 if(user.username !== this.state.current_user_name) {
                   if(user.type !== 'bot') {
                     return(
-                      <div className='user' key={user._id}>
+                      <div className={
+                        this.props.match.params.user_name === user.username
+                          ? 'user active-link' : 'user'}
+                        key={user._id}>
                         {this.renderStatus(user.status, user.username)}
                         <Link to={'/chat/' + user.username} key={user._id}
-                          onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
+                          onClick={this.changeUserChat.bind(this, user.username,
+                            user.type, user._id)}
+                          activeClassName='active-link'>
                             <List.Item key={user._id}>
                               <Image avatar src={user.avatarUrl}/>
                               <List.Content>
@@ -247,10 +247,15 @@ class ChatView extends Component {
                   }
                   else {
                     return(
-                      <div className='user' key={user._id}>
+                      <div className={
+                        this.props.match.params.user_name === user.username
+                          ? 'user active-link' : 'user'}
+                        key={user._id}>
                         {this.renderStatus(user.status, user.username)}
                         <Link to={'/chat/' + user.username} key={user._id}
-                          onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
+                          onClick={this.changeUserChat.bind(this,
+                            user.username, user.type, user._id)}
+                          activeClassName='active-link'>
                             <List.Item key={user._id}>
                               <Image avatar src={constant.avaBot}/>
                               <List.Content>
@@ -267,12 +272,17 @@ class ChatView extends Component {
                 }
                 else {
                   return(
-                    <div className='user' key={user._id}>
+                    <div className={
+                      this.props.match.params.user_name === user.username
+                        ? 'user active-link' : 'user'}
+                      key={user._id}>
                       {this.renderStatus(user.status, user.username)}
                       <Link to={'/chat/' + user.username} key={user._id}
-                        onClick={this.changeUserChat.bind(this, user.username, user.type, user._id)}>
+                        onClick={this.changeUserChat.bind(this, user.username,
+                          user.type, user._id)}
+                        activeClassName='active-link'>
                           <List.Item key={user._id}>
-                            <Image avatar src={constant.avaLawyer}/>
+                            <Image avatar src={user.avatarUrl}/>
                             <List.Content>
                               <List.Header>
                                 {translate('app.chat.my_chat')}

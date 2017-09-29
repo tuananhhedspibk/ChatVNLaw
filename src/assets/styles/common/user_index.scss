@@ -4,14 +4,15 @@
   background-color: $blue-more-lighter;
   border: 1px solid $gray-lighter;
   float: left;
+  height: 100%;
   width: 320px;
 
   .header-index {
     background-color: $blue;
     color: $white;
     float: left;
-    font-size: 1.2em;
-    padding: 15px;
+    font-size: 1.3em;
+    padding: 14px 15px;
     text-align: center;
     width: 100%;
 
@@ -71,7 +72,7 @@
         width: 170px;
 
         .header {
-          font-size: 1.1em;
+          font-size: 1.3em;
         }
       }
 
@@ -124,7 +125,7 @@
 }
 
 .ui.dropdown .menu > .item {
-  font-size: .6em;
+  font-size: .8em;
 }
 
 .ui.top.left.pointing.dropdown > .menu:after {

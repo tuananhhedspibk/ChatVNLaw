@@ -2,13 +2,14 @@
   background-color: #fdfdfd;
   border: 1px solid #e5ecf0;
   float: left;
+  height: 100%;
   width: 320px; }
   .list-users .header-index {
     background-color: #3ca2e0;
     color: #fff;
     float: left;
-    font-size: 1.2em;
-    padding: 15px;
+    font-size: 1.3em;
+    padding: 14px 15px;
     text-align: center;
     width: 100%; }
     .list-users .header-index .fa {
@@ -51,7 +52,7 @@
         padding-left: 15px;
         width: 170px; }
         .list-users .ui.list .item .content .header {
-          font-size: 1.1em; }
+          font-size: 1.3em; }
       .list-users .ui.list .item .description {
         color: #c0c0c0;
         margin-top: 5px; }
@@ -89,7 +90,7 @@
   background-color: #f5455c; }
 
 .ui.dropdown .menu > .item {
-  font-size: .6em; }
+  font-size: .8em; }
 
 .ui.top.left.pointing.dropdown > .menu:after {
   width: 0 !important; }
