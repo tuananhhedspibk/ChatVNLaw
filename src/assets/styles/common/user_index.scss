@@ -46,6 +46,12 @@
     padding: 0 0 6px;
     width: 100%;
 
+    .user {
+      align-items: center;
+      display: flex;
+      padding-left: 15px;
+    }
+
     a{
       display: inline-block;
       text-decoration: none;
@@ -58,7 +64,6 @@
       display: flex;
       margin-bottom: 7px;
       margin-top: 8px;
-      padding-left: 15px;
       text-align: left;
 
       .content {
@@ -98,6 +103,10 @@
   height: 10px;
   width: 10px;
   z-index: 100;
+}
+
+.status-icon {
+  width: 11px !important;
 }
 
 .online-status {

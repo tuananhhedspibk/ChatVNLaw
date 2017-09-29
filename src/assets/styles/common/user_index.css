@@ -32,6 +32,10 @@
     overflow-y: scroll;
     padding: 0 0 6px;
     width: 100%; }
+    .list-users .ui.list .user {
+      align-items: center;
+      display: flex;
+      padding-left: 15px; }
     .list-users .ui.list a {
       display: inline-block;
       text-decoration: none;
@@ -42,7 +46,6 @@
       display: flex;
       margin-bottom: 7px;
       margin-top: 8px;
-      padding-left: 15px;
       text-align: left; }
       .list-users .ui.list .item .content {
         padding-left: 15px;
@@ -70,6 +73,9 @@
   height: 10px;
   width: 10px;
   z-index: 100; }
+
+.status-icon {
+  width: 11px !important; }
 
 .online-status {
   background-color: #2de0a5; }
