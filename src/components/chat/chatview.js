@@ -42,6 +42,9 @@ class ChatView extends Component {
   }
 
   componentWillMount(){
+    if(!firebase.apps.length){
+      firebase.initializeApp(constant.APP_CONFIG);
+    }
     var component = this;
     var user_name = this.props.match.params.user_name;
     this.setState({current_chat_user_name : user_name});

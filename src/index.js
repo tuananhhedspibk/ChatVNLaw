@@ -3,20 +3,14 @@ import ReactDOM from 'react-dom';
 import Routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 import {createBrowserHistory} from 'history';
+import * as constant from './components/constants';
 
 import './assets/styles/common/main.css';
-var key = require('./key.json');
 var firebase = require('firebase');
-var config = {
-  "apiKey": key.apiKey,
-  "authDomain": key.authDomain,
-  "databaseURL": key.databaseURL,
-  "projectId": key.projectId,
-  "storageBucket": key.storageBucket,
-  "messagingSenderId": key.messagingSenderId
-};
 
-firebase.initializeApp(config);
+if(!firebase.apps.length){
+  firebase.initializeApp(constant.APP_CONFIG);  
+}
 
 let translate = require('counterpart');
 translate.registerTranslations('en', require('./locales/en'));
