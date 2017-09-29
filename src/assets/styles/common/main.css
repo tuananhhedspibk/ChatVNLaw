@@ -5702,8 +5702,8 @@ textarea:-moz-placeholder {
   src: font-url("fonts/Droid_Serif/DroidSerif-Regular.ttf"); }
 
 body {
-  font-family: "DroidSerif", sans-serif;
-  background-color: #fff; }
+  background-color: #fff;
+  font-family: "DroidSerif", sans-serif; }
 
 .ui.dropdown .menu {
   font-size: 1.5em; }
@@ -5711,8 +5711,8 @@ body {
 .navbar {
   background-color: #3ca2e0;
   font-size: 1.4em;
-  padding-top: 15px !important;
-  padding-bottom: 15px !important; }
+  padding-bottom: 15px !important;
+  padding-top: 15px !important; }
   .navbar a {
     color: #fff;
     font-weight: bold; }

@@ -1,3 +1,13 @@
+.active-link {
+  background-color: rgba(0, 0, 0, 0.05); }
+
+.chat-ui {
+  background-color: #fff;
+  display: inline-block;
+  height: 100vh;
+  overflow-y: hidden;
+  width: 100%; }
+
 .chat-window {
   border-right: 1px solid #e5ecf0;
   font-size: 1.2em;
@@ -6,6 +16,8 @@
   margin: 0 auto;
   position: relative;
   width: calc(100% - 320px); }
+  .chat-window #upfile {
+    display: none; }
   .chat-window .title {
     border-bottom: 1px solid #e5ecf0;
     color: #3ca2e0;
@@ -38,13 +50,23 @@
     overflow-y: hidden;
     position: absolute;
     width: calc(100% - 320px); }
+    .chat-window .text-box .fa {
+      cursor: pointer;
+      float: right; }
+    .chat-window .text-box .fa-file-image-o {
+      color: #c0c0c0;
+      font-size: 1.1em; }
+    .chat-window .text-box .addons-field {
+      height: 100%;
+      padding: 23px 15px;
+      width: calc(100% - 550px); }
     .chat-window .text-box .field {
       height: 45px;
       margin-bottom: 10px;
       margin-top: 5px; }
     .chat-window .text-box textarea {
       border: 0;
-      font-size: 0.9em;
+      font-size: 0.95em;
       height: 45px;
       overflow: hidden;
       padding: 18px 15px 0 15px;
@@ -56,6 +78,7 @@
 .chat-setting {
   border-right: 1px solid #e5ecf0;
   float: right;
+  font-size: 1.05em;
   height: 100%;
   text-align: left;
   width: 320px; }
@@ -81,5 +104,4 @@
     padding: 15px; }
   .chat-setting .content .content-title {
     color: #a2a2a2;
-    font-size: 1em;
     text-transform: none; }

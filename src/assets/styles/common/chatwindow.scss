@@ -1,5 +1,17 @@
 @import 'variables.scss';
 
+.active-link {
+  background-color: $black-trans;
+}
+
+.chat-ui {
+  background-color: $white;
+  display: inline-block;
+  height: 100vh;
+  overflow-y: hidden;
+  width: 100%;
+}
+
 .chat-window {
   border-right: 1px solid $gray-lighter;
   font-size: 1.2em;
@@ -8,6 +20,10 @@
   margin: 0 auto;
   position: relative;
   width: calc(100% - 320px);
+
+  #upfile {
+    display: none;
+  }
 
   .title {
     border-bottom: 1px solid $gray-lighter;
@@ -50,6 +66,22 @@
     position: absolute;
     width: calc(100% - 320px);
 
+    .fa {
+      cursor: pointer;
+      float: right;
+    }
+
+    .fa-file-image-o {
+      color: $gray-darker;
+      font-size: 1.1em;
+    }
+
+    .addons-field {
+      height: 100%;
+      padding: 23px 15px;
+      width: calc(100% - 550px);
+    }
+
     .field {
       height: 45px;
       margin-bottom: 10px;
@@ -58,7 +90,7 @@
 
     textarea {
       border: 0;
-      font-size: 0.9em;
+      font-size: 0.95em;
       height: 45px;
       overflow: hidden;
       padding: 18px 15px 0 15px;
@@ -75,6 +107,7 @@
 .chat-setting {
   border-right: 1px solid $gray-lighter;
   float: right;
+  font-size: 1.05em;
   height: 100%;
   text-align: left;
   width: 320px;
@@ -114,7 +147,6 @@
 
     .content-title {
       color: $gray;
-      font-size: 1em;
       text-transform: none;
     }
   }

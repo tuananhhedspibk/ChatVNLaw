@@ -23,8 +23,8 @@ textarea:-moz-placeholder {
 }
 
 body {
-  font-family: "DroidSerif", sans-serif;
   background-color: $white;
+  font-family: "DroidSerif", sans-serif;
 }
 
 .ui.dropdown .menu{
@@ -34,8 +34,8 @@ body {
 .navbar {
   background-color: $blue;
   font-size: 1.4em;
-  padding-top: 15px !important;
   padding-bottom: 15px !important;
+  padding-top: 15px !important;
 
   a {
     color: $white;
