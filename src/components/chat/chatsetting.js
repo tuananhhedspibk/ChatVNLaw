@@ -86,18 +86,7 @@ class ChatSetting extends Component {
   }
 
   renderConfig() {
-    
-    // if(this.state.chat_target_uid === currentUser.uid) {
-    //   return(
-    //     <Dropdown icon='setting'>
-    //       <Dropdown.Menu>
-    //         <Dropdown.Item text={translate('app.identifier.logout')}
-    //           onClick={this.logout.bind(this)}/>
-    //       </Dropdown.Menu>
-    //     </Dropdown>
-    //   )
-    // }
-    // return null;
+
   }
 
   render() {

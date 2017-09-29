@@ -106,7 +106,9 @@
 }
 
 .status-icon {
-  width: 11px !important;
+  height: 10px !important;
+  margin-right: 10px !important;
+  width: 10px !important;
 }
 
 .online-status {
@@ -123,4 +125,8 @@
 
 .ui.dropdown .menu > .item {
   font-size: .6em;
+}
+
+.ui.top.left.pointing.dropdown > .menu:after {
+  width: 0 !important;
 }

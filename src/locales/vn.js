@@ -32,14 +32,19 @@ module.exports = {
     },
     user: {
       list: 'Danh sách người dùng',
-      search: 'Tìm kiếm người dùng'
+      search: 'Tìm kiếm người dùng',
+      status: {
+        online: 'online',
+        offline: 'offline',
+        away: 'away'
+      }
     },
     chat: {
       title: 'Chat',
       input_place_holder: 'Nhập tin nhắn ...',
       my_chat: 'Chat cá nhân',
       shared_files: 'Tệp được chia sẻ',
-      shared_images: 'Ảnh được chia sẻ'
+      shared_images: 'Ảnh được chia sẻ',
     },
     notfound: {
       content: {

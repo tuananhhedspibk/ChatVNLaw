@@ -33,7 +33,12 @@ module.exports = {
     },
     user: {
       list: 'List users',
-      search: 'Search user'
+      search: 'Search user',
+      status: {
+        online: 'online',
+        offline: 'offline',
+        away: 'away'
+      }
     },
     chat: {
       title: 'Chat',
