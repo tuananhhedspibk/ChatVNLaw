@@ -74,34 +74,3 @@
       width: 550px; }
       .chat-window .text-box textarea:focus {
         outline: 0; }
-
-.chat-setting {
-  border-right: 1px solid #e5ecf0;
-  float: right;
-  font-size: 1.05em;
-  height: 100%;
-  text-align: left;
-  width: 320px; }
-  .chat-setting .header {
-    align-items: center;
-    border-bottom: 1px solid #e5ecf0;
-    display: flex;
-    padding: 15px 17px 11px 17px; }
-    .chat-setting .header .ava {
-      margin-right: 12px; }
-      .chat-setting .header .ava img {
-        border: 1px solid #bbe1f5;
-        border-radius: 50%;
-        height: 50px;
-        width: 50px; }
-    .chat-setting .header .info {
-      width: 215px; }
-    .chat-setting .header .config {
-      color: #a2a2a2;
-      cursor: pointer; }
-  .chat-setting .content .shared {
-    border-bottom: 1px solid #e5ecf0;
-    padding: 15px; }
-  .chat-setting .content .content-title {
-    color: #a2a2a2;
-    text-transform: none; }
