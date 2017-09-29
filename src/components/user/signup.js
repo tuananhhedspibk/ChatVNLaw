@@ -8,12 +8,6 @@ import '../../assets/styles/common/authen.css';
 let warningImage = require('../../assets/images/warning.png');
 
 let translate = require('counterpart');
-let user = require('../../lib/api/users.js');
-let authen = require('../../lib/api/authentication.js');
-let ddp = require('../../lib/real_time_api/ddp_connection');
-let group = require('../../lib/api/group');
-
-let warningImage = require('../../assets/images/warning.png');
 var firebase = require('firebase');
 
 class UserSignUp extends Component {
