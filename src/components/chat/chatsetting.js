@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 import '../../assets/styles/common/chatsetting.css';
 
@@ -17,8 +18,8 @@ class ChatSetting extends Component {
       current_user_name: '',
       current_user_type: '',
       current_room_id: '',
-      image_list:[],
-      file_list: [],
+      images_list:[],
+      files_list: [],
       chat_target_uid:''
     }
   }
@@ -30,43 +31,44 @@ class ChatSetting extends Component {
         chat_target_uid : nextProps.targetChatUserId,
         current_user_name: nextProps.targetChatUserName,
         current_room_id: nextProps.currentRoomId,
-        image_list: [],
-        file_list: []
+        images_list: [],
+        files_list: []
       });
-    var imagesList = [];
-    var filesList = [];
-    var roomId = nextProps.currentRoomId;
-    if ( typeof imageRef !== 'undefined' && imageRef){
-      imageRef.off();
-    }
-    if ( typeof fileRef !== 'undefined' && fileRef){
-      fileRef.off();
-    }
-    imageRef = firebase.database().ref().child('rooms').child(roomId).child('room_images');
-    fileRef = firebase.database().ref().child('rooms').child(roomId).child('room_files');
-
-    imageRef.on('child_added',function(snapshot){
-      if(snapshot.exists()){
-        let item = {}
-        snapshot.forEach(function(element){
-          item[element.key] = element.val();
-        })
-        imagesList.push(item);
-        component.setState({image_list: imagesList});
+      var imagesList = [];
+      var filesList = [];
+      var roomId = nextProps.currentRoomId;
+      if ( typeof imageRef !== 'undefined' && imageRef){
+        imageRef.off();
       }
-    })
-
-    fileRef.on('child_added', function(snapshot){
-      if(snapshot.exists()){
-        let item = {}
-        snapshot.forEach(function(element){
-          item[element.key] = element.val();
-        })
-        filesList.push(item);
-        component.setState({file_list: filesList});
+      if ( typeof fileRef !== 'undefined' && fileRef){
+        fileRef.off();
       }
-    })
-    return true;
+      imageRef = firebase.database().ref().child('rooms').child(roomId).child('room_images');
+      fileRef = firebase.database().ref().child('rooms').child(roomId).child('room_files');
+
+      imageRef.on('child_added',function(snapshot){
+        if(snapshot.exists()){
+          let item = {}
+          snapshot.forEach(function(element){
+            item[element.key] = element.val();
+          })
+          imagesList.push(item);
+          component.setState({images_list: imagesList});
+        }
+      });
+
+      fileRef.on('child_added', function(snapshot){
+        if(snapshot.exists()){
+          let item = {}
+          snapshot.forEach(function(element){
+            item[element.key] = element.val();
+          })
+          filesList.push(item);
+          component.setState({files_list: filesList});
+        }
+      });
+
+      return true;
     } else{
       return false;
     }
@@ -105,9 +107,31 @@ class ChatSetting extends Component {
         <div className='content'>
           <div className='shared shared-files'>
             <div className='content-title'>{translate('app.chat.shared_files')}</div>
+            <div className='files-list'>
+              {
+                this.state.files_list.map(file => {
+                  return(
+                    <Link to={file.downloadURL} target='_blank'>
+                      {file.name}
+                    </Link>
+                  )
+                })
+              }
+            </div>
           </div>
           <div className='shared shared-images'>
             <div className='content-title'>{translate('app.chat.shared_images')}</div>
+            <div className='images-list'>
+              {
+                this.state.images_list.map(image => {
+                  return(
+                    <Link to={image.downloadURL} target='_blank'>
+                      {image.name}
+                    </Link>
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
       </div> 

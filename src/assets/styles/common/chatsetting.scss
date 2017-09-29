@@ -1,6 +1,61 @@
+@import 'variables.scss';
+
 .config {
   .ui.dropdown .menu {
     left: -70px;
     top: 25px;
+  }
+}
+
+.chat-setting {
+  border-right: 1px solid $gray-lighter;
+  float: right;
+  font-size: 1.05em;
+  height: 100%;
+  text-align: left;
+  width: 320px;
+
+  .header {
+    align-items: center;
+    border-bottom: 1px solid $gray-lighter;
+    display: flex;
+    padding: 15px 17px 11px 17px;
+
+    .ava {
+      margin-right: 12px;
+
+      img {
+        border: 1px solid $blue-lighter;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+      }
+    }
+
+    .info {
+      width: 215px;
+    }
+
+    .config {
+      color: $gray;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    .shared {
+      border-bottom: 1px solid $gray-lighter;
+      padding: 15px;
+
+      a {
+        max-width: 100%;
+      }
+    }
+
+    .content-title {
+      color: $gray;
+      text-transform: none;
+      margin-bottom: 3px;
+    }
   }
 }
