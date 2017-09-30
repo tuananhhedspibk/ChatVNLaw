@@ -15,216 +15,217 @@ var currentUser;
 var messRef;
 
 class Chat extends Component {
-constructor(props) {
-  super(props);
-  this.state = {
-    messages: [],
-    chat_target_uname: '',
-    chat_target_uid: '',
-    chat_target_type: '',
-    current_room_id: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: [],
+      chat_target_uname: '',
+      chat_target_uid: '',
+      current_room_id: ''
+    }
   }
-}
 
-componentDidMount(){
-  var component = this;
-  var fileButton = document.getElementById('upfile');
-  fileButton.addEventListener('change', function(e){
-    e.preventDefault();
-    let file = e.target.files[0];
-    // store file data on firebase storage and set a reference on firebase realtime database
-    let properties = {}
-    properties["roomId"] = component.state.current_room_id;
-    properties["uid"] = currentUser.uid;
-    fileHelper.upfile(properties,file,function(){
+  componentDidMount() {
+    var component = this;
+    var fileButton = document.getElementById('upfile');
+    fileButton.addEventListener('change', function(e){
+      e.preventDefault();
+      let file = e.target.files[0];
+      // store file data on firebase storage and set a reference on firebase realtime database
+      let properties = {}
+      properties["roomId"] = component.state.current_room_id;
+      properties["uid"] = currentUser.uid;
+      fileHelper.upfile(properties,file,function(){
+      });
     });
-  });
 
-  document.getElementsByClassName('chats')[0].addEventListener('scroll',
-    function(){
-      if(this.scrollTop === 0){
-        if(component.state.messages[0]){
-          let ts = component.state.messages[0].msg_ts;
-          component.loadHistory(ts,false);
+    document.getElementsByClassName('chats')[0].addEventListener('scroll',
+      function(){
+        if(this.scrollTop === 0){
+          if(component.state.messages[0]){
+            let ts = parseInt(component.state.messages[0].msg_ts) - 1;
+            component.loadHistory(""+ts,false);
+          }
         }
       }
-    });
-  
-}
-componentWillReceiveProps(nextProps) {
-  var component = this;  
-  if(component.state.chat_target_uname !== nextProps.currentChatUserName && component.state.chat_target_uid !== nextProps.currentChatUserId){
-    component.setState({chat_target_uname: nextProps.currentChatUserName});
-    component.setState({chat_target_uid: nextProps.currentChatUserId});
+    );
+  }
+
+  componentWillMount() {
+    var component = this;
+
+    component.setState({chat_target_uname: component.props.currentChatUserName});
+    component.setState({chat_target_uid: component.props.currentChatUserId});
     component.setState({messages: []})
     currentUser = firebase.auth().currentUser;
-    var roomid = currentUser.uid + nextProps.currentChatUserId;
-    firebase.database().ref().child('reference').child(roomid).once('value').then(function(snapshot){
+    var roomid = currentUser.uid + component.props.currentChatUserId;
+    firebase.database().ref().child('reference').child(roomid)
+      .once('value').then(function(snapshot){
       if(snapshot.exists()){
         // get real roomId
         snapshot.forEach(function(element){
           component.setState({current_room_id: element.val()});
         })
         component.streamingMessages();
-        component.loadHistory(""+(new Date()).getTime, true);
+        component.loadHistory("" + (new Date()).getTime, true);
       }else{
         // create new room chat
         let ref = firebase.database().ref().child('rooms');
         let newPostRef = ref.push()
         newPostRef.set({
-          'members':[currentUser.uid,nextProps.currentChatUserId,currentUser.uid+'_'+nextProps.currentChatUserId],
+          'members':[currentUser.uid, component.props.currentChatUserId,
+            currentUser.uid + '_' + component.props.currentChatUserId],
           'messages':[]
         })
         ref.child(newPostRef.key).on('child_added',function(data){   
           if(data.exists()){
             let roomId = newPostRef.key;
             component.setState({current_room_id: roomId});
-            firebase.database().ref().child('reference').child(currentUser.uid + nextProps.currentChatUserId).set({
-              roomId
+            firebase.database().ref().child('reference').child(currentUser.uid +
+              component.props.currentChatUserId).set({
+                roomId
             }).then(function(){
-              
-            }).catch(function(error){
-              
-            });
-            firebase.database().ref().child('reference').child(nextProps.currentChatUserId+currentUser.uid).set({
-              roomId
-            }).then(function(){
-              
-            }).catch(function(error){
-              
-            });
-            component.streamingMessages();
-            component.loadHistory(""+(new Date()).getTime, true)
-          }             
-        })
-        
 
+            }).catch(function(error){
+
+            });
+            firebase.database().ref().child('reference').child(component.props.currentChatUserId
+              + currentUser.uid).set({
+                roomId
+            }).then(function(){
+
+            }).catch(function(error){
+
+            });
+              component.streamingMessages();
+              component.loadHistory("" + (new Date()).getTime, true)
+            }             
+          })
+        }
+      }
+    );
+  }
+
+  loadHistory(timestamp, autoScroll){
+    let properties = {};
+    var component = this;
+    properties['ts'] = timestamp;
+    properties['rid'] = this.state.current_room_id;
+    properties['uid'] = currentUser.uid;
+    let currentMessArr = this.state.messages;
+    im.history(properties,15,function(item, index){
+      currentMessArr.splice(index, 0, item);
+      component.setState({messages: currentMessArr});
+      if(autoScroll){
+        component.autoScrollBottom();      
       }
     });
-    // ref.on('child_added',function(data){
-    //   console.log(data);
-    // })
+    
   }
-}
 
-loadHistory(timestamp, autoScroll){
-  let properties = {};
-  var component = this;
-  properties['ts'] = timestamp;
-  properties['rid'] = this.state.current_room_id;
-  properties['uid'] = currentUser.uid;
-  let currentMessArr = this.state.messages;
-  im.history(properties,15,function(item, index){
-    currentMessArr.splice(index, 0, item);
-    component.setState({messages: currentMessArr});
-    if(autoScroll){
-      component.autoScrollBottom();      
+  streamingMessages(){
+    var component = this;
+    if ( typeof messRef !== 'undefined' && messRef){
+      messRef.off();
     }
-  });
-  
-}
-streamingMessages(){
-  var component = this;
-  if ( typeof messRef !== 'undefined' && messRef){
-    messRef.off();
+    var messArr = component.state.messages;
+    let properties = {}
+    properties['rid'] = component.state.current_room_id;
+    properties['uid'] = currentUser.uid;
+    properties['ts'] = "" + (new Date()).getTime();
+    im.notifyMessagesComming(properties,function(event, item, ref){
+      if(event === 'child_added'){
+        messArr.push(item);
+        component.setState({messages: messArr});
+        component.autoScrollBottom();
+        messRef = ref;
+      }
+    })
   }
-  var messArr = component.state.messages;
-  let properties = {}
-  properties['rid'] = component.state.current_room_id;
-  properties['uid'] = currentUser.uid;
-  properties['ts'] = "" + (new Date()).getTime();
-  im.notifyMessagesComming(properties,function(event, item, ref){
-    if(event === 'child_added'){
-      messArr.push(item);
-      component.setState({messages: messArr});
-      component.autoScrollBottom();
-      messRef = ref;
+
+  autoExpand(elementId) {
+    var input = document.getElementById(elementId);
+    var fieldParent = input.parentElement;
+    var chats = document.getElementsByClassName('chats')[0];
+    var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+    input.style.height = '45px';
+    var contentHeight = document.getElementById(elementId).scrollHeight;
+    input.style.height = contentHeight + 'px';
+
+    var textbox = document.getElementById('text-box');
+    textbox.style.height = contentHeight + 15 + 'px';
+    fieldParent.style.height = contentHeight + 'px';
+    chats.style.height = vh - 50 - contentHeight + 'px';
+  }
+
+  clearContent(elementId) {
+    $('#' + elementId).val($('#' + elementId).val().replace(/\t/g, 'a'));
+    $('#' + elementId).val('');
+    this.autoExpand(elementId);
+  }
+
+  handleInputChange(evt) {
+    if (evt.which === 13 && evt.shiftKey === false) {
+      this.handleSubmit();
+      evt.preventDefault();
+      this.clearContent('input-mess-box');
     }
-  })
-}
-
-autoExpand(elementId) {
-  var input = document.getElementById(elementId);
-  var fieldParent = input.parentElement;
-  var chats = document.getElementsByClassName('chats')[0];
-  var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-  input.style.height = '45px';
-  var contentHeight = document.getElementById(elementId).scrollHeight;
-  input.style.height = contentHeight + 'px';
-
-  var textbox = document.getElementById('text-box');
-  textbox.style.height = contentHeight + 15 + 'px';
-  fieldParent.style.height = contentHeight + 'px';
-  chats.style.height = vh - 50 - contentHeight + 'px';
-}
-
-clearContent(elementId) {
-  $('#' + elementId).val($('#' + elementId).val().replace(/\t/g, 'a'));
-  $('#' + elementId).val('');
-  this.autoExpand(elementId);
-}
-
-handleInputChange(evt) {
-  if (evt.which === 13 && evt.shiftKey === false) {
-    this.handleSubmit();
-    evt.preventDefault();
-    this.clearContent('input-mess-box');
+    else {
+      this.autoExpand('input-mess-box');
+    }
   }
-  else {
-    this.autoExpand('input-mess-box');
+
+  handleSubmit(){
+    var component = this;
+    var date = new Date();  
+    let properties = {}
+    properties["rid"] = component.state.current_room_id;
+    properties["content"] = document.getElementById('input-mess-box').value;  
+    properties["uid"] = currentUser.uid;
+    properties["ts"] = "" + date.getTime();
+    im.chat(properties,function(){
+
+    });
   }
-}
 
-handleSubmit(){
-  var component = this;
-  var date = new Date();  
-  let properties = {}
-  properties["rid"] = component.state.current_room_id;
-  properties["content"] = document.getElementById('input-mess-box').value;  
-  properties["uid"] = currentUser.uid;
-  properties["ts"] = ""+date.getTime();
-  im.chat(properties,function(){
+  autoScrollBottom() {
+    $('.chats').stop().animate({
+      scrollTop: $('.chats')[0].scrollHeight}, 1000);
+  }
 
-  });
-}
+  upfile() {
+    $('#upfile:hidden').trigger('click');
+  }
 
-autoScrollBottom() {
-  $('.chats').stop().animate({
-    scrollTop: $('.chats')[0].scrollHeight}, 1000);
-}
-
-upfile() {
-  $('#upfile:hidden').trigger('click');
-}
-
-render() {
-  return(
-    <div className='chat-window' id='chat-window'>
-      <div className='title'>
-        <div className='user-name'>
-          {this.state.chat_target_uname}
+  render() {
+    return(
+      <div className='chat-window' id='chat-window'>
+        <div className='title'>
+          <div className='user-name'>
+            {this.state.chat_target_uname}
+          </div>
+          <FontAwesome name='video-camera'/>
+          <FontAwesome name='phone'/>
         </div>
-        <FontAwesome name='video-camera'/>
-        <FontAwesome name='phone'/>
-      </div>
-      <ChatBubble messages={this.state.messages} />
-      <div className='text-box' id='text-box'>
-        <input type='file' id='upfile'/>
-        <Form.TextArea id='input-mess-box'
-          placeholder={translate('app.chat.input_place_holder')}
-          onKeyDown={this.handleInputChange.bind(this)}/>
-        <div className='addons-field'>
-          <FontAwesome onClick={this.upfile} name='file-image-o'/>
+        <div className='chat-body'>
+          <ChatBubble messages={this.state.messages} />
+          <div className='text-box' id='text-box'>
+            <input type='file' id='upfile'/>
+            <Form.TextArea id='input-mess-box'
+              placeholder={translate('app.chat.input_place_holder')}
+              onKeyDown={this.handleInputChange.bind(this)}/>
+            <div className='addons-field'>
+              <FontAwesome onClick={this.upfile} name='file-image-o'/>
+            </div>
+          </div>
         </div>
+        <ChatSetting targetChatUserName={this.state.chat_target_uname}
+          currentRoomId={this.state.current_room_id}
+          targetChatUserId={this.state.chat_target_uid}/>
       </div>
-      <ChatSetting targetChatUserName={this.state.chat_target_uname}
-        targetChatUserType={this.state.chat_target_type}
-        currentRoomId={this.state.current_room_id}
-        targetChatUserId={this.state.chat_target_uid}/>
-    </div>
-  )
-}
+    )
+  }
 }
 
 export default Chat;
