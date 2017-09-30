@@ -52,7 +52,7 @@ class ChatView extends Component {
           component.setState({current_chat_user_id: element.key});
         })
       }else{
-        window.location = constant.BASE_URL + '/*';
+        window.location = constant.BASE_URL + '/';
       }
     })
   }
