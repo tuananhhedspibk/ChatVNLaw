@@ -145,7 +145,6 @@ class Chat extends Component {
 
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
-    var fieldParent = input.parentElement;
     var chats = document.getElementsByClassName('chats')[0];
     var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
@@ -154,9 +153,9 @@ class Chat extends Component {
     input.style.height = contentHeight + 'px';
 
     var textbox = document.getElementById('text-box');
-    textbox.style.height = contentHeight + 15 + 'px';
-    fieldParent.style.height = contentHeight + 'px';
-    chats.style.height = vh - 50 - contentHeight + 'px';
+    textbox.style.height = contentHeight + 2 + 'px';
+    chats.style.height = vh - 55 - contentHeight + 'px';
+    this.autoScrollBottom();
   }
 
   clearContent(elementId) {
@@ -212,7 +211,7 @@ class Chat extends Component {
           <ChatBubble messages={this.state.messages} />
           <div className='text-box' id='text-box'>
             <input type='file' id='upfile'/>
-            <Form.TextArea id='input-mess-box'
+            <textarea id='input-mess-box'
               placeholder={translate('app.chat.input_place_holder')}
               onKeyDown={this.handleInputChange.bind(this)}/>
             <div className='addons-field'>

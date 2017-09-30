@@ -56,18 +56,17 @@
     .chat-window .text-box .addons-field {
       height: 100%;
       padding: 23px 15px;
-      width: calc(100% - 550px); }
+      width: 40%; }
     .chat-window .text-box .field {
-      height: 45px;
-      margin-bottom: 10px;
-      margin-top: 5px; }
+      height: 100%;
+      width: 60%; }
     .chat-window .text-box textarea {
       border: 0;
       font-size: 0.95em;
-      height: 45px;
+      height: 100%;
       overflow: hidden;
-      padding: 18px 15px 0 15px;
+      padding: 23px 15px 15px;
       resize: none;
-      width: 550px; }
+      width: 100%; }
       .chat-window .text-box textarea:focus {
         outline: 0; }
