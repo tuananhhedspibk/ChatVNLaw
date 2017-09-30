@@ -23,56 +23,59 @@ class ChatSetting extends Component {
       chat_target_uid:''
     }
   }
- 
-  shouldComponentUpdate(nextProps) {
+
+  componentWillReceiveProps(nextProps) {
     var component = this;
-    if (nextProps.targetChatUserName !== this.state.current_user_name && nextProps.targetChatUserId && nextProps.currentRoomId){
-      this.setState({
-        chat_target_uid : nextProps.targetChatUserId,
-        current_user_name: nextProps.targetChatUserName,
-        current_room_id: nextProps.currentRoomId,
+    if(component.props.currentRoomId !== this.state.current_room_id){
+      var imagesList = [];
+      var filesList = [];
+      
+      component.setState({
+        chat_target_uid : component.props.targetChatUserId,
+        current_user_name: component.props.targetChatUserName,
+        current_room_id: component.props.currentRoomId,
         images_list: [],
         files_list: []
       });
-      var imagesList = [];
-      var filesList = [];
-      var roomId = nextProps.currentRoomId;
+      
+      var roomId = component.props.currentRoomId;
       if ( typeof imageRef !== 'undefined' && imageRef){
         imageRef.off();
       }
       if ( typeof fileRef !== 'undefined' && fileRef){
         fileRef.off();
       }
-      imageRef = firebase.database().ref().child('rooms').child(roomId).child('room_images');
-      fileRef = firebase.database().ref().child('rooms').child(roomId).child('room_files');
+        imageRef = firebase.database().ref().child('rooms')
+          .child(roomId).child('room_images');
+        fileRef = firebase.database().ref().child('rooms')
+          .child(roomId).child('room_files');
 
-      imageRef.on('child_added',function(snapshot){
-        if(snapshot.exists()){
-          let item = {}
-          snapshot.forEach(function(element){
-            item[element.key] = element.val();
-          })
-          imagesList.push(item);
-          component.setState({images_list: imagesList});
-        }
-      });
+        imageRef.on('child_added',function(snapshot){
+          if(snapshot.exists()){
+            let item = {}
+              snapshot.forEach(function(element){
+                item[element.key] = element.val();
+              })
+              imagesList.push(item);
+              component.setState({images_list: imagesList});
+            }
+          }
+        );
 
-      fileRef.on('child_added', function(snapshot){
-        if(snapshot.exists()){
-          let item = {}
-          snapshot.forEach(function(element){
-            item[element.key] = element.val();
-          })
-          filesList.push(item);
-          component.setState({files_list: filesList});
-        }
-      });
-
-      return true;
-    } else{
-      return false;
+        fileRef.on('child_added', function(snapshot){
+          if(snapshot.exists()){
+            let item = {}
+              snapshot.forEach(function(element){
+                item[element.key] = element.val();
+              })
+              filesList.push(item);
+              component.setState({files_list: filesList});
+            }
+          }
+        );
     }
   }
+    
      
   renderAva() {
     if(this.state.current_user_type === 'bot') {
@@ -111,8 +114,9 @@ class ChatSetting extends Component {
               {
                 this.state.files_list.map(file => {
                   return(
-                    <Link to={file.downloadURL} target='_blank'>
-                      {file.name}
+                    <Link to={file.downloadURL}
+                      target='_blank'>
+                        {file.name}
                     </Link>
                   )
                 })
@@ -125,8 +129,9 @@ class ChatSetting extends Component {
               {
                 this.state.images_list.map(image => {
                   return(
-                    <Link to={image.downloadURL} target='_blank'>
-                      {image.name}
+                    <Link to={image.downloadURL}
+                      target='_blank'>
+                        {image.name}
                     </Link>
                   )
                 })

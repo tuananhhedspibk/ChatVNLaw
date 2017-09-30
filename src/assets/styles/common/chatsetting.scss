@@ -48,7 +48,10 @@
       padding: 15px;
 
       a {
+        display: block;
+        margin-bottom: 3px;
         max-width: 100%;
+        word-wrap:break-word;
       }
     }
 

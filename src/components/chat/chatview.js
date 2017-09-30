@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { List, Image, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
+import {Route, Switch} from 'react-router-dom';
 
 import Chat from '../user/chat';
 
@@ -297,8 +298,20 @@ class ChatView extends Component {
             }
           </List>
         </div>
-        <Chat currentChatUserName={this.state.current_chat_user_name}
-          currentChatUserId={this.state.current_chat_user_id}/>
+        {
+          this.state.users.map(user => (
+            <Switch>
+              <Route path={'/chat/' + user.username}
+                render={
+                  (props) => (
+                    <Chat {...props}
+                      currentChatUserName={user.username}
+                      currentChatUserId={user._id} />
+                  )
+                }/>
+            </Switch>
+          ))
+        }
       </div>
     )
   }

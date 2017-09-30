@@ -6,8 +6,6 @@
 
 .chat-ui {
   background-color: $white;
-  display: inline-block;
-  height: 100vh;
   overflow-y: hidden;
   width: 100%;
 }
@@ -16,7 +14,6 @@
   border-right: 1px solid $gray-lighter;
   font-size: 1.2em;
   float: left;
-  height: 100vh;
   margin: 0 auto;
   position: relative;
   width: calc(100% - 320px);
@@ -46,10 +43,15 @@
 
   .chats {
     border-right: 1px solid $gray-lighter;
-    float: left;
-    height: calc(100vh - 95px);
+    height: calc(100vh - 115px);
     overflow-y: scroll;
     padding: 25px;
+    width: 100%;
+  }
+
+  .chat-body {
+    float: left;
+    height: calc(100% - 52px);
     width: calc(100% - 320px);
   }
 
@@ -58,13 +60,10 @@
     background-color: $white;
     border-top: 1px solid $gray-lighter;
     border-right: 1px solid $gray-lighter;
-    bottom: 0;
     display: flex;
     font-size: 1em;
     height: 60px;
-    overflow-y: hidden;
-    position: absolute;
-    width: calc(100% - 320px);
+    width: 100%;
 
     .fa {
       cursor: pointer;

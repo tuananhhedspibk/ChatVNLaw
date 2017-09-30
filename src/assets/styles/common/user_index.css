@@ -2,7 +2,7 @@
   background-color: #fdfdfd;
   border: 1px solid #e5ecf0;
   float: left;
-  height: 100%;
+  height: 100vh;
   width: 320px; }
   .list-users .header-index {
     background-color: #3ca2e0;
@@ -26,12 +26,14 @@
       width: 100%; }
   .list-users .ui.dropdown {
     float: left; }
+  .list-users .ui.dropdown .menu {
+    font-size: 1.2em; }
   .list-users .ui.list {
     display: inline-block;
-    height: calc(100vh - 50px);
     margin-top: 0;
     overflow-y: scroll;
     padding: 0 0 6px;
+    height: calc(100% - 50px);
     width: 100%; }
     .list-users .ui.list .user {
       align-items: center;

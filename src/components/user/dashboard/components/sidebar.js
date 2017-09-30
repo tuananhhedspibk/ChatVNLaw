@@ -66,7 +66,6 @@ class Sidebar extends Component {
     const navList = (items) => {
       return items.map( (item, index) => navLink(item, index) );
     };
-
     return (
       <div className="sidebar">
         <nav className="sidebar-nav">
