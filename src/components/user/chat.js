@@ -109,6 +109,7 @@ class Chat extends Component {
   loadHistory(timestamp, autoScroll){
     let properties = {};
     var component = this;
+    var hasHistory = false;
     properties['ts'] = timestamp;
     properties['rid'] = this.state.current_room_id;
     properties['uid'] = currentUser.uid;
@@ -116,11 +117,15 @@ class Chat extends Component {
     im.history(properties,15,function(item, index){
       currentMessArr.splice(index, 0, item);
       component.setState({messages: currentMessArr});
+      hasHistory = true;
       if(autoScroll){
         component.autoScrollBottom();      
       }
     });
     
+    if (!hasHistory) {
+      this.forceUpdate();
+    }
   }
 
   streamingMessages(){
@@ -198,6 +203,7 @@ class Chat extends Component {
   }
 
   render() {
+    console.log('123');
     return(
       <div className='chat-window' id='chat-window'>
         <div className='title'>
