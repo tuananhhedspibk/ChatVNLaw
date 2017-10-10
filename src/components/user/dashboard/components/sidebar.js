@@ -12,7 +12,8 @@ class Sidebar extends Component {
   }
 
   activeRoute(routeName, props) {
-    return props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
+    return props.location.pathname.indexOf(routeName) > -1 ?
+      'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
   }
 
   render() {
@@ -23,11 +24,14 @@ class Sidebar extends Component {
     const badge = (badge) => {
       if (badge) {
         const classes = classNames( badge.class );
-        return (<Badge className={ classes } color={ badge.variant }>{ badge.text }</Badge>)
+        return (<Badge className={ classes } color={ badge.variant }>
+          { badge.text }</Badge>)
       }
     };
 
-    const wrapper = item => { return (!item.wrapper ? item.name : (React.createElement(item.wrapper.element, item.wrapper.attributes, item.name))) };
+    const wrapper = item => { return (!item.wrapper ? item.name :
+      (React.createElement(item.wrapper.element,
+        item.wrapper.attributes, item.name))) };
 
     const title =  (title, key) => {
       const classes = classNames( "nav-title", title.class);
@@ -50,7 +54,10 @@ class Sidebar extends Component {
     const navDropdown = (item, key) => {
       return (
         <li key={key} className={activeRoute(item.url, props)}>
-          <a className="nav-link nav-dropdown-toggle" href="#" onClick={handleClick.bind(this)}><i className={item.icon}></i> {item.name}</a>
+          <a className="nav-link nav-dropdown-toggle" href="#"
+            onClick={handleClick.bind(this)}>
+              <i className={item.icon}></i> {item.name}
+          </a>
           <ul className="nav-dropdown-items">
             {navList(item.children)}
           </ul>
