@@ -10,60 +10,20 @@ export default {
       }
     },
     {
-      title: true,
-      name: 'UI elements',
-      wrapper: {
-        element: "span",
-        attributes: {}
-      },
-      class: ""
+      name: 'Notes',
+      url: '/lawyers/notes',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info'
+      }
     },
     {
-      name: 'Components',
-      url: '/lawyers',
-      icon: 'icon-puzzle',
-      children: [
-        {
-          name: 'Buttons',
-          url: '/lawyers/buttons',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Social Buttons',
-          url: '/components/social-buttons',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Cards',
-          url: '/components/cards',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Forms',
-          url: '/components/forms',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Modals',
-          url: '/components/modals',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Switches',
-          url: '/components/switches',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Tables',
-          url: '/components/tables',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Tabs',
-          url: '/components/tabs',
-          icon: 'icon-puzzle'
-        }
-      ]
+      name: 'Calendar',
+      url: '/lawyers/calendar',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info'
+      }
     },
     {
       name: 'Charts',
