@@ -12,6 +12,7 @@ if(!firebase.apps.length){
   firebase.initializeApp(constant.APP_CONFIG);  
 }
 
+
 let translate = require('counterpart');
 translate.registerTranslations('en', require('./locales/en'));
 translate.registerTranslations('vi', require('./locales/vi'));

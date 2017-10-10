@@ -5,20 +5,24 @@ var firebase = require('firebase');
 
 class Home extends Component {
   renderView() {
-    // if (localStorage.rocket_chat_user == null) {
-    //   window.location = constant.BASE_URL + constant.SIGN_IN_URI;
-    // }
-    // else{
-    //   window.location = constant.BASE_URL + constant.CHAT_URI + '/'
-    //     + JSON.parse(localStorage.rocket_chat_user).user_name;
-	  // }
+    if(!firebase.apps.length){
+      firebase.initializeApp(constant.APP_CONFIG);  
+    }
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        window.location = constant.BASE_URL + constant.CHAT_URI + '/' + firebase.auth().currentUser.displayName;
+      } else {
+        // No user is signed in.
+        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+      }
+    });
   }
 
   render() {
     return (
       <div>
-        {/* {this.renderView()} */}
-		
+        {this.renderView()}
       </div>
     )
   }

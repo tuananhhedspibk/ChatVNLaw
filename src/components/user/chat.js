@@ -12,15 +12,15 @@ let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
 var firebase = require('firebase');
 var currentUser;
+var targetUser;
 var messRef;
-
+var currentRoomId;
+var peer;
 class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
-      chat_target_uname: '',
-      chat_target_uid: '',
       current_room_id: ''
     }
   }
@@ -51,20 +51,21 @@ class Chat extends Component {
     );
   }
 
-  componentWillMount() {
+  componentWillMount() {    
     var component = this;
-
-    component.setState({chat_target_uname: component.props.currentChatUserName});
-    component.setState({chat_target_uid: component.props.currentChatUserId});
+    currentUser = component.props.currentUser;
+    targetUser = component.props.targetChatUser;
+    peer = component.props.currentPeer;
     component.setState({messages: []})
-    currentUser = firebase.auth().currentUser;
-    var roomid = currentUser.uid + component.props.currentChatUserId;
+    
+    var roomid = currentUser.uid + targetUser.uid;
     firebase.database().ref().child('reference').child(roomid)
       .once('value').then(function(snapshot){
       if(snapshot.exists()){
         // get real roomId
         snapshot.forEach(function(element){
           component.setState({current_room_id: element.val()});
+          component.forceUpdate()
         })
         component.streamingMessages();
         component.loadHistory("" + (new Date()).getTime, true);
@@ -72,44 +73,30 @@ class Chat extends Component {
         // create new room chat
         let ref = firebase.database().ref().child('rooms');
         let newPostRef = ref.push()
-        newPostRef.set({
-          'members':[currentUser.uid, component.props.currentChatUserId,
-            currentUser.uid + '_' + component.props.currentChatUserId],
-          'messages':[]
-        })
-        ref.child(newPostRef.key).on('child_added',function(data){   
-          if(data.exists()){
-            let roomId = newPostRef.key;
-            component.setState({current_room_id: roomId});
-            firebase.database().ref().child('reference').child(currentUser.uid +
-              component.props.currentChatUserId).set({
-                roomId
-            }).then(function(){
-
-            }).catch(function(error){
-
-            });
-            firebase.database().ref().child('reference').child(component.props.currentChatUserId
-              + currentUser.uid).set({
-                roomId
-            }).then(function(){
-
-            }).catch(function(error){
-
-            });
-              component.streamingMessages();
-              component.loadHistory("" + (new Date()).getTime, true)
-            }             
-          })
+        let count = 0;
+        if(currentUser.uid === targetUser.uid){
+          count = -1;
         }
+        newPostRef.set({
+          'members':[currentUser.uid, targetUser.uid],
+          'messages':[],
+          'unread': {
+            'count' : count
+          }
+        })
+        component.setState({current_room_id: newPostRef.key});
+        component.forceUpdate()
+        
+        component.streamingMessages();
+        component.loadHistory("" + (new Date()).getTime, true)
       }
-    );
+    });
+    // }
   }
 
   loadHistory(timestamp, autoScroll){
     let properties = {};
     var component = this;
-    var hasHistory = false;
     properties['ts'] = timestamp;
     properties['rid'] = this.state.current_room_id;
     properties['uid'] = currentUser.uid;
@@ -117,15 +104,11 @@ class Chat extends Component {
     im.history(properties,15,function(item, index){
       currentMessArr.splice(index, 0, item);
       component.setState({messages: currentMessArr});
-      hasHistory = true;
       if(autoScroll){
         component.autoScrollBottom();      
       }
     });
-    
-    if (!hasHistory) {
-      this.forceUpdate();
-    }
+  
   }
 
   streamingMessages(){
@@ -170,9 +153,13 @@ class Chat extends Component {
   }
 
   handleInputChange(evt) {
+    let textBox = $('#input-mess-box');
+
     if (evt.which === 13 && evt.shiftKey === false) {
-      this.handleSubmit();
-      evt.preventDefault();
+      if(textBox.val().length > 0){
+        this.handleSubmit();
+        evt.preventDefault();
+      }
       this.clearContent('input-mess-box');
     }
     else {
@@ -188,6 +175,7 @@ class Chat extends Component {
     properties["content"] = document.getElementById('input-mess-box').value;  
     properties["uid"] = currentUser.uid;
     properties["ts"] = "" + date.getTime();
+    properties["photoURL"] = currentUser.photoURL ||'';
     im.chat(properties,function(){
 
     });
@@ -203,12 +191,11 @@ class Chat extends Component {
   }
 
   render() {
-    console.log('123');
     return(
       <div className='chat-window' id='chat-window'>
         <div className='title'>
           <div className='user-name'>
-            {this.state.chat_target_uname}
+            {targetUser.displayName}
           </div>
           <FontAwesome name='video-camera'/>
           <FontAwesome name='phone'/>
@@ -225,9 +212,11 @@ class Chat extends Component {
             </div>
           </div>
         </div>
-        <ChatSetting targetChatUserName={this.state.chat_target_uname}
+        <ChatSetting 
           currentRoomId={this.state.current_room_id}
-          targetChatUserId={this.state.chat_target_uid}/>
+          currentUser={currentUser}
+          targetChatUser={targetUser}
+          currentPeer={peer}/>
       </div>
     )
   }

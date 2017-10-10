@@ -33,7 +33,7 @@ let config = {
   "messagingSenderId": "846136360643"
 }
 export const ROOM_FILES = 'room_files';
- 
+export const STUN_SERVER_LIST = 'stun_server_list'; 
 export const APP_CONFIG = config;
 export const ALERT_OPTIONS = alertOptions;
 export const logoPic = logoPicture;

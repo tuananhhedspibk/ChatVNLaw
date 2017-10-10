@@ -16,6 +16,7 @@ module.exports = {
       login_error: 'Sai mật khẩu hoặc email',
       success: 'Đăng nhập thành công',
       username: 'Tên tài khoản',
+      email: 'Email',
       password: 'Mật khẩu',
       submit: 'Đăng nhập',
       had_account: 'Đã có tài khoản?'
@@ -23,7 +24,7 @@ module.exports = {
     signup: {
       signup_error: 'Sai thông tin đăng kí',
       success: 'Đăng kí thành công',
-      username: 'Tên tài khoản',
+      displayName: 'Tên người dùng',
       password: 'Mật khẩu',
       password_confirmation: 'Xác nhận mật khẩu',
       email: 'Email',

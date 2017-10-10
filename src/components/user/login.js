@@ -6,8 +6,11 @@ import * as constant from '../constants';
 import '../../assets/styles/common/authen.css';
 import '../../assets/styles/common/main.css';
 
-let translate = require('counterpart');
-var firebase = require('firebase');
+const translate = require('counterpart');
+const firebase = require('firebase');
+const $ = require('jquery');
+const userInfo = require('../../lib/helper/user/get_user_info');
+
 
 class UserLogin extends Component {
   constructor(props) {
@@ -25,9 +28,42 @@ class UserLogin extends Component {
   }
 
   componentDidMount(){
-    
+    $('#button-login-with-facebook').on('click', event =>{
+      console.log('facebook');
+      var provider = new firebase.auth.FacebookAuthProvider();
+      this.signInWithPopup(provider);
+    })
+    $('#button-login-with-google').on('click', event=>{
+      var provider = new firebase.auth.GoogleAuthProvider();
+      this.signInWithPopup(provider);      
+    })
+    $('#button-login-with-twitter').on('click', event=>{
+      var provider = new firebase.auth.TwitterAuthProvider();
+      this.signInWithPopup(provider);      
+    })
+    $('#button-login-with-github').on('click', event=>{
+      var provider = new firebase.auth.GithubAuthProvider();
+      this.signInWithPopup(provider);      
+    })
   }
-  
+  signInWithPopup(provider){
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      var user = result.user;
+      userInfo.getUserName(user, function(result){
+        window.location = constant.BASE_URL+ '/chat/'+result;        
+      })
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });  
+  }
   showAlert = (text) => {
     this.msg.show(text, {
       time: 5000,
@@ -58,7 +94,9 @@ class UserLogin extends Component {
         }).catch(function(error){
           component.showAlert(error.message);
         }).then(function(){
-          window.location = constant.BASE_URL+ '/chat/'+user.displayName;
+          userInfo.getUserName(user, function(data){
+            window.location = constant.BASE_URL+ '/chat/'+data;            
+          })
         })
       }
     });
@@ -73,6 +111,18 @@ class UserLogin extends Component {
             <img src={constant.logoPic} className='user-avatar' alt=''/>
             <h1>{translate('app.identifier.app_name')} <small>
               {translate('app.identifier.slogan')}</small></h1>
+            <button className='btn btn-white btn-outline btn-lg btn-rounded' id='button-login-with-facebook'>
+              Facebook
+            </button>
+            <button className='btn btn-white btn-outline btn-lg btn-rounded' id='button-login-with-google'>
+              Google
+            </button>
+            <button className='btn btn-white btn-outline btn-lg btn-rounded' id='button-login-with-twitter'>
+              Twitter
+            </button>
+            <button className='btn btn-white btn-outline btn-lg btn-rounded' id='button-login-with-github'>
+              Github
+            </button>
             <form onSubmit={this.handleSubmit.bind(this)}
               className='ng-pristine ng-valid'>
               <div className='form-content'>
@@ -82,7 +132,7 @@ class UserLogin extends Component {
                     value={this.state.username}
                     onChange={this.handleInputChange.bind(this)}
                     className='form-control input-underline input-lg'
-                    placeholder={translate('app.login.username')}/>
+                    placeholder={translate('app.login.email')}/>
                 </div>
                 <div className='form-group'>
                   <input type='password'
@@ -102,6 +152,7 @@ class UserLogin extends Component {
               <button type='submit' className='btn btn-white btn-outline btn-lg btn-rounded'>
                 {translate('app.login.submit')}
               </button>
+            
             </form>
           </div>
         </div>
