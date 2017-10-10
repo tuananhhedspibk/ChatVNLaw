@@ -5,15 +5,16 @@ import * as constant from '../constants';
 
 import '../../assets/styles/common/authen.css';
 
-let warningImage = require('../../assets/images/warning.png');
-let translate = require('counterpart');
-var firebase = require('firebase');
+const warningImage = require('../../assets/images/warning.png');
+const translate = require('counterpart');
+const firebase = require('firebase');
+const userInfo = require('../../lib/helper/user/get_user_info');
 
 class UserSignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      displayName: '',
       name: '',
       email: '',
       password: '',
@@ -50,12 +51,13 @@ class UserSignUp extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    var username = this.state.username;
+    var displayName = this.state.displayName;
+    var username = this.convertUserName(displayName);
     var component = this;
     var password = this.state.password;
     var password_confirmation = this.state.password_confirmation;
     var email = this.state.email;
-    if( !username || !password || !password_confirmation || !email){
+    if( !displayName || !password || !password_confirmation || !email){
       component.showAlert('missing required field');
       return;
     }
@@ -68,94 +70,48 @@ class UserSignUp extends Component {
       component.showAlert(error.message);
     })
     .then(function(user){
-      if(user){
-        firebase.database().ref('users').orderByChild('username').equalTo(username).once('value').then(function(result) {
-          if(result.exists()){
-            component.showAlert('exist username');
+      if(user){             
+        user.updateProfile({
+          displayName: displayName,
+          photoURL: constant.DEFAULT_AVATAR_URL
+        }).then(function() {
+          firebase.database().ref().child('users').child(user.uid).update({
+            "displayName" : displayName,
+            "username": username
+          }).then(function(){
+            // userInfo.getUserName(user,function(data){
+            //   window.location = constant.BASE_URL+'/chat/'+data;              
+            // })
+            window.location = constant.BASE_URL+'/chat/'+username;              
+            
+          }).catch(function(error){
+            component.showAlert(error.message);
             user.delete().then(function() {
               // User deleted.
             }).catch(function(error) {
               // An error happened.
             });
-          }else{            
-            user.updateProfile({
-              displayName: username,
-              photoURL: constant.DEFAULT_AVATAR_URL
-            }).then(function() {
-              // Update successful.
-              var success = 0;
-              
-              firebase.database().ref().child('users').child(user.uid).set({
-                "username" : username,
-                "email" : user.email,
-                "role" : "user",
-                "status" : "online",
-                "avatarUrl" : constant.DEFAULT_AVATAR_URL
-              }).then(function(){
-                success = success + 1;
-                if(success === 2){
-                  window.location = constant.BASE_URL+'/chat/'+user.displayName;
-                }
-              }).catch(function(error){
-                component.showAlert(error.message);
-                user.delete().then(function() {
-                  // User deleted.
-                }).catch(function(error) {
-                  // An error happened.
-                });
-                return;              
-              })
-  
-              let ref = firebase.database().ref().child('rooms');
-              let newPostRef = ref.push()
-              newPostRef.set({
-                "members":[user.uid,user.uid,user.uid+'_'+user.uid],
-                "messages":[]
-              }).catch(function(error){
-                component.showAlert(error.message);
-                user.delete().then(function() {
-                  // User deleted.
-                }).catch(function(error) {
-                  // An error happened.
-                });
-                return;
-              })
-              ref.child(newPostRef.key).on('child_added',function(snapshot){
-                if(snapshot.exists()){
-                  var roomId = newPostRef.key;
-                  firebase.database().ref().child('reference').child(user.uid + user.uid).set({
-                    roomId
-                  }).then(function(){
-                    success = success + 1;
-                    if(success === 2){
-                      window.location = constant.BASE_URL+'/chat/'+user.displayName;
-                    }
-                  }).catch(function(error){
-                    component.showAlert(error.message);
-                    user.delete().then(function() {
-                      // User deleted.
-                    }).catch(function(error) {
-                      // An error happened.
-                    });
-                    return; 
-                  })
-                }
-              })
-            }).catch(function(error) {
-              // An error happened.
-              component.showAlert(error.message);
-              user.delete().then(function() {
-                // User deleted.
-              }).catch(function(error) {
-                // An error happened.
-              });
-            }); 
-          }
+            return;              
+          })
         })
       }
     })
   }
 
+  convertUserName(displayName){
+    var str = displayName.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
+    str = str.replace(/đ/g, 'd');
+    str = str.replace(/\W+/g, ' ');
+    str = str.replace(/\s/g, '.');
+    str += '.'+(new Date()).getTime()
+    return str; 
+  }
   render() {
     return(
       <div className='login-page ng-scope ui-view'>
@@ -170,11 +126,11 @@ class UserSignUp extends Component {
               <div className='form-content'>
                 <div className='form-group'>
                   <input type='text'
-                    name='username'
-                    value={this.state.username}
+                    name='displayName'
+                    value={this.state.displayName}
                     onChange={this.handleInputChange.bind(this)}
                     className='form-control input-underline input-lg'
-                    placeholder={translate('app.signup.username')}/>
+                    placeholder={translate('app.signup.displayName')}/>
                 </div>
                 <div className='form-group'>
                   <input

@@ -2,6 +2,17 @@
   left: -70px;
   top: 25px; }
 
+.video {
+  background-color: #ddd;
+  border-radius: 7px;
+  margin: 10px 0px 0px 10px;
+  width: 240px;
+  height: 180px; }
+
+.button-call {
+  margin: 5px 0px 0px 10px !important;
+  width: 240px; }
+
 .chat-setting {
   border-right: 1px solid #e5ecf0;
   float: right;
