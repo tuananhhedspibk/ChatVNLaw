@@ -39,6 +39,10 @@ class Chat extends Component {
       });
     });
 
+    $('#upfile:hidden').change(function() {
+      component.readURL(this);
+    });
+
     document.getElementsByClassName('chats')[0].addEventListener('scroll',
       function(){
         if(this.scrollTop === 0){
@@ -186,6 +190,17 @@ class Chat extends Component {
       scrollTop: $('.chats')[0].scrollHeight}, 1000);
   }
 
+  readURL(input){
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#avatar")
+					.attr("src", e.target.result);
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
   upfile() {
     $('#upfile:hidden').trigger('click');
   }
@@ -193,6 +208,7 @@ class Chat extends Component {
   render() {
     return(
       <div className='chat-window' id='chat-window'>
+        <img id='avatar'/>
         <div className='title'>
           <div className='user-name'>
             {targetUser.displayName}
