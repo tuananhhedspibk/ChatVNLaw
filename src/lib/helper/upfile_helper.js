@@ -35,6 +35,7 @@ module.exports = {
                     }
                     refUri.push().set({
                         "name": name,
+                        "contentType": metadata.contentType,
                         "downloadURL": downloadURL,
                         "size": size,
                         "ts": ts,

@@ -5,7 +5,9 @@ function exportItem(data,properties){
   item["text"] = data.val().text;
   item["sender_uid"] = data.val().sender_uid;
   item["msg_ts"] = data.val().msg_ts;
-
+  item["contentType"] = data.val().contentType || '';
+  item["name"] = data.val().name || '';
+  item["downloadURL"] = data.val().downloadURL || '';
   if(item["sender_uid"] === properties.uid){
     item["type"] = 0;
     item["image"] = data.val().photoURL;
