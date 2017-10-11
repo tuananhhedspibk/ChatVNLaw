@@ -19,9 +19,11 @@ module.exports = {
                     return callback();
                 },
                 function(){
+                    console.log(task.snapshot);
                     let downloadURL = task.snapshot.downloadURL;
                     // console.log(downloadURL);
                     let metadata = task.snapshot.metadata;
+                    console.log(metadata);
                     let name = metadata.name;
                     let size = metadata.size;
                     let ts = metadata.generation;
@@ -34,6 +36,7 @@ module.exports = {
                         refUri = firebase.database().ref().child('rooms').child(properties.roomId).child('room_files');
                     }
                     refUri.push().set({
+                        "contentType": metadata.contentType,
                         "name": name,
                         "contentType": metadata.contentType,
                         "downloadURL": downloadURL,

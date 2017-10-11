@@ -9,6 +9,7 @@
     "chart.js": "^2.7.0",
     "counterpart": "^0.18.1",
     "ddp-client": "https://github.com/tranlinh265/node-ddp-client",
+    "emoji-mart": "^2.1.1",
     "firebase": "^4.4.0",
     "form-data": "^2.2.0",
     "fullcalendar-reactwrapper": "^1.0.7",

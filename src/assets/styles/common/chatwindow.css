@@ -37,6 +37,7 @@
   .chat-window .chat-body {
     float: left;
     height: calc(100% - 52px);
+    position: relative;
     width: calc(100% - 320px); }
   .chat-window .text-box {
     align-items: center;
@@ -70,3 +71,8 @@
       width: 100%; }
       .chat-window .text-box textarea:focus {
         outline: 0; }
+
+#emoji-picker {
+  display: none;
+  position: absolute;
+  bottom: 60px; }

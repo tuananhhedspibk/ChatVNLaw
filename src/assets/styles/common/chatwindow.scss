@@ -52,6 +52,7 @@
   .chat-body {
     float: left;
     height: calc(100% - 52px);
+    position: relative;
     width: calc(100% - 320px);
   }
 
@@ -100,4 +101,11 @@
       }
     }
   }
+}
+
+
+#emoji-picker {
+  display: none;
+  position: absolute;
+  bottom: 60px;
 }

@@ -10,6 +10,7 @@ const videoCall = require('../../lib/helper/video_call');
 const closeMediaStream = require('../../lib/helper/streaming/close_media_stream');
 const streamEvent = require('../../lib/helper/streaming/listen_event_from_database');
 const fileEvent = require('../../lib/helper/upfile/listen_event_from_database');
+
 const $ = require('jquery');
 var imageRef;
 var fileRef;
@@ -228,7 +229,6 @@ class ChatSetting extends Component {
             </div>
           </div>
           {this.renderVideo()}
-          
         </div>
       </div> 
     )

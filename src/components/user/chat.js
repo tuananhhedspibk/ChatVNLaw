@@ -5,8 +5,12 @@ import $ from 'jquery';
 import ChatSetting from '../chat/chatsetting';
 import * as constant from '../constants';
 import '../../assets/styles/common/chatwindow.css';
+import '../../assets/styles/common/emoji-mart.css';
+
 import * as fileHelper from '../../lib/helper/upfile_helper';
 import * as im from '../../lib/helper/messages';
+import {Picker} from 'emoji-mart'
+import {Emoji} from 'emoji-mart'
 
 let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
@@ -155,7 +159,9 @@ class Chat extends Component {
     $('#' + elementId).val('');
     this.autoExpand(elementId);
   }
-
+  renderEmojiPicker(){
+    $('#emoji-picker').toggle();
+  }
   handleInputChange(evt) {
     let textBox = $('#input-mess-box');
 
@@ -204,7 +210,11 @@ class Chat extends Component {
   upfile() {
     $('#upfile:hidden').trigger('click');
   }
-
+  onClickEmoji(emoji,event){
+    var inputTextArea = $('#input-mess-box');
+    inputTextArea.val(inputTextArea.val() + " " + emoji.colons + " ");
+    console.log(emoji);    
+  }
   render() {
     return(
       <div className='chat-window' id='chat-window'>
@@ -218,6 +228,17 @@ class Chat extends Component {
         </div>
         <div className='chat-body'>
           <ChatBubble messages={this.state.messages} />
+          <div id='emoji-picker'>
+              <Picker
+              onClick={this.onClickEmoji}
+                emojiSize={24} 
+                perLine={9}    
+                skin={1}       
+                set='messenger'                
+                showPreview={false}
+                autoFocus={true}
+                />
+            </div>
           <div className='text-box' id='text-box'>
             <input type='file' id='upfile'/>
             <textarea id='input-mess-box'
@@ -226,6 +247,7 @@ class Chat extends Component {
             <div className='addons-field'>
               <FontAwesome onClick={this.upfile} name='file-image-o'/>
             </div>
+            <button onClick={this.renderEmojiPicker}>emoji</button>
           </div>
         </div>
         <ChatSetting 
