@@ -32,19 +32,39 @@ module.exports = {
 
                     if(metadata.contentType.includes("image")){
                         refUri = firebase.database().ref().child('rooms').child(properties.roomId).child('room_images');
-                        }else{
+                        var img = new Image();
+                        var _URL = window.URL || window.webkitURL;
+                        img.src = _URL.createObjectURL(file);                        
+                        img.onload = function () {
+                            let height = this.height;
+                            let width = this.width;
+                            refUri.push().set({
+                                "contentType": metadata.contentType,
+                                "height": height,
+                                "width": width,
+                                "name": name,
+                                "contentType": metadata.contentType,
+                                "downloadURL": downloadURL,
+                                "size": size,
+                                "ts": ts,
+                                "sender_uid": properties.uid
+                            });
+                            return callback();    
+                        };
+                    }else{
                         refUri = firebase.database().ref().child('rooms').child(properties.roomId).child('room_files');
+                        refUri.push().set({
+                            "contentType": metadata.contentType,
+                            "name": name,
+                            "contentType": metadata.contentType,
+                            "downloadURL": downloadURL,
+                            "size": size,
+                            "ts": ts,
+                            "sender_uid": properties.uid
+                        });
+                        return callback();
                     }
-                    refUri.push().set({
-                        "contentType": metadata.contentType,
-                        "name": name,
-                        "contentType": metadata.contentType,
-                        "downloadURL": downloadURL,
-                        "size": size,
-                        "ts": ts,
-                        "sender_uid": properties.uid
-                    });
-                    return callback();
+                    
             })
         }
     },
