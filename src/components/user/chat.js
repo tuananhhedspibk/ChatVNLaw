@@ -46,7 +46,14 @@ class Chat extends Component {
     $('#upfile:hidden').change(function() {
       component.readURL(this);
     });
-
+    $(document).on("click", function () {
+      $('#emoji-picker').hide();
+    })
+    $('#btn-show-emoji').on("click", function(event){
+      event.stopPropagation();
+      $('#emoji-picker').toggle();      
+    })
+    
     document.getElementsByClassName('chats')[0].addEventListener('scroll',
       function(){
         if(this.scrollTop === 0){
@@ -159,9 +166,7 @@ class Chat extends Component {
     $('#' + elementId).val('');
     this.autoExpand(elementId);
   }
-  renderEmojiPicker(){
-    $('#emoji-picker').toggle();
-  }
+
   handleInputChange(evt) {
     let textBox = $('#input-mess-box');
 
@@ -211,14 +216,15 @@ class Chat extends Component {
     $('#upfile:hidden').trigger('click');
   }
   onClickEmoji(emoji,event){
+    $('#emoji-picker').on('click', function(emoji,event){
+      event.stopPropagation();
+    })
     var inputTextArea = $('#input-mess-box');
     inputTextArea.val(inputTextArea.val() + " " + emoji.colons + " ");
-    console.log(emoji);    
   }
   render() {
     return(
       <div className='chat-window' id='chat-window'>
-        <img id='avatar'/>
         <div className='title'>
           <div className='user-name'>
             {targetUser.displayName}
@@ -230,10 +236,10 @@ class Chat extends Component {
           <ChatBubble messages={this.state.messages} />
           <div id='emoji-picker'>
               <Picker
-              onClick={this.onClickEmoji}
+                onClick={this.onClickEmoji}
                 emojiSize={24} 
                 perLine={9}    
-                skin={1}       
+                skin={1}    
                 set='messenger'                
                 showPreview={false}
                 autoFocus={true}
@@ -247,7 +253,7 @@ class Chat extends Component {
             <div className='addons-field'>
               <FontAwesome onClick={this.upfile} name='file-image-o'/>
             </div>
-            <button onClick={this.renderEmojiPicker}>emoji</button>
+            <button id="btn-show-emoji">emoji</button>
           </div>
         </div>
         <ChatSetting 
