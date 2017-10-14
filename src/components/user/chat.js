@@ -239,8 +239,8 @@ class Chat extends Component {
     return(
       <div className={'chat-window ' + 'item_'+targetUser.uid} id='chat-window' >
         <div className='title'>
-          <div className={'user-name '+ targetUser.uid}>
-            {targetUser.displayName}
+          <div className={'user-name ' + targetUser.uid}>
+            {currentUser.uid === targetUser.uid ? currentUser.displayName : targetUser.displayName}
           </div>
           <FontAwesome name='video-camera'/>
           <FontAwesome name='phone'/>

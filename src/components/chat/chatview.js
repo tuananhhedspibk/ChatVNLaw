@@ -135,8 +135,10 @@ class ChatView extends Component {
       });
       ref.on('child_changed', function(data) {
         
-        userArr.every(function(element,index){           
+        userArr.every(function(element,index){      
+             
           if(element.uid === data.key){
+            
             userArr[index] = {
               username: data.val().username,
               displayName: data.val().displayName,
@@ -144,8 +146,9 @@ class ChatView extends Component {
               status: data.val().status,
               photoURL: data.val().photoURL
             };
+            $('.'+data.key).text(data.val().displayName);   
+            $("#current-user-ava").attr('src',data.val().photoURL);         
             component.setState({users : userArr})
-            $('.'+data.key).text(data.val().displayName);
 
             return false;
           }else{
