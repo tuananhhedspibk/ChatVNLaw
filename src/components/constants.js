@@ -15,6 +15,7 @@ let avaLawyerPic = require('../assets/images/default-ava-lawyer.png');
 let avaBotPic = require('../assets/images/bot.png');
 let warningPic = require('../assets/images/warning.png');
 let notFoundPic = require('../assets/images/error-img.png');
+let logohome = require('../assets/images/logo.png');
 
 let alertOptions = {
   offset: 14,
@@ -23,6 +24,8 @@ let alertOptions = {
   time: 5000,
   transition: 'scale'
 }
+
+let Flag = true;
 
 let config = {
   "apiKey": "AIzaSyBMem-ZKdVhPS2uwB3gXLPtD1YdQQthDK0",
@@ -42,4 +45,5 @@ export const avaUser = avaUserPic;
 export const avaBot = avaBotPic;
 export const warning = warningPic;
 export const notFound = notFoundPic;
-
+export const logoHome = logohome;
+export const falg = Flag;

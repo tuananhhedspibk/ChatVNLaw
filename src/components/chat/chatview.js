@@ -53,7 +53,7 @@ class ChatView extends Component {
     this.checkUserName(this.props.match.params.user_name);
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
-        window.location = constant.BASE_URL + constant.SIGN_IN_URI; 
+        window.location = constant.BASE_URL + constant.HOME_URI; 
       }
       currentUser = user;
       firebase.database().ref(`users/${currentUser.uid}`).update({
@@ -224,15 +224,9 @@ class ChatView extends Component {
   }
 
   logout() {
-    firebase.database().ref(`users/${currentUser.uid}`).update({
-      "status": "offline"
-    }).then(()=>{
-      
-      firebase.auth().signOut().then(function() {
-        // window.location = constant.BASE_URL + constant.SIGN_IN_URI;        
-      })
-      .catch(function(error) {});
-    })
+    firebase.auth().signOut().then(function() {
+      window.location = constant.BASE_URL + constant.HOME_URI;
+    }).catch(function(error) {});
   }
 
   renderUnreadMessages(targetUid){
@@ -260,7 +254,7 @@ class ChatView extends Component {
                   onClick={this.logout.bind(this)}/>
               </Dropdown.Menu>
             </Dropdown>
-            {translate('app.identifier.app_name')}
+            <a href="/home">{translate('app.identifier.app_name')} </a>
           </div>
           <List>
             <div className='search-box'>
