@@ -37,11 +37,13 @@ class Chat extends Component {
       let file = e.target.files[0];
       // store file data on firebase storage and set a reference on firebase realtime database
       let properties = {}
-      properties["roomId"] = component.state.current_room_id;
-      properties["uid"] = currentUser.uid;
-      properties["photoURL"] = currentUser.photoURL;
-      fileHelper.upfile(properties,file,function(){
-      });
+      if(component.state.current_room_id){
+        properties["roomId"] = component.state.current_room_id;
+        properties["uid"] = currentUser.uid;
+        properties["photoURL"] = currentUser.photoURL;
+        fileHelper.upfile(properties,file,function(){
+        });
+      }
     });
 
     document.getElementsByClassName('chats')[0].addEventListener('scroll',
@@ -54,13 +56,33 @@ class Chat extends Component {
         }
       }
     );
+    $('.'+'item_'+component.props.targetChatUser.uid).on('click', function(e){
+      e.preventDefault();
+      if(component.state.current_room_id){
+        let ref =firebase.database().ref().child('rooms').child(component.state.current_room_id).child('unread');
+        ref.once('value').then(function(data){
+          if(data.exists()){
+            if(data.val().count > 0 && data.val().lastMess.receiver_uid === currentUser.uid){
+              ref.update({
+                count: 0
+              })
+            }
+          }
+        })
+        
+      }
+    }) 
   }
 
   componentWillMount() {    
     var component = this;
     currentUser = component.props.currentUser;
     targetUser = component.props.targetChatUser;
+    
     peer = component.props.currentPeer;
+    if(!(!!peer)){
+      window.location = constant.BASE_URL+ '/chat/' + targetUser.username
+    }
     component.setState({messages: []})
     
     var roomid = currentUser.uid + targetUser.uid;
@@ -215,9 +237,9 @@ class Chat extends Component {
 
   render() {
     return(
-      <div className='chat-window' id='chat-window'>
+      <div className={'chat-window ' + 'item_'+targetUser.uid} id='chat-window' >
         <div className='title'>
-          <div className='user-name'>
+          <div className={'user-name '+ targetUser.uid}>
             {targetUser.displayName}
           </div>
           <FontAwesome name='video-camera'/>
@@ -240,7 +262,7 @@ class Chat extends Component {
             <input type='file' id='upfile'/>
             <textarea id='input-mess-box'
               placeholder={translate('app.chat.input_place_holder')}
-              onKeyDown={this.handleInputChange.bind(this)}/>
+              onKeyDown={this.handleInputChange.bind(this)} />
             <div className='addons-field'>
               <FontAwesome onClick={this.upfile} name='file-image-o'/>
             </div>

@@ -76,6 +76,9 @@ class ChatSetting extends Component {
     currentUser = this.props.currentUser;
     targetUser = this.props.targetChatUser;
     currentRoom = this.props.currentRoomId;
+    if(!(!!this.props.currentPeer)){
+      window.location = constant.BASE_URL+ '/chat/' + targetUser.username
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -197,17 +200,12 @@ class ChatSetting extends Component {
     
   }  
   renderAva() {
-    if(currentUser.uid !== targetUser.uid){
-      return(
-        <img src={targetUser.photoURL} alt='ava-lawyer'/>
-      )
-    }else{
+    
       return(
         <div>     
           <img src={targetUser.photoURL} alt='ava-lawyer' id='current-user-ava'/>
         </div>
       )
-    }
     
   }
   
@@ -289,7 +287,7 @@ class ChatSetting extends Component {
             {this.renderAva()}
           </div>
           <div className='info'>
-            <div className='user-name'>{targetUser.displayName}</div>
+            <div className={'user-name '+targetUser.uid}>{targetUser.displayName}</div>
           </div>
           <div className='config'>
             {this.renderConfig()}

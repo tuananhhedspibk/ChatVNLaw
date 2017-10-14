@@ -11,7 +11,7 @@ import * as constant from '../constants';
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/user_index.css';
 const Peer = require('peerjs');
-
+const $ = require('jquery');
 let translate = require('counterpart');
 var firebase = require('firebase');
 var currentUser;
@@ -65,7 +65,6 @@ class ChatView extends Component {
             text: snap.val().unread.lastMess.text || ''
           }
         }
-        console.log(unreadItem);
         unreadArr.push(unreadItem);  
         component.setState({unread: unreadArr});
       })
@@ -82,15 +81,12 @@ class ChatView extends Component {
               }
             }
             component.setState({unread: unreadArr})
-            console.log(component.state.unread);
             return false;
           }
           return true;
         })
       })
       unreadRef.on('child_removed', snap =>{
-        console.log(snap.key);
-        console.log(snap.val());
         unreadArr.every(function(element, index){
           if(element._id === snap.key){
             unreadArr.splice(index,1);
@@ -112,7 +108,6 @@ class ChatView extends Component {
 
     }).then(function(snapshot){
       var userArr = []
-      console.log(snapshot.val());
       ref.on('child_added', function(data) {
         
         var item = {
@@ -143,7 +138,8 @@ class ChatView extends Component {
               photoURL: data.val().photoURL
             };
             component.setState({users : userArr})
-            
+            $('.'+data.key).text(data.val().displayName);
+
             return false;
           }else{
             return true;
@@ -166,8 +162,6 @@ class ChatView extends Component {
       });
 
     });   
-    
-    
   }
 
   elementBaseStatus(userStatus) {
@@ -268,7 +262,7 @@ class ChatView extends Component {
                     return(
                       <div className={
                         this.props.match.params.user_name === user.username
-                          ? 'user active-link' : 'user'}
+                          ? 'user active-link ': 'user'}
                         key={user.uid}>
                         {this.renderStatus(user.status, user.uid)}
                         <Link to={'/chat/' + user.username} key={user.uid}
