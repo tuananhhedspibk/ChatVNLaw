@@ -35,7 +35,14 @@ class ChatView extends Component {
       searchTerm: ''
     }
   }
-
+  checkUserName(username){
+    firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
+    .then(function(snapshot){
+      if(!snapshot.exists()){
+        window.location = constant.BASE_URL;
+      }
+    })
+  }
   componentWillMount(){
     var component = this;
     
@@ -43,7 +50,7 @@ class ChatView extends Component {
       firebase.initializeApp(constant.APP_CONFIG);
     }
     getStunServerList();
-    
+    this.checkUserName(this.props.match.params.user_name);
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
         window.location = constant.BASE_URL + constant.SIGN_IN_URI; 
