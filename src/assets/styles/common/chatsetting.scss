@@ -1,11 +1,5 @@
 @import 'variables.scss';
 
-.config {
-  .ui.dropdown .menu {
-    left: -70px;
-    top: 25px;
-  }
-}
 .video{
   background-color: #ddd;
   border-radius: 7px;
@@ -13,16 +7,31 @@
   width: 240px;
   height: 180px;
 }
+
 .button-call{
   margin: 5px 0px 0px 10px !important;
   width: 240px;
+}
+
+.ui .modal {
+  height: 470px;
+
+  .description {
+    padding-left: 15px;
+
+    textarea {
+      max-height: 200px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
 }
 
 .chat-setting {
   border-right: 1px solid $gray-lighter;
   float: right;
   font-size: 1.05em;
-  height: 100%;
+  height: calc(100vh - 52px);
   overflow-y: scroll;
   text-align: left;
   width: 320px;
@@ -32,7 +41,8 @@
   }
 
   .config .ui.dropdown .menu {
-    left: -185px;
+    left: -120px;
+    top: 25px;
   }
 
   .header {

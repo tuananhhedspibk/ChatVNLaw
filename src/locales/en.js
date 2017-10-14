@@ -34,9 +34,14 @@ module.exports = {
     user: {
       list: 'List users',
       search: 'Search user',
+      name: 'User name',
+      upload: {
+        ava: 'Upload avatar'
+      },
       edit: {
         ava: 'Edit avatar',
-        name: 'Edit user name'
+        name: 'Edit user name',
+        profile: 'Edit profile'
       },
       status: {
         online: 'online',
