@@ -11,7 +11,13 @@ class Home extends Component {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
-        window.location = constant.BASE_URL + constant.CHAT_URI + '/' + firebase.auth().currentUser.displayName;
+        let ref = firebase.database().ref('users').orderByChild('displayName').equalTo(user.displayName).once('child_added').then(function(data){
+          if(data.exists()){  
+            window.location = constant.BASE_URL + constant.CHAT_URI + '/' + data.val().username;           
+          }else{
+            window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+          }
+        })
       } else {
         // No user is signed in.
         window.location = constant.BASE_URL + constant.SIGN_IN_URI;

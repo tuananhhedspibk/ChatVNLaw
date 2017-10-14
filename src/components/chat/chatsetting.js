@@ -145,7 +145,6 @@ class ChatSetting extends Component {
       properties['rid'] = nextProps.currentRoomId;
       properties['uid'] = currentUser.uid;
       properties['peer'] = currentPeer;
-      console.log(currentPeer)
       properties['vid'] = '#localStream';
 
       streamEvent.listenFromStreamFolder(properties,function(call,ref){
@@ -222,8 +221,10 @@ class ChatSetting extends Component {
     }
   }
 
-  upfile() {
-    $('#upfile:hidden').trigger('click');
+  upfile(event) {
+    event.preventDefault();
+    console.log('123');
+    $('#upfile-setting').trigger('click');
   }
 
   editProfile() {
@@ -246,7 +247,7 @@ class ChatSetting extends Component {
                 {translate('app.user.edit.profile')}
               </Modal.Header>
               <Modal.Content image>
-                <div className='image-col' hover={imgColStyle.hover} style={imgColStyle.base}>
+                <div className='image-col' style={imgColStyle.base}>
                   <Image wrapped size='medium'
                     src={currentUser.photoURL} />
                   <a href='#' onClick={this.upfile}
@@ -255,7 +256,7 @@ class ChatSetting extends Component {
                       style={faCameraStyle} aria-hidden='true'></i>
                       {translate('app.user.upload.ava')}
                   </a>
-                  <input type='file' id='upfile'
+                  <input type='file' id='upfile-setting'
                     style={upfileStyle}/>
                 </div>
                 <Modal.Description>
