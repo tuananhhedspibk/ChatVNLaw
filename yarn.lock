@@ -6063,7 +6063,7 @@ react-chartjs-2@^2.6.2:
 
 "react-chat-bubble@https://github.com/tuananhhedspibk/react-chat-bubble.git":
   version "0.8.6"
-  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#e49669d9a70d8ea5872001cee6084a10e682272b"
+  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#cf35c9ac5064947a0e54c159d4e629901b8664d9"
   dependencies:
     html-react-parser "^0.4.0"
     jquery "^3.2.1"
