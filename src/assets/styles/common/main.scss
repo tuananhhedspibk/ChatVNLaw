@@ -17,6 +17,17 @@ textarea:-moz-placeholder {
   color: $gray;
 }
 
+::-webkit-scrollbar{
+	background-color: rgba(255, 255, 255, 0.5) !important;
+	width: 6px !important;
+	border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(138, 138, 138, .3);
+	border-radius: 1px;
+}
+
 @font-face {
   font-family: "DroidSerif";
   src: font-url("fonts/Droid_Serif/DroidSerif-Regular.ttf");

@@ -1,7 +1,3 @@
-.config .ui.dropdown .menu {
-  left: -70px;
-  top: 25px; }
-
 .video {
   background-color: #ddd;
   border-radius: 7px;
@@ -13,18 +9,28 @@
   margin: 5px 0px 0px 10px !important;
   width: 240px; }
 
+.ui .modal {
+  height: 470px; }
+  .ui .modal .description {
+    padding-left: 15px; }
+    .ui .modal .description textarea {
+      max-height: 200px;
+      padding: 10px;
+      width: 100%; }
+
 .chat-setting {
   border-right: 1px solid #e5ecf0;
   float: right;
   font-size: 1.05em;
-  height: 100%;
+  height: calc(100vh - 52px);
   overflow-y: scroll;
   text-align: left;
   width: 320px; }
   .chat-setting .ui.dropdown .menu {
     font-size: 1.3em; }
   .chat-setting .config .ui.dropdown .menu {
-    left: -185px; }
+    left: -120px;
+    top: 25px; }
   .chat-setting .header {
     align-items: center;
     border-bottom: 1px solid #e5ecf0;

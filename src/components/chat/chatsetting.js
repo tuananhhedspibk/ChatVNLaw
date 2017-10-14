@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react';
+import { Header, TextArea, Button, Image,
+  Modal, Dropdown } from 'semantic-ui-react';
+
 import '../../assets/styles/common/chatsetting.css';
 import * as constant from '../constants';
 
@@ -25,6 +27,40 @@ var currentUser;
 var targetUser;
 var currentRoom;
 var currentPeer;
+
+var upfileStyle = {
+  display: 'none'
+}
+
+var uploadNewPicStyle = {
+  base: {
+    opacity: 1,
+    zIndex: 2,
+    display: 'inline-block',
+    fontSize: '1.2em',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    height: '60px',
+    width: '100%',
+    padding: '20px 20px',
+    color: 'white',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    backgroundColor: 'rgba(0, 0, 0, .5)'
+  }
+}
+
+var faCameraStyle = {
+  marginRight: '20px'
+}
+
+var imgColStyle = {
+  base: {
+    position: 'relative',
+  }
+}
+
 class ChatSetting extends Component {
   constructor(props) {
     super(props);
@@ -35,11 +71,13 @@ class ChatSetting extends Component {
       files_list: []
     }
   }
+
   componentWillMount() {
     currentUser = this.props.currentUser;
     targetUser = this.props.targetChatUser;
     currentRoom = this.props.currentRoomId;
   }
+
   shouldComponentUpdate(nextProps, nextState){
     if(this.state !== nextState || currentRoom !== nextProps.currentRoomId ||
       currentPeer !== nextProps.currentPeer ||
@@ -50,6 +88,7 @@ class ChatSetting extends Component {
 
     return false;
   }
+
   componentDidMount(){
     $('#current-user-ava').on('click', event =>{
       console.log('123');
@@ -185,11 +224,11 @@ class ChatSetting extends Component {
     }
   }
 
-  editUserName() {
-
+  upfile() {
+    $('#upfile:hidden').trigger('click');
   }
 
-  editUserAva() {
+  editProfile() {
 
   }
 
@@ -202,10 +241,38 @@ class ChatSetting extends Component {
       return(
         <Dropdown icon='settings'>
           <Dropdown.Menu>
-            <Dropdown.Item text={translate('app.user.edit.ava')}
-              onClick={this.editUserName.bind(this)}/>
-            <Dropdown.Item text={translate('app.user.edit.name')}
-              onClick={this.editUserAva.bind(this)}/>
+            <Modal trigger={
+              <Dropdown.Item text={translate('app.user.edit.profile')}/>
+            } closeIcon>
+              <Modal.Header>
+                {translate('app.user.edit.profile')}
+              </Modal.Header>
+              <Modal.Content image>
+                <div className='image-col' hover={imgColStyle.hover} style={imgColStyle.base}>
+                  <Image wrapped size='medium'
+                    src={currentUser.photoURL} />
+                  <a href='#' onClick={this.upfile}
+                    style={uploadNewPicStyle.base}>
+                      <i className='fa fa-camera'
+                      style={faCameraStyle} aria-hidden='true'></i>
+                      {translate('app.user.upload.ava')}
+                  </a>
+                  <input type='file' id='upfile'
+                    style={upfileStyle}/>
+                </div>
+                <Modal.Description>
+                  <Header>{translate('app.user.name')}</Header>
+                  <TextArea id='txtbox-username'
+                    autoHeight onChange={this.handleInputChange}
+                    rows={2} >{currentUser.displayName}</TextArea>
+                </Modal.Description>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color='blue' onClick={this.editProfile}>
+                  {translate('app.user.edit.profile')}
+                </Button>
+              </Modal.Actions>
+            </Modal>
             <Dropdown.Item text={translate('app.identifier.logout')}
               onClick={this.logout.bind(this)}/>
           </Dropdown.Menu>

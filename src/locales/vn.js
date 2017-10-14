@@ -33,9 +33,14 @@ module.exports = {
     user: {
       list: 'Danh sách người dùng',
       search: 'Tìm kiếm người dùng',
+      name: 'Tên người dùng',
+      upload: {
+        ava: 'Đăng ảnh đại diện'
+      },
       edit: {
         ava: 'Chỉnh sửa ảnh đại diện',
-        name: 'Chỉnh sửa tên người dùng'
+        name: 'Chỉnh sửa tên người dùng',
+        profile: 'Chỉnh sửa hồ sơ'
       },
       status: {
         online: 'online',
