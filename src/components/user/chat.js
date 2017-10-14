@@ -44,23 +44,12 @@ class Chat extends Component {
       });
     });
 
-    $('#upfile:hidden').change(function() {
-      component.readURL(this);
-    });
-    $(document).on("click", function () {
-      $('#emoji-picker').hide();
-    })
-    $('#btn-show-emoji').on("click", function(event){
-      event.stopPropagation();
-      $('#emoji-picker').toggle();      
-    })
-    
     document.getElementsByClassName('chats')[0].addEventListener('scroll',
       function(){
         if(this.scrollTop === 0){
           if(component.state.messages[0]){
             let ts = parseInt(component.state.messages[0].msg_ts) - 1;
-            component.loadHistory(""+ts,false);
+            component.loadHistory(''+ts,false);
           }
         }
       }
@@ -84,8 +73,9 @@ class Chat extends Component {
           component.forceUpdate()
         })
         component.streamingMessages();
-        component.loadHistory("" + (new Date()).getTime, true);
-      }else{
+        component.loadHistory('' + (new Date()).getTime, true);
+      }
+      else{
         // create new room chat
         let ref = firebase.database().ref().child('rooms');
         let newPostRef = ref.push()
@@ -104,7 +94,7 @@ class Chat extends Component {
         component.forceUpdate()
         
         component.streamingMessages();
-        component.loadHistory("" + (new Date()).getTime, true)
+        component.loadHistory('' + (new Date()).getTime, true)
       }
     });
     // }
@@ -136,7 +126,7 @@ class Chat extends Component {
     let properties = {}
     properties['rid'] = component.state.current_room_id;
     properties['uid'] = currentUser.uid;
-    properties['ts'] = "" + (new Date()).getTime();
+    properties['ts'] = '' + (new Date()).getTime();
     im.notifyMessagesComming(properties,function(event, item, ref){
       if(event === 'child_added'){
         messArr.push(item);
@@ -168,6 +158,15 @@ class Chat extends Component {
     this.autoExpand(elementId);
   }
 
+  renderEmojiPicker(e){
+    if ($('#emoji-picker').css('visibility') == 'hidden') {
+      $('#emoji-picker').css('visibility', 'visible');
+    }
+    else {
+      $('#emoji-picker').css('visibility', 'hidden');
+    }
+  }
+
   handleInputChange(evt) {
     let textBox = $('#input-mess-box');
 
@@ -190,7 +189,7 @@ class Chat extends Component {
     properties["rid"] = component.state.current_room_id;
     properties["content"] = document.getElementById('input-mess-box').value;  
     properties["uid"] = currentUser.uid;
-    properties["ts"] = "" + date.getTime();
+    properties["ts"] = '' + date.getTime();
     properties["photoURL"] = currentUser.photoURL ||'';
     im.chat(properties,function(){
 
@@ -202,20 +201,10 @@ class Chat extends Component {
       scrollTop: $('.chats')[0].scrollHeight}, 1000);
   }
 
-  readURL(input){
-		if(input.files && input.files[0]){
-			var reader = new FileReader();
-			reader.onload = function(e){
-				$("#avatar")
-					.attr("src", e.target.result);
-			};
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-
   upfile() {
     $('#upfile:hidden').trigger('click');
   }
+
   onClickEmoji(emoji,event){
     $('#emoji-picker').on('click', function(emoji,event){
       event.stopPropagation();
@@ -223,6 +212,7 @@ class Chat extends Component {
     var inputTextArea = $('#input-mess-box');
     inputTextArea.val(inputTextArea.val() + " " + emoji.colons + " ");
   }
+
   render() {
     return(
       <div className='chat-window' id='chat-window'>
@@ -236,15 +226,15 @@ class Chat extends Component {
         <div className='chat-body'>
           <ChatBubble messages={this.state.messages} />
           <div id='emoji-picker'>
-              <Picker
-                onClick={this.onClickEmoji}
-                emojiSize={24} 
-                perLine={9}    
-                skin={1}    
-                set='messenger'                
-                showPreview={false}
-                autoFocus={true}
-                />
+            <Picker
+              onClick={this.onClickEmoji}
+              emojiSize={24} 
+              perLine={9}    
+              skin={1}       
+              set='messenger'                
+              showPreview={false}
+              autoFocus={true}
+            />
             </div>
           <div className='text-box' id='text-box'>
             <input type='file' id='upfile'/>

@@ -73,6 +73,7 @@
         outline: 0; }
 
 #emoji-picker {
-  display: none;
+  bottom: 60px;
+  visibility: hidden;
   position: absolute;
-  bottom: 60px; }
+  right: 20px; }

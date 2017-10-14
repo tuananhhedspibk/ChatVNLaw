@@ -33,6 +33,10 @@ module.exports = {
     user: {
       list: 'Danh sách người dùng',
       search: 'Tìm kiếm người dùng',
+      edit: {
+        ava: 'Chỉnh sửa ảnh đại diện',
+        name: 'Chỉnh sửa tên người dùng'
+      },
       status: {
         online: 'online',
         offline: 'offline',

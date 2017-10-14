@@ -18,8 +18,13 @@
   float: right;
   font-size: 1.05em;
   height: 100%;
+  overflow-y: scroll;
   text-align: left;
   width: 320px; }
+  .chat-setting .ui.dropdown .menu {
+    font-size: 1.3em; }
+  .chat-setting .config .ui.dropdown .menu {
+    left: -185px; }
   .chat-setting .header {
     align-items: center;
     border-bottom: 1px solid #e5ecf0;
