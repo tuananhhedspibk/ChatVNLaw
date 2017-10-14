@@ -13,7 +13,7 @@ const videoCall = require('../../lib/helper/video_call');
 const closeMediaStream = require('../../lib/helper/streaming/close_media_stream');
 const streamEvent = require('../../lib/helper/streaming/listen_event_from_database');
 const fileEvent = require('../../lib/helper/upfile/listen_event_from_database');
-
+const firebase = require('firebase');
 const $ = require('jquery');
 var imageRef;
 var fileRef;
@@ -202,7 +202,7 @@ class ChatSetting extends Component {
     
       return(
         <div>     
-          <img src={targetUser.photoURL} alt='ava-lawyer' id='current-user-ava'/>
+          <img  src={currentUser.uid === targetUser.uid ? currentUser.photoURL : targetUser.photoURL} alt='ava-lawyer' id='current-user-ava'/>
         </div>
       )
     
@@ -225,10 +225,41 @@ class ChatSetting extends Component {
     event.preventDefault();
     console.log('123');
     $('#upfile-setting').trigger('click');
+    var fileButton = document.getElementById('upfile-setting');
+    fileButton.addEventListener('change', function(e){
+      e.preventDefault();
+      let file = e.target.files[0];
+      var storeageRef = firebase.storage().ref('avatar/'+currentUser.uid);
+      var task = storeageRef.put(file);
+      task.on('state_changed', 
+      function(snapshot){
+      },
+      function(err){
+        console.log(err);
+        
+      },
+      function(){
+        $('#edit-user-ava').find('img').attr('src',task.snapshot.downloadURL);
+      })
+      
+    })
   }
 
   editProfile() {
+    let photoURL = $('#edit-user-ava').find('img').attr('src');
+    let displayName = $('#txtbox-username').val();
+    currentUser.updateProfile({
+      displayName: displayName,
+      photoURL: photoURL
+    }).then(function() {
+      firebase.database().ref().child('users').child(currentUser.uid).update({
+        photoURL:photoURL,
+        displayName: displayName
+      }).then(function(){
 
+      })
+    })
+    
   }
 
   logout() {
@@ -240,23 +271,24 @@ class ChatSetting extends Component {
       return(
         <Dropdown icon='settings'>
           <Dropdown.Menu>
-            <Modal trigger={
-              <Dropdown.Item text={translate('app.user.edit.profile')}/>
+            <Modal id='edit-user-profile-box' trigger={
+              <Dropdown.Item  text={translate('app.user.edit.profile')}/>
             } closeIcon>
               <Modal.Header>
                 {translate('app.user.edit.profile')}
               </Modal.Header>
               <Modal.Content image>
                 <div className='image-col' style={imgColStyle.base}>
-                  <Image wrapped size='medium'
-                    src={currentUser.photoURL} />
+                  <Image wrapped size='medium' id='edit-user-ava'
+                    src={currentUser.photoURL}
+                     />
                   <a href='#' onClick={this.upfile}
                     style={uploadNewPicStyle.base}>
                       <i className='fa fa-camera'
                       style={faCameraStyle} aria-hidden='true'></i>
                       {translate('app.user.upload.ava')}
                   </a>
-                  <input type='file' id='upfile-setting'
+                  <input type='file' id='upfile-setting' accept="image/*"
                     style={upfileStyle}/>
                 </div>
                 <Modal.Description>
@@ -288,7 +320,9 @@ class ChatSetting extends Component {
             {this.renderAva()}
           </div>
           <div className='info'>
-            <div className={'user-name '+targetUser.uid}>{targetUser.displayName}</div>
+            <div className={'user-name ' + targetUser.uid}>
+              {currentUser.uid === targetUser.uid ? currentUser.displayName : targetUser.displayName}
+            </div>
           </div>
           <div className='config'>
             {this.renderConfig()}
