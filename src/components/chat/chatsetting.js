@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Dropdown } from 'semantic-ui-react';
 import '../../assets/styles/common/chatsetting.css';
 import * as constant from '../constants';
 
@@ -40,7 +41,10 @@ class ChatSetting extends Component {
     currentRoom = this.props.currentRoomId;
   }
   shouldComponentUpdate(nextProps, nextState){
-    if(this.state !== nextState || currentRoom !== nextProps.currentRoomId|| currentPeer !== nextProps.currentPeer || (nextProps.currentRoomId && nextProps.currentUser && nextProps.targetChatUser)){
+    if(this.state !== nextState || currentRoom !== nextProps.currentRoomId ||
+      currentPeer !== nextProps.currentPeer ||
+      (nextProps.currentRoomId && nextProps.currentUser
+        && nextProps.targetChatUser)){
       return true;
     }
 
@@ -180,9 +184,36 @@ class ChatSetting extends Component {
       )
     }
   }
-  renderConfig(){
+
+  editUserName() {
 
   }
+
+  editUserAva() {
+
+  }
+
+  logout() {
+    
+  }
+
+  renderConfig(){
+    if (currentUser.uid === targetUser.uid) {
+      return(
+        <Dropdown icon='settings'>
+          <Dropdown.Menu>
+            <Dropdown.Item text={translate('app.user.edit.ava')}
+              onClick={this.editUserName.bind(this)}/>
+            <Dropdown.Item text={translate('app.user.edit.name')}
+              onClick={this.editUserAva.bind(this)}/>
+            <Dropdown.Item text={translate('app.identifier.logout')}
+              onClick={this.logout.bind(this)}/>
+          </Dropdown.Menu>
+        </Dropdown>
+      )
+    }
+  }
+
   render() {
     return(
       <div className='chat-setting'>

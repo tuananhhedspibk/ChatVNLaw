@@ -103,9 +103,9 @@
   }
 }
 
-
 #emoji-picker {
-  display: none;
-  position: absolute;
   bottom: 60px;
+  visibility: hidden;
+  position: absolute;
+  right: 20px;
 }
