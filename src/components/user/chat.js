@@ -39,6 +39,7 @@ class Chat extends Component {
       let properties = {}
       properties["roomId"] = component.state.current_room_id;
       properties["uid"] = currentUser.uid;
+      properties["photoURL"] = currentUser.photoURL;
       fileHelper.upfile(properties,file,function(){
       });
     });

@@ -7,6 +7,11 @@ if(!firebase.apps.length){
 
 module.exports = {
     upfile: function(properties,file,callback){
+        console.log(file.size);
+        if(file.size >= 25000000){
+            console.log('file too big');
+            return;
+        }
         if(properties.roomId){
             var storeageRef = firebase.storage().ref(constant.ROOM_FILES+'/'+properties.roomId+'/'+properties.uid+'/'+file.name);
             var task = storeageRef.put(file);
@@ -43,11 +48,11 @@ module.exports = {
                                 "height": height,
                                 "width": width,
                                 "name": name,
-                                "contentType": metadata.contentType,
                                 "downloadURL": downloadURL,
                                 "size": size,
                                 "ts": ts,
-                                "sender_uid": properties.uid
+                                "sender_uid": properties.uid,
+                                "photoURL": properties.photoURL
                             });
                             return callback();    
                         };
@@ -60,7 +65,8 @@ module.exports = {
                             "downloadURL": downloadURL,
                             "size": size,
                             "ts": ts,
-                            "sender_uid": properties.uid
+                            "sender_uid": properties.uid,
+                            "photoURL": properties.photoURL                            
                         });
                         return callback();
                     }

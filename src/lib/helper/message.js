@@ -6,10 +6,8 @@ function exportItem(data,properties){
   item["sender_uid"] = data.val().sender_uid;
   item["msg_ts"] = data.val().msg_ts;
   item["contentType"] = data.val().contentType || '';
-  if(item["contenType"] && item["contenType"].includes("image")){
-    item["height"] = data.val().height;
-    item["width"] = data.val().width;
-  }
+  item["height"] = data.val().height || 0;
+  item["width"] = data.val().width || 0;
   item["name"] = data.val().name || '';
   item["downloadURL"] = data.val().downloadURL || '';
   
