@@ -18,6 +18,15 @@
       padding: 10px;
       width: 100%; }
 
+.ui.medium.image {
+  display: flex;
+  height: 300px;
+  width: 300px;
+  text-align: center; }
+
+.ui.image img {
+  margin: auto; }
+
 .chat-setting {
   border-right: 1px solid #e5ecf0;
   float: right;

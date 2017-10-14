@@ -27,6 +27,17 @@
   }
 }
 
+.ui.medium.image {
+  display: flex;
+  height: 300px;
+  width: 300px;
+  text-align: center;
+}
+
+.ui.image img {
+  margin: auto;
+}
+
 .chat-setting {
   border-right: 1px solid $gray-lighter;
   float: right;
