@@ -90,14 +90,9 @@ class UserLogin extends Component {
       component.showAlert(error.message);
     }).then(function(user){
       if(user){
-        firebase.database().ref().child('users').child(user.uid).update({
-          "status" : "online",
-        }).catch(function(error){
-          component.showAlert(error.message);
-        }).then(function(){
-          userInfo.getUserName(user, function(data){
-            window.location = constant.BASE_URL+ '/chat/'+data;            
-          })
+        
+        userInfo.getUserName(user, function(data){
+          window.location = constant.BASE_URL+ '/chat/'+data;            
         })
       }
     });

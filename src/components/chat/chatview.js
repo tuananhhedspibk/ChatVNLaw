@@ -56,6 +56,9 @@ class ChatView extends Component {
         window.location = constant.BASE_URL + constant.SIGN_IN_URI; 
       }
       currentUser = user;
+      firebase.database().ref(`users/${currentUser.uid}`).update({
+        status: 'online'
+      })
       var stunServer = JSON.parse(localStorage.stun_server_list);
       
       p = Peer(currentUser.uid,{key: '1xeeuumlu40a4i', config: stunServer});
@@ -110,68 +113,63 @@ class ChatView extends Component {
     var component = this;
  
     let ref = firebase.database().ref('users').orderByChild('role').equalTo('user');
-    ref.once('value')
-    .catch(function(error){
-
-    }).then(function(snapshot){
-      var userArr = []
-      ref.on('child_added', function(data) {
-        
-        var item = {
-          username: data.val().username,
-          displayName: data.val().displayName,
-          username: data.val().username,
-          uid : data.key,
-          status: data.val().status,
-          photoURL: data.val().photoURL
-        }
-        if(data.key === currentUser.uid){
-          userArr.unshift(item);
-          component.setState({users : userArr})          
-          return;
-        }
-        userArr.push(item);
-        component.setState({users : userArr})
-      });
-      ref.on('child_changed', function(data) {
-        
-        userArr.every(function(element,index){      
-             
-          if(element.uid === data.key){
+    
+    var userArr = []
+    ref.on('child_added', function(data) {
+      
+      var item = {
+        username: data.val().username,
+        displayName: data.val().displayName,
+        username: data.val().username,
+        uid : data.key,
+        status: data.val().status,
+        photoURL: data.val().photoURL
+      }
+      if(data.key === currentUser.uid){
+        userArr.unshift(item);
+        component.setState({users : userArr})          
+        return;
+      }
+      userArr.push(item);
+      component.setState({users : userArr})
+    });
+    ref.on('child_changed', function(data) {
+      
+      userArr.every(function(element,index){      
             
-            userArr[index] = {
-              username: data.val().username,
-              displayName: data.val().displayName,
-              uid : data.key,
-              status: data.val().status,
-              photoURL: data.val().photoURL
-            };
-            $('.'+data.key).text(data.val().displayName);   
-            $("#current-user-ava").attr('src',data.val().photoURL);         
-            component.setState({users : userArr})
+        if(element.uid === data.key){
+          
+          userArr[index] = {
+            username: data.val().username,
+            displayName: data.val().displayName,
+            uid : data.key,
+            status: data.val().status,
+            photoURL: data.val().photoURL
+          };
+          $('.'+data.key).text(data.val().displayName);   
+          $("#current-user-ava").attr('src',data.val().photoURL);         
+          component.setState({users : userArr})
 
-            return false;
-          }else{
-            return true;
-          }
-        })
-      });
-      ref.on('child_removed', function(data) {
-        if(data.key === currentUser.uid){
-          return;
+          return false;
+        }else{
+          return true;
         }
-        userArr.every(function(element,index){           
-          if(element.uid === data.key){
-            userArr.splice(index,1);
-            component.setState({users : userArr})            
-            return false;
-          }else{
-            return true;
-          }
-        })
-      });
-
-    });   
+      })
+    });
+    ref.on('child_removed', function(data) {
+      if(data.key === currentUser.uid){
+        return;
+      }
+      userArr.every(function(element,index){           
+        if(element.uid === data.key){
+          userArr.splice(index,1);
+          component.setState({users : userArr})            
+          return false;
+        }else{
+          return true;
+        }
+      })
+    });
   }
 
   elementBaseStatus(userStatus) {
@@ -193,8 +191,7 @@ class ChatView extends Component {
   }
 
   changeStatus(event, data) {
-    firebase.database().ref('users')
-      .child(currentUser.uid).update({'status' : data.text});
+    firebase.database().ref(`users/${currentUser.uid}`).update({'status' : data.text});
   }
 
   renderStatus(userStatus, uid) {
@@ -227,9 +224,15 @@ class ChatView extends Component {
   }
 
   logout() {
-    firebase.auth().signOut().then(function() {
-      window.location = constant.BASE_URL + constant.SIGN_IN_URI;
-    }).catch(function(error) {});
+    firebase.database().ref(`users/${currentUser.uid}`).update({
+      "status": "offline"
+    }).then(()=>{
+      
+      firebase.auth().signOut().then(function() {
+        // window.location = constant.BASE_URL + constant.SIGN_IN_URI;        
+      })
+      .catch(function(error) {});
+    })
   }
 
   renderUnreadMessages(targetUid){
