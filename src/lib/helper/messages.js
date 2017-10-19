@@ -5,7 +5,7 @@ var itemConvert = require('./message');
 module.exports = {
     notifyMessagesComming :function(properties,callback){
         if(properties.rid){
-            let ref = firebase.database().ref().child('rooms').child(properties.rid).child('messages').orderByChild('msg_ts').startAt(properties.ts);
+            let ref = firebase.database().ref(`rooms/${properties.rid}/messages`).orderByChild('msg_ts').startAt(properties.ts);
             ref.on('child_added', function(snapshot){
                 if(snapshot.exists()){
                     let item = itemConvert(snapshot,properties);
@@ -21,7 +21,7 @@ module.exports = {
     },
     history: function(properties,limit, callback){
         if(properties.rid){
-            let ref = firebase.database().ref().child('rooms').child(properties.rid).child('messages').orderByChild('msg_ts').endAt(properties.ts).limitToLast(limit);
+            let ref = firebase.database().ref(`rooms/${properties.rid}/messages`).orderByChild('msg_ts').endAt(properties.ts).limitToLast(limit);
             ref.once('value').then(function(data){
                 if(data.exists()){
                     var messArr = []
@@ -38,7 +38,7 @@ module.exports = {
     },
     chat: function(properties, callback){
         if(properties.rid){
-            let ref = firebase.database().ref().child('rooms').child(properties.rid).child('messages');
+            let ref = firebase.database().ref(`rooms/${properties.rid}/messages`);
             ref.push().set({
                 "text": properties.content,
                 "sender_uid": properties.uid,

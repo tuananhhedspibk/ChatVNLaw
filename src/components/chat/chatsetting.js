@@ -7,21 +7,11 @@ import '../../assets/styles/common/chatsetting.css';
 import * as constant from '../constants';
 
 const translate = require('counterpart');
-const openStream = require('../../lib/helper/streaming/open_stream');
-const playVideo = require('../../lib/helper/streaming/play_video');
 const videoCall = require('../../lib/helper/video_call');
-const closeMediaStream = require('../../lib/helper/streaming/close_media_stream');
 const streamEvent = require('../../lib/helper/streaming/listen_event_from_database');
-const fileEvent = require('../../lib/helper/upfile/listen_event_from_database');
 const firebase = require('firebase');
 const $ = require('jquery');
-var imageRef;
-var fileRef;
-var requestRef;
-var cancelRequestRef;
 var streamRef;
-var callSide;
-var answerSide;
 
 var currentUser;
 var targetUser;
@@ -93,28 +83,13 @@ class ChatSetting extends Component {
   }
 
   componentDidMount(){
-    $('#current-user-ava').on('click', event =>{
-      console.log('123');
-    })
+    
   }
 
   componentWillUpdate(nextProps, nextState){
     var component = this;
     if(currentPeer !== nextProps.currentPeer){
       currentPeer = nextProps.currentPeer;
-      currentPeer.on('call', function(called) {
-        openStream(stream =>{
-          called.answer(stream);
-          answerSide = called;
-          called.on('stream',remoteStream =>{
-            console.log(remoteStream);
-            playVideo(remoteStream,'localStream');
-          })
-          called.on('close', function(){
-            closeMediaStream(stream, '#localStream');          
-          })
-        })
-      });
     }
     if(currentRoom !== nextProps.currentRoomId){
       currentRoom = nextProps.currentRoomId;
@@ -126,18 +101,6 @@ class ChatSetting extends Component {
         files_list: []
       });
       
-      if ( typeof imageRef !== 'undefined' && imageRef){
-        imageRef.off();
-      }
-      if ( typeof fileRef !== 'undefined' && fileRef){
-        fileRef.off();
-      }
-      if ( typeof requestRef !== 'undefined' && requestRef){
-        requestRef.off();
-      }
-      if ( typeof cancelRequestRef !== 'undefined' && cancelRequestRef){
-        requestRef.off();
-      }
       if ( typeof streamRef !== 'undefined' && streamRef){
         streamRef.off();
       }
@@ -146,41 +109,23 @@ class ChatSetting extends Component {
       properties['uid'] = currentUser.uid;
       properties['peer'] = currentPeer;
       properties['vid'] = '#localStream';
-
-      streamEvent.listenFromStreamFolder(properties,function(call,ref){
-        streamRef = ref;
-        callSide = call;
-      })
-
-      streamEvent.listenFromRequestFolder(properties,function(ref){
-        requestRef = ref;
-      })
-
-      streamEvent.listenFromCancelRequestFolder(properties, function(ref){
-        cancelRequestRef = ref;
-      })
       properties['imagesList'] = imagesList;
       properties['filesList'] = filesList;
       properties['component'] = component;
 
-      fileEvent.listenFromImageFolder(properties, function(ref){
-        imageRef = ref;
-      })
-
-      fileEvent.listenFromFilesFolder(properties,function(ref){
-        fileRef = ref;
-      })  
+      streamEvent.listenFromVideoCall(properties, function(ref){
+        streamRef = ref;
+      });  
     }
     return true;
   }
 
   endCall(){
-    try{        
-      callSide.close();
-      answerSide.close();    
-    }catch(err){
-
-    }
+    let ref = firebase.database().ref(`rooms/${this.state.current_room_id}/video_call/end`).push()
+    ref.set({
+      hihi: 'hihi'
+    })
+    ref.remove();
   }
 
   makeCallRequest(){
@@ -229,7 +174,7 @@ class ChatSetting extends Component {
     fileButton.addEventListener('change', function(e){
       e.preventDefault();
       let file = e.target.files[0];
-      var storeageRef = firebase.storage().ref('avatar/'+currentUser.uid);
+      var storeageRef = firebase.storage().ref(`avatar/${currentUser.uid}`);
       var task = storeageRef.put(file);
       task.on('state_changed', 
       function(snapshot){
@@ -252,7 +197,7 @@ class ChatSetting extends Component {
       displayName: displayName,
       photoURL: photoURL
     }).then(function() {
-      firebase.database().ref().child('users').child(currentUser.uid).update({
+      firebase.database().ref(`users/${currentUser.uid}`).update({
         photoURL:photoURL,
         displayName: displayName
       }).then(function(){

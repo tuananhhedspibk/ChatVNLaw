@@ -75,7 +75,7 @@ class UserSignUp extends Component {
           displayName: displayName,
           photoURL: constant.DEFAULT_AVATAR_URL
         }).then(function() {
-          firebase.database().ref().child('users').child(user.uid).update({
+          firebase.database().ref(`users/${user.uid}`).update({
             "displayName" : displayName,
             "username": username
           }).then(function(){

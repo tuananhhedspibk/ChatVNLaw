@@ -13,7 +13,7 @@ module.exports = {
             return;
         }
         if(properties.roomId){
-            var storeageRef = firebase.storage().ref(constant.ROOM_FILES+'/'+properties.roomId+'/'+properties.uid+'/'+file.name);
+            var storeageRef = firebase.storage().ref(`${constant.ROOM_FILES}/${properties.roomId}/${properties.uid}/${file.name}`);
             var task = storeageRef.put(file);
 
             task.on('state_changed',
@@ -36,7 +36,7 @@ module.exports = {
                     let refUri = "";
 
                     if(metadata.contentType.includes("image")){
-                        refUri = firebase.database().ref().child('rooms').child(properties.roomId).child('room_images');
+                        refUri = firebase.database().ref(`rooms/${properties.roomId}/room_images`);
                         var img = new Image();
                         var _URL = window.URL || window.webkitURL;
                         img.src = _URL.createObjectURL(file);                        
@@ -57,11 +57,10 @@ module.exports = {
                             return callback();    
                         };
                     }else{
-                        refUri = firebase.database().ref().child('rooms').child(properties.roomId).child('room_files');
+                        refUri = firebase.database().ref(`rooms/${properties.roomId}/room_files`);
                         refUri.push().set({
                             "contentType": metadata.contentType,
                             "name": name,
-                            "contentType": metadata.contentType,
                             "downloadURL": downloadURL,
                             "size": size,
                             "ts": ts,

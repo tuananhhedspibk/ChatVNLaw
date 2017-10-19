@@ -56,22 +56,22 @@ class Chat extends Component {
         }
       }
     );
-    $('.'+'item_'+component.props.targetChatUser.uid).on('click', function(e){
-      e.preventDefault();
-      if(component.state.current_room_id){
-        let ref =firebase.database().ref().child('rooms').child(component.state.current_room_id).child('unread');
-        ref.once('value').then(function(data){
-          if(data.exists()){
-            if(data.val().count > 0 && data.val().lastMess.receiver_uid === currentUser.uid){
-              ref.update({
-                count: 0
-              })
-            }
-          }
-        })
+    // $('.'+'item_'+component.props.targetChatUser.uid).on('click', function(e){
+    //   e.preventDefault();
+    //   if(component.state.current_room_id){
+    //     let ref =firebase.database().ref().child(`rooms/${component.state.current_room_id}/unread`);
+    //     ref.once('value').then(function(data){
+    //       if(data.exists()){
+    //         if(data.val().count > 0 && data.val().lastMess.receiver_uid === currentUser.uid){
+    //           ref.update({
+    //             count: 0
+    //           })
+    //         }
+    //       }
+    //     })
         
-      }
-    }) 
+    //   }
+    // }) 
   }
 
   componentWillMount() {    
@@ -86,7 +86,7 @@ class Chat extends Component {
     component.setState({messages: []})
     
     var roomid = currentUser.uid + targetUser.uid;
-    firebase.database().ref().child('reference').child(roomid)
+    firebase.database().ref(`reference/${roomid}`)
       .once('value').then(function(snapshot){
       if(snapshot.exists()){
         // get real roomId
@@ -99,7 +99,7 @@ class Chat extends Component {
       }
       else{
         // create new room chat
-        let ref = firebase.database().ref().child('rooms');
+        let ref = firebase.database().ref('rooms');
         let newPostRef = ref.push()
         let count = 0;
         if(currentUser.uid === targetUser.uid){
@@ -224,13 +224,12 @@ class Chat extends Component {
   }
 
   upfile() {
+    console.log($('#upfile:hidden'))
     $('#upfile:hidden').trigger('click');
   }
 
   onClickEmoji(emoji,event){
-    $('#emoji-picker').on('click', function(emoji,event){
-      event.stopPropagation();
-    })
+    
     var inputTextArea = $('#input-mess-box');
     inputTextArea.val(inputTextArea.val() + " " + emoji.colons + " ");
   }
@@ -264,9 +263,9 @@ class Chat extends Component {
               placeholder={translate('app.chat.input_place_holder')}
               onKeyDown={this.handleInputChange.bind(this)} />
             <div className='addons-field'>
-              <FontAwesome onClick={this.upfile} name='file-image-o'/>
+              <FontAwesome  onClick={this.upfile} name='file-image-o'/>
             </div>
-            <button id="btn-show-emoji">emoji</button>
+            <button id="btn-show-emoji" onClick={this.renderEmojiPicker}>emoji</button>
           </div>
         </div>
         <ChatSetting 
