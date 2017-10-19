@@ -49,11 +49,16 @@
     height: 60px;
     width: 100%; }
     .chat-window .text-box .fa {
+      color: #d1d1d1;
       cursor: pointer;
-      float: right; }
+      float: right;
+      margin-left: 15px; }
+      .chat-window .text-box .fa:active {
+        color: #e5ecf0; }
     .chat-window .text-box .fa-file-image-o {
-      color: #c0c0c0;
-      font-size: 1.1em; }
+      font-size: 1.3em; }
+    .chat-window .text-box .fa-smile-o {
+      font-size: 1.5em; }
     .chat-window .text-box .addons-field {
       height: 100%;
       padding: 23px 15px;

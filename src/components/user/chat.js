@@ -46,6 +46,14 @@ class Chat extends Component {
       }
     });
 
+    $(document).mouseup(function(e) {
+      var container = $('.emoji-section');
+      var emojiPicker = $('#emoji-picker')
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        emojiPicker.css('visibility', 'hidden');
+      }
+    });
+
     document.getElementsByClassName('chats')[0].addEventListener('scroll',
       function(){
         if(this.scrollTop === 0){
@@ -56,22 +64,31 @@ class Chat extends Component {
         }
       }
     );
-    // $('.'+'item_'+component.props.targetChatUser.uid).on('click', function(e){
-    //   e.preventDefault();
-    //   if(component.state.current_room_id){
-    //     let ref =firebase.database().ref().child(`rooms/${component.state.current_room_id}/unread`);
-    //     ref.once('value').then(function(data){
-    //       if(data.exists()){
-    //         if(data.val().count > 0 && data.val().lastMess.receiver_uid === currentUser.uid){
-    //           ref.update({
-    //             count: 0
-    //           })
-    //         }
-    //       }
-    //     })
-        
-    //   }
-    // }) 
+    $('.' + 'item_' + component.props.targetChatUser.uid).mouseenter(function(e){
+      e.preventDefault();
+      component.deleteMessUnreadNumber();
+    });
+    $('.' + 'item_' + component.props.targetChatUser.uid).mousemove(function(e){
+      e.preventDefault();
+      component.deleteMessUnreadNumber();
+    });
+  }
+
+  deleteMessUnreadNumber() {
+    var component = this;
+    if(component.state.current_room_id){
+      let ref =firebase.database().ref().child('rooms')
+        .child(component.state.current_room_id).child('unread');
+      ref.once('value').then(function(data){
+        if(data.exists()){
+          if(data.val().count > 0 && data.val().lastMess.receiver_uid === currentUser.uid){
+            ref.update({
+              count: 0
+            })
+          }
+        }
+      })
+    }
   }
 
   componentWillMount() {    
@@ -155,6 +172,9 @@ class Chat extends Component {
         component.setState({messages: messArr});
         component.autoScrollBottom();
         messRef = ref;
+        if ($('.item_' + component.props.targetChatUser.uid).css('display') != 'none') {
+          component.deleteMessUnreadNumber();
+        }
       }
     })
   }
@@ -229,7 +249,6 @@ class Chat extends Component {
   }
 
   onClickEmoji(emoji,event){
-    
     var inputTextArea = $('#input-mess-box');
     inputTextArea.val(inputTextArea.val() + " " + emoji.colons + " ");
   }
@@ -246,26 +265,29 @@ class Chat extends Component {
         </div>
         <div className='chat-body'>
           <ChatBubble messages={this.state.messages} />
-          <div id='emoji-picker'>
-            <Picker
-              onClick={this.onClickEmoji}
-              emojiSize={24} 
-              perLine={9}    
-              skin={1}       
-              set='messenger'                
-              showPreview={false}
-              autoFocus={true}
-            />
-            </div>
           <div className='text-box' id='text-box'>
             <input type='file' id='upfile'/>
             <textarea id='input-mess-box'
               placeholder={translate('app.chat.input_place_holder')}
               onKeyDown={this.handleInputChange.bind(this)} />
             <div className='addons-field'>
-              <FontAwesome  onClick={this.upfile} name='file-image-o'/>
+              <div className='emoji-section'>
+                <div id='emoji-picker'>
+                  <Picker
+                    onClick={this.onClickEmoji}
+                    emojiSize={24} 
+                    perLine={9}    
+                    skin={1}       
+                    set='messenger'                
+                    showPreview={false}
+                    autoFocus={true}
+                  />
+                </div>
+                <FontAwesome onClick={this.renderEmojiPicker}
+                  name='smile-o' id='btn-show-emoji'/>
+              </div>
+              <FontAwesome onClick={this.upfile} name='file-image-o'/>
             </div>
-            <button id="btn-show-emoji" onClick={this.renderEmojiPicker}>emoji</button>
           </div>
         </div>
         <ChatSetting 

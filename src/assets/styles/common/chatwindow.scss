@@ -67,13 +67,22 @@
     width: 100%;
 
     .fa {
+      color: $gray-medium;
       cursor: pointer;
       float: right;
+      margin-left: 15px;
+
+      &:active {
+        color: $gray-lighter;
+      }
     }
 
     .fa-file-image-o {
-      color: $gray-darker;
-      font-size: 1.1em;
+      font-size: 1.3em;
+    }
+
+    .fa-smile-o {
+      font-size: 1.5em;
     }
 
     .addons-field {
