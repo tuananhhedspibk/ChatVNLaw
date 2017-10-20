@@ -8,6 +8,7 @@ import UserDashBoard from './components/user/dashboard/main';
 import ChatView from './components/chat/chatview';
 import Home from './components/homepage/App';
 import Attorney from './components/attorney/Attorney';
+import Payment from './components/payments/App';
 
 import NotFoundPage from './components/shared/notfound';
 
@@ -24,6 +25,7 @@ const Routes = props => (
       )}/>
       <Route path='/signup' component={UserSignUp}/>
       <Route path='/attorney' component={Attorney}/>
+      <Route path='/payment' component={Payment} />
       <Route path='/home' component={Home}/>
       <Route path='' component={Home} />
       <Route path='*' component={NotFoundPage}/>
