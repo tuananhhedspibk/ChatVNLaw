@@ -24,8 +24,6 @@ module.exports = {
         streamRef.on('child_added', function(data){
             switch(data.key){
                 case 'request':
-                console.log('request');
-                console.log(data.val());
                     var roomId = properties.rid;
                     var peerId = properties.peer.id;
                     if(Object.keys(data.val())[0] !== properties.uid){
@@ -46,12 +44,9 @@ module.exports = {
                     }
                     break;
                 case 'stream':
-                console.log('stream');
-                console.log(data.val());
                     let peer = properties.peer;
                     let targetPeerId = Object.keys(data.val())[0];
                     if(targetPeerId !== peer.id){
-                        console.log(peer);
                         openStream(stream =>{
                             let call = peer.call(targetPeerId,stream);
                             call.on('stream',remoteStream =>{
