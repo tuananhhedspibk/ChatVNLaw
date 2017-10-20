@@ -1,34 +1,39 @@
 const firebase = require('firebase');
+var fileRef, imageRef;
 
+function addItem(snapshot, list){
+    let item = {}
+    snapshot.forEach(function(element){
+        item[element.key] = element.val();
+    })
+    list.push(item);
+    return list;
+}
 module.exports = {
+    closeRef: function(){
+        try{
+            fileRef.off();
+            imageRef.off();
+        }catch(err){
+
+        }
+    },
     listenFromImageFolder : function(properties, callback){
-        let imageRef = firebase.database().ref().child('rooms').child(properties.rid).child('room_images');
+        imageRef = firebase.database().ref().child('rooms').child(properties.rid).child('room_images');
         imageRef.on('child_added',function(snapshot){
           if(snapshot.exists()){
-            let item = {}
-            snapshot.forEach(function(element){
-                item[element.key] = element.val();
-            })
-            let imagesList = properties.imagesList;
-            imagesList.push(item);
+            let imagesList = addItem(snapshot,properties.imagesList);
             properties.component.setState({images_list: imagesList});
-            //   imagesList.push(item);
-            //   component.setState({images_list: imagesList});
             }
           }
         );
         return callback(imageRef);
     },
     listenFromFilesFolder: function(properties, callback){
-        let fileRef = firebase.database().ref().child('rooms').child(properties.rid).child('room_files');
+        fileRef = firebase.database().ref().child('rooms').child(properties.rid).child('room_files');
         fileRef.on('child_added', function(snapshot){
-          if(snapshot.exists()){
-            let item = {}
-                snapshot.forEach(function(element){
-                    item[element.key] = element.val();
-                })
-                let filesList = properties.filesList;
-                filesList.push(item);
+            if(snapshot.exists()){
+                let filesList = addItem(snapshot, properties.filesList);
                 properties.component.setState({files_list: filesList});
             }
           }

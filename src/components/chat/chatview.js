@@ -60,8 +60,8 @@ class ChatView extends Component {
         status: 'online'
       })
       var stunServer = JSON.parse(localStorage.stun_server_list);
-      
-      p = Peer(currentUser.uid,{key: '1xeeuumlu40a4i', config: stunServer});
+      p = Peer(user.uid,{key: '8tgn11opscmlhaor', config: stunServer});
+      console.log(p);
       let unreadRef = firebase.database().ref().child('rooms').orderByChild('unread/lastMess/receiver_uid').equalTo(currentUser.uid);
       var unreadArr = [] 
 
@@ -145,9 +145,7 @@ class ChatView extends Component {
             uid : data.key,
             status: data.val().status,
             photoURL: data.val().photoURL
-          };
-          $('.'+data.key).text(data.val().displayName);   
-          $("#current-user-ava").attr('src',data.val().photoURL);         
+          };       
           component.setState({users : userArr})
 
           return false;

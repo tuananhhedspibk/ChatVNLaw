@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, TextArea, Button, Image,
   Modal, Dropdown } from 'semantic-ui-react';
-
+import AlertContainer from 'react-alert';
 import '../../assets/styles/common/chatsetting.css';
 import * as constant from '../constants';
 
 const translate = require('counterpart');
 const videoCall = require('../../lib/helper/video_call');
 const streamEvent = require('../../lib/helper/streaming/listen_event_from_database');
+const fileEvent = require('../../lib/helper/upfile/listen_event_from_database');
 const firebase = require('firebase');
 const $ = require('jquery');
-var streamRef;
-
 var currentUser;
 var targetUser;
 var currentRoom;
@@ -70,18 +69,28 @@ class ChatSetting extends Component {
       window.location = constant.BASE_URL+ '/chat/' + targetUser.username
     }
   }
-
+  componentWillReceiveProps(nextProps){
+    if(currentRoom !== nextProps.currentRoomId){
+      streamEvent.closeStream();
+      streamEvent.closeRef();
+      fileEvent.closeRef();
+    }
+    if(targetUser !== nextProps.targetChatUser){
+      targetUser = nextProps.targetChatUser;    
+    }
+  }
+  
   shouldComponentUpdate(nextProps, nextState){
     if(this.state !== nextState || currentRoom !== nextProps.currentRoomId ||
       currentPeer !== nextProps.currentPeer ||
       (nextProps.currentRoomId && nextProps.currentUser
         && nextProps.targetChatUser)){
+    
       return true;
     }
 
     return false;
   }
-
   componentDidMount(){
     
   }
@@ -93,29 +102,30 @@ class ChatSetting extends Component {
     }
     if(currentRoom !== nextProps.currentRoomId){
       currentRoom = nextProps.currentRoomId;
-      var imagesList = [];
-      var filesList = [];
       component.setState({
         current_room_id: nextProps.currentRoomId,
         images_list: [],
         files_list: []
       });
       
-      if ( typeof streamRef !== 'undefined' && streamRef){
-        streamRef.off();
-      }
       let properties = {}
       properties['rid'] = nextProps.currentRoomId;
       properties['uid'] = currentUser.uid;
+      console.log(currentPeer);
       properties['peer'] = currentPeer;
       properties['vid'] = '#localStream';
-      properties['imagesList'] = imagesList;
-      properties['filesList'] = filesList;
+      properties['imagesList'] = [];
+      properties['filesList'] = [];
       properties['component'] = component;
-
       streamEvent.listenFromVideoCall(properties, function(ref){
-        streamRef = ref;
-      });  
+      });
+      
+
+      fileEvent.listenFromImageFolder(properties, function(ref){
+      })
+
+      fileEvent.listenFromFilesFolder(properties,function(ref){
+      })  
     }
     return true;
   }
@@ -168,7 +178,6 @@ class ChatSetting extends Component {
 
   upfile(event) {
     event.preventDefault();
-    console.log('123');
     $('#upfile-setting').trigger('click');
     var fileButton = document.getElementById('upfile-setting');
     fileButton.addEventListener('change', function(e){
@@ -210,7 +219,13 @@ class ChatSetting extends Component {
   logout() {
     
   }
-
+  showAlert = (text) => {
+    this.msg.show(text, {
+      time: 5000,
+      type: 'success',
+      icon: <img alt='warning' src={constant.warning} />
+    })
+  }
   renderConfig(){
     if (currentUser.uid === targetUser.uid) {
       return(
@@ -260,12 +275,14 @@ class ChatSetting extends Component {
   render() {
     return(
       <div className='chat-setting'>
+        <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>        
+
         <div className='header'>
           <div className='ava'>
             {this.renderAva()}
           </div>
           <div className='info'>
-            <div className={'user-name ' + targetUser.uid}>
+            <div className={'user-name'}>
               {currentUser.uid === targetUser.uid ? currentUser.displayName : targetUser.displayName}
             </div>
           </div>

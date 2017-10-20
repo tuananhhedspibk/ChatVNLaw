@@ -90,7 +90,13 @@ class Chat extends Component {
       })
     }
   }
-
+  componentWillReceiveProps(nextProps){
+    if(targetUser !== nextProps.targetChatUser){
+      targetUser = nextProps.targetChatUser;
+      $('.me').attr('src',targetUser.photoURL)
+      $('.you').attr('src',currentUser.photoURL);
+    }
+  }
   componentWillMount() {    
     var component = this;
     currentUser = component.props.currentUser;
@@ -145,8 +151,17 @@ class Chat extends Component {
     properties['ts'] = timestamp;
     properties['rid'] = this.state.current_room_id;
     properties['uid'] = currentUser.uid;
+    properties['currentUser'] = currentUser;
+    properties['targetUser'] = targetUser;
     let currentMessArr = this.state.messages;
     im.history(properties,15,function(item, index){
+      if(item["sender_uid"] === currentUser.uid){
+        item["type"] = 0;
+        item["image"] = currentUser.photoURL;
+      }else{
+        item["type"] = 1;
+        item["image"] = targetUser.photoURL;
+      }
       currentMessArr.splice(index, 0, item);
       component.setState({messages: currentMessArr});
       if(autoScroll){
@@ -168,6 +183,15 @@ class Chat extends Component {
     properties['ts'] = '' + (new Date()).getTime();
     im.notifyMessagesComming(properties,function(event, item, ref){
       if(event === 'child_added'){
+
+        if(item["sender_uid"] === currentUser.uid){
+          item["type"] = 0;
+          item["image"] = currentUser.photoURL;
+        }else{
+          item["type"] = 1;
+          item["image"] = targetUser.photoURL;
+        }
+
         messArr.push(item);
         component.setState({messages: messArr});
         component.autoScrollBottom();
@@ -257,7 +281,7 @@ class Chat extends Component {
     return(
       <div className={'chat-window ' + 'item_'+targetUser.uid} id='chat-window' >
         <div className='title'>
-          <div className={'user-name ' + targetUser.uid}>
+          <div className={'user-name'}>
             {currentUser.uid === targetUser.uid ? currentUser.displayName : targetUser.displayName}
           </div>
           <FontAwesome name='video-camera'/>
