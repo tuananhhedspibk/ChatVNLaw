@@ -3711,6 +3711,10 @@ insert-module-globals@^7.0.0:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
+install@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/install/-/install-0.10.1.tgz#1c7b53c8dd7335ef534c2648de28f599df1bdd97"
+
 internal-ip@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-1.2.0.tgz#ae9fbf93b984878785d50a8de1b356956058cf5c"
@@ -6063,7 +6067,11 @@ react-chartjs-2@^2.6.2:
 
 "react-chat-bubble@https://github.com/tuananhhedspibk/react-chat-bubble.git":
   version "0.8.6"
+<<<<<<< HEAD
   resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#089db948b9b9ab6b812725699b0ee12ab9b17dda"
+=======
+  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#715d37935e967a02112bcd4ab5c7318e7b584377"
+>>>>>>> add home page
   dependencies:
     html-react-parser "^0.4.0"
     jquery "^3.2.1"
@@ -6209,6 +6217,10 @@ react-router-dom@^4.2.2:
     react-router "^4.2.0"
     warning "^3.0.0"
 
+react-router-last-location@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-router-last-location/-/react-router-last-location-1.0.2.tgz#a147200a4697a8274dc3fafa628f150815744315"
+
 react-router@4.2.0, react-router@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.2.0.tgz#61f7b3e3770daeb24062dae3eedef1b054155986"
@@ -6279,6 +6291,12 @@ react-stickies@0.0.16:
     moment "^2.17.1"
     react-grid-layout "^0.14.0"
 
+react-stripe-elements@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-1.2.0.tgz#06665f0e0c01c336ca4a7d30fb95adb9c6375725"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-tooltip@^3.3.0:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-3.3.1.tgz#c8eb0f64c3852e5aadb10b1569bcd469562b326d"
@@ -6305,7 +6323,7 @@ react@*:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-"react@^15 || ^16", react@^15.6.1:
+"react@^15 || ^16":
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:
@@ -6315,7 +6333,7 @@ react@*:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react@^15.4.2, react@^15.5.4:
+react@^15.4.2, react@^15.5.4, react@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.2.tgz#dba0434ab439cfe82f108f0f511663908179aa72"
   dependencies:

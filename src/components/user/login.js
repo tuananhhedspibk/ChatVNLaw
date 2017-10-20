@@ -5,6 +5,7 @@ import * as constant from '../constants';
 
 import '../../assets/styles/common/authen.css';
 import '../../assets/styles/common/main.css';
+import Nav from '../homepage/Nav';
 
 const translate = require('counterpart');
 const firebase = require('firebase');
@@ -21,11 +22,11 @@ class UserLogin extends Component {
     }
   }
 
-  componentWillMount() {
-    if(localStorage.rocket_chat_user != null) {
-      this.props.history.push();
-    }
-  }
+  // componentWillMount() {
+  //   if(localStorage.rocket_chat_user != null) {
+  //     this.props.history.push();
+  //   }
+  // }
 
   componentDidMount(){
     $('#button-login-with-facebook').on('click', event =>{
@@ -50,7 +51,14 @@ class UserLogin extends Component {
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var user = result.user;
       userInfo.getUserName(user, function(result){
-        window.location = constant.BASE_URL+ '/chat/'+result;        
+        const target = localStorage.getItem('target')
+        if (target === 'home') {
+          window.location = constant.BASE_URL+ '/home' 
+        }
+        if (target === 'chat') {
+          window.location = constant.BASE_URL+ '/chat/' + result; 
+        }
+               
       })
       // ...
     }).catch(function(error) {
@@ -90,9 +98,14 @@ class UserLogin extends Component {
       component.showAlert(error.message);
     }).then(function(user){
       if(user){
-        
-        userInfo.getUserName(user, function(data){
-          window.location = constant.BASE_URL+ '/chat/'+data;            
+        firebase.database().ref().child('users').child(user.uid).update({
+          "status" : "online",
+        }).catch(function(error){
+          component.showAlert(error.message);
+        }).then(function(){
+          // userInfo.getUserName(user, function(data){
+            window.location = constant.BASE_URL+ '/chat';    
+          // })
         })
       }
     });

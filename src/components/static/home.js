@@ -20,7 +20,7 @@ class Home extends Component {
         })
       } else {
         // No user is signed in.
-        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+        window.location = constant.BASE_URL + constant.HOME_URI;
       }
     });
   }
