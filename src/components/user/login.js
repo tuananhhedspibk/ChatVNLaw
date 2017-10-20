@@ -103,9 +103,16 @@ class UserLogin extends Component {
         }).catch(function(error){
           component.showAlert(error.message);
         }).then(function(){
-          // userInfo.getUserName(user, function(data){
-            window.location = constant.BASE_URL+ '/chat';    
-          // })
+          userInfo.getUserName(user, function(result){
+            const target = localStorage.getItem('target')
+            if (target === 'home') {
+              window.location = constant.BASE_URL+ '/home' 
+            }
+            if (target === 'chat') {
+              window.location = constant.BASE_URL+ '/chat/' + result; 
+            }
+                   
+          })
         })
       }
     });

@@ -44,13 +44,12 @@ class Nav extends Component {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
             // User is signed in.
-            window.location = constant.BASE_URL + '/chat/' + firebase.auth().currentUser.displayName;
+            userInfo.getUserName(user, function(result){
+                  window.location = constant.BASE_URL+ '/chat/' + result;                 
+              })
           } else {
             // No user is signed in.
             window.location = constant.BASE_URL + constant.SIGN_IN_URI;
-            
-            //window.targetLocation = {target : 'chat'}
-            //window.location = constant.BASE_URL + '/chat/' + firebase.auth().currentUser.displayName;
           }
         });
     }
