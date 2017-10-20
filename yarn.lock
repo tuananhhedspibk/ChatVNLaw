@@ -6067,11 +6067,15 @@ react-chartjs-2@^2.6.2:
 
 "react-chat-bubble@https://github.com/tuananhhedspibk/react-chat-bubble.git":
   version "0.8.6"
+<<<<<<< 4574e0b0b084184a6a02de4688f708ad5dae9685
 <<<<<<< HEAD
   resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#089db948b9b9ab6b812725699b0ee12ab9b17dda"
 =======
   resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#715d37935e967a02112bcd4ab5c7318e7b584377"
 >>>>>>> add home page
+=======
+  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#06dc4e3dd8e30f98e6a164d5d769cfc2617479ab"
+>>>>>>> fix video call
   dependencies:
     html-react-parser "^0.4.0"
     jquery "^3.2.1"
