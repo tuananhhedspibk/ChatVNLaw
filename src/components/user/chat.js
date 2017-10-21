@@ -25,10 +25,9 @@ class Chat extends Component {
       messages: [],
       current_room_id: ''
     };
-    this.targetUser;
-    this.currentRoomId;
-    this.messRef; 
-    this.currentUser;   
+    this.targetUser='';
+    this.messRef=''; 
+    this.currentUser='';   
   }
 
   componentDidMount() {

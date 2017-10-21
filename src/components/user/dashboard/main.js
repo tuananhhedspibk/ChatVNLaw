@@ -35,7 +35,7 @@ class UserDashBoard extends Component {
               </Switch>
             </Container>
           </main>
-          <Aside/>
+          <Chat/>
         </div>
       </div>
     )

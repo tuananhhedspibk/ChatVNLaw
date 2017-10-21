@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ChatBox from './chatBox';
 import ChatUserLists from './chatUsersList';
 
 class Chat extends Component {
@@ -7,7 +6,6 @@ class Chat extends Component {
     return(
       <div className='chat-section'>
         <ChatUserLists />
-        <ChatBox />
       </div>
     )
   }

@@ -24,7 +24,6 @@ module.exports = {
         streamRef.on('child_added', function(data){
             switch(data.key){
                 case 'request':
-                    var roomId = properties.rid;
                     var peerId = properties.peer.id;
                     if(Object.keys(data.val())[0] !== properties.uid){
                         if(window.confirm("video call from another user")){
