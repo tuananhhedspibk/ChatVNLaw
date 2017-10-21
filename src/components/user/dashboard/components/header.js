@@ -40,9 +40,9 @@ class Header extends Component {
     document.body.classList.toggle('sidebar-mobile-show');
   }
 
-  asideToggle(e) {
+  chatToggle(e) {
     e.preventDefault();
-    document.body.classList.toggle('aside-menu-hidden');
+    document.body.classList.toggle('chat-section-hidden');
   }
 
   render() {
@@ -96,7 +96,7 @@ class Header extends Component {
             </Dropdown>
           </NavItem>
         </Nav>
-        <NavbarToggler className='d-md-down-none' type='button' onClick={this.asideToggle}>&#9776;</NavbarToggler>
+        <NavbarToggler className='d-md-down-none' type='button' onClick={this.chatToggle}>&#9776;</NavbarToggler>
       </header>
     )
   }

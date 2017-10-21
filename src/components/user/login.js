@@ -5,7 +5,6 @@ import * as constant from '../constants';
 
 import '../../assets/styles/common/authen.css';
 import '../../assets/styles/common/main.css';
-import Nav from '../homepage/Nav';
 
 const translate = require('counterpart');
 const firebase = require('firebase');
@@ -22,30 +21,27 @@ class UserLogin extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   if(localStorage.rocket_chat_user != null) {
-  //     this.props.history.push();
-  //   }
-  // }
-
   componentDidMount(){
-    $('#button-login-with-facebook').on('click', event =>{
+    $('#button-login-with-facebook').on('click', event => {
       console.log('facebook');
       var provider = new firebase.auth.FacebookAuthProvider();
       this.signInWithPopup(provider);
-    })
-    $('#button-login-with-google').on('click', event=>{
+    });
+
+    $('#button-login-with-google').on('click', event => {
       var provider = new firebase.auth.GoogleAuthProvider();
       this.signInWithPopup(provider);      
-    })
-    $('#button-login-with-twitter').on('click', event=>{
+    });
+
+    $('#button-login-with-twitter').on('click', event => {
       var provider = new firebase.auth.TwitterAuthProvider();
       this.signInWithPopup(provider);      
-    })
-    $('#button-login-with-github').on('click', event=>{
+    });
+
+    $('#button-login-with-github').on('click', event => {
       var provider = new firebase.auth.GithubAuthProvider();
       this.signInWithPopup(provider);      
-    })
+    });
   }
   signInWithPopup(provider){
     var component = this;
