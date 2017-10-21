@@ -12,7 +12,6 @@ function exportItem(data,properties){
     item["width"] = data.val().width || 0;
     item["name"] = data.val().name || '';
     item["downloadURL"] = data.val().downloadURL || '';
-    
     return item;
   }
 

@@ -2928,7 +2928,13 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@*, fbjs@^0.8.12, fbjs@^0.8.15, fbjs@^0.8.16, fbjs@^0.8.9:
+fbemitter@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/fbemitter/-/fbemitter-2.1.1.tgz#523e14fdaf5248805bb02f62efc33be703f51865"
+  dependencies:
+    fbjs "^0.8.4"
+
+fbjs@*, fbjs@^0.8.12, fbjs@^0.8.15, fbjs@^0.8.16, fbjs@^0.8.4, fbjs@^0.8.9:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -4369,6 +4375,10 @@ jest@20.0.4:
   resolved "https://registry.yarnpkg.com/jest/-/jest-20.0.4.tgz#3dd260c2989d6dad678b1e9cc4d91944f6d602ac"
   dependencies:
     jest-cli "^20.0.4"
+
+"jquery-longpress@https://github.com/vaidik/jquery-longpress":
+  version "0.0.0"
+  resolved "https://github.com/vaidik/jquery-longpress#3eb2dc43cc6b0194d0f3739edfee79f10fae1dbc"
 
 "jquery@2 - 3", jquery@^3.2.1, jquery@x.*:
   version "3.2.1"
@@ -6149,19 +6159,7 @@ react-chartjs-2@^2.6.2:
 
 "react-chat-bubble@https://github.com/tuananhhedspibk/react-chat-bubble.git":
   version "0.8.6"
-<<<<<<< bc89ad9494f5c299756513f733a07f6003d3d17b
-<<<<<<< 4574e0b0b084184a6a02de4688f708ad5dae9685
-<<<<<<< HEAD
-  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#089db948b9b9ab6b812725699b0ee12ab9b17dda"
-=======
-  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#715d37935e967a02112bcd4ab5c7318e7b584377"
->>>>>>> add home page
-=======
-  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#06dc4e3dd8e30f98e6a164d5d769cfc2617479ab"
->>>>>>> fix video call
-=======
-  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#129c80a30601ae28d17fa561eb06824a578c9a81"
->>>>>>> fix video call
+  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#8392ce3c4f0c626e5bd16371daa6c005a90c2eb3"
   dependencies:
     html-react-parser "^0.4.0"
     jquery "^3.2.1"
