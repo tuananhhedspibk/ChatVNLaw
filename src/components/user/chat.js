@@ -262,14 +262,17 @@ class Chat extends Component {
     var component = this;
     var date = new Date();  
     let properties = {}
-    properties["rid"] = component.state.current_room_id;
-    properties["content"] = document.getElementById('input-mess-box').value;  
-    properties["uid"] = component.currentUser.uid;
-    properties["ts"] = '' + date.getTime();
-    properties["photoURL"] = component.currentUser.photoURL ||'';
-    im.chat(properties,function(){
+    var textSubmit = document.getElementById('input-mess-box').value;
+    if (textSubmit.replace(/\s/g, '').length != 0) {
+      properties["rid"] = component.state.current_room_id;
+      properties["content"] = document.getElementById('input-mess-box').value; 
+      properties["uid"] = currentUser.uid;
+      properties["ts"] = '' + date.getTime();
+      properties["photoURL"] = currentUser.photoURL ||'';
+      im.chat(properties,function(){
 
-    });
+      });
+    }
   }
 
   autoScrollBottom() {

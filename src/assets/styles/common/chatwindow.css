@@ -24,9 +24,11 @@
     text-transform: uppercase;
     width: 100%; }
     .chat-window .title .user-name {
+      font-size: 1.1em;
       display: inline-block; }
     .chat-window .title .fa {
       float: right;
+      font-size: 1.3em;
       margin-left: 15px; }
   .chat-window .chats {
     border-right: 1px solid #e5ecf0;
