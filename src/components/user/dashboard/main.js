@@ -9,6 +9,7 @@ import Note from './components/note';
 import Calendar from './components/calendar';
 import Breadcrumb from './components/breadcrumb';
 import {Container} from 'reactstrap';
+import Chat from './components/chat';
 
 import '../../../assets/styles/dashboard/style.css';
 
@@ -36,7 +37,6 @@ class UserDashBoard extends Component {
           </main>
           <Aside/>
         </div>
-        <Footer/>
       </div>
     )
   }

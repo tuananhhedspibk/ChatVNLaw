@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../components/homepage/App.min.css';
 
 class Content extends Component {
   render() {

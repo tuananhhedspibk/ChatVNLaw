@@ -1,0 +1,10 @@
+.chat-section {
+  z-index: $zindex-sticky - 1;
+  width: $chat-user-width;
+}
+
+.chat-section-hidden {
+    .chat-section {
+      margin-right: - $aside-menu-width;
+    }
+  }

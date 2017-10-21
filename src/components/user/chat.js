@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
-import { Form } from 'semantic-ui-react';
 import $ from 'jquery';
+import {Picker} from 'emoji-mart';
+import HashTagBox from '../chat/hashtagbox';
+
 import ChatSetting from '../chat/chatsetting';
+
 import * as constant from '../constants';
+import * as fileHelper from '../../lib/helper/upfile_helper';
+import * as im from '../../lib/helper/messages';
+
 import '../../assets/styles/common/chatwindow.css';
 import '../../assets/styles/common/emoji-mart.css';
 
-import * as fileHelper from '../../lib/helper/upfile_helper';
-import * as im from '../../lib/helper/messages';
-import {Picker} from 'emoji-mart'
-import {Emoji} from 'emoji-mart'
 let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
 var firebase = require('firebase');
+
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +70,7 @@ class Chat extends Component {
       e.preventDefault();
       component.deleteMessUnreadNumber();
     });
+
     $('.' + 'item_' + component.props.targetChatUser.uid).mousemove(function(e){
       e.preventDefault();
       component.deleteMessUnreadNumber();
@@ -97,6 +102,7 @@ class Chat extends Component {
       $('.you').attr('src',component.currentUser.photoURL);
     }
   }
+
   componentWillMount() {    
     var component = this;
     component.currentUser = component.props.currentUser;
@@ -137,7 +143,6 @@ class Chat extends Component {
         component.loadHistory('' + (new Date()).getTime, true)
       }
     });
-    // }
   }
 
   loadHistory(timestamp, autoScroll){
@@ -235,7 +240,7 @@ class Chat extends Component {
   }
 
   renderEmojiPicker(e){
-    if ($('#emoji-picker').css('visibility') == 'hidden') {
+    if ($('#emoji-picker').css('visibility') === 'hidden') {
       $('#emoji-picker').css('visibility', 'visible');
     }
     else {
@@ -263,12 +268,12 @@ class Chat extends Component {
     var date = new Date();  
     let properties = {}
     var textSubmit = document.getElementById('input-mess-box').value;
-    if (textSubmit.replace(/\s/g, '').length != 0) {
+    if (textSubmit.replace(/\s/g, '').length !== 0) {
       properties["rid"] = component.state.current_room_id;
       properties["content"] = document.getElementById('input-mess-box').value; 
-      properties["uid"] = currentUser.uid;
+      properties["uid"] = component.currentUser.uid;
       properties["ts"] = '' + date.getTime();
-      properties["photoURL"] = currentUser.photoURL ||'';
+      properties["photoURL"] = component.currentUser.photoURL ||'';
       im.chat(properties,function(){
 
       });
@@ -281,13 +286,12 @@ class Chat extends Component {
   }
 
   upfile() {
-    console.log($('#upfile:hidden'))
     $('#upfile:hidden').trigger('click');
   }
 
   onClickEmoji(emoji,event){
     var inputTextArea = $('#input-mess-box');
-    inputTextArea.val(inputTextArea.val() + " " + emoji.colons + " ");
+    inputTextArea.val(inputTextArea.val() + ' ' + emoji.colons + ' ');
   }
 
   render() {

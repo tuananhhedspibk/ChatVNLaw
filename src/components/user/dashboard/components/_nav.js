@@ -26,11 +26,6 @@ export default {
       }
     },
     {
-      name: 'Charts',
-      url: '/charts',
-      icon: 'icon-pie-chart'
-    },
-    {
       divider: true
     },
     {

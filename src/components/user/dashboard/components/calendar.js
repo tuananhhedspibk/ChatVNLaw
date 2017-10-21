@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import request from 'superagent';
 
-require('fullcalendar-reactwrapper/dist/css/fullcalendar.min.css')
+require('fullcalendar-reactwrapper/dist/css/fullcalendar.min.css');
+
 const CALENDAR_ID = '2qm6bc113of43opcqnsiernk5s@group.calendar.google.com';
 const API_KEY = 'AIzaSyCGFci7s06zoPhyF0d92Lu57BpGOkiszy0';
 let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`;
