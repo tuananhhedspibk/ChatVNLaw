@@ -10,12 +10,12 @@ import * as constant from '../constants';
 
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/user_index.css';
+var {EventEmitter} = require('fbemitter');
+var emitter = new EventEmitter();
 const Peer = require('peerjs');
 const $ = require('jquery');
 let translate = require('counterpart');
 var firebase = require('firebase');
-var currentUser;
-var p;
 const getStunServerList = require('../../lib/helper/get_stun_server_list');
 
 const KEYS_TO_FILTERS = ['displayName'];
@@ -33,7 +33,9 @@ class ChatView extends Component {
       users: [],
       unread: [],
       searchTerm: ''
-    }
+    };
+    this.peer;
+    this.currentUser;
   }
   checkUserName(username){
     firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
@@ -45,7 +47,6 @@ class ChatView extends Component {
   }
   componentWillMount(){
     var component = this;
-    
     if(!firebase.apps.length){
       firebase.initializeApp(constant.APP_CONFIG);
     }
@@ -55,14 +56,13 @@ class ChatView extends Component {
       if(!user){
         window.location = constant.BASE_URL + constant.HOME_URI; 
       }
-      currentUser = user;
-      firebase.database().ref(`users/${currentUser.uid}`).update({
+      component.currentUser = user;
+      firebase.database().ref(`users/${component.currentUser.uid}`).update({
         status: 'online'
       })
       var stunServer = JSON.parse(localStorage.stun_server_list);
-      p = Peer(user.uid,{key: '8tgn11opscmlhaor', config: stunServer});
-      console.log(p);
-      let unreadRef = firebase.database().ref().child('rooms').orderByChild('unread/lastMess/receiver_uid').equalTo(currentUser.uid);
+      component.peer = Peer(user.uid,{key: '8tgn11opscmlhaor', config: stunServer});
+      let unreadRef = firebase.database().ref().child('rooms').orderByChild('unread/lastMess/receiver_uid').equalTo(component.currentUser.uid);
       var unreadArr = [] 
 
       unreadRef.on('child_added', snap =>{
@@ -125,7 +125,7 @@ class ChatView extends Component {
         status: data.val().status,
         photoURL: data.val().photoURL
       }
-      if(data.key === currentUser.uid){
+      if(data.key === component.currentUser.uid){
         userArr.unshift(item);
         component.setState({users : userArr})          
         return;
@@ -155,7 +155,7 @@ class ChatView extends Component {
       })
     });
     ref.on('child_removed', function(data) {
-      if(data.key === currentUser.uid){
+      if(data.key === component.currentUser.uid){
         return;
       }
       userArr.every(function(element,index){           
@@ -189,13 +189,14 @@ class ChatView extends Component {
   }
 
   changeStatus(event, data) {
-    firebase.database().ref(`users/${currentUser.uid}`).update({'status' : data.text});
+    firebase.database().ref(`users/${this.currentUser.uid}`).update({'status' : data.text});
   }
 
   renderStatus(userStatus, uid) {
-    if (uid === currentUser.uid) {
+    var component = this;
+    if (uid === component.currentUser.uid) {
       return(
-        <Dropdown id={currentUser.uid}
+        <Dropdown id={component.currentUser.uid}
           icon={this.elementBaseStatus(userStatus)}>
           <Dropdown.Menu>
             <Dropdown.Item text={translate('app.user.status.online')}
@@ -262,7 +263,7 @@ class ChatView extends Component {
             </div>
             {
               filteredUsers.map(user => {
-                if(user.uid !== currentUser.uid) {
+                if(user.uid !== this.currentUser.uid) {
                   if(user.type !== 'bot') {
                     return(
                       <div className={
@@ -336,8 +337,8 @@ class ChatView extends Component {
                   (props) => (
                     <Chat {...props}
                       targetChatUser={user}
-                      currentPeer={p}
-                      currentUser={currentUser}/>
+                      peer={this.peer}
+                      currentUser={this.currentUser}/>
                   )
                 }/>
             </Switch>

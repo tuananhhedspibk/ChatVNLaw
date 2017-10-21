@@ -48,6 +48,7 @@ class UserLogin extends Component {
     })
   }
   signInWithPopup(provider){
+    var component = this;
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var user = result.user;
       userInfo.getUserName(user, function(result){
@@ -70,7 +71,7 @@ class UserLogin extends Component {
       // // The firebase.auth.AuthCredential type that was used.
       // var credential = error.credential;
       // ...
-      this.showAlert(errorMessage);
+      component.showAlert(errorMessage);
     });  
   }
   showAlert = (text) => {

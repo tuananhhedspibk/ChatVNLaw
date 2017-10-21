@@ -11,22 +11,20 @@ import * as fileHelper from '../../lib/helper/upfile_helper';
 import * as im from '../../lib/helper/messages';
 import {Picker} from 'emoji-mart'
 import {Emoji} from 'emoji-mart'
-
 let translate = require('counterpart');
 let FontAwesome = require('react-fontawesome');
 var firebase = require('firebase');
-var currentUser;
-var targetUser;
-var messRef;
-var currentRoomId;
-var peer;
 class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
       current_room_id: ''
-    }
+    };
+    this.targetUser;
+    this.currentRoomId;
+    this.messRef; 
+    this.currentUser;   
   }
 
   componentDidMount() {
@@ -39,8 +37,8 @@ class Chat extends Component {
       let properties = {}
       if(component.state.current_room_id){
         properties["roomId"] = component.state.current_room_id;
-        properties["uid"] = currentUser.uid;
-        properties["photoURL"] = currentUser.photoURL;
+        properties["uid"] = component.currentUser.uid;
+        properties["photoURL"] = component.currentUser.photoURL;
         fileHelper.upfile(properties,file,function(){
         });
       }
@@ -81,7 +79,7 @@ class Chat extends Component {
         .child(component.state.current_room_id).child('unread');
       ref.once('value').then(function(data){
         if(data.exists()){
-          if(data.val().count > 0 && data.val().lastMess.receiver_uid === currentUser.uid){
+          if(data.val().count > 0 && data.val().lastMess.receiver_uid === component.currentUser.uid){
             ref.update({
               count: 0
             })
@@ -90,32 +88,29 @@ class Chat extends Component {
       })
     }
   }
+
   componentWillReceiveProps(nextProps){
-    if(targetUser !== nextProps.targetChatUser){
-      targetUser = nextProps.targetChatUser;
-      $('.me').attr('src',targetUser.photoURL)
-      $('.you').attr('src',currentUser.photoURL);
+    var component = this;
+    if(component.targetUser !== nextProps.targetChatUser){
+      component.targetUser = nextProps.targetChatUser;
+      $('.me').attr('src',component.targetUser.photoURL)
+      $('.you').attr('src',component.currentUser.photoURL);
     }
   }
   componentWillMount() {    
     var component = this;
-    currentUser = component.props.currentUser;
-    targetUser = component.props.targetChatUser;
-    
-    peer = component.props.currentPeer;
-    if(!(!!peer)){
-      window.location = constant.BASE_URL+ '/chat/' + targetUser.username
-    }
+    component.currentUser = component.props.currentUser;
+    component.targetUser = component.props.targetChatUser;
     component.setState({messages: []})
     
-    var roomid = currentUser.uid + targetUser.uid;
+    var roomid = component.currentUser.uid + component.targetUser.uid;
     firebase.database().ref(`reference/${roomid}`)
       .once('value').then(function(snapshot){
       if(snapshot.exists()){
         // get real roomId
         snapshot.forEach(function(element){
           component.setState({current_room_id: element.val()});
-          component.forceUpdate()
+          // component.forceUpdate()
         })
         component.streamingMessages();
         component.loadHistory('' + (new Date()).getTime, true);
@@ -125,11 +120,11 @@ class Chat extends Component {
         let ref = firebase.database().ref('rooms');
         let newPostRef = ref.push()
         let count = 0;
-        if(currentUser.uid === targetUser.uid){
+        if(component.currentUser.uid === component.targetUser.uid){
           count = -1;
         }
         newPostRef.set({
-          'members':[currentUser.uid, targetUser.uid],
+          'members':[component.currentUser.uid, component.targetUser.uid],
           'messages':[],
           'unread': {
             'count' : count
@@ -150,59 +145,74 @@ class Chat extends Component {
     var component = this;
     properties['ts'] = timestamp;
     properties['rid'] = this.state.current_room_id;
-    properties['uid'] = currentUser.uid;
-    properties['currentUser'] = currentUser;
-    properties['targetUser'] = targetUser;
+    properties['uid'] = component.currentUser.uid;
+    properties['currentUser'] = component.currentUser;
+    properties['targetUser'] = component.targetUser;
     let currentMessArr = this.state.messages;
     im.history(properties,15,function(item, index){
-      if(item["sender_uid"] === currentUser.uid){
+      if(item["sender_uid"] === component.currentUser.uid){
         item["type"] = 0;
-        item["image"] = currentUser.photoURL;
+        item["image"] = component.currentUser.photoURL;
       }else{
         item["type"] = 1;
-        item["image"] = targetUser.photoURL;
+        item["image"] = component.targetUser.photoURL;
       }
       currentMessArr.splice(index, 0, item);
       component.setState({messages: currentMessArr});
       if(autoScroll){
         component.autoScrollBottom();      
       }
+      component.addLongClickEvent(item._id);      
     });
   
   }
-
+  addHashTag(){
+    console.log('1');
+  }
   streamingMessages(){
     var component = this;
-    if ( typeof messRef !== 'undefined' && messRef){
-      messRef.off();
+    if ( typeof component.messRef !== 'undefined' && component.messRef){
+      component.messRef.off();
     }
     var messArr = component.state.messages;
     let properties = {}
     properties['rid'] = component.state.current_room_id;
-    properties['uid'] = currentUser.uid;
+    properties['uid'] = component.currentUser.uid;
     properties['ts'] = '' + (new Date()).getTime();
     im.notifyMessagesComming(properties,function(event, item, ref){
       if(event === 'child_added'){
 
-        if(item["sender_uid"] === currentUser.uid){
+        if(item["sender_uid"] === component.currentUser.uid){
           item["type"] = 0;
-          item["image"] = currentUser.photoURL;
+          item["image"] = component.currentUser.photoURL;
         }else{
           item["type"] = 1;
-          item["image"] = targetUser.photoURL;
+          item["image"] = component.targetUser.photoURL;
         }
 
         messArr.push(item);
         component.setState({messages: messArr});
         component.autoScrollBottom();
-        messRef = ref;
+        component.messRef = ref;
         if ($('.item_' + component.props.targetChatUser.uid).css('display') != 'none') {
           component.deleteMessUnreadNumber();
         }
+        component.addLongClickEvent(item._id);
       }
     })
   }
-
+  addLongClickEvent(itemId){
+    var component = this;
+    var timeoutId = 0;
+    
+    $("#"+itemId ).on('mousedown', function() {
+        timeoutId = setTimeout(function(){
+          component.addHashTag();
+        }, 500);
+    }).on('mouseup mouseleave', function() {
+        clearTimeout(timeoutId);
+    });
+  }
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
     var chats = document.getElementsByClassName('chats')[0];
@@ -254,9 +264,9 @@ class Chat extends Component {
     let properties = {}
     properties["rid"] = component.state.current_room_id;
     properties["content"] = document.getElementById('input-mess-box').value;  
-    properties["uid"] = currentUser.uid;
+    properties["uid"] = component.currentUser.uid;
     properties["ts"] = '' + date.getTime();
-    properties["photoURL"] = currentUser.photoURL ||'';
+    properties["photoURL"] = component.currentUser.photoURL ||'';
     im.chat(properties,function(){
 
     });
@@ -279,10 +289,10 @@ class Chat extends Component {
 
   render() {
     return(
-      <div className={'chat-window ' + 'item_'+targetUser.uid} id='chat-window' >
+      <div className={'chat-window ' + 'item_'+this.targetUser.uid} id='chat-window' >
         <div className='title'>
           <div className={'user-name'}>
-            {currentUser.uid === targetUser.uid ? currentUser.displayName : targetUser.displayName}
+            {this.currentUser.uid === this.targetUser.uid ? this.currentUser.displayName : this.targetUser.displayName}
           </div>
           <FontAwesome name='video-camera'/>
           <FontAwesome name='phone'/>
@@ -316,9 +326,9 @@ class Chat extends Component {
         </div>
         <ChatSetting 
           currentRoomId={this.state.current_room_id}
-          currentUser={currentUser}
-          targetChatUser={targetUser}
-          currentPeer={peer}/>
+          currentUser={this.props.currentUser}
+          targetChatUser={this.props.targetChatUser}
+          peer={this.props.peer}/>
       </div>
     )
   }
