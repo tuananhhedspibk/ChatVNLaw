@@ -8,7 +8,6 @@ import '../../assets/styles/common/authen.css';
 const warningImage = require('../../assets/images/warning.png');
 const translate = require('counterpart');
 const firebase = require('firebase');
-const userInfo = require('../../lib/helper/user/get_user_info');
 
 class UserSignUp extends Component {
   constructor(props) {
@@ -79,9 +78,6 @@ class UserSignUp extends Component {
             "displayName" : displayName,
             "username": username
           }).then(function(){
-            // userInfo.getUserName(user,function(data){
-            //   window.location = constant.BASE_URL+'/chat/'+data;              
-            // })
             window.location = constant.BASE_URL+'/chat/'+username;              
             
           }).catch(function(error){

@@ -56,10 +56,10 @@ class ChatSetting extends Component {
       images_list:[],
       files_list: []
     };
-    this.currentUser;
-    this.targetUser;
-    this.currentRoomId;
-    this.peer;
+    this.currentUser = '';
+    this.targetUser = '';
+    this.currentRoomId = '';
+    this.peer = '';
   }
 
   componentWillMount() {

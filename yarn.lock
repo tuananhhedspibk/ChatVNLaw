@@ -4389,10 +4389,6 @@ jest@20.0.4:
   dependencies:
     jest-cli "^20.0.4"
 
-"jquery-longpress@https://github.com/vaidik/jquery-longpress":
-  version "0.0.0"
-  resolved "https://github.com/vaidik/jquery-longpress#3eb2dc43cc6b0194d0f3739edfee79f10fae1dbc"
-
 "jquery@2 - 3", jquery@^3.2.1, jquery@x.*:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
@@ -6176,7 +6172,7 @@ react-chartjs-2@^2.6.2:
 
 "react-chat-bubble@https://github.com/tuananhhedspibk/react-chat-bubble.git":
   version "0.8.6"
-  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#04f0e790478fbd3f65b844bed9f55df9b18de175"
+  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#d9bbadf7d7e25e9216678b308abd477063104f29"
   dependencies:
     emoji-mart "^2.1.1"
     html-react-parser "^0.4.0"
@@ -6184,7 +6180,6 @@ react-chartjs-2@^2.6.2:
     prop-types "^15.5.10"
     react "^15.4.2"
     react-dom "^15.4.2"
-    react-fontawesome "^1.6.1"
     react-tag-input "^4.7.2"
 
 react-cookies@^0.1.0:

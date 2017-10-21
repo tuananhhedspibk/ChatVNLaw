@@ -1,6 +1,4 @@
 var firebase = require('firebase');
-var constant = require('../../components/constants');
-
 function exportItem(data,properties){
     let item = {};
     item["_id"] = data.key;
@@ -37,9 +35,7 @@ module.exports = {
             let ref = firebase.database().ref(`rooms/${properties.rid}/messages`).orderByChild('msg_ts').endAt(properties.ts).limitToLast(limit);
             ref.once('value').then(function(data){
                 if(data.exists()){
-                    var messArr = []
-                    let count = -1;
-                    
+                    let count = -1;                    
                     data.forEach(function(element){
                         count ++;
                         let item  = exportItem(element,properties);
