@@ -52,6 +52,7 @@ class ChatView extends Component {
     }
     getStunServerList();
     this.checkUserName(this.props.match.params.user_name);
+    console.log(this.props.match.params.user_name);
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
         window.location = constant.BASE_URL + constant.HOME_URI; 

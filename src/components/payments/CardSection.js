@@ -1,16 +1,34 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
 import {CardElement} from 'react-stripe-elements';
+import * as constant from '../constants';
+import {StripeProvider} from 'react-stripe-elements';
+import {injectStripe} from 'react-stripe-elements';
+const userInfo = require('../../lib/helper/user/get_user_info')
+const firebase = require('firebase');
 
 class CardSection extends React.Component {
-    render() {
-      return (
+  handleSubmit = ev => {
+    ev.preventDefault();
+    this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
+      if(typeof(token) === "object"){
+        userInfo.getUserName(firebase.auth().currentUser,function(result){
+        window.location = constant.BASE_URL + '/chat/' + result;
+        })
+      }
+    });
+  };
+  render() {
+    return (
+      <form className='form-payment' onSubmit={this.handleSubmit}>
         <label>
           Card details
-          <CardElement style={{base: {fontSize: '18px'}}} />
         </label>
-      );
-    }
+        <CardElement />
+        <button className="payment-bt">Next</button>
+      </form>
+    );
+  }
 };
   
-export default CardSection;
+export default injectStripe(CardSection);
