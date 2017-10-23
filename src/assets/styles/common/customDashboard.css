@@ -6,6 +6,7 @@
   border-right: 1px solid #c2cfd6;
   display: inline-block;
   float: left;
+  height: calc(100vh - 55px);
   padding: 10px; }
   .app-body .chat-users-list .chat-user {
     margin-bottom: 10px; }
@@ -14,8 +15,32 @@
       height: 50px;
       width: 50px; }
 
+.chat-box {
+  display: inline-block;
+  float: left;
+  height: calc(100vh - 96px);
+  width: calc(100% - 74px); }
+  .chat-box .input-section {
+    height: 10%;
+    width: 100%; }
+  .chat-box textarea {
+    border: 0;
+    font-size: 1.2em;
+    height: 100%;
+    overflow: hidden;
+    padding: 23px 15px 15px;
+    resize: none;
+    width: 80%; }
+    .chat-box textarea:focus {
+      outline: 0; }
+  .chat-box .chats {
+    height: 90%;
+    overflow-y: scroll;
+    padding: 15px; }
+
 .chat-section {
-  background-color: #fff; }
+  background-color: #fff;
+  height: calc(100vh - 55px); }
   .chat-section .header {
     border: 1px solid #c2cfd6;
     border-top: 0;

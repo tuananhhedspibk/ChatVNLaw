@@ -109,9 +109,11 @@ class ChatBox extends Component {
     return(
       <div className='chat-box'>
         <ChatBubble messages={this.state.messages} />
-        <textarea id='input-mess-box'
-              placeholder={Translate('app.chat.input_place_holder')}
-              onKeyDown={this.handleInputChange.bind(this)} />
+        <div className='input-section'>
+          <textarea id='input-mess-box'
+                placeholder={Translate('app.chat.input_place_holder')}
+                onKeyDown={this.handleInputChange.bind(this)} />
+        </div>
       </div>
     )
   }
