@@ -51,7 +51,7 @@ class ChatUsersList extends Component {
     })
   }
   changeUserChat(user){
-    this.setState({targetUser: user.displayName})
+    this.setState({targetUser: user})
   }
   render() {
     return(
@@ -59,7 +59,7 @@ class ChatUsersList extends Component {
         {
           this.state.users.map(user => {
             return(
-              <div className='chat-user' onClick={this.changeUserChat.bind(this,user)}>
+              <div className='chat-user' onClick={this.changeUserChat.bind(this,user)} key={user.uid}>
                 <div className='user-ava'>
                   <img src={user.photoURL}/>
                   {this.renderUserStatus(user)}
@@ -74,7 +74,9 @@ class ChatUsersList extends Component {
           })
         }
       <ChatBox
-        targetUser={this.state.targetUser}/>
+        targetUser={this.state.targetUser}
+        currentUser={this.currentUser}
+        emitter={this.props.emitter}/>
       </div>
     )
   }

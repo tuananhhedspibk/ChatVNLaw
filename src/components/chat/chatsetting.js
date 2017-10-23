@@ -12,8 +12,6 @@ const streamEvent = require('../../lib/helper/streaming/listen_event_from_databa
 const fileEvent = require('../../lib/helper/upfile/listen_event_from_database');
 const firebase = require('firebase');
 const $ = require('jquery');
-// var {EventEmitter} = require('fbemitter');
-// var emitter = new EventEmitter();
 var upfileStyle = {
   display: 'none'
 }

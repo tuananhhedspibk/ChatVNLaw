@@ -1,6 +1,14 @@
 export default {
   items: [
     {
+      name: 'UserInfo',
+      url: '/lawyers/userinfo',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info',
+      }
+    },
+    {
       name: 'Dashboard',
       url: '/lawyers/dashboard',
       icon: 'icon-speedometer',
