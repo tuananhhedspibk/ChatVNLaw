@@ -8711,3 +8711,6 @@ hr.transparent {
     border-right-color: #f0f3f5; }
   *[dir="rtl"].callout-dark {
     border-right-color: #29363d; }
+
+.chat-section-hidden .chat-section {
+  display: none; }
