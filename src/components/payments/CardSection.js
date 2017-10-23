@@ -4,28 +4,27 @@ import {CardElement} from 'react-stripe-elements';
 import * as constant from '../constants';
 import {StripeProvider} from 'react-stripe-elements';
 import {injectStripe} from 'react-stripe-elements';
-
+const userInfo = require('../../lib/helper/user/get_user_info')
 const firebase = require('firebase');
-
 
 class CardSection extends React.Component {
   handleSubmit = ev => {
     ev.preventDefault();
     this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
       if(typeof(token) === "object"){
-        window.location = constant.BASE_URL + '/chat' + firebase.auth().currentUser.username;
+        userInfo.getUserName(firebase.auth().currentUser,function(result){
+        window.location = constant.BASE_URL + '/chat/' + result;
+        })
       }
     });
-    // this.props.stripe.paymentRequest().then(payload => console.log(typeof(payload)));
   };
   render() {
-    console.log(firebase.auth().currentUser)
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className='form-payment' onSubmit={this.handleSubmit}>
         <label>
           Card details
-          <CardElement />
         </label>
+        <CardElement />
         <button className="payment-bt">Next</button>
       </form>
     );

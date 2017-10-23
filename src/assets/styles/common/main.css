@@ -5739,6 +5739,9 @@ body {
   -webkit-transition: box-shadow 150ms ease;
   transition: box-shadow 150ms ease; }
 
+.form-payment {
+  display: inline-block; }
+
 .StripeElement--focus {
   box-shadow: 0 1px 3px 0 #cfd7df; }
 

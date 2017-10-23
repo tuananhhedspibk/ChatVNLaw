@@ -76,7 +76,8 @@ class UserSignUp extends Component {
         }).then(function() {
           firebase.database().ref(`users/${user.uid}`).update({
             "displayName" : displayName,
-            "username": username
+            "username": username,
+            'notes':[]
           }).then(function(){
             window.location = constant.BASE_URL+'/chat/'+username;              
             
@@ -88,7 +89,11 @@ class UserSignUp extends Component {
               // An error happened.
             });
             return;              
-          })
+          });
+          // firebase.database().ref(`users/${user.uid}/notes`).update({
+          //   "displayName" : displayName,
+          //   "title": 'test'
+          // });
         })
       }
     })
