@@ -1,0 +1,26 @@
+.app-body .chat-section {
+  border-left: 1px solid #c2cfd6;
+  width: calc((100% - 235px) / 2); }
+
+.app-body .chat-users-list {
+  border-right: 1px solid #c2cfd6;
+  display: inline-block;
+  float: left;
+  padding: 10px; }
+  .app-body .chat-users-list .chat-user {
+    margin-bottom: 10px; }
+    .app-body .chat-users-list .chat-user img {
+      border-radius: 50%;
+      height: 50px;
+      width: 50px; }
+
+.chat-section {
+  background-color: #fff; }
+  .chat-section .header {
+    border: 1px solid #c2cfd6;
+    border-top: 0;
+    border-left: 0;
+    float: left;
+    font-size: 1.1em;
+    padding: 10px;
+    width: calc(100% - 74px); }
