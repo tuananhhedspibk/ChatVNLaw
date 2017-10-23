@@ -32,6 +32,9 @@ module.exports = {
       submit: 'Đăng kí',
       new_to_us: 'Thành viên mới?'
     },
+    dashboard: {
+      chat_title: 'Chat với người dùng'
+    },
     user: {
       list: 'Danh sách người dùng',
       search: 'Tìm kiếm người dùng',

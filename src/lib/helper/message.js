@@ -9,6 +9,8 @@ function exportItem(data,properties){
   item["height"] = data.val().height || 0;
   item["width"] = data.val().width || 0;
   item["name"] = data.val().name || '';
+  item["tags"] = [];
+  }
   item["downloadURL"] = data.val().downloadURL || '';
   
   if(item["sender_uid"] === properties.uid){

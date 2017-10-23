@@ -31,6 +31,9 @@ module.exports = {
       submit: 'Signup',
       new_to_us: 'New to us?'
     },
+    dashboard: {
+      chat_title: 'Chat with user'
+    },
     user: {
       list: 'List users',
       search: 'Search user',
