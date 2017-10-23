@@ -7,7 +7,6 @@ function getTargetChat(properties){
         let item ={
             username: data.val().username,
             displayName: data.val().displayName,
-            username: data.val().username,
             uid : data.key,
             status: data.val().status,
             photoURL: data.val().photoURL

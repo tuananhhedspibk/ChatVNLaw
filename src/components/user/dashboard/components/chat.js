@@ -5,7 +5,8 @@ class Chat extends Component {
   render() {
     return(
       <div className='chat-section'>
-        <ChatUserLists />
+        <ChatUserLists 
+          emitter={this.props.emitter}/>
       </div>
     )
   }
