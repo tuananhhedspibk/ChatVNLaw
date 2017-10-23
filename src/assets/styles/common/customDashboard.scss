@@ -13,6 +13,7 @@ $white: #fff;
     display: inline-block;
     float: left;
     height: calc(100vh - 55px);
+    overflow-y: scroll;
     padding: 10px;
 
     .chat-user {
@@ -31,9 +32,10 @@ $white: #fff;
   display: inline-block;
   float: left;
   height: calc(100vh - 96px);
-  width: calc(100% - 74px);
+  width: calc(100% - 78px);
 
   .input-section {
+    border-top: 1px solid #c2cfd6;
     height: 10%;
     width: 100%;
   }
@@ -70,6 +72,19 @@ $white: #fff;
     float: left;
     font-size: 1.1em;
     padding: 10px;
-    width: calc(100% - 74px);
+    width: calc(100% - 78px);
   }
+}
+
+.app-body {
+  height: calc(100vh - 55px);
+}
+
+.app-body .sidebar {
+  height: calc(100vh - 55px);
+}
+
+.app-body .main {
+  height: calc(100vh - 55px);
+  overflow-y: scroll;
 }
