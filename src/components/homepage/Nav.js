@@ -21,7 +21,7 @@ class Nav extends Component {
             var input_group = $(this).next();
             $('.input-group:visible').children('input').css('width','10px');
             $('.input-group:visible').hide();
-            $('.search-link:hidden').css('display','block');
+            $('.search-link:hidden').show();
             $(this).css('display','none');
             input_group.fadeIn(600);
             input_group.css('display','flex');
@@ -31,7 +31,7 @@ class Nav extends Component {
             var input_group = $(this).parents('.input-group');
             input_group.hide();
             $(input_group).children('input').css('width','10px');
-            $(input_group).prev().css('display','block'); 
+            $(input_group).prev().show(); 
         });
     }
     componentWillMount(){
@@ -57,7 +57,7 @@ class Nav extends Component {
                 $('#header-login-link').text('Login'); 
                 $('#header-login-link').attr('href','/login');
             }
-        })
+    });
   }
 
     checkLogin() {

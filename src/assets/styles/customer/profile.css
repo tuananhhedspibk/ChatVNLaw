@@ -58,6 +58,7 @@ body {
   padding-top: 30px;
 }
 .side-bar .user-avatar {
+  margin-top: 20px;
   padding-top: 10px;
   padding-bottom: 30px;
   text-align: center;
@@ -65,6 +66,8 @@ body {
 .side-bar .user-avatar > img {
   height: 70px;
   width: 70px;
+  border: 2px solid rgb(66, 183, 42);
+  border-radius: 50%;
 }
 .side-bar .user-avatar > p {
   margin-top: 20px;

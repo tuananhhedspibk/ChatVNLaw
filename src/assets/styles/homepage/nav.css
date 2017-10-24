@@ -4,7 +4,7 @@
 
 .navbar-default .navbar-nav>li>a {
 	color: #0D47A1;
-	font-size: 0.7em;
+	font-size: 0.8em;
 	font-family: 'Open Sans', Helvetica, sans-serif;
 	font-weight: 600;
 }
@@ -14,6 +14,7 @@
 }
 .navbar > ul {
 	display: inline-block;
+	float: right;
 }
 .navbar-header {
 
@@ -34,8 +35,8 @@
 	border-radius: 15px 0px 0px 15px;
 }
 .navbar-default .navbar-nav>li button {
-	/*float: right;*/
-	/*height: 34px;*/
+	float: right;
+	height: 34px;
 }
 .navbar-default .navbar-nav>li .remove-btn {
 	border-radius: 0px 15px 15px 0px
@@ -48,8 +49,11 @@
 }
 .navbar-default .navbar-nav>li .input-group {
 	display: none;
-	padding-right: 40px;
 	padding-top: 10px;
+	padding-right: 40px;
 }
-.navbar-default .search-link {
+.navbar-default .navbar-nav>li .input-group-btn {
+	display: flex;
+}
+.navbar-default .navbar-nav>li .search-link {
 }

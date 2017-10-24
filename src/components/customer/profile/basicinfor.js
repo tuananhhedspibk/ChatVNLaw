@@ -1,19 +1,6 @@
 import React, { Component } from 'react';
-const firebase = require('firebase');
 
 class BasicInfor extends Component {
-	constructor(props) {
-	    super(props);
-	    this.state = {
-	      currentUser: ''
-	    }
-	  }
-	componentDidMount() {
-		var component = this;
-		firebase.database().ref("users/"+this.props.user.uid).on("value", function(snapshot) {
-			component.setState({currentUser : snapshot.toJSON()});
-		});
-	}
 	render() {
 		return(
 			<div id="basic-information" className="tab-pane active">
@@ -26,8 +13,8 @@ class BasicInfor extends Component {
 						{this.props.user.displayName}
 					</p>
 					<p>
-						<strong>Role: </strong>
-						{this.state.currentUser.role}
+						<strong>Age: </strong>
+						22
 					</p>
 					<p>
 						<strong>Email: </strong>
