@@ -34,7 +34,9 @@ function createNewRoom(properties, callback){
         'messages':[],
         'unread': {
           'count' : count
-        }
+        },
+        'description':[],
+        'status':0
     }).then(()=>{
         return callback(ref.key);
     })
