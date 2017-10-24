@@ -9,7 +9,8 @@ class ChatBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: []
+      messages: [],
+      currentRoomId: ''
     };
     this.currentUser = '';
     this.targetUser = '';
@@ -22,6 +23,14 @@ class ChatBox extends Component {
     this.props.emitter.addListener('ReSendData',function(callback){
       return callback(component.currentUser, component.targetUser, component.currentRoomId);
     });
+    this.props.emitter.addListener('AddNewTag', function(mess){
+      console.log(mess);
+      console.log('add new tag');
+    })
+    this.props.emitter.addListener('RemoveTag', function(mess){
+      console.log(mess);
+      console.log('remove tag');
+    })
   }
   componentWillReceiveProps(nextProps){
     var component = this;
@@ -47,6 +56,7 @@ class ChatBox extends Component {
         Messages.streamingMessage(properties, function(){
 
         })
+        component.setState({currentRoomId: roomId})        
       })
     }
   }
@@ -106,16 +116,23 @@ class ChatBox extends Component {
   }
 
   render() {
-    return(
-      <div className='chat-box'>
-        <ChatBubble messages={this.state.messages} />
-        <div className='input-section'>
+    if(this.state.currentRoomId){
+      return(
+        <div className='chat-box'>
+          <ChatBubble messages={this.state.messages} 
+            emitter={this.props.emitter}/>
           <textarea id='input-mess-box'
                 placeholder={Translate('app.chat.input_place_holder')}
                 onKeyDown={this.handleInputChange.bind(this)} />
         </div>
-      </div>
-    )
+      )
+    }else{
+      return(
+        <div className='chat-box'>
+        </div>
+      )
+    }
+    
   }
 }
 

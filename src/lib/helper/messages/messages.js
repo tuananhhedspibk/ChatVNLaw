@@ -71,6 +71,10 @@ function chat(properties){
         "photoURL": component.currentUser.photoURL
     })
 }
+
+function updateTag(properties){
+    let component = properties.component;
+}
 module.exports = {
     streamingMessage: function(properties, callback){
         notifyMessagesComming(properties, callback);
@@ -83,5 +87,8 @@ module.exports = {
     },
     chat: function(properties){
         chat(properties);
+    },
+    updateTag: function(properties){
+        updateTag(properties);
     }
 }

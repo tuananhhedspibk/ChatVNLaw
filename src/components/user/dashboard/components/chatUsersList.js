@@ -48,15 +48,27 @@ class ChatUsersList extends Component {
         <div className='chat-users-list'>
         {
           this.state.users.map(user => {
-            return(
-              <div className='chat-user'
-                onClick={this.changeUserChat.bind(this,user)}
-                key={user.uid}>
-                <div className='user-ava'>
-                  <img src={user.photoURL} title={user.displayName}/>
+            if(this.state.targetUser == user){
+              return(
+                <div className='chat-user active-link'
+                  onClick={this.changeUserChat.bind(this,user)}
+                  key={user.uid}>
+                  <div className='user-ava'>
+                    <img src={user.photoURL} title={user.displayName}/>
+                  </div>
                 </div>
-              </div>
-            )
+              )
+            } else{
+              return(
+                <div className='chat-user'
+                  onClick={this.changeUserChat.bind(this,user)}
+                  key={user.uid}>
+                  <div className='user-ava'>
+                    <img src={user.photoURL} title={user.displayName}/>
+                  </div>
+                </div>
+              )
+            }         
           })
         }
         </div>
