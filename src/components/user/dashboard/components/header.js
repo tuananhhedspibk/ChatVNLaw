@@ -51,17 +51,6 @@ class Header extends Component {
         <NavbarToggler className='d-lg-none' onClick={this.mobileSidebarToggle}>&#9776;</NavbarToggler>
         <NavbarBrand href='#'></NavbarBrand>
         <NavbarToggler className='d-md-down-none' onClick={this.sidebarToggle}>&#9776;</NavbarToggler>
-        <Nav className='d-md-down-none' navbar>
-          <NavItem className='px-3'>
-            <NavLink href='#'>Dashboard</NavLink>
-          </NavItem>
-          <NavItem className='px-3'>
-            <NavLink href='#'>Users</NavLink>
-          </NavItem>
-          <NavItem className='px-3'>
-            <NavLink href='#'>Settings</NavLink>
-          </NavItem>
-        </Nav>
         <Nav className='ml-auto' navbar>
           <NavItem className='d-md-down-none'>
             <NavLink href='#'><i className='icon-bell'></i><Badge pill color='danger'>5</Badge></NavLink>

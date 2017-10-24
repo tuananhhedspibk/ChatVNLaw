@@ -1,8 +1,9 @@
 const routes = {
   '/': 'Home',
-  '/lawyers/userinfo': 'UserInfo',
+  '/lawyers/customer': 'Customer',
   '/lawyers/dashboard': 'Dashboard',
-  '/lawyers/notes': 'Notes'
+  '/lawyers/notes': 'Notes',
+  '/lawyers/calendar': 'Calendar'
 };
 
 export default routes;

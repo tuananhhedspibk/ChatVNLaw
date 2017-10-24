@@ -5,7 +5,7 @@ import Sidebar from './components/sidebar';
 import Aside from './components/aside';
 import Footer from './components/footer';
 import DashBoard from './components/dashboard';
-import UserInfo from './components/userinfo';
+import Customer from './components/customer';
 import Note from './components/note';
 import Calendar from './components/calendar';
 import Breadcrumb from './components/breadcrumb';
@@ -24,6 +24,15 @@ class UserDashBoard extends Component {
       currentUser: ''
     }
     this.emitter = new EventEmitter();
+    this.isCustomerPage = false;
+    
+    var component = this;
+    var path = window.location.pathname;
+    path.split('/').reduce((prev, curr, index) => {
+      if (curr == 'customer') {
+        component.isCustomerPage = true;
+      }
+    });
   }
   componentWillMount(){
     var component = this;
@@ -42,13 +51,13 @@ class UserDashBoard extends Component {
           <Header/>
           <div className='app-body'>
             <Sidebar {...this.props}/>
-            <main className='main'>
+            <main className={this.isCustomerPage ? 'main main-customer' : 'main'}>
               <Breadcrumb/>
               <Container fluid>
                 <Switch>
-                  <Route path="/lawyers/userinfo" name="UserInfo"
+                  <Route path="/lawyers/customer" name="Customer"
                     render={(props) => (
-                      <UserInfo emitter={this.emitter} {...props} />)} />
+                      <Customer emitter={this.emitter} {...props} />)} />
                   <Route path="/lawyers/dashboard" name="Dashboard"
                     component={DashBoard}/>
                   <Route path="/lawyers/notes" name="Notes"
@@ -63,7 +72,8 @@ class UserDashBoard extends Component {
           </div>
         </div>
       )
-    }else{
+    }
+    else{
       return (
         <div></div>
       )

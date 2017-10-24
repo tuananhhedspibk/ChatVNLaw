@@ -1,9 +1,11 @@
+let translate = require('counterpart');
+
 export default {
   items: [
     {
-      name: 'UserInfo',
-      url: '/lawyers/userinfo',
-      icon: 'icon-speedometer',
+      name: 'Customer',
+      url: '/lawyers/customer',
+      icon: 'icon-speech',
       badge: {
         variant: 'info',
       }
@@ -13,14 +15,13 @@ export default {
       url: '/lawyers/dashboard',
       icon: 'icon-speedometer',
       badge: {
-        variant: 'info',
-        text: 'NEW'
+        variant: 'info'
       }
     },
     {
       name: 'Notes',
       url: '/lawyers/notes',
-      icon: 'icon-speedometer',
+      icon: 'icon-note',
       badge: {
         variant: 'info'
       }
@@ -28,17 +29,18 @@ export default {
     {
       name: 'Calendar',
       url: '/lawyers/calendar',
-      icon: 'icon-speedometer',
+      icon: 'icon-calendar',
       badge: {
         variant: 'info'
       }
     },
     {
-      divider: true
-    },
-    {
-      title: true,
-      name: 'Extras'
+      name: 'My profile',
+      url: '/lawyers/profile',
+      icon: 'icon-user',
+      badge: {
+        variant: 'info'
+      }
     }
   ]
 };
