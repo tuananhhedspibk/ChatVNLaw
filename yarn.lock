@@ -1171,6 +1171,10 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
+bootstrap@^3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
+
 bowser@^1.7.3:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.8.1.tgz#49785777e7302febadb1a5b71d9a646520ed310d"
@@ -6180,9 +6184,9 @@ react-chartjs-2@^2.6.2:
     lodash "^4.17.4"
     prop-types "^15.5.8"
 
-"react-chat-bubble@https://github.com/tuananhhedspibk/react-chat-bubble.git":
+"react-chat-bubble@https://github.com/tranlinh265/react-chat-bubble.git#working":
   version "0.8.6"
-  resolved "https://github.com/tuananhhedspibk/react-chat-bubble.git#df8770908ebf6ce610c2c8472732f483d138ffb5"
+  resolved "https://github.com/tranlinh265/react-chat-bubble.git#1e67eaa8159da40005c195bbb50abfbd486622d3"
   dependencies:
     emoji-mart "^2.1.1"
     html-react-parser "^0.4.0"

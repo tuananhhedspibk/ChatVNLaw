@@ -28,7 +28,7 @@
     "react": "^15.6.2",
     "react-alert": "^2.2.0",
     "react-chartjs-2": "^2.6.2",
-    "react-chat-bubble": "https://github.com/tuananhhedspibk/react-chat-bubble.git",
+    "react-chat-bubble": "https://github.com/tranlinh265/react-chat-bubble.git#working",
     "react-cookies": "^0.1.0",
     "react-dom": "^15.6.1",
     "react-fontawesome": "^1.6.1",
