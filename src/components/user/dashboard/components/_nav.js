@@ -1,9 +1,7 @@
-let translate = require('counterpart');
-
 export default {
   items: [
     {
-      name: 'Customer',
+      name: 'app.dashboard.customer',
       url: '/lawyers/customer',
       icon: 'icon-speech',
       badge: {
@@ -11,7 +9,7 @@ export default {
       }
     },
     {
-      name: 'Dashboard',
+      name: 'app.dashboard.dashboard',
       url: '/lawyers/dashboard',
       icon: 'icon-speedometer',
       badge: {
@@ -19,7 +17,7 @@ export default {
       }
     },
     {
-      name: 'Notes',
+      name: 'app.dashboard.note',
       url: '/lawyers/notes',
       icon: 'icon-note',
       badge: {
@@ -27,7 +25,7 @@ export default {
       }
     },
     {
-      name: 'Calendar',
+      name: 'app.dashboard.calendar',
       url: '/lawyers/calendar',
       icon: 'icon-calendar',
       badge: {
@@ -35,7 +33,7 @@ export default {
       }
     },
     {
-      name: 'My profile',
+      name: 'app.dashboard.profile',
       url: '/lawyers/profile',
       icon: 'icon-user',
       badge: {

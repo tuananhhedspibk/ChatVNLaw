@@ -17,6 +17,7 @@ module.exports = {
       success: 'Login Success',
       username: 'User name',
       password: 'Password',
+      email: 'Email',
       submit: 'Login',
       had_account: 'Already have an account?'
     },
@@ -37,7 +38,10 @@ module.exports = {
       dashboard: 'Dashboard',
       calendar: 'Calendar',
       note: 'Notes',
-      profile: 'My profile'
+      profile: 'My profile',
+      submit_des: 'Submit description',
+      edit_des: 'Edit description',
+      chat_setting_des_title: 'Chat description'
     },
     user: {
       list: 'List users',

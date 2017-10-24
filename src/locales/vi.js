@@ -38,7 +38,10 @@ module.exports = {
       dashboard: 'Dashboard',
       calendar: 'Lịch làm việc',
       note: 'Ghi chú',
-      profile: 'Hồ sơ của tôi'
+      profile: 'Hồ sơ của tôi',
+      submit_des: 'Hoàn tất',
+      edit_des: 'Chỉnh sửa mô tả',
+      chat_setting_des_title: 'Mô tả cuộc trò chuyện'
     },
     user: {
       list: 'Danh sách người dùng',

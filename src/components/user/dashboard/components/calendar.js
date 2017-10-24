@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import request from 'superagent';
+import $ from 'jquery';
 
 require('fullcalendar-reactwrapper/dist/css/fullcalendar.min.css');
 
@@ -65,11 +66,11 @@ class Calendar extends Component {
     }
   }
 
-
   componentDidMount () {
     getEvents((events) => {
       this.setState({events: events})
-    })
+    });
+    $('main.main').removeClass('main-customer');
   }
 
   showDescription(events){

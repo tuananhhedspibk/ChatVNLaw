@@ -79,6 +79,12 @@
       .chat-window .text-box textarea:focus {
         outline: 0; }
 
+.header-index a {
+  color: #fff; }
+  .header-index a:hover {
+    color: #fff;
+    text-decoration: none; }
+
 #emoji-picker {
   bottom: 60px;
   visibility: hidden;

@@ -8713,4 +8713,4 @@ hr.transparent {
     border-right-color: #29363d; }
 
 .chat-section-hidden .chat-section {
-  display: none; }
+  width: 0; }

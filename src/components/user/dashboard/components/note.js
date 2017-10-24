@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactStickies from 'react-stickies';
+import $ from 'jquery';
+
 const firebase = require('firebase');
 
 class Note extends Component {
@@ -19,7 +21,8 @@ class Note extends Component {
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
-  } 
+  }
+
   componentWillMount(){
     var component = this;
     firebase.auth().onAuthStateChanged(user =>{
@@ -28,21 +31,11 @@ class Note extends Component {
       }
     })
   }
+
   componentDidMount() {
-    // firebase.database().ref(`notes/${this.state.currentUser.uid}`).once('value', (data) => {
-    //   let values = data.val()
-    //   if (values) {
-    //     for (let val of values) {
-    //       if (val.grid.y === -1) {
-    //         val.grid.y = Infinity
-    //       }
-    //     }
-    //     this.setState({
-    //       notes: values
-    //     })
-    //   }
-    // })
+    $('main.main').removeClass('main-customer');
   }
+
   componentWillUpdate(nextProps, nextStates){
     if(this.state.currentUser !== nextStates.currentUser){
       firebase.database().ref(`notes/${nextStates.currentUser.uid}`).once('value', (data) => {

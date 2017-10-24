@@ -6,6 +6,7 @@ import * as Translate from 'counterpart';
 import * as Files from '../../../../lib/helper/upfile/files';
 
 const firebase = require('firebase');
+let translate = require('counterpart');
 
 class Customer extends Component {
   constructor(props) {
@@ -18,6 +19,10 @@ class Customer extends Component {
       images: [],
       description:''
     };
+  }
+
+  componentDidMount() {
+    $('main.main').addClass('main-customer');
   }
 
   componentWillMount(){
@@ -108,19 +113,22 @@ class Customer extends Component {
           </div>
           <div className='content'>
             <div className='description'>
+              <div className='title'>
+                {translate('app.dashboard.chat_setting_des_title')}
+              </div>
               <div className='edit-descrip'>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <textarea rows="3" cols="50"
                       className="input-descrip"
                       onChange={this.handleInputChange.bind(this)}
                       value={this.state.description}></textarea>
-                    <button type='submit'>OK</button>
+                    <button type='submit'>{translate('app.dashboard.submit_des')}</button>
                 </form>
               </div>
               <div className="info-descrip">
                 <div className='text-descrip'>{this.state.description}</div>
                 <button onClick={this.handleEdit}>
-                  Edit
+                  {translate('app.dashboard.edit_des')}
                 </button>
               </div>
             </div>
