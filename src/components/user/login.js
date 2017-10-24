@@ -49,9 +49,6 @@ class UserLogin extends Component {
       var user = result.user;
       userInfo.getUserName(user, function(result){
         const target = localStorage.getItem('target')
-        if (!target){
-          window.location = constant.BASE_URL+ '/home'           
-        }
         if (target === 'home') {
           window.location = constant.BASE_URL+ '/home' 
         }
