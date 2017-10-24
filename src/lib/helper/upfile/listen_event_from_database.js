@@ -22,6 +22,7 @@ module.exports = {
         imageRef = firebase.database().ref().child('rooms').child(properties.rid).child('room_images');
         imageRef.on('child_added',function(snapshot){
           if(snapshot.exists()){
+              console.log(snapshot);
             let imagesList = addItem(snapshot,properties.imagesList);
             properties.component.setState({images_list: imagesList});
             }

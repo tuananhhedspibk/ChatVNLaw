@@ -19,13 +19,20 @@ function exportItem(data,properties){
     item["width"] = data.val().width || 0;
     item["name"] = data.val().name || '';
     item["downloadURL"] = data.val().downloadURL || '';
+    item["tags"] = []
     if(item["sender_uid"] === properties.component.currentUser.uid){
         item["type"] = 0;
         item["image"] = properties.component.currentUser.photoURL;
-      }else{
+    }else{
         item["type"] = 1;
         item["image"] = properties.component.targetUser.photoURL;
-      }
+    }
+    if(data.val().tags){
+    data.val().tags.map((element, index)=>{
+        let tagItem = { id: index, text: element}
+        item["tags"].push(tagItem);
+    })
+    }
     return item;
 }
 
@@ -41,7 +48,7 @@ function notifyMessagesComming(properties, callback){
     })
     messageStreamRef.on('child_changed', function(snapshot){
         if(snapshot.exists()){
-
+            
         }
     })
 }
@@ -71,6 +78,19 @@ function chat(properties){
         "photoURL": component.currentUser.photoURL
     })
 }
+
+function updateTag(properties){
+    let component = properties.component;
+    let mess = properties.mess;
+    let tags = [];
+    mess.tags.forEach(element => {
+        tags.push(element.text);
+    })
+    tags.push
+    firebase.database().ref(`rooms/${component.currentRoomId}/messages/${mess._id}`).update({
+        tags
+    })
+}
 module.exports = {
     streamingMessage: function(properties, callback){
         notifyMessagesComming(properties, callback);
@@ -83,5 +103,8 @@ module.exports = {
     },
     chat: function(properties){
         chat(properties);
+    },
+    updateTag: function(properties){
+        updateTag(properties);
     }
 }
