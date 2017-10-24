@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import * as Translate from 'counterpart';
+import $ from 'jquery';
 import * as Files from '../../../../lib/helper/upfile/files';
+
+const firebase = require('firebase');
+
 class UserInfo extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +15,8 @@ class UserInfo extends Component {
             targetUser: '',
             currentRoomId :'',
             files: [],
-            images: []
+            images: [],
+            description:'',
         };
 
     }
@@ -23,10 +28,11 @@ class UserInfo extends Component {
         this.props.emitter.addListener('RoomChatHasChanged', function(currentUser, targetUser,roomId) {
             component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})
         });
+        
     }
     componentWillUpdate(nextProps, nextState){
         var component = this;
-        
+        var descrip = [];
         if(component.state.currentRoomId != nextState.currentRoomId){
             Files.closeRef();
             let properties ={};
@@ -34,6 +40,11 @@ class UserInfo extends Component {
             properties.roomId = nextState.currentRoomId;
             component.setState({images:[], files: []});
             Files.showImagesAndFilesList(properties);
+            firebase.database().ref(`rooms/${nextState.currentRoomId}/description`).once('value', (data) =>{
+                component.setState({
+                    description: data.val()
+                })
+            });
         }
     }
     renderAva(){
@@ -46,6 +57,31 @@ class UserInfo extends Component {
         }
     }
     
+    handleInputChange(evt) {
+        const target = evt.target;
+        const value = target.value;
+        this.setState({
+            description: value
+        });
+    }
+
+    handleSubmit(evt) {
+        evt.preventDefault();
+        console.log(this.state.description);
+        console.log(this.state.currentRoomId);
+        firebase.database().ref(`rooms/${this.state.currentRoomId}`).set({
+            description: this.state.description
+        });
+        $('.info-descrip').css('display', 'block');
+        $('.edit-descrip').css('display', 'none');
+    }
+
+    handleEdit(){
+        $('.info-descrip').css('display', 'none');
+        $('.edit-descrip').css('display', 'block');
+        $('.input-descrip').focus();
+    }
+
     render() {
         if(this.state.currentUser && this.state.targetUser && this.state.currentRoomId){
             return (
@@ -61,6 +97,18 @@ class UserInfo extends Component {
                         </div>
                     </div>
                     <div className='content'>
+                        <div className='description'>
+                            <div className='edit-descrip'>
+                                <form onSubmit={this.handleSubmit.bind(this)}>
+                                    <textarea rows="3" cols="50" className="input-descrip" onChange={this.handleInputChange.bind(this)} value={this.state.description}></textarea>
+                                    <button type='submit'>OK</button>
+                                </form>
+                            </div>
+                            <div className="info-descrip">
+                                <div className='text-descrip'>{this.state.description}</div>
+                                <button onClick={this.handleEdit}>Edit</button>
+                            </div>
+                        </div>
                         <div className='shared shared-files'>
                             <div className='content-title'>{Translate('app.chat.shared_files')}</div>
                             <div className='files-list'>

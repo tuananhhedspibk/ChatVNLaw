@@ -5801,3 +5801,19 @@ body {
 
 .StripeElement.PaymentRequestButton {
   padding: 0; }
+
+.description {
+  display: inline-block; }
+
+.input-descrip {
+  width: 100%; }
+
+.info-descrip {
+  display: block; }
+
+.edit-descrip {
+  display: none; }
+
+.description {
+  width: 100%;
+  height: 100px; }
