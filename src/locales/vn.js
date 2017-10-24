@@ -31,7 +31,12 @@ module.exports = {
       new_to_us: 'Thành viên mới?'
     },
     dashboard: {
-      chat_title: 'Chat với người dùng'
+      customer: 'Khách hàng',
+      chat_title: 'Chat với',
+      dashboard: 'Dashboard',
+      calendar: 'Lịch làm việc',
+      note: 'Ghi chú',
+      profile: 'Hồ sơ của tôi'
     },
     user: {
       list: 'Danh sách người dùng',

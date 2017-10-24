@@ -32,7 +32,12 @@ module.exports = {
       new_to_us: 'New to us?'
     },
     dashboard: {
-      chat_title: 'Chat with user'
+      customer: 'Customers',
+      chat_title: 'Chat with',
+      dashboard: 'Dashboard',
+      calendar: 'Calendar',
+      note: 'Notes',
+      profile: 'My profile'
     },
     user: {
       list: 'List users',

@@ -5699,7 +5699,7 @@ textarea:-moz-placeholder {
 
 ::-webkit-scrollbar {
   background-color: rgba(255, 255, 255, 0.5) !important;
-  width: 6px !important;
+  width: 0px !important;
   border-radius: 1px; }
 
 ::-webkit-scrollbar-thumb {

@@ -2,9 +2,19 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import {Badge, Nav, NavItem} from 'reactstrap';
 import classNames from 'classnames';
-import nav from './_nav'
+import nav from './_nav';
+
+import * as firebase from 'firebase';
+import * as constant from '../../../constants';
 
 class Sidebar extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      current_user: ''
+    }
+  }
 
   handleClick(e) {
     e.preventDefault();
@@ -14,6 +24,18 @@ class Sidebar extends Component {
   activeRoute(routeName, props) {
     return props.location.pathname.indexOf(routeName) > -1 ?
       'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
+  }
+
+  componentWillMount() {
+    var component = this;
+
+    if(!firebase.apps.length){
+      firebase.initializeApp(constant.APP_CONFIG);
+    }
+    firebase.auth().onAuthStateChanged(user => {
+      component.state.current_user = user;
+      component.setState(component.state);
+    });
   }
 
   render() {
@@ -77,6 +99,10 @@ class Sidebar extends Component {
       <div className="sidebar">
         <nav className="sidebar-nav">
           <Nav>
+            <div className='user-info'>
+              <img className='ava' src={this.state.current_user.photoURL}/>
+              <p className='user-name'>{this.state.current_user.displayName}</p>
+            </div>
             {navList(nav.items)}
           </Nav>
         </nav>
