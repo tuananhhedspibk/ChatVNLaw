@@ -15,18 +15,21 @@ class UserInfo extends Component {
         };
 
     }
-    componentDidMount(){
+    componentWillMount(){
         var component = this;
         this.props.emitter.emit('ReSendData', function(currentUser, targetUser, roomId){
-            component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})
+            component.setState({currentUser: currentUser})
+            component.setState({targetUser: targetUser})
+            component.setState({currentRoomId: roomId})
         });
         this.props.emitter.addListener('RoomChatHasChanged', function(currentUser, targetUser,roomId) {
-            component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})
+            component.setState({currentUser: currentUser})
+            component.setState({targetUser: targetUser})
+            component.setState({currentRoomId: roomId})
         });
     }
     componentWillUpdate(nextProps, nextState){
         var component = this;
-        
         if(component.state.currentRoomId != nextState.currentRoomId){
             Files.closeRef();
             let properties ={};
