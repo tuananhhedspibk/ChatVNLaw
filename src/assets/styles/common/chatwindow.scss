@@ -114,6 +114,17 @@
   }
 }
 
+.header-index {
+  a {
+    color: $white;
+
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}
+
 #emoji-picker {
   bottom: 60px;
   visibility: hidden;

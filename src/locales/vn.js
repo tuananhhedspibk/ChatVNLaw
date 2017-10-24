@@ -16,13 +16,15 @@ module.exports = {
       login_error: 'Sai mật khẩu hoặc email',
       success: 'Đăng nhập thành công',
       username: 'Tên tài khoản',
+      email: 'Email',
       password: 'Mật khẩu',
-      submit: 'Đăng nhập'
+      submit: 'Đăng nhập',
+      had_account: 'Đã có tài khoản?'
     },
     signup: {
       signup_error: 'Sai thông tin đăng kí',
       success: 'Đăng kí thành công',
-      username: 'Tên tài khoản',
+      displayName: 'Tên người dùng',
       password: 'Mật khẩu',
       password_confirmation: 'Xác nhận mật khẩu',
       email: 'Email',
@@ -36,7 +38,10 @@ module.exports = {
       dashboard: 'Dashboard',
       calendar: 'Lịch làm việc',
       note: 'Ghi chú',
-      profile: 'Hồ sơ của tôi'
+      profile: 'Hồ sơ của tôi',
+      submit_des: 'Hoàn tất',
+      edit_des: 'Chỉnh sửa mô tả',
+      chat_setting_des_title: 'Mô tả cuộc trò chuyện'
     },
     user: {
       list: 'Danh sách người dùng',
@@ -61,7 +66,7 @@ module.exports = {
       input_place_holder: 'Nhập tin nhắn ...',
       my_chat: 'Chat cá nhân',
       shared_files: 'Tệp được chia sẻ',
-      shared_images: 'Ảnh được chia sẻ',
+      shared_images: 'Ảnh được chia sẻ'
     },
     notfound: {
       content: {

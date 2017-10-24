@@ -24,15 +24,6 @@ class UserDashBoard extends Component {
       currentUser: ''
     }
     this.emitter = new EventEmitter();
-    this.isCustomerPage = false;
-    
-    var component = this;
-    var path = window.location.pathname;
-    path.split('/').reduce((prev, curr, index) => {
-      if (curr == 'customer') {
-        component.isCustomerPage = true;
-      }
-    });
   }
   componentWillMount(){
     var component = this;
@@ -51,7 +42,7 @@ class UserDashBoard extends Component {
           <Header/>
           <div className='app-body'>
             <Sidebar {...this.props}/>
-            <main className={this.isCustomerPage ? 'main main-customer' : 'main'}>
+            <main className='main'>
               <Breadcrumb/>
               <Container fluid>
                 <Switch>

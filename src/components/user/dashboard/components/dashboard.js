@@ -11,6 +11,8 @@ import {
   Label, Input, Table
 } from 'reactstrap';
 
+import $ from 'jquery';
+
 const brandPrimary = '#20a8d8';
 const brandSuccess = '#4dbd74';
 const brandInfo = '#63c2de';
@@ -406,6 +408,10 @@ class DashBoard extends Component {
     this.state = {
       dropdownOpen: false
     };
+  }
+
+  componentDidMount() {
+    $('main.main').removeClass('main-customer');
   }
 
   toggle() {

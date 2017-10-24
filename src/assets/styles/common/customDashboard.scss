@@ -1,15 +1,26 @@
 $white: #fff;
 $border-color: #c2cfd6;
+$black: #000;
 $main-background: #fcfcfc;
 $blue: #3ca2e0;
+$blue-more-darker: #279be2;
+$blue-darker: #007cc5;
 $yellow: #FFDA0E;
+$red: #DF0000;
+$gray-lighter: #ededed;
+$gray-darker: #e4e4e4;
 
 .app-body {
   .chat-section {
     border-left: 1px solid $border-color;
+    display: inline-block;
+    transition: all .5s ease;
     width: calc((100% - 295px) / 2);
-    transition: display .5s ease;
   }
+}
+
+.navbar {
+  border-radius: 0 !important;
 }
 
 .app-body {
@@ -20,10 +31,13 @@ $yellow: #FFDA0E;
     height: calc(100vh - 55px);
     width: 70px;
     overflow-y: scroll;
-    padding: 10px;
+
+    .active-link {
+      background-color: $gray-darker;
+    }
 
     .chat-user {
-      margin-bottom: 10px;
+      padding: 10px;
 
       img {
         border-radius: 50%;
@@ -64,6 +78,50 @@ $yellow: #FFDA0E;
     height: 90%;
     overflow-y: scroll;
     padding: 15px;
+  }
+}
+
+.chat-setting {
+  .description {
+    background-color: $gray-lighter;
+    display: inline-block;
+    padding: 20px;
+    width: 100%;
+
+    .title {
+      color: $black;
+      text-transform: none;
+      margin-bottom: 3px;
+    }
+
+    .text-descrip {
+      background-color: $white;
+      margin: 10px 0 15px;
+      padding: 10px;
+    }
+
+    form {
+      margin: 15px 0 0;
+
+      textarea {
+        margin-bottom: 15px;
+        padding: 10px;
+      }
+    }
+
+    button {
+      background-color: $blue;
+      border: 0;
+      border-radius: 3px;
+      border-bottom: 4px solid $blue-darker;
+      color: $white;
+      padding: 10px;
+
+      &:focus {
+        background-color: $blue-more-darker;
+        outline: 0;
+      }
+    }
   }
 }
 
@@ -110,7 +168,18 @@ $yellow: #FFDA0E;
 .app-header.navbar .navbar-brand {
   background-color: $blue !important;
   border-bottom: none !important;
-  width: 203px;
+  width: 225px !important;
+  height: 50px !important;
+}
+
+.app-header.navbar .navbar-nav {
+  display: flex !important;
+}
+
+.app-body {
+  .chat-setting .content .content-title {
+    color: $black;
+  }
 }
 
 .sidebar .nav .nav-item .nav-link {
@@ -135,6 +204,15 @@ $yellow: #FFDA0E;
 
 .sidebar .nav .nav-item .nav-link i {
   color: $white !important;
+  margin-right: 10px !important;
+}
+
+.navbar-toggler {
+  font-size: 1em !important;
+}
+
+.badge {
+  background-color: $red !important;
 }
 
 .sidebar .nav .nav-item .nav-link.active i {
@@ -147,6 +225,7 @@ $yellow: #FFDA0E;
   overflow-y: scroll;
 
   .breadcrumb {
+    background-color: $white !important;
     border-radius: 0;
     font-size: 1.2em;
     margin-bottom: 0;
@@ -163,14 +242,16 @@ $yellow: #FFDA0E;
 
     .header {
       border: 0;
+      padding: 20px;
     }
 
-    .shared-files {
-      background-color: #F4F4F4;
+    .shared-images {
+      background-color: $gray-lighter;
     }
 
     .shared {
       border: 0;
+      padding: 20px !important;
     }
   }
 }
