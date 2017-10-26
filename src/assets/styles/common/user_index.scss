@@ -8,13 +8,21 @@
   width: 320px;
 
   .header-index {
-    background-color: $blue;
-    color: $white;
+    border-bottom: 1px solid $gray-lighter;
+    color: $blue;
     float: left;
     font-size: 1.3em;
-    padding: 14px 15px;
+    padding: 13px 15px 14px;
     text-align: center;
     width: 100%;
+
+    a {
+      font-weight: bold;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
     .fa {
       float: left;

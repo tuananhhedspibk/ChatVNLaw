@@ -5,13 +5,17 @@
   height: 100vh;
   width: 320px; }
   .list-users .header-index {
-    background-color: #3ca2e0;
-    color: #fff;
+    border-bottom: 1px solid #e5ecf0;
+    color: #337ab7;
     float: left;
     font-size: 1.3em;
-    padding: 14px 15px;
+    padding: 13px 15px 14px;
     text-align: center;
     width: 100%; }
+    .list-users .header-index a {
+      font-weight: bold; }
+      .list-users .header-index a:hover {
+        cursor: pointer; }
     .list-users .header-index .fa {
       float: left; }
   .list-users .search-box {
@@ -64,7 +68,7 @@
         width: 50px; }
 
 .unread-mess {
-  background-color: #3ca2e0;
+  background-color: #337ab7;
   border-radius: 3px;
   color: #fff;
   display: inline-block;

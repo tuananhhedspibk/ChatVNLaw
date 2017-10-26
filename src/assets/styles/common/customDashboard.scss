@@ -1,14 +1,4 @@
-$white: #fff;
-$border-color: #c2cfd6;
-$black: #000;
-$main-background: #fcfcfc;
-$blue: #3ca2e0;
-$blue-more-darker: #279be2;
-$blue-darker: #007cc5;
-$yellow: #FFDA0E;
-$red: #DF0000;
-$gray-lighter: #ededed;
-$gray-darker: #e4e4e4;
+@import './variables.scss';
 
 .app-body {
   .chat-section {
@@ -82,6 +72,11 @@ $gray-darker: #e4e4e4;
 }
 
 .chat-setting {
+  .header {
+    .user-name {
+      font-size: 1.1em;
+    }
+  }
   .description {
     background-color: $gray-lighter;
     display: inline-block;
@@ -90,8 +85,9 @@ $gray-darker: #e4e4e4;
 
     .title {
       color: $black;
-      text-transform: none;
+      font-size: 1.1em;
       margin-bottom: 3px;
+      text-transform: none;
     }
 
     .text-descrip {
@@ -113,12 +109,12 @@ $gray-darker: #e4e4e4;
       background-color: $blue;
       border: 0;
       border-radius: 3px;
-      border-bottom: 4px solid $blue-darker;
       color: $white;
+      font-size: 1em;
       padding: 10px;
 
       &:focus {
-        background-color: $blue-more-darker;
+        background-color: $blue-darker;
         outline: 0;
       }
     }
@@ -134,7 +130,6 @@ $gray-darker: #e4e4e4;
     color: $blue;
     float: left;
     font-size: 1.2em;
-    font-weight: bold;
     padding: 10px;
     width: calc(100% - 72px);
   }
@@ -149,8 +144,19 @@ $gray-darker: #e4e4e4;
 }
 
 .app-header.navbar {
-  background-color: $blue !important;
-  border-bottom: 0 !important;
+  border-bottom: solid 1px $border-color;
+}
+
+.app-header.navbar .navbar-nav .dropdown-toggle {
+  color: #536c79 !important;
+}
+
+.nav-dropdown-items .nav-link {
+  font-size: 1em !important;
+}
+
+.nav-dropdown-items .nav-item {
+  padding-left: 25px !important;
 }
 
 .sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before,
@@ -160,21 +166,11 @@ $gray-darker: #e4e4e4;
     font-size: 1.2em !important;
 }
 
-.app-header.navbar .navbar-toggler {
-  color: $white !important;
-}
-
 .navbar-nav .nav-link {
-  color: $white !important;
   font-weight: normal;
-
-  &:hover {
-    color: $yellow !important;
-  }
 }
 
 .app-header.navbar .navbar-brand {
-  background-color: $blue !important;
   border-bottom: none !important;
   width: 225px !important;
   height: 50px !important;
@@ -187,6 +183,7 @@ $gray-darker: #e4e4e4;
 .app-body {
   .chat-setting .content .content-title {
     color: $black;
+    font-size: 1.1em;
   }
 }
 
