@@ -9,6 +9,9 @@ import Customer from './components/customer';
 import Note from './components/note';
 import Calendar from './components/calendar';
 import Breadcrumb from './components/breadcrumb';
+import SearchTag from './components/searchtag';
+import SearchUser from './components/searchuser';
+
 import {Container} from 'reactstrap';
 import Chat from './components/chat';
 import {EventEmitter} from 'fbemitter';
@@ -49,6 +52,12 @@ class UserDashBoard extends Component {
                   <Route path="/lawyers/customer" name="Customer"
                     render={(props) => (
                       <Customer emitter={this.emitter} {...props} />)} />
+                  <Route path='/lawyers/search_tag' name="SearchUser"
+                    render={(props) => (
+                      <SearchTag emitter={this.emitter} {...props} />)} />
+                  <Route path="/lawyers/search_user" name="SearchUser"
+                    render={(props) => (
+                      <SearchUser emitter={this.emitter} {...props} />)} />
                   <Route path="/lawyers/dashboard" name="Dashboard"
                     component={DashBoard}/>
                   <Route path="/lawyers/notes" name="Notes"

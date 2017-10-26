@@ -28,10 +28,16 @@ function exportItem(data,properties){
         item["image"] = properties.component.targetUser.photoURL;
     }
     if(data.val().tags){
-    data.val().tags.map((element, index)=>{
-        let tagItem = { id: index, text: element}
-        item["tags"].push(tagItem);
-    })
+        var count = 0;
+        for(var key in data.val().tags){
+            let tagItem = { id: count, text: key};
+            item["tags"].push(tagItem);
+            count++;
+        }
+    // data.val().tags.map((element, index)=>{
+    //     let tagItem = { id: index, text: element}
+    //     item["tags"].push(tagItem);
+    // })
     }
     return item;
 }
@@ -82,11 +88,11 @@ function chat(properties){
 function updateTag(properties){
     let component = properties.component;
     let mess = properties.mess;
-    let tags = [];
+    let tags = {};
     mess.tags.forEach(element => {
-        tags.push(element.text);
+        // tags.push(element.text);
+        tags[element.text] = element.text;
     })
-    tags.push
     firebase.database().ref(`rooms/${component.currentRoomId}/messages/${mess._id}`).update({
         tags
     })

@@ -24,15 +24,9 @@ class ChatBox extends Component {
       return callback(component.currentUser, component.targetUser, component.currentRoomId);
     });
     this.props.emitter.addListener('AddNewTag', function(mess){
-      // let properties = {}
-      // properties.component = component;
-      // properties.mess = mess;
-      // Messages.updateTag(properties);
       component.updateTag(mess);
     })
     this.props.emitter.addListener('RemoveTag', function(mess){
-      // console.log(mess);
-      // console.log('remove tag');
       component.updateTag(mess);
     })
   }

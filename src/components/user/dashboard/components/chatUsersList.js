@@ -42,7 +42,7 @@ class ChatUsersList extends Component {
     this.setState({targetUser: user})
   }
 
-  render() {
+  render() {    
     return(
       <div>
         <div className='chat-users-list'>
@@ -73,7 +73,7 @@ class ChatUsersList extends Component {
         }
         </div>
         <div className='header'>
-          {translate('app.dashboard.chat_title')}
+          {this.state.targetUser ? translate('app.dashboard.chat_title') +' ' + this.state.targetUser.displayName : translate('app.dashboard.chat_title')}
         </div>
         <ChatBox
           targetUser={this.state.targetUser}
