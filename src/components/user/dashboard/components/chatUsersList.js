@@ -32,7 +32,14 @@ class ChatUsersList extends Component {
         properties['currentUser'] = component.currentUser;
         properties['keyword'] = 'user';
         UserList.getTargetChat(properties);
+<<<<<<< HEAD
         
+=======
+        component.props.emitter.addListener('getUserSearch', function(targetUser){
+          component.setState({targetUser: targetUser})
+          console.log(component.state.targetUser)
+        })
+>>>>>>> search username
       }else{
 
       }

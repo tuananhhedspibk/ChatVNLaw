@@ -8,7 +8,12 @@ class SearchUser extends Component {
         super(props);
         this.state = {
             userName: '',
+<<<<<<< HEAD
             targetUser:''
+=======
+            targetUser:'',
+            result: []
+>>>>>>> search username
         }
     }
 
@@ -26,26 +31,21 @@ class SearchUser extends Component {
         evt.preventDefault();
         var ref = firebase.database().ref(`users`).orderByChild('displayName').equalTo(this.state.userName).once('value', (data)=> {
             if(data.val() !== null){
+                var arr = [];
                 for(var y in data.val()){
-                    // console.log(data.val()[y].photoURL)
-                    $('.error-search-name').css('display', 'none');
-                    $('.img-user-search').css('display', 'block');
-                    $('.img-user-search').attr("src", data.val()[y].photoURL);
-                    $('.img-user-search').attr("title", data.val()[y].displayName);
-                    $('.img-user-search').click(function(){
-                        let item = {};
-                        item['uid'] = y;
-                        for(var z in data.val()[y]){
-                            item[z] = data.val()[y][z]
-                        }
-                        
-                        component.clickUser(item);
-                    });
+                    var item = {};
+                    item['uid'] = y;
+                    for(var z in data.val()[y]){
+                        item[z] = data.val()[y][z]
+                    }
+                    arr.push(item);
                 }
+                component.setState({result: arr})
+                
             }
             else{
+                component.setState({result: []})
                 $('.error-search-name').css('display', 'block');
-                $('.img-user-search').css('display', 'none');
                 $('.error-search-name').text("Không tìm thấy người dùng nào!");
             }
            
@@ -60,6 +60,28 @@ class SearchUser extends Component {
         })
         this.props.emitter.emit('getUserSearch',data)
     }
+    renderResult(){
+        if(this.state.result.length > 0){
+            return(
+                <div>
+                    {this.state.result.map(element=>{
+                        return(
+                            <div>
+                                <img src={element.photoURL} title={element.displayName} onClick={this.clickUser.bind(this,element)}/>
+                            </div>
+                        )
+                    })}
+                </div>             
+            )
+           
+        }else{
+            return(
+                <div>
+                    <p className = 'error-search-name'></p>
+                </div>
+            )
+        }
+    }
 
     render(){
         return (
@@ -69,10 +91,7 @@ class SearchUser extends Component {
                     <input type="text" onInput={this.handleInputChange.bind(this)} />
                     <button type='submit'>Search</button>
                 </form>
-                <div className='chat-user-search active-link'>
-                    <img className='img-user-search' />
-                    <p className='error-search-name'></p>
-                </div>
+                {this.renderResult()}
             </div>
         )
     }

@@ -5818,6 +5818,7 @@ body {
 .description {
   width: 100%; }
 
+<<<<<<< HEAD
 .home-header {
   text-align: center; }
   .home-header .content {
@@ -5832,3 +5833,7 @@ body {
 #home-subheader {
   color: #808080;
   font-size: 1.6em; }
+=======
+.img-user-search {
+  display: none; }
+>>>>>>> search username
