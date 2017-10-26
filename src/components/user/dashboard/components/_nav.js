@@ -9,6 +9,23 @@ export default {
       }
     },
     {
+      name: 'app.dashboard.search.title',
+      icon: 'icon-support',
+      badge: {
+        variant: 'info',
+      },
+      children: [
+        {
+          name: 'app.dashboard.search.by_user',
+          url: '/lawyers/search_user'
+        },
+        {
+          name: 'app.dashboard.search.by_tag',
+          url: '/lawyers/search_tag'
+        }
+      ]
+    },
+    {
       name: 'app.dashboard.dashboard',
       url: '/lawyers/dashboard',
       icon: 'icon-speedometer',

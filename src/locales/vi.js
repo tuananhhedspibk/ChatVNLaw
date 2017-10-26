@@ -41,7 +41,12 @@ module.exports = {
       profile: 'Hồ sơ của tôi',
       submit_des: 'Hoàn tất',
       edit_des: 'Chỉnh sửa mô tả',
-      chat_setting_des_title: 'Mô tả cuộc trò chuyện'
+      chat_setting_des_title: 'Mô tả cuộc trò chuyện',
+      search: {
+        title: 'Tìm kiếm',
+        by_user: 'Tìm kiếm theo người dùng',
+        by_tag: 'Tìm kiếm theo hashtag'
+      }
     },
     user: {
       list: 'Danh sách người dùng',

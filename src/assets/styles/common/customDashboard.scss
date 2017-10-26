@@ -33,7 +33,7 @@ $gray-darker: #e4e4e4;
     overflow-y: scroll;
 
     .active-link {
-      background-color: $gray-darker;
+      background-color: $gray-lighter;
     }
 
     .chat-user {
@@ -150,6 +150,14 @@ $gray-darker: #e4e4e4;
 
 .app-header.navbar {
   background-color: $blue !important;
+  border-bottom: 0 !important;
+}
+
+.sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before,
+.sidebar .nav .nav-item .navbar .nav-dropdown-toggle.dropdown-toggle::before,
+.navbar .sidebar .nav .nav-item .nav-dropdown-toggle.dropdown-toggle::before { 
+    top: 1.8rem !important;
+    font-size: 1.2em !important;
 }
 
 .app-header.navbar .navbar-toggler {
