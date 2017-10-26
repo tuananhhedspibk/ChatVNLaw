@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Nav from '../../homepage/Nav';
-import Footer from '../../homepage/Footer';
+import Nav from '../../homepage/nav';
+import Footer from '../../homepage/footer';
 import SideBar from './sidebar';
 import BasicInfor from './basicinfor';
 import ChatHistory from './chathistory';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import {render} from 'react-dom';
 import {StripeProvider} from 'react-stripe-elements';
-import Nav from '../homepage/Nav';
+import Nav from '../homepage/nav';
 
 import MyStoreCheckout from './MyStoreCheckout';
 

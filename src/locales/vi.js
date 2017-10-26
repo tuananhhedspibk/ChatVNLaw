@@ -10,7 +10,28 @@ module.exports = {
       home: 'Trang chủ',
       signup: 'Đăng kí',
       login: 'Đăng nhập',
-      logout: 'Đăng xuất'
+      logout: 'Đăng xuất',
+      search: 'Tìm kiếm luật'
+    },
+    home: {
+      find_lawyer: 'Trao đổi với luật sư &',
+      find_law: 'Tra cứu luật',
+      fast: 'nhanh và hiệu quả nhất',
+      find: 'Tìm kiếm',
+      schedule: 'Lên kế hoạch',
+      connect: 'Kết nối',
+      find_content: 'Duyệt qua các hồ sơ luật sư để tìm luật sư phù hợp với bạn. Tất cả các luật sư VNLaw được cấp phép và hoạt động.',
+      schedule_content: 'Lên kế hoạch tham khảo ý kiến miễn phí với luật sư địa phương dưới 60 giây ngày hôm nay. Xem ngay các khoảng thời gian có sẵn trong lịch luật sư và nhấp để đặt trước.',
+      connect_content: 'Kết nối với luật sư địa phương để tham khảo ý kiến ban đầu một cách nhanh chóng và an toàn. VNLaw sử dụng công nghệ trò chuyện video tiên tiến nhất trên hành tinh. Bạn muốn gặp mặt trực tiếp? Chúng tôi cũng làm như vậy.',
+      slogan: 'So sánh luật sư được đánh giá cao nhất trong khu vực của bạn và lập kế hoạch tham vấn trong vài giây'
+    },
+    nav: {
+      brow_law: 'Tìm kiếm luật',
+      brow_lawyers: 'Tìm kiếm luật sư',
+      support: 'Hỗ trợ',
+      chat: 'Chat',
+      sign_out: 'Đăng xuất',
+      setting: 'Thiết lập'
     },
     login: {
       login_error: 'Sai mật khẩu hoặc email',

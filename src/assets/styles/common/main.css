@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Bree+Serif");
 /*!
  * Bootstrap v4.0.0-beta (https://getbootstrap.com)
  * Copyright 2011-2017 The Bootstrap Authors
@@ -5817,5 +5818,39 @@ body {
 .description {
   width: 100%; }
 
-.img-user-search {
-  display: none; }
+.home-header {
+  text-align: center; }
+  .home-header .content {
+    height: 350px;
+    padding: 80px;
+    width: 100%; }
+    .home-header .content .b-t-87 {
+      width: 100%; }
+  .home-header strong {
+    font-size: 3.8em; }
+
+.dropdown .btn {
+  background-color: transparent;
+  color: #fff !important;
+  font-size: .8em;
+  font-weight: bold;
+  margin-top: 8px;
+  outline: 0 !important; }
+
+.navbar-nav .dropdown-menu {
+  padding: 0 !important;
+  position: absolute !important;
+  top: 40px; }
+  .navbar-nav .dropdown-menu a {
+    color: #3ca2e0 !important;
+    font-size: 1.2em !important;
+    padding: 15px !important; }
+
+.dropdown-menu > li > a:hover {
+  background-color: #3ca2e0 !important;
+  background-image: none !important;
+  color: #fff !important; }
+
+#home-subheader {
+  color: #c0c0c0;
+  font-size: 1.6em; }

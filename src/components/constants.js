@@ -16,6 +16,9 @@ let avaBotPic = require('../assets/images/bot.png');
 let warningPic = require('../assets/images/warning.png');
 let notFoundPic = require('../assets/images/error-img.png');
 let logohome = require('../assets/images/logo.png');
+let findLogo = require('../assets/images/home_pic_1.png');
+let scheduleLogo = require('../assets/images/home_pic_2.png');
+let connectLogo = require('../assets/images/home_pic_3.png');
 
 let alertOptions = {
   offset: 14,
@@ -47,3 +50,6 @@ export const warning = warningPic;
 export const notFound = notFoundPic;
 export const logoHome = logohome;
 export const falg = Flag;
+export const connectLogoPic = connectLogo;
+export const findLogoPic = findLogo;
+export const scheduleLogoPic = scheduleLogo;

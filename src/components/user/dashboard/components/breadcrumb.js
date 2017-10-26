@@ -13,7 +13,7 @@ const getPaths = (pathname) => {
   if (pathname === '/') return paths;
 
   pathname.split('/').reduce((prev, curr, index) => {
-    const currPath = `${translate(prev)}/${translate(curr)}`;
+    const currPath = `${prev}/${curr}`;
     paths.push(currPath);
     return currPath;
   });
@@ -26,12 +26,12 @@ const BreadcrumbsItem = ({...rest, match}) => {
     return (
       match.isExact ?
         (
-          <BreadcrumbItem active>{routeName}</BreadcrumbItem>
+          <BreadcrumbItem active>{translate(routeName)}</BreadcrumbItem>
         ) :
         (
           <BreadcrumbItem>
             <Link to={match.url || ''}>
-              {routeName}
+              {translate(routeName)}
             </Link>
           </BreadcrumbItem>
         )

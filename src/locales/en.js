@@ -8,9 +8,31 @@ module.exports = {
       en: 'English',
       setting: 'Setting',
       home: 'Home',
-      login: 'Login',
+      login: 'Log in',
       signup: 'Signup',
-      logout: 'Log out'
+      logout: 'Log out',
+      search: 'Search law'
+    },
+    home: {
+      find_lawyer: 'Talk to lawyer &',
+      find_law: 'Look up the law',
+      fast: 'fast and most effective',
+      find: 'Find',
+      schedule: 'Schedule',
+      connect: 'Connect',
+      find_content: 'Browse through attorney profiles to find the right lawyer for you. All VNLaw attorneys are licensed and active.',
+      schedule_content: 'Schedule a free consultation with a local attorney in under 60 seconds today. Instantly view available timeslots in lawyers’ calendars and click to book.',
+      connect_content: 'Connect with local attorneys for initial consultations quickly and securely. VNLaw uses the most advanced video chat technology on the planet. Want to meet in-person? We do that too.',
+      slogan: 'Compare top-rated lawyers in your area and schedule a consultation in seconds'
+    },
+    nav: {
+      brow_law: 'Browse Law',
+      brow_lawyers: 'Browse Lawyers',
+      support: 'Support',
+      chat: 'Chat',
+      sign_out: 'Sign Out',
+      setting: 'Setting',
+      support: 'Support'
     },
     login: {
       login_error: 'Password or Email Wrong',

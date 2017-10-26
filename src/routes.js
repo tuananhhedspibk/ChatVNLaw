@@ -5,7 +5,7 @@ import UserLogin from './components/user/login';
 import UserSignUp from './components/user/signup';
 import UserDashBoard from './components/user/dashboard/main';
 import ChatView from './components/chat/chatview';
-import Home from './components/homepage/App';
+import Home from './components/homepage/home';
 import Attorney from './components/attorney/Attorney';
 import Payment from './components/payments/App';
 import CustomerProfile from './components/customer/profile/main'
