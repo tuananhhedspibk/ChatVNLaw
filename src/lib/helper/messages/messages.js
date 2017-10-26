@@ -63,18 +63,35 @@ function history(properties, callback){
     let ref = firebase.database().ref(`rooms/${properties.roomId}/messages`).orderByChild('msg_ts').endAt(properties.ts).limitToLast(properties.limit);
     ref.once('value').then(function(data){
         if(data.exists()){
-            let count = -1;                    
+            let count = -1; 
+            let arr = properties.component.state.messages;
+            
             data.forEach(function(element){
                 count ++;
                 let item  = exportItem(element,properties);
-                let arr = properties.component.state.messages;
                 arr.splice(count, 0, item);
-                properties.component.setState({messages: arr})
             });
+            properties.component.setState({messages: arr})
+            
         }
     })
 }
 
+function loadTagNextMessages(properties){
+    let ref = firebase.database().ref(`rooms/${properties.roomId}/messages`).orderByChild('msg_ts').endAt(properties.ts).limitToLast(properties.limit);
+    ref.once('value').then(function(data){
+        if(data.exists()){
+            let count = -1;   
+            let arr = [];
+            data.forEach(function(element){
+                count ++;
+                let item  = exportItem(element,properties);
+                arr.splice(count, 0, item);
+            });
+            properties.component.setState({messages: arr})            
+        }
+    })
+}
 function chat(properties){
     let component = properties.component;
     firebase.database().ref(`rooms/${component.currentRoomId}/messages`).push().set({
@@ -97,6 +114,26 @@ function updateTag(properties){
         tags
     })
 }
+function searchTag(properties,callback){
+    let component = properties.component;
+    firebase.database().ref(`rooms/${component.state.currentRoomId}/messages`).orderByChild(`tags/${properties.keyword}`).equalTo(`${properties.keyword}`).once('value').then(snapshot =>{
+        component.setState({currentResultIndex: 0})
+        component.setState({messages: []})
+        
+        if(snapshot.val()){
+            let arr = [];            
+            for(var id in snapshot.val()){
+                let data = snapshot.val()[id]
+                arr.push({id, data});
+            }
+            component.setState({tagResults : arr});
+            return callback()
+        }else{
+            component.setState({tagResults : []});
+            
+        }
+    })
+}
 module.exports = {
     streamingMessage: function(properties, callback){
         notifyMessagesComming(properties, callback);
@@ -112,5 +149,11 @@ module.exports = {
     },
     updateTag: function(properties){
         updateTag(properties);
+    },
+    searchTag: function(properties,callback){
+        searchTag(properties,callback);
+    },
+    loadTagNextMessages: function(properties){
+        loadTagNextMessages(properties);
     }
 }

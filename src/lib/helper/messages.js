@@ -10,12 +10,6 @@ function exportItem(data,properties){
     item["width"] = data.val().width || 0;
     item["name"] = data.val().name || '';
     item["tags"] = [];
-    if(data.val().tags){
-      data.val().tags.map((element, index)=>{
-        let tagItem = { id: index, text: element}
-        item["tags"].push(tagItem);
-      })
-    }
     item["downloadURL"] = data.val().downloadURL || '';
     return item;
   }
