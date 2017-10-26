@@ -10,7 +10,7 @@
 .navbar-default {
 	height: 80px;
 	display: block !important;
-	background-color: #3ca2e0;
+	background-color: #fff !important;
 	background-image: none !important;
 	border-radius: 0px !important;
 	margin: 0px;
@@ -48,12 +48,12 @@
 .headerNavListItem a {
 	font-size: .8em !important;
 	font-family: 'Open Sans', Helvetica, sans-serif !important;
-  color: #fff !important;
+  color: #337ab7 !important;
   cursor: pointer;
 }
 
 .headerNavListItem a:hover {
-	color: #F6F01A !important;
+	color: #0870B0 !important;
 }
 
 .navbar a {
@@ -64,4 +64,30 @@
 
 .navbar-header {
   padding-left: 30px;
+}
+
+.dropdown .btn {
+  background-color: transparent;
+  color: #337ab7 !important;
+  font-size: .8em;
+  font-weight: bold;
+  margin-top: 8px;
+  outline: 0 !important;
+}
+
+.navbar-nav .dropdown-menu {
+  padding: 0 !important;
+  position: absolute !important;
+  top: 40px;
+}
+
+.navbar-nav .dropdown-menu  a {
+  color: #337ab7 !important;
+  font-size: 1.2em !important;
+  padding: 15px !important;
+}
+
+.dropdown-menu > li > a:hover {
+  background-image: none !important;
+  color: #288AC5 !important;
 }

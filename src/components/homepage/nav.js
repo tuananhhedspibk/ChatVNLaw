@@ -108,7 +108,6 @@ class Nav extends Component {
     return(
       <nav className='navbar navbar-default'>
         <div className='navbar-header'>
-          <a href='/'>{translate('app.identifier.app_name')}</a>
         </div>
         <ul className='nav navbar-nav navbar-right headerNavList'>
           <li className='headerNavListItem search-inputgroup'>

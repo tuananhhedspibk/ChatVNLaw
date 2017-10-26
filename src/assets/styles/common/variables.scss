@@ -1,3 +1,5 @@
+$border-color: #c2cfd6;
+
 $brand-primary: #3ca2e0;
 $brand-success: #5cb85c;
 $brand-info: #5bc0de;
@@ -8,8 +10,9 @@ $black: #000;
 $black-trans: rgba(0, 0, 0, .05);
 $black-lighter: #777;
 
-$blue: #3ca2e0;
+$blue: #337ab7;
 $blue-lighter: #bbe1f5;
+$blue-darker: #248dce;
 $blue-more-lighter: #fdfdfd;
 $blue-more-darker: #1d74f5;
 
@@ -20,7 +23,10 @@ $gray-lighter: #e5ecf0;
 
 $orange-lighter: #ffb460;
 
+$main-background: #fcfcfc;
+
 $red: #e54040;
+$red-dashboard: #df0000;
 
 $online-color: #2de0a5;
 $offline-color: #f5455c;

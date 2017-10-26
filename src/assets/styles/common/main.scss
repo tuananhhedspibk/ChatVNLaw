@@ -182,35 +182,6 @@ body {
   }
 }
 
-.dropdown {
-  .btn {
-    background-color: transparent;
-    color: $white !important;
-    font-size: .8em;
-    font-weight: bold;
-    margin-top: 8px;
-    outline: 0 !important;
-  }
-}
-
-.navbar-nav .dropdown-menu {
-  padding: 0 !important;
-  position: absolute !important;
-  top: 40px;
-
-  a {
-    color: $blue !important;
-    font-size: 1.2em !important;
-    padding: 15px !important;
-  }
-}
-
-.dropdown-menu > li > a:hover {
-  background-color: $blue !important;
-  background-image: none !important;
-  color: $white !important;
-}
-
 #home-subheader {
   color: $gray-darker;
   font-size: 1.6em;

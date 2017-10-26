@@ -15,7 +15,7 @@
   width: 70px;
   overflow-y: scroll; }
   .app-body .chat-users-list .active-link {
-    background-color: #ededed; }
+    background-color: #e5ecf0; }
   .app-body .chat-users-list .chat-user {
     padding: 10px; }
     .app-body .chat-users-list .chat-user img {
@@ -47,15 +47,19 @@
     overflow-y: scroll;
     padding: 15px; }
 
+.chat-setting .header .user-name {
+  font-size: 1.1em; }
+
 .chat-setting .description {
-  background-color: #ededed;
+  background-color: #e5ecf0;
   display: inline-block;
   padding: 20px;
   width: 100%; }
   .chat-setting .description .title {
     color: #000;
-    text-transform: none;
-    margin-bottom: 3px; }
+    font-size: 1.1em;
+    margin-bottom: 3px;
+    text-transform: none; }
   .chat-setting .description .text-descrip {
     background-color: #fff;
     margin: 10px 0 15px;
@@ -66,14 +70,14 @@
       margin-bottom: 15px;
       padding: 10px; }
   .chat-setting .description button {
-    background-color: #3ca2e0;
+    background-color: #337ab7;
     border: 0;
     border-radius: 3px;
-    border-bottom: 4px solid #007cc5;
     color: #fff;
+    font-size: 1em;
     padding: 10px; }
     .chat-setting .description button:focus {
-      background-color: #279be2;
+      background-color: #248dce;
       outline: 0; }
 
 .chat-section {
@@ -81,10 +85,9 @@
   height: calc(100vh - 55px); }
   .chat-section .header {
     border-bottom: 1px solid #c2cfd6;
-    color: #3ca2e0;
+    color: #337ab7;
     float: left;
     font-size: 1.2em;
-    font-weight: bold;
     padding: 10px;
     width: calc(100% - 72px); }
 
@@ -95,8 +98,16 @@
   height: calc(100vh - 55px); }
 
 .app-header.navbar {
-  background-color: #3ca2e0 !important;
-  border-bottom: 0 !important; }
+  border-bottom: solid 1px #c2cfd6; }
+
+.app-header.navbar .navbar-nav .dropdown-toggle {
+  color: #536c79 !important; }
+
+.nav-dropdown-items .nav-link {
+  font-size: 1em !important; }
+
+.nav-dropdown-items .nav-item {
+  padding-left: 25px !important; }
 
 .sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before,
 .sidebar .nav .nav-item .navbar .nav-dropdown-toggle.dropdown-toggle::before,
@@ -104,17 +115,10 @@
   top: 1.8rem !important;
   font-size: 1.2em !important; }
 
-.app-header.navbar .navbar-toggler {
-  color: #fff !important; }
-
 .navbar-nav .nav-link {
-  color: #fff !important;
   font-weight: normal; }
-  .navbar-nav .nav-link:hover {
-    color: #FFDA0E !important; }
 
 .app-header.navbar .navbar-brand {
-  background-color: #3ca2e0 !important;
   border-bottom: none !important;
   width: 225px !important;
   height: 50px !important; }
@@ -123,12 +127,13 @@
   display: flex !important; }
 
 .app-body .chat-setting .content .content-title {
-  color: #000; }
+  color: #000;
+  font-size: 1.1em; }
 
 .sidebar .nav .nav-item .nav-link {
   font-size: 1.2em; }
   .sidebar .nav .nav-item .nav-link:hover {
-    background-color: #3ca2e0 !important; }
+    background-color: #337ab7 !important; }
 
 .nav-link .dropdown-toggle .btn .btn-secondary {
   font-size: .9em; }
@@ -147,7 +152,7 @@
   font-size: 1em !important; }
 
 .badge {
-  background-color: #DF0000 !important; }
+  background-color: #e54040 !important; }
 
 .sidebar .nav .nav-item .nav-link.active i {
   color: #fff !important; }
@@ -171,7 +176,7 @@
       border: 0;
       padding: 20px; }
     .app-body .main .chat-setting .shared-images {
-      background-color: #ededed; }
+      background-color: #e5ecf0; }
     .app-body .main .chat-setting .shared {
       border: 0;
       padding: 20px !important; }

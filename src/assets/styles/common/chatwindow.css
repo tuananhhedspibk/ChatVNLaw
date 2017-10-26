@@ -17,7 +17,7 @@
     display: none; }
   .chat-window .title {
     border-bottom: 1px solid #e5ecf0;
-    color: #3ca2e0;
+    color: #337ab7;
     font-weight: bold;
     padding: 15px;
     text-align: center;
@@ -78,12 +78,6 @@
       width: 100%; }
       .chat-window .text-box textarea:focus {
         outline: 0; }
-
-.header-index a {
-  color: #fff; }
-  .header-index a:hover {
-    color: #fff;
-    text-decoration: none; }
 
 #emoji-picker {
   bottom: 60px;
