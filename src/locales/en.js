@@ -41,7 +41,12 @@ module.exports = {
       profile: 'My profile',
       submit_des: 'Submit description',
       edit_des: 'Edit description',
-      chat_setting_des_title: 'Chat description'
+      chat_setting_des_title: 'Chat description',
+      search: {
+        title: 'Search',
+        by_user: 'Search by user',
+        by_tag: 'Search by hastag'
+      }
     },
     user: {
       list: 'List users',

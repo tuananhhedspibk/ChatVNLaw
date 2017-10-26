@@ -15,7 +15,7 @@
   width: 70px;
   overflow-y: scroll; }
   .app-body .chat-users-list .active-link {
-    background-color: #e4e4e4; }
+    background-color: #ededed; }
   .app-body .chat-users-list .chat-user {
     padding: 10px; }
     .app-body .chat-users-list .chat-user img {
@@ -95,7 +95,14 @@
   height: calc(100vh - 55px); }
 
 .app-header.navbar {
-  background-color: #3ca2e0 !important; }
+  background-color: #3ca2e0 !important;
+  border-bottom: 0 !important; }
+
+.sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before,
+.sidebar .nav .nav-item .navbar .nav-dropdown-toggle.dropdown-toggle::before,
+.navbar .sidebar .nav .nav-item .nav-dropdown-toggle.dropdown-toggle::before {
+  top: 1.8rem !important;
+  font-size: 1.2em !important; }
 
 .app-header.navbar .navbar-toggler {
   color: #fff !important; }
