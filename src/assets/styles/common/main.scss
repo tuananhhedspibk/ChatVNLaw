@@ -1,4 +1,5 @@
 @import "variables.scss";
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif');
 @import "../bootstrap/bootstrap.scss";
 
 textarea::-webkit-input-placeholder {
@@ -59,9 +60,6 @@ body {
   }
 }
 
-// .StripeElement {
-//   width: 300px !important;
-// }
 .StripeElement {
   width: 300px !important;
   background-color: white;
@@ -146,7 +144,6 @@ body {
   padding: 0;
 }
 
-//description
 .description {
   display: inline-block
 }
@@ -167,8 +164,54 @@ body {
   width: 100%;
 }
 
+.home-header {
+  text-align: center;
 
-//search user
-.img-user-search{
-  display: none
+  .content {
+    height: 350px;
+    padding: 80px;
+    width: 100%;
+
+    .b-t-87 {
+      width: 100%;
+    }
+  }
+
+  strong {
+    font-size: 3.8em;
+  }
+}
+
+.dropdown {
+  .btn {
+    background-color: transparent;
+    color: $white !important;
+    font-size: .8em;
+    font-weight: bold;
+    margin-top: 8px;
+    outline: 0 !important;
+  }
+}
+
+.navbar-nav .dropdown-menu {
+  padding: 0 !important;
+  position: absolute !important;
+  top: 40px;
+
+  a {
+    color: $blue !important;
+    font-size: 1.2em !important;
+    padding: 15px !important;
+  }
+}
+
+.dropdown-menu > li > a:hover {
+  background-color: $blue !important;
+  background-image: none !important;
+  color: $white !important;
+}
+
+#home-subheader {
+  color: $gray-darker;
+  font-size: 1.6em;
 }

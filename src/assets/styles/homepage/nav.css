@@ -2,58 +2,66 @@
 	border-radius: 0px !important;
 }
 
-.navbar-default .navbar-nav>li>a {
-	color: #0D47A1;
-	font-size: 0.8em;
-	font-family: 'Open Sans', Helvetica, sans-serif;
-	font-weight: 600;
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-	color: #0D47A1;
-}
 .navbar > ul {
 	display: inline-block;
 	float: right;
 }
-.navbar-header {
 
-}
 .navbar-default {
 	height: 80px;
 	display: block !important;
-	background-color: white;
+	background-color: #3ca2e0;
 	background-image: none !important;
 	border-radius: 0px !important;
-	margin:0px;
-	border-bottom: 1px solid #BDBDBD;
+	margin: 0px;
 }
+
 .navbar-default .navbar-nav>li input {
-	/*font-size: 1.3em;*/
 	width: 10px;
 	transition: width 1s;
 	border-radius: 15px 0px 0px 15px;
 }
-.navbar-default .navbar-nav>li button {
+
+.navbar-default .navbar-nav > li button {
 	float: right;
 	height: 34px;
 }
-.navbar-default .navbar-nav>li .remove-btn {
+
+.navbar-default .navbar-nav > li .remove-btn {
 	border-radius: 0px 15px 15px 0px
 }
 
-.navbar-default .navbar-nav>li {
+.navbar-default .navbar-nav > li {
 	margin-right: 40px;
 }
-.navbar-default .navbar-nav .search-inputgroup {
-}
-.navbar-default .navbar-nav>li .input-group {
+
+.navbar-default .navbar-nav > li .input-group {
 	display: none;
 	padding-top: 10px;
 	padding-right: 40px;
 }
-.navbar-default .navbar-nav>li .input-group-btn {
+
+.navbar-default .navbar-nav > li .input-group-btn {
 	display: flex;
 }
-.navbar-default .navbar-nav>li .search-link {
+
+.headerNavListItem a {
+	font-size: .8em !important;
+	font-family: 'Open Sans', Helvetica, sans-serif !important;
+  color: #fff !important;
+  cursor: pointer;
+}
+
+.headerNavListItem a:hover {
+	color: #F6F01A !important;
+}
+
+.navbar a {
+  cursor: pointer;
+  font-family: 'Bree Serif', serif;
+  font-size: 1.5em;
+}
+
+.navbar-header {
+  padding-left: 30px;
 }

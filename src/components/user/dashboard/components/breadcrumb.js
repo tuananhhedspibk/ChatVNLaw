@@ -3,6 +3,8 @@ import {Route, Link} from 'react-router-dom';
 import {Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import routes from '../../../../breadcrumbRoutes';
 
+let translate = require('counterpart');
+
 const findRouteName = url => routes[url];
 
 const getPaths = (pathname) => {
@@ -24,12 +26,12 @@ const BreadcrumbsItem = ({...rest, match}) => {
     return (
       match.isExact ?
         (
-          <BreadcrumbItem active>{routeName}</BreadcrumbItem>
+          <BreadcrumbItem active>{translate(routeName)}</BreadcrumbItem>
         ) :
         (
           <BreadcrumbItem>
             <Link to={match.url || ''}>
-              {routeName}
+              {translate(routeName)}
             </Link>
           </BreadcrumbItem>
         )
