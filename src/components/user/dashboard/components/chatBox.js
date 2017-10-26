@@ -124,7 +124,8 @@ class ChatBox extends Component {
       return(
         <div className='chat-box'>
           <ChatBubble messages={this.state.messages} 
-            emitter={this.props.emitter}/>
+            emitter={this.props.emitter}
+            renderHastag={true}/>
           <div className='input-section'>  
             <textarea id='input-mess-box'
               placeholder={Translate('app.chat.input_place_holder')}
