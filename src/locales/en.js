@@ -33,6 +33,7 @@ module.exports = {
       new_to_us: 'New to us?'
     },
     dashboard: {
+      home: 'Home',
       customer: 'Customers',
       chat_title: 'Chat with',
       dashboard: 'Dashboard',

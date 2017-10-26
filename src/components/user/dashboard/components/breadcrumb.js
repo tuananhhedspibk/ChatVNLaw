@@ -3,6 +3,8 @@ import {Route, Link} from 'react-router-dom';
 import {Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import routes from '../../../../breadcrumbRoutes';
 
+let translate = require('counterpart');
+
 const findRouteName = url => routes[url];
 
 const getPaths = (pathname) => {
@@ -11,7 +13,7 @@ const getPaths = (pathname) => {
   if (pathname === '/') return paths;
 
   pathname.split('/').reduce((prev, curr, index) => {
-    const currPath = `${prev}/${curr}`;
+    const currPath = `${translate(prev)}/${translate(curr)}`;
     paths.push(currPath);
     return currPath;
   });

@@ -33,6 +33,7 @@ module.exports = {
       new_to_us: 'Thành viên mới?'
     },
     dashboard: {
+      home: 'Trang chủ',
       customer: 'Khách hàng',
       chat_title: 'Chat với',
       dashboard: 'Dashboard',
