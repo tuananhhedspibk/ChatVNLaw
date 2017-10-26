@@ -73,6 +73,7 @@ class Customer extends Component {
   handleInputChange(evt) {
     const target = evt.target;
     const value = target.value;
+    console.log(value)
     this.setState({
         description: value
     });
