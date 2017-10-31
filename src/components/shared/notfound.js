@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
-import Navbar from './navbar';
+import Nav from '../homepage/Nav';
 
 import * as constant from '../constants';
 
@@ -13,7 +13,7 @@ class NotFound extends Component {
   render() {
     return (
       <div className='notfound-wrapper'>
-        <Navbar/>
+        <Nav />
         <div className='container'>
           <div className='row justify-content-md-center'>
             <div className='error-pic'>

@@ -42,9 +42,6 @@ class CustomerProfile extends Component {
 	 }
 
   	componentDidUpdate(){
-		$('.navbar-default').addClass('navbar-fixed-top');
-		console.log("asddads");
-				console.log(user.role);
   	}
 	render() {
 		if(this.state.currentUser){
@@ -54,7 +51,7 @@ class CustomerProfile extends Component {
 					<Nav />
 					<div className="profile-container">
 						<SideBar user={this.state.currentUser} />
-						 <div className="tab-content">
+						 <div className="profile-information">
 							<BasicInfor  user={this.state.currentUser} />
 							<ChatHistory />
 							<FeedBackHistory/>

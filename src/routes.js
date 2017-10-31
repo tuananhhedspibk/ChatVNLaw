@@ -9,7 +9,7 @@ import Home from './components/homepage/home';
 import Attorney from './components/attorney/Attorney';
 import Payment from './components/payments/App';
 import CustomerProfile from './components/customer/profile/main'
-
+import SearchLaw from './components/search_law/App'
 import NotFoundPage from './components/shared/notfound';
 
 const Routes = props => (
@@ -25,7 +25,7 @@ const Routes = props => (
       <Route path='/payment' component={Payment} />
       <Route path='/home' component={Home}/>
       <Route path='/my-profile' component={CustomerProfile}/>
-      <Route path='' component={Home} />
+      <Route path='/search-law' component={SearchLaw} />
       <Route path='*' component={NotFoundPage}/>
     </Switch>
   </Router>
