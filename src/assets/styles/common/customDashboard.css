@@ -70,14 +70,14 @@
       margin-bottom: 15px;
       padding: 10px; }
   .chat-setting .description button {
-    background-color: #337ab7;
+    background-color: #2385f2;
     border: 0;
     border-radius: 3px;
     color: #fff;
     font-size: 1em;
     padding: 10px; }
     .chat-setting .description button:focus {
-      background-color: #248dce;
+      background-color: #0974b8;
       outline: 0; }
 
 .chat-section {
@@ -85,7 +85,7 @@
   height: calc(100vh - 55px); }
   .chat-section .header {
     border-bottom: 1px solid #c2cfd6;
-    color: #337ab7;
+    color: #2385f2;
     float: left;
     font-size: 1.2em;
     padding: 10px;
@@ -133,7 +133,7 @@
 .sidebar .nav .nav-item .nav-link {
   font-size: 1.2em; }
   .sidebar .nav .nav-item .nav-link:hover {
-    background-color: #337ab7 !important; }
+    background-color: #2385f2 !important; }
 
 .nav-link .dropdown-toggle .btn .btn-secondary {
   font-size: .9em; }

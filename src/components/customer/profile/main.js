@@ -9,7 +9,7 @@ import FeedBackHistory from './feedbackhistory';
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'
 
-import '../../../assets/styles/customer/profile.css';
+import '../../../assets/styles/common/profile.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.min.css'
 import $ from 'jquery'

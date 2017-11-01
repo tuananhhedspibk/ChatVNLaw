@@ -2,92 +2,85 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 
 import * as constant from '../constants';
-
+import * as Lawyers from '../../lib/helper/user/lawyers';
 let translate = require('counterpart');
 
 class Content extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      location: 'Hanoi',
-      area: '',
-    };
+    this.state={
+      lawyers:[],
+      currentLawyer: ''
+    }
   }
-    
-  handleAreaChange = (event) => {
-    this.setState({area: event.target.value});
-  };
 
-  handleLocateChange = (event) => {
-    this.setState({location : event.target.value});
+  componentWillMount(){
+    let properties = {}
+    properties['component'] = this;
+    Lawyers.getLawyerList(properties, function(){
+      
+    })
+  }
+
+  changeLawyer(lawyer) {
+    this.setState({currentLawyer: lawyer});
   }
 
   render() {
     return(
-      <div>
-        <section className='o-a-v'>
-          <div className='vh90'>
-            <div id='particles-js'></div>
-            <div className='home-hero p-x-0'>
-              <div className='col-md-12 auto-block-center md-p-t-8 p-b-20'>
-                <div className='home-header'>
-                  <div className='content'>
-                    <div className='b-t-87'>
-                      <strong>
-                        {translate('app.home.find_lawyer')}
-                      </strong>
-                      <strong>
-                        {translate('app.home.find_law')}
-                      </strong>
+      <div className='main-content'>
+        <div className='hot-lawyers'>
+          <div className='lawyers-list'>
+            <div className='title'>
+              {translate('app.home.recent_lawyer.title')}
+            </div>
+            <div className='lawyers'>
+              {
+                this.state.lawyers.map((lawyer) => {
+                  return(
+                    <div className='lawyer'
+                      onClick={this.changeLawyer.bind(this, lawyer)}>
+                        <img className='ava'
+                          src={lawyer.photoURL} />
+                        <div className='infor'>
+                          <div className='name'>
+                            {lawyer.displayName}
+                          </div>
+                        </div>
                     </div>
-                    <h2 id='home-subheader'>
-                      {translate('app.home.slogan')}
-                    </h2>
-                  </div>
-                </div>
-                <div className='container'>
-                  <div className='row m-x-0'>
-                    <div className='col-md-4 text-center'>
-                      <div className='CliHomeGraphic1'>
-                        <img src={constant.findLogoPic} alt="Find logo" />
-                      </div>
-                    </div>
-                    <div className='col-md-4 text-center'>
-                      <div className='CliHomeGraphic2'>
-                        <img src={constant.scheduleLogoPic} alt="Schedule logo" />
-                      </div>
-                    </div>
-                    <div className='col-md-4 text-center'>
-                      <div className='CliHomeGraphic3'>
-                        <img src={constant.connectLogoPic} alt="Connect logo" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='row m-x-0 p-b-2'>
-                  <div className='col-md-4 skinny-text'>
-                    <div className='text-center CliHomeHeaderText b-t-87'>
-                      <h2>{translate('app.home.find')}</h2>
-                    </div>
-                    <p className='p-t-2 text-center'>{translate('app.home.find_content')}</p>
-                  </div>
-                  <div className='col-md-4 skinny-text'>
-                    <div className='text-center CliHomeHeaderText b-t-87'>
-                      <h2>{translate('app.home.schedule')}</h2>
-                    </div>
-                    <p className='p-t-2 text-center'>{translate('app.home.schedule_content')}</p>
-                  </div>
-                  <div className='col-md-4 skinny-text'>
-                    <div className='text-center CliHomeHeaderText b-t-87'>
-                      <h2>{translate('app.home.connect')}</h2>
-                    </div>
-                    <p className='p-t-2 text-center'>{translate('app.home.connect_content')}</p>
-                  </div>
-                </div>
-              </div>
+                  )
+                })
+              }
             </div>
           </div>
-        </section>
+          <div className='lawyer-overview'>
+            <div className='title'>
+              {translate('app.home.recent_lawyer.lawyer_overview')}
+            </div>
+            <div className='content'>
+              <div className='name'>
+                {this.state.currentLawyer.displayName}
+              </div>
+              <div className='overview-infor'>
+                <div>
+                  <i className='fa fa-money' aria-hidden='true'></i>
+                  $ 10 / {translate('app.home.recent_lawyer.hour')}
+                </div>
+                <div>
+                  <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div className='description'>
+                Proin ligula neque, pretium et ipsum eget,
+                mattis commodo dolor.
+                Etiam tincidunt libero quis commodo.
+              </div>
+              <button className='apply-btn'>
+                {translate('app.home.recent_lawyer.apply')}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

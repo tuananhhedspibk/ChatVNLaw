@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
-import HashTagBox from '../chat/hashtagbox';
 
 import ChatSetting from '../chat/chatsetting';
 
@@ -15,7 +14,6 @@ import '../../assets/styles/common/chatwindow.css';
 import '../../assets/styles/common/emoji-mart.css';
 
 let translate = require('counterpart');
-let FontAwesome = require('react-fontawesome');
 var firebase = require('firebase');
 
 class Chat extends Component {
@@ -36,7 +34,6 @@ class Chat extends Component {
     fileButton.addEventListener('change', function(e){
       e.preventDefault();
       let file = e.target.files[0];
-      // store file data on firebase storage and set a reference on firebase realtime database
       let properties = {}
       if(component.state.current_room_id){
         properties["roomId"] = component.state.current_room_id;
@@ -300,8 +297,10 @@ class Chat extends Component {
           <div className={'user-name'}>
             {this.currentUser.uid === this.targetUser.uid ? this.currentUser.displayName : this.targetUser.displayName}
           </div>
-          <FontAwesome name='video-camera'/>
-          <FontAwesome name='phone'/>
+          <i className='fa fa-video-camera'
+            aria-hidden='true'></i>
+          <i class='fa fa-phone'
+            aria-hidden='true'></i>
         </div>
         <div className='chat-body'>
           <ChatBubble messages={this.state.messages} />
@@ -323,10 +322,13 @@ class Chat extends Component {
                     autoFocus={true}
                   />
                 </div>
-                <FontAwesome onClick={this.renderEmojiPicker}
-                  name='smile-o' id='btn-show-emoji'/>
+                <i className='fa fa-file-smile-o'
+                  aria-hidden='true'
+                  onClick={this.renderEmojiPicker}></i>
               </div>
-              <FontAwesome onClick={this.upfile} name='file-image-o'/>
+              <i className='fa fa-file-image-o'
+                aria-hidden='true'
+                onClick={this.upfile}></i>
             </div>
           </div>
         </div>

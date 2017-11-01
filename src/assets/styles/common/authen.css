@@ -5,7 +5,7 @@
   right: 0;
   bottom: 0;
   overflow: auto;
-  background: #337ab7;
+  background: #2385f2;
   text-align: center;
   color: #fff;
   padding: 30px 42px 42px; }
@@ -88,14 +88,14 @@
   padding-left: 10px !important;
   text-align: left; }
   .redirect-to a {
-    color: #ffb460;
+    color: #ffe1c1;
     font-weight: bold;
     margin-left: 10px; }
     .redirect-to a:focus {
       outline: none;
-      color: #ffb460; }
+      color: #ffe1c1; }
     .redirect-to a:hover {
-      color: #ffb460; }
+      color: #ffe1c1; }
 
 .btn-rounded {
   border-radius: 50px; }

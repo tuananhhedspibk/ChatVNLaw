@@ -4,7 +4,7 @@ import $ from 'jquery';
 import * as constant from '../constants';
 
 import 'bootstrap/dist/css/bootstrap.css'
-import '../../assets/styles/homepage/nav.css';
+import '../../assets/styles/common/nav.css';
 
 const firebase = require('firebase');
 const userInfo = require('../../lib/helper/user/get_user_info');
@@ -109,7 +109,7 @@ class Nav extends Component {
       <nav className='navbar navbar-default'>
         <div className='navbar-header'>
         </div>
-        <ul className='nav navbar-nav navbar-right headerNavList'>
+        <ul className='nav navbar-nav navbar-left headerNavList'>
           <li className='headerNavListItem search-inputgroup'>
             <a className='search-link' role='button'>
               {translate('app.nav.brow_law')}
@@ -151,9 +151,9 @@ class Nav extends Component {
           <li className='headerNavListItem'>
             <a className='headerNavListLink' onClick={this.checkLogin}>Chat</a>
           </li>
-          <li className='headerNavListItem'>
-            {this.renderDropdown()}
-          </li>
+        </ul>
+        <ul className='nav navbar-nav navbar-right headerNavList'>
+          {this.renderDropdown()}
         </ul>
       </nav>
     );

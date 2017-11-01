@@ -14,6 +14,17 @@ module.exports = {
       search: 'Tìm kiếm luật'
     },
     home: {
+      find_box: {
+        title: 'Tìm luật sư',
+        lawyer_name: 'Tên luật sư',
+        lawyer_field: 'Lĩnh vực'
+      },
+      recent_lawyer: {
+        title: 'Luật sư tiêu biểu',
+        lawyer_overview: 'Hồ sơ tổng quan',
+        hour: 'giờ',
+        apply: 'Đặt lịch hẹn tư vấn'
+      },
       find_lawyer: 'Trao đổi với luật sư &',
       find_law: 'Tra cứu luật',
       fast: 'nhanh và hiệu quả nhất',

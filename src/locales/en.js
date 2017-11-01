@@ -14,6 +14,17 @@ module.exports = {
       search: 'Search law'
     },
     home: {
+      find_box: {
+        title: 'Find lawyer',
+        lawyer_name: 'Lawyer name',
+        lawyer_field: 'Lawyer fields'
+      },
+      recent_lawyer: {
+        title: 'Recent Lawyers',
+        lawyer_overview: 'Lawyer overview',
+        hour: 'hour',
+        apply: 'Make an appointment'
+      },
       find_lawyer: 'Talk to lawyer &',
       find_law: 'Look up the law',
       fast: 'fast and most effective',

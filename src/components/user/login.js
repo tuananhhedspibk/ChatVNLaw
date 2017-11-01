@@ -11,7 +11,6 @@ const firebase = require('firebase');
 const $ = require('jquery');
 const userInfo = require('../../lib/helper/user/get_user_info');
 
-
 class UserLogin extends Component {
   constructor(props) {
     super(props);

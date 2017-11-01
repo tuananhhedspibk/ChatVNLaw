@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .header-nav {
 	border-radius: 0px !important;
 }
@@ -8,11 +10,12 @@
 }
 
 .navbar-default {
-	height: 80px;
-	display: block !important;
 	background-color: #fff !important;
 	background-image: none !important;
 	border-radius: 0px !important;
+	display: block !important;
+	font-weight: 200;
+	height: 80px;
 	margin: 0px;
 }
 
@@ -46,19 +49,23 @@
 }
 
 .headerNavListItem a {
-	font-size: .8em !important;
-	font-family: 'Open Sans', Helvetica, sans-serif !important;
-  color: #337ab7 !important;
+	color: $white !important;
   cursor: pointer;
+	font-size: .7em !important;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 1px;
 }
 
 .headerNavListItem a:hover {
-	color: #0870B0 !important;
+	background-color: $blue !important;
+	border-radius: 5px;
+	color: $white !important;
+	transition: all .5s ease;
 }
 
 .navbar a {
-  cursor: pointer;
-  font-family: 'Bree Serif', serif;
+	cursor: pointer;
   font-size: 1.5em;
 }
 
@@ -67,27 +74,38 @@
 }
 
 .dropdown .btn {
-  background-color: transparent;
-  color: #337ab7 !important;
+	background-color: rgba(255, 255, 255, 0.0980392);
+	color: $white !important;
   font-size: .8em;
-  font-weight: bold;
-  margin-top: 8px;
+	margin-right: 30px;
+	margin-top: 3px;
   outline: 0 !important;
+	padding: 10px !important;
+
+	&:focus {
+		box-shadow: none;
+	}
 }
 
 .navbar-nav .dropdown-menu {
+	background-color: rgba(255, 255, 255, 0.0980392);
+	border-radius: 5px;
   padding: 0 !important;
   position: absolute !important;
-  top: 40px;
+	top: 50px;
+	left: 12px;
+	width: 120px;
 }
 
 .navbar-nav .dropdown-menu  a {
-  color: #337ab7 !important;
+  color: $white !important;
   font-size: 1.2em !important;
   padding: 15px !important;
 }
 
 .dropdown-menu > li > a:hover {
+	background-color: $blue !important;
   background-image: none !important;
-  color: #288AC5 !important;
+	color: $white !important;
+	transition: all .5s ease;
 }

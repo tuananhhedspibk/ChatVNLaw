@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
-import Nav from '../homepage/Nav';
+import Nav from '../homepage/nav';
 import ReactDOM from 'react-dom';
 import Law from '../search_law/Law';
 import SearchTool from '../search_law/SearchTool';
 import Category from '../search_law/Category';
-import '../../assets/styles/search_law/search_law.css';
+import '../../assets/styles/common/search_law.css';
 import { parse } from 'qs';
 import axios from 'axios';
 import $ from 'jquery';
 import * as constant from '../constants';
-
 
 class SearchLaw extends Component {
 	constructor(props) {

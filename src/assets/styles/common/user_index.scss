@@ -8,8 +8,9 @@
   width: 320px;
 
   .header-index {
+    background-color: $blue;
     border-bottom: 1px solid $gray-lighter;
-    color: $blue;
+    color: $white;
     float: left;
     font-size: 1.3em;
     padding: 13px 15px 14px;
@@ -17,7 +18,7 @@
     width: 100%;
 
     a {
-      font-weight: bold;
+      color: $white;
 
       &:hover {
         cursor: pointer;
