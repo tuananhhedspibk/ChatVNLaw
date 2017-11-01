@@ -17,13 +17,12 @@
     display: none; }
   .chat-window .title {
     border-bottom: 1px solid #e5ecf0;
-    color: #337ab7;
-    font-weight: bold;
+    color: #2385f2;
     padding: 15px;
     text-align: center;
-    text-transform: uppercase;
     width: 100%; }
     .chat-window .title .user-name {
+      color: #000;
       font-size: 1em;
       display: inline-block; }
     .chat-window .title .fa {

@@ -5,15 +5,16 @@
   height: 100vh;
   width: 320px; }
   .list-users .header-index {
+    background-color: #2385f2;
     border-bottom: 1px solid #e5ecf0;
-    color: #337ab7;
+    color: #fff;
     float: left;
     font-size: 1.3em;
     padding: 13px 15px 14px;
     text-align: center;
     width: 100%; }
     .list-users .header-index a {
-      font-weight: bold; }
+      color: #fff; }
       .list-users .header-index a:hover {
         cursor: pointer; }
     .list-users .header-index .fa {
@@ -68,7 +69,7 @@
         width: 50px; }
 
 .unread-mess {
-  background-color: #337ab7;
+  background-color: #2385f2;
   border-radius: 3px;
   color: #fff;
   display: inline-block;

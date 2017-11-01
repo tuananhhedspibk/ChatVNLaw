@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-import '../../assets/styles/homepage/footer.css';
+import '../../assets/styles/common/footer.css';
 
 let translate = require('counterpart');
 

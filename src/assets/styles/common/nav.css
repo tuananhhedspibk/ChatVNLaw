@@ -1,0 +1,90 @@
+.header-nav {
+  border-radius: 0px !important; }
+
+.navbar > ul {
+  display: inline-block;
+  float: right; }
+
+.navbar-default {
+  background-color: #fff !important;
+  background-image: none !important;
+  border-radius: 0px !important;
+  display: block !important;
+  font-weight: 200;
+  height: 80px;
+  margin: 0px; }
+
+.navbar-default .navbar-nav > li input {
+  width: 10px;
+  transition: width 1s;
+  border-radius: 15px 0px 0px 15px; }
+
+.navbar-default .navbar-nav > li button {
+  float: right;
+  height: 34px; }
+
+.navbar-default .navbar-nav > li .remove-btn {
+  border-radius: 0px 15px 15px 0px; }
+
+.navbar-default .navbar-nav > li {
+  margin-right: 40px; }
+
+.navbar-default .navbar-nav > li .input-group {
+  display: none;
+  padding-top: 10px;
+  padding-right: 40px; }
+
+.navbar-default .navbar-nav > li .input-group-btn {
+  display: flex; }
+
+.headerNavListItem a {
+  color: #fff !important;
+  cursor: pointer;
+  font-size: .7em !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px; }
+
+.headerNavListItem a:hover {
+  background-color: #2385f2 !important;
+  border-radius: 5px;
+  color: #fff !important;
+  transition: all .5s ease; }
+
+.navbar a {
+  cursor: pointer;
+  font-size: 1.5em; }
+
+.navbar-header {
+  padding-left: 30px; }
+
+.dropdown .btn {
+  background-color: rgba(255, 255, 255, 0.0980392);
+  color: #fff !important;
+  font-size: .8em;
+  margin-right: 30px;
+  margin-top: 3px;
+  outline: 0 !important;
+  padding: 10px !important; }
+  .dropdown .btn:focus {
+    box-shadow: none; }
+
+.navbar-nav .dropdown-menu {
+  background-color: rgba(255, 255, 255, 0.0980392);
+  border-radius: 5px;
+  padding: 0 !important;
+  position: absolute !important;
+  top: 50px;
+  left: 12px;
+  width: 120px; }
+
+.navbar-nav .dropdown-menu a {
+  color: #fff !important;
+  font-size: 1.2em !important;
+  padding: 15px !important; }
+
+.dropdown-menu > li > a:hover {
+  background-color: #2385f2 !important;
+  background-image: none !important;
+  color: #fff !important;
+  transition: all .5s ease; }

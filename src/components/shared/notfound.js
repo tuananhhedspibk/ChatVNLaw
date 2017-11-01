@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
-import Nav from '../homepage/Nav';
+import Nav from '../homepage/nav';
 
 import * as constant from '../constants';
 

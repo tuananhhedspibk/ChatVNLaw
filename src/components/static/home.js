@@ -10,7 +10,6 @@ class Home extends Component {
     }
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // User is signed in.
         let ref = firebase.database().ref('users')
           .orderByChild('displayName').equalTo(user.displayName)
           .once('child_added').then(function(data){
