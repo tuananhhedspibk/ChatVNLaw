@@ -11,7 +11,7 @@ import Calendar from './components/calendar';
 import Breadcrumb from './components/breadcrumb';
 import SearchTag from './components/searchtag';
 import SearchUser from './components/searchuser';
-
+import TodoList from './components/todolist';
 import {Container} from 'reactstrap';
 import Chat from './components/chat';
 import {EventEmitter} from 'fbemitter';
@@ -49,9 +49,12 @@ class UserDashBoard extends Component {
               <Breadcrumb/>
               <Container fluid>
                 <Switch>
-                  <Route path="/lawyers/customer" name="Customer"
+                  <Route path='/lawyers/files-shared' name="Files Shared"
                     render={(props) => (
                       <Customer emitter={this.emitter} {...props} />)} />
+                  <Route path='/lawyers/todos' name='Todo List'
+                    render={(props) => (
+                      <TodoList emitter={this.emitter} {...props} />)} />
                   <Route path='/lawyers/search_tag' name="SearchUser"
                     render={(props) => (
                       <SearchTag emitter={this.emitter} {...props} />)} />

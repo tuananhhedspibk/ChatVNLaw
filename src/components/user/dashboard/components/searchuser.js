@@ -8,12 +8,8 @@ class SearchUser extends Component {
         super(props);
         this.state = {
             userName: '',
-<<<<<<< HEAD
-            targetUser:''
-=======
             targetUser:'',
             result: []
->>>>>>> search username
         }
     }
 
@@ -33,11 +29,17 @@ class SearchUser extends Component {
             if(data.val() !== null){
                 var arr = [];
                 for(var y in data.val()){
-                    var item = {};
-                    item['uid'] = y;
-                    for(var z in data.val()[y]){
-                        item[z] = data.val()[y][z]
-                    }
+                    var item = {
+                        username: data.val()[y]['username'],
+                        displayName: data.val()[y]['displayName'],
+                        uid : y,
+                        status: data.val()[y]['status'],
+                        photoURL: data.val()[y]['photoURL']
+                    };
+                    // item['uid'] = y;
+                    // for(var z in data.val()[y]){
+                    //     item[z] = data.val()[y][z]
+                    // }
                     arr.push(item);
                 }
                 component.setState({result: arr})
@@ -53,7 +55,7 @@ class SearchUser extends Component {
     }
 
     clickUser(data){
-        console.log(data);
+        
         var component = this;
         component.setState({
             targetUser: data
@@ -68,6 +70,7 @@ class SearchUser extends Component {
                         return(
                             <div>
                                 <img src={element.photoURL} title={element.displayName} onClick={this.clickUser.bind(this,element)}/>
+                                {/* <a onClick={this.clickUser.bind(this,element)}>{element.displayName}</a> */}
                             </div>
                         )
                     })}

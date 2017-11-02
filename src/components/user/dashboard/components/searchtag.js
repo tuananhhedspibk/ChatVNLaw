@@ -94,7 +94,6 @@ class SearchTag extends Component {
         }
     }
     render(){
-<<<<<<< HEAD
         if(this.state.currentRoomId){
             return (
                 <div >
@@ -111,12 +110,6 @@ class SearchTag extends Component {
             )
         }
         
-=======
-        return (
-            <div >
-            </div>
-        )
->>>>>>> search username
     }
 }
 export default SearchTag;

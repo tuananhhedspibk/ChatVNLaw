@@ -28,11 +28,11 @@ class Customer extends Component {
   componentWillMount(){
     var component = this;
     this.props.emitter.emit('ReSendData', function(currentUser, targetUser, roomId){
-      component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})      
+      component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})
+      console.log(roomId);      
     });
-
     this.props.emitter.addListener('RoomChatHasChanged', function(currentUser, targetUser,roomId) {
-      component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})      
+      component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})    
     });
   }
 
