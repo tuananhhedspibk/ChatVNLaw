@@ -7,6 +7,7 @@ import Footer from './components/footer';
 import DashBoard from './components/dashboard';
 import Customer from './components/customer';
 import Note from './components/note';
+import TodoListLawyer from './components/todoListLawyer';
 import Calendar from './components/calendar';
 import Breadcrumb from './components/breadcrumb';
 import SearchTag from './components/searchtag';
@@ -49,6 +50,9 @@ class UserDashBoard extends Component {
               <Breadcrumb/>
               <Container fluid>
                 <Switch>
+                  <Route path='/lawyers/todolistlawyer' name="Todo List Lawyer" 
+                    render={(props) => (
+                      <TodoListLawyer emitter={this.emitter} {...props} />)}/>
                   <Route path='/lawyers/files-shared' name="Files Shared"
                     render={(props) => (
                       <Customer emitter={this.emitter} {...props} />)} />

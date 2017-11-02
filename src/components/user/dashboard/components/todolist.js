@@ -26,7 +26,8 @@ class TodoList extends Component {
     componentWillUpdate(nextProps, nextState){
         var component = this;
         if(component.state.currentRoomId !== nextState.currentRoomId){
-            firebase.database().ref(`tasks/${nextState.currentRoomId}`).once('value', (data) => {
+            console.log(nextState.currentRoomId)
+            firebase.database().ref(`tasks/${component.state.currentUser.uid}/${nextState.currentRoomId}`).once('value', (data) => {
                 if(data){
                     component.setState({
                         todoList: data.val()
@@ -44,7 +45,7 @@ class TodoList extends Component {
     componentDidMount(){
         var component = this;
         if(!!this.state.currentRoomId){
-            firebase.database().ref(`tasks/${component.state.currentRoomId}`).once('value', (data) => {
+            firebase.database().ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`).once('value', (data) => {
                 component.setState({
                     todoList: data.val()
                 })
@@ -57,6 +58,7 @@ class TodoList extends Component {
     }
 
     createElementTaskList(){
+        var TimeCreate = (new Date()).getTime();
         if(this.state.todoList !== null){
             var data = this.state.todoList
         }
@@ -70,43 +72,48 @@ class TodoList extends Component {
                 alert("You must write something!");
             }
             else {
-                data.push({'status' : 0, 'text' : inputValue})
+                data.push({'status' : 0, 'text' : inputValue, 'targeter_uid': component.state.targetUser.uid, 'TimeCreate': TimeCreate })
                 component.setState({
                     todoList: data
                 })
-                firebase.database().ref(`tasks/${component.state.currentRoomId}`).set(data);
+                firebase.database().ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`).set(data);
             }
         }
     }
 
     handleClick(ev){
+        var component = this;
+        var time = (new Date()).getTime();
         var data = this.state.todoList;
         var index = data.indexOf(ev);
         if(data[index]){
             if(data[index].status === 1){
                 $('#myUL li').eq(index).removeClass('checked')
-                data[index].status = 0
+                data[index].status = 0;
+                data[index].TimeCreate = time;
             }
             else {
                 $('#myUL li').eq(index).addClass('checked')
                 data[index].status = 1;
+                data[index].TimeCreate = time;
             }
             this.setState({
                 todoList: data
             })
-            firebase.database().ref(`tasks/${this.state.currentRoomId}`).set(this.state.todoList);
+            firebase.database().ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`).set(this.state.todoList);
         }
     }
 
     handleClickDelete(ev){
+        var component = this;
         var data = this.state.todoList;
         var index = data.indexOf(ev);
-        data.splice(index, 1)
+        data.splice(index, 1);
         // data.remove(ev);
         this.setState({
             todoList: data
         })
-        firebase.database().ref(`tasks/${this.state.currentRoomId}`).set(this.state.todoList);
+        firebase.database().ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`).set(this.state.todoList);
     }
 
     loadCSS(){
@@ -118,6 +125,23 @@ class TodoList extends Component {
                 }
             }
         }
+    }
+
+    renderAddTodoList(){
+        if(this.state.currentRoomId){
+            return(
+                <div>
+                    <h2>My To Do List</h2>
+                    <input type="text" id="myInput" placeholder="Title..."/>
+                    {<span onClick={this.createElementTaskList.bind(this)} className="addBtn">Add</span>}
+                </div>
+            )   
+        }
+        else {
+            return(
+                <div></div>
+            )
+        }      
     }
 
     renderTodoList(){
@@ -138,9 +162,7 @@ class TodoList extends Component {
     render(){
         return (
             <div id="myDIV" className="header">
-                <h2>My To Do List</h2>
-                <input type="text" id="myInput" placeholder="Title..."/>
-                {<span onClick={this.createElementTaskList.bind(this)} className="addBtn">Add</span>}
+                {this.renderAddTodoList()}
                 {this.renderTodoList()}
             </div>
         )
