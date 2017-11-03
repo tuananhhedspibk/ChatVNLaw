@@ -12,6 +12,10 @@
     background-size: cover;
     height: 100vh;
 
+    .container-fluid {
+      box-shadow: rgba(255, 255, 255, 0.0980392) 0px -1px 0px 0px inset;
+    }
+
     .content {
       background-color: rgba(0, 0, 0, .7);
       height: 100%;
@@ -20,14 +24,22 @@
       .navbar-default {
         background-color: transparent !important;
         border: 0;
-        box-shadow: rgba(255, 255, 255, 0.0980392) 0px -1px 0px 0px inset;
       }
+    }
+  }
+
+  .navbar-collapse {
+    border-top: 0;
+    box-shadow: none;
+
+    ul.navbar-left {
+      display: inline-block;
     }
   }
 
   .find {
     height: calc(100vh - 80px);
-    padding: calc((100vh - 255.5px) / 2) 50px;
+    padding: calc((100vh - 255.5px) / 2) 85px;
     width: 100%;
   
     .title {
@@ -55,7 +67,7 @@
         height: 55px;
         margin-right: 30px;
         position: relative;
-        width: calc((100% - 146.5px) / 2);
+        width: calc((100% - 216.5px) / 2);
       }
   
       button {
@@ -72,16 +84,85 @@
   
         &:hover {
           background-color: $blue-darker;
+          transition: all .4s ease;
         }
       }
     }
   }
 
   .main-content {
-    padding: 50px;
+
+    .search-law {
+      padding: 65px 85px;
+
+      .title {
+        font-size: 1.6em;
+      }
+
+      .explain {
+        color: $gray;
+        font-size: 1.3em;
+        margin-bottom: 20px;
+        margin-top: 10px;
+      }
+
+      .row {
+        border-bottom: 1px solid $border-color;
+        border-left: 1px solid $border-color;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .row-btn {
+        border: 0;
+        margin-top: 30px;
+        text-align: center;
+
+        .btn {
+          font-size: 1.3em;
+          margin: 0 auto;
+          padding: 10px 35px;
+
+          &:hover {
+            color: $white;
+            background-color: $blue-darker;
+            transition: all .5s ease;
+          }
+        }
+      }
+
+      .col-md-3 {
+        padding: 0;
+      }
+
+      .field {
+        border-top: 1px solid $border-color;
+        border-right: 1px solid $border-color;
+        padding: 30px;
+        text-align: center;
+
+        .fa {
+          color: $blue;
+          font-size: 2.5em;
+          margin-bottom: 10px;
+        }
+
+        .title {
+          color: $gray-darker;
+          font-size: 1.1em;
+          text-transform: uppercase;
+        }
+
+        &:hover {
+          background-color: $gray-lighter;
+          transition: all .5s ease;
+        }
+      }
+    }
 
     .hot-lawyers {
       display: inline-block;
+      padding: 65px 85px;
       width: 100%;
 
       .title {
@@ -96,6 +177,25 @@
 
         .title {
           border-bottom: 1px solid $orange-lighter;
+        }
+
+        .lawyers {
+          margin-bottom: 40px;
+        }
+
+        .list-all-lawyers {
+          background-color: $blue;
+          border-radius: 5px;
+          color: $white;
+          font-size: 1.2em;
+          padding: 10px 20px;
+          text-decoration: none;
+          width: 300px;
+
+          &:hover {
+            background-color: $blue-darker;
+            transition: all .4s ease;
+          }
         }
 
         .lawyer {
@@ -167,10 +267,57 @@
 
             &:hover {
               background-color: $blue-darker;
+              transition: all .4s ease;
             }
           }
         }
       }
+    }
+
+    .get-started {
+      background-color: $blue;
+      color: $white;
+      display: inline-block;
+      font-size: 1.6em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      padding: 25px 40px 30px;
+      text-align: center;
+      width: 100%;
+
+      .title {
+        display: inline-block;
+        margin-bottom: 10px;
+        margin-right: 20px;
+      }
+
+      .get-start-btn {
+        border: 2px solid $white;
+        border-radius: 5px;
+        color: $white;
+        cursor: pointer;
+        display: inline-block;
+        font-size: .7em;
+        margin-top: 10px;
+        padding: 10px 20px;
+        text-decoration: none;
+        text-transform: uppercase;
+
+        &:hover {
+          background-color: $white;
+          color: $blue;
+          transition: all .5s ease;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .search-box {
+    input {
+      margin-bottom: 15px;
+      width: 100% !important;
     }
   }
 }

@@ -23,7 +23,48 @@ module.exports = {
         title: 'Luật sư tiêu biểu',
         lawyer_overview: 'Hồ sơ tổng quan',
         hour: 'giờ',
-        apply: 'Đặt lịch hẹn tư vấn'
+        apply: 'Đặt lịch hẹn tư vấn',
+        show_all: 'Xem toàn bộ luật sư'
+      },
+      get_start: {
+        title: 'Bắt đầu đặt lịch tư vấn với luật sư ngay bây giờ',
+        button_content: 'Bắt đầu'
+      },
+      search_law: {
+        title: 'Tìm kiếm luật',
+        des: 'Ngoài tư vấn luật bạn cũng có thể tra cứu luật cùng chúng tôi',
+        field_1: {
+          title: 'Hình sự',
+          des: 'Các quy định về tội phạm, xác định hành vi tội phạm và những hình phạt'
+        },
+        field_2: {
+          title: 'Sở hữu trí tuệ',
+          des: 'Các quy định về quyền tác giả, quyền sở hữu công nghiệp, và việc bảo hộ các quyền đó.'
+        },
+        field_3: {
+          title: 'Hôn nhân & gia đình',
+          des: 'Các quy định pháp luật về đời sống hôn nhân và mối quan hệ trong gia đình'
+        },
+        field_4: {
+          title: 'Nhà đất - Xây dựng',
+          des: 'Các vấn đề liên quan tới đất đai,nhà cửa,xây dựng'
+        },
+        field_5: {
+          title: 'Tài chính - Ngân hàng',
+          des: 'Những quy định pháp luật về tổ chức và hoạt động các tổ chức tín dụng và hoạt động ngân hàng tổ chức khác'
+        },
+        field_6: {
+          title: 'Dân sự',
+          des: 'Những quy định về các quan hệ tài sản và các quan hệ nhân thân, thừa kế'
+        },
+        field_7: {
+          title: 'Lao động - Bảo hiểm xã hội',
+          des: 'Các quy định của pháp luật về hợp đồng, tiền lương,độ tuổi,thời gian làm việc'
+        },
+        field_8: {
+          title: 'Doanh nghiệp',
+          des: 'Các quy định của pháp luật về hoạt động kinh doanh thương mại,đầu tư doanh nghiệp'
+        }
       },
       find_lawyer: 'Trao đổi với luật sư &',
       find_law: 'Tra cứu luật',

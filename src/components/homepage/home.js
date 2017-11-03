@@ -12,8 +12,8 @@ class App extends Component {
     return (
       <div className='home-page'>
         <Header/>
-        <Content />
-        <Footer />
+        <Content/>
+        <Footer/>
       </div>
     );
   }

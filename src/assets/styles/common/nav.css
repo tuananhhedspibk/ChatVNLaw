@@ -5,6 +5,10 @@
   display: inline-block;
   float: right; }
 
+.btn-blue {
+  background-color: #2385f2;
+  color: #fff; }
+
 .navbar-default {
   background-color: #fff !important;
   background-image: none !important;

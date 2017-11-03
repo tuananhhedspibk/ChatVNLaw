@@ -23,7 +23,48 @@ module.exports = {
         title: 'Recent Lawyers',
         lawyer_overview: 'Lawyer overview',
         hour: 'hour',
-        apply: 'Make an appointment'
+        apply: 'Make an appointment',
+        show_all: 'Show all lawyers',
+      },
+      get_start: {
+        title: 'Start scheduling consultants with lawyers now',
+        button_content: 'Get started'
+      },
+      search_law: {
+        title: 'Search Law',
+        des: 'In addition to legal advice you can also look at the law with us',
+        field_1: {
+          title: 'Criminal',
+          des: 'Criminal regulations, criminal behavior and penalties'
+        },
+        field_2: {
+          title: 'Intellectual Property',
+          des: 'Provisions on copyright, industrial property rights, and the protection of such rights.'
+        },
+        field_3: {
+          title: 'Marriage & Family',
+          des: 'Legal provisions on marriage and family relationships'
+        },
+        field_4: {
+          title: 'Land - Construction',
+          des: 'Issues related to land, housing, construction'
+        },
+        field_5: {
+          title: 'Financial banking',
+          des: 'The provisions of law on organization and operation of credit institutions and other organized banking activities'
+        },
+        field_6: {
+          title: 'Civil',
+          des: 'Regulations on property relations and personal relations, inheritance'
+        },
+        field_7: {
+          title: 'Labor - Social Insurance',
+          des: 'The provisions of the law on contracts, wages, age, working time'
+        },
+        field_8: {
+          title: 'Enterprise',
+          des: 'The provisions of the law on business activities, business investment'
+        }
       },
       find_lawyer: 'Talk to lawyer &',
       find_law: 'Look up the law',
