@@ -1,8 +1,7 @@
-$blue-darker: rgba(0, 146, 255, 0.7);
-$white: #fff;
+@import './variables.scss';
 
 .ui.menu {
-  background-color: $blue-darker;
+  background-color: $blue;
   border: none;
   padding: 3px;
 
