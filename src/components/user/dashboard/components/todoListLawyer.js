@@ -45,123 +45,64 @@ class TodoListLawyer extends Component {
 
     componentDidMount(){
         var component = this;
-        console.log('test')
-
+        var tempData = [];
         var currentUser = firebase.auth().currentUser.uid;
-        console.log(currentUser)
-        // console.log(this.state.currentUser);
-        firebase.database().ref(`tasks`).on('child_added', (data) => {
+        firebase.database().ref(`tasks/${currentUser}`).once('value', (data) => {
             console.log(data.val())
-            // component.setState({
-            //     todoList: data.val()
-            // })
+            if(data){
+                for(var i in data.val()){
+                    console.log(data.val()[i])
+                    tempData.push(data.val()[i])
+                }
+            }
+            component.setState({
+                todoList: tempData
+            })
         })
+
     }
 
-    // componentDidUpdate(){
-    //     this.loadCSS();
-    // }
-
-    // createElementTaskList(){
-    //     if(this.state.todoList !== null){
-    //         var data = this.state.todoList
-    //     }
-    //     else {
-    //         var data = [];
-    //     }
-    //     if(this.state.currentRoomId){
-    //         var component = this;
-    //         var inputValue = document.getElementById("myInput").value;
-    //         if(inputValue === '') {
-    //             alert("You must write something!");
-    //         }
-    //         else {
-    //             data.push({'status' : 0, 'text' : inputValue})
-    //             component.setState({
-    //                 todoList: data
-    //             })
-    //             firebase.database().ref(`tasks/${component.state.currentRoomId}`).set(data);
-    //         }
-    //     }
-    // }
-
-    // handleClick(ev){
-    //     var data = this.state.todoList;
-    //     var index = data.indexOf(ev);
-    //     if(data[index]){
-    //         if(data[index].status === 1){
-    //             $('#myUL li').eq(index).removeClass('checked')
-    //             data[index].status = 0
-    //         }
-    //         else {
-    //             $('#myUL li').eq(index).addClass('checked')
-    //             data[index].status = 1;
-    //         }
-    //         this.setState({
-    //             todoList: data
-    //         })
-    //         firebase.database().ref(`tasks/${this.state.currentRoomId}`).set(this.state.todoList);
-    //     }
-    // }
-
-    // handleClickDelete(ev){
-    //     var data = this.state.todoList;
-    //     var index = data.indexOf(ev);
-    //     data.splice(index, 1)
-    //     // data.remove(ev);
-    //     this.setState({
-    //         todoList: data
-    //     })
-    //     firebase.database().ref(`tasks/${this.state.currentRoomId}`).set(this.state.todoList);
-    // }
-
-    // loadCSS(){
-    //     var data = this.state.todoList;
-    //     if(data){
-    //         for(var i = 0; i < data.length; i++){
-    //             if(data[i].status === 1) {
-    //                 $('#myUL li').eq(i).addClass('checked')
-    //             }
-    //         }
-    //     }
-    // }
-
-    renderAddTodoList(){
-        if(this.state.currentRoomId){
-            return(
-                <div>
-                    <h2>My To Do List</h2>
-                    <input type="text" id="myInput" placeholder="Title..."/>
-                    {<span onClick={this.createElementTaskList.bind(this)} className="addBtn">Add</span>}
-                </div>
-            )   
+    loadCSS(){
+        console.log('loadcss')
+        var data = this.state.todoList;
+        if(data){
+            for(var i = 0; i < data.length; i++){
+                if(data[i].status === 1) {
+                    $('#myUL li').eq(i).addClass('checked')
+                }
+            }
         }
-        else {
-            return(
-                <div></div>
-            )
-        }      
     }
 
     renderTodoList(){
-        var component = this
-        if(this.state.currentUser && this.state.targetUser && this.state.todoList !== null){
-            return(
-                <div>
-                    {/* <ul id="myUL">
-                    {this.state.todoList.map(content => (
-                            <li onClick={this.handleClick.bind(this, content)}>{content.text}<span className='close' onClick={this.handleClickDelete.bind(this, content)}>x</span></li>
-                    ))}
-                    </ul> */}
-                </div>
-            )
-        }
+        var component = this;
+        return(
+            component.state.todoList.map((todoList, index) => {
+                console.log(todoList)
+                return(
+                    <div>
+                        <button type="button" className="btn btn-info todo-list-lawyer" data-toggle="collapse" data-target={"#todo-list-lawyer" + index}>{todoList[0].targetuserdisplayname}</button>
+                        <div id={"todo-list-lawyer" + index} class="collapse">
+                        <ul id="myUL">
+                            {todoList.map(content => (
+                                <li className={content.status ===1? 'checked' : 'uncheck'}>{content.text}</li>
+                            ))}
+                        </ul>
+                        </div>
+                    </div>
+                )
+            })  
+        )
+          
     }
 
     render(){
+        console.log('test')
+        var component = this
+        console.log(this.state.todoList)
         return (
             <div id="myDIV" className="header">
-                {this.renderTodoList()}
+                {component.renderTodoList()}
             </div>
         )
     }
