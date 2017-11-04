@@ -10,13 +10,11 @@ import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'
 
 import '../../../assets/styles/common/profile.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.min.css'
+
 import $ from 'jquery'
 import * as constant from '../../constants';
-global.jQuery = $
+global.jQuery = $;
 const firebase = require('firebase');
-require('bootstrap')
 
 var user;
 

@@ -13,7 +13,7 @@ class NotFound extends Component {
   render() {
     return (
       <div className='notfound-wrapper'>
-        <Nav />
+        <Nav navStyle='inverse'/>
         <div className='container'>
           <div className='row justify-content-md-center'>
             <div className='error-pic'>
@@ -23,7 +23,9 @@ class NotFound extends Component {
               <div className='temp-content'>{translate('app.notfound.content.oh')}</div>
               <div className='main-content'>{translate('app.notfound.content.main')}</div>
             </div>
-            <Link to='/login' className='back-to-home'>{translate('app.notfound.content.back_home')}</Link>
+            <Link to='/home' className='back-to-home'>
+              {translate('app.notfound.content.back_home')}
+            </Link>
           </div>
         </div>
       </div>
