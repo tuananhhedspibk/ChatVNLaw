@@ -72,7 +72,7 @@ class TodoList extends Component {
                 alert("You must write something!");
             }
             else {
-                data.push({'status' : 0, 'text' : inputValue, 'targeter_uid': component.state.targetUser.uid, 'TimeCreate': TimeCreate })
+                data.push({'status' : 0, 'text' : inputValue, 'target_uid': component.state.targetUser.uid, 'timecreate': TimeCreate, 'targetuserdisplayname' : component.state.targetUser.displayName })
                 component.setState({
                     todoList: data
                 })

@@ -198,3 +198,10 @@ body {
 .close:hover {
   background-color: #f44336;
   color: white; }
+
+#myUL {
+  list-style: none; }
+
+.todo-list-lawyer {
+  width: 100%;
+  text-align: left !important; }
