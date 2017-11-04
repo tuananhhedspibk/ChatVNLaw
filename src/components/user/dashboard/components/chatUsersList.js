@@ -32,7 +32,9 @@ class ChatUsersList extends Component {
         properties['currentUser'] = component.currentUser;
         properties['keyword'] = 'user';
         UserList.getTargetChat(properties);
-        
+        component.props.emitter.addListener('getUserSearch', function(targetUser){
+          component.setState({targetUser: targetUser})
+        })
       }else{
 
       }
@@ -45,7 +47,6 @@ class ChatUsersList extends Component {
 
   changeUserChat(user){
     this.setState({targetUser: user})
-    console.log(user);
   }
 
   render() {    
@@ -54,7 +55,7 @@ class ChatUsersList extends Component {
         <div className='chat-users-list'>
         {
           this.state.users.map(user => {
-            if(this.state.targetUser == user){
+            if(JSON.stringify(this.state.targetUser) === JSON.stringify(user)){
               return(
                 <div className='chat-user active-link'
                   onClick={this.changeUserChat.bind(this,user)}

@@ -6,7 +6,17 @@ export default {
       icon: 'icon-speech',
       badge: {
         variant: 'info',
-      }
+      },
+      children:[
+        {
+          name: 'tep chia se',
+          url: '/lawyers/files-shared'
+        },
+        {
+          name: 'todo list',
+          url: '/lawyers/todos'
+        }
+      ]
     },
     {
       name: 'app.dashboard.search.title',
