@@ -20,12 +20,10 @@ function exportItem(data,properties){
     item["name"] = data.val().name || '';
     item["downloadURL"] = data.val().downloadURL || '';
     item["tags"] = []
-    if(item["sender_uid"] === properties.component.currentUser.uid){
+    if(item["sender_uid"] === properties.component.state.currentUser.uid){
         item["type"] = 0;
-        item["image"] = properties.component.currentUser.photoURL;
     }else{
         item["type"] = 1;
-        item["image"] = properties.component.targetUser.photoURL;
     }
     if(data.val().tags){
         var count = 0;
@@ -41,8 +39,55 @@ function exportItem(data,properties){
     }
     return item;
 }
+function notifyUnreadMessage(properties){
+    var component = properties.component;
+    var ref = firebase.database().ref('rooms').orderByChild('unread/lastMess/receiver_uid').equalTo(component.state.currentUser.uid);
+    var unreadArr = []
 
+    ref.on('child_added', snapshot=>{
+        var unreadItem = {
+            _id: snapshot.key,
+            count: snapshot.val().unread.count || 0,
+            lastMess: {
+              msg_ts: snapshot.val().unread.lastMess.msg_ts || '',
+              sender_uid: snapshot.val().unread.lastMess.sender_uid || '',
+              text: snapshot.val().unread.lastMess.text || ''
+            }
+        }
+        unreadArr.push(unreadItem);
+        component.setState({unread: unreadArr})
+    })
+    ref.on('child_changed', snapshot=>{
+        unreadArr.every(function(element, index){
+            if(element._id === snapshot.key){
+              unreadArr[index] ={
+                _id: snapshot.key,
+                count: snapshot.val().unread.count || 0,
+                lastMess: {
+                  msg_ts: snapshot.val().unread.lastMess.msg_ts || '',
+                  sender_uid: snapshot.val().unread.lastMess.sender_uid || '',
+                  text: snapshot.val().unread.lastMess.text || ''
+                }
+              }
+              component.setState({unread: unreadArr})
+              return false;
+            }
+            return true;
+          })
+    })
+    ref.on('child_removed', snapshot=>{
+        unreadArr.every(function(element, index){
+            if(element._id === snapshot.key){
+              unreadArr.splice(index,1);
+              component.setState({unread: unreadArr})
+              return false;
+            }
+            return true;
+        })
+    })
+}
 function notifyMessagesComming(properties, callback){
+    closeStreamRef();
     messageStreamRef = firebase.database().ref(`rooms/${properties.roomId}/messages`).orderByChild('msg_ts').startAt(properties.ts);
     messageStreamRef.on('child_added', function(snapshot){
         if(snapshot.exists()){
@@ -72,7 +117,7 @@ function history(properties, callback){
                 arr.splice(count, 0, item);
             });
             properties.component.setState({messages: arr})
-            
+            return callback();
         }
     })
 }
@@ -94,11 +139,10 @@ function loadTagNextMessages(properties){
 }
 function chat(properties){
     let component = properties.component;
-    firebase.database().ref(`rooms/${component.currentRoomId}/messages`).push().set({
+    firebase.database().ref(`rooms/${component.state.currentRoomId}/messages`).push().set({
         "text": properties.content,
-        "sender_uid": component.currentUser.uid,
-        "msg_ts": ('' + (new Date()).getTime()),
-        "photoURL": component.currentUser.photoURL
+        "sender_uid": component.state.currentUser.uid,
+        "msg_ts": ('' + (new Date()).getTime())
     })
 }
 
@@ -155,5 +199,8 @@ module.exports = {
     },
     loadTagNextMessages: function(properties){
         loadTagNextMessages(properties);
+    },
+    notifyUnreadMessage: function(properties){
+        notifyUnreadMessage(properties);
     }
 }

@@ -5,11 +5,9 @@ import { Header, TextArea, Button, Image,
 import AlertContainer from 'react-alert';
 import '../../assets/styles/common/chatsetting.css';
 import * as constant from '../constants';
-
+import * as Files from '../../lib/helper/upfile/files';
 const translate = require('counterpart');
 const videoCall = require('../../lib/helper/video_call');
-const streamEvent = require('../../lib/helper/streaming/listen_event_from_database');
-const fileEvent = require('../../lib/helper/upfile/listen_event_from_database');
 const firebase = require('firebase');
 const $ = require('jquery');
 var upfileStyle = {
@@ -49,88 +47,48 @@ class ChatSetting extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current_user_type: '',
-      current_room_id: '',
-      images_list:[],
-      files_list: []
+      currentRoomId: '',
+      targetUser: null,
+      currentUser: null,
+      images:[],
+      files: []
     };
-    this.currentUser = '';
-    this.targetUser = '';
-    this.currentRoomId = '';
     this.peer = '';
   }
 
   componentWillMount() {
-    this.currentUser = this.props.currentUser;
-    this.targetUser = this.props.targetChatUser;
-    this.currentRoomId = this.props.currentRoomId;
     if(!(!!this.props.peer)){
-      window.location = constant.BASE_URL+ '/chat/' + this.targetUser.username
+      window.location = constant.BASE_URL+ '/chat/' + this.state.targetUser.username
     }
+    this.peer = this.props.peer;
+    this.setState({currentRoomId : this.props.currentRoomId,
+                  targetUser: this.props.targetUser,
+                  currentUser: this.props.currentUser})
   }
   componentWillReceiveProps(nextProps){
-    var component = this;
-    if(component.currentRoom !== nextProps.currentRoomId){
-      streamEvent.closeStream();
-      streamEvent.closeRef();
-      fileEvent.closeRef();
+    if(this.state.currentRoomId !== nextProps.currentRoomId && !! nextProps.currentRoomId){
+      this.setState({currentRoomId: nextProps.currentRoomId})
     }
-    if(component.targetUser !== nextProps.targetChatUser){
-      component.targetUser = nextProps.targetChatUser;    
+    if(this.state.currentUser !== nextProps.currentUser && !! nextProps.currentUser){
+      this.setState({currentUser: nextProps.currentUser});
+    }
+    if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
+      this.setState({targetUser: nextProps.targetUser});
     }
   }
   
-  shouldComponentUpdate(nextProps, nextState){
-    if(this.state !== nextState || this.currentRoomId !== nextProps.currentRoomId ||
-      this.peer !== nextProps.peer ||
-      (nextProps.currentRoomId && nextProps.currentUser
-        && nextProps.targetChatUser)){
-    
-      return true;
-    }
-
-    return false;
-  }
-  componentDidMount(){
-    
-  }
 
   componentWillUpdate(nextProps, nextState){
-    var component = this;
-    if(component.peer !== nextProps.peer){
-      component.peer = nextProps.peer;
-    }
-    if(component.currentRoomId !== nextProps.currentRoomId){
-      component.currentRoomId = nextProps.currentRoomId;
-      component.setState({
-        current_room_id: nextProps.currentRoomId,
-        images_list: [],
-        files_list: []
-      });
-      
+    if(this.state.currentRoomId !== nextState.currentRoomId){
       let properties = {}
-      properties['rid'] = nextProps.currentRoomId;
-      properties['uid'] = component.currentUser.uid;
-      properties['peer'] = component.peer;
-      properties['vid'] = '#localStream';
-      properties['imagesList'] = [];
-      properties['filesList'] = [];
-      properties['component'] = component;
-      streamEvent.listenFromVideoCall(properties, function(ref){
-      });
-      
-
-      fileEvent.listenFromImageFolder(properties, function(ref){
-      })
-
-      fileEvent.listenFromFilesFolder(properties,function(ref){
-      })  
+      properties.component = this;
+      properties.roomId = nextState.currentRoomId;
+      Files.showImagesAndFilesList(properties);
     }
-    return true;
   }
-
+   
   endCall(){
-    let ref = firebase.database().ref(`rooms/${this.state.current_room_id}/video_call/end`).push()
+    let ref = firebase.database().ref(`rooms/${this.state.currentRoomId}/video_call/end`).push()
     ref.set({
       end: true
     })
@@ -139,8 +97,8 @@ class ChatSetting extends Component {
 
   makeCallRequest(){
     let properties = {};
-    properties['rid'] = this.state.current_room_id;
-    properties['uid'] = this.currentUser.uid;
+    properties['rid'] = this.state.currentRoomId;
+    properties['uid'] = this.state.currentUser.uid;
     videoCall.checkRequest(properties, function(issuccess){
       if(issuccess){
         alert('already been used');
@@ -156,14 +114,13 @@ class ChatSetting extends Component {
     
       return(
         <div>     
-          <img  src={this.currentUser.uid === this.targetUser.uid ? this.currentUser.photoURL : this.targetUser.photoURL} alt='ava-lawyer' id='current-user-ava'/>
+          <img  src={this.state.targetUser.photoURL} alt='ava-lawyer' id='current-user-ava'/>
         </div>
       )
-    
   }
   
   renderVideo(){
-    if(this.currentUser.uid !== this.targetUser.uid){
+    if(this.state.currentUser.uid !== this.state.targetUser.uid){
       return(
         <div>
           <video className='video' id='localStream' autoPlay></video>
@@ -183,7 +140,7 @@ class ChatSetting extends Component {
     fileButton.addEventListener('change', function(e){
       e.preventDefault();
       let file = e.target.files[0];
-      var storeageRef = firebase.storage().ref(`avatar/${component.currentUser.uid}`);
+      var storeageRef = firebase.storage().ref(`avatar/${component.state.currentUser.uid}`);
       var task = storeageRef.put(file);
       task.on('state_changed', 
       function(snapshot){
@@ -203,11 +160,11 @@ class ChatSetting extends Component {
     var component = this;
     let photoURL = $('#edit-user-ava').find('img').attr('src');
     let displayName = $('#txtbox-username').val();
-    this.currentUser.updateProfile({
+    this.state.currentUser.updateProfile({
       displayName: displayName,
       photoURL: photoURL
     }).then(function() {
-      firebase.database().ref(`users/${component.currentUser.uid}`).update({
+      firebase.database().ref(`users/${component.state.currentUser.uid}`).update({
         photoURL:photoURL,
         displayName: displayName
       }).then(function(){
@@ -227,7 +184,7 @@ class ChatSetting extends Component {
     })
   }
   renderConfig(){
-    if (this.currentUser.uid === this.targetUser.uid) {
+    if (this.state.currentUser.uid === this.state.targetUser.uid) {
       return(
         <Dropdown icon='settings'>
           <Dropdown.Menu>
@@ -240,9 +197,9 @@ class ChatSetting extends Component {
               <Modal.Content image>
                 <div className='image-col' style={imgColStyle.base}>
                   <Image wrapped size='medium' id='edit-user-ava'
-                    src={this.currentUser.photoURL}
+                    src={this.state.currentUser.photoURL}
                      />
-                  <a href='#' onClick={this.upfile}
+                  <a href='#' onClick={this.upfile.bind(this)}
                     style={uploadNewPicStyle.base}>
                       <i className='fa fa-camera'
                       style={faCameraStyle} aria-hidden='true'></i>
@@ -255,11 +212,11 @@ class ChatSetting extends Component {
                   <Header>{translate('app.user.name')}</Header>
                   <TextArea id='txtbox-username'
                     autoHeight onChange={this.handleInputChange}
-                    rows={2} >{this.currentUser.displayName}</TextArea>
+                    rows={2} >{this.state.currentUser.displayName}</TextArea>
                 </Modal.Description>
               </Modal.Content>
               <Modal.Actions>
-                <Button color='blue' onClick={this.editProfile}>
+                <Button color='blue' onClick={this.editProfile.bind(this)}>
                   {translate('app.user.edit.profile')}
                 </Button>
               </Modal.Actions>
@@ -283,7 +240,7 @@ class ChatSetting extends Component {
           </div>
           <div className='info'>
             <div className={'user-name'}>
-              {this.currentUser.uid === this.targetUser.uid ? this.currentUser.displayName : this.targetUser.displayName}
+              {this.state.targetUser.displayName}
             </div>
           </div>
           <div className='config'>
@@ -295,7 +252,7 @@ class ChatSetting extends Component {
             <div className='content-title'>{translate('app.chat.shared_files')}</div>
             <div className='files-list'>
               {
-                this.state.files_list.map(file => {
+                this.state.files.map(file => {
                   return(
                     <Link to={file.downloadURL}
                       target='_blank'>
@@ -310,7 +267,7 @@ class ChatSetting extends Component {
             <div className='content-title'>{translate('app.chat.shared_images')}</div>
             <div className='images-list'>
               {
-                this.state.images_list.map(image => {
+                this.state.images.map(image => {
                   return(
                     <Link to={image.downloadURL}
                       target='_blank'>

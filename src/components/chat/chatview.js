@@ -3,13 +3,14 @@ import { List, Image, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 import {Route, Switch} from 'react-router-dom';
-
 import Chat from '../user/chat';
-
 import * as constant from '../constants';
-
+import * as Messages from '../../lib/helper/messages/messages';
+import * as Users from '../../lib/helper/user/get_user_info';
+import ReactLoading from 'react-loading';
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/user_index.css';
+
 var {EventEmitter} = require('fbemitter');
 var emitter = new EventEmitter();
 const Peer = require('peerjs');
@@ -30,145 +31,46 @@ class ChatView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUser: null,
       users: [],
       unread: [],
       searchTerm: ''
     };
     this.peer;
-    this.currentUser;
-  }
-  checkUserName(username){
-    firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
-    .then(function(snapshot){
-      if(!snapshot.exists()){
-        window.location = constant.BASE_URL;
-      }
-    })
   }
   componentWillMount(){
     var component = this;
+    var stunServer = JSON.parse(localStorage.stun_server_list);
     if(!firebase.apps.length){
       firebase.initializeApp(constant.APP_CONFIG);
     }
     getStunServerList();
-    this.checkUserName(this.props.match.params.user_name);
+    var properties = {}
+    properties['component'] = this;
+    properties['keyword'] = this.props.match.params.user_name;
+
+    Users.checkUserName(properties, function(){
+      window.location = constant.BASE_URL+ constant.HOME_URI;      
+    });
+    
+
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
         window.location = constant.BASE_URL + constant.HOME_URI; 
       }
-      component.currentUser = user;
-      firebase.database().ref(`users/${component.currentUser.uid}`).update({
+      component.setState({currentUser: user})
+      properties['currentUser'] = user;
+      firebase.database().ref(`users/${user.uid}`).update({
         status: 'online'
       })
-      var stunServer = JSON.parse(localStorage.stun_server_list);
-      component.peer = Peer(user.uid,{key: '8tgn11opscmlhaor', config: stunServer});
-      let unreadRef = firebase.database().ref().child('rooms').orderByChild('unread/lastMess/receiver_uid').equalTo(component.currentUser.uid);
-      var unreadArr = [] 
+      properties['keyword'] = 'user';            
+      Users.getTargetChat(properties);            
+      Messages.notifyUnreadMessage(properties);
 
-      unreadRef.on('child_added', snap =>{
-        var unreadItem = {
-          _id: snap.key,
-          count: snap.val().unread.count || 0,
-          lastMess: {
-            msg_ts: snap.val().unread.lastMess.msg_ts || '',
-            sender_uid: snap.val().unread.lastMess.sender_uid || '',
-            text: snap.val().unread.lastMess.text || ''
-          }
-        }
-        unreadArr.push(unreadItem);  
-        component.setState({unread: unreadArr});
-      })
-      unreadRef.on('child_changed', snap =>{
-        unreadArr.every(function(element, index){
-          if(element._id === snap.key){
-            unreadArr[index] ={
-              _id: snap.key,
-              count: snap.val().unread.count || 0,
-              lastMess: {
-                msg_ts: snap.val().unread.lastMess.msg_ts || '',
-                sender_uid: snap.val().unread.lastMess.sender_uid || '',
-                text: snap.val().unread.lastMess.text || ''
-              }
-            }
-            component.setState({unread: unreadArr})
-            return false;
-          }
-          return true;
-        })
-      })
-      unreadRef.on('child_removed', snap =>{
-        unreadArr.every(function(element, index){
-          if(element._id === snap.key){
-            unreadArr.splice(index,1);
-            component.setState({unread: unreadArr})
-            return false;
-          }
-          return true;
-        })
-      })
+      component.peer = Peer(user.uid,{key: 't1tvdjf4oc62bj4i', config: stunServer});  
     })
   }
-  
-  componentDidMount() {
-    var component = this;
- 
-    let ref = firebase.database().ref('users').orderByChild('role').equalTo('user');
-    
-    var userArr = []
-    ref.on('child_added', function(data) {
-      
-      var item = {
-        username: data.val().username,
-        displayName: data.val().displayName,
-        username: data.val().username,
-        uid : data.key,
-        status: data.val().status,
-        photoURL: data.val().photoURL
-      }
-      if(data.key === component.currentUser.uid){
-        userArr.unshift(item);
-        component.setState({users : userArr})          
-        return;
-      }
-      userArr.push(item);
-      component.setState({users : userArr})
-    });
-    ref.on('child_changed', function(data) {
-      
-      userArr.every(function(element,index){      
-            
-        if(element.uid === data.key){
-          
-          userArr[index] = {
-            username: data.val().username,
-            displayName: data.val().displayName,
-            uid : data.key,
-            status: data.val().status,
-            photoURL: data.val().photoURL
-          };       
-          component.setState({users : userArr})
 
-          return false;
-        }else{
-          return true;
-        }
-      })
-    });
-    ref.on('child_removed', function(data) {
-      if(data.key === component.currentUser.uid){
-        return;
-      }
-      userArr.every(function(element,index){           
-        if(element.uid === data.key){
-          userArr.splice(index,1);
-          component.setState({users : userArr})            
-          return false;
-        }else{
-          return true;
-        }
-      })
-    });
-  }
 
   elementBaseStatus(userStatus) {
     if (userStatus === 'online') {
@@ -189,14 +91,14 @@ class ChatView extends Component {
   }
 
   changeStatus(event, data) {
-    firebase.database().ref(`users/${this.currentUser.uid}`).update({'status' : data.text});
+    firebase.database().ref(`users/${this.state.currentUser.uid}`).update({'status' : data.text});
   }
 
   renderStatus(userStatus, uid) {
     var component = this;
-    if (uid === component.currentUser.uid) {
+    if (uid === component.state.currentUser.uid) {
       return(
-        <Dropdown id={component.currentUser.uid}
+        <Dropdown id={component.state.currentUser.uid}
           icon={this.elementBaseStatus(userStatus)}>
           <Dropdown.Menu>
             <Dropdown.Item text={translate('app.user.status.online')}
@@ -240,75 +142,35 @@ class ChatView extends Component {
       )
     }
   }
+  
   render() {
     const filteredUsers = this.state.users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
-    return (
-      <div className='chat-ui'>
-        <div className='list-users'>
-          <div className='header-index'>
-            <Dropdown icon='setting'>
-              <Dropdown.Menu>
-                <Dropdown.Item text={translate('app.identifier.logout')}
-                  onClick={this.logout.bind(this)}/>
-              </Dropdown.Menu>
-            </Dropdown>
-            <a href="/home">{translate('app.identifier.app_name')} </a>
-          </div>
-          <List>
-            <div className='search-box'>
-              <SearchInput className='search-input'
-                onChange={this.searchUpdated.bind(this)}
-                placeholder={translate('app.user.search') + '...'} />
+    if(!!this.state.currentUser){    
+      return (
+        <div className='chat-ui'>
+          <div className='list-users'>
+            <div className='header-index'>
+              <Dropdown icon='setting'>
+                <Dropdown.Menu>
+                  <Dropdown.Item text={translate('app.identifier.logout')}
+                    onClick={this.logout.bind(this)}/>
+                </Dropdown.Menu>
+              </Dropdown>
+              <a href="/home">{translate('app.identifier.app_name')} </a>
             </div>
-            {
-              filteredUsers.map(user => {
-                if(user.uid !== this.currentUser.uid) {
-                  if(user.type !== 'bot') {
-                    return(
-                      <div className={
-                        this.props.match.params.user_name === user.username
-                          ? 'user active-link ': 'user'}
-                        key={user.uid}>
-                        {this.renderStatus(user.status, user.uid)}
-                        <Link to={'/chat/' + user.username} key={user.uid}
-                          activeClassName='active-link'>
-                            <List.Item key={user.uid}>
-                              <Image avatar src={user.photoURL}/>
-                              <List.Content>
-                                <List.Header>{user.displayName}</List.Header>
-                              </List.Content>
-                              {this.renderUnreadMessages(user.uid)}
-                            </List.Item>
-                        </Link>
-                      </div>
-                    );
-                  }
-                  else {
-                    return(
-                      <div className={
-                        this.props.match.params.user_name === user.username
-                          ? 'user active-link' : 'user'}
-                        key={user.uid}>
-                        {this.renderStatus(user.status, user.uid)}
-                        <Link to={'/chat/' + user.username} key={user.uid}
-                          activeClassName='active-link'>
-                            <List.Item key={user.uid}>
-                              <Image avatar src={constant.avaBot}/>
-                              <List.Content>
-                                <List.Header>{user.displayName}</List.Header>
-                              </List.Content>
-                            </List.Item>
-                        </Link>
-                      </div>
-                    );
-                  }
-                }
-                else {
+            <List>
+              <div className='search-box'>
+                <SearchInput className='search-input'
+                  onChange={this.searchUpdated.bind(this)}
+                  placeholder={translate('app.user.search') + '...'} />
+              </div>
+              {
+                filteredUsers.map(user => {
                   return(
                     <div className={
                       this.props.match.params.user_name === user.username
-                        ? 'user active-link' : 'user'}
+                        ? 'user active-link ': 'user'}
                       key={user.uid}>
                       {this.renderStatus(user.status, user.uid)}
                       <Link to={'/chat/' + user.username} key={user.uid}
@@ -316,36 +178,44 @@ class ChatView extends Component {
                           <List.Item key={user.uid}>
                             <Image avatar src={user.photoURL}/>
                             <List.Content>
-                              <List.Header>
-                                {translate('app.chat.my_chat')}
-                              </List.Header>
+                              <List.Header>{user.uid !== this.state.currentUser.uid ? user.displayName : translate('app.chat.my_chat')}</List.Header>
                             </List.Content>
+                            {this.renderUnreadMessages(user.uid)}
                           </List.Item>
                       </Link>
                     </div>
                   );
-                }
-              })
-            }
-          </List>
+                })
+              }
+            </List>
+          </div>
+          {
+            this.state.users.map(user => {
+              return(
+                <Switch>
+                  <Route path={'/chat/' + user.username}
+                    render={
+                      (props) => (
+                        <Chat {...props}
+                          targetUser={user}
+                          peer={this.peer}
+                          currentUser={this.state.currentUser}/>
+                      )
+                    }/>
+                </Switch>
+              )}
+            )
+          }
         </div>
-        {
-          this.state.users.map(user => (
-            <Switch>
-              <Route path={'/chat/' + user.username}
-                render={
-                  (props) => (
-                    <Chat {...props}
-                      targetChatUser={user}
-                      peer={this.peer}
-                      currentUser={this.currentUser}/>
-                  )
-                }/>
-            </Switch>
-          ))
-        }
-      </div>
-    )
+      )
+    }else{
+      return(
+        <div>
+          <ReactLoading type='cylon' color='#337ab7' height='150' width='150'/>
+        </div>
+      )
+    }
+    
   }
 }
 

@@ -10,18 +10,16 @@ class ChatBox extends Component {
     super(props);
     this.state = {
       messages: [],
-      currentRoomId: ''
+      currentRoomId: null,
+      currentUser: null,
+      targetUser: null
     };
-    this.currentUser = '';
-    this.targetUser = '';
-    this.currentRoomId = '';
   }  
   componentWillMount(){
     var component = this;
-    this.targetUser = this.props.targetUser;
-    this.currentUser = this.props.currentUser;
+    this.setState({currentUser: this.props.currentUser, targetUser: this.props.targetUser});
     this.props.emitter.addListener('ReSendData',function(callback){
-      return callback(component.currentUser, component.targetUser, component.currentRoomId);
+      return callback(component.state.currentUser, component.state.targetUser, component.state.currentRoomId);
     });
     this.props.emitter.addListener('AddNewTag', function(mess){
       component.updateTag(mess);
@@ -38,32 +36,45 @@ class ChatBox extends Component {
   }
   componentWillReceiveProps(nextProps){
     var component = this;
-    if(component.targetUser !== nextProps.targetUser && nextProps.targetUser){
-      component.targetUser = nextProps.targetUser;
-      component.currentUser = nextProps.currentUser;
-      let properties = {};
-      properties['currentUser'] = component.currentUser;
-      properties['targetUser'] = component.targetUser;
-      properties['roomId'] = component.currentUser.uid + component.targetUser.uid;
+    if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
+      this.setState({targetUser: nextProps.targetUser});
+    }
+    if(this.state.currentUser !== nextProps.currentUser && !!nextProps.currentUser){
+      this.setState({currentUser: nextProps.currentUser});
+    }
+    
+    if(!!nextProps.targetUser && ((!this.state.targetUser) || (this.state.targetUser.uid !== nextProps.targetUser.uid))){
+      let properties = {}
+      this.setState({messages :[]})
+      properties['roomId'] = nextProps.currentUser.uid + nextProps.targetUser.uid;
+      properties['component'] = component;
+      properties['currentUser'] = nextProps.currentUser;
+      properties['targetUser'] = nextProps.targetUser;
+      RoomInfo.getRoomId(properties, roomId =>{
+        component.props.emitter.emit('RoomChatHasChanged',nextProps.currentUser, nextProps.targetUser, roomId);   
+        component.setState({currentRoomId: roomId});             
+      })
+    }
+  }   
+  componentWillUpdate(nextProps, nextState){
+    var component = this;
+    if(this.state.currentRoomId !== nextState.currentRoomId){
+      let properties = {}
+      properties['roomId'] = nextState.currentRoomId;
       properties['component'] = component;
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
-      component.setState({messages: []})
+
       Messages.closeStreamRef();
-      RoomInfo.getRoomId(properties, roomId =>{
-        component.props.emitter.emit('RoomChatHasChanged',component.currentUser, component.targetUser, roomId);        
-        properties['roomId'] = roomId;
-        component.currentRoomId = roomId;
-        Messages.history(properties, function(){
-
-        })
-        Messages.streamingMessage(properties, function(){
-
-        })
-        component.setState({currentRoomId: roomId})        
+      Messages.history(properties, function(){
+        component.autoScrollBottom();        
+      });
+      Messages.streamingMessage(properties,function(){
+        component.autoScrollBottom();        
       })
+      
     }
-  }
+  }    
   handleInputChange(evt) {
     let textBox = $('#input-mess-box');
     
@@ -75,7 +86,7 @@ class ChatBox extends Component {
       this.clearContent('input-mess-box');
     }
     else {
-      // this.autoExpand('input-mess-box');
+      this.autoExpand('input-mess-box');
     }
   }    
 
@@ -91,7 +102,6 @@ class ChatBox extends Component {
     var textbox = document.getElementById('text-box');
     textbox.style.height = contentHeight + 2 + 'px';
     chats.style.height = vh - 55 - contentHeight + 'px';
-    this.autoScrollBottom();
   }
 
   autoScrollBottom() {
@@ -102,11 +112,12 @@ class ChatBox extends Component {
   clearContent(elementId) {
     $('#' + elementId).val($('#' + elementId).val().replace(/\t/g, 'a'));
     $('#' + elementId).val('');
-    // this.autoExpand(elementId);
+    this.autoExpand(elementId);
+    this.autoScrollBottom();    
   }
 
   handleSubmit(){
-    if(!this.currentRoomId){
+    if(!this.state.currentRoomId){
       return;
     }
     var component = this;
@@ -125,8 +136,10 @@ class ChatBox extends Component {
         <div className='chat-box'>
           <ChatBubble messages={this.state.messages} 
             emitter={this.props.emitter}
-            renderHastag={true}/>
-          <div className='input-section'>  
+            renderHastag={true}
+            currentUser={this.state.currentUser}
+            targetUser={this.state.targetUser}/>
+          <div className='input-section text-box' id='text-box'>  
             <textarea id='input-mess-box'
               placeholder={Translate('app.chat.input_place_holder')}
               onKeyDown={this.handleInputChange.bind(this)} />
