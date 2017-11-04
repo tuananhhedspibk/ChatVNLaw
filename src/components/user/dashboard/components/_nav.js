@@ -19,6 +19,14 @@ export default {
       ]
     },
     {
+      name: 'Todo List',
+      url: '/lawyers/todolistlawyer',
+      icon: 'icon-speech',
+      badge: {
+        variant: 'info'
+      }
+    },
+    {
       name: 'app.dashboard.search.title',
       icon: 'icon-support',
       badge: {
