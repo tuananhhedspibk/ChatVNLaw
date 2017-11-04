@@ -22,10 +22,11 @@ module.exports = {
     listenFromVideoCall: function(properties, callback){
         streamRef = firebase.database().ref(`rooms/${properties.rid}/video_call`)
         streamRef.on('child_added', function(data){
+            console.log(data);
             switch(data.key){
                 case 'request':
                     var peerId = properties.peer.id;
-                    if(Object.keys(data.val())[0] !== properties.uid){
+                    if(Object.keys(data.val())[0] !== properties.peer.id){
                         if(window.confirm("video call from another user")){
                             streamRef.child('request').remove();
                             let ref = streamRef.child(`stream/${peerId}`)

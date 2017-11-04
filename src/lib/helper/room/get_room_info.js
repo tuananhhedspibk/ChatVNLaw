@@ -26,11 +26,14 @@ function createNewRoom(properties, callback){
     let ref = firebase.database().ref('rooms').push();
     let count = 0;
     let component = properties.component;
-    if(component.currentUser.uid === component.targetUser.uid){
+    let currentUserUID = !!properties.currentUser.uid ? properties.currentUser.uid : component.state.currentUser.uid;
+    let targetUserUID = !!properties.targetUser.uid ? properties.targetUser.uid : component.state.targetUser.uid;
+
+    if(currentUserUID === targetUserUID){
         count  = -1;
     }
     ref.set({
-        'members':[component.currentUser.uid, component.targetUser.uid],
+        'members':[currentUserUID, targetUserUID],
         'messages':[],
         'unread': {
           'count' : count

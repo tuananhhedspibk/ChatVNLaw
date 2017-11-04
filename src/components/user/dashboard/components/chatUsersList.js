@@ -11,12 +11,11 @@ class ChatUsersList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      targetUser:'',
+      targetUser:null,
+      currentUser: null,
       users: [],
       unread: []
     };
-    this.targetUser = '';
-    this.currentUser = '';
   }
 
   componentWillMount(){
@@ -26,10 +25,10 @@ class ChatUsersList extends Component {
     }
     firebase.auth().onAuthStateChanged(user =>{
       if(user){
-        component.currentUser = user;
+        component.setState({currentUser: user})
         let properties = {}
         properties['component'] = component;
-        properties['currentUser'] = component.currentUser;
+        properties['currentUser'] = user;
         properties['keyword'] = 'user';
         UserList.getTargetChat(properties);
         component.props.emitter.addListener('getUserSearch', function(targetUser){
@@ -41,7 +40,6 @@ class ChatUsersList extends Component {
     })
     component.props.emitter.addListener('getUserSearch', function(targetUser){
       component.setState({targetUser: targetUser})
-      console.log(component.state.targetUser)
     })
   }
 
@@ -84,7 +82,7 @@ class ChatUsersList extends Component {
         </div>
         <ChatBox
           targetUser={this.state.targetUser}
-          currentUser={this.currentUser}
+          currentUser={this.state.currentUser}
           emitter={this.props.emitter}/>
       </div>
     )

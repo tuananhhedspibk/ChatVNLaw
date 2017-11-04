@@ -88,7 +88,9 @@ class SearchTag extends Component {
                     <h3>{(this.state.currentResultIndex+1) +'/' + (this.state.tagResults.length) + ' ket qua cho ' +this.state.keyword }</h3>
                     <button onClick={this.nextResult.bind(this)}>next</button>
                     <br></br>
-                    <ChatBubble messages={this.state.messages} />
+                    <ChatBubble messages={this.state.messages} 
+                                targetUser={this.state.targetUser}
+                                currentUser={this.state.currentUser}/>
                 </div>
             )
         }
