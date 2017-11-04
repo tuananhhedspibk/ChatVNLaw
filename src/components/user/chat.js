@@ -208,7 +208,7 @@ class Chat extends Component {
           </div>
           <i className='fa fa-video-camera'
             aria-hidden='true'></i>
-          <i class='fa fa-phone'
+          <i className='fa fa-phone'
             aria-hidden='true'></i>
         </div>
         <div className='chat-body'>

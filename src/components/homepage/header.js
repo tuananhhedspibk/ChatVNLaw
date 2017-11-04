@@ -13,7 +13,7 @@ class Header extends Component {
     return(
       <div className='header'>
         <div className='content'>
-          <Nav/>
+          <Nav navStyle='light' />
           <Find/>
         </div>
       </div>

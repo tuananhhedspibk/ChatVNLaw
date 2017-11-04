@@ -3,8 +3,9 @@ import $ from 'jquery';
 
 import * as constant from '../constants';
 
-import 'bootstrap/dist/css/bootstrap.css'
 import '../../assets/styles/common/nav.css';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 const firebase = require('firebase');
 const userInfo = require('../../lib/helper/user/get_user_info');
@@ -97,71 +98,77 @@ class Nav extends Component {
       }
       else {
         return(
-          <a className='headerNavListLink' href={constant.SIGN_IN_URI}>
-            {translate('app.identifier.login')}
-          </a>
+          <li className='nav-item headerNavListItem'>
+            <a className='headerNavListLink' href={constant.SIGN_IN_URI}>
+              {translate('app.identifier.login')}
+            </a>
+          </li>
         )
       }
   }
 
   renderView(){ 
     return(
-      <div className='container-fluid'>
-      <nav className='navbar navbar-default'>
-        <div className='navbar-header'>
-          <button className='navbar-toggle collapsed'
-            data-toggle='collapse' data-target='#navbar-collapse-1'
-            aria-expanded='false'/>
-        </div>
-        <div className='collapse navbar-collapse' id='navbar-collapse-1'>
-          <ul className='nav navbar-nav navbar-left headerNavList'>
-            <li className='headerNavListItem search-inputgroup'>
-              <a className='search-link' role='button'>
-                {translate('app.nav.brow_law')}
-              </a>
-              <div className='input-group'>
-                <input type='text' className='form-control' />
-                <div className='input-group-btn'>
-                  <button className='btn btn-blue' type='submit'>
-                    <span className='glyphicon glyphicon-search'></span>
-                  </button>
-                  <button className='btn btn-blue remove-btn'>
-                    <span className='glyphicon glyphicon-remove'></span>
-                  </button>
+      <div className={'container-fluid nav-' + this.props.navStyle}>
+        <nav className='navbar navbar-expand-lg navbar-default'>
+          <div className='navbar-header'>
+            <button className='navbar-toggler' data-toggle='collapse'
+              data-target='#navbarToggleExternalContent'
+              aria-controls='navbarToggleExternalContent'
+              aria-expanded='false' aria-label='Toggle navigation'>
+                <i className='fa fa-bars' aria-hidden='true'></i>
+            </button>
+          </div>
+          <div className='navbar-collapse collapse' id='navbarToggleExternalContent'>
+            <a className='navbar-brand' href='/home'>
+              VNLaw
+            </a>
+            <ul className='navbar-nav ml-auto headerNavList'>
+              <li className='nav-item headerNavListItem search-inputgroup'>
+                <a className='search-link' role='button'>
+                  {translate('app.nav.brow_law')}
+                </a>
+                <div className='input-group'>
+                  <input type='text' className='form-control' />
+                  <div className='input-group-btn'>
+                    <button className='btn btn-blue' type='submit'>
+                      <i className='fa fa-search' aria-hidden='true'></i>
+                    </button>
+                    <button className='btn btn-blue remove-btn'>
+                      <i className='fa fa-times' aria-hidden='true'></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li className='headerNavListItem search-inputgroup'>
-              <a className='search-link' role='button'>
-                {translate('app.nav.brow_lawyers')}
-              </a>
-              <div className='input-group'>
-                <input type='text' className='form-control' />
-                <div className='input-group-btn'>
-                  <button className='btn btn-blue' type='submit'>
-                    <span className='glyphicon glyphicon-search'></span>
-                  </button>
-                  <button className='btn btn-blue remove-btn'>
-                    <span className='glyphicon glyphicon-remove'></span>
-                  </button>
+              </li>
+              <li className='nav-item headerNavListItem search-inputgroup'>
+                <a className='search-link' role='button'>
+                  {translate('app.nav.brow_lawyers')}
+                </a>
+                <div className='input-group'>
+                  <input type='text' className='form-control' />
+                  <div className='input-group-btn'>
+                    <button className='btn btn-blue' type='submit'>
+                      <i className='fa fa-search' aria-hidden='true'></i>
+                    </button>
+                    <button className='btn btn-blue remove-btn'>
+                      <i className='fa fa-times' aria-hidden='true'></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li className='headerNavListItem'>
-              <a target='_blank'
-                className='headerNavListLink' href='#'>
-                {translate('app.nav.support')}
-              </a>
-            </li>
-            <li className='headerNavListItem'>
-              <a className='headerNavListLink' onClick={this.checkLogin}>Chat</a>
-            </li>
-          </ul>
-          <ul className='nav navbar-nav navbar-right headerNavList'>
-            {this.renderDropdown()}
-          </ul>
-        </div>
-      </nav>
+              </li>
+              <li className='nav-item headerNavListItem'>
+                <a target='_blank'
+                  className='headerNavListLink' href='#'>
+                  {translate('app.nav.support')}
+                </a>
+              </li>
+              <li className='nav-item headerNavListItem'>
+                <a className='headerNavListLink' onClick={this.checkLogin}>Chat</a>
+              </li>
+              {this.renderDropdown()}
+            </ul>
+          </div>
+        </nav>
       </div>
     );
   }

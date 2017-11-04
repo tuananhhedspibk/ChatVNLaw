@@ -1,10 +1,9 @@
 .notfound-wrapper {
-  background-image: url("../../images/bg1.png");
   display: inline-block;
   height: 100vh;
   width: 100%; }
   .notfound-wrapper .back-to-home {
-    background-color: #777;
+    background-color: #2385f2;
     border-radius: 10px;
     color: #fff;
     font-size: 1.4em;
@@ -28,5 +27,5 @@
     display: inline-block;
     margin-right: 5px; }
   .notfound-wrapper .main-content {
-    color: #777;
+    color: #2385f2;
     display: inline-block; }
