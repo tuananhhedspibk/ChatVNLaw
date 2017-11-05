@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Header from './header';
-import Nav from './nav' ;
 import Content from './content';
 import Footer from './footer';
 

@@ -76,7 +76,7 @@ class UserLogin extends Component {
     this.msg.show(text, {
       time: 5000,
       type: 'success',
-      icon: <img alt='warning' src={constant.warning} />
+      icon: <img alt='warning' src={constant.warningPic} />
     })
   }
 

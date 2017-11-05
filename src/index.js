@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import Routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 import {createBrowserHistory} from 'history';
+
 import * as constant from './components/constants';
 
+import 'bootstrap/dist/css/bootstrap.css';
 import './assets/styles/common/main.css';
+
 var firebase = require('firebase');
 
 if(!firebase.apps.length){
@@ -29,4 +32,3 @@ const history = createBrowserHistory();
 ReactDOM.render(<Routes history={history}/>,
   document.getElementById('root'));
 registerServiceWorker();
-

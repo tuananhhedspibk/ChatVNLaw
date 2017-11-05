@@ -26,7 +26,7 @@ textarea:-moz-placeholder {
 
 body {
   background-color: #fff;
-  font-family: "DroidSerif", sans-serif; }
+  font-family: "Montserrat", sans-serif !important; }
 
 .ui.dropdown .menu {
   font-size: 1.5em; }

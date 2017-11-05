@@ -30,11 +30,11 @@
   border-radius: 0 !important;
   color: #FFF !important; }
   .input-underline::-moz-placeholder {
-    color: #bbe1f5 !important; }
+    color: #6298f7 !important; }
   .input-underline::-ms-input-placeholder {
-    color: #bbe1f5 !important; }
+    color: #6298f7 !important; }
   .input-underline::-webkit-input-placeholder {
-    color: #bbe1f5 !important; }
+    color: #6298f7 !important; }
   .input-underline:focus {
     border-bottom: 2px solid #fff;
     box-shadow: none; }

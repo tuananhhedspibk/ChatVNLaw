@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
 import Header from './components/header';
 import Sidebar from './components/sidebar';
-import Aside from './components/aside';
-import Footer from './components/footer';
 import DashBoard from './components/dashboard';
 import Customer from './components/customer';
 import Note from './components/note';

@@ -3,13 +3,15 @@ import { List, Image, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 import {Route, Switch} from 'react-router-dom';
+import ReactLoading from 'react-loading';
+
 import Chat from '../user/chat';
 import * as constant from '../constants';
 import * as Messages from '../../lib/helper/messages/messages';
 import * as Users from '../../lib/helper/user/get_user_info';
-import ReactLoading from 'react-loading';
+
 import '../../assets/styles/common/main.css';
-import '../../assets/styles/common/user_index.css';
+import '../../assets/styles/common/userIndex.css';
 
 var {EventEmitter} = require('fbemitter');
 var emitter = new EventEmitter();

@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { Header, TextArea, Button, Image,
   Modal, Dropdown } from 'semantic-ui-react';
 import AlertContainer from 'react-alert';
-import '../../assets/styles/common/chatsetting.css';
+
+import '../../assets/styles/common/chatSetting.css';
 import * as constant from '../constants';
 import * as Files from '../../lib/helper/upfile/files';
+
 const translate = require('counterpart');
 const videoCall = require('../../lib/helper/video_call');
 const firebase = require('firebase');
@@ -180,7 +182,7 @@ class ChatSetting extends Component {
     this.msg.show(text, {
       time: 5000,
       type: 'success',
-      icon: <img alt='warning' src={constant.warning} />
+      icon: <img alt='warning' src={constant.warningPic} />
     })
   }
   renderConfig(){

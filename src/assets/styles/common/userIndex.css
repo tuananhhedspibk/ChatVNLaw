@@ -1,5 +1,5 @@
 .list-users {
-  background-color: #fdfdfd;
+  background-color: #f9f9f9;
   border: 1px solid #e5ecf0;
   float: left;
   height: 100vh;
@@ -64,7 +64,7 @@
         color: #808080;
         margin-top: 5px; }
       .list-users .ui.list .item img {
-        border: 1px solid #bbe1f5;
+        border: 1px solid #6298f7;
         height: 50px;
         width: 50px; }
 

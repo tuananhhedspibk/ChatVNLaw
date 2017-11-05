@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
+
 import * as RoomInfo from '../../lib/helper/room/get_room_info';
 import ChatSetting from '../chat/chatsetting';
 import * as Files from '../../lib/helper/upfile/files';
@@ -10,7 +11,8 @@ import * as constant from '../constants';
 import * as fileHelper from '../../lib/helper/upfile_helper';
 import * as im from '../../lib/helper/messages';
 import * as Messages from '../../lib/helper/messages/messages';
-import '../../assets/styles/common/chatwindow.css';
+
+import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
 
 let translate = require('counterpart');
@@ -30,8 +32,9 @@ class Chat extends Component {
   componentWillMount() { 
     var component = this;
     this.setState({targetUser: this.props.targetUser,
-                  currentUser: this.props.currentUser});
+      currentUser: this.props.currentUser});
   }
+
   componentWillReceiveProps(nextProps){
     var component = this;
     if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
@@ -41,6 +44,7 @@ class Chat extends Component {
       this.setState({currentUser: nextProps.currentUser})
     }
   }
+
   componentWillUpdate(nextProps, nextState){
     if(this.state.currentRoomId !== nextState.currentRoomId){
       let properties = {};
@@ -90,8 +94,6 @@ class Chat extends Component {
       component.setState({currentRoomId: roomId})
     })
 
-    
-
     $(document).mouseup(function(e) {
       var container = $('.emoji-section');
       var emojiPicker = $('#emoji-picker')
@@ -126,7 +128,8 @@ class Chat extends Component {
         }
       })
     }
-  }  
+  }
+
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
     var chats = document.getElementsByClassName('chats')[0];
@@ -213,8 +216,8 @@ class Chat extends Component {
         </div>
         <div className='chat-body'>
           <ChatBubble messages={this.state.messages}
-                      targetUser={this.state.targetUser}
-                      currentUser={this.state.currentUser} />
+            targetUser={this.state.targetUser}
+            currentUser={this.state.currentUser} />
           <div className='text-box' id='text-box'>
             <input type='file' id='upfile'/>
             <textarea id='input-mess-box'

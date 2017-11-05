@@ -14,6 +14,9 @@ module.exports = {
       search: 'Tìm kiếm luật'
     },
     home: {
+      footer: {
+        content: 'VNLaw - LKBC 2017'
+      },
       find_box: {
         title: 'Tìm luật sư',
         lawyer_name: 'Tên luật sư',
@@ -155,6 +158,152 @@ module.exports = {
         oh: 'Ohh.....',
         main: 'Bạn yêu cầu trang hiện không có.',
         back_home: 'Về trang chủ'
+      }
+    },
+    search: {
+      founded: 'Tìm thấy',
+      results: 'kết quả',
+      not_found_symbol: '>_<',
+      search_tool: {
+        title: 'Tìm kiếm',
+        key_search: 'Từ khóa tìm kiếm',
+        filter: {
+          filter_1: 'Chính xác cụm từ trên',
+          filter_2: 'Có tất cả từ trên'
+        },
+        order_by: {
+          title: 'Sắp xếp theo',
+          order_by_1: 'Ngày phát hành',
+          order_by_2: 'Ngày có hiệu lực',
+          order_by_3: 'Mới tới cũ',
+          order_by_4: 'Cũ tới mới'
+        }
+      },
+      category_title: 'Phân loại theo',
+      category_organ: {
+        title: 'Cơ quan ban hành',
+        organ_1: 'Quốc hội',
+        organ_2: 'Ủy ban thường vụ quốc hội',
+        organ_3: 'Chính phủ',
+        organ_4: 'Thủ tướng Chính phủ',
+        organ_5: 'Các Bộ, cơ quan ngang Bộ',
+        organ_6: 'Các cơ quan khác',
+      },
+      category_type: {
+        title: 'Loại văn bản',
+        type_1: 'Hiến pháp',
+        type_2: 'Bộ luật',
+        type_3: 'Luật',
+        type_4: 'Pháp lệnh',
+        type_5: 'Lệnh',
+        type_6: 'Nghị quyết',
+        type_7: 'Nghị quyết liên tịch',
+        type_8: 'Nghị định',
+        type_9: 'Quyết định',
+        type_10: 'Thông tư',
+        type_11: 'Thông tư liên tịch'
+      },
+      category_year: {
+        title: 'Năm ban hành',
+        year_1: {
+          title: '1945 đến 1950',
+          from_year: '1945',
+          year_mid_1: '1946',
+          year_mid_2: '1947',
+          year_mid_3: '1948',
+          year_mid_4: '1949',
+          to_year: '1950',
+        },
+        year_2: {
+          title: '1951 đến 1960',
+          from_year: '1951',
+          year_mid_1: '1952',
+          year_mid_2: '1953',
+          year_mid_3: '1954',
+          year_mid_4: '1955',
+          year_mid_5: '1956',
+          year_mid_6: '1957',
+          year_mid_7: '1958',
+          year_mid_8: '1959',
+          to_year: '1960'
+        },
+        year_3: {
+          title: '1961 đến 1970',
+          from_year: '1961',
+          year_mid_1: '1962',
+          year_mid_2: '1963',
+          year_mid_3: '1964',
+          year_mid_4: '1965',
+          year_mid_5: '1966',
+          year_mid_6: '1967',
+          year_mid_7: '1968',
+          year_mid_8: '1969',
+          to_year: '1970'
+        },
+        year_4: {
+          title: '1971 đến 1980',
+          from_year: '1971',
+          year_mid_1: '1972',
+          year_mid_2: '1973',
+          year_mid_3: '1974',
+          year_mid_4: '1975',
+          year_mid_5: '1976',
+          year_mid_6: '1977',
+          year_mid_7: '1978',
+          year_mid_8: '1979',
+          to_year: '1980'
+        },
+        year_5: {
+          title: '1981 đến 1990',
+          from_year: '1981',
+          year_mid_1: '1982',
+          year_mid_2: '1983',
+          year_mid_3: '1984',
+          year_mid_4: '1985',
+          year_mid_5: '1986',
+          year_mid_6: '1987',
+          year_mid_7: '1988',
+          year_mid_8: '1989',
+          to_year: '1990'
+        },
+        year_6: {
+          title: '1991 đến 2000',
+          from_year: '1991',
+          year_mid_1: '1992',
+          year_mid_2: '1993',
+          year_mid_3: '1994',
+          year_mid_4: '1995',
+          year_mid_5: '1996',
+          year_mid_6: '1997',
+          year_mid_7: '1998',
+          year_mid_8: '1999',
+          to_year: '2000'
+        },
+        year_7: {
+          title: '2001 đến 2010',
+          from_year: '2001',
+          year_mid_1: '2002',
+          year_mid_2: '2003',
+          year_mid_3: '2004',
+          year_mid_4: '2005',
+          year_mid_5: '2006',
+          year_mid_6: '2007',
+          year_mid_7: '2008',
+          year_mid_8: '2009',
+          to_year: '2010'
+        },
+        year_8: {
+          title: '2011 đến 2020',
+          from_year: '2011',
+          year_mid_1: '2012',
+          year_mid_2: '2013',
+          year_mid_3: '2014',
+          year_mid_4: '2015',
+          year_mid_5: '2016',
+          year_mid_6: '2017',
+          year_mid_7: '2018',
+          year_mid_8: '2019'
+        }
       }
     }
   }
