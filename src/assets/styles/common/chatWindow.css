@@ -6,15 +6,43 @@
   overflow-y: hidden;
   width: 100%; }
 
+.video-call {
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  z-index: 1000;
+  width: 100%; }
+  .video-call .video {
+    background-color: #fff;
+    display: block;
+    height: 500px;
+    margin: calc((100vh - 592px) / 2) auto 30px;
+    width: 500px; }
+  .video-call .end-call-btn {
+    background-color: #e54040;
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.7em;
+    padding: 10px 20px; }
+    .video-call .end-call-btn:focus {
+      outline: 0; }
+
 .chat-window {
   border-right: 1px solid #e5ecf0;
   font-size: 1.2em;
   float: left;
   margin: 0 auto;
-  position: relative;
   width: calc(100% - 320px); }
   .chat-window #upfile {
     display: none; }
+  .chat-window .fa-video-camera {
+    cursor: pointer; }
   .chat-window .title {
     border-bottom: 1px solid #e5ecf0;
     color: #2385f2;

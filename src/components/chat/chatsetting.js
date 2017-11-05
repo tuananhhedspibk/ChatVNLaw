@@ -9,7 +9,6 @@ import * as constant from '../constants';
 import * as Files from '../../lib/helper/upfile/files';
 
 const translate = require('counterpart');
-const videoCall = require('../../lib/helper/video_call');
 const firebase = require('firebase');
 const $ = require('jquery');
 var upfileStyle = {
@@ -90,30 +89,7 @@ class ChatSetting extends Component {
       Files.showImagesAndFilesList(properties);
     }
   }
-   
-  endCall(){
-    let ref = firebase.database().ref(`rooms/${this.state.currentRoomId}/video_call/end`).push()
-    ref.set({
-      end: true
-    })
-    ref.remove();
-  }
 
-  makeCallRequest(){
-    let properties = {};
-    properties['rid'] = this.state.currentRoomId;
-    properties['uid'] = this.state.currentUser.uid;
-    videoCall.checkRequest(properties, function(issuccess){
-      if(issuccess){
-        alert('already been used');
-      }else{
-        videoCall.createRequest(properties,function(issuccess){
-          
-        });
-      }
-    });
-    
-  }  
   renderAva() {
     return(
       <div>     
@@ -121,24 +97,6 @@ class ChatSetting extends Component {
           alt='ava-lawyer' id='current-user-ava'/>
       </div>
     )
-  }
-  
-  renderVideo(){
-    if(this.state.currentUser.uid !== this.state.targetUser.uid){
-      return(
-        <div>
-          <video className='video' id='localStream' autoPlay></video>
-            <button className='button-call'
-              onClick={this.makeCallRequest.bind(this)}>
-                Call
-            </button>
-            <button className='button-call'
-              onClick={this.endCall.bind(this)}>
-                End
-            </button>
-        </div>
-      )
-    }
   }
 
   upfile(event) {
@@ -298,7 +256,6 @@ class ChatSetting extends Component {
               }
             </div>
           </div>
-          {this.renderVideo()}
         </div>
       </div> 
     )
