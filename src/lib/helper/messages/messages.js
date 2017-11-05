@@ -154,7 +154,7 @@ function updateTag(properties){
         // tags.push(element.text);
         tags[element.text] = element.text;
     })
-    firebase.database().ref(`rooms/${component.currentRoomId}/messages/${mess._id}`).update({
+    firebase.database().ref(`rooms/${component.state.currentRoomId}/messages/${mess._id}`).update({
         tags
     })
 }
