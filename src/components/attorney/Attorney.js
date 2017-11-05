@@ -7,7 +7,7 @@ class Attorney extends Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav navStyle='inverse' />
         <Content />
         <Footer />
       </div>
