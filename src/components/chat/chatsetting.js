@@ -53,7 +53,8 @@ class ChatSetting extends Component {
       targetUser: null,
       currentUser: null,
       images:[],
-      files: []
+      files: [],
+      modalOpen: false
     };
     this.peer = '';
   }
@@ -64,9 +65,10 @@ class ChatSetting extends Component {
     }
     this.peer = this.props.peer;
     this.setState({currentRoomId : this.props.currentRoomId,
-                  targetUser: this.props.targetUser,
-                  currentUser: this.props.currentUser})
+      targetUser: this.props.targetUser,
+      currentUser: this.props.currentUser})
   }
+
   componentWillReceiveProps(nextProps){
     if(this.state.currentRoomId !== nextProps.currentRoomId && !! nextProps.currentRoomId){
       this.setState({currentRoomId: nextProps.currentRoomId})
@@ -113,12 +115,12 @@ class ChatSetting extends Component {
     
   }  
   renderAva() {
-    
-      return(
-        <div>     
-          <img  src={this.state.targetUser.photoURL} alt='ava-lawyer' id='current-user-ava'/>
-        </div>
-      )
+    return(
+      <div>     
+        <img  src={this.state.targetUser.photoURL}
+          alt='ava-lawyer' id='current-user-ava'/>
+      </div>
+    )
   }
   
   renderVideo(){
@@ -126,9 +128,14 @@ class ChatSetting extends Component {
       return(
         <div>
           <video className='video' id='localStream' autoPlay></video>
-            <button className='button-call' onClick={this.makeCallRequest
-        .bind(this)} >Call</button>
-            <button className='button-call' onClick={this.endCall.bind(this)} >End</button>
+            <button className='button-call'
+              onClick={this.makeCallRequest.bind(this)}>
+                Call
+            </button>
+            <button className='button-call'
+              onClick={this.endCall.bind(this)}>
+                End
+            </button>
         </div>
       )
     }
@@ -149,12 +156,10 @@ class ChatSetting extends Component {
       },
       function(err){
         console.log(err);
-        
       },
       function(){
         $('#edit-user-ava').find('img').attr('src',task.snapshot.downloadURL);
       })
-      
     })
   }
 
@@ -170,7 +175,7 @@ class ChatSetting extends Component {
         photoURL:photoURL,
         displayName: displayName
       }).then(function(){
-
+        component.handleCloseModal()
       })
     })
   }
@@ -178,6 +183,7 @@ class ChatSetting extends Component {
   logout() {
     
   }
+
   showAlert = (text) => {
     this.msg.show(text, {
       time: 5000,
@@ -185,14 +191,24 @@ class ChatSetting extends Component {
       icon: <img alt='warning' src={constant.warningPic} />
     })
   }
+
+  handleOpenModal() {
+    this.setState({modalOpen: true});
+  }
+
+  handleCloseModal() {
+    this.setState({modalOpen: false});
+  }
+
   renderConfig(){
     if (this.state.currentUser.uid === this.state.targetUser.uid) {
       return(
         <Dropdown icon='settings'>
           <Dropdown.Menu>
-            <Modal id='edit-user-profile-box' trigger={
-              <Dropdown.Item  text={translate('app.user.edit.profile')}/>
-            } closeIcon>
+            <Modal 
+              onClose={this.handleCloseModal.bind(this)}
+              open={this.state.modalOpen}
+              id='edit-user-profile-box' closeIcon={true}>
               <Modal.Header>
                 {translate('app.user.edit.profile')}
               </Modal.Header>
@@ -223,6 +239,8 @@ class ChatSetting extends Component {
                 </Button>
               </Modal.Actions>
             </Modal>
+            <Dropdown.Item text={translate('app.user.edit.profile')}
+              onClick={this.handleOpenModal.bind(this)}/>
             <Dropdown.Item text={translate('app.identifier.logout')}
               onClick={this.logout.bind(this)}/>
           </Dropdown.Menu>

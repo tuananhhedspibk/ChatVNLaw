@@ -11,8 +11,17 @@
 
 .ui .modal {
   height: 470px; }
+  .ui .modal .close:hover {
+    background-color: transparent; }
+  .ui .modal .close {
+    color: #000;
+    right: 0;
+    top: 0; }
+    .ui .modal .close:after {
+      width: 0; }
   .ui .modal .description {
-    padding-left: 15px; }
+    padding-left: 15px;
+    width: 0; }
     .ui .modal .description textarea {
       max-height: 200px;
       padding: 10px;
@@ -36,10 +45,10 @@
   text-align: left;
   width: 320px; }
   .chat-setting .ui.dropdown .menu {
-    font-size: 1.3em; }
+    font-size: 1.1em; }
   .chat-setting .config .ui.dropdown .menu {
-    left: -120px;
-    top: 25px; }
+    left: -140px;
+    top: 35px; }
   .chat-setting .header {
     align-items: center;
     border-bottom: 1px solid #e5ecf0;
