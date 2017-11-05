@@ -9,17 +9,17 @@ export default {
       },
       children:[
         {
-          name: 'tep chia se',
+          name: 'app.dashboard.file',
           url: '/lawyers/files-shared'
         },
         {
-          name: 'todo list',
+          name: 'app.dashboard.todo',
           url: '/lawyers/todos'
         }
       ]
     },
     {
-      name: 'Todo List',
+      name: 'app.dashboard.todo_list',
       url: '/lawyers/todolistlawyer',
       icon: 'icon-speech',
       badge: {

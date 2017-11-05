@@ -108,6 +108,9 @@ module.exports = {
     dashboard: {
       home: 'Trang chủ',
       customer: 'Khách hàng',
+      file: 'Tệp chia sẻ',
+      todo: 'Công việc',
+      todo_list: 'Danh sách công việc',
       chat_title: 'Chat với',
       dashboard: 'Dashboard',
       calendar: 'Lịch làm việc',
