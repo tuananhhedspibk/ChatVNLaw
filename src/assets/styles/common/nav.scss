@@ -15,9 +15,8 @@
 	background-image: none !important;
 	border-radius: 0px !important;
 	display: block !important;
-	font-family: 'Montserrat', sans-serif;
 	font-weight: 200;
-	height: 80px;
+	height: 70px;
 	margin: 0px;
 }
 
@@ -66,6 +65,11 @@
 	font-weight: normal;
 	padding: 10px 15px;
 	width: 100%;
+}
+
+.navbar {
+	padding-bottom: 10px !important;
+	padding-top: 10px !important;
 }
 
 .navbar a {

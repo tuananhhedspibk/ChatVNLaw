@@ -3,6 +3,8 @@ import $ from 'jquery';
 
 import '../../assets/styles/common/footer.css';
 
+import * as constant from '../constants';
+
 let translate = require('counterpart');
 
 class Footer extends Component {
@@ -16,11 +18,11 @@ class Footer extends Component {
         </div>
         <div className='footer-left'>
           <p className='footer-links'>
-            <a href='/'>{translate('app.identifier.home')}</a>
+            <a href={constant.HOME_URI}>{translate('app.identifier.home')}</a>
             <p className='delimiter'>·</p>
-            <a href='#'>{translate('app.identifier.search')}</a>
+            <a href={constant.SEARCH_LAW_URI}>{translate('app.identifier.search')}</a>
           </p>
-          <p>Company Name &copy; 2017</p>
+          <p>{translate('app.home.footer.content')}</p>
         </div>
       </footer>
     )

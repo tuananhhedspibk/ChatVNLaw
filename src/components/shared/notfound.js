@@ -17,7 +17,7 @@ class NotFound extends Component {
         <div className='container'>
           <div className='row justify-content-md-center'>
             <div className='error-pic'>
-              <img src={constant.notFound}/>
+              <img src={constant.notFoundPic}/>
             </div>
             <div className='content'>
               <div className='temp-content'>{translate('app.notfound.content.oh')}</div>

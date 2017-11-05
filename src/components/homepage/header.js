@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 
 import Nav from './nav';
 import Find from './find';

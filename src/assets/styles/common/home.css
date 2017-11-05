@@ -54,7 +54,7 @@
       border-radius: 5px;
       color: #fff;
       font-size: 1.5em;
-      padding: 15px 30px; }
+      padding: 13px 30px; }
       .home-page .find .search-box button:focus {
         outline: 0; }
       .home-page .find .search-box button:hover {
@@ -147,7 +147,7 @@
         .home-page .main-content .hot-lawyers .lawyers-list .lawyer .infor .name {
           font-size: 1.3em; }
       .home-page .main-content .hot-lawyers .lawyers-list .lawyer:hover {
-        background-color: #f8f8f8;
+        background-color: #f6f6f6;
         cursor: pointer;
         transition: all .5s ease; }
   .home-page .main-content .hot-lawyers .lawyer-overview {

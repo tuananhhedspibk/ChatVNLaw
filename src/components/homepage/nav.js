@@ -5,8 +5,6 @@ import * as constant from '../constants';
 
 import '../../assets/styles/common/nav.css';
 
-import 'bootstrap/dist/css/bootstrap.css';
-
 const firebase = require('firebase');
 const userInfo = require('../../lib/helper/user/get_user_info');
 
@@ -110,7 +108,7 @@ class Nav extends Component {
   renderView(){ 
     return(
       <div className={'container-fluid nav-' + this.props.navStyle}>
-        <nav className='navbar navbar-expand-lg navbar-default'>
+        <nav className='navbar navbar-expand navbar-default'>
           <div className='navbar-header'>
             <button className='navbar-toggler' data-toggle='collapse'
               data-target='#navbarToggleExternalContent'

@@ -1121,7 +1121,7 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
-bootstrap@4.0.0:
+bootstrap@4.0.0-beta:
   version "4.0.0-beta"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-beta.tgz#dc5928175d2e71310bc668cf9e05a907211b72a6"
 
@@ -5982,6 +5982,14 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-addons-create-fragment@^15.0.0:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/react-addons-create-fragment/-/react-addons-create-fragment-15.6.2.tgz#a394de7c2c7becd6b5475ba1b97ac472ce7c74f8"
+  dependencies:
+    fbjs "^0.8.4"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.0"
+
 react-alert@^2.2.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-alert/-/react-alert-2.4.0.tgz#b4c9ce74919b46be330a7addbf46e7561c295bc7"
@@ -6120,6 +6128,14 @@ react-loading@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-1.0.1.tgz#180c590539bed0a250785e622f1952283be72a14"
 
+react-paginate@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-paginate/-/react-paginate-5.0.0.tgz#b5c12191ea81adc6d4d1b339b805e81841eaa8ea"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+    react-addons-create-fragment "^15.0.0"
+
 react-popper@^0.7.3:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.7.4.tgz#8649d539837e7c6f47bc9b24c9cf57a404e199a1"
@@ -6234,6 +6250,13 @@ react-tag-input@^4.7.2:
     react-dnd "^2.0.2"
     react-dnd-html5-backend "^2.0.0"
 
+react-toastify@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-2.2.0.tgz#eff7b598f94e50167912afcd878d38e56b9e8292"
+  dependencies:
+    prop-types "^15.6.0"
+    react-transition-group "^2.2.1"
+
 react-tooltip@^3.3.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-3.4.0.tgz#037f38f797c3e6b1b58d2534ccc8c2c76af4f52d"
@@ -6249,6 +6272,17 @@ react-transition-group@^1.1.2:
     dom-helpers "^3.2.0"
     loose-envify "^1.3.1"
     prop-types "^15.5.6"
+    warning "^3.0.0"
+
+react-transition-group@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.2.1.tgz#e9fb677b79e6455fd391b03823afe84849df4a10"
+  dependencies:
+    chain-function "^1.0.0"
+    classnames "^2.2.5"
+    dom-helpers "^3.2.0"
+    loose-envify "^1.3.1"
+    prop-types "^15.5.8"
     warning "^3.0.0"
 
 react@*:

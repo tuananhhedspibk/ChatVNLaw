@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Route, Switch} from 'react-router-dom';
+import {Router, Route, Switch, Redirect} from 'react-router-dom';
 
 import UserLogin from './components/user/login';
 import UserSignUp from './components/user/signup';
@@ -9,7 +9,7 @@ import Home from './components/homepage/home';
 import Attorney from './components/attorney/Attorney';
 import Payment from './components/payments/App';
 import CustomerProfile from './components/customer/profile/main'
-import SearchLaw from './components/search_law/App'
+import SearchLaw from './components/search_law/layout'
 import NotFoundPage from './components/shared/notfound';
 
 const Routes = props => (
@@ -26,6 +26,9 @@ const Routes = props => (
       <Route path='/home' component={Home}/>
       <Route path='/my-profile' component={CustomerProfile}/>
       <Route path='/search-law' component={SearchLaw} />
+      <Route exact path='/' render={() => (
+        <Redirect to='/home'/>
+      )}/>
       <Route path='*' component={NotFoundPage}/>
     </Switch>
   </Router>
