@@ -17,6 +17,7 @@ import '../../assets/styles/common/emoji-mart.css';
 
 let translate = require('counterpart');
 var firebase = require('firebase');
+const videoCall = require('../../lib/helper/video_call');
 
 class Chat extends Component {
   constructor(props) {
@@ -202,14 +203,53 @@ class Chat extends Component {
     inputTextArea.val(inputTextArea.val() + ' ' + emoji.colons + ' ');
   }
 
+  endCall(){
+    $('.video-call').hide();
+    let ref = firebase.database().ref(`rooms/${this.state.currentRoomId}/video_call/end`).push()
+    ref.set({
+      end: true
+    })
+    ref.remove();
+  }
+
+  makeCallRequest(){
+    this.renderVideo();
+    let properties = {};
+    properties['rid'] = this.state.currentRoomId;
+    properties['uid'] = this.state.currentUser.uid;
+    videoCall.checkRequest(properties, function(issuccess){
+      if(issuccess){
+        alert('already been used');
+      }else{
+        videoCall.createRequest(properties,function(issuccess){
+          
+        });
+      }
+    });
+  }
+
+  renderVideo() {
+    $('.video-call').show();
+  }
+
   render() {
     return(
       <div className={'chat-window ' + 'item_'+this.state.targetUser.uid} id='chat-window' >
+        <div className='video-call'>
+          <video className='video'
+            id='localStream' autoPlay></video>
+            <button onClick={this.endCall.bind(this)}
+              className='end-call-btn'>
+                <i className='fa fa-phone'
+                  aria-hidden='true'></i>
+            </button>
+        </div>
         <div className='title'>
           <div className={'user-name'}>
             {this.state.targetUser.displayName}
           </div>
-          <i className='fa fa-video-camera'
+          <i onClick={this.makeCallRequest.bind(this)}
+            className='fa fa-video-camera'
             aria-hidden='true'></i>
           <i className='fa fa-phone'
             aria-hidden='true'></i>
