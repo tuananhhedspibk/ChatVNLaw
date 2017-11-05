@@ -16,8 +16,23 @@
 .ui .modal {
   height: 470px;
 
+  .close:hover {
+    background-color: transparent;
+  }
+
+  .close {
+    color: $black;
+    right: 0;
+    top: 0;
+
+    &:after{
+      width: 0;
+    }
+  }
+
   .description {
     padding-left: 15px;
+    width: 0;
 
     textarea {
       max-height: 200px;
@@ -48,12 +63,12 @@
   width: 320px;
 
   .ui.dropdown .menu {
-    font-size: 1.3em;
+    font-size: 1.1em;
   }
 
   .config .ui.dropdown .menu {
-    left: -120px;
-    top: 25px;
+    left: -140px;
+    top: 35px;
   }
 
   .header {
