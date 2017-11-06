@@ -111,9 +111,9 @@ module.exports = {
     dashboard: {
       home: 'Home',
       customer: 'Customers',
-      file: 'Files',
+      file: 'Files shared',
       todo: 'Todo',
-      todo_list: 'Todo List',
+      todo_list: 'Todo list',
       chat_title: 'Chat with',
       dashboard: 'Dashboard',
       calendar: 'Calendar',

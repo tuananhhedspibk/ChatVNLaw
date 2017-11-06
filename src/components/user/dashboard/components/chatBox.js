@@ -5,6 +5,7 @@ import $ from 'jquery';
 
 import * as RoomInfo from '../../../../lib/helper/room/get_room_info';
 import * as Messages from '../../../../lib/helper/messages/messages';
+
 class ChatBox extends Component {
   constructor(props) {
     super(props);

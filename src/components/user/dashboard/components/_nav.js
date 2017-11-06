@@ -21,14 +21,14 @@ export default {
     {
       name: 'app.dashboard.todo_list',
       url: '/lawyers/todolistlawyer',
-      icon: 'icon-speech',
+      icon: 'icon-list',
       badge: {
         variant: 'info'
       }
     },
     {
       name: 'app.dashboard.search.title',
-      icon: 'icon-support',
+      icon: 'icon-magnifier',
       badge: {
         variant: 'info',
       },
