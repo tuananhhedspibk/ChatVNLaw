@@ -64,7 +64,7 @@ class Category extends Component {
 					{translate('app.search.category_title')}
 				</div>
 				<div className='category-organization'>
-					<button className='category-filter-title'
+					<button className='category-filter-title collapsed'
 						data-toggle='collapse' data-target='#organ-content'>
 						{translate('app.search.category_organ.title')}
 					</button>
@@ -73,7 +73,7 @@ class Category extends Component {
 					</div>
 				</div>
 				<div className='category-type'>
-					<button className='category-filter-title'
+					<button className='category-filter-title collapsed'
 						data-toggle='collapse' data-target='#type-content'>
 						{translate('app.search.category_type.title')}
 					</button>
@@ -83,7 +83,7 @@ class Category extends Component {
 					</div>
 				</div>
 				<div className='category-year'>
-					<button className='category-filter-title'
+					<button className='category-filter-title collapsed'
 						data-toggle='collapse' data-target='#year-content'>
 						{translate('app.search.category_year.title')}
 					</button>

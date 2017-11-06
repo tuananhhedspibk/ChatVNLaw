@@ -28,6 +28,7 @@ class UserDashBoard extends Component {
     }
     this.emitter = new EventEmitter();
   }
+
   componentWillMount(){
     var component = this;
     firebase.auth().onAuthStateChanged(user =>{
@@ -38,6 +39,11 @@ class UserDashBoard extends Component {
       }
     })
   }
+
+  componentDidMount() {
+    document.body.classList.add('chat-section-hidden');
+  }
+
   render() {
     if(this.state.currentUser){
       return(

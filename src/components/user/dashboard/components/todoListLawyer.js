@@ -6,45 +6,7 @@ class TodoListLawyer extends Component {
   constructor(props) {
     super(props);
     this.state ={
-        todoList :[],
-        currentUser: '',
-        targetUser: '',
-        currentRoomId: ''
-    }
-  }
-
-  componentWillMount(){
-    var component = this;
-    this.props.emitter.emit('ReSendData', function(currentUser,
-      targetUser, roomId){
-        component.setState({currentUser: currentUser,
-          targetUser: targetUser,
-          currentRoomId: roomId});
-    });
-    this.props.emitter.addListener('RoomChatHasChanged',
-      function(currentUser, targetUser, roomId) {
-        component.setState({currentUser: currentUser,
-          targetUser: targetUser,
-          currentRoomId: roomId});
-    });
-  }
-
-  componentWillUpdate(nextProps, nextState){
-    var component = this;
-    if(component.state.currentRoomId !== nextState.currentRoomId){
-      firebase.database().ref(`tasks/${nextState.currentRoomId}`)
-        .once('value', (data) => {
-          if(data){
-            component.setState({
-                todoList: data.val()
-            })
-          }
-          else {
-            component.setState({
-                todoList: []
-            });
-          }
-      })
+      todoList :[]
     }
   }
 
@@ -52,6 +14,7 @@ class TodoListLawyer extends Component {
     var component = this;
     var tempData = [];
     var currentUser = firebase.auth().currentUser.uid;
+    $('main.main').removeClass('main-customer');
     firebase.database().ref(`tasks/${currentUser}`).once(
       'value', (data) => {
         if(data){
@@ -77,17 +40,16 @@ class TodoListLawyer extends Component {
   }
 
   renderTodoList(){
-    var component = this;
     return(
-      component.state.todoList.map((todoList, index) => {
+      this.state.todoList.map((todoList, index) => {
         return(
           <div className='todo-list-lawyer'>
             <button type='button'
-              className='btn btn-header-todo-list'
+              className='btn btn-header-todo-list collapsed'
               data-toggle='collapse' data-target={'#todo-list-lawyer' + index}>
               {todoList[0].targetuserdisplayname}
             </button>
-            <div id={'todo-list-lawyer' + index} class='collapse'>
+            <div id={'todo-list-lawyer' + index} className='collapse'>
               <ul id='todo-list-ul'>
                 {todoList.map(content => (
                   <li className={content.status === 1 ?
@@ -104,10 +66,9 @@ class TodoListLawyer extends Component {
   }
 
   render(){
-    var component = this;
     return (
       <div id='todo-list-div' className='header'>
-          {component.renderTodoList()}
+        {this.renderTodoList()}
       </div>
     )
   }
