@@ -6,6 +6,10 @@ import $ from 'jquery';
 import * as RoomInfo from '../../../../lib/helper/room/get_room_info';
 import * as Messages from '../../../../lib/helper/messages/messages';
 
+let translate = require('counterpart');
+var firebase = require('firebase');
+const videoCall = require('../../../../lib/helper/video_call');
+
 class ChatBox extends Component {
   constructor(props) {
     super(props);
@@ -131,19 +135,71 @@ class ChatBox extends Component {
     }
   }
 
+  endCall(){
+    $('.video-call').hide();
+    let ref = firebase.database()
+      .ref(`rooms/${this.state.currentRoomId}/video_call/end`).push()
+    ref.set({
+      end: true
+    })
+    ref.remove();
+  }
+
+  makeCallRequest(){
+    this.renderVideo();
+    let properties = {};
+    properties['rid'] = this.state.currentRoomId;
+    properties['uid'] = this.state.currentUser.uid;
+    videoCall.checkRequest(properties, function(issuccess){
+      if(issuccess){
+        alert('already been used');
+      }else{
+        videoCall.createRequest(properties,function(issuccess){
+          
+        });
+      }
+    });
+  }
+
+  renderVideo() {
+    $('.video-call').show();
+  }
+
   render() {
     if(this.state.currentRoomId){
       return(
-        <div className='chat-box'>
-          <ChatBubble messages={this.state.messages} 
-            emitter={this.props.emitter}
-            renderHastag={true}
-            currentUser={this.state.currentUser}
-            targetUser={this.state.targetUser}/>
-          <div className='input-section text-box' id='text-box'>  
-            <textarea id='input-mess-box'
-              placeholder={Translate('app.chat.input_place_holder')}
-              onKeyDown={this.handleInputChange.bind(this)} />
+        <div>
+          <div className='video-call'>
+            <video className='video'
+              id='localStream' autoPlay></video>
+              <button onClick={this.endCall.bind(this)}
+                className='end-call-btn'>
+                  <i className='fa fa-phone'
+                    aria-hidden='true'></i>
+              </button>
+          </div>
+          <div className='header'>
+            {this.state.targetUser ?
+              translate('app.dashboard.chat_title') + ' '
+                + this.state.targetUser.displayName :
+                translate('app.dashboard.chat_title')}
+            <i onClick={this.makeCallRequest.bind(this)}
+              className='fa fa-video-camera'
+              aria-hidden='true'></i>
+            <i className='fa fa-phone'
+              aria-hidden='true'></i>
+          </div>
+          <div className='chat-box'>
+            <ChatBubble messages={this.state.messages} 
+              emitter={this.props.emitter}
+              renderHastag={true}
+              currentUser={this.state.currentUser}
+              targetUser={this.state.targetUser}/>
+            <div className='input-section text-box' id='text-box'>  
+              <textarea id='input-mess-box'
+                placeholder={Translate('app.chat.input_place_holder')}
+                onKeyDown={this.handleInputChange.bind(this)} />
+            </div>
           </div>
         </div>
       )

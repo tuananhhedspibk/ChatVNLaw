@@ -27,11 +27,28 @@
     color: $blue;
     cursor: pointer;
     padding: 15px 35px;
+    position: relative;
     text-align: left;
     width: 100%;
 
     &:focus {
       outline: 0;
+    }
+
+    &:after {
+      content: "\f078";
+      font-family: FontAwesome;
+      font-size: .8em;
+      position: absolute;
+      right: 10px;
+      top: 15px;
+    }
+  }
+
+  .category-filter-title.collapsed {
+    &:after {
+      content: "\f054";
+      font-family: FontAwesome;
     }
   }
 

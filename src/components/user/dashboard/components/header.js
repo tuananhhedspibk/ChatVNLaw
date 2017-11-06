@@ -6,6 +6,8 @@ import {
   DropdownToggle
 } from 'reactstrap';
 
+import $ from 'jquery';
+
 let ava6 = require('../../../../assets/styles/img/avatars/6.jpg');
 
 class Header extends Component {
@@ -43,6 +45,10 @@ class Header extends Component {
   chatToggle(e) {
     e.preventDefault();
     document.body.classList.toggle('chat-section-hidden');
+    if($('.video-call').css('display') !== 'none') {
+      $('.video-call').find('.video').toggle();
+      $('.video-call').find('.end-call-btn').toggle();
+    }
   }
 
   render() {

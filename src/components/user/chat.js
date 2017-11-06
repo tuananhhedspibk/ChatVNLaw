@@ -205,7 +205,8 @@ class Chat extends Component {
 
   endCall(){
     $('.video-call').hide();
-    let ref = firebase.database().ref(`rooms/${this.state.currentRoomId}/video_call/end`).push()
+    let ref = firebase.database()
+      .ref(`rooms/${this.state.currentRoomId}/video_call/end`).push()
     ref.set({
       end: true
     })

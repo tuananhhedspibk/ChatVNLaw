@@ -44,6 +44,7 @@ class ChatUsersList extends Component {
   }
 
   changeUserChat(user){
+    document.body.classList.remove('chat-section-hidden');
     this.setState({targetUser: user})
   }
 
@@ -76,9 +77,6 @@ class ChatUsersList extends Component {
             }         
           })
         }
-        </div>
-        <div className='header'>
-          {this.state.targetUser ? translate('app.dashboard.chat_title') +' ' + this.state.targetUser.displayName : translate('app.dashboard.chat_title')}
         </div>
         <ChatBox
           targetUser={this.state.targetUser}
