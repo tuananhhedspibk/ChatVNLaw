@@ -158,6 +158,12 @@ class ChatSetting extends Component {
     this.setState({modalOpen: false});
   }
 
+  logout() {
+    firebase.auth().signOut().then(function() {
+      window.location = constant.BASE_URL + constant.HOME_URI;
+    }).catch(function(error) {});
+  }
+
   renderConfig(){
     if (this.state.currentUser.uid === this.state.targetUser.uid) {
       return(

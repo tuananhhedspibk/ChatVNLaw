@@ -178,6 +178,7 @@
 
 .app-body .sidebar {
   height: calc(100vh - 55px);
+  overflow-y: scroll;
 }
 
 .app-header.navbar {
@@ -467,4 +468,98 @@
       }
     }
   }
+}
+
+.search-user {
+  width: 100%;
+  .error-result {
+    padding-top: 15px;
+    text-align: center;
+    width: 100%;
+
+    .error-search-name {
+      color: $red;
+      font-size: 1.8em;
+    }
+
+    .error-search-name-symbol {
+      color: $blue;
+      font-size: 2.3em;
+    }
+  }
+
+  .users-result {
+    .user-result {
+      align-items: center;
+      background-color: $gray-more-lighter;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      padding: 15px;
+      margin-top: 20px;
+      width: 100%;
+
+      .user-ava {
+        border-radius: 50%;
+        height: 60px;
+        width: 60px;
+      }
+
+      .user-name {
+        display: inline-block;
+        font-size: 1.1em;
+        margin-left: 15px;
+      }
+    }
+  }
+
+  .form-search {
+    width: 100%;
+
+    input {
+      border: 1px solid $gray-lighter;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      font-size: 1.1em;
+      height: 42px;
+      padding: 15px;
+      width: calc(100% - 112px);
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    button {
+      background-color: $blue;
+      border: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      color: $white;
+      cursor: pointer;
+      font-size: 1.1em;
+      padding: 9px 20px 11px;
+
+      &:focus {
+        background-color: $blue-darker;
+        outline: 0;
+      }
+    }
+  }
+}
+
+.app-header.navbar .dropdown-menu {
+  background-color: $white;
+}
+
+.app-header.navbar .dropdown-item {
+  min-width: 50px;
+  width: 100%;
+}
+
+.app-header.navbar .navbar-brand {
+  align-items: center;
+  color: $blue;
+  display: flex;
+  justify-content: center;
 }

@@ -163,6 +163,10 @@ class ChatBox extends Component {
 
   renderVideo() {
     $('.video-call').show();
+    if($('.video-call').find('.video').css('display') == 'none') {
+      $('.video-call').find('.video').show();
+      $('.video-call').find('.end-call-btn').show();
+    }
   }
 
   render() {

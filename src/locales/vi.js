@@ -6,6 +6,7 @@ module.exports = {
       slogan: 'Always make an awesome support',
       vi: 'Tiếng Việt',
       en: 'Tiếng Anh',
+      account: 'Tài khoản của tôi',
       setting: 'Thiết lập',
       home: 'Trang chủ',
       signup: 'Đăng kí',
@@ -128,7 +129,10 @@ module.exports = {
       search: {
         title: 'Tìm kiếm',
         by_user: 'Tìm kiếm theo người dùng',
-        by_tag: 'Tìm kiếm theo hashtag'
+        by_tag: 'Tìm kiếm theo hashtag',
+        search_user_not_found: 'Không tìm thấy người dùng nào',
+        search_user_not_found_symbol: '=.="',
+        input_user_name: 'Hãy nhập tên người dùng mà bạn muốn tìm kiếm'
       }
     },
     user: {

@@ -7,8 +7,11 @@ import {
 } from 'reactstrap';
 
 import $ from 'jquery';
+import * as firebase from 'firebase';
 
-let ava6 = require('../../../../assets/styles/img/avatars/6.jpg');
+import * as constant from '../../../constants';
+
+let translate = require('counterpart');
 
 class Header extends Component {
 
@@ -17,8 +20,27 @@ class Header extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
+      currentUser: ''
     };
+  }
+
+  componentWillMount() {
+    var component = this;
+
+    if(!firebase.apps.length){
+      firebase.initializeApp(constant.APP_CONFIG);
+    }
+    firebase.auth().onAuthStateChanged(user => {
+      component.state.currentUser = user;
+      component.setState(component.state);
+    });
+  }
+
+  logout() {
+    firebase.auth().signOut().then(function() {
+      window.location = constant.BASE_URL + constant.HOME_URI;
+    }).catch(function(error) {});
   }
 
   toggle() {
@@ -55,7 +77,7 @@ class Header extends Component {
     return (
       <header className='app-header navbar'>
         <NavbarToggler className='d-lg-none' onClick={this.mobileSidebarToggle}>&#9776;</NavbarToggler>
-        <NavbarBrand href='#'></NavbarBrand>
+        <NavbarBrand href='/'>{translate('app.identifier.app_name')}</NavbarBrand>
         <NavbarToggler className='d-md-down-none' onClick={this.sidebarToggle}>&#9776;</NavbarToggler>
         <Nav className='ml-auto' navbar>
           <NavItem className='d-md-down-none'>
@@ -70,23 +92,22 @@ class Header extends Component {
           <NavItem>
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle className='nav-link dropdown-toggle'>
-                <img src={ava6} className='img-avatar' alt='admin@bootstrapmaster.com'/>
-                <span className='d-md-down-none'>admin</span>
+                <img src={this.state.currentUser.photoURL}
+                  className='img-avatar'/>
+                <span className='d-md-down-none'>{this.state.currentUser.displayName}</span>
               </DropdownToggle>
               <DropdownMenu right className={this.state.dropdownOpen ? 'show' : ''}>
-                <DropdownItem header tag='div' className='text-center'><strong>Account</strong></DropdownItem>
-                <DropdownItem><i className='fa fa-bell-o'></i> Updates<Badge color='info'>42</Badge></DropdownItem>
-                <DropdownItem><i className='fa fa-envelope-o'></i> Messages<Badge color='success'>42</Badge></DropdownItem>
-                <DropdownItem><i className='fa fa-tasks'></i> Tasks<Badge color='danger'>42</Badge></DropdownItem>
-                <DropdownItem><i className='fa fa-comments'></i> Comments<Badge color='warning'>42</Badge></DropdownItem>
-                <DropdownItem header tag='div' className='text-center'><strong>Settings</strong></DropdownItem>
-                <DropdownItem><i className='fa fa-user'></i> Profile</DropdownItem>
-                <DropdownItem><i className='fa fa-wrench'></i> Settings</DropdownItem>
-                <DropdownItem><i className='fa fa-usd'></i> Payments<Badge color='secondary'>42</Badge></DropdownItem>
-                <DropdownItem><i className='fa fa-file'></i> Projects<Badge color='primary'>42</Badge></DropdownItem>
+                <DropdownItem header tag='div' className='text-center'>
+                  <strong>{translate('app.identifier.account')}</strong>
+                </DropdownItem>
+                <DropdownItem header tag='div' className='text-center'>
+                  <strong>{translate('app.identifier.setting')}</strong>
+                </DropdownItem>
                 <DropdownItem divider/>
-                <DropdownItem><i className='fa fa-shield'></i> Lock Account</DropdownItem>
-                <DropdownItem><i className='fa fa-lock'></i> Logout</DropdownItem>
+                <DropdownItem onClick={this.logout.bind(this)}>
+                  <i className='fa fa-lock'></i>
+                  {translate('app.identifier.logout')}
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </NavItem>

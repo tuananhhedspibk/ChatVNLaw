@@ -119,7 +119,8 @@
   height: calc(100vh - 55px); }
 
 .app-body .sidebar {
-  height: calc(100vh - 55px); }
+  height: calc(100vh - 55px);
+  overflow-y: scroll; }
 
 .app-header.navbar {
   border-bottom: solid 1px #c2cfd6; }
@@ -329,3 +330,70 @@
     .my-work-with .add-todo-list-form .add-btn:focus {
       background-color: #0974b8;
       outline: none; }
+
+.search-user {
+  width: 100%; }
+  .search-user .error-result {
+    padding-top: 15px;
+    text-align: center;
+    width: 100%; }
+    .search-user .error-result .error-search-name {
+      color: #e54040;
+      font-size: 1.8em; }
+    .search-user .error-result .error-search-name-symbol {
+      color: #2385f2;
+      font-size: 2.3em; }
+  .search-user .users-result .user-result {
+    align-items: center;
+    background-color: #f6f6f6;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    padding: 15px;
+    margin-top: 20px;
+    width: 100%; }
+    .search-user .users-result .user-result .user-ava {
+      border-radius: 50%;
+      height: 60px;
+      width: 60px; }
+    .search-user .users-result .user-result .user-name {
+      display: inline-block;
+      font-size: 1.1em;
+      margin-left: 15px; }
+  .search-user .form-search {
+    width: 100%; }
+    .search-user .form-search input {
+      border: 1px solid #e5ecf0;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      font-size: 1.1em;
+      height: 42px;
+      padding: 15px;
+      width: calc(100% - 112px); }
+      .search-user .form-search input:focus {
+        outline: 0; }
+    .search-user .form-search button {
+      background-color: #2385f2;
+      border: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.1em;
+      padding: 9px 20px 11px; }
+      .search-user .form-search button:focus {
+        background-color: #0974b8;
+        outline: 0; }
+
+.app-header.navbar .dropdown-menu {
+  background-color: #fff; }
+
+.app-header.navbar .dropdown-item {
+  min-width: 50px;
+  width: 100%; }
+
+.app-header.navbar .navbar-brand {
+  align-items: center;
+  color: #2385f2;
+  display: flex;
+  justify-content: center; }
