@@ -7,6 +7,10 @@
 .navbar {
   border-radius: 0 !important; }
 
+.app-header.navbar .nav-item .nav-link .badge {
+  background-color: #e54040 !important;
+  font-size: .5em; }
+
 .app-body .chat-users-list {
   border-right: 1px solid #c2cfd6;
   display: inline-block;
@@ -106,9 +110,6 @@
 .nav-dropdown-items .nav-link {
   font-size: 1em !important; }
 
-.nav-dropdown-items .nav-item {
-  padding-left: 25px !important; }
-
 .sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before,
 .sidebar .nav .nav-item .navbar .nav-dropdown-toggle.dropdown-toggle::before,
 .navbar .sidebar .nav .nav-item .nav-dropdown-toggle.dropdown-toggle::before {
@@ -131,7 +132,8 @@
   font-size: 1.1em; }
 
 .sidebar .nav .nav-item .nav-link {
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  width: 100%; }
   .sidebar .nav .nav-item .nav-link:hover {
     background-color: #2385f2 !important; }
 
@@ -150,9 +152,6 @@
 
 .navbar-toggler {
   font-size: 1em !important; }
-
-.badge {
-  background-color: #e54040 !important; }
 
 .sidebar .nav .nav-item .nav-link.active i {
   color: #fff !important; }
@@ -200,3 +199,65 @@
     border-radius: 50%;
     height: 75px;
     width: 75px; }
+
+.btn-header-todo-list {
+  background-color: #2385f2;
+  border-radius: 0 !important;
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  color: #fff;
+  font-size: 1.2em !important;
+  text-align: left !important;
+  width: 100%; }
+  .btn-header-todo-list:focus {
+    box-shadow: none !important;
+    outline: none; }
+
+.todo-list-lawyer {
+  margin-bottom: 20px; }
+
+#todo-list-ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  #todo-list-ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 1.2em;
+    transition: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  #todo-list-ul li:last-child {
+    background: #eee;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; }
+  #todo-list-ul li:hover {
+    background: #cbcbcb; }
+  #todo-list-ul li.checked {
+    background: #cbcbcb !important;
+    color: #000; }
+  #todo-list-ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #000;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px; }
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px; }
+
+.close:hover {
+  background-color: #2385f2;
+  color: #fff; }

@@ -10,13 +10,14 @@ import Calendar from './components/calendar';
 import Breadcrumb from './components/breadcrumb';
 import SearchTag from './components/searchtag';
 import SearchUser from './components/searchuser';
-import TodoList from './components/todolist';
+import TodoList from './components/todoList';
 import {Container} from 'reactstrap';
 import Chat from './components/chat';
 import {EventEmitter} from 'fbemitter';
 import * as constant from '../../constants';
 
 import '../../../assets/styles/dashboard/style.css';
+import '../../../assets/styles/common/customDashboard.css';
 var firebase = require('firebase');
 
 class UserDashBoard extends Component {  

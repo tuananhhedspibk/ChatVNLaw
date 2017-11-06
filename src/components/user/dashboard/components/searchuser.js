@@ -36,10 +36,6 @@ class SearchUser extends Component {
                         status: data.val()[y]['status'],
                         photoURL: data.val()[y]['photoURL']
                     };
-                    // item['uid'] = y;
-                    // for(var z in data.val()[y]){
-                    //     item[z] = data.val()[y][z]
-                    // }
                     arr.push(item);
                 }
                 component.setState({result: arr})
@@ -99,4 +95,5 @@ class SearchUser extends Component {
         )
     }
 }
+
 export default SearchUser;
