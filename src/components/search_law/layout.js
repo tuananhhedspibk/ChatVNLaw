@@ -51,6 +51,7 @@ class SearchLaw extends Component {
 			console.log(error);
 			component.notif();
 		});
+
 		$('.text-search-box input').val(parsed.query);
 		
     if (parsed.group2_1) {
@@ -96,28 +97,6 @@ class SearchLaw extends Component {
       window.location = constant.BASE_URL + '/search-law?' + from_y + to_y
 	}
 
-	renderResult() {
-		if (this.state.articles.length === 0) {
-			return(
-				<div className='not-found-any-results'>
-					{translate('app.search.founded') + ' 0 ' + translate('app.search.results')}
-					<div className='symbol-not-found'>
-						{translate('app.search.not_found_symbol')}
-					</div>
-				</div>
-			)
-		}
-		else {
-			this.state.articles.map(function(article, i) {
-				return(
-					<div key={i}>
-						<Result article={article} number={i}/>
-					</div>
-				);
-			})
-		}
-	}
-
 	render() {
 		return(
 			<div className='search-law'>
@@ -137,7 +116,25 @@ class SearchLaw extends Component {
 						<SearchTool handler={this.handlerSearch}/>
 					</div>
 					<div className='col-sm-12 col-md-9 results'>
-						{this.renderResult()}
+						{
+							this.state.articles.length === 0 ? (
+								<div className='not-found-any-results'>
+									{translate('app.search.founded') + ' 0 ' + translate('app.search.results')}
+									<div className='symbol-not-found'>
+										{translate('app.search.not_found_symbol')}
+									</div>
+								</div>
+							) :
+							(
+								this.state.articles.map(function(article, i) {
+									return(
+										<div key={i}>
+											<Result article={article} number={i}/>
+										</div>
+									);
+								})
+							)
+						}
 					</div>
 				</div>
 			</div>
