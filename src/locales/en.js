@@ -6,6 +6,7 @@ module.exports = {
       slogan: 'Always make an awesome support',
       vi: 'Vietnamese',
       en: 'English',
+      account: 'Account',
       setting: 'Setting',
       home: 'Home',
       login: 'Log in',
@@ -128,7 +129,10 @@ module.exports = {
       search: {
         title: 'Search',
         by_user: 'Search by user',
-        by_tag: 'Search by hastag'
+        by_tag: 'Search by hastag',
+        search_user_not_found: 'No users found',
+        search_user_not_found_symbol: '=.="',
+        input_user_name: 'Please input user\'s name that you want to search'
       }
     },
     user: {

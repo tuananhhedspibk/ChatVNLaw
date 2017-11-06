@@ -102,7 +102,7 @@ class ChatView extends Component {
       return(
         <Dropdown id={component.state.currentUser.uid}
           icon={this.elementBaseStatus(userStatus)}>
-          <Dropdown.Menu>
+          <Dropdown.Menu className='dropdown-status'>
             <Dropdown.Item text={translate('app.user.status.online')}
               icon={options[0].icon}
               onClick={this.changeStatus.bind(this)}/>
