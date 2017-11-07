@@ -214,7 +214,6 @@ class Chat extends Component {
   }
 
   makeCallRequest(){
-    this.renderVideo();
     let properties = {};
     properties['rid'] = this.state.currentRoomId;
     properties['uid'] = this.state.currentUser.uid;
@@ -222,6 +221,7 @@ class Chat extends Component {
       if(issuccess){
         alert('already been used');
       }else{
+        this.renderVideo();        
         videoCall.createRequest(properties,function(issuccess){
           
         });
@@ -232,7 +232,19 @@ class Chat extends Component {
   renderVideo() {
     $('.video-call').show();
   }
-
+  renderConfigVideoCall(){
+    if(!!this.state.currentUser && !!this.state.targetUser && this.state.currentUser.uid !== this.state.targetUser.uid){
+      return (
+        <div>
+          <i onClick={this.makeCallRequest.bind(this)}
+              className='fa fa-video-camera'
+              aria-hidden='true'></i>
+          <i className='fa fa-phone'
+            aria-hidden='true'></i>
+        </div>
+      )
+    }
+  } 
   render() {
     return(
       <div className={'chat-window ' + 'item_'+this.state.targetUser.uid} id='chat-window' >
@@ -249,11 +261,7 @@ class Chat extends Component {
           <div className={'user-name'}>
             {this.state.targetUser.displayName}
           </div>
-          <i onClick={this.makeCallRequest.bind(this)}
-            className='fa fa-video-camera'
-            aria-hidden='true'></i>
-          <i className='fa fa-phone'
-            aria-hidden='true'></i>
+          {this.renderConfigVideoCall()}
         </div>
         <div className='chat-body'>
           <ChatBubble messages={this.state.messages}

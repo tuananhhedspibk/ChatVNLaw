@@ -30,6 +30,7 @@ const Routes = props => (
         <Redirect to='/home'/>
       )}/>
       <Route path='*' component={NotFoundPage}/>
+      <Route path='' component={Home}/>
     </Switch>
   </Router>
 );

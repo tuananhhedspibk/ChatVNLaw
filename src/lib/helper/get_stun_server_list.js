@@ -2,7 +2,7 @@
 const https = require("https");
 const constant = require('../../components/constants');
 
-function getStunServerList(){
+function getStunServerList(callback){
     var options = {
         host: "global.xirsys.net",
         path: "/_turn/MyFirstApp",
@@ -18,6 +18,7 @@ function getStunServerList(){
         httpres.on("end", function(){ 
             str = JSON.stringify(JSON.parse(str).v);
             localStorage.setItem(constant.STUN_SERVER_LIST, str);
+            return callback();
         });
     });
     httpreq.end();
