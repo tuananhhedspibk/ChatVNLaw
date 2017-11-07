@@ -38,15 +38,13 @@ class ChatView extends Component {
       unread: [],
       searchTerm: ''
     };
-    this.peer;
+    this.peer=null;
   }
   componentWillMount(){
     var component = this;
-    var stunServer = JSON.parse(localStorage.stun_server_list);
     if(!firebase.apps.length){
       firebase.initializeApp(constant.APP_CONFIG);
     }
-    getStunServerList();
     var properties = {}
     properties['component'] = this;
     properties['keyword'] = this.props.match.params.user_name;
@@ -68,8 +66,10 @@ class ChatView extends Component {
       properties['keyword'] = 'user';            
       Users.getTargetChat(properties);            
       Messages.notifyUnreadMessage(properties);
-
-      component.peer = Peer(user.uid,{key: 't1tvdjf4oc62bj4i', config: stunServer});  
+      getStunServerList(() => {
+        var stunServer = JSON.parse(localStorage.stun_server_list);      
+        component.peer = Peer(user.uid,{key: 't1tvdjf4oc62bj4i', config: stunServer}); 
+      });      
     })
   }
 
@@ -148,7 +148,7 @@ class ChatView extends Component {
   render() {
     const filteredUsers = this.state.users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
-    if(!!this.state.currentUser){    
+    if(!!this.state.currentUser && !!this.peer){    
       return (
         <div className='chat-ui'>
           <div className='list-users'>
