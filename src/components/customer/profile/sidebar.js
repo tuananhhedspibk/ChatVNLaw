@@ -13,7 +13,16 @@ class SideBar extends Component {
 						<p>{this.props.user.displayName}</p>
 					</div>
 					<div className="user-contact">
-						<p><span className="glyphicon glyphicon-envelope"></span> {this.props.user.email}</p>
+						<i className="fa fa-envelope-o" aria-hidden="true"></i><p>{this.props.user.email}</p>
+					</div>
+					<div className="user-contact">
+						<i className="fa fa-phone" aria-hidden="true"></i><p>0123456789</p>
+					</div>
+					<div className="user-contact">
+						<i className="fa fa-address-card-o" aria-hidden="true"></i>số 102 đường Đê La Thành, Hà Nội<p></p>
+					</div>
+					<div className="user-contact">
+						<i className="fa fa-credit-card" aria-hidden="true"></i><p>0 VNĐ</p>
 					</div>
 				</div>
 			</div>

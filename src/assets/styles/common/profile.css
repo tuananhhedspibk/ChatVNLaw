@@ -3,20 +3,31 @@
   background: white;
   height: 100%;
   color: #666666;
-  max-width: 200px;
-  box-shadow: 0px 0px 20px 0px #9E9E9E; }
+  width: 250px;
+  margin: 20px 0 0 10px; }
 
 .side-bar .user-name {
+  padding: 7px;
   font-size: 2em;
   text-align: center;
-  box-shadow: 0px 0px 20px 0px #757575; }
+  border-bottom: 0.9px solid #F5F5F5; }
 
 .side-bar .user-contact {
   width: 100%;
-  height: 60px;
   text-align: left;
   font-size: 1em;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+  padding: 10px;
+  border-bottom: 0.9px solid #F5F5F5; }
+
+.side-bar .user-contact i {
+  float: left;
+  margin-right: 8px;
+  display: inline-block; }
+
+.side-bar .user-contact p {
+  width: calc(100% -20px);
+  vertical-align: middle; }
 
 .profile-container {
   width: 100%;
@@ -46,8 +57,7 @@ body {
 .tab-content .tab-pane {
   margin: 40px 100px 40px 100px;
   padding-top: 30px;
-  padding-bottom: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+  padding-bottom: 30px; }
 
 .tab-content .tab-title h1 {
   text-align: center;

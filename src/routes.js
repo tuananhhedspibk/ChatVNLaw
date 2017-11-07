@@ -12,11 +12,12 @@ import CustomerProfile from './components/customer/profile/main'
 import SearchLaw from './components/search_law/layout'
 import NotFoundPage from './components/shared/notfound';
 import ApplyLawyer from './components/homepage/applyLawyer'
+import LawyerProfile from './components/lawyer/main'
 
 const Routes = props => (
   <Router {...props}>
     <Switch>
-      <Route path='/lawyers' component={UserDashBoard}/>
+      <Route path='/dashboard' component={UserDashBoard}/>
       <Route path='/chat/:user_name' component={ChatView}/>
       <Route path='/login' render = {(props) => (
         <UserLogin {...props} />
@@ -27,6 +28,7 @@ const Routes = props => (
       <Route path='/applylawyer/:uid' component={ApplyLawyer} />
       <Route path='/home' component={Home}/>
       <Route path='' component={Home} />
+      <Route path='/lawyers/:user_name' component={LawyerProfile}/>
       <Route path='/my-profile' component={CustomerProfile}/>
       <Route path='/search-law' component={SearchLaw} />
       <Route exact path='/' render={() => (

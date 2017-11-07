@@ -26,8 +26,11 @@ class Nav extends Component {
       $('.input-group:visible').hide();
       $('.search-link:hidden').show();
       $(this).css('display','none');
-      input_group.fadeIn(600);
+
       input_group.css('display','flex');
+      input_group.hide();
+      input_group.fadeIn(600);
+      input_group.show();
       $(input_group).children('input').css('width','200px');
     });
 
