@@ -1,7 +1,7 @@
 module.exports = {
   app: {
     identifier: {
-      app_name: 'VN Law',
+      app_name: 'VNLaw',
       language: 'Language',
       slogan: 'Always make an awesome support',
       vi: 'Vietnamese',
@@ -132,7 +132,10 @@ module.exports = {
         by_tag: 'Search by hastag',
         search_user_not_found: 'No users found',
         search_user_not_found_symbol: '=.="',
-        input_user_name: 'Please input user\'s name that you want to search'
+        input_user_name: 'Please input user\'s name that you want to search',
+        search_tag_not_found: 'No results found',
+        search_tag_not_found_symbol: '-_-"',
+        result_for: ' result(s) for '
       }
     },
     user: {
