@@ -55,13 +55,16 @@ class LawyerProfile extends Component {
 	render() {
 		return (
 			<div>
-				<Nav />
+				<Nav navStyle='inverse'/>
 				<div className="lawyer-profile-content">
+				<div className="row">
+				
 					<LeftBar user={this.state.user} />
 					<MainContent profile={this.state.profile}/>
 					<div className="bottom-side">
 						<BottomContent/>
 					</div>
+				</div>
 				</div>
 				<Footer />
 			</div>

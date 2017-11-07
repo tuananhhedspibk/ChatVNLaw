@@ -100,9 +100,15 @@
   background-image: none !important;
   transition: all .5s ease; }
 
+.nav-hidden {
+  display: none;
+  height: 0;
+  transition: height 0.6s; }
+
 .nav-inverse {
   border-bottom: 1px solid #c2cfd6;
-  padding: 0 !important; }
+  padding: 0 !important;
+  background-color: white; }
   .nav-inverse .headerNavListItem a {
     color: #000 !important; }
     .nav-inverse .headerNavListItem a:hover {

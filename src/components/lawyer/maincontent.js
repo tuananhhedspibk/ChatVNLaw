@@ -12,7 +12,6 @@ class MainContent extends Component {
 	componentDidMount(){
 		window.addEventListener('scroll',this.handleScroll);
 		this.handleScroll();
-		console.log(this.props.profile);
   	}
   	componentWillMount() {
   		console.log(this.props.profile);
