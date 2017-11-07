@@ -157,8 +157,10 @@ module.exports = {
       title: 'Chat',
       input_place_holder: 'Nhập tin nhắn ...',
       my_chat: 'Chat cá nhân',
+      todo_list: 'Danh sách công việc',
       shared_files: 'Tệp được chia sẻ',
-      shared_images: 'Ảnh được chia sẻ'
+      shared_images: 'Ảnh được chia sẻ',
+      rate: 'Đánh giá'
     },
     notfound: {
       content: {

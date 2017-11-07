@@ -9,17 +9,21 @@ export default {
       },
       children:[
         {
-          name: 'app.dashboard.file',
+          name: 'app.chat.shared_files',
           url: '/lawyers/files-shared'
         },
         {
-          name: 'app.dashboard.todo',
+          name: 'app.chat.todo_list',
           url: '/lawyers/todos'
+        },
+        {
+          name: 'app.chat.rate',
+          url: '/lawyers/rate'
         }
       ]
     },
     {
-      name: 'app.dashboard.todo_list',
+      name: 'app.chat.todo_list',
       url: '/lawyers/todolistlawyer',
       icon: 'icon-list',
       badge: {

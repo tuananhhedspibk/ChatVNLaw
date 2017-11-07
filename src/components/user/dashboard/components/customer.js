@@ -26,10 +26,10 @@ class Customer extends Component {
   }
 
   componentWillMount(){
+    console.log('mount')
     var component = this;
     this.props.emitter.emit('ReSendData', function(currentUser, targetUser, roomId){
-      component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})
-      console.log(roomId);      
+      component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})   
     });
     this.props.emitter.addListener('RoomChatHasChanged', function(currentUser, targetUser,roomId) {
       component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId})    
@@ -37,9 +37,12 @@ class Customer extends Component {
   }
 
   componentWillUpdate(nextProps, nextState){
+    console.log('update')
     var descrip = [];
     var component = this;
     if(component.state.currentRoomId != nextState.currentRoomId){
+      $('.info-descrip').css('display', 'block');
+      $('.edit-descrip').css('display', 'none');
       Files.closeRef();
       let properties ={};
       properties.component = component;
@@ -52,6 +55,15 @@ class Customer extends Component {
         })
       });
     }
+  }
+
+  componentDidMount(){
+    var component = this
+    firebase.database().ref(`rooms/${this.state.currentRoomId}/description`).once('value', (data) =>{
+      component.setState({
+        description: data.val()
+      })
+    });
   }
 
   renderAva(){
@@ -69,7 +81,6 @@ class Customer extends Component {
   handleInputChange(evt) {
     const target = evt.target;
     const value = target.value;
-    console.log(value)
     this.setState({
         description: value
     });
@@ -77,8 +88,6 @@ class Customer extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log(this.state.description);
-    console.log(this.state.currentRoomId);
     firebase.database().ref(`rooms/${this.state.currentRoomId}`).set({
         description: this.state.description
     });
@@ -115,15 +124,19 @@ class Customer extends Component {
               </div>
               <div className='edit-descrip'>
                 <form onSubmit={this.handleSubmit.bind(this)}>
-                    <textarea rows="3" cols="50"
-                      className="input-descrip"
+                    {/* <textarea rows="3" cols="50"
+                      className="input-descrip" id="input-descrip"
                       onChange={this.handleInputChange.bind(this)}
-                      value={this.state.description}></textarea>
+                      value={this.state.description}></textarea> */}
+                    <textarea rows="3" cols="50"
+                      className="input-descrip" id="input-descrip"
+                      onChange={this.handleInputChange.bind(this)}
+                      value="truong&#13;&#10;truong"></textarea>
                     <button type='submit'>{translate('app.dashboard.submit_des')}</button>
                 </form>
               </div>
               <div className="info-descrip">
-                <div className='text-descrip'>{this.state.description}</div>
+                <div className='text-descrip'>truong<br />truong</div>
                 <button onClick={this.handleEdit}>
                   {translate('app.dashboard.edit_des')}
                 </button>
