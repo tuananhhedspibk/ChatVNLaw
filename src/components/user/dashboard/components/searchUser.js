@@ -96,7 +96,7 @@ class SearchUser extends Component {
 
   render(){
     return (
-      <div className='search-user'>
+      <div className='search-user search-feature'>
         <form className='form-search'
           onSubmit={this.handleSubmit.bind(this)}>
             <input type='text' placeholder={translate('app.dashboard.search.input_user_name')}

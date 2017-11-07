@@ -227,6 +227,7 @@
   border-top-left-radius: 5px !important;
   border-top-right-radius: 5px !important;
   color: #fff;
+  cursor: pointer;
   font-size: 1.2em !important;
   position: relative;
   text-align: left !important;
@@ -256,10 +257,11 @@
   #todo-list-ul li {
     cursor: pointer;
     position: relative;
-    padding: 12px 8px 12px 40px;
+    padding: 12px 35px 12px 40px;
     background: #eee;
     font-size: 1.1em;
     transition: 0.2s;
+    word-wrap: break-word;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -302,13 +304,16 @@
 .my-work-with h2 {
   font-size: 1.5em; }
 
-.my-work-with #todo-list-ul li:first-child {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px; }
-
-.my-work-with #todo-list-ul li:last-child {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px; }
+.my-work-with #todo-list-ul {
+  word-wrap: break-word; }
+  .my-work-with #todo-list-ul li {
+    padding-right: 35px; }
+  .my-work-with #todo-list-ul li:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px; }
+  .my-work-with #todo-list-ul li:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; }
 
 .my-work-with .add-todo-list-form {
   margin-top: 15px; }
@@ -330,6 +335,61 @@
     .my-work-with .add-todo-list-form .add-btn:focus {
       background-color: #0974b8;
       outline: none; }
+
+.search-feature .form-search {
+  width: 100%; }
+  .search-feature .form-search input {
+    border: 1px solid #e5ecf0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 1.1em;
+    height: 42px;
+    padding: 15px;
+    width: calc(100% - 112px); }
+    .search-feature .form-search input:focus {
+      outline: 0; }
+  .search-feature .form-search button {
+    background-color: #2385f2;
+    border: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 9px 20px 11px; }
+    .search-feature .form-search button:focus {
+      background-color: #0974b8;
+      outline: 0; }
+
+.search-tag .search-results {
+  height: calc(100vh - 233.5px);
+  padding: 15px 0; }
+  .search-tag .search-results .chats {
+    background-color: #f6f6f6;
+    border-radius: 5px;
+    margin-top: 15px;
+    overflow-y: scroll;
+    padding: 15px; }
+
+.search-tag .results-statistic {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 15px; }
+
+.search-tag .direction-btn {
+  background-color: transparent;
+  border: 0;
+  color: #2385f2;
+  cursor: pointer;
+  font-size: 1.1em; }
+  .search-tag .direction-btn:focus {
+    color: #0974b8;
+    outline: 0; }
+
+.search-tag .statistic-content {
+  display: inline-block;
+  font-size: 1.1em;
+  margin-left: 10px; }
 
 .search-user {
   width: 100%; }
@@ -360,30 +420,6 @@
       display: inline-block;
       font-size: 1.1em;
       margin-left: 15px; }
-  .search-user .form-search {
-    width: 100%; }
-    .search-user .form-search input {
-      border: 1px solid #e5ecf0;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-      font-size: 1.1em;
-      height: 42px;
-      padding: 15px;
-      width: calc(100% - 112px); }
-      .search-user .form-search input:focus {
-        outline: 0; }
-    .search-user .form-search button {
-      background-color: #2385f2;
-      border: 0;
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 1.1em;
-      padding: 9px 20px 11px; }
-      .search-user .form-search button:focus {
-        background-color: #0974b8;
-        outline: 0; }
 
 .app-header.navbar .dropdown-menu {
   background-color: #fff; }

@@ -326,6 +326,7 @@
   border-top-left-radius: 5px !important;
   border-top-right-radius: 5px !important;
   color: $white;
+  cursor: pointer;
   font-size: 1.2em !important;
   position: relative;
   text-align: left !important;
@@ -365,10 +366,11 @@
   li{
     cursor: pointer;
     position: relative;
-    padding: 12px 8px 12px 40px;
+    padding: 12px 35px 12px 40px;
     background: $gray-medium-lighter;
     font-size: 1.1em;
     transition: 0.2s;
+    word-wrap: break-word;
   
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -431,6 +433,12 @@
   }
 
   #todo-list-ul {
+    word-wrap: break-word;
+
+    li {
+      padding-right: 35px;
+    }
+
     li:first-child {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
@@ -467,6 +475,82 @@
         outline: none;
       }
     }
+  }
+}
+
+.search-feature {
+  .form-search {
+    width: 100%;
+
+    input {
+      border: 1px solid $gray-lighter;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      font-size: 1.1em;
+      height: 42px;
+      padding: 15px;
+      width: calc(100% - 112px);
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    button {
+      background-color: $blue;
+      border: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      color: $white;
+      cursor: pointer;
+      font-size: 1.1em;
+      padding: 9px 20px 11px;
+
+      &:focus {
+        background-color: $blue-darker;
+        outline: 0;
+      }
+    }
+  }
+}
+
+.search-tag {
+  .search-results {
+    height: calc(100vh - 233.5px);
+    padding: 15px 0;
+
+    .chats {
+      background-color: $gray-more-lighter;
+      border-radius: 5px;
+      margin-top: 15px;
+      overflow-y: scroll;
+      padding: 15px;
+    }
+  }
+
+  .results-statistic {
+    background-color: $gray-much-lighter;
+    border-radius: 5px;
+    padding: 15px;
+  }
+
+  .direction-btn {
+    background-color: transparent;
+    border: 0;
+    color: $blue;
+    cursor: pointer;
+    font-size: 1.1em;
+
+    &:focus {
+      color: $blue-darker;
+      outline: 0;
+    }
+  }
+
+  .statistic-content {
+    display: inline-block;
+    font-size: 1.1em;
+    margin-left: 10px;
   }
 }
 
@@ -509,40 +593,6 @@
         display: inline-block;
         font-size: 1.1em;
         margin-left: 15px;
-      }
-    }
-  }
-
-  .form-search {
-    width: 100%;
-
-    input {
-      border: 1px solid $gray-lighter;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-      font-size: 1.1em;
-      height: 42px;
-      padding: 15px;
-      width: calc(100% - 112px);
-
-      &:focus {
-        outline: 0;
-      }
-    }
-
-    button {
-      background-color: $blue;
-      border: 0;
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      color: $white;
-      cursor: pointer;
-      font-size: 1.1em;
-      padding: 9px 20px 11px;
-
-      &:focus {
-        background-color: $blue-darker;
-        outline: 0;
       }
     }
   }
