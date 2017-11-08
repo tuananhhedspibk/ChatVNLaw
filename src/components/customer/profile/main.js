@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 
 import Nav from '../../homepage/nav';
 import Footer from '../../homepage/footer';
-import SideBar from './sidebar';
-import BasicInfor from './basicinfor';
-import ChatHistory from './chathistory';
+import LawyerProfile from './lawyersprof';
+import UserProfile from './userprof';
 import FeedBackHistory from './feedbackhistory';
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'
@@ -13,55 +12,67 @@ import '../../../assets/styles/common/profile.css';
 
 import $ from 'jquery'
 import * as constant from '../../constants';
-global.jQuery = $;
+
+
 const firebase = require('firebase');
 
-var user;
-
 class CustomerProfile extends Component {
+	
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	      currentUser: ''
-	    }
-	  }
-
-	componentWillMount() {
-	
-		var component = this;
+	      lawyer: null,
+	      user: null,
+	      uid: null
+	    };
+	    this.handleUpdateUser = this.handleUpdateUser.bind(this);
+  	}
+  	componentWillMount() {
+  		var component = this;
+		if(!firebase.apps.length){
+      		firebase.initializeApp(constant.APP_CONFIG);
+    	}
 	    firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
-			// User is signed in.
-				component.setState({currentUser: user});
+				component.setState({uid: user.uid});
+				component.renderProfileView(user.uid);
 			} else {
 				window.location = constant.BASE_URL + constant.SIGN_IN_URI
 			}
 		});
-	 }
-
-  	componentDidUpdate(){
   	}
-	render() {
-		if(this.state.currentUser){
 
-		    return (
-				<div>
-					<Nav />
-					<div className="profile-container">
-						<SideBar user={this.state.currentUser} />
-						 <div className="profile-information">
-							<BasicInfor  user={this.state.currentUser} />
-							<ChatHistory />
-							<FeedBackHistory/>
-						</div>
-					</div>
-				</div>
+  	handleUpdateUser(name, newValue) {
+	  		var update = {}
+	  		update['/users/' + this.state.uid+'/'+name] = newValue
+	  		console.log(update)
+	  		firebase.database().ref().update(update);
+  	}
+  	renderProfileView(uid) {
+    	var component = this;
+  		firebase.database().ref(`users/${uid}`).once('value',function(snapshotUser) {
+			if(snapshotUser.val().role == 'lawyer') {
+				firebase.database().ref(`lawyers/${uid}`).once('value',function(snapshot) {
+    			component.setState({lawyer: snapshot.val()})
+    			component.setState({user: snapshotUser.val()});
+    			})
+			}
+    		else {
+    			component.setState({user: snapshotUser.val()});
+    		}
+	    })
+  	}
+
+	render() {
+	    return (
+			<div>
+				<Nav  navStyle='inverse'/>
+					{	this.state.user != null &&
+							(this.state.lawyer != null ? (<LawyerProfile lawyer={this.state.lawyer} user={this.state.user}/>) 
+						: (<UserProfile user={this.state.user} handleUpdate= {this.handleUpdateUser}/>))
+					}
+			</div>
 		);
-		} else{
-			return (
-				<div></div>
-			)
-		}
 	}
 }
 

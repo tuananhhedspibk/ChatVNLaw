@@ -1,61 +1,14 @@
-.side-bar {
+.my-profile .editer-inline .form-group {
+  padding-left: 5px;
+  display: inline-block; }
+  .my-profile .editer-inline .form-group input {
+    border: none;
+    border-bottom: 1px solid #6298f7 !important;
+    border-radius: 0; }
+
+.my-profile .editer-inline button {
   display: inline-block;
-  background: white;
-  height: 100%;
-  color: #666666;
-  max-width: 200px;
-  box-shadow: 0px 0px 20px 0px #9E9E9E; }
-
-.side-bar .user-name {
-  font-size: 2em;
-  text-align: center;
-  box-shadow: 0px 0px 20px 0px #757575; }
-
-.side-bar .user-contact {
-  width: 100%;
-  height: 60px;
-  text-align: left;
-  font-size: 1em;
-  word-wrap: break-word; }
-
-.profile-container {
-  width: 100%;
-  padding: 20px;
-  border: none;
-  background-color: #F5F5F5; }
-
-body {
-  background-color: white; }
-
-.tab-content {
-  margin-left: 200px;
-  border: none;
-  padding-top: 30px; }
-
-.side-bar .user-avatar {
-  width: 100%; }
-
-.side-bar .user-avatar > img {
-  width: 100%; }
-
-.side-bar .user-avatar > p {
-  margin-top: 20px;
-  /*font-size: 1.7em;*/
-  font-weight: 900; }
-
-.tab-content .tab-pane {
-  margin: 40px 100px 40px 100px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
-
-.tab-content .tab-title h1 {
-  text-align: center;
-  color: #0D47A1;
-  font-weight: 600;
-  font-family: 'Open Sans', Helvetica, sans-serif; }
-
-.tab-content .user-detail {
-  margin-left: 10%;
-  margin-top: 40px;
-  /*font-size: 1.6em;*/ }
+  background: none;
+  border: none; }
+  .my-profile .editer-inline button i {
+    color: #6298f7; }

@@ -22,12 +22,14 @@ class Nav extends Component {
   componentDidMount() {
     $('.search-link').on('click',function(){
       var input_group = $(this).next();
-      $('.input-group:visible').children('input').css('width','10px');
       $('.input-group:visible').hide();
+      $('.input-group:visible').children('input').css('width','10px');
       $('.search-link:hidden').show();
-      $(this).css('display','none');
-      input_group.fadeIn(600);
+
+      $(this).hide();
       input_group.css('display','flex');
+      input_group.hide();
+      input_group.show();
       $(input_group).children('input').css('width','200px');
     });
 
