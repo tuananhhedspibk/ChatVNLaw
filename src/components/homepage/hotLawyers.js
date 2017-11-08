@@ -26,6 +26,42 @@ class HotLawyers extends Component {
     this.setState({currentLawyer: lawyer});
   }
 
+  applyLawyer(){
+    window.location = constant.BASE_URL + '/applylawyer/' + this.state.currentLawyer.uid;
+  }
+
+  renderInfoLawyer(){
+    if(!!this.state.currentLawyer){
+      return (
+        <div className='lawyer-overview'>
+          <div className='title'>
+            {translate('app.home.recent_lawyer.lawyer_overview')}
+          </div>
+          <div className='content'>
+            <div className='name'>
+              {this.state.currentLawyer.displayName}
+            </div>
+            <div className='overview-infor'>
+              <div>
+                <i className='fa fa-money' aria-hidden='true'></i>
+                {this.state.currentLawyer.Price} / {translate('app.home.recent_lawyer.hour')}
+              </div>
+              <div>
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div className='description'>
+              {this.state.currentLawyer.Intro}
+            </div>
+            <button className='apply-btn' onClick={this.applyLawyer.bind(this)}>
+              {translate('app.home.recent_lawyer.apply')}
+            </button>
+          </div>
+        </div>
+      )
+    }
+  }
+
   render() {
     return(
       <div className='hot-lawyers'>
@@ -53,33 +89,7 @@ class HotLawyers extends Component {
           </div>
           <a href='/attroney' className='list-all-lawyers'>{translate('app.home.recent_lawyer.show_all')}</a>
         </div>
-        <div className='lawyer-overview'>
-          <div className='title'>
-            {translate('app.home.recent_lawyer.lawyer_overview')}
-          </div>
-          <div className='content'>
-            <div className='name'>
-              {this.state.currentLawyer.displayName}
-            </div>
-            <div className='overview-infor'>
-              <div>
-                <i className='fa fa-money' aria-hidden='true'></i>
-                $ 10 / {translate('app.home.recent_lawyer.hour')}
-              </div>
-              <div>
-                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-              </div>
-            </div>
-            <div className='description'>
-              Proin ligula neque, pretium et ipsum eget,
-              mattis commodo dolor.
-              Etiam tincidunt libero quis commodo.
-            </div>
-            <button className='apply-btn'>
-              {translate('app.home.recent_lawyer.apply')}
-            </button>
-          </div>
-        </div>
+        {this.renderInfoLawyer()}
       </div>
     )
   }

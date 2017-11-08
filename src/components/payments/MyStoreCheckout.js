@@ -6,10 +6,15 @@ import {Elements} from 'react-stripe-elements';
 import CheckoutForm from './CheckoutForm';
 
 class MyStoreCheckout extends React.Component {
+
+    constructor(props){
+      super(props);
+    }
+
     render() {
       return (
         <Elements>
-          <CheckoutForm />
+          <CheckoutForm info={this.props.info}/>
         </Elements>
       );
     }

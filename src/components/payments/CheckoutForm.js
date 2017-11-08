@@ -7,6 +7,11 @@ import {injectStripe} from 'react-stripe-elements';
 import CardSection from './CardSection';
 
 class CheckoutForm extends React.Component {
+
+    constructor(props){
+      super(props);
+    }
+
     handleSubmit = (ev) => {
       // We don't want to let default form submission happen here, which would refresh the page.
       ev.preventDefault();
@@ -24,7 +29,7 @@ class CheckoutForm extends React.Component {
     render() {
       return (
         <form onSubmit={this.handleSubmit}>
-          <CardSection />
+          <CardSection info={this.props.info}/>
         </form>
       );
     }

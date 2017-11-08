@@ -8,12 +8,17 @@ const userInfo = require('../../lib/helper/user/get_user_info')
 const firebase = require('firebase');
 
 class CardSection extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
   handleSubmit = ev => {
     ev.preventDefault();
     this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
       if(typeof(token) === "object"){
         userInfo.getUserName(firebase.auth().currentUser,function(result){
-        window.location = constant.BASE_URL + '/chat/' + result;
+        // window.location = constant.BASE_URL + '/chat/' + result;
+        console.log(this.props.info)
         })
       }
     });

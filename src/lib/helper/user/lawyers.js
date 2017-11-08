@@ -12,11 +12,13 @@ function getLawyerList(properties, callback){
   ref.once('value').then( snapshot => {
     if(!snapshot.exists()){
       return callback();
-    }else{
+    }
+    else{
       var arr = [];
       var key = Object.keys(snapshot.val());
       for(var i in snapshot.val()){
         let item = {
+          uid: i,
           photoURL: snapshot.val()[i].photoURL,
           displayName: snapshot.val()[i].displayName,
         }
