@@ -328,3 +328,32 @@ body {
     float: left;
   }
 }
+.logo-app {
+  background-color: #43A3DF;
+  height: 100vh;
+  width: 100%;
+  .logo-section {
+    text-align: center;   
+    width: 100%;
+    height: 50%;
+    position: relative;    
+  }
+
+  .loading-section {
+    width: 100%;
+    height: 50%;
+    display: inline-block;
+    div {
+      margin: 0 auto;
+    }
+  }
+
+  img {
+    width: 250px;
+    height: 250px;
+    bottom: 0px;
+    position: absolute;
+    margin-left: -125px;
+    margin-block-end: -70px;        
+  }
+}

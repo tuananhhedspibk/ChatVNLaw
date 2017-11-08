@@ -3,7 +3,7 @@ import { List, Image, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 import {Route, Switch} from 'react-router-dom';
-import ReactLoading from 'react-loading';
+import Loading from '../shared/loading';
 
 import Chat from '../user/chat';
 import * as constant from '../constants';
@@ -212,9 +212,7 @@ class ChatView extends Component {
       )
     }else{
       return(
-        <div>
-          <ReactLoading type='cylon' color='#337ab7' height='150' width='150'/>
-        </div>
+        <Loading />
       )
     }
     
