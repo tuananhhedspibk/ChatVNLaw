@@ -21,8 +21,7 @@ class LawyerProfile extends Component {
   	}
   	getUserProfile(key) {
 		var component = this;
-  		firebase.database().ref('lawyers').orderByKey().equalTo(key).once('child_added')
-	    		.then(function(snapshot) {
+  		firebase.database().ref(`lawyers/${key}`).once('value',function(snapshot) {
 	    			component.setState({profile : snapshot.val()});
 	    		})
   	}

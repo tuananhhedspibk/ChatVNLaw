@@ -1,71 +1,14 @@
-.side-bar {
-  display: inline-block;
-  background: white;
-  height: 100%;
-  color: #666666;
-  width: 250px;
-  margin: 20px 0 0 10px; }
-
-.side-bar .user-name {
-  padding: 7px;
-  font-size: 2em;
-  text-align: center;
-  border-bottom: 0.9px solid #F5F5F5; }
-
-.side-bar .user-contact {
-  width: 100%;
-  text-align: left;
-  font-size: 1em;
-  word-wrap: break-word;
-  padding: 10px;
-  border-bottom: 0.9px solid #F5F5F5; }
-
-.side-bar .user-contact i {
-  float: left;
-  margin-right: 8px;
+.my-profile .editer-inline .form-group {
+  padding-left: 5px;
   display: inline-block; }
+  .my-profile .editer-inline .form-group input {
+    border: none;
+    border-bottom: 1px solid #6298f7 !important;
+    border-radius: 0; }
 
-.side-bar .user-contact p {
-  width: calc(100% -20px);
-  vertical-align: middle; }
-
-.profile-container {
-  width: 100%;
-  padding: 20px;
-  border: none;
-  background-color: #F5F5F5; }
-
-body {
-  background-color: white; }
-
-.tab-content {
-  margin-left: 200px;
-  border: none;
-  padding-top: 30px; }
-
-.side-bar .user-avatar {
-  width: 100%; }
-
-.side-bar .user-avatar > img {
-  width: 100%; }
-
-.side-bar .user-avatar > p {
-  margin-top: 20px;
-  /*font-size: 1.7em;*/
-  font-weight: 900; }
-
-.tab-content .tab-pane {
-  margin: 40px 100px 40px 100px;
-  padding-top: 30px;
-  padding-bottom: 30px; }
-
-.tab-content .tab-title h1 {
-  text-align: center;
-  color: #0D47A1;
-  font-weight: 600;
-  font-family: 'Open Sans', Helvetica, sans-serif; }
-
-.tab-content .user-detail {
-  margin-left: 10%;
-  margin-top: 40px;
-  /*font-size: 1.6em;*/ }
+.my-profile .editer-inline button {
+  display: inline-block;
+  background: none;
+  border: none; }
+  .my-profile .editer-inline button i {
+    color: #6298f7; }

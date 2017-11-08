@@ -19,8 +19,8 @@ class App extends Component {
 			$('.nav-hidden').height($('.find').offset().top);
 		}
 		else {
+			$('.nav-hidden').fadeOut(200);
 			$('.nav-hidden').height(0);
-			$('.nav-hidden').fadeOut();
 		}
 	}
   render() {
