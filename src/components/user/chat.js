@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
-
 import * as RoomInfo from '../../lib/helper/room/get_room_info';
 import ChatSetting from '../chat/chatsetting';
 import * as Files from '../../lib/helper/upfile/files';
@@ -11,6 +10,8 @@ import * as constant from '../constants';
 import * as fileHelper from '../../lib/helper/upfile_helper';
 import * as im from '../../lib/helper/messages';
 import * as Messages from '../../lib/helper/messages/messages';
+import * as VideoCall from '../../lib/helper/streaming/listen_event_from_database';
+import AlertContainer from 'react-alert';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
@@ -28,10 +29,11 @@ class Chat extends Component {
       targetUser: null,
       currentUser: null
     };
+    this.peer=null;
   }
 
   componentWillMount() { 
-    var component = this;
+    this.peer = this.props.peer;
     this.setState({targetUser: this.props.targetUser,
       currentUser: this.props.currentUser});
   }
@@ -54,12 +56,17 @@ class Chat extends Component {
       properties['component'] = this;
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
+      properties['peer'] = this.peer;
       Messages.history(properties, function(){
         component.autoScrollBottom();
       });
       Messages.streamingMessage(properties, function(){
         component.autoScrollBottom();        
       })
+    
+      VideoCall.closeRef();
+      VideoCall.closeStream();
+      VideoCall.listenFromVideoCall(properties, () =>{})
       var fileButton = document.getElementById('upfile');
       fileButton.addEventListener('change', function(e){
         e.preventDefault();
@@ -205,25 +212,26 @@ class Chat extends Component {
 
   endCall(){
     $('.video-call').hide();
-    let ref = firebase.database()
-      .ref(`rooms/${this.state.currentRoomId}/video_call/end`).push()
-    ref.set({
-      end: true
+    var properties = {}
+    properties['rid'] = this.state.currentRoomId;
+    videoCall.endCall(properties, ()=>{
+
     })
-    ref.remove();
   }
 
   makeCallRequest(){
     let properties = {};
+    var component = this;
     properties['rid'] = this.state.currentRoomId;
     properties['uid'] = this.state.currentUser.uid;
     videoCall.checkRequest(properties, function(issuccess){
       if(issuccess){
         alert('already been used');
       }else{
-        this.renderVideo();        
         videoCall.createRequest(properties,function(issuccess){
-          
+          if(issuccess){
+            component.renderVideo();
+          }
         });
       }
     });
@@ -245,9 +253,17 @@ class Chat extends Component {
       )
     }
   } 
+  showAlert = (text) => {
+    this.msg.show(text, {
+      time: 5000,
+      type: 'success',
+      icon: <img alt='warning' src={constant.warningPic} />
+    })
+  }
   render() {
     return(
       <div className={'chat-window ' + 'item_'+this.state.targetUser.uid} id='chat-window' >
+        <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>        
         <div className='video-call'>
           <video className='video'
             id='localStream' autoPlay></video>
@@ -298,8 +314,7 @@ class Chat extends Component {
         <ChatSetting 
           currentRoomId={this.state.currentRoomId}
           currentUser={this.props.currentUser}
-          targetUser={this.props.targetUser}
-          peer={this.props.peer}/> 
+          targetUser={this.props.targetUser}/> 
       </div>
     )
   }

@@ -22,6 +22,7 @@ let logohome = require('../assets/images/logo.png');
 let findLogo = require('../assets/images/home_pic_1.png');
 let scheduleLogo = require('../assets/images/home_pic_2.png');
 let connectLogo = require('../assets/images/home_pic_3.png');
+let appLogo = require('../assets/images/app_logo.png');
 
 let alertOptions = {
   offset: 14,
@@ -57,3 +58,4 @@ export const logoPic = logo;
 export const connectLogoPic = connectLogo;
 export const findLogoPic = findLogo;
 export const scheduleLogoPic = scheduleLogo;
+export const appLogoPic = appLogo;

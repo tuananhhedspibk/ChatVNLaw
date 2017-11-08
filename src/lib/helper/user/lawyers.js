@@ -84,34 +84,43 @@ function findLawyers(properties, callback){
                   resolve();
                 }
               })
+            }else{
+              if(!(input.indexOf(" ") > 0)){
+                
+                resolve();
+              }
             }
           })
         }
       }).then(() => {
-        var tmp = result;
-        result = []
-        var valueArr = tmp.map(function(item){ return item._id });
-        valueArr.forEach(function(item, idx){ 
-          if(!(valueArr.indexOf(item) != idx )){
-            result.push(tmp[idx]);            
-          }
-        });
-        valueArr = result.map(function(item){ return item._id });
-        
-        new Promise ((resolve) =>{
-          result.forEach((item,idx) =>{
-            firebase.database().ref(`users/${item._id}/photoURL`).once('value', data =>{
-              result[idx]['photoURL'] = data.val();
-              if(idx === result.length -1){
-                resolve();
-              }
+        if(result.length > 0){
+          var tmp = result;
+          result = []
+          var valueArr = tmp.map(function(item){ return item._id });
+          valueArr.forEach(function(item, idx){ 
+            if(!(valueArr.indexOf(item) != idx )){
+              result.push(tmp[idx]);            
+            }
+          });
+          valueArr = result.map(function(item){ return item._id });
+          
+          new Promise ((resolve) =>{
+            result.forEach((item,idx) =>{
+              firebase.database().ref(`users/${item._id}/photoURL`).once('value', data =>{
+                result[idx]['photoURL'] = data.val();
+                if(idx === result.length -1){
+                  resolve();
+                }
+              })
+              
             })
-            
+          }).then(()=>{
+            console.log(result);
+            component.setState({isLoading: false,findOther:true,result: result}); 
           })
-        }).then(()=>{
-          console.log(result);
-          component.setState({isLoading: false,findOther:true,result: result}); 
-        })
+        }else{
+          component.setState({isLoading: false,findOther:true,result: result});           
+        }
       })
     }
   })

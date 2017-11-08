@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, TextArea, Button, Image,
   Modal, Dropdown } from 'semantic-ui-react';
-import AlertContainer from 'react-alert';
-
+import $ from 'jquery';
+  
 import '../../assets/styles/common/chatSetting.css';
 import * as constant from '../constants';
 import * as Files from '../../lib/helper/upfile/files';
-
 const translate = require('counterpart');
 const firebase = require('firebase');
-const $ = require('jquery');
 var upfileStyle = {
   display: 'none'
 }
@@ -55,14 +53,9 @@ class ChatSetting extends Component {
       files: [],
       modalOpen: false
     };
-    this.peer = '';
   }
 
   componentWillMount() {
-    if(!(!!this.props.peer)){
-      window.location = constant.BASE_URL+ '/chat/' + this.state.targetUser.username
-    }
-    this.peer = this.props.peer;
     this.setState({currentRoomId : this.props.currentRoomId,
       targetUser: this.props.targetUser,
       currentUser: this.props.currentUser})
@@ -138,18 +131,6 @@ class ChatSetting extends Component {
     })
   }
 
-  logout() {
-    
-  }
-
-  showAlert = (text) => {
-    this.msg.show(text, {
-      time: 5000,
-      type: 'success',
-      icon: <img alt='warning' src={constant.warningPic} />
-    })
-  }
-
   handleOpenModal() {
     this.setState({modalOpen: true});
   }
@@ -216,8 +197,6 @@ class ChatSetting extends Component {
   render() {
     return(
       <div className='chat-setting'>
-        <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>        
-
         <div className='header'>
           <div className='ava'>
             {this.renderAva()}
