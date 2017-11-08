@@ -25,17 +25,16 @@ const Routes = props => (
       <Route path='/signup' component={UserSignUp}/>
       <Route path='/attorney' component={Attorney}/>
       <Route path='/payment' component={Payment} />
-      <Route path='/applylawyer/:uid' component={ApplyLawyer} />
       <Route path='/home' component={Home}/>
-      <Route path='' component={Home} />
-      <Route path='/lawyers/:user_name' component={LawyerProfile}/>
       <Route path='/my-profile' component={CustomerProfile}/>
       <Route path='/search-law' component={SearchLaw} />
+      <Route path='/lawyers/:user_name' component={LawyerProfile}/>
       <Route exact path='/' render={() => (
         <Redirect to='/home'/>
       )}/>
       <Route path='*' component={NotFoundPage}/>
       <Route path='' component={Home}/>
+
     </Switch>
   </Router>
 );
