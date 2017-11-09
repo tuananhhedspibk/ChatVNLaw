@@ -22,12 +22,14 @@ class Nav extends Component {
   componentDidMount() {
     $('.search-link').on('click',function(){
       var input_group = $(this).next();
-      $('.input-group:visible').children('input').css('width','10px');
       $('.input-group:visible').hide();
+      $('.input-group:visible').children('input').css('width','10px');
       $('.search-link:hidden').show();
-      $(this).css('display','none');
-      input_group.fadeIn(600);
+
+      $(this).hide();
       input_group.css('display','flex');
+      input_group.hide();
+      input_group.show();
       $(input_group).children('input').css('width','200px');
     });
 
@@ -84,7 +86,7 @@ class Nav extends Component {
               {this.state.currentUser.displayName}
             </button>
             <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
-              <li><a href='#'>{translate('app.nav.setting')}</a></li>
+              <li><a href={constant.BASE_URL+constant.PROFILE_URI}>{translate('app.nav.setting')}</a></li>
               <li>
                 <a className='headerNavListLink'
                   onClick={this.logout}>{translate('app.nav.sign_out')}

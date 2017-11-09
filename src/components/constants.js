@@ -6,6 +6,7 @@ export const SIGN_IN_URI = '/login';
 export const SIGN_UP_URI = '/signup';
 export const CHAT_URI = '/chat';
 export const SEARCH_LAW_URI = '/search-law';
+export const PROFILE_URI = '/my-profile';
 
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const API_SEARCH_URI = '/searches';
@@ -23,6 +24,7 @@ let findLogo = require('../assets/images/home_pic_1.png');
 let scheduleLogo = require('../assets/images/home_pic_2.png');
 let connectLogo = require('../assets/images/home_pic_3.png');
 let appLogo = require('../assets/images/app_logo.png');
+let chatBanner = require('../assets/images/onlinechaticon.png')
 
 let alertOptions = {
   offset: 14,
@@ -59,3 +61,4 @@ export const connectLogoPic = connectLogo;
 export const findLogoPic = findLogo;
 export const scheduleLogoPic = scheduleLogo;
 export const appLogoPic = appLogo;
+export const chatBannerPic = chatBanner;
