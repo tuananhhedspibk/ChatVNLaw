@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "autosize": "^4.0.0",
     "axios": "^0.16.2",
     "bootstrap": "4.0.0-beta",
     "browserify": "^14.4.0",

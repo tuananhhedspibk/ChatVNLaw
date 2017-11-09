@@ -1,0 +1,93 @@
+.header-nav {
+	border-radius: 0px !important;
+}
+
+.navbar > ul {
+	display: inline-block;
+	float: right;
+}
+
+.navbar-default {
+	height: 80px;
+	display: block !important;
+	background-color: #fff !important;
+	background-image: none !important;
+	border-radius: 0px !important;
+	margin: 0px;
+}
+
+.navbar-default .navbar-nav>li input {
+	width: 10px;
+	transition: width 1s;
+	border-radius: 15px 0px 0px 15px;
+}
+
+.navbar-default .navbar-nav > li button {
+	float: right;
+	height: 34px;
+}
+
+.navbar-default .navbar-nav > li .remove-btn {
+	border-radius: 0px 15px 15px 0px
+}
+
+.navbar-default .navbar-nav > li {
+	margin-right: 40px;
+}
+
+.navbar-default .navbar-nav > li .input-group {
+	display: none;
+	padding-top: 10px;
+	padding-right: 40px;
+}
+
+.navbar-default .navbar-nav > li .input-group-btn {
+	display: flex;
+}
+
+.headerNavListItem a {
+	font-size: .8em !important;
+	font-family: 'Open Sans', Helvetica, sans-serif !important;
+  color: #337ab7 !important;
+  cursor: pointer;
+}
+
+.headerNavListItem a:hover {
+	color: #0870B0 !important;
+}
+
+.navbar a {
+  cursor: pointer;
+  font-family: 'Bree Serif', serif;
+  font-size: 1.5em;
+}
+
+.navbar-header {
+  padding-left: 30px;
+}
+
+.dropdown .btn {
+  background-color: transparent;
+  color: #337ab7 !important;
+  font-size: .8em;
+  font-weight: bold;
+  margin-top: 8px;
+  outline: 0 !important;
+}
+
+.navbar-nav .dropdown-menu {
+  padding: 0 !important;
+  position: absolute !important;
+  top: 40px;
+}
+
+.navbar-nav .dropdown-menu  a {
+  color: #337ab7 !important;
+  font-size: 1.2em !important;
+  padding: 15px !important;
+}
+
+.dropdown-menu > li > a:hover {
+  background-image: none !important;
+  color: #288AC5 !important;
+}

@@ -8,15 +8,16 @@ import ChatView from './components/chat/chatview';
 import Home from './components/homepage/home';
 import Attorney from './components/attorney/Attorney';
 import Payment from './components/payments/payMent';
-import CustomerProfile from './components/customer/profile/main'
+import CustomerProfile from './components/user/profile/main'
 import SearchLaw from './components/search_law/layout'
 import NotFoundPage from './components/shared/notfound';
 import ApplyLawyer from './components/homepage/applyLawyer'
+import LawyerProfile from './components/lawyer/main'
 
 const Routes = props => (
   <Router {...props}>
     <Switch>
-      <Route path='/lawyers' component={UserDashBoard}/>
+      <Route path='/dashboard' component={UserDashBoard}/>
       <Route path='/chat/:user_name' component={ChatView}/>
       <Route path='/login' render = {(props) => (
         <UserLogin {...props} />
@@ -24,16 +25,16 @@ const Routes = props => (
       <Route path='/signup' component={UserSignUp}/>
       <Route path='/attorney' component={Attorney}/>
       <Route path='/payment' component={Payment} />
-      <Route path='/applylawyer/:uid' component={ApplyLawyer} />
       <Route path='/home' component={Home}/>
-      <Route path='' component={Home} />
       <Route path='/my-profile' component={CustomerProfile}/>
       <Route path='/search-law' component={SearchLaw} />
+      <Route path='/lawyers/:user_name' component={LawyerProfile}/>
       <Route exact path='/' render={() => (
         <Redirect to='/home'/>
       )}/>
       <Route path='*' component={NotFoundPage}/>
       <Route path='' component={Home}/>
+
     </Switch>
   </Router>
 );
