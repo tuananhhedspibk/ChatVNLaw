@@ -139,6 +139,9 @@
 				    border-bottom: 14px solid transparent;
 				    content: " ";
 				}
+				.timeline-content {
+					white-space: pre-line;
+				}
 				li {
 					margin-bottom: 7px;
 					font-size: 16px;

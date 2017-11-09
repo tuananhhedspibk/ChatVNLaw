@@ -8,7 +8,7 @@ import ChatView from './components/chat/chatview';
 import Home from './components/homepage/home';
 import Attorney from './components/attorney/Attorney';
 import Payment from './components/payments/payMent';
-import CustomerProfile from './components/customer/profile/main'
+import CustomerProfile from './components/user/profile/main'
 import SearchLaw from './components/search_law/layout'
 import NotFoundPage from './components/shared/notfound';
 import ApplyLawyer from './components/homepage/applyLawyer'

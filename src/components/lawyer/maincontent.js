@@ -67,17 +67,17 @@ class MainContent extends Component {
 			          			<li className="col-md-12"><span>
                                     <i className="fa fa-anchor" aria-hidden="true"></i> <b>Lĩnh vực chuyên môn:</b> {this.convertText(this.props.profile.category)}</span>
                                 </li>
-                                <li className="col-md-12"><span><i className="fa fa-birthday-cake" aria-hidden="true"></i> <b>Ngày sinh</b>: {this.convertText(this.props.profile.birth)}</span>
+                                <li className="col-md-12"><span><i className="fa fa-birthday-cake" aria-hidden="true"></i> <b>Ngày sinh</b>: {this.convertText(this.props.profile.birthday)}</span>
                                 </li>
                                 <li className="col-md-12"><span><i className="fa fa-user-circle-o" aria-hidden="true"></i> <b>Kinh nghiệm:</b> {this.convertText(this.props.profile.exp)} năm kinh nghiệm</span>
                                 </li>
                                 <li className="col-md-12"><span><i className="fa fa-globe" aria-hidden="true"></i> <b>Khu vực</b>: {this.convertText(this.props.profile.area)}</span>
                                 </li>
-                                <li className="col-md-12"><span><i className="fa fa-users" aria-hidden="true"></i> <b>Thuộc đoàn luật sư:</b> {this.convertText(this.props.profile.clanlaw)}</span>
+                                <li className="col-md-12"><span><i className="fa fa-users" aria-hidden="true"></i> <b>Thuộc đoàn luật sư:</b> {this.convertText(this.props.profile.clanLaw)}</span>
                                 </li>
-                                <li className="col-md-12"><span><i className="fa fa-university" aria-hidden="true"></i> <b>Tổ chức hành nghề:</b> {this.convertText(this.props.profile.orglaw)}</span>
+                                <li className="col-md-12"><span><i className="fa fa-university" aria-hidden="true"></i> <b>Tổ chức hành nghề:</b> {this.convertText(this.props.profile.orgLaw)}</span>
                                 </li>
-                                <li className="col-md-12"><span><i className="fa fa-id-card-o" aria-hidden="true"></i> <b>Số thẻ hành nghề</b>: {this.convertText(this.props.profile.card_number)}</span>
+                                <li className="col-md-12"><span><i className="fa fa-id-card-o" aria-hidden="true"></i> <b>Số thẻ hành nghề</b>: {this.convertText(this.props.profile.cardNumber)}</span>
                                 </li>
                                 <li className="col-md-12"><span><i className="fa fa-id-card-o" aria-hidden="true"></i> <b>Số chứng chỉ hành nghề</b>: {this.convertText(this.props.profile.certificate)}</span>
                                 </li>
@@ -121,7 +121,7 @@ class MainContent extends Component {
 			          		<h2>Nơi làm việc </h2>
 			          		<div className="hr-left"></div>
 			          		<div className="timeline-content">
-			          			<p>{this.convertText(this.props.profile.workplace)}
+			          			<p>{this.convertText(this.props.profile.workPlace)}
 								</p>
 			          		</div>
 			          	</div>
@@ -143,7 +143,7 @@ class MainContent extends Component {
 			          		<h2>Văn bằng và chứng chỉ khác </h2>
 			          		<div className="hr-left"></div>
 			          		<div className="timeline-content">
-			          			<p>{this.convertText(this.props.profile.othercertificate﻿)}
+			          			<p>{this.convertText(this.props.profile.otherCertificate﻿)}
 								</p>
 			          		</div>
 			          	</div>

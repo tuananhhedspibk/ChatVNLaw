@@ -25,7 +25,7 @@ class CustomerProfile extends Component {
 	      user: null,
 	      uid: null
 	    };
-	    this.handleUpdateUser = this.handleUpdateUser.bind(this);
+	    this.handleUpdate = this.handleUpdate.bind(this);
   	}
   	componentWillMount() {
   		var component = this;
@@ -42,11 +42,11 @@ class CustomerProfile extends Component {
 		});
   	}
 
-  	handleUpdateUser(name, newValue) {
-	  		var update = {}
-	  		update['/users/' + this.state.uid+'/'+name] = newValue
-	  		console.log(update)
-	  		firebase.database().ref().update(update);
+  	handleUpdate(table,name, newValue) {
+		if(table=='users' &&  name=='displayName')	
+			this.handleUpdate('lawyers','fullname',newValue);
+  		var update = eval('('+`{${name}:'${newValue}'}`+')');
+  		firebase.database().ref(`${table}/${this.state.uid}`).update(update);
   	}
   	renderProfileView(uid) {
     	var component = this;
@@ -68,8 +68,8 @@ class CustomerProfile extends Component {
 			<div>
 				<Nav  navStyle='inverse'/>
 					{	this.state.user != null &&
-							(this.state.lawyer != null ? (<LawyerProfile lawyer={this.state.lawyer} user={this.state.user}/>) 
-						: (<UserProfile user={this.state.user} handleUpdate= {this.handleUpdateUser}/>))
+							(this.state.lawyer != null ? (<LawyerProfile lawyer={this.state.lawyer} user={this.state.user} handleUpdate={this.handleUpdate}/>) 
+						: (<UserProfile user={this.state.user} handleUpdate={this.handleUpdate}/>))
 					}
 			</div>
 		);

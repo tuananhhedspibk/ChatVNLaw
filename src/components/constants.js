@@ -6,6 +6,7 @@ export const SIGN_IN_URI = '/login';
 export const SIGN_UP_URI = '/signup';
 export const CHAT_URI = '/chat';
 export const SEARCH_LAW_URI = '/search-law';
+export const PROFILE_URI = '/my-profile';
 
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const API_SEARCH_URI = '/searches';
