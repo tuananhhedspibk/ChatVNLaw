@@ -15,7 +15,7 @@
   border-right: 1px solid #c2cfd6;
   display: inline-block;
   float: left;
-  height: calc(100vh - 55px);
+  height: calc(100vh - 56px);
   width: 70px;
   overflow-y: scroll; }
   .app-body .chat-users-list .active-link {
@@ -27,76 +27,96 @@
       height: 50px;
       width: 50px; }
 
-.chat-box {
+.app-body {
+  height: calc(100vh - 55px); }
+
+.app-body .sidebar {
+  height: calc(100vh - 55px);
+  overflow-y: scroll; }
+
+.app-body .chat-box {
   display: inline-block;
   float: left;
-  height: calc(100vh - 96px);
+  height: calc(100vh - 101px);
   width: calc(100% - 72px); }
-  .chat-box .input-section {
+  .app-body .chat-box #upfile {
+    display: none; }
+  .app-body .chat-box .input-section {
+    align-items: center;
+    display: flex; }
+    .app-body .chat-box .input-section .addons-field {
+      display: flex; }
+    .app-body .chat-box .input-section .fa {
+      color: #a2a2a2;
+      cursor: pointer;
+      float: left;
+      font-size: 1.5em;
+      margin-right: 15px; }
+  .app-body .chat-box .input-section {
     border-top: 1px solid #c2cfd6;
-    height: 10%;
+    height: 60px;
     width: 100%; }
-  .chat-box textarea {
+  .app-body .chat-box textarea {
     border: 0;
     font-size: 1.2em;
     height: 100%;
     overflow: hidden;
-    padding: 23px 15px 15px;
+    padding: 20px 15px 15px;
     resize: none;
     width: 80%; }
-    .chat-box textarea:focus {
+    .app-body .chat-box textarea:focus {
       outline: 0; }
-  .chat-box .chats {
-    height: 90%;
+  .app-body .chat-box .chats {
+    height: calc(100vh - 163px);
     overflow-y: scroll;
     padding: 15px; }
 
-.chat-setting .header .user-name {
+.app-body .chat-setting .header .user-name {
   font-size: 1.1em; }
 
-.chat-setting .description {
+.app-body .chat-setting .description {
   background-color: #e5ecf0;
   display: inline-block;
   padding: 20px;
   width: 100%; }
-  .chat-setting .description .title {
+  .app-body .chat-setting .description .title {
     color: #000;
     font-size: 1.1em;
     margin-bottom: 3px;
     text-transform: none; }
-  .chat-setting .description .text-descrip {
+  .app-body .chat-setting .description .text-descrip {
     background-color: #fff;
     margin: 10px 0 15px;
     padding: 10px; }
-  .chat-setting .description form {
+  .app-body .chat-setting .description form {
     margin: 15px 0 0; }
-    .chat-setting .description form textarea {
+    .app-body .chat-setting .description form textarea {
       margin-bottom: 15px;
       padding: 10px; }
-  .chat-setting .description button {
+  .app-body .chat-setting .description button {
     background-color: #2385f2;
     border: 0;
     border-radius: 3px;
     color: #fff;
     font-size: 1em;
     padding: 10px; }
-    .chat-setting .description button:focus {
+    .app-body .chat-setting .description button:focus {
       background-color: #0974b8;
       outline: 0; }
 
-.chat-section {
+.app-body .chat-section {
   background-color: #fff;
   height: calc(100vh - 55px);
   position: relative; }
-  .chat-section .video-call {
+  .app-body .chat-section .video-call {
     height: calc(100vh - 54px); }
-    .chat-section .video-call .video {
+    .app-body .chat-section .video-call .video {
       height: 380px;
       margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
       width: 380px; }
-    .chat-section .video-call .end-call-btn {
+    .app-body .chat-section .video-call .end-call-btn {
       margin-left: 30px; }
-  .chat-section .header {
+  .app-body .chat-section .header {
     align-items: center;
     border-bottom: 1px solid #c2cfd6;
     color: #2385f2;
@@ -106,21 +126,14 @@
     padding: 10px;
     position: relative;
     width: calc(100% - 72px); }
-    .chat-section .header .fa {
+    .app-body .chat-section .header .fa {
       cursor: pointer;
       margin-right: 10px;
       position: absolute; }
-    .chat-section .header .fa-phone {
+    .app-body .chat-section .header .fa-phone {
       right: 25px; }
-    .chat-section .header .fa-video-camera {
+    .app-body .chat-section .header .fa-video-camera {
       right: 0; }
-
-.app-body {
-  height: calc(100vh - 55px); }
-
-.app-body .sidebar {
-  height: calc(100vh - 55px);
-  overflow-y: scroll; }
 
 .app-header.navbar {
   border-bottom: solid 1px #c2cfd6; }
@@ -370,6 +383,16 @@
     margin-top: 15px;
     overflow-y: scroll;
     padding: 15px; }
+
+.search-tag .not-found {
+  margin-top: 15px;
+  text-align: center; }
+  .search-tag .not-found .content {
+    color: #2385f2;
+    font-size: 1.8em; }
+  .search-tag .not-found .symbol {
+    color: #e54040;
+    font-size: 2.5em; }
 
 .search-tag .results-statistic {
   background-color: #f9f9f9;

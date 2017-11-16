@@ -86,7 +86,12 @@ class Nav extends Component {
               {this.state.currentUser.displayName}
             </button>
             <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
-              <li><a href={constant.BASE_URL+constant.PROFILE_URI}>{translate('app.nav.setting')}</a></li>
+              <li>
+                <a className='headerNavListLink'
+                  href={constant.BASE_URL+constant.PROFILE_URI}>
+                    {translate('app.nav.setting')}
+                </a>
+              </li>
               <li>
                 <a className='headerNavListLink'
                   onClick={this.logout}>{translate('app.nav.sign_out')}

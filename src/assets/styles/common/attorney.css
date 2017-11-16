@@ -1,0 +1,84 @@
+.attorney .right-block {
+  background-color: #f6f6f6;
+  height: 100%; }
+
+.attorney .find {
+  display: inline-block;
+  font-size: 1.2em;
+  padding: 15px; }
+  .attorney .find input {
+    border: 1px solid #e5ecf0;
+    border-radius: 5px;
+    margin-right: 15px;
+    margin-top: 15px;
+    padding: 5px 15px; }
+    .attorney .find input:focus {
+      outline-width: 1px;
+      outline-color: #2385f2; }
+  .attorney .find .slogan {
+    margin-top: 15px; }
+  .attorney .find .search-button {
+    background-color: #2385f2;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 15px 20px; }
+    .attorney .find .search-button:focus {
+      background-color: #0974b8;
+      outline: 0; }
+
+.attorney .search-result {
+  font-size: 1.2em; }
+  .attorney .search-result .results-statistic {
+    padding: 0 15px; }
+    .attorney .search-result .results-statistic div {
+      display: inline-block; }
+    .attorney .search-result .results-statistic .key-search {
+      font-weight: bold; }
+    .attorney .search-result .results-statistic .key-matched {
+      margin-left: 10px; }
+  .attorney .search-result .results {
+    height: 600px; }
+    .attorney .search-result .results .result {
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid #e5ecf0;
+      border-radius: 5px;
+      display: flex;
+      margin-bottom: 15px;
+      padding: 15px;
+      width: 100%; }
+      .attorney .search-result .results .result .right-block {
+        background-color: #fff;
+        margin-left: calc(100% - 491px);
+        padding: 15px;
+        padding-right: 0;
+        width: 186px; }
+      .attorney .search-result .results .result .ava {
+        display: inline-block; }
+        .attorney .search-result .results .result .ava img {
+          border-radius: 50%;
+          height: 65px;
+          width: 65px; }
+      .attorney .search-result .results .result .name {
+        display: inline-block;
+        margin-left: 10px;
+        width: 230px;
+        word-wrap: break-word; }
+      .attorney .search-result .results .result button {
+        background-color: #2385f2;
+        border: 0;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        padding: 8px 17px;
+        width: 100%;
+        margin-bottom: 10px; }
+        .attorney .search-result .results .result button:focus {
+          background-color: #0974b8;
+          outline: 0; }
+      .attorney .search-result .results .result .view-profile {
+        background-color: #0974b8; }
+        .attorney .search-result .results .result .view-profile:focus {
+          background-color: #00558c; }

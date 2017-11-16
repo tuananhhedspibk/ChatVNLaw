@@ -240,8 +240,10 @@ class Chat extends Component {
   renderVideo() {
     $('.video-call').show();
   }
+
   renderConfigVideoCall(){
-    if(!!this.state.currentUser && !!this.state.targetUser && this.state.currentUser.uid !== this.state.targetUser.uid){
+    if(!!this.state.currentUser && !!this.state.targetUser
+      && this.state.currentUser.uid !== this.state.targetUser.uid){
       return (
         <div>
           <i onClick={this.makeCallRequest.bind(this)}

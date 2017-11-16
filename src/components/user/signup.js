@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
 
+import Nav from '../homepage/nav';
+
 import * as constant from '../constants';
 
 import '../../assets/styles/common/authen.css';
@@ -116,12 +118,22 @@ class UserSignUp extends Component {
   render() {
     return(
       <div className='login-page ng-scope ui-view'>
+        <Nav navStyle='inverse'/>
         <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>
         <div className='row justify-content-md-center'>
-          <div className='col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3'>
-            <img src={constant.logoPic} className='user-avatar' alt=''/>
-            <h1>{translate('app.identifier.app_name')} <small>
-              {translate('app.identifier.slogan')}</small></h1>
+          <div className='col-md-4 col-lg-4 col-md-offset-3 col-lg-offset-3'>
+            <img src={constant.logoPic} className='app-logo' alt=''/>
+            <div className='omni-auth'>
+              <button id='button-login-with-facebook'>
+                {translate('app.identifier.login_face')}
+              </button>
+              <button id='button-login-with-google'>
+                {translate('app.identifier.login_google')}
+              </button>
+            </div>
+            <div className='or'>
+              {translate('app.identifier.or')}
+            </div>
             <form onSubmit={this.handleSubmit.bind(this)}
               className='ng-pristine ng-valid'>
               <div className='form-content'>
@@ -167,7 +179,7 @@ class UserSignUp extends Component {
                   </a>
                 </div>
               </div>
-              <button type='submit' className='btn btn-white btn-outline btn-lg btn-rounded'>
+              <button type='submit' className='btn btn-white btn-lg'>
                 {translate('app.signup.submit')}
               </button>
             </form>

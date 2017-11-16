@@ -23,7 +23,7 @@
     border-right: 1px solid $border-color;
     display: inline-block;
     float: left;
-    height: calc(100vh - 55px);
+    height: calc(100vh - 56px);
     width: 70px;
     overflow-y: scroll;
 
@@ -43,135 +43,6 @@
   }
 }
 
-.chat-box {
-  display: inline-block;
-  float: left;
-  height: calc(100vh - 96px);
-  width: calc(100% - 72px);
-
-  .input-section {
-    border-top: 1px solid #c2cfd6;
-    height: 10%;
-    width: 100%;
-  }
-
-  textarea {
-    border: 0;
-    font-size: 1.2em;
-    height: 100%;
-    overflow: hidden;
-    padding: 23px 15px 15px;
-    resize: none;
-    width: 80%;
-
-    &:focus {
-      outline: 0;
-    }
-  }
-
-  .chats {
-    height: 90%;
-    overflow-y: scroll;
-    padding: 15px;
-  }
-}
-
-.chat-setting {
-  .header {
-    .user-name {
-      font-size: 1.1em;
-    }
-  }
-  .description {
-    background-color: $gray-lighter;
-    display: inline-block;
-    padding: 20px;
-    width: 100%;
-
-    .title {
-      color: $black;
-      font-size: 1.1em;
-      margin-bottom: 3px;
-      text-transform: none;
-    }
-
-    .text-descrip {
-      background-color: $white;
-      margin: 10px 0 15px;
-      padding: 10px;
-    }
-
-    form {
-      margin: 15px 0 0;
-
-      textarea {
-        margin-bottom: 15px;
-        padding: 10px;
-      }
-    }
-
-    button {
-      background-color: $blue;
-      border: 0;
-      border-radius: 3px;
-      color: $white;
-      font-size: 1em;
-      padding: 10px;
-
-      &:focus {
-        background-color: $blue-darker;
-        outline: 0;
-      }
-    }
-  }
-}
-
-.chat-section {
-  background-color: $white;
-  height: calc(100vh - 55px);
-  position: relative;
-
-  .video-call {
-    height: calc(100vh - 54px);
-
-    .video {
-      height: 380px;
-      margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
-      width: 380px;
-    }
-
-    .end-call-btn {
-      margin-left: 30px;
-    }
-  }
-
-  .header {
-    align-items: center;
-    border-bottom: 1px solid $border-color;
-    color: $blue;
-    display: flex;
-    float: left;
-    font-size: 1.2em;
-    padding: 10px;
-    position: relative;
-    width: calc(100% - 72px);
-
-    .fa {
-      cursor: pointer;
-      margin-right: 10px;
-      position: absolute;
-    }
-
-    .fa-phone {
-      right: 25px;
-    }
-
-    .fa-video-camera {
-      right: 0;
-    }
-  }
-}
-
 .app-body {
   height: calc(100vh - 55px);
 }
@@ -179,6 +50,158 @@
 .app-body .sidebar {
   height: calc(100vh - 55px);
   overflow-y: scroll;
+}
+
+.app-body {
+  .chat-box {
+    display: inline-block;
+    float: left;
+    height: calc(100vh - 101px);
+    width: calc(100% - 72px);
+
+    #upfile {
+      display: none;
+    }
+
+    .input-section {
+      align-items: center;
+      display: flex;
+
+      .addons-field {
+        display: flex;
+      }
+
+      .fa {
+        color: $gray;
+        cursor: pointer;
+        float: left;
+        font-size: 1.5em;
+        margin-right: 15px;
+      }
+    }
+
+    .input-section {
+      border-top: 1px solid #c2cfd6;
+      height: 60px;
+      width: 100%;
+    }
+
+    textarea {
+      border: 0;
+      font-size: 1.2em;
+      height: 100%;
+      overflow: hidden;
+      padding: 20px 15px 15px;
+      resize: none;
+      width: 80%;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    .chats {
+      height: calc(100vh - 163px);
+      overflow-y: scroll;
+      padding: 15px;
+    }
+  }
+
+  .chat-setting {
+    .header {
+      .user-name {
+        font-size: 1.1em;
+      }
+    }
+    .description {
+      background-color: $gray-lighter;
+      display: inline-block;
+      padding: 20px;
+      width: 100%;
+
+      .title {
+        color: $black;
+        font-size: 1.1em;
+        margin-bottom: 3px;
+        text-transform: none;
+      }
+
+      .text-descrip {
+        background-color: $white;
+        margin: 10px 0 15px;
+        padding: 10px;
+      }
+
+      form {
+        margin: 15px 0 0;
+
+        textarea {
+          margin-bottom: 15px;
+          padding: 10px;
+        }
+      }
+
+      button {
+        background-color: $blue;
+        border: 0;
+        border-radius: 3px;
+        color: $white;
+        font-size: 1em;
+        padding: 10px;
+
+        &:focus {
+          background-color: $blue-darker;
+          outline: 0;
+        }
+      }
+    }
+  }
+
+  .chat-section {
+    background-color: $white;
+    height: calc(100vh - 55px);
+    position: relative;
+
+    .video-call {
+      height: calc(100vh - 54px);
+
+      .video {
+        height: 380px;
+        margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
+        width: 380px;
+      }
+
+      .end-call-btn {
+        margin-left: 30px;
+      }
+    }
+
+    .header {
+      align-items: center;
+      border-bottom: 1px solid $border-color;
+      color: $blue;
+      display: flex;
+      float: left;
+      font-size: 1.2em;
+      padding: 10px;
+      position: relative;
+      width: calc(100% - 72px);
+
+      .fa {
+        cursor: pointer;
+        margin-right: 10px;
+        position: absolute;
+      }
+
+      .fa-phone {
+        right: 25px;
+      }
+
+      .fa-video-camera {
+        right: 0;
+      }
+    }
+  }
 }
 
 .app-header.navbar {
@@ -525,6 +548,21 @@
       margin-top: 15px;
       overflow-y: scroll;
       padding: 15px;
+    }
+  }
+
+  .not-found {
+    margin-top: 15px;
+    text-align: center;
+
+    .content {
+      color: $blue;
+      font-size: 1.8em;
+    }
+
+    .symbol {
+      color: $red;
+      font-size: 2.5em;
     }
   }
 

@@ -6,7 +6,7 @@ import UserSignUp from './components/user/signup';
 import UserDashBoard from './components/user/dashboard/main';
 import ChatView from './components/chat/chatview';
 import Home from './components/homepage/home';
-import Attorney from './components/attorney/Attorney';
+import Attorney from './components/attorney/attorney';
 import Payment from './components/payments/payMent';
 import CustomerProfile from './components/user/profile/main'
 import SearchLaw from './components/search_law/layout'
@@ -33,8 +33,6 @@ const Routes = props => (
         <Redirect to='/home'/>
       )}/>
       <Route path='*' component={NotFoundPage}/>
-      <Route path='' component={Home}/>
-
     </Switch>
   </Router>
 );

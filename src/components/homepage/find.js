@@ -25,7 +25,9 @@ class Find extends Component {
       var lawyerNameInput = lawyerNameInputBox.val();      
       window.location = constant.BASE_URL + '/attorney?name=' + this.stringForm(lawyerNameInput);
     }
-    
+    else {
+      window.location = constant.BASE_URL + constant.ATTORNEY_URI;
+    }
   }
   render() {
     return (
@@ -43,9 +45,15 @@ class Find extends Component {
               aria-hidden='true'></i>
           </button>
         </div>
-        <div className='slogan'>
-          {translate('app.home.slogan')}
-        </div>
+        {
+          this.props.sloganStyle === 'none' ? (
+            <div></div>
+          ): (
+            <div className='slogan'>
+              {translate('app.home.slogan')}
+            </div>
+          )
+        }
       </div>
     );
   }

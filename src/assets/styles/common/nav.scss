@@ -43,7 +43,6 @@
 
 .navbar-default .navbar-nav > li .input-group {
 	display: none;
-	padding-top: 10px;
 	padding-right: 40px;
 }
 
@@ -89,7 +88,7 @@
 }
 
 .dropdown .btn {
-	background-color: rgba(255, 255, 255, 0.0980392);
+	background-color: $dropdown-menu-background;
 	font-size: .8em;
 	margin-top: 3px;
 	outline: 0 !important;
@@ -101,12 +100,12 @@
 }
 
 .navbar-nav .dropdown-menu {
-	background-color: rgba(255, 255, 255, 0.0980392);
+	background-color: $dropdown-menu-background;
 	border-radius: 5px;
 	padding: 0 !important;
 	position: absolute !important;
 	top: 50px;
-	left: 12px;
+	left: -95px;
 	width: 120px;
 }
 
@@ -123,14 +122,29 @@
 	background-image: none !important;
 	transition: all .5s ease;
 }
+
 .nav-hidden {
 	display: none;
 	height: 0;
 	transition: height 0.6s;
 }
+
 .nav-inverse {
 	border-bottom: 1px solid $border-color;
 	background-color: white;
+
+	.navbar-nav .dropdown-menu {
+		background-color: $gray-more-lighter;
+
+		a {
+			font-weight: normal;
+			color: $black;
+
+			&:hover {
+				color: $white;
+			}
+		}
+	}
 
 	.headerNavListItem a {
 		color: $black !important;
@@ -142,12 +156,7 @@
 	}
 	
 	.dropdown .btn {
-		background-color: rgba(0, 0, 0, .15);
-		color: $black !important;
-	}
-	
-	.navbar-nav .dropdown-menu  a {
-		background-color: rgba(0, 0, 0, .15);
+		background-color: $gray-more-lighter;
 		color: $black !important;
 	}
 	

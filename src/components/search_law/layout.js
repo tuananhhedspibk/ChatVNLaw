@@ -110,10 +110,10 @@ class SearchLaw extends Component {
           pauseOnHover/>
 				<div className='row'>
 					<div className='col-sm-12 col-md-3 side-section'>
+						<SearchTool handler={this.handlerSearch}/>
 						<Category handlerType={this.handlerCategoryType}
 							handlerYear={this.handlerCategoryYear}
 							handlerOrgan={this.handlerCategoryOrgan}/>
-						<SearchTool handler={this.handlerSearch}/>
 					</div>
 					<div className='col-sm-12 col-md-9 results'>
 						{

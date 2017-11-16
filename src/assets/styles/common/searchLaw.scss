@@ -1,8 +1,8 @@
 @import './variables.scss';
 
 .side-section {
-  background-color: $gray-more-lighter;
-  height: calc(100vh - 70px);
+  background-color: $white;
+  border-right: 1px solid $gray-more-lighter;
   padding-right: 0 !important;
 }
 
@@ -12,7 +12,7 @@
   width: 100%;
 
   .title {
-    background-color: $blue;
+    background-color: $blue-less-darker;
     color: $white;
     padding: 15px;
 
@@ -22,7 +22,7 @@
   }
 
   .category-filter-title {
-    background-color: $gray-less-medium;
+    background-color: $gray-much-lighter;
     border: 0;
     color: $blue;
     cursor: pointer;
@@ -93,12 +93,12 @@
     input[type="text"] {
       font-size: 1.2em;
       height: 45px;
-      margin: 25px 35px 0;
-      width: calc(100% - 70px);
+      margin: 20px 20px 0;
+      width: calc(100% - 30px);
     }
     
     #group1 {
-      padding: 10px 35px;
+      padding: 5px 20px 0;
       font-size: 1.2em;
       margin-top: 10px;
       width: 100%;
@@ -113,9 +113,8 @@
     }
 
     #group2 {
-      background-color: $gray-less-medium;
       font-size: 1.2em;
-      padding: 10px 35px;
+      padding: 0 15px 5px;
 
       select {
         font-size: 1em;
@@ -126,8 +125,7 @@
 
     button {
       font-size: 1.2em;
-      margin-left: 35px;
-      margin-top: 15px;
+      margin: 0 15px 15px;
       padding: 10px 20px;
     }
   }
@@ -140,8 +138,8 @@
   width: 100%;
 
   .law-item {
-    background-color: $gray-more-lighter;
-    border-left: 4px solid $white;
+    background-color: $white;
+    border: 1px solid $gray-lighter;
     border-radius: 5px;
     float: left;
     height: 150px;
@@ -149,7 +147,7 @@
     width: 45%;
 
     .law-title {
-      background-color: $gray-less-medium;
+      background-color: $blue;
       font-size: 1.2em;
       font-weight: bold;
       overflow: hidden;
@@ -157,6 +155,10 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%;
+
+      a {
+        color: $white;
+      }
     }
 
     .law-detail-content {
@@ -169,11 +171,6 @@
       .effect-status {
         color: $red;
       }
-    }
-
-    &:hover {
-      border-left-color: $blue;
-      transition: all .5s ease;
     }
   }
 }

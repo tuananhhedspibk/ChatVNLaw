@@ -7,12 +7,11 @@ import $ from 'jquery'
 import '../../assets/styles/common/home.css';
 
 class App extends Component {
-
-
 	componentDidMount() {
 		window.addEventListener('scroll',this.handleScroll);
 		this.handleScroll();
 	}
+
 	handleScroll() {
 		if (window.scrollY >= $('.find').offset().top) {
 			$('.nav-hidden').show();
@@ -23,6 +22,7 @@ class App extends Component {
 			$('.nav-hidden').height(0);
 		}
 	}
+
   render() {
     return (
       <div className='home-page'>

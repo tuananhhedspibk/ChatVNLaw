@@ -28,11 +28,6 @@ textarea:-moz-placeholder {
 	border-radius: 1px;
 }
 
-@font-face {
-  font-family: "DroidSerif";
-  src: font-url("fonts/Droid_Serif/DroidSerif-Regular.ttf");
-}
-
 body {
   background-color: $white;
   font-family: "Montserrat", sans-serif !important;
@@ -47,7 +42,7 @@ body {
   background-color: $blue;
   font-size: 1.4em;
   padding-bottom: 15px !important;
-  padding-top: 15px !important;
+  padding-top: 10px !important;
 
   a {
     color: $white;
@@ -328,10 +323,12 @@ body {
     float: left;
   }
 }
+
 .logo-app {
   background-color: #43A3DF;
   height: 100vh;
   width: 100%;
+
   .logo-section {
     text-align: center;   
     width: 100%;
