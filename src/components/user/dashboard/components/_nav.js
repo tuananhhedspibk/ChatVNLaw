@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'app.dashboard.customer',
-      url: '/lawyers/customer',
+      url: '/dashboard/customer',
       icon: 'icon-speech',
       badge: {
         variant: 'info',
@@ -10,21 +10,17 @@ export default {
       children:[
         {
           name: 'app.chat.shared_files',
-          url: '/lawyers/files-shared'
+          url: '/dashboard/files-shared'
         },
         {
           name: 'app.chat.todo_list',
-          url: '/lawyers/todos'
-        },
-        {
-          name: 'app.chat.rate',
-          url: '/lawyers/rate'
+          url: '/dashboard/todos'
         }
       ]
     },
     {
       name: 'app.chat.todo_list',
-      url: '/lawyers/todolistlawyer',
+      url: '/dashboard/todolistlawyer',
       icon: 'icon-list',
       badge: {
         variant: 'info'
@@ -39,17 +35,17 @@ export default {
       children: [
         {
           name: 'app.dashboard.search.by_user',
-          url: '/lawyers/search_user'
+          url: '/dashboard/search_user'
         },
         {
           name: 'app.dashboard.search.by_tag',
-          url: '/lawyers/search_tag'
+          url: '/dashboard/search_tag'
         }
       ]
     },
     {
       name: 'app.dashboard.dashboard',
-      url: '/lawyers/dashboard',
+      url: '/dashboard/dashboard',
       icon: 'icon-speedometer',
       badge: {
         variant: 'info'
@@ -57,7 +53,7 @@ export default {
     },
     {
       name: 'app.dashboard.note',
-      url: '/lawyers/notes',
+      url: '/dashboard/notes',
       icon: 'icon-note',
       badge: {
         variant: 'info'
@@ -65,7 +61,7 @@ export default {
     },
     {
       name: 'app.dashboard.calendar',
-      url: '/lawyers/calendar',
+      url: '/dashboard/calendar',
       icon: 'icon-calendar',
       badge: {
         variant: 'info'
@@ -73,7 +69,7 @@ export default {
     },
     {
       name: 'app.dashboard.profile',
-      url: '/lawyers/profile',
+      url: '/dashboard/profile',
       icon: 'icon-user',
       badge: {
         variant: 'info'

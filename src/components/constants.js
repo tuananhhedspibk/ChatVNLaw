@@ -7,13 +7,14 @@ export const SIGN_UP_URI = '/signup';
 export const CHAT_URI = '/chat';
 export const SEARCH_LAW_URI = '/search-law';
 export const PROFILE_URI = '/my-profile';
+export const ATTORNEY_URI = '/attorney';
 
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const API_SEARCH_URI = '/searches';
 
 export const DEFAULT_AVATAR_URL = 'https://image.ibb.co/i23jUF/default_ava.png';
 
-let logo = require('../assets/images/flat-avatar.png');
+let logo = require('../assets/images/app_logo.png');
 let avaUser = require('../assets/images/default-ava-user.png');
 let avaLawyer = require('../assets/images/default-ava-lawyer.png');
 let avaBot = require('../assets/images/bot.png');

@@ -40,6 +40,7 @@ class ChatView extends Component {
     };
     this.peer=null;
   }
+
   componentWillMount(){
     var component = this;
     if(!firebase.apps.length){
@@ -93,7 +94,8 @@ class ChatView extends Component {
   }
 
   changeStatus(event, data) {
-    firebase.database().ref(`users/${this.state.currentUser.uid}`).update({'status' : data.text});
+    firebase.database().ref(`users/${this.state.currentUser.uid}`)
+      .update({'status' : data.text});
   }
 
   renderStatus(userStatus, uid) {
@@ -134,9 +136,10 @@ class ChatView extends Component {
 
   renderUnreadMessages(targetUid){
     var component = this;
-    var unreadItem = component.state.unread.filter(item=> item.lastMess.sender_uid === targetUid);
+    var unreadItem = component.state.unread.filter(
+      item => item.lastMess.sender_uid === targetUid);
     
-      if(unreadItem[0] && unreadItem[0].count !== 0){
+    if(unreadItem[0] && unreadItem[0].count !== 0){
       return(
         <div className='unread-mess'>
           {unreadItem[0].count}

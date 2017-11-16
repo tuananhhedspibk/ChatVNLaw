@@ -21,6 +21,7 @@ function getLawyerList(properties, callback){
           uid: i,
           photoURL: snapshot.val()[i].photoURL,
           displayName: snapshot.val()[i].displayName,
+          username: snapshot.val()[i].username
         }
         getLawyerInfo(i, (data)=>{
           for(var y in data.val()){

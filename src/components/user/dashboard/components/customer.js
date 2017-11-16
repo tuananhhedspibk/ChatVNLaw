@@ -124,19 +124,15 @@ class Customer extends Component {
               </div>
               <div className='edit-descrip'>
                 <form onSubmit={this.handleSubmit.bind(this)}>
-                    {/* <textarea rows="3" cols="50"
-                      className="input-descrip" id="input-descrip"
-                      onChange={this.handleInputChange.bind(this)}
-                      value={this.state.description}></textarea> */}
                     <textarea rows="3" cols="50"
                       className="input-descrip" id="input-descrip"
                       onChange={this.handleInputChange.bind(this)}
-                      value="truong&#13;&#10;truong"></textarea>
+                      value={this.state.description}></textarea>
                     <button type='submit'>{translate('app.dashboard.submit_des')}</button>
                 </form>
               </div>
               <div className="info-descrip">
-                <div className='text-descrip'>truong<br />truong</div>
+                <div className='text-descrip'>{this.state.description}</div>
                 <button onClick={this.handleEdit}>
                   {translate('app.dashboard.edit_des')}
                 </button>

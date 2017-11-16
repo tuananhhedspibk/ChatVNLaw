@@ -1,6 +1,6 @@
 .side-section {
-  background-color: #f6f6f6;
-  height: calc(100vh - 70px);
+  background-color: #fff;
+  border-right: 1px solid #f6f6f6;
   padding-right: 0 !important; }
 
 .category-filter {
@@ -8,13 +8,13 @@
   font-size: 1.2em;
   width: 100%; }
   .category-filter .title {
-    background-color: #2385f2;
+    background-color: #0277fb;
     color: #fff;
     padding: 15px; }
     .category-filter .title .fa {
       margin-right: 10px; }
   .category-filter .category-filter-title {
-    background-color: #f1f1f1;
+    background-color: #f9f9f9;
     border: 0;
     color: #2385f2;
     cursor: pointer;
@@ -60,11 +60,11 @@
 .search-law-tool .search-law-tool-body input[type="text"] {
   font-size: 1.2em;
   height: 45px;
-  margin: 25px 35px 0;
-  width: calc(100% - 70px); }
+  margin: 20px 20px 0;
+  width: calc(100% - 30px); }
 
 .search-law-tool .search-law-tool-body #group1 {
-  padding: 10px 35px;
+  padding: 5px 20px 0;
   font-size: 1.2em;
   margin-top: 10px;
   width: 100%; }
@@ -74,9 +74,8 @@
     margin-right: 10px; }
 
 .search-law-tool .search-law-tool-body #group2 {
-  background-color: #f1f1f1;
   font-size: 1.2em;
-  padding: 10px 35px; }
+  padding: 0 15px 5px; }
   .search-law-tool .search-law-tool-body #group2 select {
     font-size: 1em;
     height: 40px;
@@ -84,8 +83,7 @@
 
 .search-law-tool .search-law-tool-body button {
   font-size: 1.2em;
-  margin-left: 35px;
-  margin-top: 15px;
+  margin: 0 15px 15px;
   padding: 10px 20px; }
 
 .results {
@@ -94,15 +92,15 @@
   padding: 15px;
   width: 100%; }
   .results .law-item {
-    background-color: #f6f6f6;
-    border-left: 4px solid #fff;
+    background-color: #fff;
+    border: 1px solid #e5ecf0;
     border-radius: 5px;
     float: left;
     height: 150px;
     margin: 15px calc(10% / 4);
     width: 45%; }
     .results .law-item .law-title {
-      background-color: #f1f1f1;
+      background-color: #2385f2;
       font-size: 1.2em;
       font-weight: bold;
       overflow: hidden;
@@ -110,15 +108,14 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%; }
+      .results .law-item .law-title a {
+        color: #fff; }
     .results .law-item .law-detail-content {
       padding: 15px; }
     .results .law-item .law-status {
       font-size: 1.1em; }
       .results .law-item .law-status .effect-status {
         color: #e54040; }
-    .results .law-item:hover {
-      border-left-color: #2385f2;
-      transition: all .5s ease; }
 
 .toastify-content {
   border-radius: 5px;

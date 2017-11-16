@@ -1,0 +1,126 @@
+@import './variables.scss';
+
+.attorney {
+  .right-block {
+    background-color: $gray-more-lighter;
+    height: 100%;
+  }
+
+  .find {
+    display: inline-block;
+    font-size: 1.2em;
+    padding: 15px;
+
+    input {
+      border: 1px solid $gray-lighter;
+      border-radius: 5px;
+      margin-right: 15px;
+      margin-top: 15px;
+      padding: 5px 15px;
+
+      &:focus {
+        outline-width: 1px;
+        outline-color: $blue;
+      }
+    }
+
+    .slogan {
+      margin-top: 15px;
+    }
+
+    .search-button {
+      background-color: $blue;
+      border: 0;
+      border-radius: 5px;
+      color: $white;
+      cursor: pointer;
+      padding: 15px 20px;
+      
+      &:focus {
+        background-color: $blue-darker;
+        outline: 0;
+      }
+    }
+  }
+
+  .search-result {
+    font-size: 1.2em;
+    .results-statistic {
+      padding: 0 15px;
+      div {
+        display: inline-block;
+      }
+
+      .key-search {
+        font-weight: bold;
+      }
+      
+      .key-matched {
+        margin-left: 10px;
+      }
+    }
+  
+    .results {
+      height: 600px;
+
+      .result {
+        align-items: center;
+        background-color: $white;
+        border: 1px solid $gray-lighter;
+        border-radius: 5px;
+        display: flex;
+        margin-bottom: 15px;
+        padding: 15px;
+        width: 100%;
+
+        .right-block {
+          background-color: $white;
+          margin-left: calc(100% - 491px);
+          padding: 15px;
+          padding-right: 0;
+          width: 186px;
+        }
+
+        .ava {
+          display: inline-block;
+          img {
+            border-radius: 50%;
+            height: 65px;
+            width: 65px;
+          }
+        }
+
+        .name {
+          display: inline-block;
+          margin-left: 10px;
+          width: 230px;
+          word-wrap: break-word;
+        }
+
+        button {
+          background-color: $blue;
+          border: 0;
+          border-radius: 5px;
+          color: $white;
+          cursor: pointer;
+          padding: 8px 17px;
+          width: 100%;
+          margin-bottom: 10px;
+
+          &:focus {
+            background-color: $blue-darker;
+            outline: 0;
+          }
+        }
+
+        .view-profile {
+          background-color: $blue-darker;
+
+          &:focus {
+            background-color: $blue-much-darker;
+          }
+        }
+      }
+    }
+  }
+}

@@ -33,7 +33,14 @@ class UserDashBoard extends Component {
     var component = this;
     firebase.auth().onAuthStateChanged(user =>{
       if(user){
-        component.setState({currentUser: user})  
+        firebase.database().ref(`users/${user.uid}/role`).once('value', data => {
+          if(data.val() == 'lawyer'){
+            component.setState({currentUser: user})
+          }
+          else {
+            window.location = constant.BASE_URL
+          }
+        }) 
       }else{
         window.location = constant.BASE_URL + constant.SIGN_IN_URI;
       }
@@ -55,28 +62,27 @@ class UserDashBoard extends Component {
               <Breadcrumb/>
               <Container fluid>
                 <Switch>
-                  <Route path='/lawyers/todolistlawyer' name="Todo List Lawyer" 
+                  <Route path='/dashboard/todolistlawyer' name="Todo List Lawyer" 
                     render={(props) => (
                       <TodoListLawyer emitter={this.emitter} {...props} />)}/>
-                  <Route path='/lawyers/files-shared' name="Files Shared"
+                  <Route path='/dashboard/files-shared' name="Files Shared"
                     render={(props) => (
                       <Customer emitter={this.emitter} {...props} />)} />
-                  <Route path='/lawyers/todos' name='Todo List'
+                  <Route path='/dashboard/todos' name='Todo List'
                     render={(props) => (
                       <TodoList emitter={this.emitter} {...props} />)} />
-                  <Route path='/lawyers/search_tag' name="SearchUser"
+                  <Route path='/dashboard/search_tag' name="SearchUser"
                     render={(props) => (
                       <SearchTag emitter={this.emitter} {...props} />)} />
-                  <Route path="/lawyers/search_user" name="SearchUser"
+                  <Route path="/dashboard/search_user" name="SearchUser"
                     render={(props) => (
                       <SearchUser emitter={this.emitter} {...props} />)} />
-                  <Route path="/lawyers/dashboard" name="Dashboard"
+                  <Route path="/dashboard/dashboard" name="Dashboard"
                     component={DashBoard}/>
-                  <Route path="/lawyers/notes" name="Notes"
+                  <Route path="/dashboard/notes" name="Notes"
                     component={Note}/>
-                  <Route path="/lawyers/calendar" name="Calendar"
+                  <Route path="/dashboard/calendar" name="Calendar"
                     component={Calendar}/>
-                  <Redirect from="/lawyers" to="/lawyers/dashboard"/>
                 </Switch>
               </Container>
             </main>
@@ -86,8 +92,10 @@ class UserDashBoard extends Component {
       )
     }
     else{
-      return (
-        <div></div>
+      return(
+        <div>
+          
+        </div>
       )
     }
   }

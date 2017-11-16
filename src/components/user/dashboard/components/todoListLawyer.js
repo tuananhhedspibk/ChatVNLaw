@@ -72,23 +72,24 @@ class TodoListLawyer extends Component {
 
     renderTodoList(){
         var component = this;
-        return(
-            component.state.todoList.map((todoList, index) => {
-                return(
-                    <div>
-                        <button type="button" className="btn btn-info todo-list-lawyer" data-toggle="collapse" data-target={"#todo-list-lawyer" + index}>{todoList[0].targetuserdisplayname}</button>
-                        <div id={"todo-list-lawyer" + index} class="collapse">
-                        <ul id="myUL">
-                            {todoList.map(content => (
-                                <li className={content.status ===1? 'checked' : 'uncheck'}>{content.text}</li>
-                            ))}
-                        </ul>
+        if(component.state.todoList){
+            return(
+                component.state.todoList.map((todoList, index) => {
+                    return(
+                        <div>
+                            <button type="button" className="btn btn-info todo-list-lawyer" data-toggle="collapse" data-target={"#todo-list-lawyer" + index}>{todoList[0].targetuserdisplayname}</button>
+                            <div id={"todo-list-lawyer" + index} class="collapse">
+                            <ul id="myUL">
+                                {todoList.map(content => (
+                                    <li className={content.status ===1? 'checked' : 'uncheck'}>{content.text}</li>
+                                ))}
+                            </ul>
+                            </div>
                         </div>
-                    </div>
-                )
-            })  
-        )
-          
+                    )
+                })  
+            )
+        } 
     }
 
     render(){
