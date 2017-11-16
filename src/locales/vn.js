@@ -6,13 +6,16 @@ module.exports = {
       slogan: 'Always make an awesome support',
       vi: 'Tiếng Việt',
       en: 'Tiếng Anh',
+      or: 'HOẶC',
       account: 'Tài khoản của tôi',
       setting: 'Thiết lập',
       home: 'Trang chủ',
       signup: 'Đăng kí',
       login: 'Đăng nhập',
       logout: 'Đăng xuất',
-      search: 'Tìm kiếm luật'
+      search: 'Tìm kiếm luật',
+      login_face: 'Đăng nhập bằng facebook',
+      login_google: 'Đăng nhập bằng google'
     },
     home: {
       footer: {
@@ -80,6 +83,10 @@ module.exports = {
       schedule_content: 'Lên kế hoạch tham khảo ý kiến miễn phí với luật sư địa phương dưới 60 giây ngày hôm nay. Xem ngay các khoảng thời gian có sẵn trong lịch luật sư và nhấp để đặt trước.',
       connect_content: 'Kết nối với luật sư địa phương để tham khảo ý kiến ban đầu một cách nhanh chóng và an toàn. VNLaw sử dụng công nghệ trò chuyện video tiên tiến nhất trên hành tinh. Bạn muốn gặp mặt trực tiếp? Chúng tôi cũng làm như vậy.',
       slogan: 'So sánh luật sư được đánh giá cao nhất trong khu vực của bạn và lập kế hoạch tham vấn trong vài giây'
+    },
+    attorney: {
+      book: 'Đặt lịch hẹn',
+      view_profile: 'Xem hồ sơ'
     },
     nav: {
       brow_law: 'Tìm kiếm luật',
@@ -174,6 +181,10 @@ module.exports = {
       founded: 'Tìm thấy',
       results: 'kết quả',
       not_found_symbol: '>_<',
+      search_lawyer: {
+        title: 'Bạn tìm kiếm cho ',
+        matches: ' kết quả khớp'
+      },
       search_tool: {
         title: 'Tìm kiếm',
         key_search: 'Từ khóa tìm kiếm',

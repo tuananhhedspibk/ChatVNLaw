@@ -5,42 +5,61 @@
   right: 0;
   bottom: 0;
   overflow: auto;
-  background: #2385f2;
+  background-color: #fff;
   text-align: center;
-  color: #fff;
-  padding: 30px 42px 42px; }
+  color: #2385f2;
+  font-size: .9em; }
+  .login-page .app-logo {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px; }
+  .login-page .justify-content-md-center {
+    padding: 20px 0 20px;
+    width: 100%; }
+    .login-page .justify-content-md-center .omni-auth {
+      padding: 15px 0;
+      font-size: 1.3em; }
+      .login-page .justify-content-md-center .omni-auth button {
+        border: 0; }
+      .login-page .justify-content-md-center .omni-auth #button-login-with-facebook {
+        background-color: #49629e;
+        margin-bottom: 15px; }
+      .login-page .justify-content-md-center .omni-auth #button-login-with-google {
+        background-color: #d54b37; }
+    .login-page .justify-content-md-center .or {
+      color: #a2a2a2;
+      font-size: 1.3em; }
+    .login-page .justify-content-md-center input {
+      border-radius: 5px !important;
+      color: #000;
+      font-size: 1.4em;
+      padding: 10px 15px; }
+    .login-page .justify-content-md-center button {
+      background-color: #2385f2;
+      border-radius: 5px !important;
+      color: #fff;
+      cursor: pointer;
+      padding: 10px 0;
+      text-transform: uppercase;
+      width: 100%; }
+      .login-page .justify-content-md-center button:focus {
+        background-color: #0974b8;
+        box-shadow: none;
+        outline: 0;
+        transition: all .3s ease; }
   .login-page h1 {
     font-weight: 300;
     margin-top: 10px;
     margin-bottom: 5px; }
     .login-page h1 small {
-      color: rgba(255, 255, 255, 0.7); }
-  .login-page input {
-    font-size: 1.4em; }
+      color: #2385f2; }
   .login-page .form-group {
     padding: 8px 0; }
   .login-page .form-content {
-    padding: 20px 0 0; }
-
-.input-underline {
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.4) !important;
-  border-radius: 0 !important;
-  color: #FFF !important; }
-  .input-underline::-moz-placeholder {
-    color: #6298f7 !important; }
-  .input-underline::-ms-input-placeholder {
-    color: #6298f7 !important; }
-  .input-underline::-webkit-input-placeholder {
-    color: #6298f7 !important; }
-  .input-underline:focus {
-    border-bottom: 2px solid #fff;
-    box-shadow: none; }
+    padding: 5px 0 0; }
 
 .btn-outline {
-  background: none;
+  background-color: #2385f2;
   border-color: transparent;
   font-weight: 400; }
   .btn-outline:hover {
@@ -88,14 +107,14 @@
   padding-left: 10px !important;
   text-align: left; }
   .redirect-to a {
-    color: #ffe1c1;
+    color: #fd9d16;
     font-weight: bold;
     margin-left: 10px; }
     .redirect-to a:focus {
       outline: none;
-      color: #ffe1c1; }
+      color: #fd9d16; }
     .redirect-to a:hover {
-      color: #ffe1c1; }
+      color: #fd9d16; }
 
 .btn-rounded {
   border-radius: 50px; }

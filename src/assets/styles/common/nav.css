@@ -34,7 +34,6 @@
 
 .navbar-default .navbar-nav > li .input-group {
   display: none;
-  padding-top: 10px;
   padding-right: 40px; }
 
 .navbar-default .navbar-nav > li .input-group-btn {
@@ -86,7 +85,7 @@
   padding: 0 !important;
   position: absolute !important;
   top: 50px;
-  left: 12px;
+  left: -95px;
   width: 120px; }
 
 .navbar-nav .dropdown-menu a {
@@ -108,16 +107,20 @@
 .nav-inverse {
   border-bottom: 1px solid #c2cfd6;
   background-color: white; }
+  .nav-inverse .navbar-nav .dropdown-menu {
+    background-color: #f6f6f6; }
+    .nav-inverse .navbar-nav .dropdown-menu a {
+      font-weight: normal;
+      color: #000; }
+      .nav-inverse .navbar-nav .dropdown-menu a:hover {
+        color: #fff; }
   .nav-inverse .headerNavListItem a {
     color: #000 !important; }
     .nav-inverse .headerNavListItem a:hover {
       background-color: #2385f2 !important;
       color: #fff !important; }
   .nav-inverse .dropdown .btn {
-    background-color: rgba(0, 0, 0, 0.15);
-    color: #000 !important; }
-  .nav-inverse .navbar-nav .dropdown-menu a {
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: #f6f6f6;
     color: #000 !important; }
   .nav-inverse .navbar-toggler .fa {
     color: #2385f2; }

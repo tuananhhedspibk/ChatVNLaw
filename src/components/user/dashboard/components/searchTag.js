@@ -10,13 +10,13 @@ class SearchTag extends Component {
   constructor(props) {
     super(props);
     this.state ={
-        currentUser: '',
-        targetUser: '',
-        currentRoomId :'',
-        tagResults: [],
-        messages: [],
-        currentResultIndex: 0,
-        keyword: ''
+      currentUser: '',
+      targetUser: '',
+      currentRoomId :'',
+      tagResults: [],
+      messages: [],
+      currentResultIndex: 0,
+      keyword: ''
     };
     this.currentUser= null;
   }
@@ -122,6 +122,20 @@ class SearchTag extends Component {
             currentUser={this.state.currentUser}/>
         </div>
       )
+    }
+    else {
+      if (this.state.keyword !== '') {
+        return(
+          <div className='not-found'>
+            <div className='content'>
+              {translate('app.dashboard.search.search_tag_not_found')}
+            </div>
+            <div className='symbol'>
+              {translate('app.dashboard.search.search_tag_not_found_symbol')}
+            </div>
+          </div>
+        )
+      }
     }
   }
 

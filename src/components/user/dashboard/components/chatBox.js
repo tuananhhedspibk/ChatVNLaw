@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ChatBubble from 'react-chat-bubble';
 import * as Translate from 'counterpart';
 import $ from 'jquery';
+import {Picker} from 'emoji-mart';
 
 import * as RoomInfo from '../../../../lib/helper/room/get_room_info';
 import * as Messages from '../../../../lib/helper/messages/messages';
@@ -39,6 +40,17 @@ class ChatBox extends Component {
     properties.mess = mess;
     Messages.updateTag(properties);
   }
+
+  componentDidMount() {
+    $(document).mouseup(function(e) {
+      var container = $('.emoji-section');
+      var emojiPicker = $('#emoji-picker')
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        emojiPicker.css('visibility', 'hidden');
+      }
+    });
+  }
+  
   componentWillReceiveProps(nextProps){
     var component = this;
     if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
@@ -60,7 +72,8 @@ class ChatBox extends Component {
         component.setState({currentRoomId: roomId});             
       })
     }
-  }   
+  }
+
   componentWillUpdate(nextProps, nextState){
     var component = this;
     if(this.state.currentRoomId !== nextState.currentRoomId){
@@ -79,10 +92,10 @@ class ChatBox extends Component {
       })
       
     }
-  }    
+  }
+
   handleInputChange(evt) {
     let textBox = $('#input-mess-box');
-    
     if (evt.which === 13 && evt.shiftKey === false) {
       if(textBox.val().length > 0){
         this.handleSubmit();
@@ -100,13 +113,13 @@ class ChatBox extends Component {
     var chats = document.getElementsByClassName('chats')[0];
     var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-    input.style.height = '45px';
+    input.style.height = '60px';
     var contentHeight = document.getElementById(elementId).scrollHeight;
-    input.style.height = contentHeight + 'px';
+    input.style.height = contentHeight - 8 + 'px';
 
     var textbox = document.getElementById('text-box');
-    textbox.style.height = contentHeight + 2 + 'px';
-    chats.style.height = vh - 55 - contentHeight + 'px';
+    textbox.style.height = contentHeight - 5 + 'px';
+    chats.style.height = vh - 101 - contentHeight + 'px';
   }
 
   autoScrollBottom() {
@@ -129,8 +142,8 @@ class ChatBox extends Component {
     let properties = {};
     var textSubmit = $('#input-mess-box').val();
     if (textSubmit.replace(/\s/g, '').length !== 0) {
-      properties["content"] = textSubmit; 
-      properties["component"] = component;
+      properties['content'] = textSubmit; 
+      properties['component'] = component;
       Messages.chat(properties);
     }
   }
@@ -159,6 +172,19 @@ class ChatBox extends Component {
         });
       }
     });
+  }
+
+  upfile() {
+    $('#upfile:hidden').trigger('click');
+  }
+
+  renderEmojiPicker(e){
+    if ($('#emoji-picker').css('visibility') === 'hidden') {
+      $('#emoji-picker').css('visibility', 'visible');
+    }
+    else {
+      $('#emoji-picker').css('visibility', 'hidden');
+    }
   }
 
   renderVideo() {
@@ -203,6 +229,28 @@ class ChatBox extends Component {
               <textarea id='input-mess-box'
                 placeholder={Translate('app.chat.input_place_holder')}
                 onKeyDown={this.handleInputChange.bind(this)} />
+              <input type='file' id='upfile'/>
+              <div className='addons-field'>
+                <div className='emoji-section'>
+                  <div id='emoji-picker'>
+                    <Picker
+                      onClick={this.onClickEmoji}
+                      emojiSize={24} 
+                      perLine={9}    
+                      skin={1}       
+                      set='messenger'                
+                      showPreview={false}
+                      autoFocus={true}
+                    />
+                  </div>
+                  <i className='fa fa-smile-o'
+                    aria-hidden='true'
+                    onClick={this.renderEmojiPicker}></i>
+                  <i className='fa fa-file-image-o'
+                    aria-hidden='true'
+                    onClick={this.upfile}></i>
+                </div>
+              </div>
             </div>
           </div>
         </div>

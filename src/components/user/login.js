@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
 
+import Nav from '../homepage/nav';
+
 import * as constant from '../constants';
 
 import '../../assets/styles/common/authen.css';
@@ -31,16 +33,6 @@ class UserLogin extends Component {
       var provider = new firebase.auth.GoogleAuthProvider();
       this.signInWithPopup(provider);      
     });
-
-    $('#button-login-with-twitter').on('click', event => {
-      var provider = new firebase.auth.TwitterAuthProvider();
-      this.signInWithPopup(provider);      
-    });
-
-    $('#button-login-with-github').on('click', event => {
-      var provider = new firebase.auth.GithubAuthProvider();
-      this.signInWithPopup(provider);      
-    });
   }
   signInWithPopup(provider){
     var component = this;
@@ -59,19 +51,12 @@ class UserLogin extends Component {
         }
                
       })
-      // ...
     }).catch(function(error) {
-      // Handle Errors here.
-      // var errorCode = error.code;
       var errorMessage = error.message;
-      // The email of the user's account used.
-      // var email = error.email;
-      // // The firebase.auth.AuthCredential type that was used.
-      // var credential = error.credential;
-      // ...
       component.showAlert(errorMessage);
     });  
   }
+
   showAlert = (text) => {
     this.msg.show(text, {
       time: 5000,
@@ -120,24 +105,22 @@ class UserLogin extends Component {
   render() {
     return(
       <div className='login-page ng-scope ui-view'>
+        <Nav navStyle='inverse'/>
         <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>
         <div className='row justify-content-md-center'>
-          <div className='col-md-6'>
-            <img src={constant.logoPic} className='user-avatar' alt=''/>
-            <h1>{translate('app.identifier.app_name')} <small>
-              {translate('app.identifier.slogan')}</small></h1>
-            <button className='btn btn-white btn-outline btn-lg btn-rounded' id='button-login-with-facebook'>
-              Facebook
-            </button>
-            <button className='btn btn-white btn-outline btn-lg btn-rounded' id='button-login-with-google'>
-              Google
-            </button>
-            <button className='btn btn-white btn-outline btn-lg btn-rounded' id='button-login-with-twitter'>
-              Twitter
-            </button>
-            <button className='btn btn-white btn-outline btn-lg btn-rounded' id='button-login-with-github'>
-              Github
-            </button>
+          <div className='col-md-4'>
+            <img src={constant.logoPic} className='app-logo' alt=''/>
+            <div className='omni-auth'>
+              <button id='button-login-with-facebook'>
+                {translate('app.identifier.login_face')}
+              </button>
+              <button id='button-login-with-google'>
+                {translate('app.identifier.login_google')}
+              </button>
+            </div>
+            <div className='or'>
+              {translate('app.identifier.or')}
+            </div>
             <form onSubmit={this.handleSubmit.bind(this)}
               className='ng-pristine ng-valid'>
               <div className='form-content'>
@@ -146,7 +129,7 @@ class UserLogin extends Component {
                     name='username'
                     value={this.state.username}
                     onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-underline input-lg'
+                    className='form-control input-lg'
                     placeholder={translate('app.login.email')}/>
                 </div>
                 <div className='form-group'>
@@ -154,7 +137,7 @@ class UserLogin extends Component {
                     name='password'
                     value={this.state.password}
                     onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-underline input-lg'
+                    className='form-control input-lg'
                     placeholder={translate('app.login.password')}/>
                 </div>
                 <div className='form-group redirect-to'>
@@ -164,10 +147,9 @@ class UserLogin extends Component {
                   </a>
                 </div>
               </div>
-              <button type='submit' className='btn btn-white btn-outline btn-lg btn-rounded'>
+              <button type='submit' className='btn btn-white btn-lg'>
                 {translate('app.login.submit')}
               </button>
-            
             </form>
           </div>
         </div>

@@ -4,6 +4,7 @@ module.exports = {
       app_name: 'VNLaw',
       language: 'Language',
       slogan: 'Always make an awesome support',
+      or: 'OR',
       vi: 'Vietnamese',
       en: 'English',
       account: 'Account',
@@ -12,7 +13,9 @@ module.exports = {
       login: 'Log in',
       signup: 'Signup',
       logout: 'Log out',
-      search: 'Search law'
+      search: 'Search law',
+      login_face: 'Login with facebook',
+      login_google: 'Login with google'
     },
     home: {
       footer: {
@@ -80,6 +83,10 @@ module.exports = {
       schedule_content: 'Schedule a free consultation with a local attorney in under 60 seconds today. Instantly view available timeslots in lawyers’ calendars and click to book.',
       connect_content: 'Connect with local attorneys for initial consultations quickly and securely. VNLaw uses the most advanced video chat technology on the planet. Want to meet in-person? We do that too.',
       slogan: 'Compare top-rated lawyers in your area and schedule a consultation in seconds'
+    },
+    attorney: {
+      book: 'Book now',
+      view_profile: 'View profile'
     },
     nav: {
       brow_law: 'Browse Law',
@@ -174,6 +181,9 @@ module.exports = {
       founded: 'Has founded',
       results: 'result(s)',
       not_found_symbol: '>_<',
+      search_lawyer: {
+        title: 'You searched for '
+      },
       search_tool: {
         title: 'Search',
         key_search: 'Search keywords',
