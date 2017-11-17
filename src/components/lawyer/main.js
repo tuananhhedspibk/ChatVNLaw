@@ -16,7 +16,8 @@ class LawyerProfile extends Component {
 	    super(props);
 	    this.state = {
 	      profile: '',
-	      user: ''
+		  user: '',
+		  currentLawyer: ''
 	    };
   	}
   	getUserProfile(key) {
@@ -36,7 +37,7 @@ class LawyerProfile extends Component {
 	      		firebase.database().ref('users').orderByChild('username').equalTo(username).once('child_added')
 	    		.then(function(snapshotUser) {
 	    			if(snapshotUser.val().role != 'lawyer')
-	        			window.location = constant.BASE_URL;
+						window.location = constant.BASE_URL;
 	        		else {
 	        			component.setState({user: snapshotUser.val()});
 	        			component.getUserProfile(snapshotUser.key);
@@ -46,6 +47,7 @@ class LawyerProfile extends Component {
 	    })
   	}
   	componentWillMount() {
+		  console.log(this.props.match.params.user_name)
     	if(!firebase.apps.length){
       		firebase.initializeApp(constant.APP_CONFIG);
     	}
@@ -61,7 +63,7 @@ class LawyerProfile extends Component {
 					<LeftBar user={this.state.user} />
 					<MainContent profile={this.state.profile}/>
 					<div className="bottom-side">
-						<BottomContent/>
+						<BottomContent lawyer={this.props.match.params.user_name}/>
 					</div>
 				</div>
 				</div>

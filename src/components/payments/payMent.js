@@ -13,20 +13,11 @@ class payMent extends Component {
             info: []
         }
     }
-    
-    componentWillMount(){
-        var component = this
-        this.props.emitter.addListener('sendDataApplyLawyer', function(data){
-            component.setState({
-                info: data
-            })
-        })
-    }
 
     render() {
         return (
             <StripeProvider apiKey="pk_test_hMAhurESJYk43Gb4GOVtzUIM">
-                <MyStoreCheckout info={this.state.info}/>
+                <MyStoreCheckout info={this.props.fullInfo}/>
             </StripeProvider>
         );
     }

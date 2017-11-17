@@ -163,7 +163,7 @@ class Nav extends Component {
               </li>
               <li className='nav-item headerNavListItem'>
                 <a target='_blank'
-                  className='headerNavListLink' href='#'>
+                  className='headerNavListLink' href=''>
                   {translate('app.nav.support')}
                 </a>
               </li>

@@ -6,19 +6,60 @@ import {StripeProvider} from 'react-stripe-elements';
 import {injectStripe} from 'react-stripe-elements';
 const userInfo = require('../../lib/helper/user/get_user_info')
 const firebase = require('firebase');
+const translate = require('counterpart')
 
 class CardSection extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      currentUser: ''
+    }
+  }
+
+  componentWillMount(){
+    var user = firebase.auth().currentUser
+    this.setState({
+      currentUser : user
+    })
   }
 
   handleSubmit = ev => {
+    var component = this;
+    var roomId;
+    var reference = this.state.currentUser.uid + this.props.info[0]['uidLawyer']
+    firebase.database().ref(`reference/${reference}`).once('value', data => {
+      if(data) {
+        roomId = data.val()
+      }
+    })
     ev.preventDefault();
-    this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
+    this.props.stripe.createToken({name: component.state.currentUser.displayName}).then(({token}) => {
       if(typeof(token) === "object"){
+        var uidLawyer = component.props.info[0]['uidLawyer']
         userInfo.getUserName(firebase.auth().currentUser,function(result){
-        // window.location = constant.BASE_URL + '/chat/' + result;
-        console.log(this.props.info)
+          firebase.database().ref(`moneyAccount/${component.state.currentUser.uid}`).update(token)
+          if(!!roomId){
+            var ref = firebase.database().ref(`rooms/`+roomId['roomId'])
+            ref.update({description: component.props.info[0]['info']})
+            firebase.database().ref(`users/${uidLawyer}/username`).once('value', data => {
+              if(data) {
+                var username = data.val()
+                window.location = constant.BASE_URL + '/chat/' + username;
+              }
+            })
+          }
+          else {
+            var roomKey = firebase.database().ref(`rooms`).push().key
+            firebase.database().ref(`rooms/${roomKey}`).set({description: component.props.info[0]['info']})
+            firebase.database().ref(`rooms/${roomKey}/members`).set({customer: component.state.currentUser.uid, lawyer: component.props.info[0]['uidLawyer']})
+            var postKey = firebase.database().ref(`reference/${reference}`).set({roomId: roomKey})
+            firebase.database().ref(`users/${uidLawyer}/username`).once('value', data => {
+              if(data) {
+                var username = data.val()
+                window.location = constant.BASE_URL + '/chat/' + username
+              }
+            })
+          }
         })
       }
     });
@@ -30,7 +71,7 @@ class CardSection extends React.Component {
           Card details
         </label>
         <CardElement />
-        <button className="payment-bt">Next</button>
+        <button className="payment-bt">{translate('app.payment.connect')}</button>
       </form>
     );
   }

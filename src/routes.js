@@ -29,6 +29,7 @@ const Routes = props => (
       <Route path='/my-profile' component={CustomerProfile}/>
       <Route path='/search-law' component={SearchLaw} />
       <Route path='/lawyers/:user_name' component={LawyerProfile}/>
+      <Route path='/applylawyer/:uid' component={ApplyLawyer} />
       <Route exact path='/' render={() => (
         <Redirect to='/home'/>
       )}/>

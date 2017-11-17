@@ -32,26 +32,30 @@ class HotLawyers extends Component {
 
   renderInfoLawyer(){
     if(!!this.state.currentLawyer){
+      console.log(this.state.currentLawyer)
+      var profileLawyer = "/lawyers/"+this.state.currentLawyer.username
       return (
         <div className='lawyer-overview'>
           <div className='title'>
             {translate('app.home.recent_lawyer.lawyer_overview')}
           </div>
           <div className='content'>
-            <div className='name'>
-              {this.state.currentLawyer.displayName}
-            </div>
+            <a href={profileLawyer}>
+              <div className='name'>
+                {this.state.currentLawyer.displayName}
+              </div>
+            </a>
             <div className='overview-infor'>
               <div>
                 <i className='fa fa-money' aria-hidden='true'></i>
-                {this.state.currentLawyer.Price} / {translate('app.home.recent_lawyer.hour')}
+                {this.state.currentLawyer.price} / {translate('app.home.recent_lawyer.hour')}
               </div>
               <div>
                 <i class="fa fa-shopping-bag" aria-hidden="true"></i>
               </div>
             </div>
             <div className='description'>
-              {this.state.currentLawyer.Intro}
+              {this.state.currentLawyer.intro}
             </div>
             <button className='apply-btn' onClick={this.applyLawyer.bind(this)}>
               {translate('app.home.recent_lawyer.apply')}

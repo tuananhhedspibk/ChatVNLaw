@@ -326,6 +326,10 @@ module.exports = {
           year_mid_8: '2019'
         }
       }
+    },
+    payment: {
+      titile: 'Nhập thông tin thanh toán',
+      connect: 'Kết nối luật sư'
     }
   }
 }
