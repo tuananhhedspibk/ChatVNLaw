@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactLoading from 'react-loading';
 
 import * as constant from '../constants';
 import * as Lawyers from '../../lib/user/lawyers';
@@ -10,7 +11,8 @@ class HotLawyers extends Component {
     super(props);
     this.state={
       lawyers:[],
-      currentLawyer: ''
+      currentLawyer: null,
+      isloading: true
     }
   }
 
@@ -66,7 +68,7 @@ class HotLawyers extends Component {
     }
   }
 
-  render() {
+  renderView() {
     return(
       <div className='hot-lawyers'>
         <div className='lawyers-list'>
@@ -96,6 +98,20 @@ class HotLawyers extends Component {
         {this.renderInfoLawyer()}
       </div>
     )
+  }
+  render(){
+    if(this.state.isloading){
+      return(
+        <div className='hot-lawyers'>
+          <ReactLoading type='spinningBubbles' 
+          color='#43A3DF'  width='120' height='120'/>
+        </div>
+      )
+    }else{
+      return(
+        <div>{this.renderView()}</div>
+      )
+    }
   }
 }
 

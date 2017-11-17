@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import firebase from 'firebase';
+import {isLawyer} from '../../lib/user/lawyers';
 
 import * as userInfo from '../../lib/user/getuserinfo';
 import * as constant from '../constants';
@@ -13,7 +14,7 @@ class Nav extends Component {
     super(props);
     this.state ={
       currentUser: null,
-      isLawyer: false
+      islawyer: false
     }
   }
 
@@ -43,7 +44,12 @@ class Nav extends Component {
     var component = this;
     localStorage.setItem('target', 'home');
     firebase.auth().onAuthStateChanged(function(user){
-      component.setState({currentUser: user});      
+      component.setState({currentUser: user}); 
+      if(user){
+        isLawyer(user.uid, issuccess =>{
+          component.setState({islawyer : issuccess});
+        })
+      }     
     })
   }
 
@@ -52,15 +58,11 @@ class Nav extends Component {
     if(!firebase.apps.length){
       firebase.initializeApp(constant.APP_CONFIG);  
     }
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        userInfo.getUserName(user, function(result){
-          window.location = constant.BASE_URL+ '/chat/' + result;                 
-        })
-      } else {
-        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
-      }
-    });
+    if(!this.state.islawyer){
+      window.location = constant.BASE_URL + constant.SIGN_IN_URI;            
+    }else{
+      window.location = constant.BASE_URL + '/dashboard';                
+    }
   }
 
   logout() {
@@ -166,7 +168,7 @@ class Nav extends Component {
                 </a>
               </li>
               <li className='nav-item headerNavListItem'>
-                <a className='headerNavListLink' onClick={this.checkLogin}>Chat</a>
+                <a className='headerNavListLink' onClick={this.checkLogin.bind(this)}>{this.state.islawyer === true ? 'DashBoard' : 'Chat'}</a>
               </li>
               {this.renderDropdown()}
             </ul>
