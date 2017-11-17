@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-
-import HotLawyers from './hotLawyers';
-import GetStarted from './getStarted';
-import SearchLaw from './searchLaw';
+import HotLawyers from './hotlawyers';
+import GetStarted from './getstarted';
+import SearchLaw from './searchlaw';
 
 class Content extends Component {
   constructor(props) {

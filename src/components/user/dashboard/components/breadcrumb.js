@@ -1,9 +1,9 @@
 import React from 'react';
 import {Route, Link} from 'react-router-dom';
 import {Breadcrumb, BreadcrumbItem} from 'reactstrap';
-import routes from '../../../../breadcrumbRoutes';
+import routes from '../../../../breadcrumbroutes';
 
-let translate = require('counterpart');
+import * as translate from 'counterpart';
 
 const findRouteName = url => routes[url];
 

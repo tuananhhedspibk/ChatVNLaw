@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-let translate = require('counterpart');
+import * as translate from 'counterpart';
 
 class Category extends Component {
 	renderCategory(type, numberItem) {

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import * as constant from '../constants';
-import '../../assets/styles/common/main.css';
 import ReactLoading from 'react-loading';
 
-let translate = require('counterpart');
+import * as constant from '../constants';
+import * as translate from 'counterpart';
+
+import '../../assets/styles/common/main.css';
 
 class Loading extends Component {
   render() {

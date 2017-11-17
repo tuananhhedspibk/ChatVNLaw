@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
+import firebase from 'firebase';
 
-import * as Translate from 'counterpart';
-import * as Files from '../../../../lib/helper/upfile/files';
-
-const firebase = require('firebase');
-let translate = require('counterpart');
+import * as Files from '../../../../lib/upfile/files';
+import * as translate from 'counterpart';
 
 class Customer extends Component {
   constructor(props) {
@@ -140,7 +138,7 @@ class Customer extends Component {
             </div>
             <div className='shared shared-files'>
               <div className='content-title'>
-                {Translate('app.chat.shared_files')}
+                {translate('app.chat.shared_files')}
               </div>
               <div className='files-list'>
                 {
@@ -157,7 +155,7 @@ class Customer extends Component {
             </div>
             <div className='shared shared-images'>
               <div className='content-title'>
-                {Translate('app.chat.shared_images')}
+                {translate('app.chat.shared_images')}
               </div>
               <div className='images-list'>
                 {

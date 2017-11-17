@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-import '../../assets/styles/common/footer.css';
-
 import * as constant from '../constants';
+import * as translate from 'counterpart';
 
-let translate = require('counterpart');
+import '../../assets/styles/common/footer.css';
 
 class Footer extends Component {
   render() {

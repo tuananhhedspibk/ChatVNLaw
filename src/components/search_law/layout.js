@@ -4,18 +4,16 @@ import { parse } from 'qs';
 import axios from 'axios';
 import $ from 'jquery';
 import { ToastContainer, toast } from 'react-toastify';
-
 import Nav from '../homepage/nav';
-import Result from '../search_law/result';
-import SearchTool from '../search_law/searchTool';
-import Category from '../search_law/category';
+import Result from './result';
+import SearchTool from './searchtool';
+import Category from './category';
 
 import * as constant from '../constants';
+import * as translate from 'counterpart';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import '../../assets/styles/common/searchLaw.css';
-
-let translate = require('counterpart');
 
 class SearchLaw extends Component {
 	constructor(props) {

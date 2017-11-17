@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ChatUserLists from './chatUsersList';
+import ChatUserLists from './chatuserslist';
 
 class Chat extends Component {
   render() {

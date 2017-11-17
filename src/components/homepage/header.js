@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Nav from './nav';
 import Find from './find';
 

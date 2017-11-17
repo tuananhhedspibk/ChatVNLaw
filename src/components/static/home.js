@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import firebase from 'firebase';
 
 import * as constant from '../constants';
-var firebase = require('firebase');
 
 class Home extends Component {
   renderView() {

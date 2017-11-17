@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, TextArea, Button, Image,
-  Modal, Dropdown } from 'semantic-ui-react';
+import { Header, TextArea, Button, Image,Modal, Dropdown } from 'semantic-ui-react';
 import $ from 'jquery';
   
-import '../../assets/styles/common/chatSetting.css';
 import * as constant from '../constants';
-import * as Files from '../../lib/helper/upfile/files';
-const translate = require('counterpart');
-const firebase = require('firebase');
+import * as Files from '../../lib/upfile/files';
+import * as translate from 'counterpart';
+import * as firebase from 'firebase';
+
+import '../../assets/styles/common/chatSetting.css';
+
 var upfileStyle = {
   display: 'none'
 }
