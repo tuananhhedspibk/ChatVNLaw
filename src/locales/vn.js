@@ -15,7 +15,9 @@ module.exports = {
       logout: 'Đăng xuất',
       search: 'Tìm kiếm luật',
       login_face: 'Đăng nhập bằng facebook',
-      login_google: 'Đăng nhập bằng google'
+      login_google: 'Đăng nhập bằng google',
+      read_more: 'xem thêm',
+      show_less: 'thu nhỏ'
     },
     home: {
       footer: {
@@ -330,6 +332,19 @@ module.exports = {
     payment: {
       titile: 'Nhập thông tin thanh toán',
       connect: 'Kết nối luật sư'
+    },
+    lawyer: {
+      online_counsel: 'Tư vấn trực tuyến',
+      pay_for_hour: 'Chỉ phải trả phí theo giờ',
+      card_number: 'Số thẻ làm việc',
+      certificate: 'Chứng chỉ hành nghề',
+      experience: 'Số năm kinh nghiệm',
+      birthday: 'Ngày sinh',
+      work_place: 'Nơi làm việc',
+      intro: 'Giới thiệu',
+      achievement: 'Thành tích',
+      education: 'Giáo dục',
+      regis_now: 'Đăng kí ngay'
     }
   }
 }

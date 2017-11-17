@@ -1,0 +1,155 @@
+@import "variables.scss";
+
+.container-wrapper {
+  padding: 60px 160px;
+}
+
+.lawyer-profile {
+  background-color: $gray-more-lighter;
+
+  .btn-blue {
+    border-radius: 5px;
+    border: 1px solid $blue !important;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: 3px;
+    padding: 7px 12px;
+
+    &:hover {
+      background-color: $white;
+      color: $blue;
+      transition: all .5s ease;
+    }
+  }
+
+  .profile-header {
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 1px $gray-lighter;
+    padding: 40px;
+
+    .avatar {
+      display: inline-block;
+      float: left;
+      width: 150px;
+
+      img {
+        border-radius: 50%;
+        height: 150px;
+        width: 150px;
+      }
+    }
+
+    .basic-infor {
+      float: left;
+      padding-left: 35px;
+      width: calc(100% - 150px);
+
+      .right-block {
+        float: right;
+        font-size: 1.3em;
+        text-align: right;
+        width: 30%;
+
+        .cost {
+          margin-top: 6px;
+        }
+      }
+
+      .left-block {
+        float: left;
+        width: 70%;
+
+        p {
+          margin-bottom: 9px;
+        }
+
+        .name {
+          font-size: 1.8em;
+          font-weight: bold;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 100%;
+        }
+
+        .expert {
+          color: $gray;
+          font-size: 1.2em;
+        }
+      }
+    }
+
+    .another-infor {
+      font-size: 1.2em;
+
+      .left-block {
+        float: left;
+        width: 45%;
+
+        b {
+          display: inline-block;
+          margin-bottom: 14px;
+          width: 100%;
+        }
+      }
+
+      .right-block {
+        float: right;
+        text-align: left;
+        width: 55%;
+      }
+    }
+  }
+
+  .space-wrapper {
+    margin-top: 35px;
+  }
+
+  .content-block {
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 1px $gray-lighter;
+    padding: 20px 25px;
+
+    .title {
+      font-size: 1.5em;
+      font-weight: 600;
+      padding-bottom: 12px;
+    }
+
+    .content {
+      font-size: 1.2em;
+    }
+  }
+
+  .center-block {
+    .content {
+      padding-bottom: 5px;
+    }
+
+    hr {
+      margin: 25px 0;
+    }
+  }
+
+  .right-block {
+    text-align: center;
+
+    .fa-headphones {
+      color: $blue;
+      font-size: 6.6em;
+    }
+
+    .title {
+      font-size: 1.5em;
+      padding-bottom: 5px;
+    }
+
+    .sub-title {
+      font-size: 1.2em;
+      color: $gray;
+      padding-bottom: 10px;
+    }
+  }
+}

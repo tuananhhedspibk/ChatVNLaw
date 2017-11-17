@@ -1,75 +1,72 @@
 import React, { Component } from 'react';
 
 import Nav from '../homepage/nav';
-import LeftBar from './leftbar';
 import MainContent from './maincontent';
-import BottomContent from './bottomcontent'
 import Footer from '../homepage/footer';
 import * as constant from '../constants';
 
-import '../../assets/styles/common/lawyer_profile.css'
+import '../../assets/styles/common/lawyerProfile.css';
+
 var firebase = require('firebase');
 
 class LawyerProfile extends Component {
-
 	constructor(props) {
-	    super(props);
-	    this.state = {
-	      profile: '',
-		  user: '',
-		  currentLawyer: ''
-	    };
-  	}
-  	getUserProfile(key) {
+		super(props);
+		this.state = {
+			profile: '',
+			user: '',
+			currentLawyer: ''
+		};
+  }
+
+	getUserProfile(key) {
 		var component = this;
-  		firebase.database().ref(`lawyers/${key}`).once('value',function(snapshot) {
-	    			component.setState({profile : snapshot.val()});
-	    		})
-  	}
+		firebase.database().ref(`lawyers/${key}`).once('value',
+			function(snapshot) {
+	    	component.setState({profile : snapshot.val()});
+	    })
+	}
+		
 	checkUserName(username){
 		var component = this;
-	    firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
+		firebase.database().ref('users').orderByChild('username')
+			.equalTo(username).once('value')
 	    .then(function(snapshot){
-	      	if(!snapshot.exists()){
-	        	window.location = constant.BASE_URL;
-	      	}
-	      	else {
-	      		firebase.database().ref('users').orderByChild('username').equalTo(username).once('child_added')
+	      if(!snapshot.exists()){
+	        window.location = constant.BASE_URL;
+	      }
+	      else {
+					firebase.database().ref('users').orderByChild('username')
+					.equalTo(username).once('child_added')
 	    		.then(function(snapshotUser) {
 	    			if(snapshotUser.val().role != 'lawyer')
-						window.location = constant.BASE_URL;
-	        		else {
-	        			component.setState({user: snapshotUser.val()});
-	        			component.getUserProfile(snapshotUser.key);
-	        		}
+							window.location = constant.BASE_URL;
+	        	else {
+	        		component.setState({user: snapshotUser.val()});
+	        		component.getUserProfile(snapshotUser.key);
+	        	}
 	    		})
-	      	}
-	    })
-  	}
-  	componentWillMount() {
-		  console.log(this.props.match.params.user_name)
-    	if(!firebase.apps.length){
-      		firebase.initializeApp(constant.APP_CONFIG);
-    	}
-	    this.checkUserName(this.props.match.params.user_name);
-  	}
+	      }
+	  	})
+	}
+
+  componentWillMount() {
+    if(!firebase.apps.length){
+      firebase.initializeApp(constant.APP_CONFIG);
+    }
+	  this.checkUserName(this.props.match.params.user_name);
+  }
+
 	render() {
 		return (
 			<div>
 				<Nav navStyle='inverse'/>
-				<div className="lawyer-profile-content">
-				<div className="row">
-				
-					<LeftBar user={this.state.user} />
-					<MainContent profile={this.state.profile}/>
-					<div className="bottom-side">
-						<BottomContent lawyer={this.props.match.params.user_name}/>
-					</div>
-				</div>
-				</div>
-				<Footer />
+				<MainContent profile={this.state.profile}
+					user={this.state.user}/>
+				<Footer/>
 			</div>
 		);
 	}
 }
-export default LawyerProfile; 
+
+export default LawyerProfile;
