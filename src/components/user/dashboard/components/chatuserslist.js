@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ChatBox from './chatbox';
 import firebase from 'firebase';
+import {getAllRoom} from '../../../../lib/room/rooms';
 
 import * as constant from '../../../constants';
 import * as UserList from '../../../../lib/user/gettargetchatlist';
@@ -29,7 +30,10 @@ class ChatUsersList extends Component {
         properties['component'] = component;
         properties['currentUser'] = user;
         properties['keyword'] = 'user';
-        UserList.getTargetChat(properties);
+        getAllRoom(properties, (userArr) =>{
+          component.setState({users : userArr});
+        })
+        // UserList.getTargetChat(properties);
         component.props.emitter.addListener('getUserSearch', function(targetUser){
           component.setState({targetUser: targetUser})
         })

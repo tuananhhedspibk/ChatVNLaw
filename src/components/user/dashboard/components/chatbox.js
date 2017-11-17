@@ -52,24 +52,29 @@ class ChatBox extends Component {
   componentWillReceiveProps(nextProps){
     var component = this;
     if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
-      this.setState({targetUser: nextProps.targetUser});
+      this.setState({targetUser: nextProps.targetUser,currentRoomId: nextProps.targetUser.rid});
+      if(!!this.state.targetUser){
+        if(this.state.targetUser.rid !== nextProps.targetUser.rid){
+          this.setState({messages: []})
+        }
+      }
     }
     if(this.state.currentUser !== nextProps.currentUser && !!nextProps.currentUser){
       this.setState({currentUser: nextProps.currentUser});
     }
     
-    if(!!nextProps.targetUser && ((!this.state.targetUser) || (this.state.targetUser.uid !== nextProps.targetUser.uid))){
-      let properties = {}
-      this.setState({messages :[]})
-      properties['roomId'] = nextProps.currentUser.uid + nextProps.targetUser.uid;
-      properties['component'] = component;
-      properties['currentUser'] = nextProps.currentUser;
-      properties['targetUser'] = nextProps.targetUser;
-      RoomInfo.getRoomId(properties, roomId =>{
-        component.props.emitter.emit('RoomChatHasChanged',nextProps.currentUser, nextProps.targetUser, roomId);   
-        component.setState({currentRoomId: roomId});             
-      })
-    }
+    // if(!!nextProps.targetUser && ((!this.state.targetUser) || (this.state.targetUser.uid !== nextProps.targetUser.uid))){
+    //   let properties = {}
+    //   this.setState({messages :[]})
+    //   properties['roomId'] = nextProps.currentUser.uid + nextProps.targetUser.uid;
+    //   properties['component'] = component;
+    //   properties['currentUser'] = nextProps.currentUser;
+    //   properties['targetUser'] = nextProps.targetUser;
+    //   RoomInfo.getRoomId(properties, roomId =>{
+    //     component.props.emitter.emit('RoomChatHasChanged',nextProps.currentUser, nextProps.targetUser, roomId);   
+    //     component.setState({currentRoomId: roomId});             
+    //   })
+    // }
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -77,6 +82,7 @@ class ChatBox extends Component {
     if(this.state.currentRoomId !== nextState.currentRoomId){
       let properties = {}
       properties['roomId'] = nextState.currentRoomId;
+      component.props.emitter.emit('RoomChatHasChanged',nextProps.currentUser, nextProps.targetUser, nextState.currentRoomId);         
       properties['component'] = component;
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;

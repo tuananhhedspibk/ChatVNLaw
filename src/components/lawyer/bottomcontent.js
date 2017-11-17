@@ -10,15 +10,7 @@ class BottomContent extends Component {
 	}
 
 	applyLawyer(){
-		firebase.database().ref(`users`).orderByChild('username')
-					.equalTo(this.props.lawyer).limitToFirst(1).once("value", data => {
-			if(data){
-				for(var y in data.val()){
-					window.location = constant.BASE_URL + '/applylawyer/' + y;
-				}
-			}
-		})
-		// window.location = constant.BASE_URL + '/applylawyer/' + this.props.currentLawyer.uid;
+		window.location = constant.BASE_URL + '/applylawyer/' + this.props.lawyer;		
 	}
 
 	render() {
