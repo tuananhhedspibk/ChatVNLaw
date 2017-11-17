@@ -5,26 +5,30 @@ import Sidebar from './components/sidebar';
 import DashBoard from './components/dashboard';
 import Customer from './components/customer';
 import Note from './components/note';
-import TodoListLawyer from './components/todoListLawyer';
+import TodoListLawyer from './components/todolistlawyer';
 import Calendar from './components/calendar';
 import Breadcrumb from './components/breadcrumb';
-import SearchTag from './components/searchTag';
-import SearchUser from './components/searchUser';
-import TodoList from './components/todoList';
+import SearchTag from './components/searchtag';
+import SearchUser from './components/searchuser';
+import TodoList from './components/todolist';
 import {Container} from 'reactstrap';
 import Chat from './components/chat';
 import {EventEmitter} from 'fbemitter';
+import firebase from 'firebase';
+import Loading from '../../shared/loading';
+import {isLawyer} from '../../../lib/user/lawyers';
+
 import * as constant from '../../constants';
 
 import '../../../assets/styles/dashboard/style.css';
 import '../../../assets/styles/common/customDashboard.css';
-var firebase = require('firebase');
 
 class UserDashBoard extends Component {  
   constructor(props){
     super(props);
     this.state ={
-      currentUser: ''
+      currentUser: '',
+      isLoading: true
     }
     this.emitter = new EventEmitter();
   }
@@ -46,12 +50,23 @@ class UserDashBoard extends Component {
       }
     })
   }
-
+  componentWillUpdate(nextProps, nextState){
+    var component = this;
+    if(this.state.currentUser !== nextState.currentUser){
+      isLawyer(nextState.currentUser.uid, (issuccess) =>{
+        if(issuccess){
+          component.setState({isLoading: false})
+        }else{
+          window.location = constant.BASE_URL;
+        }
+      })
+    }
+  }
   componentDidMount() {
     document.body.classList.add('chat-section-hidden');
   }
 
-  render() {
+  renderView() {
     if(this.state.currentUser){
       return(
         <div className='app'>
@@ -92,9 +107,20 @@ class UserDashBoard extends Component {
       )
     }
     else{
+      return (
+        <Loading />
+      )
+    }
+  }
+  render(){
+    if(this.state.isLoading){
+      return (
+        <Loading />
+      )
+    }else{
       return(
         <div>
-          
+          {this.renderView()}
         </div>
       )
     }

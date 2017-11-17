@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import firebase from 'firebase';
 
+import * as userInfo from '../../lib/user/getuserinfo';
 import * as constant from '../constants';
+import * as translate from 'counterpart';
 
 import '../../assets/styles/common/nav.css';
-
-const firebase = require('firebase');
-const userInfo = require('../../lib/helper/user/get_user_info');
-
-let translate = require('counterpart');
-var check = 0;
 
 class Nav extends Component {
   constructor(props){
     super(props);
     this.state ={
-      currentUser: null
+      currentUser: null,
+      isLawyer: false
     }
   }
 

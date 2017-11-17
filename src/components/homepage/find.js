@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import * as constant from '../constants';
 import $ from 'jquery';
-let translate = require('counterpart');
+
+import * as constant from '../constants';
+import * as translate from 'counterpart';
 
 class Find extends Component {
   stringForm(input){

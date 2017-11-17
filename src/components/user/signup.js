@@ -1,37 +1,53 @@
 import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
+import firebase from 'firebase';
+import {createUserWithEmailAndPassword,onAuthStateChanged} from '../../lib/user/authentication';
+import Loading from '../shared/loading';
 
 import Nav from '../homepage/nav';
 
 import * as constant from '../constants';
+import * as translate from 'counterpart';
+import * as userInfo from '../../lib/user/getuserinfo';
 
 import '../../assets/styles/common/authen.css';
 
 const warningImage = require('../../assets/images/warning.png');
-const translate = require('counterpart');
-const firebase = require('firebase');
 
 class UserSignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayName: '',
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: ''
+      displayName: null,
+      name: null,
+      email: null,
+      password: null,
+      password_confirmation: null,
+      currentUser: null,
+      isLoading: true
     }
   }
 
   componentWillMount() {
-    if(localStorage.rocket_chat_user != null) {
-      window.location = constant.BASE_URL;
-    }
-
+    var component = this;
+    onAuthStateChanged( user =>{
+      if(!!user){
+        userInfo.getUserName(user, function(result){
+          const target = localStorage.getItem('target')
+          switch(target){
+            case 'chat':
+              window.location = constant.BASE_URL+ '/chat/' + result; 
+              break;
+            default:
+              window.location = constant.BASE_URL+ '/home';
+              break;      
+          }                   
+        })
+      }
+      component.setState({currentUser: user, isLoading : false})
+    })
   }
-  componentDidMount(){
 
-  }
   showAlert = (text) => {
     this.msg.show(text, {
       time: 5000,
@@ -66,37 +82,29 @@ class UserSignUp extends Component {
       component.showAlert('password not match');
       return;
     }
-    firebase.auth().createUserWithEmailAndPassword(email,password)
-    .catch(function(error){
-      component.showAlert(error.message);
-    })
-    .then(function(user){
-      if(user){             
-        user.updateProfile({
-          displayName: displayName,
-          photoURL: constant.DEFAULT_AVATAR_URL
-        }).then(function() {
-          firebase.database().ref(`users/${user.uid}`).update({
-            "displayName" : displayName,
-            "username": username,
-            'notes':[]
-          }).then(function(){
-            window.location = constant.BASE_URL+'/chat/'+username;              
-            
-          }).catch(function(error){
-            component.showAlert(error.message);
-            user.delete().then(function() {
-              // User deleted.
-            }).catch(function(error) {
-              // An error happened.
+    createUserWithEmailAndPassword(email,password, (issuccess , data) =>{
+      if(issuccess){
+        if(data){             
+          data.updateProfile({
+            displayName: displayName,
+            photoURL: constant.DEFAULT_AVATAR_URL
+          }).then(function() {
+            firebase.database().ref(`users/${data.uid}`).update({
+              "displayName" : displayName,
+              "username": username
+            }).then(function(){
+              window.location = constant.BASE_URL+'/chat/'+username;              
+            }).catch(function(error){
+              component.showAlert(error.message);
+              data.delete().then(function() {
+              }).catch(function(error) {
+              });
+              return;              
             });
-            return;              
-          });
-          // firebase.database().ref(`users/${user.uid}/notes`).update({
-          //   "displayName" : displayName,
-          //   "title": 'test'
-          // });
-        })
+          })
+        }
+      }else{
+        component.showAlert(data.message);
       }
     })
   }
@@ -115,7 +123,7 @@ class UserSignUp extends Component {
     str += '.'+(new Date()).getTime()
     return str; 
   }
-  render() {
+  renderView() {
     return(
       <div className='login-page ng-scope ui-view'>
         <Nav navStyle='inverse'/>
@@ -187,6 +195,21 @@ class UserSignUp extends Component {
         </div>
       </div>
     )
+  }
+  render(){
+    if(this.state.isLoading){
+      return(
+        <Loading />
+      )
+    }else{
+      if(!this.state.currentUser){
+        return(
+          <div>
+            {this.renderView()}
+          </div>
+        )
+      }
+    }
   }
 }
 

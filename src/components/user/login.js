@@ -1,60 +1,71 @@
 import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
+import firebase from 'firebase';
+import $ from 'jquery';
+import {signInWithPopup,signInWithEmailAndPassword,onAuthStateChanged} from '../../lib/user/authentication';
+import Loading from '../shared/loading';
 
 import Nav from '../homepage/nav';
 
 import * as constant from '../constants';
+import * as translate from 'counterpart';
+import * as userInfo from '../../lib/user/getuserinfo';
 
 import '../../assets/styles/common/authen.css';
 import '../../assets/styles/common/main.css';
-
-const translate = require('counterpart');
-const firebase = require('firebase');
-const $ = require('jquery');
-const userInfo = require('../../lib/helper/user/get_user_info');
 
 class UserLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: ''
+      email: null,
+      password: null,
+      currentUser: null,
+      isLoading: true
     }
   }
 
-  componentDidMount(){
-    $('#button-login-with-facebook').on('click', event => {
-      console.log('facebook');
-      var provider = new firebase.auth.FacebookAuthProvider();
-      this.signInWithPopup(provider);
-    });
-
-    $('#button-login-with-google').on('click', event => {
-      var provider = new firebase.auth.GoogleAuthProvider();
-      this.signInWithPopup(provider);      
-    });
+  componentWillMount(){
+    var component = this;
+    onAuthStateChanged( user =>{
+      if(!!user){
+        userInfo.getUserName(user, function(result){
+          const target = localStorage.getItem('target')
+          switch(target){
+            case 'chat':
+              window.location = constant.BASE_URL+ '/chat/' + result; 
+              break;
+            default:
+              window.location = constant.BASE_URL+ '/home';
+              break;      
+          }                   
+        })
+      }
+      component.setState({currentUser: user, isLoading : false})
+    })
+  }
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.isLoading !== this.state.isLoading){
+      $('#button-login-with-facebook').on('click', event => {
+        console.log('facebook');
+        var provider = new firebase.auth.FacebookAuthProvider();
+        this.signInWithPopup(provider);
+      });
+  
+      $('#button-login-with-google').on('click', event => {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        this.signInWithPopup(provider);      
+      });
+    }
   }
   signInWithPopup(provider){
-    var component = this;
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      var user = result.user;
-      userInfo.getUserName(user, function(result){
-        const target = localStorage.getItem('target')
-        if (!target){
-          window.location = constant.BASE_URL+ '/home'           
-        }
-        if (target === 'home') {
-          window.location = constant.BASE_URL+ '/home' 
-        }
-        if (target === 'chat') {
-          window.location = constant.BASE_URL+ '/chat/' + result; 
-        }
-               
-      })
-    }).catch(function(error) {
-      var errorMessage = error.message;
-      component.showAlert(errorMessage);
-    });  
+    var component = this;    
+    signInWithPopup(provider, (issuccess,result) =>{
+      if(issuccess){
+      }else{
+        component.showAlert(result.message);        
+      }
+    })  
   }
 
   showAlert = (text) => {
@@ -78,31 +89,23 @@ class UserLogin extends Component {
   handleSubmit(evt) {
     var component = this;
     evt.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(this.state.username,this.state.password).catch(function(error){
-      component.showAlert(error.message);
-    }).then(function(user){
-      if(user){
-        firebase.database().ref().child('users').child(user.uid).update({
-          "status" : "online",
-        }).catch(function(error){
-          component.showAlert(error.message);
-        }).then(function(){
-          userInfo.getUserName(user, function(result){
-            const target = localStorage.getItem('target')
-            if (target === 'home') {
-              window.location = constant.BASE_URL+ '/home' 
-            }
-            if (target === 'chat') {
-              window.location = constant.BASE_URL+ '/chat/' + result; 
-            }
-                   
+    signInWithEmailAndPassword(this.state.email,this.state.password, (issuccess, data) =>{
+      if(issuccess){
+        if(data){
+          firebase.database().ref().child('users').child(data.uid).update({
+            "status" : "online",
+          }).catch(function(error){
+            component.showAlert(error.message);
+          }).then(function(){
           })
-        })
+        }
+      }else{
+        component.showAlert(data.message);
       }
-    });
+    })
   }
 
-  render() {
+  renderView(){
     return(
       <div className='login-page ng-scope ui-view'>
         <Nav navStyle='inverse'/>
@@ -126,8 +129,8 @@ class UserLogin extends Component {
               <div className='form-content'>
                 <div className='form-group'>
                   <input type='text'
-                    name='username'
-                    value={this.state.username}
+                    name='email'
+                    value={this.state.email}
                     onChange={this.handleInputChange.bind(this)}
                     className='form-control input-lg'
                     placeholder={translate('app.login.email')}/>
@@ -155,6 +158,21 @@ class UserLogin extends Component {
         </div>
       </div>
     )
+  }
+  render() {
+    if(this.state.isLoading){
+      return(
+        <Loading />
+      )
+    }else{
+      if(!this.state.currentUser){
+        return(
+          <div>
+            {this.renderView()}
+          </div>
+        )
+      }
+    }
   }
 }
 

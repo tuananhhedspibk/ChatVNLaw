@@ -3,11 +3,10 @@ import {NavLink} from 'react-router-dom';
 import {Badge, Nav, NavItem} from 'reactstrap';
 import classNames from 'classnames';
 import nav from './_nav';
+import firebase from 'firebase';
 
-import * as firebase from 'firebase';
 import * as constant from '../../../constants';
-
-let translate = require('counterpart');
+import * as translate from 'counterpart';
 
 class Sidebar extends Component {
 

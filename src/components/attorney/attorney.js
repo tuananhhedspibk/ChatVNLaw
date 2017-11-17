@@ -7,6 +7,8 @@ import Category from './category';
 
 import '../../assets/styles/common/attorney.css';
 
+const SEARCH_PARAM = 'name';
+
 class Attorney extends Component {
   constructor(props){
     super(props);   
@@ -17,15 +19,23 @@ class Attorney extends Component {
 
   componentWillMount(){
     var params = new URLSearchParams(this.props.location.search);
-    var name = params.get('name');
+    var name = params.get(SEARCH_PARAM);
     this.setState({name: name});
   }
 
   renderContent(){
-    if(!!this.state.name){
+    console.log(this.props.location);
+    if(!!this.props.location.search){
+      if(!!this.state.name){
+        return(
+          <Content 
+            name={this.state.name}/>
+        )
+      }
+    }else{
       return(
         <Content 
-          name={this.state.name}/>
+            name=''/>
       )
     }
   }

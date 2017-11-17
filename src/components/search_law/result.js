@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-let translate = require('counterpart');
+import * as translate from 'counterpart';
 
 class Result extends Component {
 	render() {

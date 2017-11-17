@@ -3,22 +3,19 @@ import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
-import * as RoomInfo from '../../lib/helper/room/get_room_info';
 import ChatSetting from '../chat/chatsetting';
-import * as Files from '../../lib/helper/upfile/files';
-import * as constant from '../constants';
-import * as fileHelper from '../../lib/helper/upfile_helper';
-import * as im from '../../lib/helper/messages';
-import * as Messages from '../../lib/helper/messages/messages';
-import * as VideoCall from '../../lib/helper/streaming/listen_event_from_database';
 import AlertContainer from 'react-alert';
+import firebase from 'firebase';
+
+import * as RoomInfo from '../../lib/room/getroominfo';
+import * as Files from '../../lib/upfile/files';
+import * as constant from '../constants';
+import * as Messages from '../../lib/messages/messages';
+import * as translate from 'counterpart';
+import * as videoCall from '../../lib/streaming/videocall';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
-
-let translate = require('counterpart');
-var firebase = require('firebase');
-const videoCall = require('../../lib/helper/video_call');
 
 class Chat extends Component {
   constructor(props) {
@@ -64,9 +61,9 @@ class Chat extends Component {
         component.autoScrollBottom();        
       })
     
-      VideoCall.closeRef();
-      VideoCall.closeStream();
-      VideoCall.listenFromVideoCall(properties, () =>{})
+      videoCall.closeRef();
+      videoCall.closeStream();
+      videoCall.listenFromVideoCall(properties, () =>{})
       var fileButton = document.getElementById('upfile');
       fileButton.addEventListener('change', function(e){
         e.preventDefault();
@@ -80,7 +77,7 @@ class Chat extends Component {
       function(){
         if(this.scrollTop === 0){
           if(component.state.messages[0]){
-            properties['ts'] = parseInt(component.state.messages[0].msg_ts) - 1;            
+            properties['ts'] = parseInt(component.state.messages[0].msgTimeStamp) - 1;            
             Messages.history(properties, function(){
             
             })
@@ -242,8 +239,7 @@ class Chat extends Component {
   }
 
   renderConfigVideoCall(){
-    if(!!this.state.currentUser && !!this.state.targetUser
-      && this.state.currentUser.uid !== this.state.targetUser.uid){
+    if(!!this.state.currentUser && !!this.state.targetUser && this.state.currentUser.uid !== this.state.targetUser.uid){
       return (
         <div>
           <i onClick={this.makeCallRequest.bind(this)}

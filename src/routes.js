@@ -7,11 +7,11 @@ import UserDashBoard from './components/user/dashboard/main';
 import ChatView from './components/chat/chatview';
 import Home from './components/homepage/home';
 import Attorney from './components/attorney/attorney';
-import Payment from './components/payments/payMent';
+import Payment from './components/payments/payment';
 import CustomerProfile from './components/user/profile/main'
 import SearchLaw from './components/search_law/layout'
 import NotFoundPage from './components/shared/notfound';
-import ApplyLawyer from './components/homepage/applyLawyer'
+import ApplyLawyer from './components/homepage/applylawyer'
 import LawyerProfile from './components/lawyer/main'
 
 const Routes = props => (
@@ -25,6 +25,7 @@ const Routes = props => (
       <Route path='/signup' component={UserSignUp}/>
       <Route path='/attorney' component={Attorney}/>
       <Route path='/payment' component={Payment} />
+      <Route path='/applylawyer/:user_name' component={ApplyLawyer} />
       <Route path='/home' component={Home}/>
       <Route path='/my-profile' component={CustomerProfile}/>
       <Route path='/search-law' component={SearchLaw} />

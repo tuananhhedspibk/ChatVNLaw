@@ -5,13 +5,11 @@ import {
   NavLink, NavbarToggler, NavbarBrand,
   DropdownToggle
 } from 'reactstrap';
-
 import $ from 'jquery';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 import * as constant from '../../../constants';
-
-let translate = require('counterpart');
+import * as translate from 'counterpart';
 
 class Header extends Component {
 

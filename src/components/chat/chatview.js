@@ -4,22 +4,22 @@ import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 import {Route, Switch} from 'react-router-dom';
 import Loading from '../shared/loading';
-
+import getStunServerList from '../../lib/getstunserverlist';
+import {EventEmitter} from 'fbemitter';
 import Chat from '../user/chat';
+import $ from 'jquery';
+
 import * as constant from '../constants';
-import * as Messages from '../../lib/helper/messages/messages';
-import * as Users from '../../lib/helper/user/get_user_info';
+import * as Messages from '../../lib/messages/messages';
+import * as Users from '../../lib/user/getuserinfo';
+import * as Peer from 'peerjs';
+import * as translate from 'counterpart';
+import * as firebase from 'firebase';
 
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/userIndex.css';
 
-var {EventEmitter} = require('fbemitter');
 var emitter = new EventEmitter();
-const Peer = require('peerjs');
-const $ = require('jquery');
-let translate = require('counterpart');
-var firebase = require('firebase');
-const getStunServerList = require('../../lib/helper/get_stun_server_list');
 
 const KEYS_TO_FILTERS = ['displayName'];
 
