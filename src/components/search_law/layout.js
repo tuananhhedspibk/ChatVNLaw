@@ -4,6 +4,8 @@ import { parse } from 'qs';
 import axios from 'axios';
 import $ from 'jquery';
 import { ToastContainer, toast } from 'react-toastify';
+import ReactPaginate from 'react-paginate';
+
 import Nav from '../homepage/nav';
 import Result from './result';
 import SearchTool from './searchtool';
@@ -21,7 +23,8 @@ class SearchLaw extends Component {
 		this.state = {
 			articles: [],
 			defaultQuery: '',
-			perPage: 6
+			perPage: 6,
+			offset: 0
 		};
     this.handlerCategoryType = this.handlerCategoryType.bind(this);
     this.handlerCategoryYear = this.handlerCategoryYear.bind(this);
@@ -31,6 +34,15 @@ class SearchLaw extends Component {
 		toast(translate('app.search.founded') + ' ' +
 			this.state.articles.length + ' ' + translate('app.search.results'), {type: 'success'});
 	}
+
+	handlePageClick (data) {
+    let selected = data.selected;
+    let offset = Math.ceil(selected * this.state.perPage);
+
+    this.setState({offset: offset}, () => {
+      //this.loadCommentsFromServer();
+    });
+	};
 
 	componentDidMount() {
 		var component = this;

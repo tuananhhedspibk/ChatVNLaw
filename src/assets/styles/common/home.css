@@ -108,15 +108,15 @@
 
 .home-page .main-content .hot-lawyers {
   display: inline-block;
-  padding: 65px 85px;
+  padding: 0 85px 65px;
   width: 100%; }
   .home-page .main-content .hot-lawyers .title {
     font-size: 1.5em;
     padding-bottom: 20px; }
   .home-page .main-content .hot-lawyers .lawyers-list {
     float: left;
-    margin-right: 10%;
-    width: 55%; }
+    padding: 65px 0 0;
+    width: 100%; }
     .home-page .main-content .hot-lawyers .lawyers-list .title {
       border-bottom: 1px solid #ffe1c1; }
     .home-page .main-content .hot-lawyers .lawyers-list .lawyers {
@@ -152,7 +152,8 @@
         transition: all .5s ease; }
   .home-page .main-content .hot-lawyers .lawyer-overview {
     float: left;
-    width: 35%; }
+    padding: 65px 0 0;
+    width: 100%; }
     .home-page .main-content .hot-lawyers .lawyer-overview .content {
       border: 1px solid #E9EAEB;
       border-radius: 5px;
