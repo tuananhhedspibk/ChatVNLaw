@@ -12,7 +12,7 @@ class EditerPanel extends Component {
 		this.handleSave = this.handleSave.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
 		this.renderDefault = this.renderDefault.bind(this);
-		this.renderNomarl = this.renderNomarl.bind(this);
+		this.renderNormal = this.renderNormal.bind(this);
 		this.renderForm = this.renderForm.bind(this);
 
 	}

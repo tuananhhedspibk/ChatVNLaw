@@ -90,14 +90,7 @@ class Chat extends Component {
   
   componentDidMount() {   
     var component = this;
-    let properties = {};
-    properties['currentUser'] = this.state.currentUser;
-    properties['targetUser'] = this.state.targetUser;
-    properties['roomId'] = this.state.currentUser.uid + this.state.targetUser.uid;
-    properties['component'] = component;
-    RoomInfo.getRoomId(properties,roomId => {
-      component.setState({currentRoomId: roomId})
-    })
+    this.setState({currentRoomId: this.props.targetUser.rid})
 
     $(document).mouseup(function(e) {
       var container = $('.emoji-section');

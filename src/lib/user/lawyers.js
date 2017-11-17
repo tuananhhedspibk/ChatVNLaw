@@ -30,7 +30,7 @@ function getLawyerList(properties, callback){
           }
           arr.push(item);
           if(key.indexOf(i) === key.length -1){
-            properties.component.setState({lawyers: arr});
+            properties.component.setState({isloading: false,lawyers: arr});
           }
         });
       }

@@ -50,7 +50,7 @@ function upfile(properties,file, callback){
     }
     var component = properties.component;
     if(properties.roomId){
-        var storeageRef = firebase.storage().ref(`room_files/${properties.roomId}/${component.currentUser.uid}/${file.name}`);
+        var storeageRef = firebase.storage().ref(`room_files/${properties.roomId}/${component.state.currentUser.uid}/${file.name}`);
         var task = storeageRef.put(file);
 
         task.on('state_changed',

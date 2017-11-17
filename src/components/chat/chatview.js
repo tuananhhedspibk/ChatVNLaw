@@ -8,6 +8,7 @@ import getStunServerList from '../../lib/getstunserverlist';
 import {EventEmitter} from 'fbemitter';
 import Chat from '../user/chat';
 import $ from 'jquery';
+import {getAllRoom} from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
@@ -61,11 +62,15 @@ class ChatView extends Component {
       }
       component.setState({currentUser: user})
       properties['currentUser'] = user;
-      firebase.database().ref(`users/${user.uid}`).update({
-        status: 'online'
+      getAllRoom(properties, () => {
+
       })
+      
+      // firebase.database().ref(`users/${user.uid}`).update({
+      //   status: 'online'
+      // })
       properties['keyword'] = 'user';            
-      Users.getTargetChat(properties);            
+      // Users.getTargetChat(properties);            
       Messages.notifyUnreadMessage(properties);
       getStunServerList(() => {
         var stunServer = JSON.parse(localStorage.stun_server_list);      
@@ -149,6 +154,7 @@ class ChatView extends Component {
   }
   
   render() {
+    console.log(this.state.users);
     const filteredUsers = this.state.users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     if(!!this.state.currentUser && !!this.peer){    

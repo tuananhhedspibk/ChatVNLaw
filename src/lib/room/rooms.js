@@ -1,5 +1,18 @@
 var firebase = require('firebase');
 var constant = require('../constants');
+var Users = require('../user/getuserinfo');
+
+function extractUser(data, rid){
+    var item = {
+        username: data.val().username,
+        displayName: data.val().displayName,
+        uid : data.key,
+        status: data.val().status,
+        photoURL: data.val().photoURL,
+        rid: rid
+    }
+    return item;
+}
 
 // reference :
     // currentUser.uid :
@@ -15,17 +28,50 @@ function getRoomId(properties, callback){
     })
 }
 function getAllRoom(properties, callback){
+    var userArr = []    
     var ref = firebase.database().ref(`${constant.TABLE.reference}/${properties.currentUser.uid}`)
     ref.on('child_added', snapshot => {
-        console.log(snapshot);
+        // snapshot.key : uid, snapshot.val() : rid
+        Users.getUserByUid(snapshot.key, (event,data) =>{
+            switch(event){
+                case 'value':
+                    if(snapshot.key === properties.currentUser.uid){
+                        userArr.unshift(extractUser(data,snapshot.val()));
+                    }else{
+                        userArr.push(extractUser(data,snapshot.val()));  
+                    }
+                    properties.component.setState({users : userArr})
+                    break;
+                case 'child_changed':
+                    userArr.every((element, index) =>{
+                        if(element.uid === snapshot.key){
+                            userArr[index][data.key] = data.val()
+                            properties.component.setState({users : userArr})
+                            return false; 
+                        }else{
+                            return true;
+                        }
+                    })
+                    break;
+                // console.log(extractUser(data,snapshot.val()));
+            }         
+        })
     })
     ref.on('child_changed', snapshot =>{
         console.log(snapshot);
+        console.log(snapshot.val());
     })
     ref.on('child_removed', snapshot =>{
 
     })
 }
+
+// rooms:
+//     roomId:
+//         members:
+//             lawyer: uid
+//             customer: uid
+
 function createNewRoom(properties, callback){
   let ref = firebase.database().ref(`${constant.TABLE.rooms}`).push();
   let item = {}

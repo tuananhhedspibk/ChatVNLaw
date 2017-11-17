@@ -56,8 +56,8 @@ export const UNREAD_MESSAGES = {
   count : 'count',
   lastMessage : 'lastMessage',
   timeStamp : 'msgTimeStamp',
-  receiverId : 'receiverId',
-  senderId : 'senderId'
+  receiverId : 'receiverUid',
+  senderId : 'senderUid'
 }
 export const SHARED_FILES = {
   contentType : 'contentType',
@@ -65,7 +65,7 @@ export const SHARED_FILES = {
   height : 'height',
   width : 'width',
   name : 'name',
-  senderId : 'senderId',
+  senderId : 'senderUid',
   size : 'size',
   timeStamp : 'filesTimeStamp'
 }

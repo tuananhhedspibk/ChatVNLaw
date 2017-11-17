@@ -11,7 +11,15 @@ function extractUser(data){
     }
     return item;
 }
-
+function getUserByUid(input, callback){
+    var ref = firebase.database().ref(`${constant.TABLE.users}/${input}`)
+    ref.once('value').then(data =>{
+        return callback('value',data);
+    })
+    ref.on('child_changed', data =>{
+        return callback('child_changed', data);
+    })
+}
 function getTargetChat(properties){
     var ref = firebase.database().ref(`${constant.TABLE.users}`).orderByChild(`${constant.USERS.role}`).equalTo(properties.keyword);
     var userArr = []
@@ -99,5 +107,8 @@ module.exports = {
     },
     getTargetChat: function(properties){
         getTargetChat(properties);
+    },
+    getUserByUid: function(input, callback){
+        getUserByUid(input, callback);
     }
 }
