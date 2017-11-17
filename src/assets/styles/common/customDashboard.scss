@@ -93,7 +93,7 @@
       overflow: hidden;
       padding: 20px 15px 15px;
       resize: none;
-      width: 80%;
+      width: 87%;
 
       &:focus {
         outline: 0;
@@ -186,6 +186,13 @@
       padding: 10px;
       position: relative;
       width: calc(100% - 72px);
+
+      .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 85%;
+      }
 
       .fa {
         cursor: pointer;
@@ -453,6 +460,12 @@
 .my-work-with {
   h2 {
     font-size: 1.5em;
+
+    .user-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   #todo-list-ul {
@@ -512,7 +525,7 @@
       font-size: 1.1em;
       height: 42px;
       padding: 15px;
-      width: calc(100% - 112px);
+      width: calc(100% - 113px);
 
       &:focus {
         outline: 0;

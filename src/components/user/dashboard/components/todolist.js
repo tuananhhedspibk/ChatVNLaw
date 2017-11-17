@@ -177,7 +177,9 @@ class TodoList extends Component {
       <div className='my-work-with'>
         <h2>
           {translate('app.dashboard.todo_list_with')}
-           {this.state.targetUser ? this.state.targetUser.displayName : ''}
+          <div className='user-name'>
+            {this.state.targetUser ? this.state.targetUser.displayName : ''}
+          </div>
         </h2>
         <div>
           <ul id='todo-list-ul'>

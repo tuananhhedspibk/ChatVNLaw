@@ -214,8 +214,9 @@ class ChatBox extends Component {
           </div>
           <div className='header'>
             {this.state.targetUser ?
-              translate('app.dashboard.chat_title') + ' '
-                + this.state.targetUser.displayName :
+                <div className='user-name'>
+                   {this.state.targetUser.displayName}
+                </div> :
                 translate('app.dashboard.chat_title')}
             <i onClick={this.makeCallRequest.bind(this)}
               className='fa fa-video-camera'

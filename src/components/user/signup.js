@@ -123,6 +123,7 @@ class UserSignUp extends Component {
     str += '.'+(new Date()).getTime()
     return str; 
   }
+
   renderView() {
     return(
       <div className='login-page ng-scope ui-view'>
@@ -130,7 +131,7 @@ class UserSignUp extends Component {
         <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>
         <div className='row justify-content-md-center'>
           <div className='col-md-4 col-lg-4 col-md-offset-3 col-lg-offset-3'>
-            <img src={constant.logoPic} className='app-logo' alt=''/>
+            <img src={constant.appLogoPic} className='app-logo' alt=''/>
             <div className='omni-auth'>
               <button id='button-login-with-facebook'>
                 {translate('app.identifier.login_face')}
@@ -196,12 +197,14 @@ class UserSignUp extends Component {
       </div>
     )
   }
+
   render(){
     if(this.state.isLoading){
       return(
         <Loading />
       )
-    }else{
+    }
+    else{
       if(!this.state.currentUser){
         return(
           <div>

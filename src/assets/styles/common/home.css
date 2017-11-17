@@ -1,6 +1,9 @@
 .home-page {
   font-family: "Montserrat", sans-serif; }
 
+.react-loading {
+  margin: 65px auto 0; }
+
 .home-page .header {
   background-image: url("http://www.vasterad.com/themes/workscout/images/banner-home-02.jpg");
   background-position: 50%;
@@ -133,8 +136,10 @@
         background-color: #0974b8;
         transition: all .4s ease; }
     .home-page .main-content .hot-lawyers .lawyers-list .lawyer {
+      align-items: center;
       border-bottom: 1px solid #ffe1c1;
-      padding: 25px 0 25px 25px;
+      display: flex;
+      padding: 25px;
       width: 100%; }
       .home-page .main-content .hot-lawyers .lawyers-list .lawyer .ava {
         border-radius: 50%;
@@ -145,7 +150,11 @@
         padding-left: 30px;
         width: calc(100% - 85px); }
         .home-page .main-content .hot-lawyers .lawyers-list .lawyer .infor .name {
-          font-size: 1.3em; }
+          font-size: 1.3em;
+          overflow: hidden;
+          text-align: left;
+          text-overflow: ellipsis;
+          width: 100%; }
       .home-page .main-content .hot-lawyers .lawyers-list .lawyer:hover {
         background-color: #f6f6f6;
         cursor: pointer;

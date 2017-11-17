@@ -86,7 +86,7 @@ class HotLawyers extends Component {
                           <img className='ava'
                             src={lawyer.photoURL} />
                           <div className='infor'>
-                            <div className='name'>
+                            <div className='name' title={lawyer.displayName}>
                               {lawyer.displayName}
                             </div>
                           </div>
@@ -109,8 +109,9 @@ class HotLawyers extends Component {
     if(this.state.isloading){
       return(
         <div className='hot-lawyers'>
-          <ReactLoading type='spinningBubbles' 
-          color='#43A3DF'  width='120' height='120'/>
+          <ReactLoading type='spinningBubbles'
+            color='#43A3DF' width='100' height='100'
+            className='react-loading'/>
         </div>
       )
     }else{

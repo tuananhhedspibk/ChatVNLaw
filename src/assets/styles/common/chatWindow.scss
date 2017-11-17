@@ -59,6 +59,11 @@
     cursor: pointer;
   }
 
+  .call-section {
+    display: inline-block;
+    float: right;
+  }
+
   .title {
     border-bottom: 1px solid $gray-lighter;
     color: $blue;
@@ -70,6 +75,10 @@
       color: $black;
       font-size: 1em;
       display: inline-block;
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .fa {

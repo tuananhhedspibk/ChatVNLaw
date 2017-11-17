@@ -126,7 +126,7 @@ class Nav extends Component {
           </div>
           <div className='navbar-collapse collapse' id='navbarToggleExternalContent'>
             <a className='navbar-brand' href='/home'>
-              VNLaw
+              {translate('app.identifier.app_name')}
             </a>
             <ul className='navbar-nav ml-auto headerNavList'>
               <li className='nav-item headerNavListItem search-inputgroup'>
