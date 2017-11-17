@@ -15,9 +15,23 @@ export const TABLE = {
   role : 'roles',
   reference : 'reference',
   notes : 'notes',
-  lawyers : 'lawyers'
+  lawyers : 'lawyers',
+  notifications: 'notifications'
 };
 
+export const NOTIFICATIONS = {
+  senderId : 'senderUid',
+  type: 'type',
+  //  value:
+  //    'requestRoom': when ask lawyer,
+  //    'acceptRoom': when lawyer accepted and create new room
+  info: 'information'
+}
+
+export const NOTIFICATION_TYPE = {
+  requestRoom: 'requestRoom',
+  acceptRoom: 'acceptRoom'
+}
 export const USERS = {
   uid: 'uid',
   displayName: 'displayName',

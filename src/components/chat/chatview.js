@@ -62,8 +62,8 @@ class ChatView extends Component {
       }
       component.setState({currentUser: user})
       properties['currentUser'] = user;
-      getAllRoom(properties, () => {
-
+      getAllRoom(properties, (userArr) => {
+        component.setState({users : userArr});
       })
       
       // firebase.database().ref(`users/${user.uid}`).update({

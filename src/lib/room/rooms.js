@@ -40,18 +40,18 @@ function getAllRoom(properties, callback){
                     }else{
                         userArr.push(extractUser(data,snapshot.val()));  
                     }
-                    properties.component.setState({users : userArr})
+                    return callback(userArr);
                     break;
                 case 'child_changed':
                     userArr.every((element, index) =>{
                         if(element.uid === snapshot.key){
                             userArr[index][data.key] = data.val()
-                            properties.component.setState({users : userArr})
                             return false; 
                         }else{
                             return true;
                         }
                     })
+                    return callback(userArr)
                     break;
                 // console.log(extractUser(data,snapshot.val()));
             }         

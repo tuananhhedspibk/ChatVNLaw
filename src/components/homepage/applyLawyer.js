@@ -23,18 +23,27 @@ class applyLawyer extends Component {
 
   componentWillMount(){
     var component = this
-    var uidLawyer = window.location.pathname.substring(13,window.location.pathname.length)
+    var username = this.props.location.pathname.split('/applylawyer/')[1];
+    Lawyers.findLawyersWithUserName(username, (data)=>{
+      if(data.exists()){
+        for( var i in data.val()){
+          var item = {
+            username: data.val()[i].username,
+            displayName: data.val()[i].displayName,
+            uid : i,
+            photoURL: data.val()[i].photoURL
+          }
+        }
+        this.setState({isLoading: false,currentLawyer: item})
+      }else{
+        this.setState({isLoading: false})
+      }
+    })
     firebase.auth().onAuthStateChanged(user =>{
       if(user){
-        component.setState({currentUser: user});
-        var reference = component.state.currentUser.uid + uidLawyer
-        firebase.database().ref(`reference/${reference}`).once('value', data =>{
-          if(data) {
-            component.setState({
-              roomId: data.val()
-            })
-          }
-        })
+        component.setState({currentUser: user})
+      }else{
+        window.location = constant.HOME_URI;
       }
     })
   }
