@@ -15,7 +15,9 @@ module.exports = {
       logout: 'Log out',
       search: 'Search law',
       login_face: 'Login with facebook',
-      login_google: 'Login with google'
+      login_google: 'Login with google',
+      read_more: 'read more',
+      show_less: 'show less'
     },
     home: {
       footer: {
@@ -325,6 +327,19 @@ module.exports = {
           year_mid_8: '2019'
         }
       }
+    },
+    lawyer: {
+      online_counsel: 'Online Counseling',
+      pay_for_hour: 'Pay for hour',
+      card_number: 'Card number',
+      certificate: 'Certificate',
+      experience: 'Year experience',
+      birthday: 'Birthday',
+      work_place: 'Work place',
+      intro: 'Introduction',
+      achievement: 'Achievement',
+      education: 'Education',
+      regis_now: 'Register now'
     }
   }
 }

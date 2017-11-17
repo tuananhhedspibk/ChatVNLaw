@@ -181,7 +181,7 @@ body {
   color: $gray-darker;
   font-size: 1.6em;
 }
-//search user
+
 .img-user-search{
   display: none
 }
@@ -190,20 +190,11 @@ body {
   padding: 10px
 }
 
-// // todo list
-
-// /* Include the padding and border in an element's total width and height */
-// * {
-//   box-sizing: border-box;
-// }
-
-// /* Remove margins and padding from the list */
 #myUL {
   margin: 0;
   padding: 0;
 }
 
-// /* Style the list items */
 #myUL {
   li{
     cursor: pointer;
@@ -213,7 +204,6 @@ body {
     font-size: 18px;
     transition: 0.2s;
   
-    /* make the list items unselectable */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -243,7 +233,7 @@ body {
       width: 7px;
   }
 }
-// /* Style the close button */
+
 .close {
   position: absolute;
   right: 0;
@@ -265,22 +255,6 @@ body {
   text-align: left !important
 }
 
-// /* Style the header */
-// .header {
-//   background-color: #f44336;
-//   padding: 30px 40px;
-//   color: white;
-//   text-align: center;
-// }
-
-// /* Clear floats after the header */
-// .header:after {
-//   content: "";
-//   display: table;
-//   clear: both;
-// }
-
-// /* Style the input */
 #myInput {
   border: none;
   width: 75%;
@@ -289,7 +263,6 @@ body {
   font-size: 16px;
 }
 
-/* Style the "Add" button */
 .add-btn-todolist {
   padding: 10px;
   width: 25%;
