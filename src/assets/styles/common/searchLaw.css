@@ -9,14 +9,31 @@
   width: 100%; }
   .category-filter .title {
     background-color: #0277fb;
+    border: 0;
     color: #fff;
-    padding: 15px; }
+    cursor: pointer;
+    padding: 15px;
+    position: relative;
+    text-align: left;
+    width: 100%; }
+    .category-filter .title:focus {
+      outline: 0; }
+    .category-filter .title:after {
+      content: "\f106";
+      font-family: FontAwesome;
+      font-size: 1.2em;
+      position: absolute;
+      left: 170px;
+      top: 12px; }
     .category-filter .title .fa {
       margin-right: 10px; }
+  .category-filter .title.collapsed:after {
+    content: "\f107";
+    font-family: FontAwesome; }
   .category-filter .category-filter-title {
-    background-color: #f9f9f9;
+    background-color: #4E9FFC;
     border: 0;
-    color: #2385f2;
+    color: #fff;
     cursor: pointer;
     padding: 15px 35px;
     position: relative;
@@ -41,7 +58,7 @@
       .category-filter .category-filter-content .category-item a {
         color: #000; }
       .category-filter .category-filter-content .category-item:hover {
-        background-color: #6298f7;
+        background-color: #4E9FFC;
         transition: all .5s ease; }
         .category-filter .category-filter-content .category-item:hover a {
           color: #fff;
@@ -50,12 +67,30 @@
           transition: all .3s ease; }
 
 .search-law-tool .title {
-  background-color: #2385f2;
+  background-color: #0277fb;
+  border: 0;
+  border-bottom: 1px solid #fff;
   color: #fff;
-  font-size: 1.3em;
-  padding: 15px; }
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 15px;
+  text-align: left;
+  width: 100%; }
+  .search-law-tool .title:after {
+    content: "\f106";
+    font-family: FontAwesome;
+    font-size: 1.2em;
+    position: absolute;
+    left: 150px;
+    top: 13px; }
+  .search-law-tool .title:focus {
+    outline: 0; }
   .search-law-tool .title .fa {
     margin-right: 10px; }
+
+.search-law-tool .title.collapsed:after {
+  content: "\f107";
+  font-family: FontAwesome; }
 
 .search-law-tool .search-law-tool-body input[type="text"] {
   font-size: 1.2em;
@@ -63,28 +98,44 @@
   margin: 20px 20px 0;
   width: calc(100% - 30px); }
 
+.search-law-tool .search-law-tool-body .ui.toggle.checkbox input:checked ~ label:before {
+  background-color: #4E9FFC !important; }
+
 .search-law-tool .search-law-tool-body #group1 {
-  padding: 5px 20px 0;
+  padding: 5px 20px;
   font-size: 1.2em;
   margin-top: 10px;
   width: 100%; }
   .search-law-tool .search-law-tool-body #group1 label {
+    font-size: 1.2em;
     width: 100%; }
   .search-law-tool .search-law-tool-body #group1 input[type="radio"] {
     margin-right: 10px; }
 
 .search-law-tool .search-law-tool-body #group2 {
-  font-size: 1.2em;
-  padding: 0 15px 5px; }
+  font-size: 1.2em; }
+  .search-law-tool .search-law-tool-body #group2 label {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    padding: 10px 15px;
+    width: 100%; }
+  .search-law-tool .search-law-tool-body #group2 .select-section {
+    padding: 10px 15px; }
   .search-law-tool .search-law-tool-body #group2 select {
     font-size: 1em;
     height: 40px;
     margin-bottom: 10px; }
 
+.search-law-tool .search-law-tool-body .submit-btn {
+  text-align: center;
+  width: 100%; }
+
 .search-law-tool .search-law-tool-body button {
+  background-color: #4E9FFC;
+  color: #fff;
   font-size: 1.2em;
-  margin: 0 15px 15px;
-  padding: 10px 20px; }
+  margin-bottom: 15px;
+  padding: 10px 35px; }
 
 .results {
   overflow-y: scroll;

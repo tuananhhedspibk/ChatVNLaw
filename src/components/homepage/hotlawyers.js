@@ -71,31 +71,37 @@ class HotLawyers extends Component {
   renderView() {
     return(
       <div className='hot-lawyers'>
-        <div className='lawyers-list'>
-          <div className='title'>
-            {translate('app.home.recent_lawyer.title')}
-          </div>
-          <div className='lawyers'>
-            {
-              this.state.lawyers.map((lawyer) => {
-                return(
-                  <div className='lawyer'
-                    onClick={this.changeLawyer.bind(this, lawyer)}>
-                      <img className='ava'
-                        src={lawyer.photoURL} />
-                      <div className='infor'>
-                        <div className='name'>
-                          {lawyer.displayName}
-                        </div>
+        <div className='row'>
+          <div className='col-sm-12 col-md-5'>
+            <div className='lawyers-list'>
+              <div className='title'>
+                {translate('app.home.recent_lawyer.title')}
+              </div>
+              <div className='lawyers'>
+                {
+                  this.state.lawyers.map((lawyer) => {
+                    return(
+                      <div className='lawyer'
+                        onClick={this.changeLawyer.bind(this, lawyer)}>
+                          <img className='ava'
+                            src={lawyer.photoURL} />
+                          <div className='infor'>
+                            <div className='name'>
+                              {lawyer.displayName}
+                            </div>
+                          </div>
                       </div>
-                  </div>
-                )
-              })
-            }
+                    )
+                  })
+                }
+              </div>
+              <a href='/attroney' className='list-all-lawyers'>{translate('app.home.recent_lawyer.show_all')}</a>
+            </div>
           </div>
-          <a href='/attroney' className='list-all-lawyers'>{translate('app.home.recent_lawyer.show_all')}</a>
+          <div className='col-sm-12 col-md-7'>
+            {this.renderInfoLawyer()}
+          </div>
         </div>
-        {this.renderInfoLawyer()}
       </div>
     )
   }

@@ -162,7 +162,7 @@
 
     .hot-lawyers {
       display: inline-block;
-      padding: 65px 85px;
+      padding: 0 85px 65px;
       width: 100%;
 
       .title {
@@ -172,8 +172,8 @@
 
       .lawyers-list {
         float: left;
-        margin-right: 10%;
-        width: 55%;
+        padding: 65px 0 0;
+        width: 100%;
 
         .title {
           border-bottom: 1px solid $orange-lighter;
@@ -229,7 +229,8 @@
 
       .lawyer-overview {
         float: left;
-        width: 35%;
+        padding: 65px 0 0;
+        width: 100%;
 
         .content {
           border: 1px solid $border-color-lighter;

@@ -59,37 +59,40 @@ class Category extends Component {
 	render() {
 		return (
 			<div className='category-filter'>
-				<div className='title'>
+				<button className='title collapsed' data-toggle='collapse'
+					data-target='#category-content'>
 					<i className='fa fa-filter' aria-hidden='true'></i>
 					{translate('app.search.category_title')}
-				</div>
-				<div className='category-organization'>
-					<button className='category-filter-title collapsed'
-						data-toggle='collapse' data-target='#organ-content'>
-						{translate('app.search.category_organ.title')}
-					</button>
-					<div className='collapse category-filter-content' id='organ-content'>
-						{this.renderCategory('organ', 6)}
+				</button>
+				<div className='collapse' id='category-content'>
+					<div className='category-item category-organization'>
+						<button className='category-filter-title collapsed'
+							data-toggle='collapse' data-target='#organ-content'>
+							{translate('app.search.category_organ.title')}
+						</button>
+						<div className='collapse category-filter-content' id='organ-content'>
+							{this.renderCategory('organ', 6)}
+						</div>
 					</div>
-				</div>
-				<div className='category-type'>
-					<button className='category-filter-title collapsed'
-						data-toggle='collapse' data-target='#type-content'>
-						{translate('app.search.category_type.title')}
-					</button>
-					<div className='collapse category-filter-content'
-						id='type-content'>
-						{this.renderCategory('type', 11)}
+					<div className='category-item category-type'>
+						<button className='category-filter-title collapsed'
+							data-toggle='collapse' data-target='#type-content'>
+							{translate('app.search.category_type.title')}
+						</button>
+						<div className='collapse category-filter-content'
+							id='type-content'>
+							{this.renderCategory('type', 11)}
+						</div>
 					</div>
-				</div>
-				<div className='category-year'>
-					<button className='category-filter-title collapsed'
-						data-toggle='collapse' data-target='#year-content'>
-						{translate('app.search.category_year.title')}
-					</button>
-					<div className='collapse category-filter-content'
-						id='year-content'>
-						{this.renderCategory('year', 8)}
+					<div className='category-item category-year'>
+						<button className='category-filter-title collapsed'
+							data-toggle='collapse' data-target='#year-content'>
+							{translate('app.search.category_year.title')}
+						</button>
+						<div className='collapse category-filter-content'
+							id='year-content'>
+							{this.renderCategory('year', 8)}
+						</div>
 					</div>
 				</div>
 			</div>	
