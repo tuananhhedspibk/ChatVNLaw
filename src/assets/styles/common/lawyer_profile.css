@@ -96,7 +96,6 @@
         border-radius: 2px;
         padding: 20px;
         position: relative;
-        /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);*/
         margin-top: 30px; }
         .lawyer-profile-content .main-content #timeline-detail .timeline-panel:before {
           position: absolute;
@@ -138,44 +137,44 @@
         z-index: 100;
         border-radius: 50%;
         transition: background-color 0.5s; }
-  .lawyer-profile-content .bottom-side {
-    width: 100%;
-    height: 400px;
-    display: inline-block;
-    margin-top: 50px; }
-    .lawyer-profile-content .bottom-side .title-content {
-      text-align: center; }
-      .lawyer-profile-content .bottom-side .title-content h1 {
-        color: #a1a1a1;
-        font-size: 42px; }
-    .lawyer-profile-content .bottom-side .chat-banner {
-      background: #1bb1e7;
-      margin: auto;
-      margin-top: 20px;
-      box-shadow: #ccc 0 5px 23px, #ccc 0 -5px 23px;
-      width: 300px;
-      text-align: center;
-      padding: 20px; }
-      .lawyer-profile-content .bottom-side .chat-banner img {
-        height: 60px;
-        z-index: 100;
-        margin-bottom: 20px; }
-      .lawyer-profile-content .bottom-side .chat-banner ul {
-        padding: 0; }
-        .lawyer-profile-content .bottom-side .chat-banner ul li {
-          margin-bottom: 10px;
-          color: white;
-          font-size: 20px; }
-    .lawyer-profile-content .bottom-side .center-border {
-      width: 70%;
-      margin: auto;
-      margin-bottom: 20px;
-      display: block;
-      height: 2px;
-      background: #0974b8; }
-    .lawyer-profile-content .bottom-side button {
-      text-align: center;
-      font-size: 20px;
-      margin: auto;
-      display: inherit;
-      margin-top: 20px; }
+
+.bottom-side {
+  width: 100%;
+  height: 400px;
+  display: inline-block;
+  margin-top: 50px; }
+  .bottom-side .title-content {
+    text-align: center; }
+    .bottom-side .title-content h1 {
+      color: #a1a1a1;
+      font-size: 42px; }
+  .bottom-side .chat-banner {
+    background: #1bb1e7;
+    margin: auto;
+    margin-top: 20px;
+    width: 300px;
+    text-align: center;
+    padding: 20px; }
+    .bottom-side .chat-banner img {
+      height: 60px;
+      z-index: 100;
+      margin-bottom: 20px; }
+    .bottom-side .chat-banner ul {
+      padding: 0; }
+      .bottom-side .chat-banner ul li {
+        margin-bottom: 10px;
+        color: white;
+        font-size: 20px; }
+  .bottom-side .center-border {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 20px;
+    display: block;
+    height: 2px;
+    background: #0974b8; }
+  .bottom-side button {
+    text-align: center;
+    font-size: 20px;
+    margin: auto;
+    display: inherit;
+    margin-top: 20px; }

@@ -68,7 +68,6 @@ class Chat extends Component {
       fileButton.addEventListener('change', function(e){
         e.preventDefault();
         let file = e.target.files[0];
-        // store file data on firebase storage and set a reference on firebase realtime database
         properties["roomId"] = nextState.currentRoomId;
         Files.upfile(properties,file,function(){
         });
@@ -118,10 +117,11 @@ class Chat extends Component {
         .child(component.state.currentRoomId).child('unread');
       ref.once('value').then(function(data){
         if(data.exists()){
-          if(data.val().count > 0 && data.val().lastMess.receiver_uid === component.state.currentUser.uid){
-            ref.update({
-              count: 0
-            })
+          if(data.val().count > 0 && data.val().lastMess.receiver_uid
+            === component.state.currentUser.uid){
+              ref.update({
+                count: 0
+              })
           }
         }
       })
@@ -232,12 +232,14 @@ class Chat extends Component {
   }
 
   renderConfigVideoCall(){
-    if(!!this.state.currentUser && !!this.state.targetUser && this.state.currentUser.uid !== this.state.targetUser.uid){
+    if(!!this.state.currentUser &&
+      !!this.state.targetUser &&
+      this.state.currentUser.uid !== this.state.targetUser.uid){
       return (
-        <div>
+        <div className='call-section'>
           <i onClick={this.makeCallRequest.bind(this)}
-              className='fa fa-video-camera'
-              aria-hidden='true'></i>
+            className='fa fa-video-camera'
+            aria-hidden='true'></i>
           <i className='fa fa-phone'
             aria-hidden='true'></i>
         </div>

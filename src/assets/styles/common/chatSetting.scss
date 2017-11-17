@@ -82,6 +82,11 @@
 
     .info {
       width: 215px;
+
+      .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     .config {

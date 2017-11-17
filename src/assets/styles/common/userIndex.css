@@ -59,7 +59,9 @@
         padding-left: 15px;
         width: 170px; }
         .list-users .ui.list .item .content .header {
-          font-size: 1.2em; }
+          font-size: 1.2em;
+          overflow: hidden;
+          text-overflow: ellipsis; }
       .list-users .ui.list .item .description {
         color: #808080;
         margin-top: 5px; }

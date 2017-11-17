@@ -203,7 +203,8 @@ class ChatSetting extends Component {
             {this.renderAva()}
           </div>
           <div className='info'>
-            <div className={'user-name'}>
+            <div className={'user-name'}
+              title={this.state.targetUser.displayName}>
               {this.state.targetUser.displayName}
             </div>
           </div>

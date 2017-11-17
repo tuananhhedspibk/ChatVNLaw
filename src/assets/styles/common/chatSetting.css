@@ -56,6 +56,9 @@
         width: 50px; }
     .chat-setting .header .info {
       width: 215px; }
+      .chat-setting .header .info .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis; }
     .chat-setting .header .config {
       color: #a2a2a2;
       cursor: pointer; }

@@ -112,7 +112,7 @@ class UserLogin extends Component {
         <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>
         <div className='row justify-content-md-center'>
           <div className='col-md-4'>
-            <img src={constant.logoPic} className='app-logo' alt=''/>
+            <img src={constant.appLogoPic} className='app-logo' alt=''/>
             <div className='omni-auth'>
               <button id='button-login-with-facebook'>
                 {translate('app.identifier.login_face')}

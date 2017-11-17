@@ -43,6 +43,9 @@
     display: none; }
   .chat-window .fa-video-camera {
     cursor: pointer; }
+  .chat-window .call-section {
+    display: inline-block;
+    float: right; }
   .chat-window .title {
     border-bottom: 1px solid #e5ecf0;
     color: #2385f2;
@@ -52,7 +55,11 @@
     .chat-window .title .user-name {
       color: #000;
       font-size: 1em;
-      display: inline-block; }
+      display: inline-block;
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
     .chat-window .title .fa {
       float: right;
       font-size: 1.2em;

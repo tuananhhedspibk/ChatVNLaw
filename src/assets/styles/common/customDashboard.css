@@ -63,7 +63,7 @@
     overflow: hidden;
     padding: 20px 15px 15px;
     resize: none;
-    width: 80%; }
+    width: 87%; }
     .app-body .chat-box textarea:focus {
       outline: 0; }
   .app-body .chat-box .chats {
@@ -126,6 +126,11 @@
     padding: 10px;
     position: relative;
     width: calc(100% - 72px); }
+    .app-body .chat-section .header .user-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 85%; }
     .app-body .chat-section .header .fa {
       cursor: pointer;
       margin-right: 10px;
@@ -316,6 +321,10 @@
 
 .my-work-with h2 {
   font-size: 1.5em; }
+  .my-work-with h2 .user-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
 
 .my-work-with #todo-list-ul {
   word-wrap: break-word; }
@@ -358,7 +367,7 @@
     font-size: 1.1em;
     height: 42px;
     padding: 15px;
-    width: calc(100% - 112px); }
+    width: calc(100% - 113px); }
     .search-feature .form-search input:focus {
       outline: 0; }
   .search-feature .form-search button {
