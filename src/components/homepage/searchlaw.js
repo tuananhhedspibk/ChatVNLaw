@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import * as translate from 'counterpart';
+import * as constant from '../constants';
+
+let translate = require('counterpart');
 
 class SearchLaw extends Component {
   render() {
@@ -79,7 +81,7 @@ class SearchLaw extends Component {
           </div>
         </div>
         <div className='row row-btn'>
-          <a className='btn btn-blue' href='/search-law'>
+          <a className='btn btn-blue' href={constant.SEARCH_LAW_URI}>
             {translate('app.home.search_law.title')}
           </a>
         </div>

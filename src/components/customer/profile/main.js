@@ -1,64 +1,64 @@
 import React, { Component } from 'react';
-import $ from 'jquery'
+import $ from 'jquery';
+
 import Nav from '../../homepage/nav';
 import Footer from '../../homepage/footer';
-import SideBar from './sidebar';
-import BasicInfor from './basicinfor';
-import ChatHistory from './chathistory';
-import FeedBackHistory from './feedbackhistory';
-import ReactDOM from 'react-dom';
-import { Redirect } from 'react-router-dom'
+import HeaderBlock from './headerblock';
+
+import {getUserByUid} from '../../../lib/user/getuserinfo';
 
 import * as constant from '../../constants';
 import * as firebase from 'firebase';
-import '../../../assets/styles/common/profile.css';
 
-global.jQuery = $;
+import '../../../assets/styles/common/customerProfile.css';
 
 class CustomerProfile extends Component {
 	constructor(props) {
-	    super(props);
-	    this.state = {
-	      currentUser: ''
-	    }
+	  super(props);
+	  this.state = {
+	    currentUser: ''
 	  }
+	}
 
 	componentWillMount() {
-	
 		var component = this;
 	    firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
-			// User is signed in.
-				component.setState({currentUser: user});
-			} else {
-				window.location = constant.BASE_URL + constant.SIGN_IN_URI
+				getUserByUid(user.uid, (event,data) =>{
+          switch(event){
+            case 'value':
+              var item = {
+                username: data.val().username,
+								displayName: data.val().displayName,
+								email: data.val().email,
+								role: data.val().role,
+                uid : data.key,
+                status: data.val().status,
+                photoURL: data.val().photoURL
+              }
+              var bool = data.val().role === 'lawyer' ? true : false 
+              component.setState({currentUser: item, islawyer: bool});
+              break;
+            case 'child_changed':
+              var bool = data.val().role === 'lawyer' ? true : false 
+              component.setState({islawyer: bool})
+              break;
+          }
+        })
 			}
 		});
-	 }
+	}
 
-  	componentDidUpdate(){
-  	}
 	render() {
-		if(this.state.currentUser){
-
-		    return (
-				<div>
-					<Nav />
-					<div className="profile-container">
-						<SideBar user={this.state.currentUser} />
-						 <div className="profile-information">
-							<BasicInfor  user={this.state.currentUser} />
-							<ChatHistory />
-							<FeedBackHistory/>
-						</div>
-					</div>
+		return(
+			<div>
+				<Nav navStyle='inverse'/>
+				<div className='container-customer-wrapper'>
+					<HeaderBlock user={this.state.currentUser}/>
 				</div>
-		);
-		} else{
-			return (
-				<div></div>
-			)
-		}
+				<Footer/>
+			</div>
+		)
 	}
 }
 

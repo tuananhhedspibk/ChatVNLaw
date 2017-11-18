@@ -12,7 +12,8 @@ class Header extends Component {
       <div className='header'>
         <div className='content'>
           <Nav navStyle='light' />
-          <Nav navStyle='inverse nav-hidden fixed-top'/>
+          <Nav id='-extra-nav'
+            navStyle='inverse nav-hidden fixed-top'/>
           <Find/>
         </div>
       </div>

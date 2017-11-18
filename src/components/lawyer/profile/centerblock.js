@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReadMore from '../shared/readmore';
+import ReadMore from '../../shared/readmore';
 
 let translate = require('counterpart');
 

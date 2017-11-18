@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import firebase from 'firebase';
 import {isLawyer} from '../../lib/user/lawyers';
+import {getUserByUid} from '../../lib/user/getuserinfo';
 
-import * as userInfo from '../../lib/user/getuserinfo';
 import * as constant from '../constants';
 import * as translate from 'counterpart';
 
@@ -18,36 +18,29 @@ class Nav extends Component {
     }
   }
 
-  componentDidMount() {
-    $('.search-link').on('click',function(){
-      var input_group = $(this).next();
-      $('.input-group:visible').hide();
-      $('.input-group:visible').children('input').css('width','10px');
-      $('.search-link:hidden').show();
-
-      $(this).hide();
-      input_group.css('display','flex');
-      input_group.hide();
-      input_group.show();
-      $(input_group).children('input').css('width','200px');
-    });
-
-    $('.remove-btn').on('click',function(){
-      var input_group = $(this).parents('.input-group');
-      input_group.hide();
-      $(input_group).children('input').css('width','10px');
-      $(input_group).prev().show(); 
-    });
-  }
-
   componentWillMount(){
     var component = this;
     localStorage.setItem('target', 'home');
     firebase.auth().onAuthStateChanged(function(user){
-      component.setState({currentUser: user}); 
       if(user){
-        isLawyer(user.uid, issuccess =>{
-          component.setState({islawyer : issuccess});
+        getUserByUid(user.uid, (event,data) =>{
+          switch(event){
+            case 'value':
+              var item = {
+                username: data.val().username,
+                displayName: data.val().displayName,
+                uid : data.key,
+                status: data.val().status,
+                photoURL: data.val().photoURL
+              }
+              var bool = data.val().role === 'lawyer' ? true : false 
+              component.setState({currentUser: item, islawyer: bool});
+              break;
+            case 'child_changed':
+              var bool = data.val().role === 'lawyer' ? true : false 
+              component.setState({islawyer: bool})
+              break;
+          }
         })
       }     
     })
@@ -75,91 +68,104 @@ class Nav extends Component {
     if(!firebase.apps.length){
       firebase.initializeApp(constant.APP_CONFIG);  
     }
-    if(this.state.currentUser){
-        return(
-          <div className='dropdown'>
-            <button className='btn dropdown-toggle'
-              type='button' id='dropdownMenu1'
-              data-toggle='dropdown'
-              aria-haspopup='true'
-              aria-expanded='true'>
-              {this.state.currentUser.displayName}
-            </button>
-            <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
-              <li>
-                <a className='headerNavListLink'
-                  href={constant.BASE_URL+constant.PROFILE_URI}>
-                    {translate('app.nav.setting')}
-                </a>
-              </li>
-              <li>
-                <a className='headerNavListLink'
-                  onClick={this.logout}>{translate('app.nav.sign_out')}
-                </a>
-              </li>
-            </ul>
-          </div>
-        )
-      }
-      else {
-        return(
-          <li className='nav-item headerNavListItem'>
-            <a className='headerNavListLink' href={constant.SIGN_IN_URI}>
-              {translate('app.identifier.login')}
-            </a>
-          </li>
-        )
-      }
+    if(!!this.state.currentUser){
+      return(
+        <div className='dropdown'>
+          <button className='btn dropdown-toggle'
+            type='button' id='dropdownMenu1'
+            data-toggle='dropdown'
+            aria-haspopup='true'
+            aria-expanded='true'>
+            {this.state.currentUser.displayName}
+          </button>
+          <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
+            <li>
+              {
+                isLawyer ?
+                (
+                  <a className='headerNavListLink'
+                    href={constant.BASE_URL + constant.LAWYER_PROFILE_URI
+                      + '/' + this.state.currentUser.username}>
+                      {translate('app.identifier.profile')}
+                  </a>
+                )
+                :
+                (
+                  <a className='headerNavListLink'
+                    href={constant.BASE_URL + constant.CUSTOMER_PROFILE_URI
+                      + '/' + this.state.currentUser.username}>
+                      {translate('app.identifier.profile')}
+                  </a>
+                )
+              }
+            </li>
+            <li>
+              {
+                isLawyer ?
+                (
+                  <a className='headerNavListLink'
+                    href={constant.BASE_URL + constant.SETTINGS_URI
+                      + constant.LAWYER_PROFILE_URI
+                      + '/' + this.state.currentUser.username}>
+                      {translate('app.nav.setting')}
+                  </a>
+                )
+                :
+                (
+                  <a className='headerNavListLink'
+                    href={constant.BASE_URL + constant.SETTINGS_URI
+                      + constant.CUSTOMER_PROFILE_URI
+                      + '/' + this.state.currentUser.username}>
+                      {translate('app.nav.setting')}
+                  </a>
+                )
+              }
+            </li>
+            <li>
+              <a className='headerNavListLink'
+                onClick={this.logout}>{translate('app.nav.sign_out')}
+              </a>
+            </li>
+          </ul>
+        </div>
+      )
+    }
+    else {
+      return(
+        <li className='nav-item headerNavListItem'>
+          <a className='headerNavListLink' href={constant.SIGN_IN_URI}>
+            {translate('app.identifier.login')}
+          </a>
+        </li>
+      )
+    }
   }
 
   renderView(){ 
     return(
       <div className={'container-fluid nav-' + this.props.navStyle}>
-        <nav className='navbar navbar-expand navbar-default'>
-          <div className='navbar-header'>
-            <button className='navbar-toggler' data-toggle='collapse'
-              data-target='#navbarToggleExternalContent'
-              aria-controls='navbarToggleExternalContent'
-              aria-expanded='false' aria-label='Toggle navigation'>
-                <i className='fa fa-bars' aria-hidden='true'></i>
-            </button>
-          </div>
-          <div className='navbar-collapse collapse' id='navbarToggleExternalContent'>
-            <a className='navbar-brand' href='/home'>
-              {translate('app.identifier.app_name')}
-            </a>
+        <nav className='navbar navbar-expand-lg'>
+          <a className='navbar-brand' href={constant.HOME_URI}>
+            {translate('app.identifier.app_name')}
+          </a>
+          <button className='navbar-toggler' data-toggle='collapse'
+            data-target={'#navbarToggleExternalContent' + this.props.id}
+            aria-controls='navbarToggleExternalContent'
+            aria-expanded='false' aria-label='Toggle navigation'>
+              <i className='fa fa-bars' aria-hidden='true'></i>
+          </button>
+          <div className='collapse navbar-collapse'
+            id={'navbarToggleExternalContent' + this.props.id}>
             <ul className='navbar-nav ml-auto headerNavList'>
               <li className='nav-item headerNavListItem search-inputgroup'>
-                <a className='search-link' role='button'>
+                <a className='headerNavListLink' role='button'>
                   {translate('app.nav.brow_law')}
                 </a>
-                <div className='input-group'>
-                  <input type='text' className='form-control' />
-                  <div className='input-group-btn'>
-                    <button className='btn btn-blue' type='submit'>
-                      <i className='fa fa-search' aria-hidden='true'></i>
-                    </button>
-                    <button className='btn btn-blue remove-btn'>
-                      <i className='fa fa-times' aria-hidden='true'></i>
-                    </button>
-                  </div>
-                </div>
               </li>
               <li className='nav-item headerNavListItem search-inputgroup'>
-                <a className='search-link' role='button'>
+                <a className='headerNavListLink' role='button'>
                   {translate('app.nav.brow_lawyers')}
                 </a>
-                <div className='input-group'>
-                  <input type='text' className='form-control' />
-                  <div className='input-group-btn'>
-                    <button className='btn btn-blue' type='submit'>
-                      <i className='fa fa-search' aria-hidden='true'></i>
-                    </button>
-                    <button className='btn btn-blue remove-btn'>
-                      <i className='fa fa-times' aria-hidden='true'></i>
-                    </button>
-                  </div>
-                </div>
               </li>
               <li className='nav-item headerNavListItem'>
                 <a target='_blank'
@@ -168,7 +174,10 @@ class Nav extends Component {
                 </a>
               </li>
               <li className='nav-item headerNavListItem'>
-                <a className='headerNavListLink' onClick={this.checkLogin.bind(this)}>{this.state.islawyer === true ? 'DashBoard' : 'Chat'}</a>
+                <a className='headerNavListLink'
+                  onClick={this.checkLogin.bind(this)}>
+                  {this.state.islawyer === true ? 'DashBoard' : 'Chat'}
+                </a>
               </li>
               {this.renderDropdown()}
             </ul>

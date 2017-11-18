@@ -12,7 +12,7 @@ class HeaderBlock extends Component {
     return(
       <div className='profile-header'>
         <div className='row'>
-          <div className='col-sm-12 col-md-6'>
+          <div className='col-sm-12 col-md-7'>
             <div className='avatar'>
               <img src={this.props.user.photoURL}/>
             </div>
@@ -43,7 +43,7 @@ class HeaderBlock extends Component {
               </div>
             </div>
           </div>
-          <div className='col-sm-12 col-md-6'>
+          <div className='col-sm-12 col-md-5'>
             <div className='another-infor'>
               <div className='left-block'>
                 <b>{translate('app.lawyer.birthday')}:</b>

@@ -43,7 +43,7 @@ class CustomerProfile extends Component {
   	}
 
   	handleUpdate(table,name, newValue) {
-		if(table=='users' &&  name=='displayName')	
+		if(table=='users' &&  name=='displayName')
 			this.handleUpdate('lawyers','fullname',newValue);
   		var update = eval('('+`{${name}:'${newValue}'}`+')');
   		firebase.database().ref(`${table}/${this.state.uid}`).update(update);
@@ -66,7 +66,7 @@ class CustomerProfile extends Component {
 	render() {
 	    return (
 			<div>
-				<Nav  navStyle='inverse'/>
+				<Nav navStyle='inverse'/>
 					{	this.state.user != null &&
 							(this.state.lawyer != null ? (<LawyerProfile lawyer={this.state.lawyer} user={this.state.user} handleUpdate={this.handleUpdate}/>) 
 						: (<UserProfile user={this.state.user} handleUpdate={this.handleUpdate}/>))

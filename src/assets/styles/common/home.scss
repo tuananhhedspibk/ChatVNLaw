@@ -250,6 +250,10 @@
           .name {
             font-size: 1.3em;
             margin-bottom: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
           }
 
           .overview-infor {

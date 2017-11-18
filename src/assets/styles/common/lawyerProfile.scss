@@ -1,7 +1,7 @@
 @import "variables.scss";
 
-.container-wrapper {
-  padding: 60px 160px;
+.container-lawyer-wrapper {
+  padding: 60px 110px;
 }
 
 .lawyer-profile {
@@ -81,15 +81,17 @@
     }
 
     .another-infor {
+      display: inline-block;
       font-size: 1.2em;
+      width: 100%;
 
       .left-block {
         float: left;
-        width: 45%;
+        width: 55%;
 
         b {
           display: inline-block;
-          margin-bottom: 14px;
+          margin-bottom: 12px;
           width: 100%;
         }
       }
@@ -97,7 +99,7 @@
       .right-block {
         float: right;
         text-align: left;
-        width: 55%;
+        width: 45%;
       }
     }
   }
@@ -150,6 +152,37 @@
       font-size: 1.2em;
       color: $gray;
       padding-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .container-lawyer-wrapper {
+    padding: 30px 30px;
+
+    .avatar {
+      margin-bottom: 15px;
+      text-align: center;
+      width: 100% !important;
+    }
+
+    .basic-infor {
+      padding-left: 0 !important;
+      width: 100% !important;
+
+      .left-block {
+        p {
+          margin-bottom: 15px !important;
+        }
+      }
+    }
+
+    .another-infor {
+      margin-top: 25px;
+    }
+
+    .content-block {
+      margin-bottom: 20px;
     }
   }
 }

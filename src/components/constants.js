@@ -5,9 +5,12 @@ export const HOME_URI = '/home';
 export const SIGN_IN_URI = '/login';
 export const SIGN_UP_URI = '/signup';
 export const CHAT_URI = '/chat';
-export const SEARCH_LAW_URI = '/search-law';
-export const PROFILE_URI = '/my-profile';
+export const SEARCH_LAW_URI = '/searchlaw';
+export const SETTINGS_URI = '/settings';
 export const ATTORNEY_URI = '/attorney';
+export const CUSTOMER_PROFILE_URI = '/customers';
+export const LAWYER_PROFILE_URI = '/lawyers';
+export const DASHBOARD_URI = '/dashboard';
 
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const API_SEARCH_URI = '/searches';

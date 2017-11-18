@@ -3,13 +3,14 @@ import { List, Image, Dropdown } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 import {Route, Switch} from 'react-router-dom';
+import $ from 'jquery';
+import {EventEmitter} from 'fbemitter';
+
 import Loading from '../shared/loading';
 import getStunServerList from '../../lib/getstunserverlist';
-import {EventEmitter} from 'fbemitter';
-import Chat from '../user/chat';
-import $ from 'jquery';
-import {getAllRoom} from '../../lib/room/rooms';
+import Chat from './chat';
 
+import {getAllRoom} from '../../lib/room/rooms';
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
 import * as Users from '../../lib/user/getuserinfo';

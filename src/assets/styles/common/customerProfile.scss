@@ -1,0 +1,46 @@
+@import 'variables.scss';
+
+.container-customer-wrapper {
+  background-color: $gray-more-lighter;
+  height: calc(100vh - 227px);
+  padding: 60px 160px;
+
+  .profile-header {
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 1px $gray-lighter;
+    padding: 40px;
+
+    .avatar {
+      display: inline-block;
+      float: left;
+      width: 150px;
+
+      img {
+        border-radius: 50%;
+        height: 150px;
+        width: 150px;
+      }
+    }
+
+    .basic-infor {
+      float: left;
+      font-size: 1.2em;
+      padding-left: 35px;
+
+      .name {
+        font-size: 1.5em;
+        font-weight: bold;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .fa {
+        font-size: 1.2em;
+        margin-right: 10px;
+      }
+    }
+  }
+}

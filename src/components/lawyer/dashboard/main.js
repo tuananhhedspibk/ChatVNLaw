@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
+
+import {EventEmitter} from 'fbemitter';
+import firebase from 'firebase';
+
 import Header from './components/header';
 import Sidebar from './components/sidebar';
 import DashBoard from './components/dashboard';
@@ -13,8 +17,7 @@ import SearchUser from './components/searchuser';
 import TodoList from './components/todolist';
 import {Container} from 'reactstrap';
 import Chat from './components/chat';
-import {EventEmitter} from 'fbemitter';
-import firebase from 'firebase';
+
 import Loading from '../../shared/loading';
 import {isLawyer} from '../../../lib/user/lawyers';
 

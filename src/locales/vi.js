@@ -14,6 +14,7 @@ module.exports = {
       login: 'Đăng nhập',
       logout: 'Đăng xuất',
       search: 'Tìm kiếm luật',
+      profile: 'Trang cá nhân',
       login_face: 'Đăng nhập bằng facebook',
       login_google: 'Đăng nhập bằng google',
       read_more: 'xem thêm',
@@ -347,6 +348,20 @@ module.exports = {
       achievement: 'Thành tích',
       education: 'Giáo dục',
       regis_now: 'Đăng kí ngay'
+    },
+    customer: {
+      account_type: 'Loại tài khoản:'
+    },
+    settings: {
+      basic_infor: 'Thông tin cơ bản',
+      detail_infor: 'Thông tin chi tiết',
+      avatar: 'Ảnh đại diện',
+      name: 'Tên',
+      user_name: 'Tên người dùng',
+      birthday: 'Ngày sinh',
+      card_number: 'Số thẻ làm việc',
+      certificate: 'Chứng chỉ hành nghề',
+      experience: 'Số năm kinh nghiệm'
     }
   }
 }

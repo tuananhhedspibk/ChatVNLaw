@@ -7,7 +7,7 @@ import LeftBlock from './leftblock';
 import RightBlock from './rightblock';
 import CenterBlock from './centerblock';
 
-import * as constant from '../constants';
+import * as constant from '../../constants';
 
 class MainContent extends Component {
 	convertContent(text) {
@@ -22,7 +22,7 @@ class MainContent extends Component {
 	render() {
 		return (
 			<div className='lawyer-profile'>
-				<div className='container-wrapper'>
+				<div className='container-lawyer-wrapper'>
 					<div className='row'>
 						<div className='col-sm-12'>
 							<HeaderBlock convertContent={this.convertContent}

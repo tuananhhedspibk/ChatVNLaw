@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import Nav from '../homepage/nav';
+import Nav from '../../homepage/nav';
 import MainContent from './maincontent';
-import Footer from '../homepage/footer';
-import * as constant from '../constants';
+import Footer from '../../homepage/footer';
+import * as constant from '../../constants';
 
-import '../../assets/styles/common/lawyerProfile.css';
+import '../../../assets/styles/common/lawyerProfile.css';
 
 var firebase = require('firebase');
 
@@ -14,8 +14,7 @@ class LawyerProfile extends Component {
 		super(props);
 		this.state = {
 			profile: '',
-			user: '',
-			currentLawyer: ''
+			user: ''
 		};
   }
 

@@ -14,7 +14,6 @@ class FeedBackHistory extends Component {
 					<h1>asdaadadaasdadadd</h1>
 					<h1>asdaadadaasdadadd</h1>
 					<h1>asdaadadaasdadadd</h1>
-
 				</div>
 			</div>
 			);
