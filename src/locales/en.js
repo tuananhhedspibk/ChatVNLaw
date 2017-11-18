@@ -14,6 +14,7 @@ module.exports = {
       signup: 'Signup',
       logout: 'Log out',
       search: 'Search law',
+      profile: 'Profile page',
       login_face: 'Login with facebook',
       login_google: 'Login with google',
       read_more: 'read more',
@@ -340,6 +341,20 @@ module.exports = {
       achievement: 'Achievement',
       education: 'Education',
       regis_now: 'Register now'
+    },
+    customer: {
+      account_type: 'Account type:'
+    },
+    settings: {
+      basic_infor: 'Basic Information',
+      detail_infor: 'Detail Information',
+      avatar: 'Avatar',
+      name: 'Name',
+      user_name: 'User name',
+      birthday: 'Birthday',
+      card_number: 'Card number',
+      certificate: 'Certificate',
+      experience: 'Year experience'
     }
   }
 }

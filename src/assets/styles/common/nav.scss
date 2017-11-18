@@ -10,53 +10,38 @@
 	color: $white;
 }
 
-.navbar-default {
-	background-color: #fff !important;
+.navbar {
+	background-color: transparent !important;
 	background-image: none !important;
 	border-radius: 0px !important;
-	display: block !important;
 	font-weight: 200;
-	height: 70px;
 	margin: 0px;
-}
+	padding-bottom: 10px !important;
+	padding-top: 10px !important;
 
-.navbar-default .navbar-nav>li input {
-	width: 10px;
-	transition: width 2s;
-	border-radius: 15px 0px 0px 15px;
-}
+	.navbar-brand {
+		font-size: 1.6em;
+		padding: 0 !important;
+	}
 
-.navbar-default .navbar-nav > li button {
-	float: right;
-	height: 34px;
-}
+	.headerNavListItem {
+		cursor: pointer;
+		display: inline-block;
+		font-size: .8em;
+		padding: 10px 20px;
+		text-transform: uppercase;
 
-.navbar-default .navbar-nav > li .remove-btn {
-	border-radius: 0px 15px 15px 0px
-}
+		&:hover {
+			background-color: $blue !important;
+			border-radius: 5px;
+			color: $white !important;
+			transition: all .5s ease;
+		}
+	}
 
-.navbar-default .navbar-nav > li {
-	align-items: center;
-	display: flex;
-	margin-right: 40px;
-}
-
-.navbar-default .navbar-nav > li .input-group {
-	display: none;
-	padding-right: 40px;
-}
-
-.navbar-default .navbar-nav > li .input-group-btn {
-	display: flex;
-}
-
-.headerNavListItem a {
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: .7em !important;
-	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 1px;
+	.dropdown {
+		margin-left: 15px;
+	}
 }
 
 .dropdown-menu a{
@@ -66,25 +51,8 @@
 	width: 100%;
 }
 
-.navbar {
-	padding-bottom: 10px !important;
-	padding-top: 10px !important;
-}
-
-.navbar a {
-	cursor: pointer;
-	font-size: 1.5em;
-	padding: 15px 20px;
-}
-
 .navbar-header {
 	padding-left: 30px;
-}
-
-.headerNavListItem a:hover {
-	background-color: $blue !important;
-	color: $white !important;
-	transition: all .5s ease;
 }
 
 .dropdown .btn {
@@ -105,16 +73,13 @@
 	padding: 0 !important;
 	position: absolute !important;
 	top: 50px;
-	left: -95px;
-	width: 120px;
+	left: -50px;
+	right: 0;
+	width: 180px;
 }
 
 .navbar-nav .dropdown-menu  a {
 	font-size: 1.2em !important;
-}
-
-.navbar-brand {
-	padding: 0 !important;
 }
 
 .dropdown-menu > li > a:hover {
@@ -124,14 +89,17 @@
 }
 
 .nav-hidden {
-	display: none;
-	height: 0;
-	transition: height 0.6s;
+	opacity: 0;
+	transition: all 0.6s;
 }
 
 .nav-inverse {
 	border-bottom: 1px solid $border-color;
 	background-color: white;
+
+	.collapse.show {
+		background-color: $white;
+	}
 
 	.navbar-nav .dropdown-menu {
 		background-color: $gray-more-lighter;

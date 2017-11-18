@@ -1,5 +1,5 @@
-.container-wrapper {
-  padding: 60px 160px; }
+.container-lawyer-wrapper {
+  padding: 60px 110px; }
 
 .lawyer-profile {
   background-color: #f6f6f6; }
@@ -54,18 +54,20 @@
           color: #a2a2a2;
           font-size: 1.2em; }
     .lawyer-profile .profile-header .another-infor {
-      font-size: 1.2em; }
+      display: inline-block;
+      font-size: 1.2em;
+      width: 100%; }
       .lawyer-profile .profile-header .another-infor .left-block {
         float: left;
-        width: 45%; }
+        width: 55%; }
         .lawyer-profile .profile-header .another-infor .left-block b {
           display: inline-block;
-          margin-bottom: 14px;
+          margin-bottom: 12px;
           width: 100%; }
       .lawyer-profile .profile-header .another-infor .right-block {
         float: right;
         text-align: left;
-        width: 55%; }
+        width: 45%; }
   .lawyer-profile .space-wrapper {
     margin-top: 35px; }
   .lawyer-profile .content-block {
@@ -95,3 +97,20 @@
       font-size: 1.2em;
       color: #a2a2a2;
       padding-bottom: 10px; }
+
+@media (max-width: 1150px) {
+  .container-lawyer-wrapper {
+    padding: 30px 30px; }
+    .container-lawyer-wrapper .avatar {
+      margin-bottom: 15px;
+      text-align: center;
+      width: 100% !important; }
+    .container-lawyer-wrapper .basic-infor {
+      padding-left: 0 !important;
+      width: 100% !important; }
+      .container-lawyer-wrapper .basic-infor .left-block p {
+        margin-bottom: 15px !important; }
+    .container-lawyer-wrapper .another-infor {
+      margin-top: 25px; }
+    .container-lawyer-wrapper .content-block {
+      margin-bottom: 20px; } }

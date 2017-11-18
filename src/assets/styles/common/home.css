@@ -169,7 +169,11 @@
       padding: 30px; }
       .home-page .main-content .hot-lawyers .lawyer-overview .content .name {
         font-size: 1.3em;
-        margin-bottom: 10px; }
+        margin-bottom: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%; }
       .home-page .main-content .hot-lawyers .lawyer-overview .content .overview-infor {
         color: #a2a2a2;
         font-size: 1.2em;

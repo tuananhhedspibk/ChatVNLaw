@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
-import ChatSetting from '../chat/chatsetting';
 import AlertContainer from 'react-alert';
 import firebase from 'firebase';
+
+import ChatSetting from './chatsetting';
 
 import * as RoomInfo from '../../lib/room/getroominfo';
 import * as Files from '../../lib/upfile/files';

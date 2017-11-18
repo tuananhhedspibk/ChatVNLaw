@@ -10,7 +10,7 @@ class HotLawyers extends Component {
   constructor(props) {
     super(props);
     this.state={
-      lawyers:[],
+      lawyers: [],
       currentLawyer: null,
       isloading: true
     }
@@ -29,13 +29,13 @@ class HotLawyers extends Component {
   }
 
   applyLawyer(){
-    window.location = constant.BASE_URL + '/applylawyer/' + this.state.currentLawyer.username;
+    window.location = constant.BASE_URL + '/applylawyer/' +
+      this.state.currentLawyer.username;
   }
 
   renderInfoLawyer(){
     if(!!this.state.currentLawyer){
-      console.log(this.state.currentLawyer)
-      var profileLawyer = "/lawyers/"+this.state.currentLawyer.username
+      var profileLawyer = "/lawyers/"+ this.state.currentLawyer.username;
       return (
         <div className='lawyer-overview'>
           <div className='title'>
@@ -43,14 +43,15 @@ class HotLawyers extends Component {
           </div>
           <div className='content'>
             <a href={profileLawyer}>
-              <div className='name'>
+              <div className='name' title={this.state.currentLawyer.displayName}>
                 {this.state.currentLawyer.displayName}
               </div>
             </a>
             <div className='overview-infor'>
               <div>
                 <i className='fa fa-money' aria-hidden='true'></i>
-                {this.state.currentLawyer.price} / {translate('app.home.recent_lawyer.hour')}
+                {this.state.currentLawyer.price} /
+                  {translate('app.home.recent_lawyer.hour')}
               </div>
               <div>
                 <i class="fa fa-shopping-bag" aria-hidden="true"></i>
@@ -95,7 +96,9 @@ class HotLawyers extends Component {
                   })
                 }
               </div>
-              <a href='/attroney' className='list-all-lawyers'>{translate('app.home.recent_lawyer.show_all')}</a>
+              <a href='/attroney' className='list-all-lawyers'>
+                {translate('app.home.recent_lawyer.show_all')}
+              </a>
             </div>
           </div>
           <div className='col-sm-12 col-md-7'>
