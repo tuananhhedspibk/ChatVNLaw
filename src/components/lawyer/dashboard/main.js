@@ -20,6 +20,7 @@ import Chat from './components/chat';
 
 import Loading from '../../shared/loading';
 import {isLawyer} from '../../../lib/user/lawyers';
+import Toast from '../../notification/toast';
 
 import * as constant from '../../constants';
 
@@ -73,6 +74,7 @@ class UserDashBoard extends Component {
     if(this.state.currentUser){
       return(
         <div className='app'>
+          <Toast />
           <Header/>
           <div className='app-body'>
             <Sidebar {...this.props}/>

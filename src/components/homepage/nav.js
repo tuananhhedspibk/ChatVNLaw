@@ -69,6 +69,7 @@ class Nav extends Component {
       firebase.initializeApp(constant.APP_CONFIG);  
     }
     if(!!this.state.currentUser){
+<<<<<<< 7c4b402fc9ddb69de54598ca8b3604f28cbb9b6e
       return(
         <div className='dropdown'>
           <button className='btn dropdown-toggle'
@@ -139,6 +140,42 @@ class Nav extends Component {
         </li>
       )
     }
+=======
+        return(
+          <div className='dropdown'>
+            <button className='btn dropdown-toggle'
+              type='button' id='dropdownMenu1'
+              data-toggle='dropdown'
+              aria-haspopup='true'
+              aria-expanded='true'>
+              {this.state.currentUser.displayName}
+            </button>
+            <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
+              <li>
+                <a className='headerNavListLink'
+                  href={constant.BASE_URL+constant.PROFILE_URI}>
+                    {translate('app.nav.setting')}
+                </a>
+              </li>
+              <li>
+                <a className='headerNavListLink'
+                  onClick={this.logout}>{translate('app.nav.sign_out')}
+                </a>
+              </li>
+            </ul>
+          </div>
+        )
+      }
+      else {
+        return(
+          <li className='nav-item headerNavListItem'>
+            <a className='headerNavListLink' href={constant.SIGN_IN_URI}>
+              {translate('app.identifier.login')}
+            </a>
+          </li>
+        )
+      }
+>>>>>>> 123
   }
 
   renderView(){ 
