@@ -16,7 +16,7 @@ class DetailInfoSettings extends Component {
 
   componentWillMount() {
     this.setState({intro: this.props.profile.intro});
-    this.setState({achievements:this.props.profile.achievements});
+    this.setState({achievements: this.props.profile.achievement});
     this.setState({education: this.props.profile.education});
     this.setState({workPlace: this.props.profile.workPlace});
   }

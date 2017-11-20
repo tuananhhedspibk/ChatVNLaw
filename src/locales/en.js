@@ -347,6 +347,7 @@ module.exports = {
       title: 'Enter billing information',
       connect: 'Connect to lawyer',
       table_input_info: 'Input table',
+      personal_info: 'Personal information',
       full_name: 'Full name',
       placeholder_name: 'Nguyen Tien Truong',
       country: 'Country',
@@ -356,7 +357,10 @@ module.exports = {
       age: 'Age',
       placeholder_age: '19',
       problem: 'Problems encountered',
-      apply_lawyer: 'Request an lawyer'
+      apply_lawyer: 'Request an lawyer',
+      personal_info_overview: 'The basic personal information will help us understand you better',
+      problem_overview: 'Please share with us the problems that you encounterư',
+      pre_step: 'Previous step'
     },
     lawyer: {
       online_counsel: 'Online Counseling',

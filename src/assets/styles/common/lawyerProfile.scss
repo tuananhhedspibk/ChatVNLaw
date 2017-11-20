@@ -85,21 +85,22 @@
       font-size: 1.2em;
       width: 100%;
 
-      .left-block {
-        float: left;
-        width: 55%;
-
-        b {
-          display: inline-block;
-          margin-bottom: 12px;
-          width: 100%;
-        }
+      .block {
+        align-items: center;
+        display: flex;
       }
 
-      .right-block {
-        float: right;
-        text-align: left;
-        width: 45%;
+      b {
+        display: inline-block;
+        margin-bottom: 12px;
+        width: 50%;
+      }
+
+      p {
+        display: inline-block;
+        margin-bottom: 12px;
+        width: 50%;
+        word-wrap: break-word;
       }
     }
   }
@@ -128,6 +129,10 @@
   .center-block {
     .content {
       padding-bottom: 5px;
+
+      div > span > span {
+        word-wrap: break-word;
+      }
     }
 
     hr {

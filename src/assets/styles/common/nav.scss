@@ -28,10 +28,20 @@
 	}
 
 	.dropdown {
-		margin-left: 15px;
-
 		a {
 			text-decoration: none;
+		}
+
+		.btn {
+			background-color: $dropdown-menu-background;
+			font-size: .8em;
+			margin-top: 3px;
+			outline: 0 !important;
+			padding: 10px !important;
+		
+			&:focus {
+				box-shadow: none;
+			}
 		}
 	}
 
@@ -51,10 +61,11 @@
 		border-radius: 5px;
 		color: $white;
 		cursor: pointer;
-		font-size: .9em;
+		font-size: .8em;
 		font-weight: bold;
 		margin-right: 10px;
-		padding: 9px 12px 7px !important;
+		margin-top: 4px;
+		padding: 7px 12px !important;
 
 		&:hover {
 			background-color: $blue;
@@ -73,18 +84,6 @@
 
 .navbar-header {
 	padding-left: 30px;
-}
-
-.dropdown .btn {
-	background-color: $dropdown-menu-background;
-	font-size: .8em;
-	margin-top: 3px;
-	outline: 0 !important;
-	padding: 10px !important;
-
-	&:focus {
-		box-shadow: none;
-	}
 }
 
 .navbar-nav .dropdown-menu {

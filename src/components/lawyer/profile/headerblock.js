@@ -45,16 +45,20 @@ class HeaderBlock extends Component {
           </div>
           <div className='col-sm-12 col-md-5'>
             <div className='another-infor'>
-              <div className='left-block'>
+              <div className='block'>
                 <b>{translate('app.lawyer.birthday')}:</b>
-                <b>{translate('app.lawyer.card_number')}:</b>
-                <b>{translate('app.lawyer.certificate')}:</b>
-                <b>{translate('app.lawyer.experience')}:</b>
-              </div>
-              <div className='right-block'>
                 <p>{this.props.convertContent(this.props.profile.birthday)}</p>
+              </div>
+              <div className='block'>
+                <b>{translate('app.lawyer.card_number')}:</b>
                 <p>{this.props.convertContent(this.props.profile.cardNumber)}</p>
+              </div>
+              <div className='block'>
+                <b>{translate('app.lawyer.certificate')}:</b>
                 <p>{this.props.convertContent(this.props.profile.certificate)}</p>
+              </div>
+              <div className='block'>
+                <b>{translate('app.lawyer.experience')}:</b>
                 <p>{this.props.convertContent(this.props.profile.exp)}</p>
               </div>
             </div>
