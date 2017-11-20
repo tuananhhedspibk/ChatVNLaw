@@ -13,10 +13,10 @@ class App extends Component {
 
 	handleScroll() {
 		if (window.scrollY >= $('.find').offset().top) {
-			$('.nav-hidden').css('opacity', '1');
+			$('.nav-hidden').fadeIn(500);
 		}
 		else {
-			$('.nav-hidden').css('opacity', '0');
+			$('.nav-hidden').fadeOut(500);
 		}
 	}
 

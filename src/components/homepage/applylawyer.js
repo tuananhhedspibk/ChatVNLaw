@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import Nav from './nav';
-import NotFound from '../shared/notfound';
-import Loading from '../shared/loading';
 import { Header, TextArea, Button, Image,
   Modal, Dropdown } from 'semantic-ui-react';
 import Payment from '../payments/payment'
 
+import Nav from './nav';
+import NotFound from '../shared/notfound';
+import Loading from '../shared/loading';
 
 import * as constant from '../constants';
 import * as firebase from 'firebase';
 import * as Lawyers from '../../lib/user/lawyers'
-import * as translate from 'counterpart';
 
-class applyLawyer extends Component {
+let translate = require('counterpart');
+
+class ApplyLawyer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +30,7 @@ class applyLawyer extends Component {
   componentWillMount(){
     var component = this
     var username = this.props.location.pathname.split('/applylawyer/')[1];
-    Lawyers.findLawyersWithUserName(username, (data)=>{
+    Lawyers.findLawyersWithUserName(username, (data) => {
       if(data.exists()){
         for( var i in data.val()){
           var item = {
@@ -40,17 +41,19 @@ class applyLawyer extends Component {
           }
         }
         this.setState({isLoading: false,currentLawyer: item})
-      }else{
+      }
+      else{
         this.setState({isLoading: false})
       }
-    })
+    });
     firebase.auth().onAuthStateChanged(user =>{
       if(user){
         component.setState({currentUser: user})
-      }else{
+      }
+      else{
         window.location = constant.HOME_URI;
       }
-    })
+    });
   }
 
   componentDidMount(){
@@ -59,7 +62,7 @@ class applyLawyer extends Component {
   handleOpenModal(){
     this.setState({
       modalOpen: true
-    })
+    });
   }
 
   handleCloseModal(){
@@ -71,7 +74,6 @@ class applyLawyer extends Component {
   }
 
   renderPaymentInfo(){
-    console.log(this.state.info)
     return(
       <Modal 
         onClose={this.handleCloseModal.bind(this)}
@@ -88,7 +90,8 @@ class applyLawyer extends Component {
   }
 
   handleClick(){
-    var uidLawyer = window.location.pathname.substring(13,window.location.pathname.length)
+    var uidLawyer = window.location
+      .pathname.substring(13,window.location.pathname.length)
     var reference = this.state.currentUser.uid + uidLawyer;
     var username;
     var component = this;
@@ -99,83 +102,105 @@ class applyLawyer extends Component {
     var age = $('.apply-lawyer-age').val();
     var problem = $('textarea#problem').val();
     var fullInfo = [];
-    if(fullname === ''|| address === ''|| phone === '' || age === '' || problem === ''){
-        alert("Bạn cần điền đẩy đủ thông tin");
+
+    if(fullname === ''|| address === ''|| phone === ''
+      || age === '' || problem === ''){
+        alert('Bạn cần điền đẩy đủ thông tin');
     }
     else {
-      var info = 'Tên : ' + fullname + '<br />' + 'Địa chỉ : ' + address + '<br />' + phone + '<br />' + age + '<br />' + problem
+      var info = 'Tên : ' + fullname + '<br />' + 'Địa chỉ : ' +
+        address + '<br />' + phone + '<br />' +
+        age + '<br />' + problem;
       fullInfo.push({
         info: info,
         uidLawyer: uidLawyer,
         reference: reference
-      })
+      });
       this.setState({
         info: fullInfo
-      })
+      });
     }
-    
   }
 
   renderView(){
-      return (
+    return (
+      <div>
         <div>
-          <div>
-            {this.renderPaymentInfo()}
+          {this.renderPaymentInfo()}
+        </div>
+        <div className='apply-lawyer-container'>
+          <header className='apply-lawyer-header'>
+            <h1>{translate('app.payment.table_input_info')}</h1>
+          </header>
+          <div className='form-group apply-lawyer-contact'>
+            <label for='usr'>
+              {translate('app.payment.full_name')}
+            </label>
+            <input className='form-control apply-lawyer-name'
+              id='usr' type='text'
+              placeholder={translate('app.payment.placeholder_name')} />
           </div>
-          <div className='apply-lawyer-container'>
-              <header className='apply-lawyer-header'>
-                  <h1>Bảng nhập thông tin</h1>
-              </header>
-              <div className="form-group apply-lawyer-contact">
-                <label for="usr">Tên đầy đủ</label>
-                <input type="text" className="form-control apply-lawyer-name" id="usr" placeholder='Nguyễn Tiến Trường' />
-              </div>
-              <div className="form-group apply-lawyer-contact">
-                <label for="usr">Quên quán</label>
-                <input type="text" className="form-control apply-lawyer-address" id="usr" placeholder='Hà Nội' />
-              </div>
-              <div className="form-group apply-lawyer-contact">
-                <label for="usr">Số điện thoại</label>
-                <input type="number" className="form-control apply-lawyer-phone" id="usr" placeholder='19008198' />
-              </div>
-              <div className="form-group apply-lawyer-contasearchct">
-                <label for="usr">Tuổi</label>
-                <input type="number" className="form-control apply-lawyer-age" id="usr" placeholder='19' />
-              </div>
-              <div class="form-group">
-                <label for="comment">Vấn đề gặp phải</label>
-                <textarea class="form-control apply-lawyer-problem" rows="5" id="problem"></textarea>
-              </div>
-              <footer className='apply-lawyer-footer'>
-                  <button type="button" class="btn btn-info apply-lawyer-button" onClick={this.handleClick.bind(this)}>Yêu cầu luật sư</button>
-              </footer>
+          <div className='form-group apply-lawyer-contact'>
+            <label for='usr'>{translate('app.payment.country')}</label>
+            <input type='text' id='usr'
+              className='form-control apply-lawyer-address'
+              placeholder={translate('app.payment.placeholder_country')} />
+          </div>
+          <div className='form-group apply-lawyer-contact'>
+            <label for='usr'>
+              {translate('app.payment.phone_number')}
+            </label>
+            <input type='number' id='usr'
+              className='form-control apply-lawyer-phone'
+              placeholder={translate('app.payment.placeholder_phone')} />
+          </div>
+          <div className='form-group apply-lawyer-contasearchct'>
+            <label for='usr'>{translate('app.payment.age')}</label>
+            <input type='number' id='usr'
+              className='form-control apply-lawyer-age'
+              placeholder={translate('app.payment.placeholder_age')} />
+          </div>
+          <div class='form-group'>
+            <label for='comment'>{translate('app.payment.problem')}</label>
+            <textarea
+              class='form-control apply-lawyer-problem'
+              rows='5' id='problem'>
+            </textarea>
+          </div>
+          <div className='apply-lawyer-footer'>
+            <button type='button'
+              class='btn btn-info apply-lawyer-button'
+              onClick={this.handleClick.bind(this)}>
+                {translate('app.payment.apply_lawyer')}
+            </button>
           </div>
         </div>
-      )
+      </div>
+    )
   }
 
   render() {
     if(!this.state.isLoading){
       if(!! this.state.currentLawyer){
         return(
-          <div className='main-content'>
-                <Nav navStyle='inverse'/>
-                {this.renderView()}
+          <div>
+            <Nav navStyle='inverse'/>
+            {this.renderView()}
           </div>
-        );
-      }else{
+        )
+      }
+      else{
         return(
           <NotFound />
         )
       }
-    }else{
+    }
+    else{
       return(
         <Loading />
       )
-    } 
-    
-    
+    }
   }
 }
 
-export default applyLawyer;
+export default ApplyLawyer;

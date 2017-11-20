@@ -1,5 +1,5 @@
 $border-color: #c2cfd6;
-$border-color-lighter: #E9EAEB;
+$border-color-lighter: #e9eaeb;
 
 $brand-primary: #3ca2e0;
 $brand-success: #5cb85c;
@@ -9,6 +9,7 @@ $brand-danger: #d9534f;
 
 $black: #000;
 $black-trans: rgba(0, 0, 0, .05);
+$black-trans-light: rgba(0, 0, 0, .6);
 $black-trans-darker: rgba(0, 0, 0, .8);
 $black-side: #4a515b;
 $black-lighter: #777;
@@ -19,9 +20,12 @@ $blue-less-darker: #0277fb;
 $blue-darker: #0974b8;
 $blue-more-darker: #1d74f5;
 $blue-much-darker: #00558c;
-$blue-info-darker: #4E9FFC;
+$blue-info-darker: #4e9ffc;
 $blue-info: #009600;
 $blue-face: #49629e;
+$blue-analog: #00c1c1;
+$blue-analog-darker: #00A0A0;
+$blue-logo: #43a3df;
 
 $dropdown-menu-background: rgba(255, 255, 255, 0.0980392);
 $dropdown-inverse-background: rgba(0, 0, 0, .15);

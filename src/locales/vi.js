@@ -334,7 +334,18 @@ module.exports = {
     },
     payment: {
       title: 'Nhập thông tin thanh toán',
-      connect: 'Kết nối luật sư'
+      connect: 'Kết nối luật sư',
+      table_input_info: 'Bảng nhập thông tin',
+      full_name: 'Tên đầy đủ',
+      placeholder_name: 'Nguyễn Tiến Trường',
+      country: 'Quê quán',
+      placeholder_country: 'Hà Nội',
+      phone_number: 'Số điện thoại',
+      placeholder_phone: '19008198',
+      age: 'Tuổi',
+      placeholder_age: '19',
+      problem: 'Vấn đề gặp phải',
+      apply_lawyer: 'Yêu cầu luật sư'
     },
     lawyer: {
       online_counsel: 'Tư vấn trực tuyến',
@@ -361,7 +372,14 @@ module.exports = {
       birthday: 'Ngày sinh',
       card_number: 'Số thẻ làm việc',
       certificate: 'Chứng chỉ hành nghề',
-      experience: 'Số năm kinh nghiệm'
+      experience: 'Số năm kinh nghiệm',
+      change_ava_guide: 'Click để thay đổi ảnh đại diện',
+      category: 'Category',
+      intro: 'Giới thiệu',
+      achievements: 'Thành tích',
+      education: 'Giáo dục',
+      work_place: 'Nơi làm việc',
+      save: 'Lưu'
     }
   }
 }

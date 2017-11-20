@@ -354,7 +354,15 @@ module.exports = {
       birthday: 'Birthday',
       card_number: 'Card number',
       certificate: 'Certificate',
-      experience: 'Year experience'
+      experience: 'Year experience',
+      change_ava_guide: 'Click to change avatar',
+      category: 'Category',
+      expyear: 'Exp year',
+      intro: 'Introduction',
+      achievements: 'Achievements',
+      education: 'Education',
+      work_place: 'Working place',
+      save: 'Save'
     }
   }
 }

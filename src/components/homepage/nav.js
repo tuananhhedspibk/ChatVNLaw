@@ -81,7 +81,7 @@ class Nav extends Component {
           <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
             <li>
               {
-                isLawyer ?
+                this.state.isLawyer ?
                 (
                   <a className='headerNavListLink'
                     href={constant.BASE_URL + constant.LAWYER_PROFILE_URI
@@ -101,7 +101,7 @@ class Nav extends Component {
             </li>
             <li>
               {
-                isLawyer ?
+                this.state.isLawyer ?
                 (
                   <a className='headerNavListLink'
                     href={constant.BASE_URL + constant.SETTINGS_URI
@@ -132,8 +132,8 @@ class Nav extends Component {
     }
     else {
       return(
-        <li className='nav-item headerNavListItem'>
-          <a className='headerNavListLink' href={constant.SIGN_IN_URI}>
+        <li className='nav-item'>
+          <a className='nav-link' href={constant.SIGN_IN_URI}>
             {translate('app.identifier.login')}
           </a>
         </li>
@@ -156,25 +156,25 @@ class Nav extends Component {
           </button>
           <div className='collapse navbar-collapse'
             id={'navbarToggleExternalContent' + this.props.id}>
-            <ul className='navbar-nav ml-auto headerNavList'>
-              <li className='nav-item headerNavListItem search-inputgroup'>
-                <a className='headerNavListLink' role='button'>
+            <ul className='navbar-nav ml-auto'>
+              <li className='nav-item'>
+                <a className='nav-link' role='button'>
                   {translate('app.nav.brow_law')}
                 </a>
               </li>
-              <li className='nav-item headerNavListItem search-inputgroup'>
-                <a className='headerNavListLink' role='button'>
+              <li className='nav-item'>
+                <a className='nav-link' role='button'>
                   {translate('app.nav.brow_lawyers')}
                 </a>
               </li>
-              <li className='nav-item headerNavListItem'>
+              <li className='nav-item'>
                 <a target='_blank'
-                  className='headerNavListLink' href=''>
+                  className='nav-link' href=''>
                   {translate('app.nav.support')}
                 </a>
               </li>
-              <li className='nav-item headerNavListItem'>
-                <a className='headerNavListLink'
+              <li className='nav-item'>
+                <a className='nav-link'
                   onClick={this.checkLogin.bind(this)}>
                   {this.state.islawyer === true ? 'DashBoard' : 'Chat'}
                 </a>
