@@ -79,7 +79,7 @@ class Toast extends Component{
 
   render(){
     return(
-      <div class='toast'>
+      <div className='toast'>
         <NotificationContainer/>    
       </div>
     )

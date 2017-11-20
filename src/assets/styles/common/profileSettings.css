@@ -1,5 +1,5 @@
 .container-settings-wrapper .tab-content .tab-pane {
-  padding: 0; }
+  padding: 0 10px; }
 
 .container-settings-wrapper .tab-content {
   background-color: transparent;
@@ -46,6 +46,8 @@
 .container-settings-wrapper .basic-info-settings {
   padding-top: 25px;
   padding-bottom: 35px; }
+  .container-settings-wrapper .basic-info-settings input {
+    font-size: 1.2em; }
   .container-settings-wrapper .basic-info-settings .save-btn {
     background-color: #2385f2;
     border: 1px solid #2385f2;
@@ -87,6 +89,7 @@
   padding-top: 25px;
   padding-bottom: 35px; }
   .container-settings-wrapper .detail-info-settings textarea {
+    font-size: 1.2em;
     height: 65px !important; }
   .container-settings-wrapper .detail-info-settings .save-btn {
     background-color: #00A0A0;
@@ -107,3 +110,9 @@
     font-weight: bold;
     margin-bottom: 10px;
     width: 100%; }
+
+@media (max-width: 993px) {
+  .change-ava-guide {
+    width: 140px; }
+    .change-ava-guide:after {
+      left: -8px !important; } }

@@ -57,10 +57,13 @@ class ApplyLawyer extends Component {
       if(user){
         component.setState({currentUser: user, permission: true})
       }else{
-        component.emitter.emit('AddNewErrorToast', translate('app.system_notice.unauthenticated.title'),translate('app.system_notice.unauthenticated.text'),5000, ()=>{
+        component.emitter.emit('AddNewErrorToast',
+          translate('app.system_notice.unauthenticated.title'),
+          translate('app.system_notice.unauthenticated.text'),
+          5000, () => {
           window.location = constant.HOME_URI;
         })
-        setTimeout(()=>{
+        setTimeout(() => {
           window.location = constant.HOME_URI;
         },5000);
       }
@@ -108,11 +111,18 @@ class ApplyLawyer extends Component {
     var age = $('.apply-lawyer-age').val();
     var problem = $('textarea#problem').val();
     var fullInfo = [];
-    if(fullname === ''|| address === ''|| phone === '' || age === '' || problem === ''){
-      this.emitter.emit('AddNewWarningToast',translate('app.system_notice.warning.title'),translate('app.system_notice.warning.text.please_fill_the_form'), 5000, ()=>{} )
+    if(fullname === ''|| address === ''|| phone === ''
+      || age === '' || problem === ''){
+      this.emitter.emit('AddNewWarningToast',
+      translate('app.system_notice.warning.title'),
+      translate('app.system_notice.warning.text.please_fill_the_form'),
+      5000, () => {} )
     }
     else {
-      var info = fullname + '<br />' + address + '<br />' + phone + '<br />' + age + '<br />' + problem
+      var info = fullname + '<br />' + address
+      + '<br />' + phone
+      + '<br />' + age
+      + '<br />' + problem;
       var properties = {}
       properties['targetUser'] = this.state.currentLawyer;
       properties['currentUser'] = this.state.currentUser;
@@ -123,7 +133,9 @@ class ApplyLawyer extends Component {
 
       })
       this.setState({done: true},()=>{
-        component.emitter.emit('AddNewSuccessToast', '',translate('app.system_notice.success.text.submit_form_to_request_room'), 5000, ()=>{
+        component.emitter.emit('AddNewSuccessToast', '',
+          translate('app.system_notice.success.text.submit_form_to_request_room'),
+          5000, ()=>{
           window.location = constant.HOME_URI;
         })
       })

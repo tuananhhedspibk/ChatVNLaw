@@ -2,7 +2,7 @@
 
 .container-settings-wrapper {
   .tab-content .tab-pane {
-    padding: 0;
+    padding: 0 10px;
   }
 
   .tab-content {
@@ -74,6 +74,10 @@
     padding-top: 25px;
     padding-bottom: 35px;
 
+    input {
+      font-size: 1.2em;
+    }
+
     .save-btn {
       background-color: $blue;
       border: 1px solid $blue;
@@ -130,6 +134,7 @@
     padding-bottom: 35px;
 
     textarea {
+      font-size: 1.2em;
       height: 65px !important;
     }
 
@@ -159,6 +164,16 @@
       font-weight: bold;
       margin-bottom: 10px;
       width: 100%;
+    }
+  }
+}
+
+@media (max-width: 993px) {
+  .change-ava-guide {
+    width: 140px;
+
+    &:after {
+      left: -8px !important;
     }
   }
 }

@@ -343,6 +343,21 @@ module.exports = {
         }
       }
     },
+    payment: {
+      title: 'Enter billing information',
+      connect: 'Connect to lawyer',
+      table_input_info: 'Input table',
+      full_name: 'Full name',
+      placeholder_name: 'Nguyen Tien Truong',
+      country: 'Country',
+      placeholder_country: 'Ha Noi',
+      phone_number: 'Phone number',
+      placeholder_phone: '19008198',
+      age: 'Age',
+      placeholder_age: '19',
+      problem: 'Problems encountered',
+      apply_lawyer: 'Request an lawyer'
+    },
     lawyer: {
       online_counsel: 'Online Counseling',
       pay_for_hour: 'Pay for hour',

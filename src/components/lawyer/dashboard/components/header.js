@@ -95,13 +95,12 @@ class Header extends Component {
                 <span className='d-md-down-none'>{this.state.currentUser.displayName}</span>
               </DropdownToggle>
               <DropdownMenu right className={this.state.dropdownOpen ? 'show' : ''}>
-                <DropdownItem header tag='div' className='text-center'>
+                <DropdownItem header tag='div'>
                   <strong>{translate('app.identifier.account')}</strong>
                 </DropdownItem>
-                <DropdownItem header tag='div' className='text-center'>
+                <DropdownItem header tag='div'>
                   <strong>{translate('app.identifier.setting')}</strong>
                 </DropdownItem>
-                <DropdownItem divider/>
                 <DropdownItem onClick={this.logout.bind(this)}>
                   <i className='fa fa-lock'></i>
                   {translate('app.identifier.logout')}
