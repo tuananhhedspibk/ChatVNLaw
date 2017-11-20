@@ -46,3 +46,5 @@ export const avaBotPic = require('../assets/images/bot.png');
 export const warningPic = require('../assets/images/warning.png');
 export const notFoundPic = require('../assets/images/error-img.png');
 export const appLogoPic = require('../assets/images/app_logo.png');
+export const chatBannerPic = require('../assets/images/onlinechaticon.png');
+export const handShakePic = require('../assets/images/handshake.png');

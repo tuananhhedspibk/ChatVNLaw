@@ -20,6 +20,43 @@ module.exports = {
       read_more: 'xem thêm',
       show_less: 'thu nhỏ'
     },
+    notification:{
+      new_request_from_other: ' đã gửi cho bạn một yêu cầu.',
+      click_here: 'Click để xem chi tiết!',
+      
+    },
+    system_notice:{
+      unauthenticated: {
+        title: 'Từ chối truy cập',
+        text: 'Hãy đăng nhập để tiếp tục dịch vụ!'
+      },
+      permission_denied:{
+        title: 'Từ chối truy cập',
+        text: 'Bạn không có quyền truy cập vào đây!'
+      },
+      warning:{
+        title: 'Chú ý',
+        text: {
+          please_fill_the_form: 'Bạn cần điền đầy đủ thông tin'
+        }
+      },
+      success:{
+        title: 'Thành công',
+        text:{
+          submit_form_to_request_room: 'Thông tin của bạn đã được gửi đến luật sư!',
+          welcome:'Chào mừng đến với VNLaw.'
+        }
+      },
+      error:{
+        title: 'Lỗi',
+        text:{
+          already_login: 'Bạn đã đăng nhập vào hệ thống!',
+          invalid_email: 'Bạn hãy chắc chắn email nhập vào là chính xác!',
+          user_not_found: 'Bạn hãy chắc chắn email và mật khẩu là chính xác!',
+          password_confirm_not_match: 'Mật khẩu xác nhận không khớp!'
+        }
+      }
+    },
     home: {
       footer: {
         content: 'VNLaw - LKBC 2017'

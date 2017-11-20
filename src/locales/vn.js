@@ -20,6 +20,20 @@ module.exports = {
       read_more: 'xem thêm',
       show_less: 'thu nhỏ'
     },
+    notification:{
+      new_request_from_other: ' đã gửi cho bạn một yêu cầu.',
+      click_here: 'Click để xem chi tiết!'      
+    },
+    system_notice:{
+      unauthenticated: {
+        title: 'Từ chối truy cập',
+        text: 'Hãy đăng nhập để tiếp tục dịch vụ!'
+      },
+      permission_denied:{
+        title: 'Từ chối truy cập',
+        text: 'Bạn không có quyền truy cập vào đây!'
+      } 
+    },
     home: {
       footer: {
         content: 'VNLaw - LKBC 2017'

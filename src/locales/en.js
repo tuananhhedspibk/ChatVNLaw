@@ -20,6 +20,20 @@ module.exports = {
       read_more: 'read more',
       show_less: 'show less'
     },
+    notification:{
+      new_request_from_other: ' has sended to you a request.',
+      click_here: 'Click here for detail!'
+    },
+    system_notice:{
+      unauthenticated: {
+        title: 'Access denied',
+        text: 'Please login first!'
+      },
+      permission_denied:{
+        title: 'Access denied',
+        text: 'No permission!'
+      } 
+    },
     home: {
       footer: {
         content: 'VNLaw - LKBC 2017'
