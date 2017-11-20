@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import firebase from 'firebase';
-import {isLawyer} from '../../lib/user/lawyers';
 import {getUserByUid} from '../../lib/user/getuserinfo';
 
 import * as constant from '../constants';
@@ -82,7 +81,7 @@ class Nav extends Component {
           <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
             <li>
               {
-                this.state.isLawyer ?
+                this.state.islawyer ?
                 (
                   <a className='headerNavListLink'
                     href={constant.BASE_URL + constant.LAWYER_PROFILE_URI
@@ -102,7 +101,7 @@ class Nav extends Component {
             </li>
             <li>
               {
-                this.state.isLawyer ?
+                this.state.islawyer ?
                 (
                   <a className='headerNavListLink'
                     href={constant.BASE_URL + constant.SETTINGS_URI

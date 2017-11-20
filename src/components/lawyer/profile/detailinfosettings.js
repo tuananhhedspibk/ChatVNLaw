@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {storeLawyerData} from '../../../lib/user/lawyers';
 
 let translate = require('counterpart');
 
@@ -15,8 +16,7 @@ class DetailInfoSettings extends Component {
 
   componentWillMount() {
     this.setState({intro: this.props.profile.intro});
-    this.setState({achievements:
-      this.props.profile.achievements});
+    this.setState({achievements:this.props.profile.achievements});
     this.setState({education: this.props.profile.education});
     this.setState({workPlace: this.props.profile.workPlace});
   }
@@ -32,7 +32,22 @@ class DetailInfoSettings extends Component {
   }
 
   editProfile() {
-
+    var component = this;
+    var properties = {}
+    properties.curentUser = this.props.user;
+    properties.intro = this.state.intro;
+    properties.achievements = this.state.achievements;
+    properties.education = this.state.education
+    properties.workPlace = this.state.workPlace
+    
+    console.log(properties);
+    storeLawyerData(properties, (issuccess) =>{
+      if(issuccess){
+        component.props.emitter.emit('AddNewSuccessToast', '',translate('app.system_notice.success.text.success_update_profile'),5000, ()=>{})
+      }else{
+        component.props.emitter.emit('AddNewErrorToast', '',translate('app.system_notice.error.text.some_thing_not_work'),5000, ()=>{})        
+      }
+    })
   }
 
   render() {
@@ -43,7 +58,8 @@ class DetailInfoSettings extends Component {
             <div className='title'>
               {translate('app.settings.intro')}
             </div>
-            <textarea onChange={this.handleInputChange.bind(this)}
+            <textarea name='intro' 
+              onChange={this.handleInputChange.bind(this)}
               value={this.state.intro}/>
           </div>
         </div>
@@ -52,7 +68,9 @@ class DetailInfoSettings extends Component {
             <div className='title'>
               {translate('app.settings.achievements')}
             </div>
-            <textarea onChange={this.handleInputChange.bind(this)}
+            <textarea 
+              name='achievements'
+              onChange={this.handleInputChange.bind(this)}
               value={this.state.achievements}/>
           </div>
         </div>
@@ -61,7 +79,9 @@ class DetailInfoSettings extends Component {
             <div className='title'>
               {translate('app.settings.education')}
             </div>
-            <textarea onChange={this.handleInputChange.bind(this)}
+            <textarea 
+              name='education'
+              onChange={this.handleInputChange.bind(this)}
               value={this.state.education}/>
           </div>
         </div>
@@ -70,7 +90,9 @@ class DetailInfoSettings extends Component {
             <div className='title'>
               {translate('app.settings.work_place')}
             </div>
-            <textarea onChange={this.handleInputChange.bind(this)}
+            <textarea 
+              name='workPlace'
+              onChange={this.handleInputChange.bind(this)}
               value={this.state.workPlace}/>
           </div>
         </div>

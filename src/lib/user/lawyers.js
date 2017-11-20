@@ -2,6 +2,45 @@ var firebase = require('firebase');
 var $ = require('jquery');
 var constant = require('../constants');
 
+function storeLawyerData(properties, callback){
+  var item = {}
+  if(!! properties.fullname){
+    item[constant.LAWYER_INFO.fullname] = properties.fullname
+  }
+  if (!! properties.birthday){
+    item[constant.LAWYER_INFO.birthday] = properties.birthday;    
+  }
+  if( !!properties.cardNumber){
+    item[constant.LAWYER_INFO.cardNumber] = properties.cardNumber
+  }
+  if (!! properties.certificate){
+    item[constant.LAWYER_INFO.certificate] = properties.certificate
+  }
+  if(!!properties.category ){
+    item[constant.LAWYER_INFO.category] = properties.category
+  }
+  if(!! properties.exp){
+    item[constant.LAWYER_INFO.exp] = properties.exp
+  }
+  if(!! properties.intro){
+    item[constant.LAWYER_INFO.intro] = properties.intro;
+  }
+  if(!! properties.achievements){
+    item[constant.LAWYER_INFO.achievement] = properties.achievements;
+  }
+  if(!!properties.education){
+    item[constant.LAWYER_INFO.education] = properties.education;
+  }
+  if(!! properties.workPlace){
+    item[constant.LAWYER_INFO.workPlace] = properties.workPlace;
+  }
+  var ref = firebase.database().ref().child(`${constant.TABLE.lawyers}/${properties.curentUser.uid}`)
+  ref.update(item).then(()=>{
+    return callback(true);
+  }).catch(error =>{
+    return callback(false);
+  })
+}
 function getLawyerInfo(id, callback){
   var ref = firebase.database().ref().child(`${constant.TABLE.lawyers}/${id}`).once('value', data=>{
     return callback(data);
@@ -187,5 +226,8 @@ module.exports = {
   },
   isLawyer: function(uid, callback){
     isLawyer(uid, callback);
+  },
+  storeLawyerData: function(properties, callback){
+    storeLawyerData(properties, callback)
   }
 }

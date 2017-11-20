@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
+import {storeLawyerData} from '../../../lib/user/lawyers';
 
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import 'react-datetime/css/react-datetime.css';
 
 let Datetime = require('react-datetime');
@@ -67,6 +68,22 @@ class BasicInfoSettings extends Component {
   }
 
   editProfile() {
+    var component = this;
+    var properties = {}
+    properties.curentUser = this.props.user;
+    properties.fullname = this.state.fullname;
+    properties.birthday = this.state.birthday;
+    properties.cardNumber = this.state.cardnumber
+    properties.certificate = this.state.certificate
+    properties.category = this.state.category
+    properties.exp = this.state.expyear
+    storeLawyerData(properties, (issuccess) =>{
+      if(issuccess){
+        component.props.emitter.emit('AddNewSuccessToast', '',translate('app.system_notice.success.text.success_update_profile'),5000, ()=>{})
+      }else{
+        component.props.emitter.emit('AddNewErrorToast', '',translate('app.system_notice.error.text.some_thing_not_work'),5000, ()=>{})        
+      }
+    })
   }
 
   render() {
