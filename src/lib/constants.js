@@ -20,12 +20,16 @@ export const TABLE = {
 };
 
 export const NOTIFICATIONS = {
-  senderId : 'senderUid',
+  sender: 'sender',
+  senderDisplayName: 'displayName',
+  senderRole: 'role',
+  senderId : 'uid',
   type: 'type',
   //  value:
   //    'requestRoom': when ask lawyer,
   //    'acceptRoom': when lawyer accepted and create new room
-  info: 'information'
+  info: 'information',
+  timeStamp: 'timeStamp'
 }
 
 export const NOTIFICATION_TYPE = {

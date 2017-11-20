@@ -9,7 +9,7 @@ function getLawyerInfo(id, callback){
 }
 function getLawyerList(properties, callback){
   var ref = firebase.database().ref().child(`${constant.TABLE.users}`)
-    .orderByChild('role').equalTo('lawyer').limitToFirst(5);
+    .orderByChild(`${constant.USERS.role}`).equalTo('lawyer').limitToFirst(5);
   ref.once('value').then( snapshot => {
     if(!snapshot.exists()){
       return callback();
