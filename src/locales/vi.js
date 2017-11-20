@@ -44,7 +44,8 @@ module.exports = {
         title: 'Thành công',
         text:{
           submit_form_to_request_room: 'Thông tin của bạn đã được gửi đến luật sư!',
-          welcome:'Chào mừng đến với VNLaw.'
+          welcome:'Chào mừng đến với VNLaw.',
+          success_update_profile: 'Thông tin của bạn đã được thay đổi.'
         }
       },
       error:{

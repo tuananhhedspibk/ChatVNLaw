@@ -98,6 +98,12 @@ function checkUserName(properties, callback){
     })
 }
 
+function checkUserWithUserName(input, callback){
+    var ref = firebase.database().ref(`${constant.TABLE.users}`).orderByChild(`${constant.USERS.username}`).equalTo(input)
+    ref.on('value',data =>{
+        return callback(data);
+    })
+}
 module.exports = {
     getUserName: function(user, callback){
         getUserName(user,callback);
@@ -113,5 +119,8 @@ module.exports = {
     },
     extractUser: function(data){
         extractUser(data);
+    },
+    checkUserWithUserName: function(input, callback){
+        checkUserWithUserName(input, callback)
     }
 }
