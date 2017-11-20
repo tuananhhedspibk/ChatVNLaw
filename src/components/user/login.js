@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import AlertContainer from 'react-alert';
 import firebase from 'firebase';
 import $ from 'jquery';
 import {signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged}
   from '../../lib/user/authentication';
 import Loading from '../shared/loading';
+import Toast from '../notification/toast';
+import {EventEmitter} from 'fbemitter';
 
 import Nav from '../homepage/nav';
 
@@ -24,6 +25,8 @@ class UserLogin extends Component {
       currentUser: null,
       isLoading: true
     }
+    this.emitter = new EventEmitter();
+    
   }
 
   componentWillMount(){
@@ -31,19 +34,28 @@ class UserLogin extends Component {
     onAuthStateChanged( user =>{
       if(!!user){
         userInfo.getUserName(user, function(result){
-          const target = localStorage.getItem('target')
-          switch(target){
-            case 'chat':
-              window.location = constant.BASE_URL+ '/chat/' + result; 
-              break;
-            default:
-              window.location = constant.BASE_URL+ '/home';
-              break;      
-          }                   
+          component.emitter.emit('AddNewInfoToast', '', translate('app.system_notice.error.text.already_login'), 5000, ()=>{
+            component.redirect(result);
+          } )
+          setTimeout(()=>{
+            component.redirect(result)
+          },3000);                   
         })
+      }else{
+        component.setState({currentUser: user, isLoading : false})        
       }
-      component.setState({currentUser: user, isLoading : false})
     })
+  }
+  redirect(result){
+    const target = localStorage.getItem('target')
+    switch(target){
+      case 'chat':
+        window.location = constant.BASE_URL+ '/chat/' + result; 
+        break;
+      default:
+        window.location = constant.BASE_URL+ '/home';
+        break;      
+    } 
   }
   componentDidUpdate(prevProps, prevState){
     if(prevState.isLoading !== this.state.isLoading){
@@ -64,17 +76,9 @@ class UserLogin extends Component {
     signInWithPopup(provider, (issuccess,result) =>{
       if(issuccess){
       }else{
-        component.showAlert(result.message);        
+        component.emitter.emit('AddNewErrorToast', '',result.message, 5000, ()=>{ })        
       }
     })  
-  }
-
-  showAlert = (text) => {
-    this.msg.show(text, {
-      time: 5000,
-      type: 'success',
-      icon: <img alt='warning' src={constant.warningPic} />
-    })
   }
 
   handleInputChange(evt) {
@@ -90,18 +94,29 @@ class UserLogin extends Component {
   handleSubmit(evt) {
     var component = this;
     evt.preventDefault();
+    if(!this.state.email || !this.state.password){
+      this.emitter.emit('AddNewWarningToast',translate('app.system_notice.warning.title'),translate('app.system_notice.warning.text.please_fill_the_form'), 5000, ()=>{} )
+      return;
+    }
     signInWithEmailAndPassword(this.state.email,this.state.password, (issuccess, data) =>{
       if(issuccess){
         if(data){
           firebase.database().ref().child('users').child(data.uid).update({
             "status" : "online",
           }).catch(function(error){
-            component.showAlert(error.message);
+            component.emitter.emit('AddNewErrorToast', '',error.message, 5000, ()=>{ })                    
           }).then(function(){
           })
-        }
+        }        
       }else{
-        component.showAlert(data.message);
+        switch(data.code){
+          case 'auth/invalid-email':
+            component.emitter.emit('AddNewErrorToast', '',translate('app.system_notice.error.text.invalid_email'), 5000, ()=>{ })                         
+            break;
+          case 'auth/user-not-found':
+            component.emitter.emit('AddNewErrorToast', '',translate('app.system_notice.error.text.user_not_found'), 5000, ()=>{ })                        
+            break;
+        }
       }
     })
   }
@@ -110,7 +125,6 @@ class UserLogin extends Component {
     return(
       <div className='login-page ng-scope ui-view'>
         <Nav navStyle='inverse'/>
-        <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>
         <div className='row justify-content-md-center'>
           <div className='col-md-4'>
             <img src={constant.appLogoPic} className='app-logo' alt=''/>
@@ -129,7 +143,7 @@ class UserLogin extends Component {
               className='ng-pristine ng-valid'>
               <div className='form-content'>
                 <div className='form-group'>
-                  <input type='text'
+                  <input type='email'
                     name='email'
                     value={this.state.email}
                     onChange={this.handleInputChange.bind(this)}
@@ -160,7 +174,7 @@ class UserLogin extends Component {
       </div>
     )
   }
-  render() {
+  renderMain() {
     if(this.state.isLoading){
       return(
         <Loading />
@@ -174,6 +188,14 @@ class UserLogin extends Component {
         )
       }
     }
+  }
+  render(){
+    return(
+      <div>
+        <Toast emitter = {this.emitter}/>
+        {this.renderMain()}
+      </div>
+    )
   }
 }
 

@@ -110,5 +110,8 @@ module.exports = {
     },
     getUserByUid: function(input, callback){
         getUserByUid(input, callback);
+    },
+    extractUser: function(data){
+        extractUser(data);
     }
 }

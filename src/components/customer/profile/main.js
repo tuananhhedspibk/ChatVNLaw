@@ -9,6 +9,7 @@ import {getUserByUid} from '../../../lib/user/getuserinfo';
 
 import * as constant from '../../constants';
 import * as firebase from 'firebase';
+import * as translate from 'counterpart';
 
 import '../../../assets/styles/common/customerProfile.css';
 
