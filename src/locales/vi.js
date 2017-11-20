@@ -54,7 +54,8 @@ module.exports = {
           already_login: 'Bạn đã đăng nhập vào hệ thống!',
           invalid_email: 'Bạn hãy chắc chắn email nhập vào là chính xác!',
           user_not_found: 'Bạn hãy chắc chắn email và mật khẩu là chính xác!',
-          password_confirm_not_match: 'Mật khẩu xác nhận không khớp!'
+          password_confirm_not_match: 'Mật khẩu xác nhận không khớp!',
+          some_thing_not_work: 'Đã có lỗi xảy ra, xin hãy thử lại sau!'
         }
       }
     },

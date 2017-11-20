@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import {storeLawyerData} from '../../../lib/user/lawyers';
+import {updatePhotoURL} from '../../../lib/user/getuserinfo';
 
 import firebase from 'firebase';
 import 'react-datetime/css/react-datetime.css';
@@ -40,6 +41,7 @@ class BasicInfoSettings extends Component {
       },
       function(){
         $('.avatar').find('img').attr('src', task.snapshot.downloadURL);
+        updatePhotoURL(task.snapshot.downloadURL);
       })
     })
   }

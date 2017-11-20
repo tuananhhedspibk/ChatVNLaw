@@ -3,6 +3,9 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import {onAuthStateChanged} from '../../lib/user/authentication';
 import {extractNotification,noticeWhenNewNotiComing} from '../../lib/notification/notifications';
 
+import * as constant from '../constants';
+
+import 'react-notifications/lib/notifications.css';
 class Toast extends Component{
   constructor(props) {
     super(props);
@@ -22,7 +25,12 @@ class Toast extends Component{
           properties['timeStamp'] = this.state.timeStamp || '' + (new Date()).getTime();
           noticeWhenNewNotiComing(properties, (data) =>{
             extractNotification(data,(item) =>{
-              component.createNotification('info' , item.title, item.content);            
+              component.createNotification('info' , item.title, item.content, 5000, ()=>{
+                console.log(window.location.pathname);
+                if(!(window.location.pathname).startsWith('/notifications')){
+                  window.open('/notifications', "_blank")                  
+                } 
+              });            
             })
           })
         }  

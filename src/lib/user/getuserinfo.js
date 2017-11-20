@@ -1,6 +1,17 @@
 var firebase = require('firebase');
 var constant = require('../constants');
 
+function updatePhotoURL(link){
+    try{
+        var currentUser = firebase.auth().currentUser
+        firebase.database().ref(`${constant.TABLE.users}/${currentUser.uid}`).update({photoURL: link})
+        currentUser.updateProfile({
+          photoURL: link
+        })
+    }catch( exception){
+
+    }
+}
 function extractUser(data){
     var item = {
         username: data.val().username,
@@ -122,5 +133,8 @@ module.exports = {
     },
     checkUserWithUserName: function(input, callback){
         checkUserWithUserName(input, callback)
+    },
+    updatePhotoURL: function(link){
+        updatePhotoURL(link);
     }
 }

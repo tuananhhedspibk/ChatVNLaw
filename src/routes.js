@@ -13,6 +13,7 @@ import Payment from './components/payments/payment';
 
 import SearchLaw from './components/searchlaw/layout';
 
+import Notifications from './components/notification/notifications';
 import ApplyLawyer from './components/homepage/applylawyer';
 import SettingsLawyer from './components/lawyer/profile/settings';
 import SettingsCustomer from './components/customer/profile/settings';
@@ -29,6 +30,7 @@ const Routes = props => (
         <UserLogin {...props} />
       )}/>
       <Route path='/signup' component={UserSignUp}/>
+      <Route path='/notifications' component={Notifications}/>
       <Route path='/dashboard' component={UserDashBoard}/>
       <Route path='/chat/:user_name' component={ChatView}/>
       <Route path='/attorney' component={Attorney}/>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
+import {updatePhotoURL} from '../../../lib/user/getuserinfo';
 
 import * as firebase from 'firebase';
 
@@ -31,6 +32,7 @@ class BasicInfoSettings extends Component {
       },
       function(){
         $('.avatar').find('img').attr('src', task.snapshot.downloadURL);
+        updatePhotoURL(task.snapshot.downloadURL);
       })
     })
   }
