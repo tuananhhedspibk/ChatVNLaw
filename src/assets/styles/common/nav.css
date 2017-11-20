@@ -10,26 +10,40 @@
   background-color: transparent !important;
   background-image: none !important;
   border-radius: 0px !important;
+  font-size: 1.4em;
   font-weight: 200;
   margin: 0px;
   padding-bottom: 10px !important;
   padding-top: 10px !important; }
   .navbar .navbar-brand {
+    color: #fff;
     font-size: 1.6em;
+    font-weight: bold;
     padding: 0 !important; }
-  .navbar .headerNavListItem {
-    cursor: pointer;
-    display: inline-block;
-    font-size: .8em;
-    padding: 10px 20px;
-    text-transform: uppercase; }
-    .navbar .headerNavListItem:hover {
-      background-color: #2385f2 !important;
-      border-radius: 5px;
-      color: #fff !important;
-      transition: all .5s ease; }
   .navbar .dropdown {
     margin-left: 15px; }
+    .navbar .dropdown a {
+      text-decoration: none; }
+  .navbar .dropdown-toggle {
+    cursor: pointer; }
+  .navbar .headerNavListLink {
+    cursor: pointer; }
+
+.navbar-expand-lg .navbar-nav {
+  justify-content: space-between; }
+  .navbar-expand-lg .navbar-nav .nav-link {
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: .8em;
+    font-weight: bold;
+    margin-right: 10px;
+    padding: 10px 12px 6px !important;
+    text-transform: uppercase; }
+    .navbar-expand-lg .navbar-nav .nav-link:hover {
+      background-color: #2385f2;
+      color: #fff;
+      transition: all .5s ease; }
 
 .dropdown-menu a {
   display: inline-block;
@@ -68,12 +82,15 @@
   transition: all .5s ease; }
 
 .nav-hidden {
-  opacity: 0;
-  transition: all 0.6s; }
+  display: none; }
 
 .nav-inverse {
   border-bottom: 1px solid #c2cfd6;
   background-color: white; }
+  .nav-inverse .navbar-expand-lg .navbar-nav .nav-link {
+    color: #000; }
+    .nav-inverse .navbar-expand-lg .navbar-nav .nav-link:hover {
+      color: #fff; }
   .nav-inverse .collapse.show {
     background-color: #fff; }
   .nav-inverse .navbar-nav .dropdown-menu {
@@ -83,11 +100,6 @@
       color: #000; }
       .nav-inverse .navbar-nav .dropdown-menu a:hover {
         color: #fff; }
-  .nav-inverse .headerNavListItem a {
-    color: #000 !important; }
-    .nav-inverse .headerNavListItem a:hover {
-      background-color: #2385f2 !important;
-      color: #fff !important; }
   .nav-inverse .dropdown .btn {
     background-color: #f6f6f6;
     color: #000 !important; }
@@ -97,9 +109,6 @@
     color: #2385f2; }
   .nav-inverse a.navbar-brand:hover {
     color: #2385f2; }
-
-.nav-light .headerNavListItem a {
-  color: #fff !important; }
 
 .nav-light .dropdown .btn {
   color: #fff !important; }

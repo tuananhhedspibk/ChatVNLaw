@@ -9,7 +9,7 @@ import SideBar from './sidebar';
 import * as constant from '../../constants';
 import * as firebase from 'firebase';
 
-import '../../../assets/styles/common/lawyerProfileSettings.css';
+import '../../../assets/styles/common/profileSettings.css';
 
 let translate = require('counterpart');
 
@@ -43,8 +43,9 @@ class SettingsLawyer extends Component {
 					firebase.database().ref('users').orderByChild('username')
 					.equalTo(username).once('child_added')
 	    		.then(function(snapshotUser) {
-	    			if(snapshotUser.val().role != 'lawyer')
-							window.location = constant.BASE_URL;
+	    			if(snapshotUser.val().role != 'lawyer'){
+              window.location = constant.BASE_URL;
+            }
 	        	else {
 	        		component.setState({user: snapshotUser.val()});
 	        		component.getUserProfile(snapshotUser.key);
@@ -74,15 +75,29 @@ class SettingsLawyer extends Component {
       return(
         <div>
           <Nav navStyle='inverse'/>
-          <div className='container-settings-lawyer-wrapper'>
-            <div className='row'>
-              <SideBar/>
-              <div className='col-sm-12 col-md-9'>
-                <div className='main-content'>
-                  <BasicInfoSettings user={this.state.user}
-                    handleUpdate={this.handleUpdate.bind(this)}
-                    profile={this.state.profile}/>
-                  <DetailInfoSettings/>
+          <div className='container'>
+            <div className='container-settings-wrapper'>
+              <div className='row'>
+                <div className='col-sm-0 col-md-4'>
+                  <SideBar/>
+                </div>
+                <div className='col-md-1'>
+                </div>
+                <div className='col-sm-12 col-md-6'>
+                  <div className='main-content'>
+                    <div className='tab-content'>
+                      <div className='tab-pane active' id='tab-basic'>
+                        <BasicInfoSettings user={this.state.user}
+                          handleUpdate={this.handleUpdate.bind(this)}
+                          profile={this.state.profile}/>
+                      </div>
+                      <div className='tab-pane' id='tab-detail'>
+                        <DetailInfoSettings user={this.state.user}
+                          handleUpdate={this.handleUpdate.bind(this)}
+                          profile={this.state.profile}/>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

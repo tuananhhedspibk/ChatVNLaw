@@ -19,35 +19,31 @@ class CustomerProfile extends Component {
 	    currentUser: ''
 	  }
 	}
-
-	componentWillMount() {
+		
+	checkUserName(username){
 		var component = this;
-	    firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				getUserByUid(user.uid, (event,data) =>{
-          switch(event){
-            case 'value':
-              var item = {
-                username: data.val().username,
-								displayName: data.val().displayName,
-								email: data.val().email,
-								role: data.val().role,
-                uid : data.key,
-                status: data.val().status,
-                photoURL: data.val().photoURL
-              }
-              var bool = data.val().role === 'lawyer' ? true : false 
-              component.setState({currentUser: item, islawyer: bool});
-              break;
-            case 'child_changed':
-              var bool = data.val().role === 'lawyer' ? true : false 
-              component.setState({islawyer: bool})
-              break;
-          }
-        })
-			}
-		});
+		firebase.database().ref('users').orderByChild('username')
+			.equalTo(username).once('value')
+	    .then(function(snapshot){
+	      if(!snapshot.exists()){
+	        window.location = constant.BASE_URL;
+	      }
+	      else {
+					firebase.database().ref('users').orderByChild('username')
+					.equalTo(username).once('child_added')
+	    		.then(function(snapshotUser) {
+	        	component.setState({currentUser: snapshotUser.val()});
+	    		})
+	      }
+	  	})
 	}
+
+  componentWillMount() {
+    if(!firebase.apps.length){
+      firebase.initializeApp(constant.APP_CONFIG);
+    }
+	  this.checkUserName(this.props.match.params.user_name);
+  }
 
 	render() {
 		return(

@@ -1,0 +1,164 @@
+@import './variables.scss';
+
+.container-settings-wrapper {
+  .tab-content .tab-pane {
+    padding: 0;
+  }
+
+  .tab-content {
+    background-color: transparent;
+    border: 0;
+  }
+
+  .nav-sidebar {
+    font-size: 1.2em;
+    padding: 30px 50px;
+
+    li {
+      display: inline-block;
+      width: 100%;
+
+      a {
+        border-right: 4px solid $gray-lighter;
+        color: $black;
+        display: block;
+        font-weight: bold;
+        padding: 10px 0;
+        width: 100%;
+
+        &:hover {
+          text-decoration: none;
+          transition: all .3s ease;
+        }
+      }
+
+      .link-basic.active {
+        border-right-color: $blue;
+        color: $blue;
+      }
+
+      .link-detail.active {
+        border-right-color: $blue-analog;
+        color: $blue-analog;
+      }
+
+      .link-basic {
+        &:hover {
+          color: $blue;
+          transition: all .3s ease;
+        }
+      }
+
+      .link-detail {
+        &:hover {
+          color: $blue-analog;
+          transition: all .3s ease;
+        }
+      }
+    }
+  }
+
+  .save-btn {
+    color: $white;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: 10px;
+    padding: 8px 25px;
+
+    .fa {
+      margin-right: 15px;
+    }
+  }
+
+  .basic-info-settings {
+    padding-top: 25px;
+    padding-bottom: 35px;
+
+    .save-btn {
+      background-color: $blue;
+      border: 1px solid $blue;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: $white;
+        color: $blue;
+        transition: all .5s ease;
+      }
+    }
+
+    .avatar {
+      display: inline-block;
+      width: 100%;
+
+      #upfile-setting {
+        display: none;
+      }
+
+      .change-ava-guide {
+        background-color: $black-trans-light;
+        color: $white;
+        display: inline-block;
+        font-weight: bold;
+        margin-left: 30px;
+        padding: 10px 20px;
+        position: relative;
+
+        &:after {
+          border-color: transparent $black-trans-light transparent transparent;
+          border-style: solid;
+          border-width: 5px;
+          content: "";
+          left: -9px;
+          margin-top: -5px;
+          position: absolute;
+          top: 50%;
+        }
+      }
+  
+      img {
+        border-radius: 50%;
+        box-shadow: 0 0 3px 2px $gray;
+        cursor: pointer;
+        height: 140px;
+        width: 140px;
+      }
+    }  
+  }
+
+  .detail-info-settings {
+    padding-top: 25px;
+    padding-bottom: 35px;
+
+    textarea {
+      height: 65px !important;
+    }
+
+    .save-btn {
+      background-color: $blue-analog-darker;
+      border: 1px solid $blue-analog-darker;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: $white;
+        color: $blue-analog-darker;
+        transition: all .5s ease;
+      }
+    }
+  }
+
+  .info-block {
+    margin-bottom: 20px;
+    padding-top: 10px;
+
+    .ui.input {
+      width: 100%;
+    }
+
+    .title {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  }
+}

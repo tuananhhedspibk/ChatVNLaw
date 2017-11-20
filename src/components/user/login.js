@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import AlertContainer from 'react-alert';
 import firebase from 'firebase';
 import $ from 'jquery';
-import {signInWithPopup,signInWithEmailAndPassword,onAuthStateChanged} from '../../lib/user/authentication';
+import {signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged}
+  from '../../lib/user/authentication';
 import Loading from '../shared/loading';
 
 import Nav from '../homepage/nav';
@@ -47,7 +48,6 @@ class UserLogin extends Component {
   componentDidUpdate(prevProps, prevState){
     if(prevState.isLoading !== this.state.isLoading){
       $('#button-login-with-facebook').on('click', event => {
-        console.log('facebook');
         var provider = new firebase.auth.FacebookAuthProvider();
         this.signInWithPopup(provider);
       });
@@ -58,6 +58,7 @@ class UserLogin extends Component {
       });
     }
   }
+
   signInWithPopup(provider){
     var component = this;    
     signInWithPopup(provider, (issuccess,result) =>{

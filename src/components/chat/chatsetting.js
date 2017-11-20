@@ -169,8 +169,8 @@ class ChatSetting extends Component {
                       style={faCameraStyle} aria-hidden='true'></i>
                       {translate('app.user.upload.ava')}
                   </a>
-                  <input type='file' id='upfile-setting' accept="image/*"
-                    style={upfileStyle}/>
+                  <input type='file' id='upfile-setting'
+                    accept='image/*' style={upfileStyle}/>
                 </div>
                 <Modal.Description>
                   <Header>{translate('app.user.name')}</Header>

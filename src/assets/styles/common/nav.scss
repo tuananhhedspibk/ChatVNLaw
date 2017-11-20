@@ -14,33 +14,53 @@
 	background-color: transparent !important;
 	background-image: none !important;
 	border-radius: 0px !important;
+  font-size: 1.4em;
 	font-weight: 200;
 	margin: 0px;
 	padding-bottom: 10px !important;
 	padding-top: 10px !important;
 
 	.navbar-brand {
+		color: $white;
 		font-size: 1.6em;
+		font-weight: bold;
 		padding: 0 !important;
-	}
-
-	.headerNavListItem {
-		cursor: pointer;
-		display: inline-block;
-		font-size: .8em;
-		padding: 10px 20px;
-		text-transform: uppercase;
-
-		&:hover {
-			background-color: $blue !important;
-			border-radius: 5px;
-			color: $white !important;
-			transition: all .5s ease;
-		}
 	}
 
 	.dropdown {
 		margin-left: 15px;
+
+		a {
+			text-decoration: none;
+		}
+	}
+
+	.dropdown-toggle {
+		cursor: pointer;
+	}
+
+	.headerNavListLink {
+		cursor: pointer;
+	}
+}
+
+.navbar-expand-lg .navbar-nav {
+	justify-content: space-between;
+	.nav-link {
+		border-radius: 5px;
+		color: $white;
+		cursor: pointer;
+		font-size: .8em;
+		font-weight: bold;
+		margin-right: 10px;
+		padding: 10px 12px 6px !important;
+		text-transform: uppercase;
+
+		&:hover {
+			background-color: $blue;
+			color: $white;
+			transition: all .5s ease;
+		}
 	}
 }
 
@@ -89,13 +109,22 @@
 }
 
 .nav-hidden {
-	opacity: 0;
-	transition: all 0.6s;
+	display: none;
 }
 
 .nav-inverse {
 	border-bottom: 1px solid $border-color;
 	background-color: white;
+
+	.navbar-expand-lg .navbar-nav {
+		.nav-link {
+			color: $black;
+
+			&:hover {
+				color: $white;
+			}
+		}
+	}
 
 	.collapse.show {
 		background-color: $white;
@@ -111,15 +140,6 @@
 			&:hover {
 				color: $white;
 			}
-		}
-	}
-
-	.headerNavListItem a {
-		color: $black !important;
-
-		&:hover {
-			background-color: $blue !important;
-			color: $white !important;
 		}
 	}
 	
@@ -144,10 +164,6 @@
 }
 
 .nav-light {
-	.headerNavListItem a {
-		color: $white !important;
-	}
-	
 	.dropdown .btn {
 		color: $white !important;
 	}
