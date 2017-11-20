@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import { Header, TextArea, Button, Image,Modal, Dropdown } from 'semantic-ui-react';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { EventEmitter } from 'fbemitter';
+
 import Nav from './nav';
 import NotFound from '../shared/notfound';
 import Loading from '../shared/loading';
-import { Header, TextArea, Button, Image,Modal, Dropdown } from 'semantic-ui-react';
-import Payment from '../payments/payment'
-import {createNewNotification,noticeWhenNewNotiComing} from '../../lib/notification/notifications';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import Payment from '../payments/payment';
+import {createNewNotification,noticeWhenNewNotiComing}
+  from '../../lib/notification/notifications';
 import ThankLayoutContent from '../shared/thanklayoutcontent';
 import Toast from '../notification/toast';
-import {EventEmitter} from 'fbemitter';
-
 import * as constant from '../constants';
 import * as firebase from 'firebase';
-import * as Lawyers from '../../lib/user/lawyers'
+import * as Lawyers from '../../lib/user/lawyers';
+
+import '../../assets/styles/common/applyLawyer.css';
 import 'react-notifications/lib/notifications.css';
 
 let translate = require('counterpart');
@@ -56,7 +59,8 @@ class ApplyLawyer extends Component {
     firebase.auth().onAuthStateChanged(user =>{
       if(user){
         component.setState({currentUser: user, permission: true})
-      }else{
+      }
+      else{
         component.emitter.emit('AddNewErrorToast',
           translate('app.system_notice.unauthenticated.title'),
           translate('app.system_notice.unauthenticated.text'),
@@ -68,9 +72,6 @@ class ApplyLawyer extends Component {
         },5000);
       }
     });
-  }
-
-  componentDidMount(){
   }
 
   handleOpenModal(){
@@ -101,6 +102,16 @@ class ApplyLawyer extends Component {
         </Modal.Content>
       </Modal>
     )
+  }
+
+  changeStep(previousSection, nextSection,
+    itemIdActive, itemIdNotActive) {
+      $(previousSection).removeClass('active');
+      $(previousSection + '-overview').hide();
+      $(nextSection).addClass('active');
+      $(nextSection + '-overview').show();
+      $(itemIdActive).parent().addClass('active');
+      $(itemIdNotActive).parent().removeClass('active');
   }
 
   handleClick(){
@@ -148,51 +159,123 @@ class ApplyLawyer extends Component {
         <div>
           {this.renderPaymentInfo()}
         </div>
-        <div className='apply-lawyer-container'>
-          <header className='apply-lawyer-header'>
-            <h1>{translate('app.payment.table_input_info')}</h1>
-          </header>
-          <div className='form-group apply-lawyer-contact'>
-            <label for='usr'>
-              {translate('app.payment.full_name')}
-            </label>
-            <input className='form-control apply-lawyer-name'
-              id='usr' type='text'
-              placeholder={translate('app.payment.placeholder_name')} />
-          </div>
-          <div className='form-group apply-lawyer-contact'>
-            <label for='usr'>{translate('app.payment.country')}</label>
-            <input type='text' id='usr'
-              className='form-control apply-lawyer-address'
-              placeholder={translate('app.payment.placeholder_country')} />
-          </div>
-          <div className='form-group apply-lawyer-contact'>
-            <label for='usr'>
-              {translate('app.payment.phone_number')}
-            </label>
-            <input type='number' id='usr'
-              className='form-control apply-lawyer-phone'
-              placeholder={translate('app.payment.placeholder_phone')} />
-          </div>
-          <div className='form-group apply-lawyer-contasearchct'>
-            <label for='usr'>{translate('app.payment.age')}</label>
-            <input type='number' id='usr'
-              className='form-control apply-lawyer-age'
-              placeholder={translate('app.payment.placeholder_age')} />
-          </div>
-          <div class='form-group'>
-            <label for='comment'>{translate('app.payment.problem')}</label>
-            <textarea
-              class='form-control apply-lawyer-problem'
-              rows='5' id='problem'>
-            </textarea>
-          </div>
-          <div className='apply-lawyer-footer'>
-            <button type='button'
-              class='btn btn-info apply-lawyer-button'
-              onClick={this.handleClick.bind(this)}>
-                {translate('app.payment.apply_lawyer')}
-            </button>
+        <div className='container'>
+          <div className='apply-lawyer-container'>
+            <div className='row'>
+              <div className='col-sm-9'>
+                <div className='tab-content'>
+                  <div className='tab-pane active' id='personal-info'>
+                    <div className='form-section'>
+                      <div className='apply-lawyer-header'>
+                        {translate('app.payment.personal_info')}
+                      </div>
+                      <div className='form-group apply-lawyer-contact'>
+                        <label htmlFor='usr'>
+                          {translate('app.payment.full_name')}
+                        </label>
+                        <input className='form-control apply-lawyer-name'
+                          id='usr' type='text'
+                          placeholder={translate('app.payment.placeholder_name')} />
+                      </div>
+                      <div className='form-group apply-lawyer-contact'>
+                        <label htmlFor='usr'>{translate('app.payment.country')}</label>
+                        <input type='text' id='usr'
+                          className='form-control apply-lawyer-address'
+                          placeholder={translate('app.payment.placeholder_country')} />
+                      </div>
+                      <div className='form-group apply-lawyer-contasearchct'>
+                        <label htmlFor='usr'>{translate('app.payment.age')}</label>
+                        <input type='number' id='usr'
+                          className='form-control apply-lawyer-age'
+                          placeholder={translate('app.payment.placeholder_age')} />
+                      </div>
+                      <div className='form-group apply-lawyer-contact'>
+                        <label htmlFor='usr'>
+                          {translate('app.payment.phone_number')}
+                        </label>
+                        <input type='number' id='usr'
+                          className='form-control apply-lawyer-phone'
+                          placeholder={translate('app.payment.placeholder_phone')} />
+                      </div>
+                    </div>
+                    <a 
+                      onClick={this.changeStep
+                        .bind(this, '#personal-info',
+                          '#problem-section', '#link-ps', '#link-pi')}
+                      className='change-step-btn'>
+                        {translate('app.payment.problem')}
+                    </a>
+                  </div>
+                  <div className='tab-pane' id='problem-section'>
+                    <div className='form-section'>
+                      <div className='apply-lawyer-header'>
+                        {translate('app.payment.problem')}
+                      </div>
+                      <div className='form-group'>
+                        <textarea
+                          className='form-control apply-lawyer-problem'
+                          rows='5' id='problem'>
+                        </textarea>
+                      </div>
+                      <button type='button'
+                        className='btn apply-lawyer-button'
+                        onClick={this.handleClick.bind(this)}>
+                          {translate('app.payment.apply_lawyer')}
+                      </button>
+                      <a 
+                        onClick={this.changeStep
+                          .bind(this, '#problem-section',
+                            '#personal-info', '#link-pi', '#link-ps')}
+                        className='previous-step-btn change-step-btn'>
+                          {translate('app.payment.personal_info')}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='col-sm-3 side-content'>
+                <nav className='nav-sidebar'>
+                  <ul className='nav nav-pills'>
+                    <li className='active'>
+                      <a id='link-pi'
+                        onClick={this.changeStep
+                          .bind(this, '#problem-section',
+                            '#personal-info', '#link-pi',
+                            '#link-ps')}>1</a>
+                    </li>
+                    <li>
+                      <a id='link-ps'
+                        onClick={this.changeStep
+                          .bind(this, '#personal-info',
+                            '#problem-section', '#link-ps',
+                            '#link-pi')}>2</a>
+                    </li>  
+                  </ul>
+                </nav>
+                <div className='overview-section'
+                  id='personal-info-overview'>
+                    <i className='fa fa-id-badge'
+                      aria-hidden='true'></i>
+                    <p className='title'>
+                      {translate('app.payment.personal_info')}
+                    </p>
+                    <div className='overview-content'>
+                      {translate('app.payment.personal_info_overview')}
+                    </div>
+                </div>
+                <div className='overview-section'
+                  id='problem-section-overview'>
+                  <i className='fa fa-exclamation-triangle'
+                    aria-hidden='true'></i>
+                  <p className='title'>
+                    {translate('app.payment.problem')}
+                  </p>
+                  <div className='overview-content'>
+                    {translate('app.payment.problem_overview')}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -203,7 +286,7 @@ class ApplyLawyer extends Component {
     if(!this.state.isLoading && this.state.permission){
       if(!! this.state.currentLawyer){
         return(
-          <div className='main-content'>
+          <div>
             <Nav navStyle='inverse'/>
             {this.state.done ? <ThankLayoutContent/> : this.renderView()}
           </div>
@@ -220,6 +303,7 @@ class ApplyLawyer extends Component {
       )
     }   
   }
+
   render(){
     return(
       <div>

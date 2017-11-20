@@ -20,10 +20,16 @@
     font-size: 1.6em;
     font-weight: bold;
     padding: 0 !important; }
-  .navbar .dropdown {
-    margin-left: 15px; }
-    .navbar .dropdown a {
-      text-decoration: none; }
+  .navbar .dropdown a {
+    text-decoration: none; }
+  .navbar .dropdown .btn {
+    background-color: rgba(255, 255, 255, 0.0980392);
+    font-size: .8em;
+    margin-top: 3px;
+    outline: 0 !important;
+    padding: 10px !important; }
+    .navbar .dropdown .btn:focus {
+      box-shadow: none; }
   .navbar .dropdown-toggle {
     cursor: pointer; }
   .navbar .headerNavListLink {
@@ -35,10 +41,11 @@
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    font-size: .9em;
+    font-size: .8em;
     font-weight: bold;
     margin-right: 10px;
-    padding: 9px 12px 7px !important; }
+    margin-top: 4px;
+    padding: 7px 12px !important; }
     .navbar-expand-lg .navbar-nav .nav-link:hover {
       background-color: #2385f2;
       color: #fff;
@@ -52,15 +59,6 @@
 
 .navbar-header {
   padding-left: 30px; }
-
-.dropdown .btn {
-  background-color: rgba(255, 255, 255, 0.0980392);
-  font-size: .8em;
-  margin-top: 3px;
-  outline: 0 !important;
-  padding: 10px !important; }
-  .dropdown .btn:focus {
-    box-shadow: none; }
 
 .navbar-nav .dropdown-menu {
   background-color: rgba(255, 255, 255, 0.0980392);

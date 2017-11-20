@@ -57,17 +57,18 @@
       display: inline-block;
       font-size: 1.2em;
       width: 100%; }
-      .lawyer-profile .profile-header .another-infor .left-block {
-        float: left;
-        width: 55%; }
-        .lawyer-profile .profile-header .another-infor .left-block b {
-          display: inline-block;
-          margin-bottom: 12px;
-          width: 100%; }
-      .lawyer-profile .profile-header .another-infor .right-block {
-        float: right;
-        text-align: left;
-        width: 45%; }
+      .lawyer-profile .profile-header .another-infor .block {
+        align-items: center;
+        display: flex; }
+      .lawyer-profile .profile-header .another-infor b {
+        display: inline-block;
+        margin-bottom: 12px;
+        width: 50%; }
+      .lawyer-profile .profile-header .another-infor p {
+        display: inline-block;
+        margin-bottom: 12px;
+        width: 50%;
+        word-wrap: break-word; }
   .lawyer-profile .space-wrapper {
     margin-top: 35px; }
   .lawyer-profile .content-block {
@@ -83,6 +84,8 @@
       font-size: 1.2em; }
   .lawyer-profile .center-block .content {
     padding-bottom: 5px; }
+    .lawyer-profile .center-block .content div > span > span {
+      word-wrap: break-word; }
   .lawyer-profile .center-block hr {
     margin: 25px 0; }
   .lawyer-profile .right-block {

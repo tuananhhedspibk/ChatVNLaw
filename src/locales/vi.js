@@ -374,6 +374,7 @@ module.exports = {
       title: 'Nhập thông tin thanh toán',
       connect: 'Kết nối luật sư',
       table_input_info: 'Bảng nhập thông tin',
+      personal_info: 'Thông tin cá nhân',
       full_name: 'Tên đầy đủ',
       placeholder_name: 'Nguyễn Tiến Trường',
       country: 'Quê quán',
@@ -383,7 +384,10 @@ module.exports = {
       age: 'Tuổi',
       placeholder_age: '19',
       problem: 'Vấn đề gặp phải',
-      apply_lawyer: 'Yêu cầu luật sư'
+      apply_lawyer: 'Yêu cầu luật sư',
+      personal_info_overview: 'Với những thông tin cá nhân cơ bản sẽ giúp chúng tôi hiểu rõ bạn hơn',
+      problem_overview: 'Cùng chia sẻ với chúng tôi những vấn đề mà bạn gặp phải',
+      pre_step: 'Bước trước'
     },
     lawyer: {
       online_counsel: 'Tư vấn trực tuyến',
