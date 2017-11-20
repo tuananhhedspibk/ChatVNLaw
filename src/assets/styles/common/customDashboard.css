@@ -180,7 +180,7 @@
   font-size: .9em; }
 
 .app-header.navbar .nav-item {
-  font-size: .85em; }
+  font-size: 1.1em; }
 
 .sidebar .nav .nav-item .nav-link {
   padding: 1.3rem !important; }
@@ -454,7 +454,13 @@
       margin-left: 15px; }
 
 .app-header.navbar .dropdown-menu {
-  background-color: #fff; }
+  background-color: #fff;
+  cursor: pointer;
+  font-size: .8em; }
+  .app-header.navbar .dropdown-menu .dropdown-header {
+    font-size: .9em; }
+  .app-header.navbar .dropdown-menu button.dropdown-item {
+    cursor: pointer; }
 
 .app-header.navbar .dropdown-item {
   min-width: 50px;

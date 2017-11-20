@@ -265,7 +265,7 @@
 }
 
 .app-header.navbar .nav-item {
-  font-size: .85em;
+  font-size: 1.1em;
 }
 
 .sidebar .nav .nav-item .nav-link {
@@ -651,6 +651,16 @@
 
 .app-header.navbar .dropdown-menu {
   background-color: $white;
+  cursor: pointer;
+  font-size: .8em;
+
+  .dropdown-header {
+    font-size: .9em;
+  }
+
+  button.dropdown-item {
+    cursor: pointer;
+  }
 }
 
 .app-header.navbar .dropdown-item {

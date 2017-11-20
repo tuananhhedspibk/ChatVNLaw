@@ -79,7 +79,7 @@ class BasicInfoSettings extends Component {
               {translate('app.settings.name')}
             </div>
             <div className='ui left icon input'>
-              <input name='fullname'
+              <input name='displayName'
                 onChange={this.handleInputChange.bind(this)}
                 placeholder={translate('app.settings.user_name')}
                 type='text' value={this.state.displayName}/>

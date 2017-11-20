@@ -14,7 +14,7 @@ class Nav extends Component {
     super(props);
     this.state ={
       currentUser: null,
-      islawyer: false
+      isLawyer: false
     }
   }
 
@@ -30,15 +30,16 @@ class Nav extends Component {
                 username: data.val().username,
                 displayName: data.val().displayName,
                 uid : data.key,
+                role: data.val().role,
                 status: data.val().status,
                 photoURL: data.val().photoURL
               }
               var bool = data.val().role === 'lawyer' ? true : false 
-              component.setState({currentUser: item, islawyer: bool});
+              component.setState({currentUser: item, isLawyer: bool});
               break;
             case 'child_changed':
               var bool = data.val().role === 'lawyer' ? true : false 
-              component.setState({islawyer: bool})
+              component.setState({isLawyer: bool})
               break;
           }
         })
@@ -51,7 +52,7 @@ class Nav extends Component {
     if(!firebase.apps.length){
       firebase.initializeApp(constant.APP_CONFIG);  
     }
-    if(!this.state.islawyer){
+    if(!this.state.isLawyer){
       window.location = constant.BASE_URL + constant.SIGN_IN_URI;            
     }else{
       window.location = constant.BASE_URL + '/dashboard';                
@@ -176,7 +177,7 @@ class Nav extends Component {
               <li className='nav-item'>
                 <a className='nav-link'
                   onClick={this.checkLogin.bind(this)}>
-                  {this.state.islawyer === true ? 'DashBoard' : 'Chat'}
+                  {this.state.isLawyer === true ? 'DashBoard' : 'Chat'}
                 </a>
               </li>
               {this.renderDropdown()}

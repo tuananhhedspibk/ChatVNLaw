@@ -107,7 +107,6 @@ class BasicInfoSettings extends Component {
             </div>
             <Datetime
               value={this.state.birthday}
-              defaultValue={Date(this.state.birthday)}
               timeFormat={false}
               onChange={this.handleDateChange.bind(this)}/>
           </div>
@@ -160,7 +159,7 @@ class BasicInfoSettings extends Component {
               {translate('app.settings.experience')}
             </div>
             <div className='ui left icon input'>
-              <input name='category'
+              <input name='expyear'
                 onChange={this.handleInputChange.bind(this)}
                 placeholder={translate('app.settings.experience')}
                 type='text' value={this.state.expyear}/>
