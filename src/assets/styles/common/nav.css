@@ -20,11 +20,13 @@
     font-size: 1.6em;
     font-weight: bold;
     padding: 0 !important; }
+    .navbar .navbar-brand:hover {
+      color: #2385f2; }
   .navbar .dropdown a {
     text-decoration: none; }
   .navbar .dropdown .btn {
     background-color: rgba(255, 255, 255, 0.0980392);
-    font-size: .8em;
+    font-size: .9em;
     margin-top: 3px;
     outline: 0 !important;
     padding: 10px !important; }
@@ -41,7 +43,7 @@
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    font-size: .8em;
+    font-size: .9em;
     font-weight: bold;
     margin-right: 10px;
     margin-top: 4px;

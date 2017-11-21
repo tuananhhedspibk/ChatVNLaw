@@ -2,79 +2,90 @@
   -webkit-display: flex;
   background-color: #fff;
   display: flex;
-  margin: 0 auto 10px auto;
-  width: 800px;
+  margin: 0 auto;
+  width: 100%;
   min-height: 70px;
   top: 20px; }
   .notification-item .info {
-    -webkit-flex: 1;
-    flex: 1;
-    padding: 10px 10px 0 10px;
+    background-color: #fafafa;
     border-radius: 3px 0 0 3px;
-    border-bottom: 3px solid #c0cdd1; }
+    border-bottom: 3px solid #d4d4d4;
+    flex: 1;
+    font-family: "Montserrat", sans-serif !important;
+    padding: 20px 20px 0 20px;
+    -webkit-flex: 1; }
     .notification-item .info h1 {
-      margin: 0;
-      padding: 0;
-      font-family: arial, sans-serif;
-      font-size: 16px;
-      color: #111; }
-      .notification-item .info h1 a {
-        text-decoration: none;
-        color: #444; }
-    .notification-item .info p {
-      margin: 0;
-      padding: 5px 0;
-      font-family: arial, sans-serif;
-      font-size: 12px;
-      color: #666; }
+      font-size: 1.6em;
+      font-weight: bold; }
+    .notification-item .info .info-detail {
+      font-size: 1.2em; }
+      .notification-item .info .info-detail .title {
+        font-size: 1.2em;
+        margin-bottom: 10px; }
+      .notification-item .info .info-detail ul {
+        padding-left: 10px; }
+      .notification-item .info .info-detail ul > li {
+        list-style-type: none; }
     .notification-item .info .button {
-      display: inline-block;
-      margin: 3px 3px 5px 0;
-      padding: 3px 7px;
-      border-radius: 2px;
+      background-color: #2385f2 !important;
+      border-radius: 3px;
       border-bottom: 1px solid;
-      font-family: arial, sans-serif;
-      font-size: 12px;
+      color: #fafafa;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1.1em;
       font-weight: bold;
-      text-decoration: none;
-      color: #ecf0f1; }
-      .notification-item .info .button .blue {
-        background-color: #2980b9; }
-      .notification-item .info .button .red {
-        background-color: #e74c3c; }
-      .notification-item .info .button .orange {
-        background-color: #f39c12; }
-      .notification-item .info .button .purple {
-        background-color: #9b59b6; }
-      .notification-item .info .button .green {
-        background-color: #27ae60; }
-      .notification-item .info .button .gray {
-        background-color: #95a5a6; }
+      margin: 0 0 20px;
+      padding: 8px 12px;
+      text-decoration: none; }
+    .notification-item .info .blue {
+      background-color: #2980b9; }
+    .notification-item .info .red {
+      background-color: #e74c3c; }
+    .notification-item .info .orange {
+      background-color: #f39c12; }
+    .notification-item .info .purple {
+      background-color: #9b59b6; }
+    .notification-item .info .green {
+      background-color: #27ae60; }
+    .notification-item .info .gray {
+      background-color: #95a5a6; }
   .notification-item .icon {
-    padding: 15px 0 0 0;
-    width: 70px;
+    align-items: center;
+    border-bottom: 3px solid;
     border-radius: 0 3px 3px 0;
-    text-align: center;
-    font-size: 32px;
-    color: #ecf0f1;
-    border-bottom: 3px solid; }
+    color: #fff;
+    display: flex;
+    font-size: 1.8em;
+    justify-content: center;
+    padding: 15px 0 0 0;
+    width: 90px; }
   .notification-item .blue {
-    color: #2980b9; }
+    background-color: #2980b9;
+    border-bottom: 3px solid #20638f; }
   .notification-item .red {
-    color: #e74c3c; }
+    background-color: #e74c3c;
+    border-bottom: 3px solid #d62c1a; }
   .notification-item .orange {
-    color: #f39c12; }
+    background-color: #f39c12;
+    border-bottom: 3px solid #c87f0a; }
   .notification-item .purple {
-    color: #9b59b6; }
+    background-color: #9b59b6;
+    border-bottom: 3px solid #804399; }
   .notification-item .green {
-    color: #27ae60; }
+    background-color: #27ae60;
+    border-bottom: 3px solid #1e8449; }
   .notification-item .gray {
-    color: #95a5a6; }
+    background-color: #95a5a6;
+    border-bottom: 2px solid #6d8082; }
 
-#content {
+.notifi-wrapper {
+  padding-bottom: 30px; }
+
+.notifi-content {
   display: block;
   margin: 0;
-  padding: 0;
+  padding: 30px 200px 0;
   width: 100%;
   height: 100%; }
 
@@ -89,8 +100,18 @@
     color: #fff;
     font-size: 12px; }
 
+@media (max-width: 1200px) {
+  .notifi-content {
+    padding: 15px 80px; } }
+
+@media (max-width: 600px) {
+  .notifi-content {
+    padding: 15px 30px; }
+    .notifi-content .icon {
+      width: 0; } }
+
 @media (max-height: 400px) {
-  #content {
+  .content {
     display: none; }
   #preview {
     display: block; } }

@@ -22,7 +22,10 @@ module.exports = {
     },
     notification:{
       new_request_from_other: ' đã gửi cho bạn một yêu cầu.',
-      click_here: 'Click để xem chi tiết!'      
+      click_here: 'Click để xem chi tiết!',
+      time_created: 'Thời gian tạo: ',
+      detail: 'Chi tiết',
+      create_dialog: 'Tạo cuộc trò chuyện'
     },
     system_notice:{
       unauthenticated: {
