@@ -22,7 +22,10 @@ module.exports = {
     },
     notification:{
       new_request_from_other: ' has sended to you a request.',
-      click_here: 'Click here for detail!'
+      click_here: 'Click here for detail!',
+      time_created: 'Time created: ',
+      detail: 'Details: ',
+      create_dialog: 'Create a dialog'
     },
     system_notice:{
       unauthenticated: {

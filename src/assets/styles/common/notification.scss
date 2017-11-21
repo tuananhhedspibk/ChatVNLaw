@@ -4,103 +4,132 @@
   -webkit-display: flex;
   background-color: $white;
   display: flex;
-  margin: 0 auto 10px auto;
-  width: 800px;
+  margin: 0 auto;
+  width: 100%;
   min-height: 70px;
   top: 20px;
+
   .info {
-    -webkit-flex: 1;
-    flex: 1;
-    padding: 10px 10px 0 10px;
+    background-color: $notifi-white;
     border-radius: 3px 0 0 3px;
-    border-bottom: 3px solid darken(#ecf0f1, 15%);
-      
+    border-bottom: 3px solid darken($notifi-white, 15%);
+    flex: 1;
+    font-family: "Montserrat", sans-serif !important;
+    padding: 20px 20px 0 20px;
+    -webkit-flex: 1;
+
     h1 {
-      margin: 0;
-      padding: 0;
-      font-family: arial, sans-serif;
-      font-size: 16px;
-      color: #111;
-      a {
-        text-decoration: none;
-        color: #444;
-      }
+      font-size: 1.6em;
+      font-weight: bold;
     }
-        
-    p {
-      margin: 0;
-      padding: 5px 0;
-      font-family: arial, sans-serif;
-      font-size: 12px;
-      color: #666;
+
+    .info-detail {
+      font-size: 1.2em;
+
+      .title {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        padding-left: 10px;
+      }
+
+      ul > li {
+        list-style-type: none;
+      }
     }
         
     .button {
-      display: inline-block;
-      margin: 3px 3px 5px 0;
-      padding: 3px 7px;
-      border-radius: 2px;
+      background-color: $blue !important;
+      border-radius: 3px;
       border-bottom: 1px solid;
-      font-family: arial, sans-serif;
-      font-size: 12px;
+      color: $notifi-white;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1.1em;
       font-weight: bold;
+      margin: 0 0 20px;
+      padding: 8px 12px;
       text-decoration: none;
-      color: #ecf0f1;
-      
-      .blue {
-          background-color: #2980b9;   
-      }
-      .red {
-          background-color: #e74c3c;
-      }
-      .orange {
-          background-color: #f39c12;
-      }
-      .purple {
-          background-color: #9b59b6;
-      }
-      .green {
-          background-color: #27ae60;
-      }
-      .gray {
-          background-color: #95a5a6;
-      }
+    }
+
+    .blue {
+      background-color: $notifi-blue;  
+    }
+
+    .red {
+      background-color: $notifi-red;
+    }
+
+    .orange {
+      background-color: $notifi-orange;
+    }
+
+    .purple {
+      background-color: $notifi-purple;
+    }
+
+    .green {
+      background-color: $notifi-green;
+    }
+
+    .gray {
+      background-color: $notifi-gray;
     }
   }
     
   .icon {
-    padding: 15px 0 0 0;
-    width: 70px;
-    border-radius: 0 3px 3px 0;
-    text-align: center;
-    font-size: 32px;
-    color: #ecf0f1;
+    align-items: center;
     border-bottom: 3px solid;
-  }   
+    border-radius: 0 3px 3px 0;
+    color: $white;
+    display: flex;
+    font-size: 1.8em;
+    justify-content: center;
+    padding: 15px 0 0 0;
+    width: 90px;
+  }
+
   .blue {
-    color: #2980b9;   
+    background-color: $notifi-blue;
+    border-bottom: 3px solid darken($notifi-blue, 10%);
   }
+
   .red {
-    color: #e74c3c;
+    background-color: $notifi-red;
+    border-bottom: 3px solid darken($notifi-red, 10%);
   }
+
   .orange {
-    color: #f39c12;
+    background-color: $notifi-orange;
+    border-bottom: 3px solid darken($notifi-orange, 10%);
   }
+
   .purple {
-    color: #9b59b6;
+    background-color: $notifi-purple;
+    border-bottom: 3px solid darken($notifi-purple, 10%);
   }
+
   .green {
-    color: #27ae60;
+    background-color: $notifi-green;
+    border-bottom: 3px solid darken($notifi-green, 10%);
   }
+
   .gray {
-    color: #95a5a6;
+    background-color: $notifi-gray;
+    border-bottom: 2px solid darken($notifi-gray, 15%);
   }
 }
 
-#content {
+.notifi-wrapper {
+  padding-bottom: 30px;
+}
+
+.notifi-content {
   display: block;
   margin: 0;
-  padding: 0;
+  padding: 30px 200px 0;
   width: 100%;
   height: 100%;
 }
@@ -119,8 +148,24 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .notifi-content {
+    padding: 15px 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .notifi-content {
+    padding: 15px 30px;    
+
+    .icon {
+      width: 0;
+    }
+  }
+}
+
 @media (max-height: 400px) {
-  #content {
+  .content {
     display: none;
   }
 
