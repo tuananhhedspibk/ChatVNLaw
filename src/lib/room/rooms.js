@@ -81,7 +81,7 @@ function createNewRoom(properties, callback){
   members[constant.MEMBERS.customer] = properties.customerId;
 
   let unread = {};
-  unread[constant.UNREAD_MESSAGES.count] = -1;
+  unread[constant.UNREAD_MESSAGES.count] = 0;
 
   item[constant.ROOMS.members] = members;
   item[constant.ROOMS.messages] = [];

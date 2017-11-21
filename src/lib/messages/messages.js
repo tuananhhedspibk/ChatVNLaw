@@ -58,32 +58,12 @@ function notifyUnreadMessage(properties){
     var unreadArr = []
 
     ref.on('child_added', snapshot=>{
-        // var unreadItem = {}
-        // var lastMess = {}
-        // lastMess[constant.MESSAGES.timeStamp] = snapshot.val()[constant.ROOMS.unReadMessage][constant.MESSAGES.timeStamp] || '';
-        // lastMess[constant.UNREAD_MESSAGES.senderId] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.senderId] || '';
-        // lastMess[constant.UNREAD_MESSAGES.receiverId] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.receiverId] || '';
-
-        // unreadItem[constant.MESSAGES.messagesId] = snapshot.key;
-        // unreadItem[constant.UNREAD_MESSAGES.count] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.count] || 0;        
-        // unreadItem[constant.UNREAD_MESSAGES.lastMessage] = lastMess;
-
         unreadArr.push(exportUnreadItem(snapshot));
         component.setState({unread: unreadArr})
     })
     ref.on('child_changed', snapshot=>{
         unreadArr.every(function(element, index){
             if(element[constant.MESSAGES.messagesId] === snapshot.key){
-                // var unreadItem = {}
-                // var lastMess = {}
-                // lastMess[constant.MESSAGES.timeStamp] = snapshot.val()[constant.ROOMS.unReadMessage][constant.MESSAGES.timeStamp] || '';
-                // lastMess[constant.UNREAD_MESSAGES.senderId] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.senderId] || '';
-                // lastMess[constant.UNREAD_MESSAGES.receiverId] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.receiverId] || '';
-        
-                // unreadItem[constant.MESSAGES.messagesId] = snapshot.key;
-                // unreadItem[constant.UNREAD_MESSAGES.count] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.count] || 0;        
-                // unreadItem[constant.UNREAD_MESSAGES.lastMessage] = lastMess;
-
                 unreadArr[index] = exportUnreadItem(snapshot);
 
                 component.setState({unread: unreadArr})

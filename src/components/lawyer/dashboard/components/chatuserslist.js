@@ -4,7 +4,6 @@ import firebase from 'firebase';
 import {getAllRoom} from '../../../../lib/room/rooms';
 
 import * as constant from '../../../constants';
-import * as UserList from '../../../../lib/user/gettargetchatlist';
 import * as translate from 'counterpart';
 
 class ChatUsersList extends Component {
@@ -14,12 +13,14 @@ class ChatUsersList extends Component {
       targetUser:null,
       currentUser: null,
       users: [],
-      unread: []
+      unread: [],
     };
   }
 
   componentWillMount(){
     var component = this;
+    console.log(this.props.peer);
+    console.log(this.props.currentUser);
     if(!firebase.apps.length){
       firebase.initializeApp(constant.APP_CONFIG);
     }
@@ -33,7 +34,6 @@ class ChatUsersList extends Component {
         getAllRoom(properties, (userArr) =>{
           component.setState({users : userArr});
         })
-        // UserList.getTargetChat(properties);
         component.props.emitter.addListener('getUserSearch', function(targetUser){
           component.setState({targetUser: targetUser})
         })
@@ -84,7 +84,8 @@ class ChatUsersList extends Component {
         <ChatBox
           targetUser={this.state.targetUser}
           currentUser={this.state.currentUser}
-          emitter={this.props.emitter}/>
+          emitter={this.props.emitter}
+          peer={this.props.peer}/>
       </div>
     )
   }

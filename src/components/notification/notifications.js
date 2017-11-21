@@ -2,11 +2,12 @@ import React,{Component} from 'react';
 import Nav from '../homepage/nav';
 import Toast from './toast';
 import Loading from '../shared/loading';
+import $ from 'jquery';
 
 import {EventEmitter} from 'fbemitter';
 import {onAuthStateChanged} from '../../lib/user/authentication';
-import {extractNotificationInfo,getAllNotification} 
-  from '../../lib/notification/notifications';
+import {extractNotificationInfo,getAllNotification} from '../../lib/notification/notifications';
+import {getRoomId, createNewRoom} from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
@@ -104,35 +105,73 @@ class Notifications extends Component{
     return date.getUTCDate() + '/' +
       (date.getUTCMonth() + 1) + '/' + date.getUTCFullYear();
   }
+  onCreateRoom(element){
+    switch($('input[name='+element.id+']:checked', '#form'+element.id).val()){
+      case '1':
+        var properties = {}
+        properties.currentUser = this.state.currentUser;
+        properties.targetUser = {}
+        properties.targetUser.uid = element.sender.uid;
 
-  onCreateRoom(event){
-    event.preventDefault();
-    console.log('e');
+        getRoomId(properties, (isssuccess, data) =>{
+          if(!isssuccess){
+            properties.lawyerId = this.state.currentUser.uid;
+            properties.customerId = element.sender.uid;
+            createNewRoom(properties, (key)=>{
+              console.log('done');
+              console.log(key);
+            })
+          }else{
+            console.log(data);
+          }
+        })
+        break;
+      case '2':
+        console.log('2');
+        break;
+      default:
+        return;
+    }
   }
 
   renderRequestRoomNotificationItem(element){
     return(
-      <div className='notifi-content'>
-          <div className='notification-item green'>
-            <div className='info'>
-              <h1>{element.sender.displayName +
-                ' gửi cho bạn yêu cầu tạo cuộc trò chuyện '}</h1>
+        <div className="notifi-content">
+          <div className="notification-item green">
+            <div className="info">
+              <h1>{element.sender.displayName+' gửi cho bạn yêu cầu tạo cuộc trò chuyện '}</h1>
+              
               <div className='info-detail'>
                 <p className='title'>
-                  {translate('app.notification.detail')}
+                    {translate('app.notification.detail')}
                 </p>
                 <div>
                   {this.extractNotificationInfo(element)}
                 </div>
               </div>
+              <div className="ui form" id={'form'+element.id}>
+                  <label>{translate('app.notification.evaluate')}</label>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name={element.id} value='1'/>
+                      <label>{translate('app.notification.agree_with_case')}</label>
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name={element.id} value='2'/>
+                      <label>{translate('app.notification.disagree_with_case')}</label>
+                    </div>
+                </div>
+              </div>
               <a href='#' className='button blue'
-                onClick={this.onCreateRoom.bind(this)}>
-                  {translate('app.notification.create_dialog')}
-              </a>
-            </div>
-            <div className='icon green'>
-              <i className='fa fa-asterisk'></i>
-            </div>
+              onClick={this.onCreateRoom.bind(this,element)}>
+                {translate('app.notification.create_dialog')}
+            </a>
+          </div>
+          <div className='icon green'>
+            <i className='fa fa-asterisk'></i>
+          </div>
           </div>
       </div>
     )

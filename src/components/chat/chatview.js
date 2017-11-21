@@ -75,7 +75,7 @@ class ChatView extends Component {
       Messages.notifyUnreadMessage(properties);
       getStunServerList(() => {
         var stunServer = JSON.parse(localStorage.stun_server_list);      
-        component.peer = Peer(user.uid,{key: 't1tvdjf4oc62bj4i', config: stunServer}); 
+        component.peer = Peer(user.uid,{key: constant.PEERJS_KEY, config: stunServer}); 
       });      
     })
   }
@@ -143,7 +143,7 @@ class ChatView extends Component {
   renderUnreadMessages(targetUid){
     var component = this;
     var unreadItem = component.state.unread.filter(
-      item => item.lastMess.sender_uid === targetUid);
+      item => item.lastMessage.senderUid === targetUid);
     
     if(unreadItem[0] && unreadItem[0].count !== 0){
       return(
@@ -155,7 +155,6 @@ class ChatView extends Component {
   }
   
   render() {
-    console.log(this.state.users);
     const filteredUsers = this.state.users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     if(!!this.state.currentUser && !!this.peer){    
