@@ -1,0 +1,117 @@
+.notification-item {
+  -webkit-display: flex;
+  background-color: #fff;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 70px;
+  top: 20px; }
+  .notification-item .info {
+    background-color: #fafafa;
+    border-radius: 3px 0 0 3px;
+    border-bottom: 3px solid #d4d4d4;
+    flex: 1;
+    font-family: "Montserrat", sans-serif !important;
+    padding: 20px 20px 0 20px;
+    -webkit-flex: 1; }
+    .notification-item .info h1 {
+      font-size: 1.6em;
+      font-weight: bold; }
+    .notification-item .info .info-detail {
+      font-size: 1.2em; }
+      .notification-item .info .info-detail .title {
+        font-size: 1.2em;
+        margin-bottom: 10px; }
+      .notification-item .info .info-detail ul {
+        padding-left: 10px; }
+      .notification-item .info .info-detail ul > li {
+        list-style-type: none; }
+    .notification-item .info .button {
+      background-color: #2385f2 !important;
+      border-radius: 3px;
+      border-bottom: 1px solid;
+      color: #fafafa;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1.1em;
+      font-weight: bold;
+      margin: 0 0 20px;
+      padding: 8px 12px;
+      text-decoration: none; }
+    .notification-item .info .blue {
+      background-color: #2980b9; }
+    .notification-item .info .red {
+      background-color: #e74c3c; }
+    .notification-item .info .orange {
+      background-color: #f39c12; }
+    .notification-item .info .purple {
+      background-color: #9b59b6; }
+    .notification-item .info .green {
+      background-color: #27ae60; }
+    .notification-item .info .gray {
+      background-color: #95a5a6; }
+  .notification-item .icon {
+    align-items: center;
+    border-bottom: 3px solid;
+    border-radius: 0 3px 3px 0;
+    color: #fff;
+    display: flex;
+    font-size: 1.8em;
+    justify-content: center;
+    padding: 15px 0 0 0;
+    width: 90px; }
+  .notification-item .blue {
+    background-color: #2980b9;
+    border-bottom: 3px solid #20638f; }
+  .notification-item .red {
+    background-color: #e74c3c;
+    border-bottom: 3px solid #d62c1a; }
+  .notification-item .orange {
+    background-color: #f39c12;
+    border-bottom: 3px solid #c87f0a; }
+  .notification-item .purple {
+    background-color: #9b59b6;
+    border-bottom: 3px solid #804399; }
+  .notification-item .green {
+    background-color: #27ae60;
+    border-bottom: 3px solid #1e8449; }
+  .notification-item .gray {
+    background-color: #95a5a6;
+    border-bottom: 2px solid #6d8082; }
+
+.notifi-wrapper {
+  padding-bottom: 30px; }
+
+.notifi-content {
+  display: block;
+  margin: 0;
+  padding: 30px 200px 0;
+  width: 100%;
+  height: 100%; }
+
+#preview {
+  display: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; }
+  #preview #text {
+    text-align: center;
+    color: #fff;
+    font-size: 12px; }
+
+@media (max-width: 1200px) {
+  .notifi-content {
+    padding: 15px 80px; } }
+
+@media (max-width: 600px) {
+  .notifi-content {
+    padding: 15px 30px; }
+    .notifi-content .icon {
+      width: 0; } }
+
+@media (max-height: 400px) {
+  .content {
+    display: none; }
+  #preview {
+    display: block; } }

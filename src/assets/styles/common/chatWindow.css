@@ -1,0 +1,120 @@
+.active-link {
+  background-color: rgba(0, 0, 0, 0.05); }
+
+.chat-ui {
+  background-color: #fff;
+  overflow-y: hidden;
+  width: 100%; }
+
+.video-call {
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  z-index: 1000;
+  width: 100%; }
+  .video-call .video {
+    background-color: #fff;
+    display: block;
+    height: 500px;
+    margin: calc((100vh - 592px) / 2) auto 30px;
+    width: 500px; }
+  .video-call .end-call-btn {
+    background-color: #e54040;
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.7em;
+    padding: 10px 20px; }
+    .video-call .end-call-btn:focus {
+      outline: 0; }
+
+.chat-window {
+  border-right: 1px solid #e5ecf0;
+  font-size: 1.2em;
+  float: left;
+  margin: 0 auto;
+  width: calc(100% - 320px); }
+  .chat-window #upfile {
+    display: none; }
+  .chat-window .fa-video-camera {
+    cursor: pointer; }
+  .chat-window .call-section {
+    display: inline-block;
+    float: right; }
+  .chat-window .title {
+    border-bottom: 1px solid #e5ecf0;
+    color: #2385f2;
+    padding: 15px;
+    text-align: center;
+    width: 100%; }
+    .chat-window .title .user-name {
+      color: #000;
+      font-size: 1em;
+      display: inline-block;
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    .chat-window .title .fa {
+      float: right;
+      font-size: 1.2em;
+      margin-left: 15px; }
+  .chat-window .chats {
+    border-right: 1px solid #e5ecf0;
+    height: calc(100vh - 115px);
+    overflow-y: scroll;
+    padding: 25px;
+    width: 100%; }
+  .chat-window .chat-body {
+    float: left;
+    height: calc(100% - 52px);
+    position: relative;
+    width: calc(100% - 320px); }
+  .chat-window .text-box {
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid #e5ecf0;
+    border-right: 1px solid #e5ecf0;
+    display: flex;
+    font-size: 1em;
+    height: 60px;
+    width: 100%; }
+    .chat-window .text-box .fa {
+      color: #d1d1d1;
+      cursor: pointer;
+      float: right;
+      margin-left: 15px; }
+      .chat-window .text-box .fa:active {
+        color: #e5ecf0; }
+    .chat-window .text-box .fa-file-image-o {
+      font-size: 1.3em; }
+    .chat-window .text-box .fa-smile-o {
+      font-size: 1.5em; }
+    .chat-window .text-box .addons-field {
+      height: 100%;
+      padding: 23px 15px;
+      width: 40%; }
+    .chat-window .text-box .field {
+      height: 100%;
+      width: 60%; }
+    .chat-window .text-box textarea {
+      border: 0;
+      font-size: 0.95em;
+      height: 100%;
+      overflow: hidden;
+      padding: 23px 15px 15px;
+      resize: none;
+      width: 100%; }
+      .chat-window .text-box textarea:focus {
+        outline: 0; }
+
+#emoji-picker {
+  bottom: 60px;
+  visibility: hidden;
+  position: absolute;
+  right: 20px; }

@@ -1,0 +1,123 @@
+.login-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background-color: #fff;
+  text-align: center;
+  color: #2385f2;
+  font-size: .9em; }
+  .login-page .app-logo {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px; }
+  .login-page .justify-content-md-center {
+    padding: 20px 0 20px;
+    width: 100%; }
+    .login-page .justify-content-md-center .omni-auth {
+      padding: 15px 0;
+      font-size: 1.3em; }
+      .login-page .justify-content-md-center .omni-auth button {
+        border: 0; }
+      .login-page .justify-content-md-center .omni-auth #button-login-with-facebook {
+        background-color: #49629e;
+        margin-bottom: 15px; }
+      .login-page .justify-content-md-center .omni-auth #button-login-with-google {
+        background-color: #d54b37; }
+    .login-page .justify-content-md-center .or {
+      color: #a2a2a2;
+      font-size: 1.3em; }
+    .login-page .justify-content-md-center input {
+      border-radius: 5px !important;
+      color: #000;
+      font-size: 1.4em;
+      padding: 10px 15px; }
+    .login-page .justify-content-md-center button {
+      background-color: #2385f2;
+      border-radius: 5px !important;
+      color: #fff;
+      cursor: pointer;
+      padding: 10px 0;
+      text-transform: uppercase;
+      width: 100%; }
+      .login-page .justify-content-md-center button:focus {
+        background-color: #0974b8;
+        box-shadow: none;
+        outline: 0;
+        transition: all .3s ease; }
+  .login-page h1 {
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 5px; }
+    .login-page h1 small {
+      color: #2385f2; }
+  .login-page .form-group {
+    padding: 8px 0; }
+  .login-page .form-content {
+    padding: 5px 0 0; }
+
+.btn-outline {
+  background-color: #2385f2;
+  border-color: transparent;
+  font-weight: 400; }
+  .btn-outline:hover {
+    background: none;
+    border-color: transparent; }
+  .btn-outline.btn-white {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8) inset;
+    color: rgba(255, 255, 255, 0.8); }
+    .btn-outline.btn-white:hover {
+      box-shadow: 0 0 0 2px white inset;
+      color: white; }
+  .btn-outline.btn-primary {
+    box-shadow: 0 0 0 2px #2089c9 inset;
+    color: #2089c9; }
+    .btn-outline.btn-primary:hover {
+      box-shadow: 0 0 0 2px #3ca2e0 inset;
+      color: #3ca2e0; }
+  .btn-outline.btn-success {
+    box-shadow: 0 0 0 2px #449d44 inset;
+    color: #449d44; }
+    .btn-outline.btn-success:hover {
+      box-shadow: 0 0 0 2px #5cb85c inset;
+      color: #5cb85c; }
+  .btn-outline.btn-info {
+    box-shadow: 0 0 0 2px #31b0d5 inset;
+    color: #31b0d5; }
+    .btn-outline.btn-info:hover {
+      box-shadow: 0 0 0 2px #5bc0de inset;
+      color: #5bc0de; }
+  .btn-outline.btn-warning {
+    box-shadow: 0 0 0 2px #ec971f inset;
+    color: #ec971f; }
+    .btn-outline.btn-warning:hover {
+      box-shadow: 0 0 0 2px #f0ad4e inset;
+      color: #f0ad4e; }
+  .btn-outline.btn-danger {
+    box-shadow: 0 0 0 2px #c9302c inset;
+    color: #c9302c; }
+    .btn-outline.btn-danger:hover {
+      box-shadow: 0 0 0 2px #d9534f inset;
+      color: #d9534f; }
+
+.redirect-to {
+  font-size: 18px;
+  padding-left: 10px !important;
+  text-align: left; }
+  .redirect-to a {
+    color: #fd9d16;
+    font-weight: bold;
+    margin-left: 10px; }
+    .redirect-to a:focus {
+      outline: none;
+      color: #fd9d16; }
+    .redirect-to a:hover {
+      color: #fd9d16; }
+
+.btn-rounded {
+  border-radius: 50px; }
+
+.btn-lg {
+  border-radius: 50px !important; }

@@ -1,0 +1,118 @@
+.container-settings-wrapper .tab-content .tab-pane {
+  padding: 0 10px; }
+
+.container-settings-wrapper .tab-content {
+  background-color: transparent;
+  border: 0; }
+
+.container-settings-wrapper .nav-sidebar {
+  font-size: 1.2em;
+  padding: 30px 50px; }
+  .container-settings-wrapper .nav-sidebar li {
+    display: inline-block;
+    width: 100%; }
+    .container-settings-wrapper .nav-sidebar li a {
+      border-right: 4px solid #e5ecf0;
+      color: #000;
+      display: block;
+      font-weight: bold;
+      padding: 10px 0;
+      width: 100%; }
+      .container-settings-wrapper .nav-sidebar li a:hover {
+        text-decoration: none;
+        transition: all .3s ease; }
+    .container-settings-wrapper .nav-sidebar li .link-basic.active {
+      border-right-color: #2385f2;
+      color: #2385f2; }
+    .container-settings-wrapper .nav-sidebar li .link-detail.active {
+      border-right-color: #00c1c1;
+      color: #00c1c1; }
+    .container-settings-wrapper .nav-sidebar li .link-basic:hover {
+      color: #2385f2;
+      transition: all .3s ease; }
+    .container-settings-wrapper .nav-sidebar li .link-detail:hover {
+      color: #00c1c1;
+      transition: all .3s ease; }
+
+.container-settings-wrapper .save-btn {
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-top: 10px;
+  padding: 8px 25px; }
+  .container-settings-wrapper .save-btn .fa {
+    margin-right: 15px; }
+
+.container-settings-wrapper .basic-info-settings {
+  padding-top: 25px;
+  padding-bottom: 35px; }
+  .container-settings-wrapper .basic-info-settings input {
+    font-size: 1.2em; }
+  .container-settings-wrapper .basic-info-settings .save-btn {
+    background-color: #2385f2;
+    border: 1px solid #2385f2;
+    border-radius: 5px; }
+    .container-settings-wrapper .basic-info-settings .save-btn:hover {
+      background-color: #fff;
+      color: #2385f2;
+      transition: all .5s ease; }
+  .container-settings-wrapper .basic-info-settings .avatar {
+    display: inline-block;
+    width: 100%; }
+    .container-settings-wrapper .basic-info-settings .avatar #upfile-setting {
+      display: none; }
+    .container-settings-wrapper .basic-info-settings .avatar .change-ava-guide {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      display: inline-block;
+      font-weight: bold;
+      margin-left: 30px;
+      padding: 10px 20px;
+      position: relative; }
+      .container-settings-wrapper .basic-info-settings .avatar .change-ava-guide:after {
+        border-color: transparent rgba(0, 0, 0, 0.6) transparent transparent;
+        border-style: solid;
+        border-width: 5px;
+        content: "";
+        left: -9px;
+        margin-top: -5px;
+        position: absolute;
+        top: 50%; }
+    .container-settings-wrapper .basic-info-settings .avatar img {
+      border-radius: 50%;
+      box-shadow: 0 0 3px 2px #a2a2a2;
+      cursor: pointer;
+      height: 140px;
+      width: 140px; }
+
+.container-settings-wrapper .detail-info-settings {
+  padding-top: 25px;
+  padding-bottom: 35px; }
+  .container-settings-wrapper .detail-info-settings textarea {
+    font-size: 1.2em;
+    height: 65px !important; }
+  .container-settings-wrapper .detail-info-settings .save-btn {
+    background-color: #00A0A0;
+    border: 1px solid #00A0A0;
+    border-radius: 5px; }
+    .container-settings-wrapper .detail-info-settings .save-btn:hover {
+      background-color: #fff;
+      color: #00A0A0;
+      transition: all .5s ease; }
+
+.container-settings-wrapper .info-block {
+  margin-bottom: 20px;
+  padding-top: 10px; }
+  .container-settings-wrapper .info-block .ui.input {
+    width: 100%; }
+  .container-settings-wrapper .info-block .title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: 100%; }
+
+@media (max-width: 993px) {
+  .change-ava-guide {
+    width: 140px; }
+    .change-ava-guide:after {
+      left: -8px !important; } }

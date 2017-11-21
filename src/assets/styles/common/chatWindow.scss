@@ -1,0 +1,167 @@
+@import 'variables.scss';
+
+.active-link {
+  background-color: $black-trans;
+}
+
+.chat-ui {
+  background-color: $white;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.video-call {
+  background-color: $black-trans-darker;
+  display: none;
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+
+  .video {
+    background-color: $white;
+    display: block;
+    height: 500px;
+    margin: calc((100vh - 592px) / 2) auto 30px;
+    width: 500px;
+  }
+
+  .end-call-btn {
+    background-color: $red;
+    border: 0;
+    border-radius: 50%;
+    color: $white;
+    cursor: pointer;
+    font-size: 1.7em;
+    padding: 10px 20px;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}
+
+.chat-window {
+  border-right: 1px solid $gray-lighter;
+  font-size: 1.2em;
+  float: left;
+  margin: 0 auto;
+  width: calc(100% - 320px);
+
+  #upfile {
+    display: none;
+  }
+
+  .fa-video-camera {
+    cursor: pointer;
+  }
+
+  .call-section {
+    display: inline-block;
+    float: right;
+  }
+
+  .title {
+    border-bottom: 1px solid $gray-lighter;
+    color: $blue;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+
+    .user-name {
+      color: $black;
+      font-size: 1em;
+      display: inline-block;
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .fa {
+      float: right;
+      font-size: 1.2em;
+      margin-left: 15px;
+    }
+  }
+
+  .chats {
+    border-right: 1px solid $gray-lighter;
+    height: calc(100vh - 115px);
+    overflow-y: scroll;
+    padding: 25px;
+    width: 100%;
+  }
+
+  .chat-body {
+    float: left;
+    height: calc(100% - 52px);
+    position: relative;
+    width: calc(100% - 320px);
+  }
+
+  .text-box {
+    align-items: center;
+    background-color: $white;
+    border-top: 1px solid $gray-lighter;
+    border-right: 1px solid $gray-lighter;
+    display: flex;
+    font-size: 1em;
+    height: 60px;
+    width: 100%;
+
+    .fa {
+      color: $gray-medium;
+      cursor: pointer;
+      float: right;
+      margin-left: 15px;
+
+      &:active {
+        color: $gray-lighter;
+      }
+    }
+
+    .fa-file-image-o {
+      font-size: 1.3em;
+    }
+
+    .fa-smile-o {
+      font-size: 1.5em;
+    }
+
+    .addons-field {
+      height: 100%;
+      padding: 23px 15px;
+      width: 40%;
+    }
+
+    .field {
+      height: 100%;
+      width: 60%;
+    }
+
+    textarea {
+      border: 0;
+      font-size: 0.95em;
+      height: 100%;
+      overflow: hidden;
+      padding: 23px 15px 15px;
+      resize: none;
+      width: 100%;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+}
+
+#emoji-picker {
+  bottom: 60px;
+  visibility: hidden;
+  position: absolute;
+  right: 20px;
+}

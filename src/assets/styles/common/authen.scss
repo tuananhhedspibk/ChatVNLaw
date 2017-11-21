@@ -1,0 +1,194 @@
+@import 'variables.scss';
+
+$gray-lighter: rgba(255, 255, 255, 0.7);
+$gray-darker: rgba(255, 255, 255, 0.4);
+$yellow-lighter: #fd9d16;
+
+.login-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background-color: $white;
+  text-align: center;
+  color: $blue;
+  font-size: .9em;
+
+  .app-logo {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+  }
+
+  .justify-content-md-center {
+    padding: 20px 0 20px;
+    width: 100%;
+
+    .omni-auth {
+      padding: 15px 0;
+      font-size: 1.3em;
+
+      button {
+        border: 0;
+      }
+
+      #button-login-with-facebook {
+        background-color: $blue-face;
+        margin-bottom: 15px;
+      }
+
+      #button-login-with-google {
+        background-color: $red-google;
+      }
+    }
+
+    .or {
+      color: $gray;
+      font-size: 1.3em;
+    }
+
+    input {
+      border-radius: 5px !important;
+      color: $black;
+      font-size: 1.4em;
+      padding: 10px 15px;
+    }
+
+    button {
+      background-color: $blue;
+      border-radius: 5px !important;
+      color: $white;
+      cursor: pointer;
+      padding: 10px 0;
+      text-transform: uppercase;
+      width: 100%;
+
+      &:focus {
+        background-color: $blue-darker;
+        box-shadow: none;
+        outline: 0;
+        transition: all .3s ease;
+      }
+    }
+  }
+
+  h1 {
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    small {
+      color: $blue
+    }
+  }
+
+  .form-group {
+     padding: 8px 0;
+  }
+
+  .form-content {
+    padding: 5px 0 0;
+  }
+}
+
+.btn-outline {
+  background-color: $blue;
+  border-color: transparent;
+  font-weight: 400;
+  
+  &:hover {
+    background: none;
+    border-color: transparent;
+  }
+  
+  &.btn-white {
+    box-shadow: 0 0 0 2px rgba(255,255,255, 0.8) inset;
+    color: rgba(255,255,255, 0.8);
+  
+    &:hover {
+      box-shadow: 0 0 0 2px rgba(255,255,255, 1) inset;
+      color: rgba(255,255,255, 1);
+    }
+  }
+
+  &.btn-primary {
+    box-shadow: 0 0 0 2px darken($brand-primary, 10%) inset;
+    color: darken($brand-primary, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-primary inset;
+      color: $brand-primary;
+    }
+  }
+
+  &.btn-success {
+    box-shadow: 0 0 0 2px darken($brand-success, 10%) inset;
+    color: darken($brand-success, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-success inset;
+      color: $brand-success;
+    }
+  }
+  
+  &.btn-info {
+    box-shadow: 0 0 0 2px darken($brand-info, 10%) inset;
+    color: darken($brand-info, 10%);
+  
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-info inset;
+      color: $brand-info;
+    }
+  }
+  
+  &.btn-warning {
+    box-shadow: 0 0 0 2px darken($brand-warning, 10%) inset;
+    color: darken($brand-warning, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-warning inset;
+      color: $brand-warning;
+    }
+  }
+
+  &.btn-danger {
+    box-shadow: 0 0 0 2px darken($brand-danger, 10%) inset;
+    color: darken($brand-danger, 10%);
+
+    &:hover {
+      box-shadow: 0 0 0 2px $brand-danger inset;
+      color: $brand-danger;
+    }  
+  }
+}
+
+.redirect-to {
+  font-size: 18px;
+  padding-left: 10px !important;
+  text-align: left;
+
+  a {
+    color: $yellow-lighter;
+    font-weight: bold;
+    margin-left: 10px;
+
+    &:focus {
+      outline: none;
+      color: $yellow-lighter;
+    }
+
+    &:hover {
+      color: $yellow-lighter;
+    }
+  }
+}
+
+.btn-rounded {
+  border-radius: 50px;
+}
+
+.btn-lg {
+  border-radius: 50px !important;
+}

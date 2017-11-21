@@ -1,0 +1,175 @@
+@import './variables.scss';
+
+.notification-item {
+  -webkit-display: flex;
+  background-color: $white;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 70px;
+  top: 20px;
+
+  .info {
+    background-color: $notifi-white;
+    border-radius: 3px 0 0 3px;
+    border-bottom: 3px solid darken($notifi-white, 15%);
+    flex: 1;
+    font-family: "Montserrat", sans-serif !important;
+    padding: 20px 20px 0 20px;
+    -webkit-flex: 1;
+
+    h1 {
+      font-size: 1.6em;
+      font-weight: bold;
+    }
+
+    .info-detail {
+      font-size: 1.2em;
+
+      .title {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        padding-left: 10px;
+      }
+
+      ul > li {
+        list-style-type: none;
+      }
+    }
+        
+    .button {
+      background-color: $blue !important;
+      border-radius: 3px;
+      border-bottom: 1px solid;
+      color: $notifi-white;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1.1em;
+      font-weight: bold;
+      margin: 0 0 20px;
+      padding: 8px 12px;
+      text-decoration: none;
+    }
+
+    .blue {
+      background-color: $notifi-blue;  
+    }
+
+    .red {
+      background-color: $notifi-red;
+    }
+
+    .orange {
+      background-color: $notifi-orange;
+    }
+
+    .purple {
+      background-color: $notifi-purple;
+    }
+
+    .green {
+      background-color: $notifi-green;
+    }
+
+    .gray {
+      background-color: $notifi-gray;
+    }
+  }
+    
+  .icon {
+    align-items: center;
+    border-bottom: 3px solid;
+    border-radius: 0 3px 3px 0;
+    color: $white;
+    display: flex;
+    font-size: 1.8em;
+    justify-content: center;
+    padding: 15px 0 0 0;
+    width: 90px;
+  }
+
+  .blue {
+    background-color: $notifi-blue;
+    border-bottom: 3px solid darken($notifi-blue, 10%);
+  }
+
+  .red {
+    background-color: $notifi-red;
+    border-bottom: 3px solid darken($notifi-red, 10%);
+  }
+
+  .orange {
+    background-color: $notifi-orange;
+    border-bottom: 3px solid darken($notifi-orange, 10%);
+  }
+
+  .purple {
+    background-color: $notifi-purple;
+    border-bottom: 3px solid darken($notifi-purple, 10%);
+  }
+
+  .green {
+    background-color: $notifi-green;
+    border-bottom: 3px solid darken($notifi-green, 10%);
+  }
+
+  .gray {
+    background-color: $notifi-gray;
+    border-bottom: 2px solid darken($notifi-gray, 15%);
+  }
+}
+
+.notifi-wrapper {
+  padding-bottom: 30px;
+}
+
+.notifi-content {
+  display: block;
+  margin: 0;
+  padding: 30px 200px 0;
+  width: 100%;
+  height: 100%;
+}
+
+#preview {
+  display: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+    
+  #text {
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .notifi-content {
+    padding: 15px 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .notifi-content {
+    padding: 15px 30px;    
+
+    .icon {
+      width: 0;
+    }
+  }
+}
+
+@media (max-height: 400px) {
+  .content {
+    display: none;
+  }
+
+  #preview {
+    display: block;
+  }
+}

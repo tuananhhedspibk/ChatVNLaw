@@ -1,0 +1,267 @@
+@import './variables.scss';
+
+.side-section {
+  background-color: $white;
+  border-right: 1px solid $gray-more-lighter;
+  padding-right: 0 !important;
+}
+
+.category-filter {
+  display: inline-block;
+  font-size: 1.2em;
+  width: 100%;
+
+  .title {
+    background-color: $blue-less-darker;
+    border: 0;
+    color: $white;
+    cursor: pointer;
+    padding: 15px;
+    position: relative;
+    text-align: left;
+    width: 100%;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:after {
+      content: "\f106";
+      font-family: FontAwesome;
+      font-size: 1.2em;
+      position: absolute;
+      left: 170px;
+      top: 12px;
+    }
+
+    .fa {
+      margin-right: 10px;
+    }
+  }
+
+  .title.collapsed {
+    &:after {
+      content: "\f107";
+      font-family: FontAwesome;
+    }
+  }
+
+  .category-filter-title {
+    background-color: $blue-info-darker;
+    border: 0;
+    color: $white;
+    cursor: pointer;
+    padding: 15px 35px;
+    position: relative;
+    text-align: left;
+    width: 100%;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:after {
+      content: "\f078";
+      font-family: FontAwesome;
+      font-size: .8em;
+      position: absolute;
+      right: 10px;
+      top: 15px;
+    }
+  }
+
+  .category-filter-title.collapsed {
+    &:after {
+      content: "\f054";
+      font-family: FontAwesome;
+    }
+  }
+
+  .category-filter-content {
+    font-size: .9em;
+
+    .category-item {
+      padding: 10px 45px;
+
+      a {
+        color: $black;
+      }
+
+      &:hover {
+        background-color: $blue-info-darker;
+        transition: all .5s ease;
+        a {
+          color: $white;
+          cursor: pointer;
+          text-decoration: none;
+          transition: all .3s ease;
+        }
+      }
+    }
+  }
+}
+
+.search-law-tool {
+  .title {
+    background-color: $blue-less-darker;
+    border: 0;
+    border-bottom: 1px solid $white;
+    color: $white;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 15px;
+    text-align: left;
+    width: 100%;
+
+    &:after {
+      content: "\f106";
+      font-family: FontAwesome;
+      font-size: 1.2em;
+      position: absolute;
+      left: 150px;
+      top: 13px;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    .fa {
+      margin-right: 10px;
+    }
+  }
+
+  .title.collapsed {
+    &:after {
+      content: "\f107";
+      font-family: FontAwesome;
+    }
+  }
+
+  .search-law-tool-body {
+    input[type="text"] {
+      font-size: 1.2em;
+      height: 45px;
+      margin: 20px 20px 0;
+      width: calc(100% - 30px);
+    }
+
+    .ui.toggle.checkbox input:checked~label:before {
+      background-color: $blue-info-darker !important;
+    }
+    
+    #group1 {
+      padding: 5px 20px;
+      font-size: 1.2em;
+      margin-top: 10px;
+      width: 100%;
+
+      label {
+        font-size: 1.2em;
+        width: 100%;
+      }
+
+      input[type="radio"] {
+        margin-right: 10px;
+      }
+    }
+
+    #group2 {
+      font-size: 1.2em;
+
+      label {
+        background-color: $gray-much-lighter;
+        font-weight: bold;
+        padding: 10px 15px;
+        width: 100%;
+      }
+
+      .select-section {
+        padding: 10px 15px;
+      }
+
+      select {
+        font-size: 1em;
+        height: 40px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .submit-btn {
+      text-align: center;
+      width: 100%;
+    }
+
+    button {
+      background-color: $blue-info-darker;
+      color: $white;
+      font-size: 1.2em;
+      margin-bottom: 15px;
+      padding: 10px 35px;
+    }
+  }
+}
+
+.results {
+  overflow-y: scroll;
+  height: calc(100vh - 70px);
+  padding: 15px;
+  width: 100%;
+
+  .law-item {
+    background-color: $white;
+    border: 1px solid $gray-lighter;
+    border-radius: 5px;
+    float: left;
+    height: 150px;
+    margin: 15px calc(10% / 4);
+    width: 45%;
+
+    .law-title {
+      background-color: $blue;
+      font-size: 1.2em;
+      font-weight: bold;
+      overflow: hidden;
+      padding: 15px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+
+      a {
+        color: $white;
+      }
+    }
+
+    .law-detail-content {
+      padding: 15px;
+    }
+
+    .law-status {
+      font-size: 1.1em;
+
+      .effect-status {
+        color: $red;
+      }
+    }
+  }
+}
+
+.toastify-content {
+  border-radius: 5px;
+  font-size: 1.2em;
+}
+
+.toastify-content--success {
+  background-color: #17a2b8;
+}
+
+.not-found-any-results {
+  color: $red;
+  font-size: 2.1em;
+  text-align: center;
+
+  .symbol-not-found {
+    color: $blue;
+    font-size: 2.3em;
+  }
+}

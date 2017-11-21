@@ -1,0 +1,135 @@
+@import './variables.scss';
+
+.apply-lawyer-container {
+  border-radius: 5px;
+  border: 1px solid $gray-lighter;
+  margin-top: 40px;
+
+  .tab-content {
+    background-color: transparent;
+    border: 0;
+    padding: 8px 15px;
+
+    .form-section {
+      font-size: 1.2em;
+
+      .form-control {
+        font-size: 1em;
+      }
+
+      .apply-lawyer-header {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .change-step-btn {
+    background-color: $blue;
+    border: 1px solid $blue;
+    border-radius: 5px;
+    color: $white !important;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    padding: 8px 15px;
+
+    &:hover {
+      background-color: $white;
+      color: $blue !important;
+      transition: all .5s ease;
+    }
+  }
+
+  .previous-step-btn {
+    background-color: $gray;
+    border: 1px solid $gray;
+    font-size: .9em;
+
+    &:hover {
+      background-color: $white;
+      color: $gray !important;
+      transition: all .5s ease;
+    }
+  }
+
+  .apply-lawyer-button {
+    background-color: $blue;
+    border: 1px solid $blue;
+    border-radius: 5px;
+    color: $white;
+    cursor: pointer;
+    float: right;
+    font-size: .9em;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 10px 15px;
+
+    &:hover {
+      background-color: $white;
+      color: $blue;
+      transition: all .5s ease;
+    }
+  }
+
+  #problem-section-overview {
+    display: none;
+  }
+
+  .side-content {
+    box-shadow: -3px 0 6px 0 $gray-lighter;
+  }
+
+  .overview-section {
+    font-size: 1.2em;
+    padding: 30px 10px;
+    text-align: center;
+
+    .fa {
+      color: $blue;
+      font-size: 2.8em;
+      margin-bottom: 5px;
+    }
+
+    .title {
+      font-size: 1.4em;
+    }
+
+    .overview-content {
+      color: $gray;
+      font-size: 1em;
+    }
+  }
+
+  .nav-sidebar {
+    font-size: 1.2em;
+    padding-top: 22px;
+
+    .nav-pills {
+      justify-content: center;
+    }
+
+    li {
+      cursor: pointer;
+      height: 25px;
+      text-align: center;
+      width: 25px;
+    }
+
+    .active {
+      background-color: $blue;
+      border-radius: 50%;
+      color: $white;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}
