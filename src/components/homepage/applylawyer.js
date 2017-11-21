@@ -17,7 +17,6 @@ import * as firebase from 'firebase';
 import * as Lawyers from '../../lib/user/lawyers';
 
 import '../../assets/styles/common/applyLawyer.css';
-import 'react-notifications/lib/notifications.css';
 
 let translate = require('counterpart');
 

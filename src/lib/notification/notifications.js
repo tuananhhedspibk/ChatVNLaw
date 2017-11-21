@@ -13,6 +13,17 @@ function extractNotification(data, callback){
   }
 }
 
+function extractNotificationInfo(data, callback){
+  var type = data.val().type;
+  switch(type){
+    case constant.NOTIFICATION_TYPE.requestRoom:
+      var item = {};
+      item.title = data.val()[constant.NOTIFICATIONS.sender][constant.NOTIFICATIONS.senderDisplayName]+translate('app.notification.new_request_from_other');
+      item.content = translate('app.notification.click_here');
+      return callback(item);
+  }
+}
+
 function createNewNotification(properties,callback){
   var ref = firebase.database().ref(`${constant.TABLE.notifications}/${properties.targetUser.uid}`).push()
   let item = {}
@@ -30,7 +41,21 @@ function createNewNotification(properties,callback){
 }
 
 function getAllNotification(properties, callback){
-
+  var ref = firebase.database().ref(`${constant.TABLE.notifications}/${properties.currentUser.uid}`)
+  ref.once('value').then( data =>{
+    return callback('value',data);
+  })
+  ref.on('child_added', data =>{
+    var item = data.val()
+    item[constant.NOTIFICATIONS.id] = data.key;
+    // console.log(item);
+    return callback('child_added', item);
+  })
+  ref.on('child_removed', data=>{
+    var item = data.val()
+    item[constant.NOTIFICATIONS.id] = data.key;
+    return callback('child_removed', item);
+  })
 }
 
 function noticeWhenNewNotiComing(properties, callback){
@@ -51,5 +76,11 @@ module.exports = {
   },
   extractNotification(data,callback){
     extractNotification(data,callback);
+  },
+  getAllNotification: function(properties, callback){
+    getAllNotification(properties, callback);
+  },
+  extractNotificationInfo:function(data, callback){
+    extractNotificationInfo(data, callback)
   }
 }

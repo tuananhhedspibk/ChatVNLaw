@@ -47,3 +47,6 @@ body {
     position: absolute;
     margin-left: -125px;
     margin-block-end: -70px; }
+
+.notification-container {
+  top: 60px; }

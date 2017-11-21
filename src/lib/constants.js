@@ -20,6 +20,7 @@ export const TABLE = {
 };
 
 export const NOTIFICATIONS = {
+  id :'id',
   sender: 'sender',
   senderDisplayName: 'displayName',
   senderRole: 'role',
