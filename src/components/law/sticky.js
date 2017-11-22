@@ -11,6 +11,8 @@ class StickyHighlight extends Component {
 	}
 
 	render() {
+		console.log("paintin")
+		console.log(this.props.painting)
 		let sticky = null;
 		var existSticky = false;
 		if (this.props.stickies) {

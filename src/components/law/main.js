@@ -68,7 +68,7 @@ class Article extends Component {
 	}
   extractStykies() {
     var component = this;
-    firebase.database().ref(`stickies/${this.state.uid}`).once('value', function(data){
+    firebase.database().ref(`stickies/${this.state.uid}/${this.props.match.params.id}`).once('value', function(data){
       var stickies = [];
       data.forEach(function(childSnapshot) {
         var data = childSnapshot.val();
@@ -146,7 +146,7 @@ class Article extends Component {
     })
   }
   pushHighlight(newValue) {
-    var ref = firebase.database().ref().child(`stickies/${this.state.uid}`).push();
+    var ref = firebase.database().ref().child(`stickies/${this.state.uid}/${this.props.match.params.id}`).push();
     ref.set(newValue);
     return ref.key;
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as translate from 'counterpart';
+import * as constant from '../constants';
 
 class Result extends Component {
 	render() {
