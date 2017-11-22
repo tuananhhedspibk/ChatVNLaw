@@ -60,6 +60,7 @@ class ApplyLawyer extends Component {
         component.setState({currentUser: user, permission: true})
       }
       else{
+        component.setState({isLoading : true})        
         component.emitter.emit('AddNewErrorToast',
           translate('app.system_notice.unauthenticated.title'),
           translate('app.system_notice.unauthenticated.text'),

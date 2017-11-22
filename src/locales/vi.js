@@ -32,6 +32,12 @@ module.exports = {
       detail: 'Chi tiết:',
       create_new_chat: 'Tạo cuộc trò chuyện'
     },
+    confirm_dialog:{
+      title: 'Thông báo',
+      message: 'Bạn nhận được một cuộc gọi video',
+      confirm_label: 'Đồng ý kết nối',
+      cancel_label: 'Từ chối cuộc gọi'
+    },
     system_notice:{
       unauthenticated: {
         title: 'Từ chối truy cập',
@@ -44,6 +50,8 @@ module.exports = {
       warning:{
         title: 'Chú ý',
         text: {
+          cancel_call_request: 'Yêu cầu trò chuyện video đã bị hủy.',
+          end_call: 'Kết thúc cuộc trò chuyện video.',
           please_fill_the_form: 'Bạn cần điền đầy đủ thông tin'
         }
       },
@@ -58,6 +66,7 @@ module.exports = {
       error:{
         title: 'Lỗi',
         text:{
+          already_been_used: 'Dịch vụ hiện đang được sử dụng.',
           already_login: 'Bạn đã đăng nhập vào hệ thống!',
           invalid_email: 'Bạn hãy chắc chắn email nhập vào là chính xác!',
           user_not_found: 'Bạn hãy chắc chắn email và mật khẩu là chính xác!',

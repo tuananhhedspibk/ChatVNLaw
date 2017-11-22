@@ -41,6 +41,7 @@ class SettingsCustomer extends Component {
               }
             }
           }
+          component.setState({isloading :true})
           component.emitter.emit('AddNewErrorToast', translate('app.system_notice.permission_denied.title'),translate('app.system_notice.permission_denied.text'),5000, ()=>{
             window.location = constant.HOME_URI;
           })
@@ -50,6 +51,7 @@ class SettingsCustomer extends Component {
           console.log(data.val());
         })
       }else{
+        component.setState({isloading :true})        
         component.emitter.emit('AddNewErrorToast', translate('app.system_notice.unauthenticated.title'),translate('app.system_notice.unauthenticated.text'),5000, ()=>{
           window.location = constant.SIGN_IN_URI;
         })

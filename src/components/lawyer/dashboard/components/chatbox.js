@@ -4,7 +4,7 @@ import $ from 'jquery';
 import {Picker} from 'emoji-mart';
 import firebase from 'firebase';
 import getStunServerList from '../../../../lib/getstunserverlist';
-import AlertContainer from 'react-alert';
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
 
 import * as RoomInfo from '../../../../lib/room/getroominfo';
 import * as Messages from '../../../../lib/messages/messages';
@@ -12,6 +12,8 @@ import * as translate from 'counterpart';
 import * as videoCall from '../../../../lib/streaming/videocall';
 import * as Peer from 'peerjs';
 import * as constant from '../../../constants';
+
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 class ChatBox extends Component {
   constructor(props) {
@@ -24,13 +26,7 @@ class ChatBox extends Component {
     };
     this.peer = null
   }  
-  showAlert = (text) => {
-    this.msg.show(text, {
-      time: 5000,
-      type: 'success',
-      icon: <img alt='warning' src={constant.warningPic} />
-    })
-  }
+  
   componentWillMount(){
     var component = this;
     this.peer = this.props.peer;
@@ -75,23 +71,6 @@ class ChatBox extends Component {
     if(this.state.currentUser !== nextProps.currentUser && !!nextProps.currentUser){
       this.setState({currentUser: nextProps.currentUser});
     }
-    // if( !!nextProps.peer &&(this.peer !== nextProps.peer) ){
-    //   this.peer = nextProps.peer;
-    //   console.log(this.state.currentRoomId);
-    //   console.log(nextProps.peer);      
-    // }
-    // if(!!nextProps.targetUser && ((!this.state.targetUser) || (this.state.targetUser.uid !== nextProps.targetUser.uid))){
-    //   let properties = {}
-    //   this.setState({messages :[]})
-    //   properties['roomId'] = nextProps.currentUser.uid + nextProps.targetUser.uid;
-    //   properties['component'] = component;
-    //   properties['currentUser'] = nextProps.currentUser;
-    //   properties['targetUser'] = nextProps.targetUser;
-    //   RoomInfo.getRoomId(properties, roomId =>{
-    //     component.props.emitter.emit('RoomChatHasChanged',nextProps.currentUser, nextProps.targetUser, roomId);   
-    //     component.setState({currentRoomId: roomId});             
-    //   })
-    // }
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -190,7 +169,7 @@ class ChatBox extends Component {
     properties['uid'] = this.state.currentUser.uid;
     videoCall.checkRequest(properties, function(issuccess){
       if(issuccess){
-        alert('already been used');
+        component.props.emitter.emit('AddNewErrorToast', translate('app.system_notice.error.title'), translate('app.system_notice.error.text.already_been_used'), 5000, () =>{});
       }else{
         videoCall.createRequest(properties,function(issuccess){
           if(issuccess){
@@ -222,12 +201,50 @@ class ChatBox extends Component {
     }
   }
 
+  onConfirm(){
+    var component = this;
+    let properties ={}
+    properties.roomId = this.state.currentRoomId;
+    properties.peerId = this.peer.id;
+
+    videoCall.onConfirm(properties, () =>{
+      component.setState({showDialog: false})
+      component.renderVideo();
+    })
+  }
+  onCancel(){
+    var component = this;
+    let properties ={}
+    properties.roomId = this.state.currentRoomId;
+    properties.currentUser = this.state.currentUser;
+
+    videoCall.onCancel(properties, () =>{
+      component.setState({showDialog: false})
+    })
+  }
+  renderDialog(){
+    return (
+      <div>
+      {
+        this.state.showDialog &&
+        <ReactConfirmAlert
+          title={translate('app.confirm_dialog.title')}
+          message={translate('app.confirm_dialog.message')}
+          confirmLabel={translate('app.confirm_dialog.confirm_label')}
+          cancelLabel={translate('app.confirm_dialog.cancel_label')}
+          onConfirm={this.onConfirm.bind(this)}
+          onCancel={this.onCancel.bind(this)}
+        />
+      }
+      </div>
+    )
+  }
+
   render() {
     if(this.state.currentRoomId){
       return(
         <div>
-          <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>        
-
+          {this.renderDialog()}
           <div className='video-call'>
             <video className='video'
               id='localStream' autoPlay></video>
