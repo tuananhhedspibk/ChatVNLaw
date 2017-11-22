@@ -203,7 +203,7 @@ class Chat extends Component {
   }
 
   endCall(){
-    $('.video-call').hide();
+    // $('.video-call').hide();
     var properties = {}
     properties['rid'] = this.state.currentRoomId;
     videoCall.endCall(properties, ()=>{

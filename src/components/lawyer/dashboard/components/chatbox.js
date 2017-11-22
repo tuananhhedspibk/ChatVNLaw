@@ -176,17 +176,16 @@ class ChatBox extends Component {
 
   endCall(){
     $('.video-call').hide();
-    let ref = firebase.database()
-      .ref(`rooms/${this.state.currentRoomId}/video_call/end`).push()
-    ref.set({
-      end: true
+    var properties = {}
+    properties['rid'] = this.state.currentRoomId;
+    videoCall.endCall(properties, ()=>{
+
     })
-    ref.remove();
   }
 
   makeCallRequest(){
-    this.renderVideo();
     let properties = {};
+    var component = this;    
     properties['rid'] = this.state.currentRoomId;
     properties['uid'] = this.state.currentUser.uid;
     videoCall.checkRequest(properties, function(issuccess){
@@ -194,7 +193,9 @@ class ChatBox extends Component {
         alert('already been used');
       }else{
         videoCall.createRequest(properties,function(issuccess){
-          
+          if(issuccess){
+            component.renderVideo();
+          }
         });
       }
     });

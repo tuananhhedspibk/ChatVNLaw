@@ -138,13 +138,14 @@ function listenFromVideoCall(properties, callback){
                     _called.close();
                 }catch(err){
                 }finally{
+                    $('.video-call').hide();                                        
                     properties.component.showAlert('end call');
                 }
                 break;
             case `${constant.VIDEO_CALL.cancelRequest}`:
-                // if(data.val() !== properties.uid){
+                if(data.val() !== component.state.currentUser.uid){
                     properties.component.showAlert('cancel request');                                
-                // }
+                }
                 break;
             default:
                 break;
