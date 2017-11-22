@@ -75,7 +75,7 @@ class ChatView extends Component {
       Messages.notifyUnreadMessage(properties);
       getStunServerList(() => {
         var stunServer = JSON.parse(localStorage.stun_server_list);      
-        component.peer = Peer(user.uid,{key: constant.PEERJS_KEY, config: stunServer}); 
+          component.peer = new Peer(user.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure: true,port:443, config: stunServer}); 
       });      
     })
   }

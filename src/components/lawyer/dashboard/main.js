@@ -64,7 +64,9 @@ class UserDashBoard extends Component {
         if(issuccess){
           getStunServerList(() =>{
             var stunServer = JSON.parse(localStorage.stun_server_list);      
-            component.peer = Peer(nextState.currentUser.uid,{key: constant.PEERJS_KEY, config: stunServer})
+            // component.peer = Peer(nextState.currentUser.uid,{key: constant.PEERJS_KEY, config: stunServer})
+            component.peer = new  Peer(nextState.currentUser.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure:true,port: 443, config: stunServer}); 
+            
             component.setState({isLoading: false})
           })
         }else{
