@@ -19,7 +19,13 @@ class Footer extends Component {
           <p className='footer-links'>
             <a href={constant.HOME_URI}>{translate('app.identifier.home')}</a>
             <p className='delimiter'>·</p>
-            <a href={constant.SEARCH_LAW_URI}>{translate('app.identifier.search')}</a>
+            <a href={constant.SEARCH_LAW_URI}>
+              {translate('app.identifier.search')}
+            </a>
+            <p className='delimiter'>·</p>
+            <a href={constant.ATTORNEY_URI}>
+              {translate('app.nav.brow_lawyers')}
+            </a>
           </p>
           <p>{translate('app.home.footer.content')}</p>
         </div>

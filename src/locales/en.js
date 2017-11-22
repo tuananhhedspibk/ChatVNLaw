@@ -99,6 +99,8 @@ module.exports = {
       find: 'Find',
       schedule: 'Schedule',
       connect: 'Connect',
+      next: 'next',
+      previous: 'previous',
       find_content: 'Browse through attorney profiles to find the right lawyer for you. All VNLaw attorneys are licensed and active.',
       schedule_content: 'Schedule a free consultation with a local attorney in under 60 seconds today. Instantly view available timeslots in lawyers’ calendars and click to book.',
       connect_content: 'Connect with local attorneys for initial consultations quickly and securely. VNLaw uses the most advanced video chat technology on the planet. Want to meet in-person? We do that too.',

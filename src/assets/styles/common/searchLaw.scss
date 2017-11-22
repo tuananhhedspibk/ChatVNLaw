@@ -205,8 +205,33 @@
 .results {
   overflow-y: scroll;
   height: calc(100vh - 70px);
-  padding: 15px;
+  padding-top: 25px;
   width: 100%;
+
+  .pagination {
+    cursor: pointer;
+    font-size: 1.2em;
+    justify-content: center;
+    padding-top: 15px;
+    width: 100%;
+
+    li a {
+      color: $blue;
+
+      &:hover {
+        background-color: $blue;
+        color: $white;
+        border: 1px solid $blue;
+        transition: all .5s ease;
+      }
+    }
+
+    li.active a {
+      background-color: $blue;
+      color: $white;
+      border-color: $blue;
+    }
+  }
 
   .law-item {
     background-color: $white;
