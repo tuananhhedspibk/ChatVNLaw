@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as translate from 'counterpart';
+import * as constant from '../constants';
 
 class Result extends Component {
 	render() {
@@ -7,7 +8,7 @@ class Result extends Component {
 			<div className='law-item'>
 				<div className='law-title'>
 					<a title={this.props.article.title}
-						href='routes link to articles'>
+						href={constant.BASE_URL + constant.LAW_URI+ this.props.article.id}>
 							{this.props.article.title}
 					</a>
 				</div>
