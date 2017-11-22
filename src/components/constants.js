@@ -11,9 +11,13 @@ export const ATTORNEY_URI = '/attorney';
 export const CUSTOMER_PROFILE_URI = '/customers';
 export const LAWYER_PROFILE_URI = '/lawyers';
 export const DASHBOARD_URI = '/dashboard';
+export const LAW_URI = '/articles/'
+export const PROFILE_URI = '/my-profile';
 
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const API_SEARCH_URI = '/searches';
+export const API_ARTICLES_URI = '/articles';
+
 export const DEFAULT_AVATAR_URL = 'https://image.ibb.co/i23jUF/default_ava.png';
 
 let alertOptions = {
@@ -48,5 +52,8 @@ export const notFoundPic = require('../assets/images/error-img.png');
 export const appLogoPic = require('../assets/images/app_logo.png');
 // export const chatBannerPic = require('../assets/images/onlinechaticon.png');
 export const handShakePic = require('../assets/images/handshake.png');
+export const offStickyPic = require('../assets/images/sticky_off.png');
+export const onStickyPic = require('../assets/images/sticky_on.png');
+export const pencilCursorPic = require('../assets/images/pencil_cursor.png');
 
 export const PEERJS_KEY = 'peerjs';

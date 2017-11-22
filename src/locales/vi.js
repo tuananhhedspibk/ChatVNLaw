@@ -228,6 +228,9 @@ module.exports = {
         back_home: 'Về trang chủ'
       }
     },
+    law: {
+      index: 'Mục lục'
+    },
     search: {
       founded: 'Tìm thấy',
       results: 'kết quả',
