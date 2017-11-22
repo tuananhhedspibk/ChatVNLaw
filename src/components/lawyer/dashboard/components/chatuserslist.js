@@ -19,33 +19,24 @@ class ChatUsersList extends Component {
 
   componentWillMount(){
     var component = this;
-    console.log(this.props.peer);
-    console.log(this.props.currentUser);
-    if(!firebase.apps.length){
-      firebase.initializeApp(constant.APP_CONFIG);
-    }
-    firebase.auth().onAuthStateChanged(user =>{
-      if(user){
-        component.setState({currentUser: user})
-        let properties = {}
-        properties['component'] = component;
-        properties['currentUser'] = user;
-        properties['keyword'] = 'user';
-        getAllRoom(properties, (userArr) =>{
-          component.setState({users : userArr});
-        })
-        component.props.emitter.addListener('getUserSearch', function(targetUser){
-          component.setState({targetUser: targetUser})
-        })
-      }else{
-
-      }
+    this.setState({currentUser : this.props.currentUser});
+    
+    let properties = {}
+    properties['component'] = this;
+    properties['currentUser'] = this.props.currentUser;
+    getAllRoom(properties, (userArr) =>{
+      component.setState({users :userArr})
     })
-    component.props.emitter.addListener('getUserSearch', function(targetUser){
+    this.props.emitter.addListener('getUserSearch', function(targetUser){
       component.setState({targetUser: targetUser})
     })
   }
-
+  
+  componentWillReceiveProps(nextProps){
+    if(this.state.currentUser !== nextProps.currentUser){
+      this.setState({currentUser: nextProps.currentUser});
+    }
+  }
   changeUserChat(user){
     document.body.classList.remove('chat-section-hidden');
     this.setState({targetUser: user})

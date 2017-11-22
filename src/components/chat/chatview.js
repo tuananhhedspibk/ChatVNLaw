@@ -9,6 +9,7 @@ import {EventEmitter} from 'fbemitter';
 import Loading from '../shared/loading';
 import getStunServerList from '../../lib/getstunserverlist';
 import Chat from './chat';
+import Toast from '../notification/toast';
 
 import {getAllRoom} from '../../lib/room/rooms';
 import * as constant from '../constants';
@@ -38,28 +39,30 @@ class ChatView extends Component {
       currentUser: null,
       users: [],
       unread: [],
-      searchTerm: ''
+      searchTerm: '',
+      isloading: true
     };
     this.peer=null;
+    this.emitter = new EventEmitter();    
   }
 
   componentWillMount(){
     var component = this;
-    if(!firebase.apps.length){
-      firebase.initializeApp(constant.APP_CONFIG);
-    }
     var properties = {}
     properties['component'] = this;
     properties['keyword'] = this.props.match.params.user_name;
-
-    Users.checkUserName(properties, function(){
-      window.location = constant.BASE_URL+ constant.HOME_URI;      
-    });
-    
-
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
-        window.location = constant.BASE_URL + constant.HOME_URI; 
+        component.setState({isLoading : true})        
+        component.emitter.emit('AddNewErrorToast',
+        translate('app.system_notice.unauthenticated.title'),
+        translate('app.system_notice.unauthenticated.text'),
+        5000, () => {
+          window.location = constant.HOME_URI+constant.SIGN_IN_URI;
+        })
+        setTimeout(() => {
+          window.location = constant.HOME_URI+constant.SIGN_IN_URI;
+        },5000); 
       }
       component.setState({currentUser: user})
       properties['currentUser'] = user;
@@ -70,12 +73,16 @@ class ChatView extends Component {
       // firebase.database().ref(`users/${user.uid}`).update({
       //   status: 'online'
       // })
-      properties['keyword'] = 'user';            
       // Users.getTargetChat(properties);            
       Messages.notifyUnreadMessage(properties);
       getStunServerList(() => {
         var stunServer = JSON.parse(localStorage.stun_server_list);      
-          component.peer = new Peer(user.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure: true,port:443, config: stunServer}); 
+        do{
+          component.peer = new Peer(user.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure: true,port:443, config: stunServer});           
+          if(component.peer.id){
+            component.setState({isloading :false});
+          }
+        }while(!!!(component.peer.id)) 
       });      
     })
   }
@@ -154,77 +161,80 @@ class ChatView extends Component {
     }
   }
   
-  render() {
+  renderView() {
     const filteredUsers = this.state.users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
-    if(!!this.state.currentUser && !!this.peer){    
-      return (
-        <div className='chat-ui'>
-          <div className='list-users'>
-            <div className='header-index'>
-              <Dropdown icon='setting'>
-                <Dropdown.Menu>
-                  <Dropdown.Item text={translate('app.identifier.logout')}
-                    onClick={this.logout.bind(this)}/>
-                </Dropdown.Menu>
-              </Dropdown>
-              <a href="/home">{translate('app.identifier.app_name')} </a>
-            </div>
-            <List>
-              <div className='search-box'>
-                <SearchInput className='search-input'
-                  onChange={this.searchUpdated.bind(this)}
-                  placeholder={translate('app.user.search') + '...'} />
-              </div>
-              {
-                filteredUsers.map(user => {
-                  return(
-                    <div className={
-                      this.props.match.params.user_name === user.username
-                        ? 'user active-link ': 'user'}
-                      key={user.uid}>
-                      {this.renderStatus(user.status, user.uid)}
-                      <Link to={'/chat/' + user.username} key={user.uid}
-                        activeClassName='active-link'>
-                          <List.Item key={user.uid}>
-                            <Image avatar src={user.photoURL}/>
-                            <List.Content>
-                              <List.Header>{user.uid !== this.state.currentUser.uid ? user.displayName : translate('app.chat.my_chat')}</List.Header>
-                            </List.Content>
-                            {this.renderUnreadMessages(user.uid)}
-                          </List.Item>
-                      </Link>
-                    </div>
-                  );
-                })
-              }
-            </List>
+    return (
+      <div className='chat-ui'>
+        <div className='list-users'>
+          <div className='header-index'>
+            <Dropdown icon='setting'>
+              <Dropdown.Menu>
+                <Dropdown.Item text={translate('app.identifier.logout')}
+                  onClick={this.logout.bind(this)}/>
+              </Dropdown.Menu>
+            </Dropdown>
+            <a href="/home">{translate('app.identifier.app_name')} </a>
           </div>
-          {
-            this.state.users.map(user => {
-              return(
-                <Switch>
-                  <Route path={'/chat/' + user.username}
-                    render={
-                      (props) => (
-                        <Chat {...props}
-                          targetUser={user}
-                          peer={this.peer}
-                          currentUser={this.state.currentUser}/>
-                      )
-                    }/>
-                </Switch>
-              )}
-            )
-          }
+          <List>
+            <div className='search-box'>
+              <SearchInput className='search-input'
+                onChange={this.searchUpdated.bind(this)}
+                placeholder={translate('app.user.search') + '...'} />
+            </div>
+            {
+              filteredUsers.map(user => {
+                return(
+                  <div className={
+                    this.props.match.params.user_name === user.username
+                      ? 'user active-link ': 'user'}
+                    key={user.uid}>
+                    {this.renderStatus(user.status, user.uid)}
+                    <Link to={'/chat/' + user.username} key={user.uid}
+                      activeClassName='active-link'>
+                        <List.Item key={user.uid}>
+                          <Image avatar src={user.photoURL}/>
+                          <List.Content>
+                            <List.Header>{user.uid !== this.state.currentUser.uid ? user.displayName : translate('app.chat.my_chat')}</List.Header>
+                          </List.Content>
+                          {this.renderUnreadMessages(user.uid)}
+                        </List.Item>
+                    </Link>
+                  </div>
+                );
+              })
+            }
+          </List>
         </div>
-      )
-    }else{
-      return(
-        <Loading />
-      )
-    }
-    
+        {
+          this.state.users.map(user => {
+            return(
+              <Switch>
+                <Route path={'/chat/' + user.username}
+                  render={
+                    (props) => (
+                      <Chat {...props}
+                        targetUser={user}
+                        peer={this.peer}
+                        currentUser={this.state.currentUser}
+                        emitter={this.emitter}/>
+                    )
+                  }/>
+              </Switch>
+            )}
+          )
+        }
+      </div>
+    )
+  }
+
+  render(){
+    return(
+      <div>
+        <Toast emitter={this.emitter} />
+        {this.isloading ? <Loading /> : <div>{this.renderView()}</div>}
+      </div>
+    )
   }
 }
 

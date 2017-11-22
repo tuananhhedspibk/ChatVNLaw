@@ -8,6 +8,8 @@ import firebase from 'firebase';
 
 import ChatSetting from './chatsetting';
 
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
+
 import * as RoomInfo from '../../lib/room/getroominfo';
 import * as Files from '../../lib/upfile/files';
 import * as constant from '../constants';
@@ -17,6 +19,7 @@ import * as videoCall from '../../lib/streaming/videocall';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 class Chat extends Component {
   constructor(props) {
@@ -25,14 +28,14 @@ class Chat extends Component {
       messages: [],
       currentRoomId: '',
       targetUser: null,
-      currentUser: null
+      currentUser: null,
+      showDialog: false
     };
     this.peer=null;
   }
 
   componentWillMount() { 
     this.peer = this.props.peer;
-    console.log(this.props.peer);
     this.setState({targetUser: this.props.targetUser,
       currentUser: this.props.currentUser});
   }
@@ -218,7 +221,7 @@ class Chat extends Component {
     properties['uid'] = this.state.currentUser.uid;
     videoCall.checkRequest(properties, function(issuccess){
       if(issuccess){
-        alert('already been used');
+        component.props.emitter.emit('AddNewErrorToast', translate('app.system_notice.error.title'), translate('app.system_notice.error.text.already_been_used'), 5000, () =>{});        
       }else{
         videoCall.createRequest(properties,function(issuccess){
           if(issuccess){
@@ -248,17 +251,49 @@ class Chat extends Component {
       )
     }
   } 
-  showAlert = (text) => {
-    this.msg.show(text, {
-      time: 5000,
-      type: 'success',
-      icon: <img alt='warning' src={constant.warningPic} />
+
+  onConfirm(){
+    var component = this;
+    let properties ={}
+    properties.roomId = this.state.currentRoomId;
+    properties.peerId = this.peer.id;
+
+    videoCall.onConfirm(properties, () =>{
+      component.setState({showDialog: false})
+      component.renderVideo();
     })
   }
+  onCancel(){
+    var component = this;
+    let properties ={}
+    properties.roomId = this.state.currentRoomId;
+    properties.currentUser = this.state.currentUser;
+
+    videoCall.onCancel(properties, () =>{
+      component.setState({showDialog: false})
+    })
+  }
+  renderDialog(){
+    return (
+      <div>
+      {
+        this.state.showDialog &&
+        <ReactConfirmAlert
+          title={translate('app.confirm_dialog.title')}
+          message={translate('app.confirm_dialog.message')}
+          confirmLabel={translate('app.confirm_dialog.confirm_label')}
+          cancelLabel={translate('app.confirm_dialog.cancel_label')}
+          onConfirm={this.onConfirm.bind(this)}
+          onCancel={this.onCancel.bind(this)}
+        />
+      }
+      </div>
+    )
+  }
   render() {
-    return(
+    return(  
       <div className={'chat-window ' + 'item_'+this.state.targetUser.uid} id='chat-window' >
-        <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>        
+        {this.renderDialog()}
         <div className='video-call'>
           <video className='video'
             id='localStream' autoPlay></video>

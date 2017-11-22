@@ -1,6 +1,8 @@
 var firebase = require('firebase');
 var $ = require('jquery');
 var constant = require('../constants');
+var translate = require('counterpart');
+
 var _call, _called;
 var streamRef;
 
@@ -16,7 +18,8 @@ function closeMediaStream(stream, videoId){
 }
 
 function openStream(callback){
-    navigator.mediaDevices.getUserMedia({audio: true, video: { width: 1280, height: 720 }})
+    // { width: 1280, height: 720 }
+    navigator.mediaDevices.getUserMedia({audio: true, video:true})
     .then(stream =>{
         return callback(stream);
     })
@@ -77,30 +80,48 @@ function checkRequest (properties,callback){
         console.log(err);
     })
 }
+function onConfirm(properties, callback){
+    let tmpref = firebase.database().ref(`${constant.TABLE.rooms}/${properties.roomId}/${constant.ROOMS.videoCall}`)
+    tmpref.child(`${constant.VIDEO_CALL.request}`).remove();
+    
+    let ref = tmpref.child(`${constant.VIDEO_CALL.stream}`)
+    ref.set(properties.peerId)
+    ref.remove();
+    return callback();
+}
+
+function onCancel(properties, callback){
+    let tmpref = firebase.database().ref(`${constant.TABLE.rooms}/${properties.roomId}/${constant.ROOMS.videoCall}`)    
+    tmpref.child(`${constant.VIDEO_CALL.request}`).remove();
+    
+    let ref = tmpref.child(`${constant.VIDEO_CALL.cancelRequest}`);
+    ref.set(properties.currentUser.uid);
+    ref.remove();
+    return callback();
+}
 function listenFromVideoCall(properties, callback){
     var component = properties.component;
     streamRef = firebase.database().ref(`${constant.TABLE.rooms}/${properties.roomId}/${constant.ROOMS.videoCall}`)
     streamRef.on('child_added', function(data){
-        console.log(data.key);
-        console.log(data.val());
         switch(data.key){
             case `${constant.VIDEO_CALL.request}`:
                 var peerId = properties.peer.id;
                 if(data.val() !== properties.peer.id){
                     // console.log(data.key);
                     // console.log(data.val());
-                    if(window.confirm("video call from another user")){
-                        streamRef.child(`${constant.VIDEO_CALL.request}`).remove();
-                        let ref = streamRef.child(`${constant.VIDEO_CALL.stream}`)
-                        ref.set(peerId)
-                        ref.remove();
-                        component.renderVideo();
-                    }else{
-                        streamRef.child(`${constant.VIDEO_CALL.request}`).remove();
-                        let cancelRequestRef = streamRef.child(`${constant.VIDEO_CALL.cancelRequest}`);
-                        cancelRequestRef.set(component.state.currentUser.uid);
-                        cancelRequestRef.remove();
-                    }
+                    // if(window.confirm("video call from another user")){
+                    //     streamRef.child(`${constant.VIDEO_CALL.request}`).remove();
+                    //     let ref = streamRef.child(`${constant.VIDEO_CALL.stream}`)
+                    //     ref.set(peerId)
+                    //     ref.remove();
+                    //     component.renderVideo();
+                    // }else{
+                    //     streamRef.child(`${constant.VIDEO_CALL.request}`).remove();
+                    //     let cancelRequestRef = streamRef.child(`${constant.VIDEO_CALL.cancelRequest}`);
+                    //     cancelRequestRef.set(component.state.currentUser.uid);
+                    //     cancelRequestRef.remove();
+                    // }
+                    component.setState({showDialog: true})
                 }
                 break;
             case `${constant.VIDEO_CALL.stream}`:
@@ -138,13 +159,16 @@ function listenFromVideoCall(properties, callback){
                     _called.close();
                 }catch(err){
                 }finally{
-                    $('.video-call').hide();                                        
-                    properties.component.showAlert('end call');
+                    $('.video-call').hide();     
+                    properties.component.props.emitter.emit('AddNewWarningToast', translate('app.system_notice.warning.title'), translate('app.system_notice.warning.text.end_call'), 5000, ()=>{})                                   
+                    // properties.component.showAlert('end call');
                 }
                 break;
             case `${constant.VIDEO_CALL.cancelRequest}`:
                 if(data.val() !== component.state.currentUser.uid){
-                    properties.component.showAlert('cancel request');                                
+                    $('.video-call').hide();                         
+                    // properties.component.showAlert('cancel request'); 
+                    properties.component.props.emitter.emit('AddNewWarningToast', translate('app.system_notice.warning.title'), translate('app.system_notice.warning.text.cancel_call_request'), 5000, ()=>{})                                                       
                 }
                 break;
             default:
@@ -172,5 +196,11 @@ module.exports = {
     },
     listenFromVideoCall: function(properties, callback){
         listenFromVideoCall(properties,callback);
+    },
+    onConfirm: function(properties, callback){
+        onConfirm(properties, callback);
+    },
+    onCancel: function(properties, callback){
+        onCancel(properties, callback);
     }
 }

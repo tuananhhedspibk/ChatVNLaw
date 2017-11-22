@@ -35,6 +35,7 @@ class UserSignUp extends Component {
     onAuthStateChanged( user =>{
       if(!!user){
         userInfo.getUserName(user, function(result){
+          component.setState({isLoading : true})
           component.emitter.emit('AddNewInfoToast', '', translate('app.system_notice.error.text.already_login'), 5000, ()=>{
             component.redirect(result);
           } )
