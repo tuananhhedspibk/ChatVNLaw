@@ -16,9 +16,9 @@ function closeMediaStream(stream, videoId){
 }
 
 function openStream(callback){
-    navigator.mediaDevices.getUserMedia({audio: true, video: true})
+    navigator.mediaDevices.getUserMedia({audio: true, video: { width: 1280, height: 720 }})
     .then(stream =>{
-        callback(stream);
+        return callback(stream);
     })
     .catch(err => console.log(err));
 }
@@ -81,12 +81,14 @@ function listenFromVideoCall(properties, callback){
     var component = properties.component;
     streamRef = firebase.database().ref(`${constant.TABLE.rooms}/${properties.roomId}/${constant.ROOMS.videoCall}`)
     streamRef.on('child_added', function(data){
+        console.log(data.key);
+        console.log(data.val());
         switch(data.key){
             case `${constant.VIDEO_CALL.request}`:
                 var peerId = properties.peer.id;
                 if(data.val() !== properties.peer.id){
-                    console.log(data.key);
-                    console.log(data.val());
+                    // console.log(data.key);
+                    // console.log(data.val());
                     if(window.confirm("video call from another user")){
                         streamRef.child(`${constant.VIDEO_CALL.request}`).remove();
                         let ref = streamRef.child(`${constant.VIDEO_CALL.stream}`)

@@ -32,6 +32,7 @@ class Chat extends Component {
 
   componentWillMount() { 
     this.peer = this.props.peer;
+    console.log(this.props.peer);
     this.setState({targetUser: this.props.targetUser,
       currentUser: this.props.currentUser});
   }

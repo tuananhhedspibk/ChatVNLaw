@@ -49,4 +49,4 @@ export const appLogoPic = require('../assets/images/app_logo.png');
 // export const chatBannerPic = require('../assets/images/onlinechaticon.png');
 export const handShakePic = require('../assets/images/handshake.png');
 
-export const PEERJS_KEY = '4hi47cbqvfq4obt9';
+export const PEERJS_KEY = 'peerjs';
