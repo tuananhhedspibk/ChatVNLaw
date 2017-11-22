@@ -96,8 +96,9 @@ class HotLawyers extends Component {
                   })
                 }
               </div>
-              <a href='/attroney' className='list-all-lawyers'>
-                {translate('app.home.recent_lawyer.show_all')}
+              <a href={constant.ATTORNEY_URI}
+                className='list-all-lawyers'>
+                  {translate('app.home.recent_lawyer.show_all')}
               </a>
             </div>
           </div>

@@ -43,15 +43,29 @@ class SearchTool extends Component {
 									</div>
 								</div>
 								<div id='group2'>
-									<label>Sắp xếp theo</label>
+									<label>
+										{translate('app.search.search_tool.order_by.title')}
+									</label>
 									<div className='select-section'>
 										<select className='form-control topic' name='group2_1'>
-											<option value='Ngày ban hành'>Ngày ban hành</option>
-											<option value='Ngày hiệu lực'>Ngày hiệu lực</option>
+											<option 
+												value={translate('app.search.search_tool.order_by.order_by_1')}>
+													{translate('app.search.search_tool.order_by.order_by_1')}
+											</option>
+											<option 
+												value={translate('app.search.search_tool.order_by.order_by_2')}>
+													{translate('app.search.search_tool.order_by.order_by_2')}
+											</option>
 										</select>
 										<select className='form-control' name='group2_2'>
-											<option value='Mới đến cũ'>Mới đến cũ</option>
-											<option value='Cũ đến mới'>Cũ đến mới</option>
+											<option
+												value={translate('app.search.search_tool.order_by.order_by_3')}>
+													{translate('app.search.search_tool.order_by.order_by_3')}
+											</option>
+											<option
+												value={translate('app.search.search_tool.order_by.order_by_1')}>
+													{translate('app.search.search_tool.order_by.order_by_1')}
+											</option>
 										</select>
 									</div>
 								</div>

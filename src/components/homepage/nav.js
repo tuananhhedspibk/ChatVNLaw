@@ -158,19 +158,15 @@ class Nav extends Component {
             id={'navbarToggleExternalContent' + this.props.id}>
             <ul className='navbar-nav ml-auto'>
               <li className='nav-item'>
-                <a className='nav-link' href={constant.BASE_URL+constant.SEARCH_LAW_URI} role='button'>
-                  {translate('app.nav.brow_law')}
+                <a className='nav-link' href={constant.SEARCH_LAW_URI}
+                  role='button'>
+                    {translate('app.nav.brow_law')}
                 </a>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' role='button'>
-                  {translate('app.nav.brow_lawyers')}
-                </a>
-              </li>
-              <li className='nav-item'>
-                <a target='_blank'
-                  className='nav-link' href=''>
-                  {translate('app.nav.support')}
+                <a className='nav-link' href={constant.ATTORNEY_URI}
+                  role='button'>
+                    {translate('app.nav.brow_lawyers')}
                 </a>
               </li>
               <li className='nav-item'>

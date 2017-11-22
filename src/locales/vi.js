@@ -135,6 +135,8 @@ module.exports = {
       find_law: 'Tra cứu luật',
       fast: 'nhanh và hiệu quả nhất',
       find: 'Tìm kiếm',
+      next: 'trang tiếp',
+      previous: 'trang trước',
       schedule: 'Lên kế hoạch',
       connect: 'Kết nối',
       find_content: 'Duyệt qua các hồ sơ luật sư để tìm luật sư phù hợp với bạn. Tất cả các luật sư VNLaw được cấp phép và hoạt động.',
