@@ -1,0 +1,212 @@
+@import 'variables.scss';
+
+.my-profile {
+    .row {
+        overflow: hidden;
+    }
+     @media (max-width: 768px) {
+        [class*="col-"] {
+            width: 100% !important;
+            display: block !important;
+            margin-bottom: 0px !important;
+            padding-bottom: 0px !important;
+        }
+    }
+    .left-bar-prof {
+        background: #565656;
+        color: $semi-white;
+        text-align: center;
+        left: 0;
+        padding: 50px 20px 50px 30px;
+        height: 100%;
+        margin-bottom: -5000px;
+        padding-bottom: 5000px;
+        .editer-inline {
+            min-height: 60px;
+            padding: 0 10px 0 10px;
+            .form-group {
+                margin-bottom: 2px;
+                display: inline-block;
+                input {
+                    text-align: center;
+                    border: none;
+                    border-radius: 0;
+                }
+            }
+            .noti-cancel {
+                    font-size: 12px;
+                    text-align: left;
+                    display: block;
+                    margin-left: 40px;
+                    a {
+                        text-decoration: none;
+                        color: #00bcff;
+                    }
+                }
+            button {
+                display: inline-block;
+                background: none;
+                border: none;
+                i {
+                    color: $semi-white;
+                }
+            }
+            .fa-pencil-square-o {
+                margin-top: 10px;
+                color: $semi-white;
+                float: right;
+                position: absolute;
+                right: 1px;
+            }
+            .editer-name {
+                font-size: 30px;
+                height: 100%;
+            }
+        }
+        img {
+            width: 60%;
+            margin-bottom: 30px;
+        }
+        ul {
+            padding: 0px;
+            list-style: none;
+            li:first-child {
+                min-height: 60px;
+                margin-bottom: 30px;
+                
+            }
+            li:not(:first-child) {
+                margin-bottom: 30px;
+                .fa {
+                    margin-right: 10px; 
+                }
+            }
+        }
+    }
+    .lawyer-prof-detail {
+        padding: 20px 10px 20px 10px;
+        ul {
+            list-style: none;
+        }
+        .lawyer-prof-content {
+            .item-detail {
+                border:0.7px solid #bce8f1;
+                border-radius: 7px;
+                margin-bottom: 20px;
+
+                    .prof-panel-heading {
+                        display: inline-block;
+                        background: #d9edf7;
+                        width: 100%;
+                        color: #31708f;
+                        padding: 10px;
+                        a{
+                            text-decoration: none;
+                            .fa-chevron-right{
+                                transition: transform .3s ease-in;
+                                transform:rotate(90deg);
+                            }
+                        }
+                        a.collapsed{
+                            .fa-chevron-right{
+                                transition: transform .3s ease-in;
+                                transform:rotate(0deg);
+                            }
+                        }
+                        h4 {
+                            display: inline-block;
+                        }
+                        .fa-chevron-right {
+                            margin-right: 15px;
+                            font-size: 20px;
+                            float: right;
+                            vertical-align: middle;
+                        }
+                    }
+                .panel-collapse {
+                    padding: 10px 20px 10px 20px;
+                    li {
+                        display: inline-block;
+                        width: 100%;
+                        margin-bottom: 10px;
+                        span {
+                            float: left;
+                        }
+                    }
+                }
+                .editer-inline {
+                    form {
+                        text-align: center;
+                        width: 100%;
+                        display: inline-block;
+                        .form-group {
+                            display: inline-block;
+                            margin-bottom: 2px;
+                            margin-right: 10px;
+                            margin-left: 5px;
+                        }
+                        button {
+                            background: none;
+                            border:none;
+                            .fa {
+                                color: $blue-lighter;
+                                font-size: 20px;
+                            }
+                        }
+                        .noti-cancel {
+                            font-size: 13px;
+                        }
+                    }
+                    .fa-pencil-square-o {
+                        font-size: 15px;
+                        margin-left: 20px;
+                        color: $blue-lighter;
+                        &:hover {
+                            font-size: 20px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .editer-panel {
+                    .collapse-content {
+                        display: inline;
+                        white-space: pre-line;
+                    }
+                    form {
+                            position: relative;
+                            .form-group {
+                                margin-right: 50px
+                            }
+                            .action-grp {
+                                position: absolute;
+                                right: -10px;
+                                top: 0;
+                                button {
+                                    background: none;
+                                    border: none;
+                                    .fa {
+                                        color: $blue-lighter;
+                                        font-size: 15px;
+                                        &:hover {
+                                            font-size: 20px;
+                                            cursor: pointer;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    .fa-pencil-square-o {
+                        margin-left: 20px;
+                        color: $blue-lighter;
+                        font-size: 15px;
+                        &:hover {
+                            font-size: 20px;
+                            cursor: pointer;
+                        }
+                    }
+            
+                }
+            }
+        }
+    }
+}
