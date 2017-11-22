@@ -3,11 +3,15 @@ import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
 import firebase from 'firebase';
+import getStunServerList from '../../../../lib/getstunserverlist';
+import AlertContainer from 'react-alert';
 
 import * as RoomInfo from '../../../../lib/room/getroominfo';
 import * as Messages from '../../../../lib/messages/messages';
 import * as translate from 'counterpart';
 import * as videoCall from '../../../../lib/streaming/videocall';
+import * as Peer from 'peerjs';
+import * as constant from '../../../constants';
 
 class ChatBox extends Component {
   constructor(props) {
@@ -18,9 +22,18 @@ class ChatBox extends Component {
       currentUser: null,
       targetUser: null
     };
+    this.peer = null
   }  
+  showAlert = (text) => {
+    this.msg.show(text, {
+      time: 5000,
+      type: 'success',
+      icon: <img alt='warning' src={constant.warningPic} />
+    })
+  }
   componentWillMount(){
     var component = this;
+    this.peer = this.props.peer;
     this.setState({currentUser: this.props.currentUser, targetUser: this.props.targetUser});
     this.props.emitter.addListener('ReSendData',function(callback){
       return callback(component.state.currentUser, component.state.targetUser, component.state.currentRoomId);
@@ -62,7 +75,11 @@ class ChatBox extends Component {
     if(this.state.currentUser !== nextProps.currentUser && !!nextProps.currentUser){
       this.setState({currentUser: nextProps.currentUser});
     }
-    
+    // if( !!nextProps.peer &&(this.peer !== nextProps.peer) ){
+    //   this.peer = nextProps.peer;
+    //   console.log(this.state.currentRoomId);
+    //   console.log(nextProps.peer);      
+    // }
     // if(!!nextProps.targetUser && ((!this.state.targetUser) || (this.state.targetUser.uid !== nextProps.targetUser.uid))){
     //   let properties = {}
     //   this.setState({messages :[]})
@@ -86,7 +103,12 @@ class ChatBox extends Component {
       properties['component'] = component;
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
-
+      properties['peer'] = nextProps.peer;
+      
+      videoCall.closeRef();
+      videoCall.closeStream();
+      videoCall.listenFromVideoCall(properties, () =>{})
+      
       Messages.closeStreamRef();
       Messages.history(properties, function(){
         component.autoScrollBottom();        
@@ -203,6 +225,8 @@ class ChatBox extends Component {
     if(this.state.currentRoomId){
       return(
         <div>
+          <AlertContainer ref={a => this.msg = a} {...constant.ALERT_OPTIONS}/>        
+
           <div className='video-call'>
             <video className='video'
               id='localStream' autoPlay></video>

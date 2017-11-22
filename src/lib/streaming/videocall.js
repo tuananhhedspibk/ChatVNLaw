@@ -84,8 +84,9 @@ function listenFromVideoCall(properties, callback){
         switch(data.key){
             case `${constant.VIDEO_CALL.request}`:
                 var peerId = properties.peer.id;
-                console.log(data.val());
                 if(data.val() !== properties.peer.id){
+                    console.log(data.key);
+                    console.log(data.val());
                     if(window.confirm("video call from another user")){
                         streamRef.child(`${constant.VIDEO_CALL.request}`).remove();
                         let ref = streamRef.child(`${constant.VIDEO_CALL.stream}`)
@@ -139,9 +140,9 @@ function listenFromVideoCall(properties, callback){
                 }
                 break;
             case `${constant.VIDEO_CALL.cancelRequest}`:
-                if(data.val() !== properties.uid){
+                // if(data.val() !== properties.uid){
                     properties.component.showAlert('cancel request');                                
-                }
+                // }
                 break;
             default:
                 break;

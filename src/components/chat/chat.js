@@ -54,7 +54,7 @@ class Chat extends Component {
       properties['component'] = this;
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
-      properties['peer'] = this.peer;
+      properties['peer'] = nextProps.peer;
       Messages.history(properties, function(){
         component.autoScrollBottom();
       });

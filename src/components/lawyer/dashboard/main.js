@@ -21,8 +21,10 @@ import Chat from './components/chat';
 import Loading from '../../shared/loading';
 import {isLawyer} from '../../../lib/user/lawyers';
 import Toast from '../../notification/toast';
+import getStunServerList from '../../../lib/getstunserverlist';
 
 import * as constant from '../../constants';
+import * as Peer from 'peerjs';
 
 import '../../../assets/styles/dashboard/style.css';
 import '../../../assets/styles/common/customDashboard.css';
@@ -35,6 +37,7 @@ class UserDashBoard extends Component {
       isLoading: true
     }
     this.emitter = new EventEmitter();
+    this.peer=null;
   }
 
   componentWillMount(){
@@ -59,7 +62,11 @@ class UserDashBoard extends Component {
     if(this.state.currentUser !== nextState.currentUser){
       isLawyer(nextState.currentUser.uid, (issuccess) =>{
         if(issuccess){
-          component.setState({isLoading: false})
+          getStunServerList(() =>{
+            var stunServer = JSON.parse(localStorage.stun_server_list);      
+            component.peer = Peer(nextState.currentUser.uid,{key: constant.PEERJS_KEY, config: stunServer})
+            component.setState({isLoading: false})
+          })
         }else{
           window.location = constant.BASE_URL;
         }
@@ -106,7 +113,9 @@ class UserDashBoard extends Component {
                 </Switch>
               </Container>
             </main>
-            <Chat emitter={this.emitter}/>
+            <Chat emitter={this.emitter}
+                  peer={this.peer}
+                  currentUser={this.state.currentUser}/>
           </div>
         </div>
       )

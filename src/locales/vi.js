@@ -25,7 +25,12 @@ module.exports = {
       click_here: 'Click để xem chi tiết!',
       time_created: 'Thời gian tạo: ',
       detail: 'Chi tiết:',
-      create_dialog: 'Tạo cuộc trò chuyện'
+      create_dialog: 'Tạo cuộc trò chuyện',
+      evaluate: 'Đánh giá:',
+      agree_with_case: 'Tôi đồng ý tiếp nhận vụ án.',
+      disagree_with_case: 'Tôi không đồng ý tiếp nhận vụ án.',
+      detail: 'Chi tiết:',
+      create_new_chat: 'Tạo cuộc trò chuyện'
     },
     system_notice:{
       unauthenticated: {
