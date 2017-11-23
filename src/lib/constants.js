@@ -35,7 +35,8 @@ export const NOTIFICATIONS = {
 
 export const NOTIFICATION_TYPE = {
   requestRoom: 'requestRoom',
-  acceptRoom: 'acceptRoom'
+  acceptRoomRequest: 'acceptRoomRequest',
+  refuseRoomRequest: 'refuseRoomRequest'
 }
 export const USERS = {
   uid: 'uid',

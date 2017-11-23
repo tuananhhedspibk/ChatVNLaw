@@ -48,13 +48,10 @@ class Nav extends Component {
 
   checkLogin() {
     localStorage.setItem('target', 'chat')
-    if(!firebase.apps.length){
-      firebase.initializeApp(constant.APP_CONFIG);  
-    }
     if(!this.state.isLawyer){
       window.location = constant.BASE_URL + constant.SIGN_IN_URI;            
     }else{
-      window.location = constant.BASE_URL + '/dashboard';                
+      window.location = constant.BASE_URL + constant.DASHBOARD_URI;                
     }
   }
 
@@ -175,6 +172,11 @@ class Nav extends Component {
                   {this.state.isLawyer === true ? 'DashBoard' : 'Chat'}
                 </a>
               </li>
+              <li className='nav-item'>
+              <a className='nav-link' href='/notifications'>
+                {translate('app.nav.notification')}
+              </a>
+            </li>
               {this.renderDropdown()}
             </ul>
           </div>

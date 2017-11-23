@@ -20,9 +20,20 @@ module.exports = {
       read_more: 'xem thêm',
       show_less: 'thu nhỏ'
     },
+    button:{
+      create_new_chat: 'Tạo cuộc trò chuyện',
+      destroy_room_request: 'Hủy yêu cầu.'
+    },
     notification:{
       new_request_from_other: ' đã gửi cho bạn một yêu cầu.',
+      new_room_request_title: ' gửi cho bạn yêu cầu tạo cuộc trò chuyện',
+      new_accept_room_request_title: ' đã chấp nhận yêu cầu tạo cuộc trò chuyện của bạn.',
+      new_refuse_room_request_title: ' đã từ chối yêu cầu tạo cuộc trò chuyện của bạn.',
+      new_accept_room_request: ' đã chấp nhận yêu cầu của bạn.',
+      new_refuse_room_request: ' đã từ chối yêu cầu của bạn.',
       click_here: 'Click để xem chi tiết!',
+      already_known: 'Tôi biết rồi.',
+      to_chat_room: 'Tới phòng chat',
       time_created: 'Thời gian tạo: ',
       detail: 'Chi tiết:',
       create_dialog: 'Tạo cuộc trò chuyện',
@@ -36,7 +47,10 @@ module.exports = {
       title: 'Thông báo',
       message: 'Bạn nhận được một cuộc gọi video',
       confirm_label: 'Đồng ý kết nối',
-      cancel_label: 'Từ chối cuộc gọi'
+      cancel_label: 'Từ chối cuộc gọi',
+      message_2:'Bạn chắc chắn muốn tiếp tục ?',
+      confirm_label_2: 'Tôi đồng ý và muốn tiếp tục.',
+      cancel_label_2: 'Tôi sẽ suy nghĩ lại.'
     },
     system_notice:{
       unauthenticated: {
@@ -154,7 +168,8 @@ module.exports = {
       support: 'Hỗ trợ',
       chat: 'Chat',
       sign_out: 'Đăng xuất',
-      setting: 'Thiết lập'
+      setting: 'Thiết lập',
+      notification: 'Thông báo',
     },
     login: {
       login_error: 'Sai mật khẩu hoặc email',

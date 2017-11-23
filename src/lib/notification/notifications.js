@@ -9,7 +9,17 @@ function extractNotification(data, callback){
       var item = {};
       item.title = data.val()[constant.NOTIFICATIONS.sender][constant.NOTIFICATIONS.senderDisplayName]+translate('app.notification.new_request_from_other');
       item.content = translate('app.notification.click_here');
-      return callback(item);
+      return callback(constant.NOTIFICATION_TYPE.requestRoom,item);
+    case constant.NOTIFICATION_TYPE.acceptRoomRequest:
+      var item = {};
+      item.title = data.val()[constant.NOTIFICATIONS.sender][constant.NOTIFICATIONS.senderDisplayName]+translate('app.notification.new_accept_room_request');
+      item.content = translate('app.notification.click_here');
+      return callback(constant.NOTIFICATION_TYPE.acceptRoomRequest,item);
+    case constant.NOTIFICATION_TYPE.refuseRoomRequest:
+      var item = {};
+      item.title = data.val()[constant.NOTIFICATIONS.sender][constant.NOTIFICATIONS.senderDisplayName]+translate('app.notification.new_refuse_room_request');
+      item.content = translate('app.notification.click_here');
+      return callback(constant.NOTIFICATION_TYPE.refuseRoomRequest,item);
   }
 }
 
@@ -24,6 +34,11 @@ function extractNotificationInfo(data, callback){
   }
 }
 
+function deleteNotification(properties){
+  var ref = firebase.database().ref(`${constant.TABLE.notifications}/${properties.currentUser.uid}/${properties.nid}`)
+  ref.remove();
+}
+
 function createNewNotification(properties,callback){
   var ref = firebase.database().ref(`${constant.TABLE.notifications}/${properties.targetUser.uid}`).push()
   let item = {}
@@ -35,7 +50,7 @@ function createNewNotification(properties,callback){
   
   
   item[constant.NOTIFICATIONS.type] = properties.type;
-  item[constant.NOTIFICATIONS.info] = properties.info;
+  item[constant.NOTIFICATIONS.info] = properties.info || '';
   item[constant.NOTIFICATIONS.timeStamp] = '' + (new Date()).getTime();
   ref.set(item);
 }
@@ -82,5 +97,8 @@ module.exports = {
   },
   extractNotificationInfo:function(data, callback){
     extractNotificationInfo(data, callback)
+  },
+  deleteNotification: function(properties){
+    deleteNotification(properties)
   }
 }

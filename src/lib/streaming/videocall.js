@@ -129,6 +129,7 @@ function listenFromVideoCall(properties, callback){
                 let targetPeerId = data.val();
                 if(targetPeerId !== peer.id){
                     openStream(stream =>{
+                        console.log(stream);
                         let call = peer.call(targetPeerId,stream);
                         call.on('stream',remoteStream =>{
                             playVideo(remoteStream,'localStream');
@@ -141,12 +142,13 @@ function listenFromVideoCall(properties, callback){
                 } else{
                     peer.on('call', function(called) {
                         openStream(stream =>{
-                            called.answer(stream);
+                            called.answer(stream);                                                        
+                            console.log(stream);
                             called.on('stream',remoteStream =>{
-                            playVideo(remoteStream,'localStream');
+                                playVideo(remoteStream,'localStream');
                             })
                             called.on('close', function(){
-                            closeMediaStream(stream, '#localStream');          
+                                closeMediaStream(stream, '#localStream');          
                             })
                             _called = called;                              
                         })

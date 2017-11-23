@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
-import AlertContainer from 'react-alert';
 import firebase from 'firebase';
 
 import ChatSetting from './chatsetting';
@@ -36,6 +35,7 @@ class Chat extends Component {
 
   componentWillMount() { 
     this.peer = this.props.peer;
+    console.log(this.peer);
     this.setState({targetUser: this.props.targetUser,
       currentUser: this.props.currentUser});
   }

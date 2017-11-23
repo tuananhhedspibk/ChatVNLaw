@@ -53,37 +53,37 @@ class ChatView extends Component {
     properties['keyword'] = this.props.match.params.user_name;
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
-        component.setState({isLoading : true})        
+        component.setState({isloading : true})        
         component.emitter.emit('AddNewErrorToast',
         translate('app.system_notice.unauthenticated.title'),
         translate('app.system_notice.unauthenticated.text'),
         5000, () => {
-          window.location = constant.HOME_URI+constant.SIGN_IN_URI;
+          window.location = constant.BASE_URL+constant.SIGN_IN_URI;
         })
         setTimeout(() => {
-          window.location = constant.HOME_URI+constant.SIGN_IN_URI;
+          window.location = constant.BASE_URL+constant.SIGN_IN_URI;
         },5000); 
-      }
-      component.setState({currentUser: user})
-      properties['currentUser'] = user;
-      getAllRoom(properties, (userArr) => {
-        component.setState({users : userArr});
-      })
-      
-      // firebase.database().ref(`users/${user.uid}`).update({
-      //   status: 'online'
-      // })
-      // Users.getTargetChat(properties);            
-      Messages.notifyUnreadMessage(properties);
-      getStunServerList(() => {
-        var stunServer = JSON.parse(localStorage.stun_server_list);      
-        do{
-          component.peer = new Peer(user.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure: true,port:443, config: stunServer});           
-          if(component.peer.id){
-            component.setState({isloading :false});
-          }
-        }while(!!!(component.peer.id)) 
-      });      
+      }else{
+        component.setState({currentUser: user})
+        properties['currentUser'] = user;
+        getAllRoom(properties, (userArr) => {
+          component.setState({users : userArr});
+        })
+        
+        // firebase.database().ref(`users/${user.uid}`).update({
+        //   status: 'online'
+        // })
+        Messages.notifyUnreadMessage(properties);
+        getStunServerList(() => {
+          var stunServer = JSON.parse(localStorage.stun_server_list);      
+          do{
+            component.peer = new Peer(user.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure: true,port:443, config: stunServer});           
+            if(component.peer.id){
+              component.setState({isloading :false});
+            }
+          }while(!!!(component.peer.id)) 
+        });   
+      }   
     })
   }
 
@@ -232,7 +232,7 @@ class ChatView extends Component {
     return(
       <div>
         <Toast emitter={this.emitter} />
-        {this.isloading ? <Loading /> : <div>{this.renderView()}</div>}
+        {this.state.isloading ? <Loading /> : <div>{this.renderView()}</div>}
       </div>
     )
   }
