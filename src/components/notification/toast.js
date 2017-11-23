@@ -4,6 +4,7 @@ import {onAuthStateChanged} from '../../lib/user/authentication';
 import {extractNotification,noticeWhenNewNotiComing} from '../../lib/notification/notifications';
 
 import * as constant from '../constants';
+import * as tableConstant from '../../lib/constants';
 
 import 'react-notifications/lib/notifications.css';
 class Toast extends Component{
@@ -24,13 +25,33 @@ class Toast extends Component{
           properties['currentUser'] = this.state.currentUser;
           properties['timeStamp'] = this.state.timeStamp || '' + (new Date()).getTime();
           noticeWhenNewNotiComing(properties, (data) =>{
-            extractNotification(data,(item) =>{
-              component.createNotification('info' , item.title, item.content, 5000, ()=>{
-                console.log(window.location.pathname);
-                if(!(window.location.pathname).startsWith('/notifications')){
-                  window.open('/notifications', "_blank")                  
-                } 
-              });            
+            extractNotification(data,(type,item) =>{
+              console.log(type);
+              switch(type){
+                
+                case tableConstant.NOTIFICATION_TYPE.requestRoom:
+                  component.createNotification('info' , item.title, item.content, 5000, ()=>{
+                    if(!(window.location.pathname).startsWith('/notifications')){
+                      window.open('/notifications', "_blank")                  
+                    } 
+                  });
+                  break;
+                case tableConstant.NOTIFICATION_TYPE.acceptRoomRequest:
+                  component.createNotification('success' , item.title, item.content, 5000, ()=>{
+                    if(!(window.location.pathname).startsWith('/notifications')){
+                      window.open('/notifications', "_blank")                  
+                    } 
+                  });
+                  break;
+                case tableConstant.NOTIFICATION_TYPE.refuseRoomRequest:
+                  component.createNotification('warning' , item.title, item.content, 5000, ()=>{
+                    if(!(window.location.pathname).startsWith('/notifications')){
+                      window.open('/notifications', "_blank")                  
+                    } 
+                  });
+                  break;
+              }
+                          
             })
           })
         }  
