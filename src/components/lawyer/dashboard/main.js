@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
-
 import {EventEmitter} from 'fbemitter';
-import firebase from 'firebase';
-
 import Header from './components/header';
 import Sidebar from './components/sidebar';
 import DashBoard from './components/dashboard';
@@ -17,15 +14,18 @@ import SearchUser from './components/searchuser';
 import TodoList from './components/todolist';
 import {Container} from 'reactstrap';
 import Chat from './components/chat';
-
 import Loading from '../../shared/loading';
 import {isLawyer} from '../../../lib/user/lawyers';
 import Toast from '../../notification/toast';
 import getStunServerList from '../../../lib/getstunserverlist';
+import {checkPermission, checkAuthen} from '../../../lib/notification/toast';
+import {onAuthStateChanged} from '../../../lib/user/authentication';
+import {getUserRoleByUid} from '../../../lib/user/getuserinfo';
 
 import * as constant from '../../constants';
 import * as Peer from 'peerjs';
 import * as translate from 'counterpart';
+import * as tableContant from '../../../lib/constants';
 
 import '../../../assets/styles/dashboard/style.css';
 import '../../../assets/styles/common/customDashboard.css';
@@ -43,56 +43,37 @@ class UserDashBoard extends Component {
 
   componentWillMount(){
     var component = this;
-    firebase.auth().onAuthStateChanged(user =>{
+    onAuthStateChanged(user =>{
       if(user){
-        firebase.database().ref(`users/${user.uid}/role`).on('value', data => {
-          if(data.val() == 'lawyer'){
+        getUserRoleByUid(user.uid, data =>{
+          if(data.val() == tableContant.ROLE.lawyer){
             component.setState({currentUser: user})
             getStunServerList(() =>{
               var stunServer = JSON.parse(localStorage.stun_server_list);      
-              // component.peer = Peer(nextState.currentUser.uid,{key: constant.PEERJS_KEY, config: stunServer})
-              do{
+              // do{
                 component.peer = new  Peer(user.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure:true,port: 443, config: stunServer}); 
-                if(!!component.peer.id){
+                // if(!!component.peer.id){
                   component.setState({isLoading: false})                
-                }
-                console.log(component.peer);
-              }while(!!!(component.peer.id));
+                // }
+              // }while(!!!(component.peer.id));
             })
           }
           else {
             component.setState({isLoading : true})
-            component.emitter.emit('AddNewErrorToast',
-            translate('app.system_notice.permission_denied.title'),
-            translate('app.system_notice.permission_denied.text'),
-              5000, () => {
-              window.location = constant.HOME_URI;
+            checkPermission(component.emitter,constant.HOME_URI, () =>{
+              
             })
-            setTimeout(() => {
-              window.location = constant.HOME_URI;
-            },5000);
           }
         }) 
       }else{
         component.setState({isLoading : true})
-        component.emitter.emit('AddNewErrorToast',
-        translate('app.system_notice.unauthenticated.title'),
-        translate('app.system_notice.unauthenticated.text'),
-        5000, () => {
-          window.location = constant.HOME_URI+constant.SIGN_IN_URI;
+        checkAuthen(component.emitter,constant.HOME_URI+constant.SIGN_IN_URI, () =>{
+
         })
-        setTimeout(() => {
-          window.location = constant.HOME_URI+constant.SIGN_IN_URI;
-        },5000);
       }
     })
   }
-  // componentWillUpdate(nextProps, nextState){
-  //   var component = this;
-  //   if(this.state.currentUser !== nextState.currentUser){
-      
-  //   }
-  // }
+
   componentDidMount() {
     document.body.classList.add('chat-section-hidden');
   }
