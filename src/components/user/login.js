@@ -6,8 +6,8 @@ import {signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged}
 import Loading from '../shared/loading';
 import Toast from '../notification/toast';
 import {EventEmitter} from 'fbemitter';
-
 import Nav from '../homepage/nav';
+import {checkAlreadyLogin} from '../../lib/notification/toast';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
@@ -35,12 +35,9 @@ class UserLogin extends Component {
       if(!!user){
         userInfo.getUserName(user, function(result){
           component.setState({isLoading : true})
-          component.emitter.emit('AddNewInfoToast', '', translate('app.system_notice.error.text.already_login'), 5000, ()=>{
-            component.redirect(result);
-          } )
-          setTimeout(()=>{
+          checkAlreadyLogin(component.emitter,()=> {
             component.redirect(result)
-          },3000);                   
+          });
         })
       }else{
         component.setState({currentUser: user, isLoading : false})        

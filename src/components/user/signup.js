@@ -4,6 +4,8 @@ import {createUserWithEmailAndPassword,onAuthStateChanged} from '../../lib/user/
 import Loading from '../shared/loading';
 import Toast from '../notification/toast';
 import {EventEmitter} from 'fbemitter';
+import {checkAlreadyLogin} from '../../lib/notification/toast';
+import {updateUserInfo} from '../../lib/user/users';
 
 import Nav from '../homepage/nav';
 
@@ -36,12 +38,9 @@ class UserSignUp extends Component {
       if(!!user){
         userInfo.getUserName(user, function(result){
           component.setState({isLoading : true})
-          component.emitter.emit('AddNewInfoToast', '', translate('app.system_notice.error.text.already_login'), 5000, ()=>{
+          checkAlreadyLogin(component.emitter, ()=>{
             component.redirect(result);
-          } )
-          setTimeout(()=>{
-            component.redirect(result)
-          },3000);                   
+          })                  
         })
       }else{
         component.setState({currentUser: user, isLoading : false})        
@@ -99,18 +98,22 @@ class UserSignUp extends Component {
             displayName: displayName,
             photoURL: constant.DEFAULT_AVATAR_URL
           }).then(function() {
-            firebase.database().ref(`users/${data.uid}`).update({
-              "displayName" : displayName,
-              "username": username
-            }).then(function(){
-              window.location = constant.BASE_URL+'/chat/'+username;              
-            }).catch(function(error){
-              component.emitter.emit('AddNewErrorToast', '',error.message, 5000, ()=>{ })                         
-              data.delete().then(function() {
-              }).catch(function(error) {
-              });
-              return;              
-            });
+            let properties = {}
+            properties.currentUser = data;
+            properties.displayName = displayName;
+            properties.username = username;
+
+            updateUserInfo(properties, (issuccess, error)=>{
+              if(issuccess){
+                window.location = constant.BASE_URL+'/chat/'+username;              
+              }else{
+                component.emitter.emit('AddNewErrorToast', '',error.message, 5000, ()=>{ })                         
+                data.delete().then(function() {
+                }).catch(function(error) {
+                });
+                return;
+              }
+            })
           })
         }
       }else{
