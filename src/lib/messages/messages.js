@@ -35,9 +35,9 @@ function exportItem(data,properties){
 function exportUnreadItem(snapshot){
     var unreadItem = {}
     var lastMess = {}
-    lastMess[constant.MESSAGES.timeStamp] = snapshot.val()[constant.ROOMS.unReadMessage][constant.MESSAGES.timeStamp] || '';
-    lastMess[constant.UNREAD_MESSAGES.senderId] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.senderId] || '';
-    lastMess[constant.UNREAD_MESSAGES.receiverId] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.receiverId] || '';
+    lastMess[constant.UNREAD_MESSAGES.timeStamp] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.lastMessage][constant.UNREAD_MESSAGES.timeStamp] || '';
+    lastMess[constant.UNREAD_MESSAGES.senderId] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.lastMessage][constant.UNREAD_MESSAGES.senderId] || '';
+    lastMess[constant.UNREAD_MESSAGES.receiverId] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.lastMessage][constant.UNREAD_MESSAGES.receiverId] || '';
 
     unreadItem[constant.MESSAGES.messagesId] = snapshot.key;
     unreadItem[constant.UNREAD_MESSAGES.count] = snapshot.val()[constant.ROOMS.unReadMessage][constant.UNREAD_MESSAGES.count] || 0;        
@@ -59,6 +59,7 @@ function notifyUnreadMessage(properties){
 
     ref.on('child_added', snapshot=>{
         unreadArr.push(exportUnreadItem(snapshot));
+        console.log(unreadArr);
         component.setState({unread: unreadArr})
     })
     ref.on('child_changed', snapshot=>{

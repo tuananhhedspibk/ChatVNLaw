@@ -10,6 +10,7 @@ import Loading from '../shared/loading';
 import getStunServerList from '../../lib/getstunserverlist';
 import Chat from './chat';
 import Toast from '../notification/toast';
+import {checkAuthen} from '../../lib/notification/toast';
 
 import {getAllRoom} from '../../lib/room/rooms';
 import * as constant from '../constants';
@@ -21,8 +22,6 @@ import * as firebase from 'firebase';
 
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/userIndex.css';
-
-var emitter = new EventEmitter();
 
 const KEYS_TO_FILTERS = ['displayName'];
 
@@ -53,16 +52,10 @@ class ChatView extends Component {
     properties['keyword'] = this.props.match.params.user_name;
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
-        component.setState({isloading : true})        
-        component.emitter.emit('AddNewErrorToast',
-        translate('app.system_notice.unauthenticated.title'),
-        translate('app.system_notice.unauthenticated.text'),
-        5000, () => {
-          window.location = constant.BASE_URL+constant.SIGN_IN_URI;
-        })
-        setTimeout(() => {
-          window.location = constant.BASE_URL+constant.SIGN_IN_URI;
-        },5000); 
+        component.setState({isloading : true})   
+        checkAuthen(component.emitter, constant.BASE_URL+constant.SIGN_IN_URI, ()=>{
+
+        })      
       }else{
         component.setState({currentUser: user})
         properties['currentUser'] = user;
@@ -151,7 +144,6 @@ class ChatView extends Component {
     var component = this;
     var unreadItem = component.state.unread.filter(
       item => item.lastMessage.senderUid === targetUid);
-    
     if(unreadItem[0] && unreadItem[0].count !== 0){
       return(
         <div className='unread-mess'>

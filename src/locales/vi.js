@@ -33,6 +33,7 @@ module.exports = {
       new_refuse_room_request: ' đã từ chối yêu cầu của bạn.',
       click_here: 'Click để xem chi tiết!',
       already_known: 'Tôi biết rồi.',
+      cant_create_peer: 'Trình duyệt của bạn không hỗ trợ chức năng này',
       to_chat_room: 'Tới phòng chat',
       time_created: 'Thời gian tạo: ',
       detail: 'Chi tiết:',
