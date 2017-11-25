@@ -22,6 +22,12 @@ function extractUser(data){
     }
     return item;
 }
+function getUserRoleByUid(input, callback){
+    var ref =firebase.database().ref(`${constant.TABLE.users}/${input}/${constant.USERS.role}`)
+    ref.on('value', data =>{
+        return callback(data);
+    })
+}
 function getUserByUid(input, callback){
     var ref = firebase.database().ref(`${constant.TABLE.users}/${input}`)
     ref.once('value').then(data =>{
@@ -136,5 +142,8 @@ module.exports = {
     },
     updatePhotoURL: function(link){
         updatePhotoURL(link);
+    },
+    getUserRoleByUid(input, callback){
+        getUserRoleByUid(input, callback);
     }
 }

@@ -18,7 +18,10 @@ export const TABLE = {
   lawyers : 'lawyers',
   notifications: 'notifications'
 };
-
+export const ROLE = {
+  user: 'user',
+  lawyer: 'lawyer'
+}
 export const NOTIFICATIONS = {
   id :'id',
   sender: 'sender',
