@@ -5,6 +5,7 @@ import {Picker} from 'emoji-mart';
 import firebase from 'firebase';
 import getStunServerList from '../../../../lib/getstunserverlist';
 import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
+import VideoCall from './videocall';
 
 import * as RoomInfo from '../../../../lib/room/getroominfo';
 import * as Messages from '../../../../lib/messages/messages';
@@ -76,17 +77,13 @@ class ChatBox extends Component {
   componentWillUpdate(nextProps, nextState){
     var component = this;
     if(this.state.currentRoomId !== nextState.currentRoomId){
+      component.props.emitter.emit('RoomChatHasChanged',nextProps.currentUser, nextProps.targetUser, nextState.currentRoomId);         
       let properties = {}
       properties['roomId'] = nextState.currentRoomId;
-      component.props.emitter.emit('RoomChatHasChanged',nextProps.currentUser, nextProps.targetUser, nextState.currentRoomId);         
       properties['component'] = component;
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
       properties['peer'] = nextProps.peer;
-      
-      videoCall.closeRef();
-      videoCall.closeStream();
-      videoCall.listenFromVideoCall(properties, () =>{})
       
       Messages.closeStreamRef();
       Messages.history(properties, function(){
@@ -153,33 +150,6 @@ class ChatBox extends Component {
     }
   }
 
-  endCall(){
-    $('.video-call').hide();
-    var properties = {}
-    properties['rid'] = this.state.currentRoomId;
-    videoCall.endCall(properties, ()=>{
-
-    })
-  }
-
-  makeCallRequest(){
-    let properties = {};
-    var component = this;    
-    properties['rid'] = this.state.currentRoomId;
-    properties['uid'] = this.state.currentUser.uid;
-    videoCall.checkRequest(properties, function(issuccess){
-      if(issuccess){
-        component.props.emitter.emit('AddNewErrorToast', translate('app.system_notice.error.title'), translate('app.system_notice.error.text.already_been_used'), 5000, () =>{});
-      }else{
-        videoCall.createRequest(properties,function(issuccess){
-          if(issuccess){
-            component.renderVideo();
-          }
-        });
-      }
-    });
-  }
-
   upfile() {
     $('#upfile:hidden').trigger('click');
   }
@@ -201,71 +171,15 @@ class ChatBox extends Component {
     }
   }
 
-  onConfirm(){
-    var component = this;
-    let properties ={}
-    properties.roomId = this.state.currentRoomId;
-    properties.peerId = this.peer.id;
-
-    videoCall.onConfirm(properties, () =>{
-      component.setState({showDialog: false})
-      component.renderVideo();
-    })
-  }
-  onCancel(){
-    var component = this;
-    let properties ={}
-    properties.roomId = this.state.currentRoomId;
-    properties.currentUser = this.state.currentUser;
-
-    videoCall.onCancel(properties, () =>{
-      component.setState({showDialog: false})
-    })
-  }
-  renderDialog(){
-    return (
-      <div>
-      {
-        this.state.showDialog &&
-        <ReactConfirmAlert
-          title={translate('app.confirm_dialog.title')}
-          message={translate('app.confirm_dialog.message')}
-          confirmLabel={translate('app.confirm_dialog.confirm_label')}
-          cancelLabel={translate('app.confirm_dialog.cancel_label')}
-          onConfirm={this.onConfirm.bind(this)}
-          onCancel={this.onCancel.bind(this)}
-        />
-      }
-      </div>
-    )
-  }
-
   render() {
     if(this.state.currentRoomId){
       return(
         <div>
-          {this.renderDialog()}
-          <div className='video-call'>
-            <video className='video'
-              id='localStream' autoPlay></video>
-              <button onClick={this.endCall.bind(this)}
-                className='end-call-btn'>
-                  <i className='fa fa-phone'
-                    aria-hidden='true'></i>
-              </button>
-          </div>
-          <div className='header'>
-            {this.state.targetUser ?
-                <div className='user-name'>
-                   {this.state.targetUser.displayName}
-                </div> :
-                translate('app.dashboard.chat_title')}
-            <i onClick={this.makeCallRequest.bind(this)}
-              className='fa fa-video-camera'
-              aria-hidden='true'></i>
-            <i className='fa fa-phone'
-              aria-hidden='true'></i>
-          </div>
+          <VideoCall currentRoomId={this.state.currentRoomId}
+                      currentUser={this.state.currentUser}
+                      targetUser={this.state.targetUser}
+                      peer={this.props.peer}
+                      emitter={this.props.emitter} />
           <div className='chat-box'>
             <ChatBubble messages={this.state.messages} 
               emitter={this.props.emitter}

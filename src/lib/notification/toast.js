@@ -10,6 +10,9 @@ module.exports = {
   },
   checkAlreadyLogin(emitter, callback){
     checkAlreadyLogin(emitter, callback);
+  },
+  cantCreatePeer(emitter, callback){
+    cantCreatePeer(emitter, callback);
   }
 }
 
@@ -42,4 +45,12 @@ function checkAlreadyLogin(emitter, callback){
   },3000);  
 }
 
+function cantCreatePeer(emitter, callback){
+  emitter.emit('AddNewErrorToast', '', translate('app.system_notice.error.text.cant_create_peer'), 5000, ()=>{
+    return callback();
+  } )
+  setTimeout(()=>{
+    return callback();
+  },3000);
+}
 

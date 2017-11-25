@@ -37,6 +37,10 @@
       margin: 0 0 20px;
       padding: 8px 12px;
       text-decoration: none; }
+    .notification-item .info .display_none {
+      display: none; }
+    .notification-item .info .display_inline {
+      display: inline-block; }
     .notification-item .info .blue {
       background-color: #2980b9; }
     .notification-item .info .red {

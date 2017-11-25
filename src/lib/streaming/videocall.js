@@ -162,14 +162,14 @@ function listenFromVideoCall(properties, callback){
                 }catch(err){
                 }finally{
                     $('.video-call').hide();     
+                    properties.component.setState({showDialog: false})                                            
                     properties.component.props.emitter.emit('AddNewWarningToast', translate('app.system_notice.warning.title'), translate('app.system_notice.warning.text.end_call'), 5000, ()=>{})                                   
-                    // properties.component.showAlert('end call');
                 }
                 break;
             case `${constant.VIDEO_CALL.cancelRequest}`:
                 if(data.val() !== component.state.currentUser.uid){
-                    $('.video-call').hide();                         
-                    // properties.component.showAlert('cancel request'); 
+                    $('.video-call').hide(); 
+                    properties.component.setState({showDialog: false})                        
                     properties.component.props.emitter.emit('AddNewWarningToast', translate('app.system_notice.warning.title'), translate('app.system_notice.warning.text.cancel_call_request'), 5000, ()=>{})                                                       
                 }
                 break;

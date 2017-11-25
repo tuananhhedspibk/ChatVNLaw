@@ -52,7 +52,12 @@
       padding: 8px 12px;
       text-decoration: none;
     }
-
+    .display_none{
+      display: none;
+    }
+    .display_inline{
+      display: inline-block;
+    }
     .blue {
       background-color: $notifi-blue;  
     }

@@ -17,7 +17,7 @@
   z-index: 1000;
   width: 100%; }
   .video-call .video {
-    background-color: #fff;
+    background-color: #000;
     display: block;
     height: 500px;
     margin: calc((100vh - 592px) / 2) auto 30px;

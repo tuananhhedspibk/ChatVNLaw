@@ -12,13 +12,13 @@ import {createNewNotification,noticeWhenNewNotiComing}
   from '../../lib/notification/notifications';
 import ThankLayoutContent from '../shared/thanklayoutcontent';
 import Toast from '../notification/toast';
+import {checkAuthen} from '../../lib/notification/toast';
+import {onAuthStateChanged} from '../../lib/user/authentication';
+
 import * as constant from '../constants';
-import * as firebase from 'firebase';
 import * as Lawyers from '../../lib/user/lawyers';
-
+import * as translate from 'counterpart'
 import '../../assets/styles/common/applyLawyer.css';
-
-let translate = require('counterpart');
 
 class ApplyLawyer extends Component {
   constructor(props) {
@@ -55,21 +55,13 @@ class ApplyLawyer extends Component {
         this.setState({isLoading: false})
       }
     });
-    firebase.auth().onAuthStateChanged(user =>{
+    onAuthStateChanged(user =>{
       if(user){
         component.setState({currentUser: user, permission: true})
       }
       else{
-        component.setState({isLoading : true})        
-        component.emitter.emit('AddNewErrorToast',
-          translate('app.system_notice.unauthenticated.title'),
-          translate('app.system_notice.unauthenticated.text'),
-          5000, () => {
-          window.location = constant.HOME_URI;
-        })
-        setTimeout(() => {
-          window.location = constant.HOME_URI;
-        },5000);
+        component.setState({isLoading : true})   
+        checkAuthen(component.emitter, constant.HOME_URI , ()=>{})     
       }
     });
   }
