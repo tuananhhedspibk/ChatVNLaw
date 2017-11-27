@@ -24,7 +24,6 @@ class Attorney extends Component {
   }
 
   renderContent(){
-    console.log(this.props.location);
     if(!!this.props.location.search){
       if(!!this.state.name){
         return(
@@ -45,9 +44,11 @@ class Attorney extends Component {
       <div>
         <Nav navStyle='inverse'/>
         <div className='attorney'>
-            <div className='col-sm-12 col-md-8 ml-auto right-block'>
-              <Find sloganStyle='none'/>
-              {this.renderContent()}
+          <div className='col-sm-12 col-md-8 ml-auto right-block'>
+            <Find sloganStyle='none'/>
+          </div>
+          <div className='attorney-result-content'>
+            {this.renderContent()}
           </div>
         </div>
         <Footer/>

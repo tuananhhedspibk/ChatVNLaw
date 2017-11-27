@@ -82,3 +82,26 @@
         background-color: #0974b8; }
         .attorney .search-result .results .result .view-profile:focus {
           background-color: #00558c; }
+
+.attorney .attorney-result-content {
+  margin-bottom: 40px; }
+  .attorney .attorney-result-content .lawyer {
+    align-items: center;
+    border-bottom: 1px solid #ffe1c1;
+    display: flex;
+    padding: 25px;
+    width: 100%; }
+    .attorney .attorney-result-content .lawyer .ava {
+      border-radius: 50%;
+      height: 85px;
+      width: 85px; }
+    .attorney .attorney-result-content .lawyer .infor {
+      display: inline-block;
+      padding-left: 30px;
+      width: calc(100% - 85px); }
+      .attorney .attorney-result-content .lawyer .infor .name {
+        font-size: 1.3em;
+        overflow: hidden;
+        text-align: left;
+        text-overflow: ellipsis;
+        width: 100%; }
