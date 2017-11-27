@@ -11,7 +11,6 @@ import * as RoomInfo from '../../../../lib/room/getroominfo';
 import * as Messages from '../../../../lib/messages/messages';
 import * as translate from 'counterpart';
 import * as videoCall from '../../../../lib/streaming/videocall';
-import * as Peer from 'peerjs';
 import * as constant from '../../../constants';
 
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
@@ -25,12 +24,10 @@ class ChatBox extends Component {
       currentUser: null,
       targetUser: null
     };
-    this.peer = null
   }  
   
   componentWillMount(){
     var component = this;
-    this.peer = this.props.peer;
     this.setState({currentUser: this.props.currentUser, targetUser: this.props.targetUser});
     this.props.emitter.addListener('ReSendData',function(callback){
       return callback(component.state.currentUser, component.state.targetUser, component.state.currentRoomId);
@@ -83,7 +80,6 @@ class ChatBox extends Component {
       properties['component'] = component;
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
-      properties['peer'] = nextProps.peer;
       
       Messages.closeStreamRef();
       Messages.history(properties, function(){
@@ -178,7 +174,6 @@ class ChatBox extends Component {
           <VideoCall currentRoomId={this.state.currentRoomId}
                       currentUser={this.state.currentUser}
                       targetUser={this.state.targetUser}
-                      peer={this.props.peer}
                       emitter={this.props.emitter} />
           <div className='chat-box'>
             <ChatBubble messages={this.state.messages} 

@@ -7,7 +7,6 @@ class Chat extends Component {
       <div className='chat-section'>
         <ChatUserLists 
           emitter={this.props.emitter}
-          peer={this.props.peer}
           currentUser={this.props.currentUser}/>
       </div>
     )

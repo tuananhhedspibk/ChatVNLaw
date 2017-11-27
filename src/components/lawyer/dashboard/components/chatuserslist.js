@@ -75,8 +75,7 @@ class ChatUsersList extends Component {
         <ChatBox
           targetUser={this.state.targetUser}
           currentUser={this.state.currentUser}
-          emitter={this.props.emitter}
-          peer={this.props.peer}/>
+          emitter={this.props.emitter}/>
       </div>
     )
   }

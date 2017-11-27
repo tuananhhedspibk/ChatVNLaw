@@ -23,7 +23,6 @@ import {onAuthStateChanged} from '../../../lib/user/authentication';
 import {getUserRoleByUid} from '../../../lib/user/getuserinfo';
 
 import * as constant from '../../constants';
-import * as Peer from 'peerjs';
 import * as translate from 'counterpart';
 import * as tableContant from '../../../lib/constants';
 
@@ -38,7 +37,6 @@ class UserDashBoard extends Component {
       isLoading: true
     }
     this.emitter = new EventEmitter();
-    this.peer=null;
   }
 
   componentWillMount(){
@@ -48,15 +46,7 @@ class UserDashBoard extends Component {
         getUserRoleByUid(user.uid, data =>{
           if(data.val() == tableContant.ROLE.lawyer){
             component.setState({currentUser: user})
-            getStunServerList(() =>{
-              var stunServer = JSON.parse(localStorage.stun_server_list);      
-              // do{
-                component.peer = new  Peer(user.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure:true,port: 443, config: stunServer}); 
-                // if(!!component.peer.id){
-                  component.setState({isLoading: false})                
-                // }
-              // }while(!!!(component.peer.id));
-            })
+            component.setState({isLoading: false})                
           }
           else {
             component.setState({isLoading : true})
@@ -113,7 +103,6 @@ class UserDashBoard extends Component {
             </Container>
           </main>
           <Chat emitter={this.emitter}
-                peer={this.peer}
                 currentUser={this.state.currentUser}/>
         </div>
       </div>

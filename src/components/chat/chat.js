@@ -4,7 +4,7 @@ import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
 import firebase from 'firebase';
-
+import VideoCall from './videocall'
 import ChatSetting from './chatsetting';
 
 import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
@@ -25,7 +25,7 @@ class Chat extends Component {
     super(props);
     this.state = {
       messages: [],
-      currentRoomId: '',
+      currentRoomId: null,
       targetUser: null,
       currentUser: null,
       showDialog: false
@@ -35,7 +35,6 @@ class Chat extends Component {
 
   componentWillMount() { 
     this.peer = this.props.peer;
-    console.log(this.peer);
     this.setState({targetUser: this.props.targetUser,
       currentUser: this.props.currentUser});
   }
@@ -58,7 +57,6 @@ class Chat extends Component {
       properties['component'] = this;
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
-      properties['peer'] = nextProps.peer;
       Messages.history(properties, function(){
         component.autoScrollBottom();
       });
@@ -66,9 +64,6 @@ class Chat extends Component {
         component.autoScrollBottom();        
       })
     
-      videoCall.closeRef();
-      videoCall.closeStream();
-      videoCall.listenFromVideoCall(properties, () =>{})
       var fileButton = document.getElementById('upfile');
       fileButton.addEventListener('change', function(e){
         e.preventDefault();
@@ -205,110 +200,13 @@ class Chat extends Component {
     inputTextArea.val(inputTextArea.val() + ' ' + emoji.colons + ' ');
   }
 
-  endCall(){
-    // $('.video-call').hide();
-    var properties = {}
-    properties['rid'] = this.state.currentRoomId;
-    videoCall.endCall(properties, ()=>{
-
-    })
-  }
-
-  makeCallRequest(){
-    let properties = {};
-    var component = this;
-    properties['rid'] = this.state.currentRoomId;
-    properties['uid'] = this.state.currentUser.uid;
-    videoCall.checkRequest(properties, function(issuccess){
-      if(issuccess){
-        component.props.emitter.emit('AddNewErrorToast', translate('app.system_notice.error.title'), translate('app.system_notice.error.text.already_been_used'), 5000, () =>{});        
-      }else{
-        videoCall.createRequest(properties,function(issuccess){
-          if(issuccess){
-            component.renderVideo();
-          }
-        });
-      }
-    });
-  }
-
-  renderVideo() {
-    $('.video-call').show();
-  }
-
-  renderConfigVideoCall(){
-    if(!!this.state.currentUser &&
-      !!this.state.targetUser &&
-      this.state.currentUser.uid !== this.state.targetUser.uid){
-      return (
-        <div className='call-section'>
-          <i onClick={this.makeCallRequest.bind(this)}
-            className='fa fa-video-camera'
-            aria-hidden='true'></i>
-          <i className='fa fa-phone'
-            aria-hidden='true'></i>
-        </div>
-      )
-    }
-  } 
-
-  onConfirm(){
-    var component = this;
-    let properties ={}
-    properties.roomId = this.state.currentRoomId;
-    properties.peerId = this.peer.id;
-
-    videoCall.onConfirm(properties, () =>{
-      component.setState({showDialog: false})
-      component.renderVideo();
-    })
-  }
-  onCancel(){
-    var component = this;
-    let properties ={}
-    properties.roomId = this.state.currentRoomId;
-    properties.currentUser = this.state.currentUser;
-
-    videoCall.onCancel(properties, () =>{
-      component.setState({showDialog: false})
-    })
-  }
-  renderDialog(){
-    return (
-      <div>
-      {
-        this.state.showDialog &&
-        <ReactConfirmAlert
-          title={translate('app.confirm_dialog.title')}
-          message={translate('app.confirm_dialog.message')}
-          confirmLabel={translate('app.confirm_dialog.confirm_label')}
-          cancelLabel={translate('app.confirm_dialog.cancel_label')}
-          onConfirm={this.onConfirm.bind(this)}
-          onCancel={this.onCancel.bind(this)}
-        />
-      }
-      </div>
-    )
-  }
   render() {
     return(  
       <div className={'chat-window ' + 'item_'+this.state.targetUser.uid} id='chat-window' >
-        {this.renderDialog()}
-        <div className='video-call'>
-          <video className='video'
-            id='localStream' autoPlay></video>
-            <button onClick={this.endCall.bind(this)}
-              className='end-call-btn'>
-                <i className='fa fa-phone'
-                  aria-hidden='true'></i>
-            </button>
-        </div>
-        <div className='title'>
-          <div className={'user-name'}>
-            {this.state.targetUser.displayName}
-          </div>
-          {this.renderConfigVideoCall()}
-        </div>
+        <VideoCall currentUser={this.props.currentUser}
+                    targetUser={this.props.targetUser}
+                    currentRoomId={this.state.currentRoomId}
+                    emitter={this.props.emitter}/>
         <div className='chat-body'>
           <ChatBubble messages={this.state.messages}
             targetUser={this.state.targetUser}
