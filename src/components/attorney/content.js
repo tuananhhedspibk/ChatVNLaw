@@ -50,13 +50,19 @@ class Content extends Component {
 		renderResultArr(){
 			return (
 				<div>
-						{this.state.result.map( (element)=>{
-							
-							return(	<div>
-									{element.Fullname}
-								</div>
-							)
-						})}
+					{this.state.result.map( (element)=>{
+						
+						return(	
+							<div className='lawyer'>
+									<img className='ava' src={element.photoURL} />
+									<div className='infor'>
+										<div className='name' title={element.fullname}>
+											{element.fullname}
+										</div>
+									</div>
+							</div>
+						)
+					})}
 				</div>
 			);
 		}
