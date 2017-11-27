@@ -16,7 +16,6 @@ import {getAllRoom} from '../../lib/room/rooms';
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
 import * as Users from '../../lib/user/getuserinfo';
-import * as Peer from 'peerjs';
 import * as translate from 'counterpart';
 import * as firebase from 'firebase';
 
@@ -41,7 +40,6 @@ class ChatView extends Component {
       searchTerm: '',
       isloading: true
     };
-    this.peer=null;
     this.emitter = new EventEmitter();    
   }
 
@@ -66,16 +64,8 @@ class ChatView extends Component {
         // firebase.database().ref(`users/${user.uid}`).update({
         //   status: 'online'
         // })
-        Messages.notifyUnreadMessage(properties);
-        getStunServerList(() => {
-          var stunServer = JSON.parse(localStorage.stun_server_list);      
-          // do{
-            component.peer = new Peer(user.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure: true,port:443, config: stunServer});           
-            // if(component.peer.id){
-              component.setState({isloading :false});
-            // }
-          // }while(!!!(component.peer.id)) 
-        });   
+        Messages.notifyUnreadMessage(properties); 
+        component.setState({isloading: false})
       }   
     })
   }
@@ -207,7 +197,6 @@ class ChatView extends Component {
                     (props) => (
                       <Chat {...props}
                         targetUser={user}
-                        peer={this.peer}
                         currentUser={this.state.currentUser}
                         emitter={this.emitter}/>
                     )
