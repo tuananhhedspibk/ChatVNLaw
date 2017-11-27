@@ -108,7 +108,10 @@ function findLawyersWithoutInput(properties,callback){
         }
         result.push(item);
       })
-      properties.component.setState({isLoading: false, result: result})
+      getLawyerPhotoURL(result, properties, (result) =>{
+        properties.component.setState({isLoading: false,result: result});           
+      }); 
+      // properties.component.setState({isLoading: false, result: result})
     }
   })
 }
@@ -128,70 +131,83 @@ function findLawyers(properties, callback){
         }
         result.push(item);
       })
-      component.setState({isLoading: false, result: result})
+      getLawyerPhotoURL(result, properties, (result) =>{
+        component.setState({isLoading: false, result: result})
+      });
     }else{
-      new Promise( (resolve)=>{
-        if(!(input.indexOf(" ") > 0)){
-          resolve();
-        }
-        while(input.indexOf(" ") > 0){
-          var lastIndex = input.lastIndexOf(" ");
-          input = input.substring(0, lastIndex);
-          findLawyersNameStartWithInput(input, properties, data =>{            
-            if(data){
-              var key = Object.keys(data);
-              key.forEach(element =>{
-                var item = {}
-                item['uid'] = element;
-                for(var i in data[element]){
-                  item[i] = data[element][i];
-                }                
-                result.push(item);
-                if(!(input.indexOf(" ") > 0)){
-                  
-                  resolve();
-                }
-              })
-            }else{
-              if(!(input.indexOf(" ") > 0)){
-                
-                resolve();
-              }
-            }
-          })
-        }
-      }).then(() => {
-        if(result.length > 0){
-          var tmp = result;
-          result = []
-          var valueArr = tmp.map(function(item){ return item.uid });
-          valueArr.forEach(function(item, idx){ 
-            if(!(valueArr.indexOf(item) != idx )){
-              result.push(tmp[idx]);            
-            }
-          });
-          valueArr = result.map(function(item){ return item.uid });
-          
-          new Promise ((resolve) =>{
-            result.forEach((item,idx) =>{
-              firebase.database().ref(`${constant.TABLE.users}/${item.uid}/${constant.USERS.photoURL}`).once('value', data =>{
-                result[idx]['photoURL'] = data.val();
-                if(idx === result.length -1){
-                  resolve();
-                }
-              })
-              
-            })
-          }).then(()=>{
-            console.log(result);
-            component.setState({isLoading: false,findOther:true,result: result}); 
-          })
+      if(!(input.indexOf(" ") > 0)){
+        if(input.length > 0){
+          findLawyersNameStartWithInput2(input,result ,properties)
         }else{
-          component.setState({isLoading: false,findOther:true,result: result});           
-        }
-      })
+          getLawyerPhotoURL(result, properties, (result) =>{
+            component.setState({isLoading: false,findOther:true,result: result});           
+          }); 
+        }         
+      }
+      while(input.indexOf(" ") > 0){
+        var lastIndex = input.lastIndexOf(" ");
+        input = input.substring(0, lastIndex);
+        findLawyersNameStartWithInput2(input,result ,properties)
+      }
     }
   })
+}
+function findLawyersNameStartWithInput2(input,result, properties){
+  var component = properties.component;
+  findLawyersNameStartWithInput(input, properties, data =>{            
+    if(data){
+      var key = Object.keys(data);
+      key.forEach(element =>{
+        var item = {}
+        item['uid'] = element;
+        for(var i in data[element]){
+          item[i] = data[element][i];
+        }                
+        result.push(item);
+        if(!(input.indexOf(" ") > 0)){
+          getLawyerPhotoURL(result, properties, (result) =>{
+            component.setState({isLoading: false,findOther:true,result: result});           
+          });                  
+        }
+      })
+    }else{
+      if(!(input.indexOf(" ") > 0)){
+        getLawyerPhotoURL(result, properties, (result) =>{
+          component.setState({isLoading: false,findOther:true,result: result});           
+        });
+      }
+    }
+  })
+}
+function getLawyerPhotoURL(result, properties, callback){
+  var component = properties.component;
+  if(result.length > 0){
+    var tmp = result;
+    result = []
+    var valueArr = tmp.map(function(item){ return item.uid });
+    valueArr.forEach(function(item, idx){ 
+      if(!(valueArr.indexOf(item) != idx )){
+        result.push(tmp[idx]);            
+      }
+    });
+    valueArr = result.map(function(item){ return item.uid });
+    
+    new Promise ((resolve) =>{
+      result.forEach((item,idx) =>{
+        firebase.database().ref(`${constant.TABLE.users}/${item.uid}/${constant.USERS.photoURL}`).once('value', data =>{
+          result[idx]['photoURL'] = data.val();
+          if(idx === result.length -1){
+            resolve();
+          }
+        })
+        
+      })
+    }).then(()=>{
+      return callback(result);
+    })
+  }else{
+    return callback(result); 
+  }
 }
 function isLawyer(uid, callback){
   firebase.database().ref().child(`${constant.TABLE.users}/${uid}/${constant.USERS.role}`).on('value',data =>{

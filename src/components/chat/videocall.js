@@ -9,6 +9,8 @@ import * as translate from 'counterpart';
 import * as videoCall from '../../lib/streaming/videocall';
 import {cantCreatePeer} from '../../lib/notification/toast';
 
+import '../../assets/styles/common/chatWindow.css';
+
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 class VideoCall extends React.Component{
@@ -36,24 +38,13 @@ class VideoCall extends React.Component{
 
   componentWillUpdate(nextProps, nextState){
     if(this.state.currentRoomId !== nextState.currentRoomId){
-      // if(!!this.state.peer.id){
-        let properties = {}
-        properties['roomId'] = nextState.currentRoomId;
-        properties['component'] = this;
-        videoCall.closeRef();
-        videoCall.closeStream();
-        videoCall.listenFromVideoCall(properties, () =>{})
-      // } 
-    }   
-    // if(this.state.peer !== nextState.peer){
-    //   let properties = {}
-    //   properties['roomId'] = this.state.currentRoomId;
-    //   properties['component'] = this;
-    //   properties['peer'] = nextState.peer;
-    //   videoCall.closeRef();
-    //   videoCall.closeStream();
-    //   videoCall.listenFromVideoCall(properties, () =>{})
-    // }
+      let properties = {}
+      properties['roomId'] = nextState.currentRoomId;
+      properties['component'] = this;
+      videoCall.closeRef();
+      videoCall.closeStream();
+      videoCall.listenFromVideoCall(properties, () =>{})
+    } 
   }  
 
   createPeer(callback){
