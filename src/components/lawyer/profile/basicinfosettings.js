@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import {storeLawyerData} from '../../../lib/user/lawyers';
 import {updatePhotoURL} from '../../../lib/user/getuserinfo';
+import { Dropdown } from 'semantic-ui-react'
 
 import firebase from 'firebase';
 import 'react-datetime/css/react-datetime.css';
 
-let Datetime = require('react-datetime');
-
-let translate = require('counterpart');
+import* as Datetime from 'react-datetime';
+import * as translate from 'counterpart';
+import * as constant from '../../constants';
 
 class BasicInfoSettings extends Component {
   constructor(props) {
@@ -158,6 +159,7 @@ class BasicInfoSettings extends Component {
             </div>
           </div>
         </div>
+        <Dropdown placeholder='Select Country' fluid search selection options={constant.LAW_CATEGORY} />
         <div className='info-block'>
           <div className='category'>
             <div className='title'>

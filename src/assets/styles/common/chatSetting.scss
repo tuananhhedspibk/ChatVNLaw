@@ -51,7 +51,6 @@
   float: right;
   font-size: 1.05em;
   height: calc(100vh - 58px);
-  overflow-y: scroll;
   text-align: left;
   width: 320px;
 
@@ -97,6 +96,8 @@
   }
 
   .content {
+    overflow-y: scroll;
+    
     .shared {
       border-bottom: 1px solid $gray-lighter;
       padding: 15px;

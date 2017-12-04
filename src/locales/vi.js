@@ -246,7 +246,9 @@ module.exports = {
       todo_list: 'Danh sách công việc',
       shared_files: 'Tệp được chia sẻ',
       shared_images: 'Ảnh được chia sẻ',
-      rate: 'Đánh giá'
+      chat_session_list: 'Lịch sử phiên chat',
+      rate: 'Đánh giá',
+      lawyer_profile: 'Thông tin của luật sư'
     },
     notfound: {
       content: {

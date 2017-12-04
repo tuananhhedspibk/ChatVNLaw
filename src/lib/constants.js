@@ -60,7 +60,8 @@ export const ROOMS = {
   messages : 'messages',
   sharedImages : 'sharedImages',
   sharedFiles : 'sharedFiles',
-  videoCall : 'videoCall'
+  videoCall : 'videoCall',
+  chatSession: 'chatSession'
 }
 
 export const MEMBERS = {

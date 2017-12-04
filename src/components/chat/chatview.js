@@ -198,7 +198,8 @@ class ChatView extends Component {
                       <Chat {...props}
                         targetUser={user}
                         currentUser={this.state.currentUser}
-                        emitter={this.emitter}/>
+                        emitter={this.emitter}
+                        currentRoomId={user.rid}/>
                     )
                   }/>
               </Switch>

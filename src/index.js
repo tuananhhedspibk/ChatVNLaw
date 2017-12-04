@@ -27,6 +27,7 @@ if (localStorage.locale == null) {
   translate.setLocale(localStorage.locale);
 }
 
+
 const history = createBrowserHistory();
 
 ReactDOM.render(<Routes history={history}/>,
