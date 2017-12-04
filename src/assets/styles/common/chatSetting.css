@@ -35,7 +35,6 @@
   float: right;
   font-size: 1.05em;
   height: calc(100vh - 58px);
-  overflow-y: scroll;
   text-align: left;
   width: 320px; }
   .chat-setting .ui.dropdown .menu {
@@ -63,15 +62,17 @@
     .chat-setting .header .config {
       color: #a2a2a2;
       cursor: pointer; }
-  .chat-setting .content .shared {
-    border-bottom: 1px solid #e5ecf0;
-    padding: 15px; }
-    .chat-setting .content .shared a {
-      display: block;
-      margin-bottom: 3px;
-      max-width: 100%;
-      word-wrap: break-word; }
-  .chat-setting .content .content-title {
-    color: #a2a2a2;
-    text-transform: none;
-    margin-bottom: 3px; }
+  .chat-setting .content {
+    overflow-y: scroll; }
+    .chat-setting .content .shared {
+      border-bottom: 1px solid #e5ecf0;
+      padding: 15px; }
+      .chat-setting .content .shared a {
+        display: block;
+        margin-bottom: 3px;
+        max-width: 100%;
+        word-wrap: break-word; }
+    .chat-setting .content .content-title {
+      color: #a2a2a2;
+      text-transform: none;
+      margin-bottom: 3px; }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, TextArea, Button, Image,Modal, Dropdown } from 'semantic-ui-react';
 import $ from 'jquery';
-  
+import ChatSessionList from './chatsetting/chatsessionlist';
+
 import * as constant from '../constants';
 import * as Files from '../../lib/upfile/files';
 import * as translate from 'counterpart';
@@ -213,6 +214,11 @@ class ChatSetting extends Component {
           </div> 
         </div>
         <div className='content'>
+          <div className='shared'>
+            <div className='content-title'>{translate('app.chat.lawyer_profile')}</div>
+            <a target='_blank' href = {constant.BASE_URL + '/lawyers/'+this.state.targetUser.username}> {constant.BASE_URL + '/lawyers/'+this.state.targetUser.username}</a>
+          </div>
+
           <div className='shared shared-files'>
             <div className='content-title'>{translate('app.chat.shared_files')}</div>
             <div className='files-list'>
@@ -243,6 +249,9 @@ class ChatSetting extends Component {
               }
             </div>
           </div>
+          <ChatSessionList
+              currentUser={this.props.currentUser}
+              currentRoomId={this.props.currentRoomId} />
         </div>
       </div> 
     )

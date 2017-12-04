@@ -54,5 +54,29 @@ export const handShakePic = require('../assets/images/handshake.png');
 export const offStickyPic = require('../assets/images/sticky_off.png');
 export const onStickyPic = require('../assets/images/sticky_on.png');
 export const pencilCursorPic = require('../assets/images/pencil_cursor.png');
+export const openIcon = require('../assets/images/open.png')
+export const closeIcon = require('../assets/images/close.png')
+export const cartIcon = require('../assets/images/cart.png')
+export const totalTimeIcon = require('../assets/images/total_time.png')
 
 export const PEERJS_KEY = 'peerjs';
+
+export const LAW_CATEGORY = [
+  { key: 'heart', value: 'heart', icon: 'heart', text: 'Hôn Nhân & Gia Đình' },
+  { key: 'spy', value: 'spy', icon: 'spy', text: 'Hình Sự' },
+  { key: 'registered', value: 'registered', icon: 'registered', text: 'Sở Hữu Trí Tuệ' },
+  { key: 'building outline', value: 'building outline', icon: 'building outline', text: 'Nhà Đất - Xây Dựng' },
+  { key: 'payment', value: 'payment', icon: 'payment', text: 'Tài Chính - Ngân Hàng' },
+  { key: 'users', value: 'users', icon: 'users', text: 'Dân Sự' },
+  { key: 'protect', value: 'protect', icon: 'protect', text: 'Lao Động - Bảo Hiểm Xã Hội' },
+  { key: 'ax', value: 'ax', icon: 'ax', text: 'Doanh Nghiệp' },
+  { key: 'ax', value: 'ax', icon: 'ax', text: 'Hộ Tịch - Tư Pháp' },
+  { key: 'ax', value: 'ax', icon: 'ax', text: 'Di Chúc - Thừa Kế' },
+  { key: 'trademark', value: 'trademark', icon: 'trademark', text: 'Cạnh Tranh' },
+  { key: 'ax', value: 'ax', icon: 'ax', text: 'Đầu Tư' },
+  { key: 'world', value: 'world', icon: 'world', text: 'Quốc Tế' },
+  { key: 'money', value: 'money', icon: 'money', text: 'Kế Toán - Thuế' },
+  { key: 'ax', value: 'ax', icon: 'ax', text: 'Môi Trường' },
+  { key: 'ax', value: 'ax', icon: 'ax', text: 'Hành Chính' },
+  { key: 'ax', value: 'ax', icon: 'ax', text: 'Bất Động Sản' }
+]
