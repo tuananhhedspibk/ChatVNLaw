@@ -19,7 +19,7 @@ class SideBar extends Component {
             <a className='link-detail' role='tab'
               aria-controls='tab-detail'
               href='#tab-detail' data-toggle='tab'>
-              {translate('app.settings.detail_infor')}
+              {translate('app.settings.payment')}
             </a>
           </li>
         </ul>
