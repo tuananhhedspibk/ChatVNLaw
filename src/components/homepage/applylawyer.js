@@ -5,6 +5,7 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { EventEmitter } from 'fbemitter';
 
 import Nav from './nav';
+import Footer from './footer';
 import NotFound from '../shared/notfound';
 import Loading from '../shared/loading';
 import Payment from '../payments/payment';

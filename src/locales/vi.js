@@ -246,7 +246,9 @@ module.exports = {
       todo_list: 'Danh sách công việc',
       shared_files: 'Tệp được chia sẻ',
       shared_images: 'Ảnh được chia sẻ',
-      rate: 'Đánh giá'
+      chat_session_list: 'Lịch sử phiên chat',
+      rate: 'Đánh giá',
+      lawyer_profile: 'Thông tin của luật sư'
     },
     notfound: {
       content: {
@@ -425,7 +427,10 @@ module.exports = {
       apply_lawyer: 'Yêu cầu luật sư',
       personal_info_overview: 'Với những thông tin cá nhân cơ bản sẽ giúp chúng tôi hiểu rõ bạn hơn',
       problem_overview: 'Cùng chia sẻ với chúng tôi những vấn đề mà bạn gặp phải',
-      pre_step: 'Bước trước'
+      pre_step: 'Bước trước',
+      recharge: 'Nạp tiền',
+      title_recharge: 'Thông tin nạp tiền',
+      process: 'Thanh toán'
     },
     lawyer: {
       online_counsel: 'Tư vấn trực tuyến',
@@ -459,7 +464,8 @@ module.exports = {
       achievements: 'Thành tích',
       education: 'Giáo dục',
       work_place: 'Nơi làm việc',
-      save: 'Lưu'
+      save: 'Lưu',
+      payment: 'Thông tin tài khoản'
     }
   }
 }

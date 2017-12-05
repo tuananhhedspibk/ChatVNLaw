@@ -240,7 +240,7 @@ class Chat extends Component {
           </div>
         </div>
         <ChatSetting 
-          currentRoomId={this.state.currentRoomId}
+          currentRoomId={this.props.currentRoomId}
           currentUser={this.props.currentUser}
           targetUser={this.props.targetUser}/> 
       </div>

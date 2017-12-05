@@ -36,7 +36,6 @@ const Routes = props => (
       <Route path='/dashboard' component={UserDashBoard}/>
       <Route path='/chat/:user_name' component={ChatView}/>
       <Route path='/attorney' component={Attorney}/>
-      <Route path='/payment' component={Payment} />
       <Route path='/applylawyer/:user_name' component={ApplyLawyer} />
       <Route path='/searchlaw' component={SearchLaw} />
       <Route path='/settings/lawyers/:user_name' component={SettingsLawyer}/>
