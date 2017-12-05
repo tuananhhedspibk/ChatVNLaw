@@ -67,3 +67,10 @@ body {
 .notification-container{
   top: 60px
 }
+
+.detail-info-settings{
+  min-height: calc(100vh - 155px - 68px);
+}
+.basic-info-settings{
+  min-height: calc(100vh - 155px - 68px);
+}

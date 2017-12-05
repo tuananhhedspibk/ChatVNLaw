@@ -20,6 +20,7 @@ import SettingsCustomer from './components/customer/profile/settings';
 import LawyerProfile from './components/lawyer/profile/main';
 import CustomerProfile from './components/customer/profile/main';
 import Article from './components/law/main'
+import PaymentProcess from'./components/payments/paymentProcess';
 
 import NotFoundPage from './components/shared/notfound';
 
@@ -35,7 +36,6 @@ const Routes = props => (
       <Route path='/dashboard' component={UserDashBoard}/>
       <Route path='/chat/:user_name' component={ChatView}/>
       <Route path='/attorney' component={Attorney}/>
-      <Route path='/payment' component={Payment} />
       <Route path='/applylawyer/:user_name' component={ApplyLawyer} />
       <Route path='/searchlaw' component={SearchLaw} />
       <Route path='/settings/lawyers/:user_name' component={SettingsLawyer}/>
@@ -43,6 +43,7 @@ const Routes = props => (
       <Route path='/settings/customers/:user_name' component={SettingsCustomer}/>
       <Route path='/customers/:user_name' component={CustomerProfile}/>
       <Route path='/articles/:id' component={Article}/>
+      <Route path='/payment_process' component={PaymentProcess}/>
       <Route exact path='/' render={() => (
         <Redirect to='/home'/>  
       )}/>

@@ -49,7 +49,7 @@ class DetailInfoSettings extends Component {
   }
 
   paymentProcess(){
-    
+    // thực hiện thanh toán
   }
 
   renderViewPayment(){
