@@ -75,7 +75,7 @@ class SearchLaw extends Component {
 		})
 		.catch(function (error) {
 			if (!component.state.toast_showed) {
-				component.setState({toast_showed: true});
+				component.setState({toast_showed: true, pageCount: 0});
 				component.notif();
 			}
 		});
@@ -120,7 +120,7 @@ class SearchLaw extends Component {
 	}
 
 	render() {
-		return(
+		return (
 			<div className='search-law'>
 				<Nav navStyle='inverse'/>
 				<ToastContainer
@@ -130,43 +130,47 @@ class SearchLaw extends Component {
           newestOnTop={false}
           closeOnClick
           pauseOnHover/>
-				<div className='row'>
-					<div className='col-sm-12 col-md-3 side-section'>
-						<SearchTool handler={this.handlerSearch.bind(this)}/>
-						<Category handlerType={this.handlerCategoryType}
-							handlerYear={this.handlerCategoryYear}
-							handlerOrgan={this.handlerCategoryOrgan}/>
-					</div>
-					<div className='col-sm-12 col-md-9 results'>
-						{
-							this.state.articles.length === 0 ? (
-								<div className='not-found-any-results'>
-									{translate('app.search.founded') + ' 0 ' + translate('app.search.results')}
-									<div className='symbol-not-found'>
-										{translate('app.search.not_found_symbol')}
+				<div className='search-law-inner container'>
+					<div className='row'>
+						<div className='col-sm-12 col-md-4'>
+							<div className='side-section'>
+								<SearchTool handler={this.handlerSearch.bind(this)}/>
+								<Category handlerType={this.handlerCategoryType}
+									handlerYear={this.handlerCategoryYear}
+									handlerOrgan={this.handlerCategoryOrgan}/>
+							</div>
+						</div>
+						<div className='col-sm-12 col-md-8 results'>
+							{
+								this.state.articles.length === 0 ? (
+									<div className='not-found-any-results'>
+										{translate('app.search.founded') + ' 0 ' + translate('app.search.results')}
+										<div className='symbol-not-found'>
+											{translate('app.search.not_found_symbol')}
+										</div>
 									</div>
-								</div>
-							) :
-							(
-								this.state.articles.map(function(article, i) {
-									return(
-										<Result article={article} number={i}/>
-									);
-								})
-							)
-						}
-						<ReactPaginate
-							previousLabel={translate('app.home.previous')}
-							nextLabel={translate('app.home.next')}
-							breakLabel={<a href=''>...</a>}
-							breakClassName={'break-me'}
-							pageCount={this.state.pageCount}
-							marginPagesDisplayed={2}
-							pageRangeDisplayed={5}
-							onPageChange={this.handlePageClick.bind(this)}
-							containerClassName={'pagination'}
-							subContainerClassName={'pages pagination'}
-							activeClassName={'active'} />
+								) :
+								(
+									this.state.articles.map(function(article, i) {
+										return(
+											<Result article={article} number={i}/>
+										);
+									})
+								)
+							}
+							<ReactPaginate
+								previousLabel={translate('app.home.previous')}
+								nextLabel={translate('app.home.next')}
+								breakLabel={<a href=''>...</a>}
+								breakClassName={'break-me'}
+								pageCount={this.state.pageCount}
+								marginPagesDisplayed={2}
+								pageRangeDisplayed={5}
+								onPageChange={this.handlePageClick.bind(this)}
+								containerClassName={'pagination'}
+								subContainerClassName={'pages pagination'}
+								activeClassName={'active'} />
+						</div>
 					</div>
 				</div>
 				<Footer/>

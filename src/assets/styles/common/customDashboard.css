@@ -11,13 +11,19 @@
   background-color: #e54040 !important;
   font-size: .5em; }
 
+.app-body .chat-users-list-wrapper {
+  display: inline-block;
+  float: left;
+  overflow: hidden;
+  width: 70px; }
+
 .app-body .chat-users-list {
   border-right: 1px solid #c2cfd6;
   display: inline-block;
-  float: left;
   height: calc(100vh - 56px);
-  width: 70px;
-  overflow-y: scroll; }
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; }
   .app-body .chat-users-list .active-link {
     background-color: #e5ecf0; }
   .app-body .chat-users-list .chat-user {
@@ -34,111 +40,115 @@
   height: calc(100vh - 55px);
   overflow-y: scroll; }
 
-.app-body .chat-box {
-  display: inline-block;
-  float: left;
-  height: calc(100vh - 101px);
-  width: calc(100% - 72px); }
-  .app-body .chat-box #upfile {
-    display: none; }
-  .app-body .chat-box .input-section {
-    align-items: center;
-    display: flex; }
-    .app-body .chat-box .input-section .addons-field {
-      display: flex; }
-    .app-body .chat-box .input-section .fa {
-      color: #a2a2a2;
-      cursor: pointer;
-      float: left;
-      font-size: 1.5em;
-      margin-right: 15px; }
-  .app-body .chat-box .input-section {
-    border-top: 1px solid #c2cfd6;
-    height: 60px;
-    width: 100%; }
-  .app-body .chat-box textarea {
-    border: 0;
-    font-size: 1.2em;
-    height: 100%;
-    overflow: hidden;
-    padding: 20px 15px 15px;
-    resize: none;
-    width: 87%; }
-    .app-body .chat-box textarea:focus {
-      outline: 0; }
-  .app-body .chat-box .chats {
-    height: calc(100vh - 163px);
-    overflow-y: scroll;
-    padding: 15px; }
-
-.app-body .chat-setting .header .user-name {
-  font-size: 1.1em; }
-
-.app-body .chat-setting .description {
-  background-color: #e5ecf0;
-  display: inline-block;
-  padding: 20px;
-  width: 100%; }
-  .app-body .chat-setting .description .title {
-    color: #000;
-    font-size: 1.1em;
-    margin-bottom: 3px;
-    text-transform: none; }
-  .app-body .chat-setting .description .text-descrip {
-    background-color: #fff;
-    margin: 10px 0 15px;
-    padding: 10px; }
-  .app-body .chat-setting .description form {
-    margin: 15px 0 0; }
-    .app-body .chat-setting .description form textarea {
-      margin-bottom: 15px;
-      padding: 10px; }
-  .app-body .chat-setting .description button {
-    background-color: #2385f2;
-    border: 0;
-    border-radius: 3px;
-    color: #fff;
-    font-size: 1em;
-    padding: 10px; }
-    .app-body .chat-setting .description button:focus {
-      background-color: #0974b8;
-      outline: 0; }
-
-.app-body .chat-section {
-  background-color: #fff;
-  height: calc(100vh - 55px);
-  position: relative; }
-  .app-body .chat-section .video-call {
-    height: calc(100vh - 54px); }
-    .app-body .chat-section .video-call .video {
-      height: 380px;
-      margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
-      width: 380px; }
-    .app-body .chat-section .video-call .end-call-btn {
-      margin-left: 30px; }
-  .app-body .chat-section .header {
-    align-items: center;
-    border-bottom: 1px solid #c2cfd6;
-    color: #2385f2;
-    display: flex;
+.app-body {
+  overflow-y: hidden; }
+  .app-body .chat-box-wrapper {
+    display: inline-block;
+    height: calc(100vh - 105px);
+    width: calc(100% - 70px); }
+  .app-body .bubble-img img {
+    max-height: 350px !important;
+    max-width: 350px !important; }
+  .app-body .chat-box {
+    display: inline-block;
     float: left;
-    font-size: 1.2em;
-    padding: 10px;
-    position: relative;
-    width: calc(100% - 72px); }
-    .app-body .chat-section .header .user-name {
+    width: 100%; }
+    .app-body .chat-box #upfile {
+      display: none; }
+    .app-body .chat-box .input-section {
+      align-items: center;
+      display: flex; }
+      .app-body .chat-box .input-section .addons-field {
+        display: flex; }
+      .app-body .chat-box .input-section .fa {
+        color: #a2a2a2;
+        cursor: pointer;
+        float: left;
+        font-size: 1.5em;
+        margin-right: 15px; }
+    .app-body .chat-box .input-section {
+      border-top: 1px solid #c2cfd6;
+      height: 60px;
+      width: 100%; }
+    .app-body .chat-box textarea {
+      border: 0;
+      font-size: 1.2em;
+      height: 100%;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: 85%; }
-    .app-body .chat-section .header .fa {
-      cursor: pointer;
-      margin-right: 10px;
-      position: absolute; }
-    .app-body .chat-section .header .fa-phone {
-      right: 25px; }
-    .app-body .chat-section .header .fa-video-camera {
-      right: 0; }
+      padding: 20px 15px 15px;
+      resize: none;
+      width: 87%; }
+      .app-body .chat-box textarea:focus {
+        outline: 0; }
+    .app-body .chat-box .chats {
+      height: calc(100vh - 163px);
+      padding: 15px; }
+  .app-body .chat-setting .header .user-name {
+    font-size: 1.1em; }
+  .app-body .chat-setting .description {
+    background-color: #e5ecf0;
+    display: inline-block;
+    padding: 20px;
+    width: 100%; }
+    .app-body .chat-setting .description .title {
+      color: #000;
+      font-size: 1.1em;
+      margin-bottom: 3px;
+      text-transform: none; }
+    .app-body .chat-setting .description .text-descrip {
+      background-color: #fff;
+      margin: 10px 0 15px;
+      padding: 10px; }
+    .app-body .chat-setting .description form {
+      margin: 15px 0 0; }
+      .app-body .chat-setting .description form textarea {
+        margin-bottom: 15px;
+        padding: 10px; }
+    .app-body .chat-setting .description button {
+      background-color: #2385f2;
+      border: 0;
+      border-radius: 3px;
+      color: #fff;
+      font-size: 1em;
+      padding: 10px; }
+      .app-body .chat-setting .description button:focus {
+        background-color: #0974b8;
+        outline: 0; }
+  .app-body .chat-section {
+    background-color: #fff;
+    height: calc(100vh - 55px);
+    position: relative; }
+    .app-body .chat-section .video-call {
+      height: calc(100vh - 54px); }
+      .app-body .chat-section .video-call .video {
+        height: 380px;
+        margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
+        width: 380px; }
+      .app-body .chat-section .video-call .end-call-btn {
+        margin-left: 30px; }
+    .app-body .chat-section .header {
+      align-items: center;
+      border-bottom: 1px solid #c2cfd6;
+      color: #2385f2;
+      display: flex;
+      float: left;
+      font-size: 1.2em;
+      padding: 10px;
+      position: relative;
+      width: 100%; }
+      .app-body .chat-section .header .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 85%; }
+      .app-body .chat-section .header .fa {
+        cursor: pointer;
+        margin-right: 10px;
+        position: absolute; }
+      .app-body .chat-section .header .fa-phone {
+        right: 25px; }
+      .app-body .chat-section .header .fa-video-camera {
+        right: 0; }
 
 .app-header.navbar {
   border-bottom: solid 1px #c2cfd6; }
@@ -276,7 +286,7 @@
     cursor: pointer;
     position: relative;
     padding: 12px 35px 12px 40px;
-    background: #eee;
+    background: #f7f7f7;
     font-size: 1.1em;
     transition: 0.2s;
     word-wrap: break-word;
@@ -285,7 +295,7 @@
     -ms-user-select: none;
     user-select: none; }
   #todo-list-ul li:last-child {
-    background: #eee;
+    background: #f7f7f7;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; }
   #todo-list-ul li:hover {
@@ -452,6 +462,17 @@
       display: inline-block;
       font-size: 1.1em;
       margin-left: 15px; }
+
+.dropdown-toggle .d-md-down-none {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px; }
+
+.app-header.navbar .navbar-nav .dropdown-toggle {
+  align-items: center;
+  display: flex; }
 
 .app-header.navbar .dropdown-menu {
   background-color: #fff;

@@ -5,29 +5,34 @@ $gray-darker: rgba(255, 255, 255, 0.4);
 $yellow-lighter: #fd9d16;
 
 .login-page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  background-color: $gray-more-lighter;
   bottom: 0;
-  overflow: auto;
-  background-color: $white;
-  text-align: center;
   color: $blue;
   font-size: .9em;
+  left: 0;
+  overflow: auto;
+  overflow-x: hidden;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
 
-  .app-logo {
-    border-radius: 50%;
-    height: 150px;
-    width: 150px;
+  .header-nav {
+    font-size: 1.1em;
   }
 
   .justify-content-md-center {
-    padding: 20px 0 20px;
-    width: 100%;
+    padding: 20px; 
+
+    .box {
+      background-color: $white;
+      border-radius: 5px;
+      padding: 15px 30px 30px;
+      margin-top: 15px;
+    }
 
     .omni-auth {
-      padding: 15px 0;
+      padding: 15px 0 0;
       font-size: 1.3em;
 
       button {
@@ -47,6 +52,7 @@ $yellow-lighter: #fd9d16;
     .or {
       color: $gray;
       font-size: 1.3em;
+      margin-top: 15px;
     }
 
     input {

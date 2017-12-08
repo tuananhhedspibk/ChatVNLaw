@@ -1,8 +1,7 @@
 .list-users {
-  background-color: #f9f9f9;
-  border: 1px solid #e5ecf0;
+  border-right: 1px solid #e5ecf0;
   float: left;
-  height: 100vh;
+  height: 100%;
   width: 320px; }
   .list-users .header-index {
     background-color: #2385f2;
@@ -37,8 +36,8 @@
     display: inline-block;
     margin-top: 0;
     overflow-y: scroll;
-    padding: 0 0 6px;
-    height: calc(100% - 50px);
+    padding: 0 0;
+    height: calc(100% - 55px);
     width: 100%; }
     .list-users .ui.list .user {
       align-items: center;

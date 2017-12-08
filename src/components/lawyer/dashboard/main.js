@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
 import {EventEmitter} from 'fbemitter';
+
 import Header from './components/header';
 import Sidebar from './components/sidebar';
 import DashBoard from './components/dashboard';
@@ -95,15 +96,13 @@ class UserDashBoard extends Component {
                     <SearchUser emitter={this.emitter} {...props} />)} />
                 <Route path="/dashboard/dashboard" name="Dashboard"
                   component={DashBoard}/>
-                <Route path="/dashboard/notes" name="Notes"
-                  component={Note}/>
                 <Route path="/dashboard/calendar" name="Calendar"
                   component={Calendar}/>
               </Switch>
             </Container>
           </main>
           <Chat emitter={this.emitter}
-                currentUser={this.state.currentUser}/>
+            currentUser={this.state.currentUser}/>
         </div>
       </div>
     )

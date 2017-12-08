@@ -12,13 +12,13 @@ textarea:-moz-placeholder {
   color: #a2a2a2; }
 
 ::-webkit-scrollbar {
-  background-color: rgba(255, 255, 255, 0.5) !important;
-  width: 0px !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  width: 6px !important;
   border-radius: 1px; }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(138, 138, 138, 0.3);
-  border-radius: 1px; }
+  background-color: rgba(103, 103, 103, 0.5);
+  border-radius: 2px; }
 
 body {
   background-color: #fff;

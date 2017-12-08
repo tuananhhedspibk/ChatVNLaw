@@ -10,13 +10,15 @@ import * as translate from 'counterpart';
 
 import '../../assets/styles/common/home.css';
 
-class App extends Component {
+class Home extends Component {
 	constructor(props){
 		super(props);
     this.emitter = new EventEmitter();
 	}
 	componentDidMount() {
-		this.emitter.emit('AddNewSuccessToast','',translate('app.system_notice.success.text.welcome'),5000, ()=>{} )
+		this.emitter.emit('AddNewSuccessToast', '',
+			translate('app.system_notice.success.text.welcome'), 5000,
+			()=>{} )
 		
 		window.addEventListener('scroll',this.handleScroll);
 		this.handleScroll();
@@ -33,14 +35,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className='home-page'>
+			<div className='home-page'>
 				<Toast emitter = {this.emitter}/>
-        <Header/>
-        <Content/>
-        <Footer/>
-      </div>
+				<Header/>
+				<Content/>
+				<Footer/>
+			</div>
     );
   }
 }
 
-export default App;
+export default Home;

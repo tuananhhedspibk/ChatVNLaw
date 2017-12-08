@@ -109,10 +109,14 @@ class UserLogin extends Component {
       }else{
         switch(data.code){
           case 'auth/invalid-email':
-            component.emitter.emit('AddNewErrorToast', '',translate('app.system_notice.error.text.invalid_email'), 5000, ()=>{ })                         
+            component.emitter.emit('AddNewErrorToast',
+              '', translate('app.system_notice.error.text.invalid_email'),
+              5000, ()=>{ })                         
             break;
           case 'auth/user-not-found':
-            component.emitter.emit('AddNewErrorToast', '',translate('app.system_notice.error.text.user_not_found'), 5000, ()=>{ })                        
+            component.emitter.emit('AddNewErrorToast', '',
+              translate('app.system_notice.error.text.user_not_found'),
+              5000, ()=>{ })                        
             break;
         }
       }
@@ -125,48 +129,49 @@ class UserLogin extends Component {
         <Nav navStyle='inverse'/>
         <div className='row justify-content-md-center'>
           <div className='col-md-4'>
-            <img src={constant.appLogoPic} className='app-logo' alt=''/>
-            <div className='omni-auth'>
-              <button id='button-login-with-facebook'>
-                {translate('app.identifier.login_face')}
-              </button>
-              <button id='button-login-with-google'>
-                {translate('app.identifier.login_google')}
-              </button>
-            </div>
-            <div className='or'>
-              {translate('app.identifier.or')}
-            </div>
-            <form onSubmit={this.handleSubmit.bind(this)}
-              className='ng-pristine ng-valid'>
-              <div className='form-content'>
-                <div className='form-group'>
-                  <input type='email'
-                    name='email'
-                    value={this.state.email}
-                    onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-lg'
-                    placeholder={translate('app.login.email')}/>
+            <div className='box'>
+              <form onSubmit={this.handleSubmit.bind(this)}
+                className='ng-pristine ng-valid'>
+                <div className='form-content'>
+                  <div className='form-group'>
+                    <input type='email'
+                      name='email'
+                      value={this.state.email}
+                      onChange={this.handleInputChange.bind(this)}
+                      className='form-control input-lg'
+                      placeholder={translate('app.login.email')}/>
+                  </div>
+                  <div className='form-group'>
+                    <input type='password'
+                      name='password'
+                      value={this.state.password}
+                      onChange={this.handleInputChange.bind(this)}
+                      className='form-control input-lg'
+                      placeholder={translate('app.login.password')}/>
+                  </div>
+                  <div className='form-group redirect-to'>
+                    {translate('app.signup.new_to_us')}
+                    <a href={constant.BASE_URL + constant.SIGN_UP_URI}>
+                      {translate('app.signup.submit')}
+                    </a>
+                  </div>
                 </div>
-                <div className='form-group'>
-                  <input type='password'
-                    name='password'
-                    value={this.state.password}
-                    onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-lg'
-                    placeholder={translate('app.login.password')}/>
-                </div>
-                <div className='form-group redirect-to'>
-                  {translate('app.signup.new_to_us')}
-                  <a href={constant.BASE_URL + constant.SIGN_UP_URI}>
-                    {translate('app.signup.submit')}
-                  </a>
-                </div>
+                <button type='submit' className='btn btn-white btn-lg'>
+                  {translate('app.login.submit')}
+                </button>
+              </form>
+              <div className='or'>
+                {translate('app.identifier.or')}
               </div>
-              <button type='submit' className='btn btn-white btn-lg'>
-                {translate('app.login.submit')}
-              </button>
-            </form>
+              <div className='omni-auth'>
+                <button id='button-login-with-facebook'>
+                  {translate('app.identifier.login_face')}
+                </button>
+                <button id='button-login-with-google'>
+                  {translate('app.identifier.login_google')}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

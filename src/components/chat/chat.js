@@ -7,7 +7,7 @@ import firebase from 'firebase';
 import VideoCall from './videocall'
 import ChatSetting from './chatsetting';
 
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 
 import * as RoomInfo from '../../lib/room/getroominfo';
 import * as Files from '../../lib/upfile/files';
@@ -18,7 +18,7 @@ import * as videoCall from '../../lib/streaming/videocall';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class Chat extends Component {
   constructor(props) {
@@ -131,7 +131,7 @@ class Chat extends Component {
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
     var chats = document.getElementsByClassName('chats')[0];
-    var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    var deltaChatHeight = 0;
 
     input.style.height = '45px';
     var contentHeight = document.getElementById(elementId).scrollHeight;
@@ -139,7 +139,9 @@ class Chat extends Component {
 
     var textbox = document.getElementById('text-box');
     textbox.style.height = contentHeight + 2 + 'px';
-    chats.style.height = vh - 55 - contentHeight + 'px';
+    deltaChatHeight = 55 + contentHeight;
+    chats.style.height = 'calc(100vh - ' + contentHeight  +'px - '
+      + $('.chat-window').find('.title').height() + 'px)';
   }
 
   clearContent(elementId) {
@@ -170,6 +172,7 @@ class Chat extends Component {
     }
     else {
       this.autoExpand('input-mess-box');
+      this.autoScrollBottom();
     }
   }
 

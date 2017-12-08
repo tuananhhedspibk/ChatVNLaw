@@ -218,7 +218,8 @@ module.exports = {
         input_user_name: 'Hãy nhập tên người dùng mà bạn muốn tìm kiếm',
         search_tag_not_found: 'Không tìm thấy kết quả nào',
         search_tag_not_found_symbol: '-_-"',
-        result_for: ' kết quả cho '
+        result_for: ' kết quả cho ',
+        result_relate: ' kết quả liên quan '
       }
     },
     user: {
@@ -264,6 +265,7 @@ module.exports = {
       founded: 'Tìm thấy',
       results: 'kết quả',
       not_found_symbol: '>_<',
+      has: 'Có',
       search_lawyer: {
         title: 'Bạn tìm kiếm cho ',
         matches: ' kết quả khớp'

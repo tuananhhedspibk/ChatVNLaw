@@ -143,67 +143,68 @@ class UserSignUp extends Component {
         <Nav navStyle='inverse'/>
         <div className='row justify-content-md-center'>
           <div className='col-md-4 col-lg-4 col-md-offset-3 col-lg-offset-3'>
-            <img src={constant.appLogoPic} className='app-logo' alt=''/>
-            <div className='omni-auth'>
-              <button id='button-login-with-facebook'>
-                {translate('app.identifier.login_face')}
-              </button>
-              <button id='button-login-with-google'>
-                {translate('app.identifier.login_google')}
-              </button>
-            </div>
-            <div className='or'>
-              {translate('app.identifier.or')}
-            </div>
-            <form onSubmit={this.handleSubmit.bind(this)}
-              className='ng-pristine ng-valid'>
-              <div className='form-content'>
-                <div className='form-group'>
-                  <input type='text'
-                    name='displayName'
-                    value={this.state.displayName}
-                    onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-underline input-lg'
-                    placeholder={translate('app.signup.displayName')}/>
+            <div className='box'>
+              <form onSubmit={this.handleSubmit.bind(this)}
+                className='ng-pristine ng-valid'>
+                <div className='form-content'>
+                  <div className='form-group'>
+                    <input type='text'
+                      name='displayName'
+                      value={this.state.displayName}
+                      onChange={this.handleInputChange.bind(this)}
+                      className='form-control input-underline input-lg'
+                      placeholder={translate('app.signup.displayName')}/>
+                  </div>
+                  <div className='form-group'>
+                    <input
+                      name='email'
+                      type='email'
+                      value={this.state.email}
+                      onChange={this.handleInputChange.bind(this)}
+                      className='form-control input-underline input-lg'
+                      placeholder={translate('app.signup.email')}/>
+                  </div>
+                  <div className='form-group'>
+                    <input
+                      name='password'
+                      type='password'
+                      value={this.state.password}
+                      onChange={this.handleInputChange.bind(this)}
+                      className='form-control input-underline input-lg'
+                      placeholder={translate('app.signup.password')}/>
+                  </div>
+                  <div className='form-group'>
+                    <input
+                      name='password_confirmation'
+                      type='password'
+                      value={this.state.password_confirmation}
+                      onChange={this.handleInputChange.bind(this)}
+                      className='form-control input-underline input-lg'
+                      placeholder={translate('app.signup.password_confirmation')}/>
+                  </div>
+                  <div className='form-group redirect-to'>
+                    {translate('app.login.had_account')}
+                    <a href={constant.BASE_URL + constant.SIGN_IN_URI}>
+                      {translate('app.login.submit')}
+                    </a>
+                  </div>
                 </div>
-                <div className='form-group'>
-                  <input
-                    name='email'
-                    type='email'
-                    value={this.state.email}
-                    onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-underline input-lg'
-                    placeholder={translate('app.signup.email')}/>
-                </div>
-                <div className='form-group'>
-                  <input
-                    name='password'
-                    type='password'
-                    value={this.state.password}
-                    onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-underline input-lg'
-                    placeholder={translate('app.signup.password')}/>
-                </div>
-                <div className='form-group'>
-                  <input
-                    name='password_confirmation'
-                    type='password'
-                    value={this.state.password_confirmation}
-                    onChange={this.handleInputChange.bind(this)}
-                    className='form-control input-underline input-lg'
-                    placeholder={translate('app.signup.password_confirmation')}/>
-                </div>
-                <div className='form-group redirect-to'>
-                  {translate('app.login.had_account')}
-                  <a href={constant.BASE_URL + constant.SIGN_IN_URI}>
-                    {translate('app.login.submit')}
-                  </a>
-                </div>
+                <button type='submit' className='btn btn-white btn-lg'>
+                  {translate('app.signup.submit')}
+                </button>
+              </form>
+              <div className='or'>
+                {translate('app.identifier.or')}
               </div>
-              <button type='submit' className='btn btn-white btn-lg'>
-                {translate('app.signup.submit')}
-              </button>
-            </form>
+              <div className='omni-auth'>
+                <button id='button-login-with-facebook'>
+                  {translate('app.identifier.login_face')}
+                </button>
+                <button id='button-login-with-google'>
+                  {translate('app.identifier.login_google')}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

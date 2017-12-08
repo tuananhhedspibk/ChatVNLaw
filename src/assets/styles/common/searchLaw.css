@@ -1,18 +1,29 @@
+.search-law {
+  background-color: #f1f1f1; }
+  .search-law .search-law-inner {
+    min-height: calc(100vh - 225px); }
+
 .side-section {
   background-color: #fff;
   border-right: 1px solid #f6f6f6;
-  padding-right: 0 !important; }
+  display: inline-block;
+  margin-bottom: 45px;
+  margin-top: 45px;
+  padding: 15px 20px;
+  width: 100%; }
 
 .category-filter {
   display: inline-block;
   font-size: 1.2em;
   width: 100%; }
   .category-filter .title {
-    background-color: #0277fb;
+    background-color: #fff;
     border: 0;
-    color: #fff;
+    border-top: 1px solid #f6f6f6;
+    color: #000;
     cursor: pointer;
-    padding: 15px;
+    font-weight: bold;
+    padding: 15px 0 0;
     position: relative;
     text-align: left;
     width: 100%; }
@@ -27,14 +38,16 @@
       top: 12px; }
     .category-filter .title .fa {
       margin-right: 10px; }
-  .category-filter .title.collapsed:after {
-    content: "\f107";
-    font-family: FontAwesome; }
+  .category-filter .title.collapsed {
+    color: #808080; }
+    .category-filter .title.collapsed:after {
+      content: "\f107";
+      font-family: FontAwesome; }
   .category-filter .category-filter-title {
-    background-color: #4e9ffc;
+    background-color: #fff;
     border: 0;
-    color: #fff;
     cursor: pointer;
+    font-weight: bold;
     padding: 15px 35px;
     position: relative;
     text-align: left;
@@ -48,32 +61,38 @@
       position: absolute;
       right: 10px;
       top: 15px; }
-  .category-filter .category-filter-title.collapsed:after {
-    content: "\f054";
-    font-family: FontAwesome; }
+  .category-filter .category-filter-title.collapsed {
+    font-weight: normal; }
+    .category-filter .category-filter-title.collapsed:after {
+      content: "\f054";
+      font-family: FontAwesome; }
   .category-filter .category-filter-content {
     font-size: .9em; }
     .category-filter .category-filter-content .category-item {
+      border-bottom: 1px solid #f6f6f6;
+      cursor: pointer;
       padding: 10px 45px; }
+      .category-filter .category-filter-content .category-item:last-child {
+        border-bottom: none; }
       .category-filter .category-filter-content .category-item a {
         color: #000; }
       .category-filter .category-filter-content .category-item:hover {
-        background-color: #4e9ffc;
+        background-color: #f6f6f6;
         transition: all .5s ease; }
         .category-filter .category-filter-content .category-item:hover a {
-          color: #fff;
-          cursor: pointer;
+          color: #2385f2;
           text-decoration: none;
           transition: all .3s ease; }
 
 .search-law-tool .title {
-  background-color: #0277fb;
+  background-color: #fff;
   border: 0;
-  border-bottom: 1px solid #fff;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   font-size: 1.2em;
-  padding: 15px;
+  font-weight: bold;
+  padding: 0 0 15px;
+  position: relative;
   text-align: left;
   width: 100%; }
   .search-law-tool .title:after {
@@ -81,28 +100,29 @@
     font-family: FontAwesome;
     font-size: 1.2em;
     position: absolute;
-    left: 150px;
-    top: 13px; }
+    left: 120px;
+    top: 0; }
   .search-law-tool .title:focus {
     outline: 0; }
   .search-law-tool .title .fa {
     margin-right: 10px; }
 
-.search-law-tool .title.collapsed:after {
-  content: "\f107";
-  font-family: FontAwesome; }
+.search-law-tool .title.collapsed {
+  color: #808080; }
+  .search-law-tool .title.collapsed:after {
+    content: "\f107";
+    font-family: FontAwesome; }
 
 .search-law-tool .search-law-tool-body input[type="text"] {
   font-size: 1.2em;
   height: 45px;
-  margin: 20px 20px 0;
-  width: calc(100% - 30px); }
+  width: 100%; }
 
 .search-law-tool .search-law-tool-body .ui.toggle.checkbox input:checked ~ label:before {
   background-color: #4e9ffc !important; }
 
 .search-law-tool .search-law-tool-body #group1 {
-  padding: 5px 20px;
+  padding: 5px 0;
   font-size: 1.2em;
   margin-top: 10px;
   width: 100%; }
@@ -115,12 +135,9 @@
 .search-law-tool .search-law-tool-body #group2 {
   font-size: 1.2em; }
   .search-law-tool .search-law-tool-body #group2 label {
-    background-color: #f9f9f9;
-    font-weight: bold;
-    padding: 10px 15px;
     width: 100%; }
   .search-law-tool .search-law-tool-body #group2 .select-section {
-    padding: 10px 15px; }
+    padding: 3px 0 8px; }
   .search-law-tool .search-law-tool-body #group2 select {
     font-size: 1em;
     height: 40px;
@@ -133,14 +150,16 @@
 .search-law-tool .search-law-tool-body button {
   background-color: #4e9ffc;
   color: #fff;
+  cursor: pointer;
   font-size: 1.2em;
-  margin-bottom: 15px;
-  padding: 10px 35px; }
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 10px 0; }
+  .search-law-tool .search-law-tool-body button:hover {
+    background-color: #0974b8; }
 
 .results {
-  overflow-y: scroll;
-  height: calc(100vh - 70px);
-  padding-top: 25px;
+  padding-top: 35px;
   width: 100%; }
   .results .pagination {
     cursor: pointer;
@@ -164,22 +183,27 @@
     border: 1px solid #e5ecf0;
     border-radius: 5px;
     float: left;
-    height: 150px;
-    margin: 15px calc(10% / 4);
-    width: 45%; }
+    font-size: 1.1em;
+    margin: 8px 0;
+    width: 100%; }
+    .results .law-item:hover {
+      background-color: #f9f9f9; }
+    .results .law-item a {
+      color: #000; }
+      .results .law-item a:hover {
+        text-decoration: none; }
     .results .law-item .law-title {
-      background-color: #2385f2;
-      font-size: 1.2em;
+      font-size: 1.1em;
       font-weight: bold;
       overflow: hidden;
-      padding: 15px;
+      padding: 10px 15px 0;
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%; }
       .results .law-item .law-title a {
-        color: #fff; }
+        color: #000; }
     .results .law-item .law-detail-content {
-      padding: 15px; }
+      padding: 0 15px 10px; }
     .results .law-item .law-status {
       font-size: 1.1em; }
       .results .law-item .law-status .effect-status {
@@ -199,3 +223,10 @@
   .not-found-any-results .symbol-not-found {
     color: #2385f2;
     font-size: 2.3em; }
+
+@media (max-width: 750px) {
+  .results {
+    padding-top: 0;
+    margin-bottom: 45px; }
+  .side-section {
+    margin-top: 20px; } }

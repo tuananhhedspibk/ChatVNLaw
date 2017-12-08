@@ -6,6 +6,7 @@
 
 .chat-ui {
   background-color: $white;
+  height: 100vh;
   overflow-y: hidden;
   width: 100%;
 }
@@ -48,7 +49,7 @@
   border-right: 1px solid $gray-lighter;
   font-size: 1.2em;
   float: left;
-  margin: 0 auto;
+  height: 100%;
   width: calc(100% - 320px);
 
   #upfile {
@@ -65,20 +66,23 @@
   }
 
   .title {
+    align-items: center;
     border-bottom: 1px solid $gray-lighter;
     color: $blue;
-    padding: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
     width: 100%;
 
     .user-name {
       color: $black;
       font-size: 1em;
       display: inline-block;
-      max-width: 70%;
       overflow: hidden;
+      text-align: center;
       text-overflow: ellipsis;
       white-space: nowrap;
+      width: calc(100% - 66px);
     }
 
     .fa {
@@ -90,7 +94,7 @@
 
   .chats {
     border-right: 1px solid $gray-lighter;
-    height: calc(100vh - 115px);
+    height: calc(100% - 60px);
     overflow-y: scroll;
     padding: 25px;
     width: 100%;
@@ -98,7 +102,7 @@
 
   .chat-body {
     float: left;
-    height: calc(100% - 52px);
+    height: calc(100vh - 55.5px);
     position: relative;
     width: calc(100% - 320px);
   }

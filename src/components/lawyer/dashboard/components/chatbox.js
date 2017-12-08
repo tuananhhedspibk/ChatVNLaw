@@ -4,8 +4,9 @@ import $ from 'jquery';
 import {Picker} from 'emoji-mart';
 import firebase from 'firebase';
 import getStunServerList from '../../../../lib/getstunserverlist';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
 import VideoCall from './videocall';
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import * as RoomInfo from '../../../../lib/room/getroominfo';
 import * as Messages from '../../../../lib/messages/messages';
@@ -13,7 +14,7 @@ import * as translate from 'counterpart';
 import * as videoCall from '../../../../lib/streaming/videocall';
 import * as constant from '../../../constants';
 
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class ChatBox extends Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class ChatBox extends Component {
       messages: [],
       currentRoomId: null,
       currentUser: null,
-      targetUser: null
+      targetUser: null,
+      chatMessHeight: 0
     };
   }  
   
@@ -30,7 +32,8 @@ class ChatBox extends Component {
     var component = this;
     this.setState({currentUser: this.props.currentUser, targetUser: this.props.targetUser});
     this.props.emitter.addListener('ReSendData',function(callback){
-      return callback(component.state.currentUser, component.state.targetUser, component.state.currentRoomId);
+      return callback(component.state.currentUser,
+        component.state.targetUser, component.state.currentRoomId);
     });
     this.props.emitter.addListener('AddNewTag', function(mess){
       component.updateTag(mess);
@@ -54,12 +57,19 @@ class ChatBox extends Component {
         emojiPicker.css('visibility', 'hidden');
       }
     });
+    var viewPortHeight = Math.max(document.documentElement.clientHeight,
+      window.innerHeight || 0);
+    var chatMessHeight = viewPortHeight - 108
+      - $('.app-header').height();
+    console.log($('.app-header').height());
+    this.setState({chatMessHeight: chatMessHeight});
   }
   
   componentWillReceiveProps(nextProps){
     var component = this;
     if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
-      this.setState({targetUser: nextProps.targetUser,currentRoomId: nextProps.targetUser.rid});
+      this.setState({targetUser: nextProps.targetUser,
+        currentRoomId: nextProps.targetUser.rid});
       if(!!this.state.targetUser){
         if(this.state.targetUser.rid !== nextProps.targetUser.rid){
           this.setState({messages: []})
@@ -74,7 +84,9 @@ class ChatBox extends Component {
   componentWillUpdate(nextProps, nextState){
     var component = this;
     if(this.state.currentRoomId !== nextState.currentRoomId){
-      component.props.emitter.emit('RoomChatHasChanged',nextProps.currentUser, nextProps.targetUser, nextState.currentRoomId);         
+      component.props.emitter.emit('RoomChatHasChanged',
+        nextProps.currentUser, nextProps.targetUser,
+        nextState.currentRoomId);         
       let properties = {}
       properties['roomId'] = nextState.currentRoomId;
       properties['component'] = component;
@@ -172,15 +184,20 @@ class ChatBox extends Component {
       return(
         <div>
           <VideoCall currentRoomId={this.state.currentRoomId}
-                      currentUser={this.state.currentUser}
-                      targetUser={this.state.targetUser}
-                      emitter={this.props.emitter} />
+            currentUser={this.state.currentUser}
+            targetUser={this.state.targetUser}
+            emitter={this.props.emitter} />
           <div className='chat-box'>
-            <ChatBubble messages={this.state.messages} 
-              emitter={this.props.emitter}
-              renderHastag={true}
-              currentUser={this.state.currentUser}
-              targetUser={this.state.targetUser}/>
+            <Scrollbars style={{
+              height: this.state.chatMessHeight}}
+              autoHide={true}
+              autoHideTimeout={1500}>
+                <ChatBubble messages={this.state.messages} 
+                  emitter={this.props.emitter}
+                  renderHastag={true}
+                  currentUser={this.state.currentUser}
+                  targetUser={this.state.targetUser}/>
+            </Scrollbars>
             <div className='input-section text-box' id='text-box'>  
               <textarea id='input-mess-box'
                 placeholder={translate('app.chat.input_place_holder')}

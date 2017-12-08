@@ -13,23 +13,25 @@ class HeaderBlock extends Component {
 		return(
 			<div className='profile-header'>
         <div className='row'>
-          <div className='col-sm-12 col-md-6'>
+          <div className='col-sm-12 col-md-3'>
             <div className='avatar'>
               <img src={this.props.user.photoURL}/>
             </div>
+          </div>
+          <div className='col-sm-12 col-md-9'>
             <div className='basic-infor'>
               <div className='left-block'>
                 <p className='name'>
                   {this.props.user.displayName}
                 </p>
                 <p className='email'>
-									<i className='fa fa-envelope-o' aria-hidden='true'></i>
-									{this.props.user.email}
+                  <i className='fa fa-envelope-o' aria-hidden='true'></i>
+                  {this.props.user.email}
                 </p>
-								<p className='role'>
-									<i className='fa fa-universal-access'
-										aria-hidden='true'></i>
-									{this.props.user.role}
+                <p className='role'>
+                  <i className='fa fa-universal-access'
+                    aria-hidden='true'></i>
+                  {this.props.user.role}
                 </p>
               </div>
             </div>

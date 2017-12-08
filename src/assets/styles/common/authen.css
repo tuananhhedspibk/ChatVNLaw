@@ -1,23 +1,26 @@
 .login-page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  background-color: #f6f6f6;
   bottom: 0;
-  overflow: auto;
-  background-color: #fff;
-  text-align: center;
   color: #2385f2;
-  font-size: .9em; }
-  .login-page .app-logo {
-    border-radius: 50%;
-    height: 150px;
-    width: 150px; }
+  font-size: .9em;
+  left: 0;
+  overflow: auto;
+  overflow-x: hidden;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0; }
+  .login-page .header-nav {
+    font-size: 1.1em; }
   .login-page .justify-content-md-center {
-    padding: 20px 0 20px;
-    width: 100%; }
+    padding: 20px; }
+    .login-page .justify-content-md-center .box {
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 15px 30px 30px;
+      margin-top: 15px; }
     .login-page .justify-content-md-center .omni-auth {
-      padding: 15px 0;
+      padding: 15px 0 0;
       font-size: 1.3em; }
       .login-page .justify-content-md-center .omni-auth button {
         border: 0; }
@@ -28,7 +31,8 @@
         background-color: #d54b37; }
     .login-page .justify-content-md-center .or {
       color: #a2a2a2;
-      font-size: 1.3em; }
+      font-size: 1.3em;
+      margin-top: 15px; }
     .login-page .justify-content-md-center input {
       border-radius: 5px !important;
       color: #000;

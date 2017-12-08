@@ -69,6 +69,7 @@ class Header extends Component {
       $('.video-call').find('.video').toggle();
       $('.video-call').find('.end-call-btn').toggle();
     }
+    $('.chat-box-wrapper').toggle();
   }
 
   render() {
@@ -78,15 +79,6 @@ class Header extends Component {
         <NavbarBrand href='/'>{translate('app.identifier.app_name')}</NavbarBrand>
         <NavbarToggler className='d-md-down-none' onClick={this.sidebarToggle}>&#9776;</NavbarToggler>
         <Nav className='ml-auto' navbar>
-          <NavItem className='d-md-down-none'>
-            <NavLink href='#'><i className='icon-bell'></i><Badge pill color='danger'>5</Badge></NavLink>
-          </NavItem>
-          <NavItem className='d-md-down-none'>
-            <NavLink href='#'><i className='icon-list'></i></NavLink>
-          </NavItem>
-          <NavItem className='d-md-down-none'>
-            <NavLink href='#'><i className='icon-location-pin'></i></NavLink>
-          </NavItem>
           <NavItem>
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle className='nav-link dropdown-toggle'>
