@@ -13,6 +13,7 @@ export const LAWYER_PROFILE_URI = '/lawyers';
 export const DASHBOARD_URI = '/dashboard';
 export const LAW_URI = '/articles/'
 export const PROFILE_URI = '/my-profile';
+export const LAWYER_URI = '/lawyer';
 
 export const API_BASE_URL = 'http://localhost:4000/api';
 export const API_SEARCH_URI = '/searches';

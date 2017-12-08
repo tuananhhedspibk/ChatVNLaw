@@ -1,9 +1,21 @@
 @import './variables.scss';
 
+.search-law {
+  background-color: $gray-less-medium;
+
+  .search-law-inner {
+    min-height: calc(100vh - 225px);
+  }
+}
+
 .side-section {
   background-color: $white;
   border-right: 1px solid $gray-more-lighter;
-  padding-right: 0 !important;
+  display: inline-block;
+  margin-bottom: 45px;
+  margin-top: 45px;
+  padding: 15px 20px;
+  width: 100%;
 }
 
 .category-filter {
@@ -12,11 +24,13 @@
   width: 100%;
 
   .title {
-    background-color: $blue-less-darker;
+    background-color: $white;
     border: 0;
-    color: $white;
+    border-top: 1px solid $gray-more-lighter;
+    color: $black;
     cursor: pointer;
-    padding: 15px;
+    font-weight: bold;
+    padding: 15px 0 0;
     position: relative;
     text-align: left;
     width: 100%;
@@ -40,6 +54,7 @@
   }
 
   .title.collapsed {
+    color: $gray-darker;
     &:after {
       content: "\f107";
       font-family: FontAwesome;
@@ -47,10 +62,10 @@
   }
 
   .category-filter-title {
-    background-color: $blue-info-darker;
+    background-color: $white;
     border: 0;
-    color: $white;
     cursor: pointer;
+    font-weight: bold;
     padding: 15px 35px;
     position: relative;
     text-align: left;
@@ -71,6 +86,7 @@
   }
 
   .category-filter-title.collapsed {
+    font-weight: normal;
     &:after {
       content: "\f054";
       font-family: FontAwesome;
@@ -81,18 +97,23 @@
     font-size: .9em;
 
     .category-item {
+      border-bottom: 1px solid $gray-more-lighter;
+      cursor: pointer;
       padding: 10px 45px;
+
+      &:last-child {
+        border-bottom: none;
+      }
 
       a {
         color: $black;
       }
 
       &:hover {
-        background-color: $blue-info-darker;
+        background-color: $gray-more-lighter;
         transition: all .5s ease;
         a {
-          color: $white;
-          cursor: pointer;
+          color: $blue;
           text-decoration: none;
           transition: all .3s ease;
         }
@@ -103,13 +124,14 @@
 
 .search-law-tool {
   .title {
-    background-color: $blue-less-darker;
+    background-color: $white;
     border: 0;
-    border-bottom: 1px solid $white;
-    color: $white;
+    color: $black;
     cursor: pointer;
     font-size: 1.2em;
-    padding: 15px;
+    font-weight: bold;
+    padding: 0 0 15px;
+    position: relative;
     text-align: left;
     width: 100%;
 
@@ -118,8 +140,8 @@
       font-family: FontAwesome;
       font-size: 1.2em;
       position: absolute;
-      left: 150px;
-      top: 13px;
+      left: 120px;
+      top: 0;
     }
 
     &:focus {
@@ -132,6 +154,8 @@
   }
 
   .title.collapsed {
+    color: $gray-darker;
+
     &:after {
       content: "\f107";
       font-family: FontAwesome;
@@ -142,8 +166,7 @@
     input[type="text"] {
       font-size: 1.2em;
       height: 45px;
-      margin: 20px 20px 0;
-      width: calc(100% - 30px);
+      width: 100%;
     }
 
     .ui.toggle.checkbox input:checked~label:before {
@@ -151,7 +174,7 @@
     }
     
     #group1 {
-      padding: 5px 20px;
+      padding: 5px 0;
       font-size: 1.2em;
       margin-top: 10px;
       width: 100%;
@@ -170,14 +193,11 @@
       font-size: 1.2em;
 
       label {
-        background-color: $gray-much-lighter;
-        font-weight: bold;
-        padding: 10px 15px;
         width: 100%;
       }
 
       .select-section {
-        padding: 10px 15px;
+        padding: 3px 0 8px;
       }
 
       select {
@@ -195,17 +215,21 @@
     button {
       background-color: $blue-info-darker;
       color: $white;
+      cursor: pointer;
       font-size: 1.2em;
-      margin-bottom: 15px;
-      padding: 10px 35px;
+      margin-bottom: 20px;
+      width: 100%;
+      padding: 10px 0;
+
+      &:hover {
+        background-color: $blue-darker;
+      }
     }
   }
 }
 
 .results {
-  overflow-y: scroll;
-  height: calc(100vh - 70px);
-  padding-top: 25px;
+  padding-top: 35px;
   width: 100%;
 
   .pagination {
@@ -238,27 +262,38 @@
     border: 1px solid $gray-lighter;
     border-radius: 5px;
     float: left;
-    height: 150px;
-    margin: 15px calc(10% / 4);
-    width: 45%;
+    font-size: 1.1em;
+    margin: 8px 0;
+    width: 100%;
+
+    &:hover {
+      background-color: $gray-much-lighter;
+    }
+
+    a {
+      color: $black;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
 
     .law-title {
-      background-color: $blue;
-      font-size: 1.2em;
+      font-size: 1.1em;
       font-weight: bold;
       overflow: hidden;
-      padding: 15px;
+      padding: 10px 15px 0;
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%;
 
       a {
-        color: $white;
+        color: $black;
       }
     }
 
     .law-detail-content {
-      padding: 15px;
+      padding: 0 15px 10px;
     }
 
     .law-status {
@@ -288,5 +323,16 @@
   .symbol-not-found {
     color: $blue;
     font-size: 2.3em;
+  }
+}
+
+@media(max-width: 750px) {
+  .results {
+    padding-top: 0;
+    margin-bottom: 45px;
+  }
+
+  .side-section {
+    margin-top: 20px;
   }
 }

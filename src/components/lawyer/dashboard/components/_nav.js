@@ -44,33 +44,9 @@ export default {
       ]
     },
     {
-      name: 'app.dashboard.dashboard',
-      url: '/dashboard/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info'
-      }
-    },
-    {
-      name: 'app.dashboard.note',
-      url: '/dashboard/notes',
-      icon: 'icon-note',
-      badge: {
-        variant: 'info'
-      }
-    },
-    {
       name: 'app.dashboard.calendar',
       url: '/dashboard/calendar',
       icon: 'icon-calendar',
-      badge: {
-        variant: 'info'
-      }
-    },
-    {
-      name: 'app.dashboard.profile',
-      url: '/dashboard/profile',
-      icon: 'icon-user',
       badge: {
         variant: 'info'
       }

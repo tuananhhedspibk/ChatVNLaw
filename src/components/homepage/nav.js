@@ -73,7 +73,9 @@ class Nav extends Component {
             data-toggle='dropdown'
             aria-haspopup='true'
             aria-expanded='true'>
-            {this.state.currentUser.displayName}
+            <div className='user-name'>
+              {this.state.currentUser.displayName}
+            </div>
           </button>
           <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
             <li>

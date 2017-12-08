@@ -18,14 +18,14 @@ textarea:-moz-placeholder {
 }
 
 ::-webkit-scrollbar{
-	background-color: rgba(255, 255, 255, 0.5) !important;
-	width: 0px !important;
+	background-color: $scroll-bar-bg !important;
+	width: 6px !important;
 	border-radius: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: rgba(138, 138, 138, .3);
-	border-radius: 1px;
+	background-color: $scroll-bar-thumb;
+	border-radius: 2px;
 }
 
 body {
@@ -64,6 +64,7 @@ body {
     margin-block-end: -70px;        
   }
 }
+
 .notification-container{
   top: 60px
 }

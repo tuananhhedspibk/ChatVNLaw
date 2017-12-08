@@ -6,7 +6,6 @@ const routes = {
   '/lawyers/search_tag': 'app.dashboard.search.by_tag',
   '/lawyers/search_user': 'app.dashboard.search.by_user',
   '/lawyers/dashboard': 'app.dashboard.dashboard',
-  // '/lawyers/notes': 'app.dashboard.note',
   '/lawyers/calendar': 'app.dashboard.calendar'
 };
 

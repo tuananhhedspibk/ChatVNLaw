@@ -3,6 +3,7 @@
 
 .chat-ui {
   background-color: #fff;
+  height: 100vh;
   overflow-y: hidden;
   width: 100%; }
 
@@ -37,7 +38,7 @@
   border-right: 1px solid #e5ecf0;
   font-size: 1.2em;
   float: left;
-  margin: 0 auto;
+  height: 100%;
   width: calc(100% - 320px); }
   .chat-window #upfile {
     display: none; }
@@ -47,32 +48,35 @@
     display: inline-block;
     float: right; }
   .chat-window .title {
+    align-items: center;
     border-bottom: 1px solid #e5ecf0;
     color: #2385f2;
-    padding: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
     width: 100%; }
     .chat-window .title .user-name {
       color: #000;
       font-size: 1em;
       display: inline-block;
-      max-width: 70%;
       overflow: hidden;
+      text-align: center;
       text-overflow: ellipsis;
-      white-space: nowrap; }
+      white-space: nowrap;
+      width: calc(100% - 66px); }
     .chat-window .title .fa {
       float: right;
       font-size: 1.2em;
       margin-left: 15px; }
   .chat-window .chats {
     border-right: 1px solid #e5ecf0;
-    height: calc(100vh - 115px);
+    height: calc(100% - 60px);
     overflow-y: scroll;
     padding: 25px;
     width: 100%; }
   .chat-window .chat-body {
     float: left;
-    height: calc(100% - 52px);
+    height: calc(100vh - 55.5px);
     position: relative;
     width: calc(100% - 320px); }
   .chat-window .text-box {

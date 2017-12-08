@@ -34,7 +34,8 @@
   border-right: 1px solid #e5ecf0;
   float: right;
   font-size: 1.05em;
-  height: calc(100vh - 58px);
+  height: calc(100vh - 65px);
+  overflow-y: scroll;
   text-align: left;
   width: 320px; }
   .chat-setting .ui.dropdown .menu {

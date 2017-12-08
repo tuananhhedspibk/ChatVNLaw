@@ -19,13 +19,20 @@
 }
 
 .app-body {
+  .chat-users-list-wrapper {
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    width: 70px;
+  }
+
   .chat-users-list {
     border-right: 1px solid $border-color;
     display: inline-block;
-    float: left;
     height: calc(100vh - 56px);
-    width: 70px;
-    overflow-y: scroll;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     .active-link {
       background-color: $gray-lighter;
@@ -53,11 +60,25 @@
 }
 
 .app-body {
+  overflow-y: hidden;
+
+  .chat-box-wrapper {
+    display: inline-block;
+    height: calc(100vh - 105px);
+    width: calc(100% - 70px);
+  }
+
+  .bubble-img {
+    img {
+      max-height: 350px !important;
+      max-width: 350px !important;
+    }
+  }
+
   .chat-box {
     display: inline-block;
     float: left;
-    height: calc(100vh - 101px);
-    width: calc(100% - 72px);
+    width: 100%;
 
     #upfile {
       display: none;
@@ -102,7 +123,6 @@
 
     .chats {
       height: calc(100vh - 163px);
-      overflow-y: scroll;
       padding: 15px;
     }
   }
@@ -185,7 +205,7 @@
       font-size: 1.2em;
       padding: 10px;
       position: relative;
-      width: calc(100% - 72px);
+      width: 100%;
 
       .user-name {
         overflow: hidden;
@@ -647,6 +667,21 @@
       }
     }
   }
+}
+
+.dropdown-toggle {
+  .d-md-down-none {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+  }
+}
+
+.app-header.navbar .navbar-nav .dropdown-toggle {
+  align-items: center;
+  display: flex;
 }
 
 .app-header.navbar .dropdown-menu {

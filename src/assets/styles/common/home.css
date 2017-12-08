@@ -65,6 +65,7 @@
         transition: all .4s ease; }
 
 .home-page .main-content .search-law {
+  background-color: #fff;
   padding: 65px 85px; }
   .home-page .main-content .search-law .title {
     font-size: 1.6em; }

@@ -164,7 +164,8 @@ module.exports = {
         input_user_name: 'Please input user\'s name that you want to search',
         search_tag_not_found: 'No results found',
         search_tag_not_found_symbol: '-_-"',
-        result_for: ' result(s) for '
+        result_for: ' result(s) for ',
+        result_relate: ' related results '
       }
     },
     user: {
@@ -203,6 +204,7 @@ module.exports = {
       founded: 'Has founded',
       results: 'result(s)',
       not_found_symbol: '>_<',
+      has: 'Has',
       search_lawyer: {
         title: 'You searched for '
       },

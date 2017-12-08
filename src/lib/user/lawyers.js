@@ -48,7 +48,7 @@ function getLawyerInfo(id, callback){
 }
 function getLawyerList(properties, callback){
   var ref = firebase.database().ref().child(`${constant.TABLE.users}`)
-    .orderByChild(`${constant.USERS.role}`).equalTo('lawyer').limitToFirst(5);
+    .orderByChild(`${constant.USERS.role}`).equalTo('lawyer');
   ref.once('value').then( snapshot => {
     if(!snapshot.exists()){
       return callback();
@@ -82,20 +82,20 @@ function findLawyersWithUserName(input, callback){
   })
 }
 function findLawyersNameStartWithInput(input,properties,callback){
-  var ref = firebase.database().ref(`${constant.TABLE.lawyers}`).orderByChild(`${constant.LAWYER_INFO.fullname}`).startAt(input).endAt(input+'\uf8ff').limitToFirst(5);
+  var ref = firebase.database().ref(`${constant.TABLE.lawyers}`).orderByChild(`${constant.LAWYER_INFO.fullname}`).startAt(input).endAt(input+'\uf8ff');
   ref.on('value', snapshot =>{
     return callback(snapshot.val());
   })
 }
 function findLawyersWithInput(input, properties ,callback){
-  var ref = firebase.database().ref(`${constant.TABLE.lawyers}`).orderByChild(`${constant.LAWYER_INFO.fullname}`).equalTo(input).limitToFirst(5);
+  var ref = firebase.database().ref(`${constant.TABLE.lawyers}`).orderByChild(`${constant.LAWYER_INFO.fullname}`).equalTo(input);
   ref.once('value', snapshot =>{
     return callback(snapshot.val());
   })
 }
 function findLawyersWithoutInput(properties,callback){
   var result = [];  
-  var ref = firebase.database().ref(`${constant.TABLE.lawyers}`).limitToFirst(5);
+  var ref = firebase.database().ref(`${constant.TABLE.lawyers}`);
   ref.once('value', snapshot =>{
     if(snapshot.exists()){
       var data = snapshot.val();

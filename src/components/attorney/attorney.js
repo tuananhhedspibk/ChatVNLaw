@@ -3,7 +3,6 @@ import Nav from '../../components/homepage/nav' ;
 import Content from './content'
 import Footer from '../../components/homepage/footer';
 import Find from '../homepage/find';
-import Category from './category';
 
 import '../../assets/styles/common/attorney.css';
 
@@ -27,14 +26,12 @@ class Attorney extends Component {
     if(!!this.props.location.search){
       if(!!this.state.name){
         return(
-          <Content 
-            name={this.state.name}/>
+          <Content name={this.state.name}/>
         )
       }
     }else{
       return(
-        <Content 
-            name=''/>
+        <Content name=''/>
       )
     }
   }
@@ -44,11 +41,13 @@ class Attorney extends Component {
       <div>
         <Nav navStyle='inverse'/>
         <div className='attorney'>
-          <div className='col-sm-12 col-md-8 ml-auto right-block'>
-            <Find sloganStyle='none'/>
-          </div>
-          <div className='attorney-result-content'>
-            {this.renderContent()}
+          <div className='row justify-content-center'>
+            <div className='col-sm-6'>
+              <Find sloganStyle='none'/>
+              <div className='attorney-result-content'>
+                {this.renderContent()}
+              </div>
+            </div>
           </div>
         </div>
         <Footer/>

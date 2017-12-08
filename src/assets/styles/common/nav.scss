@@ -37,11 +37,21 @@
 		}
 
 		.btn {
+			align-items: center;
 			background-color: $dropdown-menu-background;
+			display: flex;
 			font-size: .9em;
 			margin-top: 3px;
 			outline: 0 !important;
 			padding: 10px !important;
+
+			.user-name {
+				display: inline-block;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				width: 100px;
+			}
 		
 			&:focus {
 				box-shadow: none;

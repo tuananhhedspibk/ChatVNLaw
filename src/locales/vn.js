@@ -20,12 +20,37 @@ module.exports = {
       read_more: 'xem thêm',
       show_less: 'thu nhỏ'
     },
+    button:{
+      create_new_chat: 'Tạo cuộc trò chuyện',
+      destroy_room_request: 'Hủy yêu cầu.'
+    },
     notification:{
       new_request_from_other: ' đã gửi cho bạn một yêu cầu.',
+      new_room_request_title: ' gửi cho bạn yêu cầu tạo cuộc trò chuyện',
+      new_accept_room_request_title: ' đã chấp nhận yêu cầu tạo cuộc trò chuyện của bạn.',
+      new_refuse_room_request_title: ' đã từ chối yêu cầu tạo cuộc trò chuyện của bạn.',
+      new_accept_room_request: ' đã chấp nhận yêu cầu của bạn.',
+      new_refuse_room_request: ' đã từ chối yêu cầu của bạn.',
       click_here: 'Click để xem chi tiết!',
+      already_known: 'Tôi biết rồi.',
+      to_chat_room: 'Tới phòng chat',
       time_created: 'Thời gian tạo: ',
-      detail: 'Chi tiết',
-      create_dialog: 'Tạo cuộc trò chuyện'
+      detail: 'Chi tiết:',
+      create_dialog: 'Tạo cuộc trò chuyện',
+      evaluate: 'Đánh giá:',
+      agree_with_case: 'Tôi đồng ý tiếp nhận vụ án.',
+      disagree_with_case: 'Tôi không đồng ý tiếp nhận vụ án.',
+      detail: 'Chi tiết:',
+      create_new_chat: 'Tạo cuộc trò chuyện'
+    },
+    confirm_dialog:{
+      title: 'Thông báo',
+      message: 'Bạn nhận được một cuộc gọi video',
+      confirm_label: 'Đồng ý kết nối',
+      cancel_label: 'Từ chối cuộc gọi',
+      message_2:'Bạn chắc chắn muốn tiếp tục ?',
+      confirm_label_2: 'Tôi đồng ý và muốn tiếp tục.',
+      cancel_label_2: 'Tôi sẽ suy nghĩ lại.'
     },
     system_notice:{
       unauthenticated: {
@@ -35,7 +60,34 @@ module.exports = {
       permission_denied:{
         title: 'Từ chối truy cập',
         text: 'Bạn không có quyền truy cập vào đây!'
-      } 
+      },
+      warning:{
+        title: 'Chú ý',
+        text: {
+          cancel_call_request: 'Yêu cầu trò chuyện video đã bị hủy.',
+          end_call: 'Kết thúc cuộc trò chuyện video.',
+          please_fill_the_form: 'Bạn cần điền đầy đủ thông tin'
+        }
+      },
+      success:{
+        title: 'Thành công',
+        text:{
+          submit_form_to_request_room: 'Thông tin của bạn đã được gửi đến luật sư!',
+          welcome:'Chào mừng đến với VNLaw.',
+          success_update_profile: 'Thông tin của bạn đã được thay đổi.'
+        }
+      },
+      error:{
+        title: 'Lỗi',
+        text:{
+          already_been_used: 'Dịch vụ hiện đang được sử dụng.',
+          already_login: 'Bạn đã đăng nhập vào hệ thống!',
+          invalid_email: 'Bạn hãy chắc chắn email nhập vào là chính xác!',
+          user_not_found: 'Bạn hãy chắc chắn email và mật khẩu là chính xác!',
+          password_confirm_not_match: 'Mật khẩu xác nhận không khớp!',
+          some_thing_not_work: 'Đã có lỗi xảy ra, xin hãy thử lại sau!'
+        }
+      }
     },
     home: {
       footer: {
@@ -51,7 +103,7 @@ module.exports = {
         lawyer_overview: 'Hồ sơ tổng quan',
         hour: 'giờ',
         apply: 'Đặt lịch hẹn tư vấn',
-        show_all: 'Xem toàn bộ luật sư',
+        show_all: 'Xem toàn bộ luật sư'
       },
       get_start: {
         title: 'Bắt đầu đặt lịch tư vấn với luật sư ngay bây giờ',
@@ -93,7 +145,7 @@ module.exports = {
           des: 'Các quy định của pháp luật về hoạt động kinh doanh thương mại,đầu tư doanh nghiệp'
         }
       },
-      find_lawyer: 'Trao đổi với luật sư & ',
+      find_lawyer: 'Trao đổi với luật sư &',
       find_law: 'Tra cứu luật',
       fast: 'nhanh và hiệu quả nhất',
       find: 'Tìm kiếm',
@@ -116,7 +168,8 @@ module.exports = {
       support: 'Hỗ trợ',
       chat: 'Chat',
       sign_out: 'Đăng xuất',
-      setting: 'Thiết lập'
+      setting: 'Thiết lập',
+      notification: 'Thông báo',
     },
     login: {
       login_error: 'Sai mật khẩu hoặc email',
@@ -144,7 +197,7 @@ module.exports = {
       file: 'Tệp chia sẻ',
       todo: 'Công việc',
       todo_list: 'Danh sách công việc',
-      todo_list_title: 'Danh sách công việc của tôi với ',
+      todo_list_with: 'Danh sách công việc của tôi với ',
       todo_title: 'Nội dung công việc',
       todo_add: 'Thêm',
       chat_title: 'Chat với',
@@ -164,7 +217,8 @@ module.exports = {
         input_user_name: 'Hãy nhập tên người dùng mà bạn muốn tìm kiếm',
         search_tag_not_found: 'Không tìm thấy kết quả nào',
         search_tag_not_found_symbol: '-_-"',
-        result_for: ' kết quả cho '
+        result_for: ' kết quả cho ',
+        result_relate: ' kết quả liên quan '
       }
     },
     user: {
@@ -189,8 +243,10 @@ module.exports = {
       title: 'Chat',
       input_place_holder: 'Nhập tin nhắn ...',
       my_chat: 'Chat cá nhân',
+      todo_list: 'Danh sách công việc',
       shared_files: 'Tệp được chia sẻ',
-      shared_images: 'Ảnh được chia sẻ'
+      shared_images: 'Ảnh được chia sẻ',
+      rate: 'Đánh giá'
     },
     notfound: {
       content: {
@@ -199,9 +255,13 @@ module.exports = {
         back_home: 'Về trang chủ'
       }
     },
+    law: {
+      index: 'Mục lục'
+    },
     search: {
       founded: 'Tìm thấy',
       results: 'kết quả',
+      has: 'Có',
       not_found_symbol: '>_<',
       search_lawyer: {
         title: 'Bạn tìm kiếm cho ',
