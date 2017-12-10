@@ -52,7 +52,7 @@ class LawyerProfile extends Component {
   componentWillMount() {
     if(!firebase.apps.length){
       firebase.initializeApp(constant.APP_CONFIG);
-    }
+		}
 	  this.checkUserName(this.props.match.params.user_name);
   }
 

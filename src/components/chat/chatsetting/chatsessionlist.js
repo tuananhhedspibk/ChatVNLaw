@@ -1,10 +1,11 @@
 import React from 'react';
-import {getChatSession} from '../../../lib/room/chatsession';
 
+import {getChatSession} from '../../../lib/room/chatsession';
 import * as translate from 'counterpart';
 import * as constant from '../../constants';
 
-import '../../../assets/styles/common/chatsession.css'
+import '../../../assets/styles/common/chatSession.css';
+
 class ChatSessionList extends React.Component{
   constructor(props){
     super(props);
@@ -16,8 +17,10 @@ class ChatSessionList extends React.Component{
   }
 
   componentWillMount(){
-    this.setState({currentUser: this.props.currentUser, currentRoomId : this.props.currentRoomId})
+    this.setState({currentUser: this.props.currentUser,
+      currentRoomId : this.props.currentRoomId})
   }
+
   componentDidMount(){
     var tmp = [];
     var component = this;
@@ -27,10 +30,7 @@ class ChatSessionList extends React.Component{
           var item = data.val();
           item.id = data.key;
           tmp.push(item);
-          
           component.setState({list : tmp});
-          console.log(tmp);
-        // console.log(data);
           break;
         case 'child_changed':
           tmp.every((element, index) =>{
@@ -54,10 +54,13 @@ class ChatSessionList extends React.Component{
     date = new Date(parseInt(date))
     return date.getUTCHours() + ':' + date.getUTCMinutes();
   }
+
   convertDateToSecond(date){
     date = new Date(parseInt(date))
-    return date.getUTCHours() + ':' + date.getUTCMinutes()+':'+ date.getUTCSeconds();
+    return date.getUTCHours() + ':' + date.getUTCMinutes() +
+      ':' + date.getUTCSeconds();
   }
+
   convertDateToDay(date){
     date = new Date(parseInt(date))
     return date.getUTCDate() + '/' +
@@ -71,11 +74,13 @@ class ChatSessionList extends React.Component{
           <div className='item-content'>
             <div className='time-start'>
               <img src={constant.openIcon}/>
-              {this.convertDateToDay(element.startTime) + ' - ' + this.convertDateToHour(element.startTime)}
+              {this.convertDateToDay(element.startTime) +
+                ' - ' + this.convertDateToHour(element.startTime)}
             </div>
             <div className='time-close'>
               <img src={constant.closeIcon}/>
-              {this.convertDateToDay(element.closeTime) + ' - ' + this.convertDateToHour(element.closeTime)}
+              {this.convertDateToDay(element.closeTime) +
+                ' - ' + this.convertDateToHour(element.closeTime)}
             </div>
             <div className='time-total'>
               <div className='icon-container'>
@@ -87,24 +92,31 @@ class ChatSessionList extends React.Component{
               <img src={constant.cartIcon}/>
               {element.cart}
             </div>
-            {!element.payment ? <button className='payment'>Thanh Toán</button> : <div></div>}
-            
+            {
+              !element.payment ?
+              <button className='payment'>
+                {translate('app.chat.pay')}
+              </button> : <div></div>
+            }
           </div>
         )
       })
     )
   }
+
   render(){
     return(
-      <div className='chat-setting'>
-        <div className='content'>
-          <div className='shared'>
-            <div className='content-title'>{translate('app.chat.chat_session_list')}</div>
+      <div className='shared session-infor'>
+        <button className='collapsed content-title'
+          data-toggle='collapse'
+					data-target='#session-chat-content'>
+          {translate('app.chat.chat_session_list')}
+        </button>
+        <div className='items-list collapse'
+          id='session-chat-content'>
             {this.renderSessionList()}
-          </div>
         </div>
       </div>
-      
     )  
   }
 }

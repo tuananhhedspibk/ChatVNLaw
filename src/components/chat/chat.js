@@ -4,10 +4,11 @@ import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
 import firebase from 'firebase';
+import { Scrollbars } from 'react-custom-scrollbars';
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
+
 import VideoCall from './videocall'
 import ChatSetting from './chatsetting';
-
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 
 import * as RoomInfo from '../../lib/room/getroominfo';
 import * as Files from '../../lib/upfile/files';
@@ -28,7 +29,9 @@ class Chat extends Component {
       currentRoomId: null,
       targetUser: null,
       currentUser: null,
-      showDialog: false
+      showDialog: false,
+      chatContentHeight: 0,
+      chatSettingHeight: 0
     };
     this.peer=null;
   }
@@ -58,10 +61,10 @@ class Chat extends Component {
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
       Messages.history(properties, function(){
-        component.autoScrollBottom();
+        component.refs.scrollbars.scrollToBottom();
       });
       Messages.streamingMessage(properties, function(){
-        component.autoScrollBottom();        
+        component.refs.scrollbars.scrollToBottom();
       })
     
       var fileButton = document.getElementById('upfile');
@@ -72,18 +75,6 @@ class Chat extends Component {
         Files.upfile(properties,file,function(){
         });
       });
-      document.getElementsByClassName('chats')[0].addEventListener('scroll',
-      function(){
-        if(this.scrollTop === 0){
-          if(component.state.messages[0]){
-            properties['ts'] = parseInt(component.state.messages[0].msgTimeStamp) - 1;            
-            Messages.history(properties, function(){
-            
-            })
-          }
-        }
-      }
-    );
     }
   }
   
@@ -108,6 +99,18 @@ class Chat extends Component {
       e.preventDefault();
       component.deleteMessUnreadNumber();
     });
+
+    this.setHeight(this);
+    $(window).resize(function() {
+      component.setHeight(component);
+    });
+  }
+
+  setHeight(component) {
+    var vh = Math.max(document.documentElement.clientHeight,
+      window.innerHeight || 0);
+    var chatContentHeight = vh - 55 - $('#text-box').height();
+    component.setState({chatContentHeight: chatContentHeight});
   }
 
   deleteMessUnreadNumber() {
@@ -132,6 +135,8 @@ class Chat extends Component {
     var input = document.getElementById(elementId);
     var chats = document.getElementsByClassName('chats')[0];
     var deltaChatHeight = 0;
+    var vh = Math.max(document.documentElement.clientHeight,
+      window.innerHeight || 0);
 
     input.style.height = '45px';
     var contentHeight = document.getElementById(elementId).scrollHeight;
@@ -140,15 +145,13 @@ class Chat extends Component {
     var textbox = document.getElementById('text-box');
     textbox.style.height = contentHeight + 2 + 'px';
     deltaChatHeight = 55 + contentHeight;
-    chats.style.height = 'calc(100vh - ' + contentHeight  +'px - '
-      + $('.chat-window').find('.title').height() + 'px)';
+    this.setState({chatContentHeight: vh - 55 - contentHeight});
   }
 
   clearContent(elementId) {
     $('#' + elementId).val($('#' + elementId).val().replace(/\t/g, 'a'));
     $('#' + elementId).val('');
     this.autoExpand(elementId);
-    this.autoScrollBottom();    
   }
 
   renderEmojiPicker(e){
@@ -172,7 +175,7 @@ class Chat extends Component {
     }
     else {
       this.autoExpand('input-mess-box');
-      this.autoScrollBottom();
+      this.refs.scrollbars.scrollToBottom();
     }
   }
 
@@ -183,15 +186,10 @@ class Chat extends Component {
     if (textSubmit.replace(/\s/g, '').length !== 0) {
       properties["content"] = textSubmit; 
       properties["component"] = component;
-      Messages.chat(properties,function(){
+      Messages.chat(properties, function(){
 
       });
     }
-  }
-
-  autoScrollBottom() {
-    $('.chats').stop().animate({
-      scrollTop: $('.chats')[0].scrollHeight}, 1000);
   }
 
   upfile() {
@@ -203,17 +201,50 @@ class Chat extends Component {
     inputTextArea.val(inputTextArea.val() + ' ' + emoji.colons + ' ');
   }
 
+  handleScroll(event) {
+    if(event.srcElement) {
+      if(event.srcElement.scrollTop == 0) {
+        let properties = {};
+        var component = this;
+        if(this.state.messages[0]){
+          properties['roomId'] = this.state.currentRoomId;
+          properties['component'] = this;
+          properties['ts'] = '' + (new Date()).getTime();
+          properties['limit'] = 15;
+          properties['ts'] = parseInt(this.state
+            .messages[0].msgTimeStamp) - 1;          
+          Messages.history(properties, function(){
+          });
+        }
+      }
+    }
+  }
+
   render() {
     return(  
-      <div className={'chat-window ' + 'item_'+this.state.targetUser.uid} id='chat-window' >
+      <div className={'chat-window ' + 'item_' +
+        this.state.targetUser.uid} id='chat-window' >
         <VideoCall currentUser={this.props.currentUser}
-                    targetUser={this.props.targetUser}
-                    currentRoomId={this.state.currentRoomId}
-                    emitter={this.props.emitter}/>
+          targetUser={this.props.targetUser}
+          currentRoomId={this.state.currentRoomId}
+          emitter={this.props.emitter}/>
         <div className='chat-body'>
-          <ChatBubble messages={this.state.messages}
-            targetUser={this.state.targetUser}
-            currentUser={this.state.currentUser} />
+          <Scrollbars style={{
+            height: this.state.chatContentHeight}}
+            autoHide={true}
+            autoHideTimeout={1500}
+            hideTracksWhenNotNeeded={true}
+            ref='scrollbars'
+            thumbSize={100}
+            onScroll={this.handleScroll.bind(this)}
+            renderView={
+              props =>
+              <div {...props} className='custom-content'/>
+            }>
+              <ChatBubble messages={this.state.messages}
+                targetUser={this.state.targetUser}
+                currentUser={this.state.currentUser} />
+          </Scrollbars>
           <div className='text-box' id='text-box'>
             <input type='file' id='upfile'/>
             <textarea id='input-mess-box'
@@ -242,7 +273,7 @@ class Chat extends Component {
             </div>
           </div>
         </div>
-        <ChatSetting 
+        <ChatSetting
           currentRoomId={this.props.currentRoomId}
           currentUser={this.props.currentUser}
           targetUser={this.props.targetUser}/> 

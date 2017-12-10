@@ -144,6 +144,7 @@ module.exports = {
       file: 'Files shared',
       todo: 'Todo',
       todo_list: 'Todo list',
+      todo_list_warning: 'You must write something',
       todo_list_title: 'My to do list with ',
       todo_title: 'Working content',
       todo_add: 'Add',
@@ -191,7 +192,10 @@ module.exports = {
       input_place_holder: 'Input messages ...',
       my_chat: 'My chat',
       shared_files: 'Shared files',
-      shared_images: 'Shared images'
+      shared_images: 'Shared images',
+      lawyer_profile: 'Lawyer infor',
+      rate: 'Rate',
+      pay: 'Pay'
     },
     notfound: {
       content: {
@@ -402,7 +406,10 @@ module.exports = {
       achievements: 'Achievements',
       education: 'Education',
       work_place: 'Working place',
-      save: 'Save'
+      save: 'Save',
+      acc_balance: 'Account balance',
+      money_unit: 'VNĐ',
+      input_money: 'Enter the amount you want to load'
     }
   }
 }

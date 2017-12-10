@@ -12,13 +12,15 @@
   font-size: .5em; }
 
 .app-body .chat-users-list-wrapper {
+  border-right: 1px solid #c2cfd6;
   display: inline-block;
   float: left;
   overflow: hidden;
   width: 70px; }
+  .app-body .chat-users-list-wrapper .custom-content {
+    margin-bottom: -26px !important; }
 
 .app-body .chat-users-list {
-  border-right: 1px solid #c2cfd6;
   display: inline-block;
   height: calc(100vh - 56px);
   width: 100%;
@@ -34,25 +36,26 @@
       width: 50px; }
 
 .app-body {
-  height: calc(100vh - 55px); }
+  height: calc(100vh - 56px); }
 
 .app-body .sidebar {
-  height: calc(100vh - 55px);
-  overflow-y: scroll; }
+  height: calc(100vh - 56px); }
 
 .app-body {
   overflow-y: hidden; }
   .app-body .chat-box-wrapper {
     display: inline-block;
-    height: calc(100vh - 105px);
+    height: calc(100vh - 55px);
     width: calc(100% - 70px); }
   .app-body .bubble-img img {
-    max-height: 350px !important;
-    max-width: 350px !important; }
+    max-height: 230px !important;
+    max-width: 230px !important; }
   .app-body .chat-box {
     display: inline-block;
     float: left;
     width: 100%; }
+    .app-body .chat-box .custom-content {
+      margin-bottom: -26px !important; }
     .app-body .chat-box #upfile {
       display: none; }
     .app-body .chat-box .input-section {
@@ -77,12 +80,30 @@
       overflow: hidden;
       padding: 20px 15px 15px;
       resize: none;
-      width: 87%; }
+      width: 85%; }
       .app-body .chat-box textarea:focus {
         outline: 0; }
     .app-body .chat-box .chats {
-      height: calc(100vh - 163px);
-      padding: 15px; }
+      height: auto;
+      padding: 15px 15px 10px; }
+      .app-body .chat-box .chats .ReactTags__selected {
+        font-family: "Montserrat", sans-serif !important;
+        width: 230px; }
+      .app-body .chat-box .chats .ReactTags__tag {
+        display: inline-block;
+        margin-right: 5px;
+        margin-top: 0;
+        padding: 2px 3px; }
+      .app-body .chat-box .chats .ReactTags__tagInputField {
+        border: 0;
+        border-radius: 5px;
+        outline: 0;
+        padding-left: 8px;
+        width: 100% !important; }
+      .app-body .chat-box .chats .bubble {
+        font-family: "Montserrat", sans-serif !important; }
+      .app-body .chat-box .chats .time-me, .app-body .chat-box .chats .time-you {
+        font-family: "Montserrat", sans-serif !important; }
   .app-body .chat-setting .header .user-name {
     font-size: 1.1em; }
   .app-body .chat-setting .description {
@@ -180,6 +201,9 @@
   color: #000;
   font-size: 1.1em; }
 
+.app-body .sidebar .custom-content {
+  margin-bottom: -26px !important; }
+
 .sidebar .nav .nav-item .nav-link {
   font-size: 1.2em;
   width: 100%; }
@@ -207,15 +231,17 @@
 
 .app-body .main {
   background-color: #fcfcfc;
-  height: calc(100vh - 55px);
-  overflow-y: scroll; }
+  height: calc(100vh - 55px); }
+  .app-body .main .custom-content {
+    margin-bottom: -26px !important; }
   .app-body .main .breadcrumb {
     background-color: #fff !important;
     border-radius: 0;
     font-size: 1.2em;
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    width: 100%; }
   .app-body .main .container-fluid {
-    padding: 20px !important; }
+    padding: 15px !important; }
   .app-body .main .chat-setting {
     border-right: none;
     overflow-y: none;
@@ -239,7 +265,7 @@
   width: 100%; }
   .nav .user-info .user-name {
     display: inline-block;
-    font-size: 1.2em;
+    font-size: 1.25em;
     margin-left: 10px;
     width: 123px;
     word-wrap: break-word; }
@@ -329,44 +355,52 @@
     #todo-list-ul .close:after {
       width: 0; }
 
-.my-work-with h2 {
-  font-size: 1.5em; }
-  .my-work-with h2 .user-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; }
-
-.my-work-with #todo-list-ul {
-  word-wrap: break-word; }
-  .my-work-with #todo-list-ul li {
-    padding-right: 35px; }
-  .my-work-with #todo-list-ul li:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px; }
-  .my-work-with #todo-list-ul li:last-child {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px; }
-
-.my-work-with .add-todo-list-form {
-  margin-top: 15px; }
-  .my-work-with .add-todo-list-form input {
-    border: 1px solid #e5ecf0;
-    border-radius: 5px;
-    font-size: 1.1em;
-    height: 35px;
-    padding: 15px;
-    width: 100%; }
-  .my-work-with .add-todo-list-form .add-btn {
-    background-color: #2385f2;
-    border: 0;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 1.1em;
-    margin-top: 10px;
-    padding: 10px 45px; }
-    .my-work-with .add-todo-list-form .add-btn:focus {
-      background-color: #0974b8;
-      outline: none; }
+.my-work-with {
+  padding-bottom: 10px; }
+  .my-work-with h2 {
+    align-items: center;
+    display: flex;
+    font-size: 1.2em;
+    margin-bottom: 10px; }
+    .my-work-with h2 .user-name {
+      display: inline-block;
+      font-weight: bold;
+      margin-left: 10px;
+      max-width: 40%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+  .my-work-with #todo-list-ul {
+    word-wrap: break-word; }
+    .my-work-with #todo-list-ul li {
+      padding-right: 35px; }
+    .my-work-with #todo-list-ul li:first-child {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px; }
+    .my-work-with #todo-list-ul li:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px; }
+  .my-work-with .add-todo-list-form {
+    margin-top: 10px; }
+    .my-work-with .add-todo-list-form input {
+      border: 1px solid #e5ecf0;
+      border-radius: 5px;
+      font-size: 1.1em;
+      height: 35px;
+      padding: 15px;
+      width: 99%; }
+    .my-work-with .add-todo-list-form .add-btn {
+      background-color: #2385f2;
+      border: 0;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.1em;
+      margin-top: 8px;
+      padding: 10px 45px; }
+      .my-work-with .add-todo-list-form .add-btn:focus {
+        background-color: #0974b8;
+        outline: none; }
 
 .search-feature .form-search {
   width: 100%; }
@@ -472,7 +506,8 @@
 
 .app-header.navbar .navbar-nav .dropdown-toggle {
   align-items: center;
-  display: flex; }
+  display: flex;
+  font-size: .8em; }
 
 .app-header.navbar .dropdown-menu {
   background-color: #fff;
@@ -492,3 +527,25 @@
   color: #2385f2;
   display: flex;
   justify-content: center; }
+
+@-moz-document url-prefix() {
+  .my-work-with .add-todo-list-form .add-btn {
+    font-size: 1em;
+    padding: 6px 35px; }
+  .breadcrumb-item a {
+    font-size: .9em; }
+  .my-work-with .add-todo-list-form input {
+    padding: 5px 8px; }
+  .my-work-with h2 {
+    font-size: 1.1em; }
+  .tools {
+    padding: 0 15px; }
+  .navbar .navbar-brand {
+    font-size: 1.4em; }
+  .app .navbar {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important; }
+  .sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before {
+    right: 1.8rem; }
+  .sidebar .nav .nav-item .nav-link {
+    font-size: 1.1em; } }

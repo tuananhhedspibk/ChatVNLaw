@@ -6639,7 +6639,7 @@ base-chart.chart {
         margin-left: 0; }
       .app-header.navbar .nav-item .nav-link > .img-avatar, .app-header.navbar .nav-item .dropdown-toggle > .img-avatar {
         height: 35px;
-        margin: 0 10px; }
+        margin: 0 0 0 10px; }
   .app-header.navbar .dropdown-menu {
     padding-bottom: 0;
     line-height: 1.5; }

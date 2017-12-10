@@ -20,14 +20,18 @@
 
 .app-body {
   .chat-users-list-wrapper {
+    border-right: 1px solid $border-color;
     display: inline-block;
     float: left;
     overflow: hidden;
     width: 70px;
+
+    .custom-content {
+      margin-bottom: -26px !important;
+    }
   }
 
   .chat-users-list {
-    border-right: 1px solid $border-color;
     display: inline-block;
     height: calc(100vh - 56px);
     width: 100%;
@@ -51,12 +55,11 @@
 }
 
 .app-body {
-  height: calc(100vh - 55px);
+  height: calc(100vh - 56px);
 }
 
 .app-body .sidebar {
-  height: calc(100vh - 55px);
-  overflow-y: scroll;
+  height: calc(100vh - 56px);
 }
 
 .app-body {
@@ -64,14 +67,14 @@
 
   .chat-box-wrapper {
     display: inline-block;
-    height: calc(100vh - 105px);
+    height: calc(100vh - 55px);
     width: calc(100% - 70px);
   }
 
   .bubble-img {
     img {
-      max-height: 350px !important;
-      max-width: 350px !important;
+      max-height: 230px !important;
+      max-width: 230px !important;
     }
   }
 
@@ -79,6 +82,10 @@
     display: inline-block;
     float: left;
     width: 100%;
+
+    .custom-content {
+      margin-bottom: -26px !important;
+    }
 
     #upfile {
       display: none;
@@ -114,7 +121,7 @@
       overflow: hidden;
       padding: 20px 15px 15px;
       resize: none;
-      width: 87%;
+      width: 85%;
 
       &:focus {
         outline: 0;
@@ -122,8 +129,36 @@
     }
 
     .chats {
-      height: calc(100vh - 163px);
-      padding: 15px;
+      height: auto;
+      padding: 15px 15px 10px;
+
+      .ReactTags__selected {
+        font-family: "Montserrat", sans-serif !important;
+        width: 230px;
+      }
+
+      .ReactTags__tag {
+        display: inline-block;
+        margin-right: 5px;
+        margin-top: 0;
+        padding: 2px 3px;
+      }
+
+      .ReactTags__tagInputField {
+        border: 0;
+        border-radius: 5px;
+        outline: 0;
+        padding-left: 8px;
+        width: 100% !important;
+      }
+
+      .bubble {
+        font-family: "Montserrat", sans-serif !important;
+      }
+
+      .time-me, .time-you {
+        font-family: "Montserrat", sans-serif !important;
+      }
     }
   }
 
@@ -243,6 +278,7 @@
   font-size: 1em !important;
 }
 
+
 .sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before,
 .sidebar .nav .nav-item .navbar .nav-dropdown-toggle.dropdown-toggle::before,
 .navbar .sidebar .nav .nav-item .nav-dropdown-toggle.dropdown-toggle::before { 
@@ -268,6 +304,12 @@
   .chat-setting .content .content-title {
     color: $black;
     font-size: 1.1em;
+  }
+
+  .sidebar {
+    .custom-content {
+      margin-bottom: -26px !important;
+    }
   }
 }
 
@@ -308,17 +350,21 @@
 .app-body .main {
   background-color: $main-background;
   height: calc(100vh - 55px);
-  overflow-y: scroll;
+
+  .custom-content {
+    margin-bottom: -26px !important;
+  }
 
   .breadcrumb {
     background-color: $white !important;
     border-radius: 0;
     font-size: 1.2em;
     margin-bottom: 0;
+    width: 100%;
   }
 
   .container-fluid {
-    padding: 20px !important;
+    padding: 15px !important;
   }
 
   .chat-setting {
@@ -355,7 +401,7 @@
 
     .user-name {
       display: inline-block;
-      font-size: 1.2em;
+      font-size: 1.25em;
       margin-left: 10px;
       width: 123px;
       word-wrap: break-word;
@@ -478,10 +524,19 @@
 }
 
 .my-work-with {
+  padding-bottom: 10px;
+
   h2 {
-    font-size: 1.5em;
+    align-items: center;
+    display: flex;
+    font-size: 1.2em;
+    margin-bottom: 10px;
 
     .user-name {
+      display: inline-block;
+      font-weight: bold;
+      margin-left: 10px;
+      max-width: 40%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -506,7 +561,7 @@
   }
 
   .add-todo-list-form {
-    margin-top: 15px;
+    margin-top: 10px;
 
     input {
       border: 1px solid $gray-lighter;
@@ -514,7 +569,7 @@
       font-size: 1.1em;
       height: 35px;
       padding: 15px;
-      width: 100%;
+      width: 99%;
     }
 
     .add-btn {
@@ -522,8 +577,9 @@
       border: 0;
       border-radius: 5px;
       color: $white;
+      cursor: pointer;
       font-size: 1.1em;
-      margin-top: 10px;
+      margin-top: 8px;
       padding: 10px 45px;
 
       &:focus {
@@ -682,6 +738,7 @@
 .app-header.navbar .navbar-nav .dropdown-toggle {
   align-items: center;
   display: flex;
+  font-size: .8em;
 }
 
 .app-header.navbar .dropdown-menu {
@@ -708,4 +765,50 @@
   color: $blue;
   display: flex;
   justify-content: center;
+}
+
+@-moz-document url-prefix() {
+  .my-work-with .add-todo-list-form .add-btn {
+    font-size: 1em;
+    padding: 6px 35px;
+  }
+
+  .breadcrumb-item {
+    a {
+      font-size: .9em;
+    }
+  }
+
+  .my-work-with .add-todo-list-form input {
+    padding: 5px 8px;
+  }
+
+  .my-work-with {
+    h2 {
+      font-size: 1.1em;
+    }
+  }
+
+  .tools {
+    padding: 0 15px;
+  }
+
+  .navbar .navbar-brand {
+    font-size: 1.4em;
+  }
+
+  .app {
+    .navbar {
+      padding-bottom: 0 !important;
+      padding-top: 0 !important;
+    }
+  }
+
+  .sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before {
+    right: 1.8rem;
+  }
+
+  .sidebar .nav .nav-item .nav-link {
+    font-size: 1.1em;
+  }
 }

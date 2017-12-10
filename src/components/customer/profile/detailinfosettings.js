@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import * as firebase from 'firebase';
-import { Header, TextArea, Button, Image,Modal, Dropdown } from 'semantic-ui-react';
+import { Header, TextArea,
+  Button, Image,Modal, Dropdown } from 'semantic-ui-react';
 
 let translate = require('counterpart');
 
@@ -8,21 +9,23 @@ class DetailInfoSettings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      balance: '',
-      type: '',
+      balance: 10000,
+      type: 'VND',
       modalOpen: false
     }
   }
 
   componentWillMount() {
     var component = this
-    firebase.database().ref(`moneyAccount/${this.props.user.uid}`).once('value', data=> {
-      if(data.exists()){
-        component.setState({
-          balance: data.val().amount,
-          type: data.val().type
-        })
-      }
+    firebase.database()
+      .ref(`moneyAccount/${this.props.user.uid}`)
+      .once('value', data=> {
+        if(data.exists()){
+          component.setState({
+            balance: data.val().amount,
+            type: data.val().type
+          })
+        }
     })
   }
 
@@ -49,7 +52,6 @@ class DetailInfoSettings extends Component {
   }
 
   paymentProcess(){
-    // thực hiện thanh toán
   }
 
   renderViewPayment(){
@@ -59,18 +61,26 @@ class DetailInfoSettings extends Component {
         open={this.state.modalOpen}
         id='edit-user-profile-box' closeIcon={true} 
         size='mini'>
-        <Modal.Header>
-          {translate('app.payment.title_recharge')}
-        </Modal.Header>
-        <Modal.Content>
-          <label for="input_payment"> Nhập số tiền cần nạp </label>
-          <input type="number" className="form-control" id="input_payment"/> VNĐ
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color='blue' onClick={this.paymentProcess.bind(this)}>
-            {translate('app.payment.process')}
-          </Button>
-        </Modal.Actions>
+          <Modal.Header>
+            {translate('app.payment.title_recharge')}
+          </Modal.Header>
+          <Modal.Content>
+            <label for='input_payment'>
+              {translate('app.settings.input_money')}
+            </label>
+            <div className='input-group'>
+              <input type='number' className='form-control'
+                id='input_payment'/>
+              <span className='input-group-addon'>
+                {translate('app.settings.money_unit')}
+              </span>
+            </div>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='blue' onClick={this.paymentProcess.bind(this)}>
+              {translate('app.payment.process')}
+            </Button>
+          </Modal.Actions>
       </Modal>
     )
   }
@@ -79,10 +89,19 @@ class DetailInfoSettings extends Component {
     return(
       <div className='detail-info-settings'>
         {this.renderViewPayment()}
-        <p>Số dư tài khoản: {this.state.balance} {this.state.type}</p>
-        <button type="button" class="btn btn-primary" onClick={this.showDialog.bind(this)}>
-          {translate('app.payment.recharge')}
-        </button>
+        <div className='info-block'>
+          <div className='title'>
+            {translate('app.settings.acc_balance')}:
+            <p className='money-value'>
+              {this.state.balance} {this.state.type}
+            </p>
+          </div>
+          <button className='save-btn'
+            onClick={this.showDialog.bind(this)}>
+              <i className='fa fa-credit-card' aria-hidden='true'></i>
+              {translate('app.payment.recharge')}
+          </button>
+        </div>
       </div>
     )
   }

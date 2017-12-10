@@ -86,7 +86,9 @@ class VideoCall extends React.Component{
       let peer = null;      
       do{
         counter ++;
-        peer = new  Peer(component.props.currentUser.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure:true,port: 443, config: stunServer});       
+        peer = new  Peer(component.props.currentUser.uid,
+          {key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',
+          secure:true,port: 443, config: stunServer});       
       } while(!!!(peer.id) && counter < 10);
       if(!!peer.id){
         component.setState({peer : peer});
@@ -125,7 +127,10 @@ class VideoCall extends React.Component{
         properties['uid'] = this.state.currentUser.uid;
         videoCall.checkRequest(properties, function(issuccess){
           if(issuccess){
-            component.props.emitter.emit('AddNewErrorToast', translate('app.system_notice.error.title'), translate('app.system_notice.error.text.already_been_used'), 5000, () =>{});
+            component.props.emitter.emit('AddNewErrorToast',
+            translate('app.system_notice.error.title'),
+            translate('app.system_notice.error.text.already_been_used'),
+            5000, () =>{});
           }else{
             videoCall.createRequest(properties,function(issuccess){
               if(issuccess){
@@ -204,7 +209,6 @@ class VideoCall extends React.Component{
   render(){
     return(
       this.renderView()
-      // this.state.isLoading ? <Loading/> : this.renderView()
     )
   }
 }

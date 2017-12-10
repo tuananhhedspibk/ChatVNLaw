@@ -16,9 +16,28 @@
     padding: 20px; }
     .login-page .justify-content-md-center .box {
       background-color: #fff;
+      border: 1px solid #f1f1f1;
       border-radius: 5px;
+      margin-top: 85px;
       padding: 15px 30px 30px;
-      margin-top: 15px; }
+      position: relative; }
+      .login-page .justify-content-md-center .box .app-logo {
+        border-radius: 50%;
+        height: 100px;
+        left: calc(50% - 50px);
+        position: absolute;
+        top: -78px;
+        width: 100px;
+        z-index: 100; }
+      .login-page .justify-content-md-center .box .elip-section {
+        background-color: #f6f6f6;
+        border-bottom: 1px solid #f1f1f1;
+        border-radius: 50%;
+        height: 110px;
+        position: absolute;
+        top: -80px;
+        left: calc(50% - 55px);
+        width: 110px; }
     .login-page .justify-content-md-center .omni-auth {
       padding: 15px 0 0;
       font-size: 1.3em; }
@@ -57,10 +76,8 @@
     margin-bottom: 5px; }
     .login-page h1 small {
       color: #2385f2; }
-  .login-page .form-group {
-    padding: 8px 0; }
   .login-page .form-content {
-    padding: 5px 0 0; }
+    padding: 30px 0 0; }
 
 .btn-outline {
   background-color: #2385f2;

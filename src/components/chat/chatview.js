@@ -5,6 +5,7 @@ import SearchInput, {createFilter} from 'react-search-input';
 import {Route, Switch} from 'react-router-dom';
 import $ from 'jquery';
 import {EventEmitter} from 'fbemitter';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import Loading from '../shared/loading';
 import getStunServerList from '../../lib/getstunserverlist';
@@ -38,9 +39,24 @@ class ChatView extends Component {
       users: [],
       unread: [],
       searchTerm: '',
-      isloading: true
+      isloading: true,
+      usersListHeight: 0
     };
     this.emitter = new EventEmitter();    
+  }
+
+  setHeight(component) {
+    var vh = Math.max(document.documentElement.clientHeight,
+      window.innerHeight || 0);
+    component.setState({usersListHeight: vh - 125});
+  }
+
+  componentDidMount() {
+    var component = this;
+    this.setHeight(this);
+    $(window).resize(function(){
+      component.setHeight(component);
+    });
   }
 
   componentWillMount(){
@@ -69,7 +85,6 @@ class ChatView extends Component {
       }   
     })
   }
-
 
   elementBaseStatus(userStatus) {
     if (userStatus === 'online') {
@@ -164,28 +179,45 @@ class ChatView extends Component {
                 onChange={this.searchUpdated.bind(this)}
                 placeholder={translate('app.user.search') + '...'} />
             </div>
-            {
-              filteredUsers.map(user => {
-                return(
-                  <div className={
-                    this.props.match.params.user_name === user.username
-                      ? 'user active-link ': 'user'}
-                    key={user.uid}>
-                    {this.renderStatus(user.status, user.uid)}
-                    <Link to={'/chat/' + user.username} key={user.uid}
-                      activeClassName='active-link'>
-                        <List.Item key={user.uid}>
-                          <Image avatar src={user.photoURL}/>
-                          <List.Content>
-                            <List.Header>{user.uid !== this.state.currentUser.uid ? user.displayName : translate('app.chat.my_chat')}</List.Header>
-                          </List.Content>
-                          {this.renderUnreadMessages(user.uid)}
-                        </List.Item>
-                    </Link>
-                  </div>
-                );
-              })
-            }
+            <Scrollbars style={{
+              height: this.state.usersListHeight}}
+              autoHide={true}
+              thumbSize={50}
+              autoHideTimeout={1500}
+              hideTracksWhenNotNeeded={true}
+              renderView={
+                props =>
+                <div {...props} className='custom-content'/>
+              }
+              renderTrackHorizontal={props =>
+                <div {...props} className='track-horizontal'
+                  style={{display:'none'}}/>}>
+              {
+                filteredUsers.map(user => {
+                  return(
+                    <div className={
+                      this.props.match.params.user_name === user.username
+                        ? 'user active-link ': 'user'}
+                      key={user.uid}>
+                      {this.renderStatus(user.status, user.uid)}
+                      <Link to={'/chat/' + user.username} key={user.uid}
+                        activeClassName='active-link'>
+                          <List.Item key={user.uid}>
+                            <Image avatar src={user.photoURL}/>
+                            <List.Content>
+                              <List.Header>{user.uid !==
+                                this.state.currentUser.uid ? user.displayName :
+                                translate('app.chat.my_chat')}
+                              </List.Header>
+                            </List.Content>
+                            {this.renderUnreadMessages(user.uid)}
+                          </List.Item>
+                      </Link>
+                    </div>
+                  );
+                })
+              }
+            </Scrollbars>
           </List>
         </div>
         {

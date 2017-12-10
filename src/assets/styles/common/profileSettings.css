@@ -89,16 +89,20 @@
       font-size: 1.2em;
       height: 65px !important; }
     .container-settings-wrapper .detail-info-settings .save-btn {
-      background-color: #00A0A0;
-      border: 1px solid #00A0A0;
+      background-color: #00a0a0;
+      border: 1px solid #00a0a0;
       border-radius: 5px; }
       .container-settings-wrapper .detail-info-settings .save-btn:hover {
         background-color: #fff;
-        color: #00A0A0;
+        color: #00a0a0;
         transition: all .5s ease; }
   .container-settings-wrapper .info-block {
     margin-bottom: 20px;
     padding-top: 10px; }
+    .container-settings-wrapper .info-block .money-value {
+      display: inline-block;
+      font-weight: normal;
+      margin-left: 15px; }
     .container-settings-wrapper .info-block .ui.input {
       width: 100%; }
     .container-settings-wrapper .info-block .title {
@@ -106,6 +110,17 @@
       font-weight: bold;
       margin-bottom: 10px;
       width: 100%; }
+
+#edit-user-profile-box {
+  font-family: "Montserrat", sans-serif !important;
+  height: 225px; }
+  #edit-user-profile-box .header {
+    font-family: "Montserrat", sans-serif !important; }
+  #edit-user-profile-box .content {
+    font-size: 1.1em; }
+  #edit-user-profile-box .actions button {
+    background-color: #00a0a0;
+    font-family: "Montserrat", sans-serif !important; }
 
 @media (max-width: 993px) {
   .change-ava-guide {
