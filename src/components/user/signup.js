@@ -144,6 +144,10 @@ class UserSignUp extends Component {
         <div className='row justify-content-md-center'>
           <div className='col-md-4 col-lg-4 col-md-offset-3 col-lg-offset-3'>
             <div className='box'>
+              <img src={constant.appLogoPic}
+                className='app-logo' alt=''/>
+              <div className='elip-section'>
+              </div>
               <form onSubmit={this.handleSubmit.bind(this)}
                 className='ng-pristine ng-valid'>
                 <div className='form-content'>

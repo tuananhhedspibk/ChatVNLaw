@@ -31,13 +31,16 @@
   max-height: 100%; }
 
 .chat-setting {
+  border-left: 1px solid #e5ecf0;
   border-right: 1px solid #e5ecf0;
   float: right;
   font-size: 1.05em;
-  height: calc(100vh - 65px);
-  overflow-y: scroll;
+  height: calc(100vh - 55px);
+  overflow-y: hidden;
   text-align: left;
   width: 320px; }
+  .chat-setting .custom-content {
+    margin-bottom: -26px !important; }
   .chat-setting .ui.dropdown .menu {
     font-size: 1.1em; }
   .chat-setting .config .ui.dropdown .menu {
@@ -51,7 +54,6 @@
     .chat-setting .header .ava {
       margin-right: 12px; }
       .chat-setting .header .ava img {
-        border: 1px solid #6298f7;
         border-radius: 50%;
         height: 50px;
         width: 50px; }
@@ -63,17 +65,21 @@
     .chat-setting .header .config {
       color: #a2a2a2;
       cursor: pointer; }
-  .chat-setting .content {
-    overflow-y: scroll; }
-    .chat-setting .content .shared {
-      border-bottom: 1px solid #e5ecf0;
-      padding: 15px; }
-      .chat-setting .content .shared a {
-        display: block;
-        margin-bottom: 3px;
-        max-width: 100%;
-        word-wrap: break-word; }
-    .chat-setting .content .content-title {
-      color: #a2a2a2;
-      text-transform: none;
-      margin-bottom: 3px; }
+  .chat-setting .content .shared {
+    border-bottom: 1px solid #e5ecf0;
+    padding: 15px; }
+    .chat-setting .content .shared a {
+      display: block;
+      margin-bottom: 3px;
+      max-width: 100%;
+      word-wrap: break-word; }
+  .chat-setting .content .content-title {
+    color: #a2a2a2;
+    text-transform: none;
+    margin-bottom: 3px; }
+
+@-moz-document url-prefix() {
+  .chat-setting {
+    font-size: .95em; }
+    .chat-setting .content-title {
+      padding-left: 0; } }

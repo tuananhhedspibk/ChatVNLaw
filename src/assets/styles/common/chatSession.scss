@@ -1,0 +1,84 @@
+@import 'variables.scss';
+
+.session-infor {
+  .content-title {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+    position: relative;
+    text-align: left;
+    width: 100%;
+
+    &:after {
+      content: "\f106";
+      font-family: FontAwesome;
+      font-size: 1.2em;
+      position: absolute;
+      right: 10px;
+    }
+  }
+
+  .content-title.collapsed {
+    &:after {
+      content: "\f107";
+      font-family: FontAwesome;
+    }
+  }
+
+  .item-content{
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 2px $gray-lighter;
+    font-size: .9em;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+
+    &:first-child {
+      margin-top: 15px;
+    }
+
+    &:hover {
+      box-shadow: 1px 1px 3px 3px $gray-medium;
+      transition: all .3s ease;
+    }
+
+    div{
+      align-items: center;
+      display: flex;
+      margin-bottom: 2px;
+
+      img{
+        margin-right: 20px;
+      }
+
+      .icon-container{
+        height: 32px;
+        width: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+      }
+
+      .fa-clock-o{
+        font-size: 1.5em;
+        color: #2385f2;
+      }
+    }
+
+    .payment{
+      background-color: $white;
+      border: 0;  
+      border-radius: 3px;
+      color: $red;
+      cursor: pointer;
+      margin-top: 2px;
+      padding: 5px 10px;
+
+      &:hover{
+        background-color: $gray-medium;
+        transition: all .4s ease;
+      }  
+    }
+  }
+}

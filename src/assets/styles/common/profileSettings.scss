@@ -157,6 +157,12 @@
     margin-bottom: 20px;
     padding-top: 10px;
 
+    .money-value {
+      display: inline-block;
+      font-weight: normal;
+      margin-left: 15px;
+    }
+
     .ui.input {
       width: 100%;
     }
@@ -166,6 +172,26 @@
       font-weight: bold;
       margin-bottom: 10px;
       width: 100%;
+    }
+  }
+}
+
+#edit-user-profile-box {
+  font-family: "Montserrat", sans-serif !important;
+  height: 225px;
+
+  .header {
+    font-family: "Montserrat", sans-serif !important;
+  }
+
+  .content {
+    font-size: 1.1em;
+  }
+
+  .actions {
+    button {
+      background-color: $blue-analog-darker;
+      font-family: "Montserrat", sans-serif !important;
     }
   }
 }

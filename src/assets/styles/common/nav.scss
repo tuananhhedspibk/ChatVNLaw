@@ -191,3 +191,9 @@
 		}
 	}
 }
+
+@-moz-document url-prefix() {
+	.navbar {
+		font-size: 1.3em;
+	}
+}

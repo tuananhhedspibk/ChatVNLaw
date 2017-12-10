@@ -130,6 +130,10 @@ class UserLogin extends Component {
         <div className='row justify-content-md-center'>
           <div className='col-md-4'>
             <div className='box'>
+              <img src={constant.appLogoPic}
+                className='app-logo' alt=''/>
+              <div className='elip-section'>
+              </div>
               <form onSubmit={this.handleSubmit.bind(this)}
                 className='ng-pristine ng-valid'>
                 <div className='form-content'>

@@ -1,0 +1,57 @@
+.session-infor .content-title {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  position: relative;
+  text-align: left;
+  width: 100%; }
+  .session-infor .content-title:after {
+    content: "\f106";
+    font-family: FontAwesome;
+    font-size: 1.2em;
+    position: absolute;
+    right: 10px; }
+
+.session-infor .content-title.collapsed:after {
+  content: "\f107";
+  font-family: FontAwesome; }
+
+.session-infor .item-content {
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 2px #e5ecf0;
+  font-size: .9em;
+  margin-bottom: 20px;
+  padding: 10px 15px; }
+  .session-infor .item-content:first-child {
+    margin-top: 15px; }
+  .session-infor .item-content:hover {
+    box-shadow: 1px 1px 3px 3px #d1d1d1;
+    transition: all .3s ease; }
+  .session-infor .item-content div {
+    align-items: center;
+    display: flex;
+    margin-bottom: 2px; }
+    .session-infor .item-content div img {
+      margin-right: 20px; }
+    .session-infor .item-content div .icon-container {
+      height: 32px;
+      width: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px; }
+    .session-infor .item-content div .fa-clock-o {
+      font-size: 1.5em;
+      color: #2385f2; }
+  .session-infor .item-content .payment {
+    background-color: #fff;
+    border: 0;
+    border-radius: 3px;
+    color: #e54040;
+    cursor: pointer;
+    margin-top: 2px;
+    padding: 5px 10px; }
+    .session-infor .item-content .payment:hover {
+      background-color: #d1d1d1;
+      transition: all .4s ease; }

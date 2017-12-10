@@ -197,6 +197,7 @@ module.exports = {
       file: 'Tệp chia sẻ',
       todo: 'Công việc',
       todo_list: 'Danh sách công việc',
+      todo_list_warning: 'Bạn cần nhập nội dung công việc',
       todo_list_with: 'Danh sách công việc của tôi với ',
       todo_title: 'Nội dung công việc',
       todo_add: 'Thêm',
@@ -246,7 +247,10 @@ module.exports = {
       todo_list: 'Danh sách công việc',
       shared_files: 'Tệp được chia sẻ',
       shared_images: 'Ảnh được chia sẻ',
-      rate: 'Đánh giá'
+      rate: 'Đánh giá',
+      lawyer_profile: 'Thông tin của luật sư',
+      chat_session_list: 'Lịch sử phiên chat',
+      pay: 'Thanh toán'
     },
     notfound: {
       content: {
@@ -464,7 +468,10 @@ module.exports = {
       education: 'Giáo dục',
       work_place: 'Nơi làm việc',
       save: 'Lưu',
-      payment: 'Thông tin tài khoản'
+      payment: 'Thông tin tài khoản',
+      acc_balance: 'Số dư tài khoản',
+      money_unit: 'VNĐ',
+      input_money: 'Nhập số tiền muốn nạp'
     }
   }
 }

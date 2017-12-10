@@ -6,6 +6,10 @@
   height: 100%;
   width: 320px;
 
+  .custom-content {
+    margin-bottom: -26px !important;
+  }
+
   .header-index {
     background-color: $blue;
     border-bottom: 1px solid $gray-lighter;
@@ -54,7 +58,6 @@
   .ui.list {
     display: inline-block;
     margin-top: 0;
-    overflow-y: scroll;
     padding: 0 0;
     height: calc(100% - 55px);
     width: 100%;
@@ -148,5 +151,26 @@
 .dropdown-status {
   span.text {
     font-size: 1.3em;
+  }
+}
+
+@-moz-document url-prefix() {
+  .list-users .search-box input {
+    height: 35px;
+    padding: 8px 10px;
+  }
+
+  .list-users .ui.list .item .content .header {
+    font-size: 1.1em;
+  }
+
+  .list-users .header-index {
+    padding: 9px 11px 11px;
+  }
+}
+
+@media (max-height: 400px) {
+  .content {
+    display: block !important;
   }
 }

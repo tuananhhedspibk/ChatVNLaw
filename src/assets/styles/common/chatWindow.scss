@@ -93,25 +93,34 @@
   }
 
   .chats {
-    border-right: 1px solid $gray-lighter;
-    height: calc(100% - 60px);
-    overflow-y: scroll;
+    height: auto;
     padding: 25px;
     width: 100%;
+
+    .time-me, .time-you {
+      font-family: "Montserrat", sans-serif !important;
+    }
+
+    .bubble {
+      font-family: "Montserrat", sans-serif !important;
+    }
   }
 
   .chat-body {
     float: left;
-    height: calc(100vh - 55.5px);
+    height: calc(100vh - 55px);
     position: relative;
     width: calc(100% - 320px);
+
+    .custom-content {
+      margin-bottom: -26px !important;
+    }
   }
 
   .text-box {
     align-items: center;
     background-color: $white;
     border-top: 1px solid $gray-lighter;
-    border-right: 1px solid $gray-lighter;
     display: flex;
     font-size: 1em;
     height: 60px;
@@ -163,9 +172,20 @@
   }
 }
 
+@-moz-document url-prefix() {
+  .chat-window .title {
+    font-size: .9em;
+    padding: 12px;
+
+    .fa {
+      font-size: 1.1em;
+    }
+  }
+}
+
 #emoji-picker {
-  bottom: 60px;
-  visibility: hidden;
+  bottom: 70px;
   position: absolute;
-  right: 20px;
+  right: 15px;
+  visibility: hidden;
 }

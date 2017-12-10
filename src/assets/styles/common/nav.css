@@ -125,3 +125,7 @@
 
 .nav-light .navbar-toggler .fa {
   color: #fff; }
+
+@-moz-document url-prefix() {
+  .navbar {
+    font-size: 1.3em; } }

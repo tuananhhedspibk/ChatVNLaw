@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, TextArea, Button, Image,Modal, Dropdown } from 'semantic-ui-react';
 import $ from 'jquery';
+import { Scrollbars } from 'react-custom-scrollbars';
 import ChatSessionList from './chatsetting/chatsessionlist';
 
 import * as constant from '../constants';
@@ -53,8 +54,23 @@ class ChatSetting extends Component {
       currentUser: null,
       images:[],
       files: [],
-      modalOpen: false
+      modalOpen: false,
+      chatSettingHeight: ''
     };
+  }
+
+  setHeight(component) {
+    var vh = Math.max(document.documentElement.clientHeight,
+      window.innerHeight || 0);
+    component.setState({chatSettingHeight: vh - 55});
+  }
+
+  componentDidMount() {
+    var component = this;
+    this.setHeight(this);
+    $(window).resize(function() {
+      component.setHeight(component);
+    });
   }
 
   componentWillMount() {
@@ -75,7 +91,6 @@ class ChatSetting extends Component {
     }
   }
   
-
   componentWillUpdate(nextProps, nextState){
     if(this.state.currentRoomId !== nextState.currentRoomId){
       let properties = {}
@@ -108,7 +123,6 @@ class ChatSetting extends Component {
       function(snapshot){
       },
       function(err){
-        console.log(err);
       },
       function(){
         $('#edit-user-ava').find('img').attr('src',task.snapshot.downloadURL);
@@ -162,8 +176,7 @@ class ChatSetting extends Component {
               <Modal.Content image>
                 <div className='image-col' style={imgColStyle.base}>
                   <Image wrapped size='medium' id='edit-user-ava'
-                    src={this.state.currentUser.photoURL}
-                     />
+                    src={this.state.currentUser.photoURL}/>
                   <a href='#' onClick={this.upfile.bind(this)}
                     style={uploadNewPicStyle.base}>
                       <i className='fa fa-camera'
@@ -199,61 +212,83 @@ class ChatSetting extends Component {
   render() {
     return(
       <div className='chat-setting'>
-        <div className='header'>
-          <div className='ava'>
-            {this.renderAva()}
-          </div>
-          <div className='info'>
-            <div className={'user-name'}
-              title={this.state.targetUser.displayName}>
-              {this.state.targetUser.displayName}
-            </div>
-          </div>
-          <div className='config'>
-            {this.renderConfig()}
-          </div> 
-        </div>
-        <div className='content'>
-          <div className='shared'>
-            <div className='content-title'>{translate('app.chat.lawyer_profile')}</div>
-            <a target='_blank' href = {constant.BASE_URL + '/lawyers/'+this.state.targetUser.username}> {constant.BASE_URL + '/lawyers/'+this.state.targetUser.username}</a>
-          </div>
-
-          <div className='shared shared-files'>
-            <div className='content-title'>{translate('app.chat.shared_files')}</div>
-            <div className='files-list'>
-              {
-                this.state.files.map(file => {
-                  return(
-                    <Link to={file.downloadURL}
-                      target='_blank'>
-                        {file.name}
-                    </Link>
-                  )
-                })
-              }
-            </div>
-          </div>
-          <div className='shared shared-images'>
-            <div className='content-title'>{translate('app.chat.shared_images')}</div>
-            <div className='images-list'>
-              {
-                this.state.images.map(image => {
-                  return(
-                    <Link to={image.downloadURL}
-                      target='_blank'>
-                        {image.name}
-                    </Link>
-                  )
-                })
-              }
-            </div>
-          </div>
-          <ChatSessionList
-              currentUser={this.props.currentUser}
-              currentRoomId={this.props.currentRoomId} />
-        </div>
-      </div> 
+        <Scrollbars style={{
+          height: this.state.chatSettingHeight}}
+          autoHide={true}
+          autoHideTimeout={1500}
+          thumbSize={100}
+          hideTracksWhenNotNeeded={true}
+          renderView={
+            props =>
+            <div {...props} className='custom-content'/>
+          }
+          renderTrackHorizontal={props =>
+            <div {...props} className='track-horizontal'
+              style={{display:'none'}}/>}>
+              <div className='header'>
+                <div className='ava'>
+                  {this.renderAva()}
+                </div>
+                <div className='info'>
+                  <div className={'user-name'}
+                    title={this.state.targetUser.displayName}>
+                    {this.state.targetUser.displayName}
+                  </div>
+                </div>
+                <div className='config'>
+                  {this.renderConfig()}
+                </div> 
+              </div>
+              <div className='content'>
+                <div className='shared'>
+                  <div className='content-title'>
+                    {translate('app.chat.lawyer_profile')}
+                  </div>
+                  {/*<a target='_blank' href={constant.BASE_URL +
+                    '/lawyers/' + this.state.currentUser.username}>
+                    {constant.BASE_URL + '/lawyers/'
+                    + this.state.currentUser.username}</a>*/}
+                </div>
+                <div className='shared shared-files'>
+                  <div className='content-title'>
+                    {translate('app.chat.shared_files')}
+                  </div>
+                  <div className='files-list'>
+                    {
+                      this.state.files.map(file => {
+                        return(
+                          <Link to={file.downloadURL}
+                            target='_blank'>
+                              {file.name}
+                          </Link>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+                <div className='shared shared-images'>
+                  <div className='content-title'>
+                    {translate('app.chat.shared_images')}
+                  </div>
+                  <div className='images-list'>
+                    {
+                      this.state.images.map(image => {
+                        return(
+                          <Link to={image.downloadURL}
+                            target='_blank'>
+                              {image.name}
+                          </Link>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+                <ChatSessionList
+                  currentUser={this.props.currentUser}
+                  currentRoomId={this.props.currentRoomId} />
+              </div>
+        </Scrollbars>
+      </div>
     )
   }
 }

@@ -47,13 +47,18 @@
 }
 
 .chat-setting {
+  border-left: 1px solid $gray-lighter;
   border-right: 1px solid $gray-lighter;
   float: right;
   font-size: 1.05em;
-  height: calc(100vh - 65px);
-  overflow-y: scroll;
+  height: calc(100vh - 55px);
+  overflow-y: hidden;
   text-align: left;
   width: 320px;
+
+  .custom-content {
+    margin-bottom: -26px !important;
+  }
 
   .ui.dropdown .menu {
     font-size: 1.1em;
@@ -74,7 +79,6 @@
       margin-right: 12px;
 
       img {
-        border: 1px solid $blue-lighter;
         border-radius: 50%;
         height: 50px;
         width: 50px;
@@ -97,7 +101,6 @@
   }
 
   .content {
-    overflow-y: scroll;
     
     .shared {
       border-bottom: 1px solid $gray-lighter;
@@ -115,6 +118,16 @@
       color: $gray;
       text-transform: none;
       margin-bottom: 3px;
+    }
+  }
+}
+
+@-moz-document url-prefix() {
+  .chat-setting {
+    font-size: .95em;
+
+    .content-title {
+      padding-left: 0;
     }
   }
 }

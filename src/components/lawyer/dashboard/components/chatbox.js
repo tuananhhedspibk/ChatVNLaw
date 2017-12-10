@@ -14,8 +14,6 @@ import * as translate from 'counterpart';
 import * as videoCall from '../../../../lib/streaming/videocall';
 import * as constant from '../../../constants';
 
-import 'react-confirm-alert/src/react-confirm-alert.css';
-
 class ChatBox extends Component {
   constructor(props) {
     super(props);
@@ -42,14 +40,17 @@ class ChatBox extends Component {
       component.updateTag(mess);
     })
   }
-  updateTag(mess){
-    let properties = {}
-    properties.component = this;
-    properties.mess = mess;
-    Messages.updateTag(properties);
+
+  setHeight(component, textBoxHeight) {
+    var vh = Math.max(document.documentElement.clientHeight,
+      window.innerHeight || 0);
+    var chatMessHeight = vh - 45.5 - textBoxHeight
+      - $('.app-header').height();
+    component.setState({chatMessHeight: chatMessHeight});
   }
 
   componentDidMount() {
+    var component = this;
     $(document).mouseup(function(e) {
       var container = $('.emoji-section');
       var emojiPicker = $('#emoji-picker')
@@ -57,12 +58,10 @@ class ChatBox extends Component {
         emojiPicker.css('visibility', 'hidden');
       }
     });
-    var viewPortHeight = Math.max(document.documentElement.clientHeight,
-      window.innerHeight || 0);
-    var chatMessHeight = viewPortHeight - 108
-      - $('.app-header').height();
-    console.log($('.app-header').height());
-    this.setState({chatMessHeight: chatMessHeight});
+    this.setHeight(this, 62.5);
+    $(window).resize(function() {
+      component.setHeight(component, $('#text-box').height());
+    });
   }
   
   componentWillReceiveProps(nextProps){
@@ -95,13 +94,20 @@ class ChatBox extends Component {
       
       Messages.closeStreamRef();
       Messages.history(properties, function(){
-        component.autoScrollBottom();        
+        component.refs.scrollbars.scrollToBottom();        
       });
       Messages.streamingMessage(properties,function(){
-        component.autoScrollBottom();        
+        component.refs.scrollbars.scrollToBottom();        
       })
       
     }
+  }
+
+  updateTag(mess){
+    let properties = {}
+    properties.component = this;
+    properties.mess = mess;
+    Messages.updateTag(properties);
   }
 
   handleInputChange(evt) {
@@ -115,13 +121,15 @@ class ChatBox extends Component {
     }
     else {
       this.autoExpand('input-mess-box');
+      this.refs.scrollbars.scrollToBottom();
     }
   }    
 
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
     var chats = document.getElementsByClassName('chats')[0];
-    var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    var vh = Math.max(document.documentElement.clientHeight,
+      window.innerHeight || 0);
 
     input.style.height = '60px';
     var contentHeight = document.getElementById(elementId).scrollHeight;
@@ -129,19 +137,14 @@ class ChatBox extends Component {
 
     var textbox = document.getElementById('text-box');
     textbox.style.height = contentHeight - 5 + 'px';
-    chats.style.height = vh - 101 - contentHeight + 'px';
-  }
-
-  autoScrollBottom() {
-    $('.chats').stop().animate({
-      scrollTop: $('.chats')[0].scrollHeight}, 1000);
+    this.setState({chatMessHeight: vh - 101 - contentHeight});
   }
 
   clearContent(elementId) {
     $('#' + elementId).val($('#' + elementId).val().replace(/\t/g, 'a'));
     $('#' + elementId).val('');
     this.autoExpand(elementId);
-    this.autoScrollBottom();    
+    this.refs.scrollbars.scrollToBottom(); 
   }
 
   handleSubmit(){
@@ -182,7 +185,7 @@ class ChatBox extends Component {
   render() {
     if(this.state.currentRoomId){
       return(
-        <div>
+        <div className='chat-box-wrapper'>
           <VideoCall currentRoomId={this.state.currentRoomId}
             currentUser={this.state.currentUser}
             targetUser={this.state.targetUser}
@@ -191,12 +194,16 @@ class ChatBox extends Component {
             <Scrollbars style={{
               height: this.state.chatMessHeight}}
               autoHide={true}
-              autoHideTimeout={1500}>
-                <ChatBubble messages={this.state.messages} 
-                  emitter={this.props.emitter}
-                  renderHastag={true}
-                  currentUser={this.state.currentUser}
-                  targetUser={this.state.targetUser}/>
+              ref='scrollbars'
+              autoHideTimeout={1500}
+              renderView={
+                props =>
+                <div {...props} className='custom-content'/>}>
+              <ChatBubble messages={this.state.messages} 
+                emitter={this.props.emitter}
+                renderHastag={true}
+                currentUser={this.state.currentUser}
+                targetUser={this.state.targetUser}/>
             </Scrollbars>
             <div className='input-section text-box' id='text-box'>  
               <textarea id='input-mess-box'
@@ -216,25 +223,25 @@ class ChatBox extends Component {
                       autoFocus={true}
                     />
                   </div>
-                  <i className='fa fa-smile-o'
-                    aria-hidden='true'
-                    onClick={this.renderEmojiPicker}></i>
-                  <i className='fa fa-file-image-o'
-                    aria-hidden='true'
-                    onClick={this.upfile}></i>
                 </div>
+                <i className='fa fa-smile-o'
+                  aria-hidden='true'
+                  onClick={this.renderEmojiPicker}></i>
+                <i className='fa fa-file-image-o'
+                  aria-hidden='true'
+                  onClick={this.upfile}></i>
               </div>
             </div>
           </div>
         </div>
       )
-    }else{
+    }
+    else{
       return(
         <div className='chat-box'>
         </div>
       )
     }
-    
   }
 }
 

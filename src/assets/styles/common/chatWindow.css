@@ -69,21 +69,24 @@
       font-size: 1.2em;
       margin-left: 15px; }
   .chat-window .chats {
-    border-right: 1px solid #e5ecf0;
-    height: calc(100% - 60px);
-    overflow-y: scroll;
+    height: auto;
     padding: 25px;
     width: 100%; }
+    .chat-window .chats .time-me, .chat-window .chats .time-you {
+      font-family: "Montserrat", sans-serif !important; }
+    .chat-window .chats .bubble {
+      font-family: "Montserrat", sans-serif !important; }
   .chat-window .chat-body {
     float: left;
-    height: calc(100vh - 55.5px);
+    height: calc(100vh - 55px);
     position: relative;
     width: calc(100% - 320px); }
+    .chat-window .chat-body .custom-content {
+      margin-bottom: -26px !important; }
   .chat-window .text-box {
     align-items: center;
     background-color: #fff;
     border-top: 1px solid #e5ecf0;
-    border-right: 1px solid #e5ecf0;
     display: flex;
     font-size: 1em;
     height: 60px;
@@ -117,8 +120,15 @@
       .chat-window .text-box textarea:focus {
         outline: 0; }
 
+@-moz-document url-prefix() {
+  .chat-window .title {
+    font-size: .9em;
+    padding: 12px; }
+    .chat-window .title .fa {
+      font-size: 1.1em; } }
+
 #emoji-picker {
-  bottom: 60px;
-  visibility: hidden;
+  bottom: 70px;
   position: absolute;
-  right: 20px; }
+  right: 15px;
+  visibility: hidden; }

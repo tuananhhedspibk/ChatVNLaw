@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
+import {NotificationManager} from 'react-notifications';
 import firebase from 'firebase';
 
 import * as translate from 'counterpart';
@@ -82,7 +83,8 @@ class TodoList extends Component {
       var component = this;
       var inputValue = document.getElementById('form-input').value;
       if(inputValue === '') {
-        alert('You must write something!');
+        NotificationManager.warning(
+          translate('app.dashboard.todo_list_warning'));
       }
       else {
         data.push({'status' : 0,
@@ -95,7 +97,8 @@ class TodoList extends Component {
                 todoList: data
               })
             firebase.database()
-              .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
+              .ref(`tasks/${component.state.currentUser.uid}/
+                ${component.state.currentRoomId}`)
               .set(data);
         $('#form-input').val('');
       }
