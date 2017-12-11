@@ -14,7 +14,7 @@ class StickyElement extends Component {
 			<li>
 				<a className="internal_link" href={href}>
 					<div style={style}></div>
-					<p className="sticky-title">{this.props.data.title}</p>
+					<span className="sticky-title" title={this.props.data.title}>{this.props.data.title}</span>
 				</a>
 			</li>
 			);

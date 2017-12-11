@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import request from 'superagent';
 import $ from 'jquery';
+import * as constant from '../../../constants';
 
 require('fullcalendar-reactwrapper/dist/css/fullcalendar.min.css');
 
-const CALENDAR_ID = '2qm6bc113of43opcqnsiernk5s@group.calendar.google.com';
-const API_KEY = 'AIzaSyCGFci7s06zoPhyF0d92Lu57BpGOkiszy0';
+const CALENDAR_ID = 'primary';
+const API_KEY = 'AIzaSyBMem-ZKdVhPS2uwB3gXLPtD1YdQQthDK0';
+// AIzaSyBMem-ZKdVhPS2uwB3gXLPtD1YdQQthDK0
+const CLIENT_ID = '846136360643-i2kk8tl8nucosbe123gj9rh1q925f4j0.apps.googleusercontent.com'
 let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`;
+var firebase = require('firebase');
+
+
 
 export function getEvents (callback) {
   request
@@ -16,7 +22,7 @@ export function getEvents (callback) {
       if (!err) {
         const events = []
         JSON.parse(resp.text).items.map((event) => {
-          console.log(event.htmlLink)
+          // console.log(event.htmlLink)
           events.push({
             start: event.start.dateTime,
             end: event.end.dateTime,
@@ -67,12 +73,46 @@ class Calendar extends Component {
     events:[],   
     }
   }
+  componentWillMount() {
+
+
+
+
+
+// firebase.auth().signInWithPopup(provider).then(function(authData) {
+//   console.log(authData);
+// }).catch(function(error) {
+//   console.log(error);
+// });
+  }
 
   componentDidMount () {
+        if(!firebase.apps.length){
+      firebase.initializeApp(constant.APP_CONFIG);
+    }
+    console.log(firebase.auth().currentUser)
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    provider.addScope('https://www.googleapis.com/auth/calendar');
+    firebase.auth().currentUser.linkWithPopup(provider).then(function(result) {
+  // Accounts successfully linked.
+      var credential = result.credential;
+      var user = result.user;
+      console.log(result)
+      console.log(result.user)
+      console.log(credential)
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      // ...
+    });
+
+    
     getEvents((events) => {
       this.setState({events: events})
     });
     $('main.main').removeClass('main-customer');
+
   }
 
   showDescription(events){

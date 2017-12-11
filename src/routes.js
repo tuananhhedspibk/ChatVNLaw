@@ -22,6 +22,7 @@ import CustomerProfile from './components/customer/profile/main';
 import Article from './components/law/main'
 import PaymentProcess from'./components/payments/paymentProcess';
 
+import TestPayment from './components/payments/test'
 import NotFoundPage from './components/shared/notfound';
 
 const Routes = props => (
@@ -42,6 +43,7 @@ const Routes = props => (
       <Route path='/lawyers/:user_name' component={LawyerProfile}/>
       <Route path='/settings/customers/:user_name' component={SettingsCustomer}/>
       <Route path='/customers/:user_name' component={CustomerProfile}/>
+      <Route path='/test' component={TestPayment}/>
       <Route path='/articles/:id' component={Article}/>
       <Route path='/payment_process' component={PaymentProcess}/>
       <Route exact path='/' render={() => (

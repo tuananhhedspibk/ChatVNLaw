@@ -80,7 +80,7 @@ module.exports = {
       },
       error:{
         title: 'Lỗi',
-        text:{
+        text:{cant_create_peer: 'Trình duyệt của bạn không hỗ trợ chức năng này',
           already_been_used: 'Dịch vụ hiện đang được sử dụng.',
           already_login: 'Bạn đã đăng nhập vào hệ thống!',
           invalid_email: 'Bạn hãy chắc chắn email nhập vào là chính xác!',

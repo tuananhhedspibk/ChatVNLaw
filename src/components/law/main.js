@@ -33,6 +33,7 @@ class Article extends Component {
     this.handleCancelSticky = this.handleCancelSticky.bind(this);
     this.pushHighlight = this.pushHighlight.bind(this);
     this.extractStykies = this.extractStykies.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
     this.handleStickyOff = this.handleStickyOff.bind(this);
 	}
 
@@ -66,6 +67,74 @@ class Article extends Component {
       }
     });
 	}
+  componentDidUpdate() {
+    window.addEventListener('scroll',this.handleScroll);
+    $(".internal_link").on('click', function(event) {
+      if (this.hash !== "") {
+        event.preventDefault();
+
+        var hash = this.hash;
+        console.log(hash);
+
+        $('html, body').animate({
+          scrollTop: $(hash).offset().top
+        }, 1100, function(){
+      
+        window.location.hash = hash;
+        });
+      }
+    });
+    $('#detail-header').on('click',function() {
+      console.log(1);
+      $('.index').hide();
+      $('.sticky-col').hide();
+    });
+    $('#art-content-header').on('click',function() {
+      console.log(2);
+      $('.index').show();
+      $('.sticky-col').show();
+    });
+  }
+
+  handleScroll() {
+    if (window.scrollY>= $('.nav-pills').offset().top) {
+      if ($('.index').css('position') != 'fixed') {
+        var defaultLeft = $('.index').offset().left;
+        var defaultHeight = $('.index').offset().top -$('.nav-pills').offset().top;
+        var defaultLeft1 = $('.sticky-col').offset().left;
+        var defaultRight1 =$(window).width() - $('.sticky-col').offset().left - $('.sticky-col').outerWidth();
+        var defaultHeight1 = $('.sticky-col').offset().top -$('.nav-pills').offset().top;
+        console.log(defaultRight1)
+        console.log($(window).width())
+        console.log($('.sticky-col').outerWidth())
+        console.log($('.sticky-col').offset().left)
+        $('.index').css('position','fixed');
+        $('.index').css('left',defaultLeft);  
+        $('.index').css('top',defaultHeight); 
+        $('.index').css('margin-top',0);
+        $('.sticky-col').css('position','fixed');
+        $('.sticky-col').css('left',defaultLeft1);
+        $('.sticky-col').css('right',defaultRight1);  
+        $('.sticky-col').css('top',defaultHeight1); 
+        $('.sticky-col').css('margin-top',0);
+      }
+    }
+    else {
+      if ($('.index').css('position') == 'fixed') {
+        $('.index').css('position','relative');
+        $('.index').css('left','0');
+        $('.index').css('top','0');
+        $('.index').css('margin-top',70);
+        $('.sticky-col').css('position','relative');
+        $('.sticky-col').css('left','0');
+        $('.sticky-col').css('right','0');
+        $('.sticky-col').css('top','0');
+        $('.sticky-col').css('margin-top',70);
+
+        // $('.boundary-index').css('top','none');
+      }
+    }
+  }
   extractStykies() {
     var component = this;
     firebase.database().ref(`stickies/${this.state.uid}/${this.props.match.params.id}`).once('value', function(data){
@@ -364,23 +433,7 @@ class Article extends Component {
       }
 		});
 	}
-	componentDidMount() {
-		$(".internal_link").on('click', function(event) {
-			if (this.hash !== "") {
-				event.preventDefault();
-
-				var hash = this.hash;
-				console.log(hash);
-
-				$('html, body').animate({
-					scrollTop: $(hash).offset().top
-				}, 1100, function(){
-			
-				window.location.hash = hash;
-				});
-			}
-		});
-	}
+	
 
 	render() {
 		if (this.state.error != null) {
@@ -402,17 +455,17 @@ class Article extends Component {
 				<div className='article-page'>
 					<Nav navStyle='inverse'/>
 					<div className="row">
-						<div className="col-md-2">
-							<ArticleIndex index_html={this.state.article.index_html}/>
+						<div className="col-md-2 col-md-index">
+					    <ArticleIndex index_html={this.state.article.index_html}/>
 						</div>
 						<div className="col-md-8">
 							<div className="container-fluid">
 								<ul className="nav nav-pills">
 								    <li>
-								    	<a href="#article_content" data-toggle="tab" className="active" >Toàn văn</a>
+								    	<a id='art-content-header' href="#article_content" data-toggle="tab" className="active" >Toàn văn</a>
 								    </li>
 								    <li >
-								    	<a href="#article_detail" data-toggle="tab">Thuộc tính</a>
+								    	<a id='detail-header' href="#article_detail" data-toggle="tab">Thuộc tính</a>
 								    </li>
 								</ul>
 							</div>
@@ -425,7 +478,7 @@ class Article extends Component {
 								</div>
 							</div>
 						</div>
-						<div className="col-md-1">
+						<div className="col-md-2 col-md-sticky">
 							<StickyHighlight stickies={this.state.stickies} painting={this.state.painting} handleSticky={this.handleSticky} handleStickyOff={this.handleStickyOff}/>
 						</div>
 					</div>

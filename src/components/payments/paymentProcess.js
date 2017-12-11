@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import firebase from 'firebase';
 import { log } from 'util';
 import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
+import axios from 'axios';
+import * as constant from '../constants';
 
 const queryString = require('query-string');
+const firebase = require('firebase');
 
 class PaymentProcess extends Component {
     constructor(props){
@@ -13,42 +15,78 @@ class PaymentProcess extends Component {
         this.state = {
             currentUser: '',
             responseCode: '',
-            amount: '',
-            type: ''
+            amount: 0,
+            type: '',
+            beforeBalance: 0,
+            trueData: false   
         }
+        this.getCurrentAccount = this.getCurrentAccount.bind(this);
+        this.getAccountBalance = this.getAccountBalance.bind(this);
+
     }
 
     componentWillMount(){
         var component = this
-        firebase.auth().onAuthStateChanged(function(user) {
-            if(user){
-                component.setState({
-                    currentUser: user
+        var instance = axios.create({
+            baseURL: constant.API_BASE_URL
+        });
+        
+        instance.get('/checkpayment', { params:  queryString.parse(this.props.location.search)
+        })
+        .then( function (response) {
+            component.getCurrentAccount(response.data)
+            return;
+        })
+        .catch( function (error) {
+        });
+        
+    }
+    getCurrentAccount(data) {
+        var component = this;
+        component.setState({ trueData: (data.true),currentUser: (data.uid)});
+        if(component.state.currentUser!='') {
+            firebase.database().ref(`moneyAccount/${component.state.currentUser}`).once('value', function(data){ 
+                console.log(data.val())
+                if(data.val() != null)
+                    component.getAccountBalance(data.val().amount)
+                else
+                    component.getAccountBalance(0)
                 })
-            }
-        })
+        }
     }
-
-    componentDidMount(){
-        var component = this
+    getAccountBalance(data) {
         let urlParams = queryString.parse(this.props.location.search); 
-        component.setState({
+        this.setState({beforeBalance: parseInt(data)})
+        this.setState({
             responseCode: urlParams.vpc_TxnResponseCode,
-            amount: urlParams.vpc_Amount,
-            secureHash: urlParams.vpc_SecureHash,
+            amount: parseInt(urlParams.vpc_Amount)/100,
             type: urlParams.vpc_CurrencyCode          
-        })
+            });
     }
-
     renderView(){
         var component = this
+        if (!this.state.trueData) {
+            return(
+                <div>
+                    Giao dịch không tồn tại.
+                </div>
+                );                        
+        }
         switch(this.state.responseCode){
             case "0" :{
                 if(!!component.state.currentUser){
-                    firebase.database().ref(`moneyAccount/${component.state.currentUser.uid}`).set({
-                        amount: component.state.amount,
-                        type: component.state.type
+                    firebase.database().ref(`moneyAccount/${component.state.currentUser}`).set({
+                        amount: (component.state.amount + component.state.beforeBalance)
                     })
+                    var ref = firebase.database().ref().child(`depositeHistory/${component.state.currentUser}`).push();
+                    var d = new Date();
+                    var currentTime =d.toDateString() +' '+ d.toTimeString();
+                    ref.set({
+                        amount: component.state.amount,
+                        beforeAmount: component.state.beforeBalance,
+                        type: component.state.type,
+                        date: currentTime
+                    });
                     return(
                         <div>
                             Chúc mừng bạn đã thanh toán thành công {this.state.amount} {this.state.type}
@@ -180,10 +218,15 @@ class PaymentProcess extends Component {
     }
 
     render(){
+        var view = null;
+        if(this.state.responseCode == '')
+            view = (<p>Xin đợi trong chốc lát</p>);
+        else
+            view = this.renderView();
         return(
             <div>
                 <Nav navStyle='inverse'/>
-                {this.renderView()}
+                {view}
                 <Footer />
             </div>
         )

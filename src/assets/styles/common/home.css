@@ -97,7 +97,8 @@
     border-top: 1px solid #c2cfd6;
     border-right: 1px solid #c2cfd6;
     padding: 30px;
-    text-align: center; }
+    text-align: center;
+    height: 100%; }
     .home-page .main-content .search-law .field .fa {
       color: #2385f2;
       font-size: 2.5em;
