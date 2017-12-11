@@ -1,48 +1,183 @@
-.app-body .chat-section {
-  border-left: 1px solid #c2cfd6;
-  display: inline-block;
-  transition: all .5s ease;
-  width: calc((100% - 295px) / 2); }
-
-.navbar {
-  border-radius: 0 !important; }
-
 .app-header.navbar .nav-item .nav-link .badge {
   background-color: #e54040 !important;
   font-size: .5em; }
 
-.app-body .chat-users-list-wrapper {
-  border-right: 1px solid #c2cfd6;
-  display: inline-block;
-  float: left;
-  overflow: hidden;
-  width: 70px; }
-  .app-body .chat-users-list-wrapper .custom-content {
+.app-header.navbar {
+  border-bottom: solid 1px #c2cfd6; }
+  .app-header.navbar .navbar-nav .dropdown-toggle {
+    align-items: center;
+    color: #536c79 !important;
+    display: flex;
+    font-size: .8em; }
+  .app-header.navbar .navbar-brand {
+    align-items: center;
+    border-bottom: none !important;
+    color: #2385f2;
+    display: flex;
+    height: 50px !important;
+    justify-content: center;
+    width: 225px !important; }
+  .app-header.navbar .navbar-nav {
+    display: flex !important; }
+  .app-header.navbar .dropdown-item {
+    min-width: 50px;
+    width: 100%; }
+  .app-header.navbar .dropdown-menu {
+    background-color: #fff;
+    cursor: pointer;
+    width: 187px; }
+    .app-header.navbar .dropdown-menu .dropdown-header {
+      font-size: .9em; }
+    .app-header.navbar .dropdown-menu button.dropdown-item {
+      cursor: pointer;
+      font-size: 1.1em; }
+
+.app-body .main {
+  background-color: #fcfcfc;
+  height: calc(100vh - 55px); }
+  .app-body .main .custom-content {
     margin-bottom: -26px !important; }
+  .app-body .main .breadcrumb {
+    background-color: #fff !important;
+    border-radius: 0;
+    font-size: 1.2em;
+    margin-bottom: 0;
+    width: 100%; }
+  .app-body .main .container-fluid {
+    padding: 15px !important; }
 
-.app-body .chat-users-list {
-  display: inline-block;
+.app-body .main-customer .container-fluid {
+  padding: 0 !important; }
+
+.app-body {
   height: calc(100vh - 56px);
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden; }
-  .app-body .chat-users-list .active-link {
-    background-color: #e5ecf0; }
-  .app-body .chat-users-list .chat-user {
-    padding: 10px; }
-    .app-body .chat-users-list .chat-user img {
-      border-radius: 50%;
-      height: 50px;
-      width: 50px; }
-
-.app-body {
-  height: calc(100vh - 56px); }
-
-.app-body .sidebar {
-  height: calc(100vh - 56px); }
-
-.app-body {
   overflow-y: hidden; }
+  .app-body #calendar {
+    width: calc(100% - 1px); }
+  .app-body .nothing-todo-title {
+    font-size: 1.2em; }
+  .app-body .chat-setting .content .content-title {
+    color: #000;
+    font-size: 1.1em; }
+  .app-body .sidebar .custom-content {
+    margin-bottom: -26px !important; }
+  .app-body .chat-section {
+    border-left: 1px solid #c2cfd6;
+    display: inline-block;
+    transition: all .5s ease;
+    width: calc((100% - 295px) / 2); }
+  .app-body .chat-users-list-wrapper {
+    border-right: 1px solid #c2cfd6;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    width: 70px; }
+    .app-body .chat-users-list-wrapper .custom-content {
+      margin-bottom: -26px !important; }
+  .app-body .chat-users-list {
+    display: inline-block;
+    height: calc(100vh - 56px);
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden; }
+    .app-body .chat-users-list .active-link {
+      background-color: #e5ecf0; }
+    .app-body .chat-users-list .chat-user {
+      padding: 10px; }
+      .app-body .chat-users-list .chat-user img {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px; }
+  .app-body .bubble-img img {
+    max-height: 230px !important;
+    max-width: 230px !important; }
+  .app-body .chat-setting {
+    border-left: none;
+    border-right: none;
+    overflow-y: hidden;
+    width: 100%; }
+    .app-body .chat-setting .header .user-name {
+      font-size: 1.1em; }
+    .app-body .chat-setting .header {
+      border: 0;
+      padding: 0 0 15px; }
+    .app-body .chat-setting .shared-images {
+      background-color: #f6f6f6; }
+    .app-body .chat-setting .shared-files {
+      border-left: 1px solid #f6f6f6;
+      border-right: 1px solid #f6f6f6;
+      width: calc(100% - 1px) !important; }
+    .app-body .chat-setting .shared {
+      border-bottom: 0 !important;
+      padding: 20px !important;
+      width: 100%; }
+      .app-body .chat-setting .shared a {
+        font-size: 1.1em !important; }
+    .app-body .chat-setting .description {
+      background-color: #f6f6f6;
+      display: inline-block;
+      padding: 20px;
+      width: 100%; }
+      .app-body .chat-setting .description .title {
+        color: #000;
+        font-size: 1.1em;
+        margin-bottom: 3px;
+        text-transform: none; }
+      .app-body .chat-setting .description .text-descrip {
+        background-color: #fff;
+        margin: 10px 0 15px;
+        padding: 10px; }
+      .app-body .chat-setting .description form {
+        margin: 15px 0 0; }
+        .app-body .chat-setting .description form textarea {
+          margin-bottom: 15px;
+          padding: 10px;
+          width: 100%; }
+      .app-body .chat-setting .description button {
+        background-color: #2385f2;
+        border: 0;
+        border-radius: 3px;
+        color: #fff;
+        font-size: 1em;
+        padding: 10px; }
+        .app-body .chat-setting .description button:focus {
+          background-color: #0974b8;
+          outline: 0; }
+  .app-body .chat-section {
+    background-color: #fff;
+    height: calc(100vh - 55px);
+    position: relative; }
+    .app-body .chat-section .video-call {
+      height: calc(100vh - 54px); }
+      .app-body .chat-section .video-call .video {
+        height: 380px;
+        margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
+        width: 380px; }
+      .app-body .chat-section .video-call .end-call-btn {
+        margin-left: 30px; }
+    .app-body .chat-section .header {
+      align-items: center;
+      border-bottom: 1px solid #c2cfd6;
+      color: #2385f2;
+      display: flex;
+      float: left;
+      font-size: 1.2em;
+      padding: 10px;
+      position: relative;
+      width: 100%; }
+      .app-body .chat-section .header .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 85%; }
+      .app-body .chat-section .header .fa {
+        cursor: pointer;
+        margin-right: 10px;
+        position: absolute; }
+      .app-body .chat-section .header .fa-phone {
+        right: 25px; }
+      .app-body .chat-section .header .fa-video-camera {
+        right: 0; }
   .app-body .chat-box-wrapper {
     display: inline-block;
     height: calc(100vh - 55px);
@@ -64,11 +199,13 @@
       .app-body .chat-box .input-section .addons-field {
         display: flex; }
       .app-body .chat-box .input-section .fa {
-        color: #a2a2a2;
+        color: #808080;
         cursor: pointer;
         float: left;
         font-size: 1.5em;
         margin-right: 15px; }
+        .app-body .chat-box .input-section .fa:active {
+          color: #d1d1d1; }
     .app-body .chat-box .input-section {
       border-top: 1px solid #c2cfd6;
       height: 60px;
@@ -104,37 +241,58 @@
         font-family: "Montserrat", sans-serif !important; }
       .app-body .chat-box .chats .time-me, .app-body .chat-box .chats .time-you {
         font-family: "Montserrat", sans-serif !important; }
-  .app-body .chat-setting .header .user-name {
-    font-size: 1.1em; }
-  .app-body .chat-setting .description {
-    background-color: #e5ecf0;
-    display: inline-block;
-    padding: 20px;
+  .app-body .chat-setting {
+    border-left: none;
+    border-right: none;
+    overflow-y: hidden;
     width: 100%; }
-    .app-body .chat-setting .description .title {
-      color: #000;
-      font-size: 1.1em;
-      margin-bottom: 3px;
-      text-transform: none; }
-    .app-body .chat-setting .description .text-descrip {
-      background-color: #fff;
-      margin: 10px 0 15px;
-      padding: 10px; }
-    .app-body .chat-setting .description form {
-      margin: 15px 0 0; }
-      .app-body .chat-setting .description form textarea {
-        margin-bottom: 15px;
-        padding: 10px; }
-    .app-body .chat-setting .description button {
-      background-color: #2385f2;
+    .app-body .chat-setting .header .user-name {
+      font-size: 1.1em; }
+    .app-body .chat-setting .header {
       border: 0;
-      border-radius: 3px;
-      color: #fff;
-      font-size: 1em;
-      padding: 10px; }
-      .app-body .chat-setting .description button:focus {
-        background-color: #0974b8;
-        outline: 0; }
+      padding: 0 0 15px; }
+    .app-body .chat-setting .shared-images {
+      background-color: #f6f6f6; }
+    .app-body .chat-setting .shared-files {
+      border-left: 1px solid #f6f6f6;
+      border-right: 1px solid #f6f6f6;
+      width: calc(100% - 1px) !important; }
+    .app-body .chat-setting .shared {
+      border-bottom: 0 !important;
+      padding: 20px !important;
+      width: 100%; }
+      .app-body .chat-setting .shared a {
+        font-size: 1.1em !important; }
+    .app-body .chat-setting .description {
+      background-color: #f6f6f6;
+      display: inline-block;
+      padding: 20px;
+      width: 100%; }
+      .app-body .chat-setting .description .title {
+        color: #000;
+        font-size: 1.1em;
+        margin-bottom: 3px;
+        text-transform: none; }
+      .app-body .chat-setting .description .text-descrip {
+        background-color: #fff;
+        margin: 10px 0 15px;
+        padding: 10px; }
+      .app-body .chat-setting .description form {
+        margin: 15px 0 0; }
+        .app-body .chat-setting .description form textarea {
+          margin-bottom: 15px;
+          padding: 10px;
+          width: 100%; }
+      .app-body .chat-setting .description button {
+        background-color: #2385f2;
+        border: 0;
+        border-radius: 3px;
+        color: #fff;
+        font-size: 1em;
+        padding: 10px; }
+        .app-body .chat-setting .description button:focus {
+          background-color: #0974b8;
+          outline: 0; }
   .app-body .chat-section {
     background-color: #fff;
     height: calc(100vh - 55px);
@@ -171,14 +329,11 @@
       .app-body .chat-section .header .fa-video-camera {
         right: 0; }
 
-.app-header.navbar {
-  border-bottom: solid 1px #c2cfd6; }
-
-.app-header.navbar .navbar-nav .dropdown-toggle {
-  color: #536c79 !important; }
+.app-body .sidebar {
+  height: calc(100vh - 56px); }
 
 .nav-dropdown-items .nav-link {
-  font-size: 1em !important; }
+  font-size: 1.05em !important; }
 
 .sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before,
 .sidebar .nav .nav-item .navbar .nav-dropdown-toggle.dropdown-toggle::before,
@@ -189,74 +344,14 @@
 .navbar-nav .nav-link {
   font-weight: normal; }
 
-.app-header.navbar .navbar-brand {
-  border-bottom: none !important;
-  width: 225px !important;
-  height: 50px !important; }
-
-.app-header.navbar .navbar-nav {
-  display: flex !important; }
-
-.app-body .chat-setting .content .content-title {
-  color: #000;
-  font-size: 1.1em; }
-
-.app-body .sidebar .custom-content {
-  margin-bottom: -26px !important; }
-
-.sidebar .nav .nav-item .nav-link {
-  font-size: 1.2em;
-  width: 100%; }
-  .sidebar .nav .nav-item .nav-link:hover {
-    background-color: #2385f2 !important; }
+.navbar-toggler {
+  font-size: 1em !important; }
 
 .nav-link .dropdown-toggle .btn .btn-secondary {
   font-size: .9em; }
 
-.app-header.navbar .nav-item {
-  font-size: 1.1em; }
-
-.sidebar .nav .nav-item .nav-link {
-  padding: 1.3rem !important; }
-
-.sidebar .nav .nav-item .nav-link i {
-  color: #fff !important;
-  margin-right: 10px !important; }
-
-.navbar-toggler {
-  font-size: 1em !important; }
-
-.sidebar .nav .nav-item .nav-link.active i {
-  color: #fff !important; }
-
-.app-body .main {
-  background-color: #fcfcfc;
-  height: calc(100vh - 55px); }
-  .app-body .main .custom-content {
-    margin-bottom: -26px !important; }
-  .app-body .main .breadcrumb {
-    background-color: #fff !important;
-    border-radius: 0;
-    font-size: 1.2em;
-    margin-bottom: 0;
-    width: 100%; }
-  .app-body .main .container-fluid {
-    padding: 15px !important; }
-  .app-body .main .chat-setting {
-    border-right: none;
-    overflow-y: none;
-    width: 100%; }
-    .app-body .main .chat-setting .header {
-      border: 0;
-      padding: 20px; }
-    .app-body .main .chat-setting .shared-images {
-      background-color: #e5ecf0; }
-    .app-body .main .chat-setting .shared {
-      border: 0;
-      padding: 20px !important; }
-
-.app-body .main-customer .container-fluid {
-  padding: 0 !important; }
+.navbar {
+  border-radius: 0 !important; }
 
 .nav .user-info {
   align-items: center;
@@ -274,6 +369,22 @@
     border-radius: 50%;
     height: 75px;
     width: 75px; }
+
+.sidebar .nav .nav-item .nav-link {
+  font-size: 1.2em;
+  width: 100%; }
+  .sidebar .nav .nav-item .nav-link:hover {
+    background-color: #2385f2 !important; }
+
+.sidebar .nav .nav-item .nav-link {
+  padding: 1.3rem !important; }
+
+.sidebar .nav .nav-item .nav-link i {
+  color: #fff !important;
+  margin-right: 10px !important; }
+
+.sidebar .nav .nav-item .nav-link.active i {
+  color: #fff !important; }
 
 .btn-header-todo-list {
   background-color: #2385f2;
@@ -304,57 +415,6 @@
 .todo-list-lawyer {
   margin-bottom: 20px; }
 
-#todo-list-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-  #todo-list-ul li {
-    cursor: pointer;
-    position: relative;
-    padding: 12px 35px 12px 40px;
-    background: #f7f7f7;
-    font-size: 1.1em;
-    transition: 0.2s;
-    word-wrap: break-word;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none; }
-  #todo-list-ul li:last-child {
-    background: #f7f7f7;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px; }
-  #todo-list-ul li:hover {
-    background: #cbcbcb;
-    transition: all .3s ease; }
-  #todo-list-ul li.checked {
-    background: #cbcbcb !important;
-    color: #000; }
-  #todo-list-ul li.checked::before {
-    content: '';
-    position: absolute;
-    border-color: #000;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px; }
-  #todo-list-ul .close {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 13px 16px; }
-    #todo-list-ul .close:hover {
-      background-color: #2385f2;
-      color: #fff;
-      transition: all .3s ease; }
-    #todo-list-ul .close:after {
-      width: 0; }
-
 .my-work-with {
   padding-bottom: 10px; }
   .my-work-with h2 {
@@ -381,7 +441,7 @@
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px; }
   .my-work-with .add-todo-list-form {
-    margin-top: 10px; }
+    margin-top: 15px; }
     .my-work-with .add-todo-list-form input {
       border: 1px solid #e5ecf0;
       border-radius: 5px;
@@ -395,12 +455,62 @@
       border-radius: 5px;
       color: #fff;
       cursor: pointer;
-      font-size: 1.1em;
-      margin-top: 8px;
-      padding: 10px 45px; }
+      font-size: 1.2em;
+      margin-top: 10px;
+      padding: 6px 35px; }
       .my-work-with .add-todo-list-form .add-btn:focus {
         background-color: #0974b8;
         outline: none; }
+
+#todo-list-ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  #todo-list-ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 35px 12px 40px;
+    background: #f7f7f7;
+    font-size: 1.1em;
+    transition: 0.2s;
+    word-wrap: break-word;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  #todo-list-ul li:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; }
+  #todo-list-ul li:hover {
+    background: #e2e2e2;
+    transition: all .3s ease; }
+  #todo-list-ul li.checked {
+    background: #d1d1d1 !important;
+    color: #000; }
+  #todo-list-ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #000;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px; }
+  #todo-list-ul .close {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 13px 16px; }
+    #todo-list-ul .close:hover {
+      background-color: #2385f2;
+      color: #fff;
+      transition: all .3s ease; }
+    #todo-list-ul .close:after {
+      width: 0; }
 
 .search-feature .form-search {
   width: 100%; }
@@ -504,29 +614,102 @@
   white-space: nowrap;
   width: 100px; }
 
-.app-header.navbar .navbar-nav .dropdown-toggle {
-  align-items: center;
-  display: flex;
-  font-size: .8em; }
+#myUL {
+  margin: 0;
+  padding: 0; }
 
-.app-header.navbar .dropdown-menu {
-  background-color: #fff;
+#myUL li {
   cursor: pointer;
-  font-size: .8em; }
-  .app-header.navbar .dropdown-menu .dropdown-header {
-    font-size: .9em; }
-  .app-header.navbar .dropdown-menu button.dropdown-item {
-    cursor: pointer; }
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: #f2f2f2;
+  font-size: 18px;
+  transition: 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
-.app-header.navbar .dropdown-item {
-  min-width: 50px;
+#myUL li:nth-child(odd) {
+  background: #f7f7f7; }
+
+#myUL li:hover {
+  background: #e2e2e2; }
+
+#myUL li.checked {
+  background: #e2e2e2;
+  color: #fff;
+  text-decoration: line-through; }
+
+#myUL li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px; }
+
+.close {
+  padding: 12px 16px;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.close:hover {
+  color: #fff; }
+
+#myUL {
+  list-style: none; }
+
+.todo-list-lawyer {
+  width: 100%;
+  text-align: left !important; }
+
+.todos-list {
+  border: 1px solid #f1f1f1;
+  display: inline-block;
+  margin-bottom: 10px;
+  width: calc(100% - 1px); }
+
+.toggle-btn {
+  background-color: transparent !important;
+  border: 0;
+  cursor: pointer;
+  font-size: 1.2em !important;
+  padding: 12px 10px 12px 37px !important;
+  position: relative;
+  text-align: left !important;
+  word-wrap: break-word;
   width: 100%; }
+  .toggle-btn div {
+    display: inline-block;
+    margin-right: 5px; }
+  .toggle-btn:after {
+    color: #2385f2;
+    content: "\f107";
+    font-family: FontAwesome;
+    font-size: 1.2em;
+    position: absolute;
+    left: 12px;
+    top: 8px; }
+  .toggle-btn:focus {
+    box-shadow: none !important;
+    outline: 0 !important; }
 
-.app-header.navbar .navbar-brand {
-  align-items: center;
-  color: #2385f2;
-  display: flex;
-  justify-content: center; }
+.toggle-btn.collapsed:after {
+  content: "\f105";
+  font-family: FontAwesome; }
+
+#myInput {
+  border: none;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px; }
 
 @-moz-document url-prefix() {
   .my-work-with .add-todo-list-form .add-btn {

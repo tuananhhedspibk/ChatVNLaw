@@ -255,10 +255,13 @@ class ChatSetting extends Component {
                     + this.state.targetUser.username}</a>
                 </div>
                 <div className='shared shared-files'>
-                  <div className='content-title'>
-                    {translate('app.chat.shared_files')}
-                  </div>
-                  <div className='files-list'>
+                    <button className='collapsed content-title'
+                      data-toggle='collapse'
+                      data-target='#files-list'>
+                        {translate('app.chat.shared_files')}
+                    </button>
+                  <div className='files-list collapse'
+                    id='files-list'>
                     {
                       this.state.files.map(file => {
                         return(
@@ -272,10 +275,13 @@ class ChatSetting extends Component {
                   </div>
                 </div>
                 <div className='shared shared-images'>
-                  <div className='content-title'>
-                    {translate('app.chat.shared_images')}
-                  </div>
-                  <div className='images-list'>
+                  <button className='collapsed content-title'
+                    data-toggle='collapse'
+                    data-target='#images-list'>
+                      {translate('app.chat.shared_images')}
+                  </button>
+                  <div className='images-list collapse'
+                    id='images-list'>
                     {
                       this.state.images.map(image => {
                         return(

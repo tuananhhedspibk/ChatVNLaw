@@ -47,7 +47,8 @@ class Customer extends Component {
       properties.roomId = nextState.currentRoomId;
       component.setState({images:[], files: []});
       Files.showImagesAndFilesList(properties);
-      firebase.database().ref(`rooms/${nextState.currentRoomId}/description`).once('value', (data) =>{
+      firebase.database().ref(`rooms/${nextState.currentRoomId}/description`)
+        .once('value', (data) =>{
         component.setState({
           description: data.val()
         })
@@ -57,7 +58,8 @@ class Customer extends Component {
 
   componentDidMount(){
     var component = this
-    firebase.database().ref(`rooms/${this.state.currentRoomId}/description`).once('value', (data) =>{
+    firebase.database().ref(`rooms/${this.state.currentRoomId}/description`)
+      .once('value', (data) =>{
       component.setState({
         description: data.val()
       })
@@ -122,14 +124,14 @@ class Customer extends Component {
               </div>
               <div className='edit-descrip'>
                 <form onSubmit={this.handleSubmit.bind(this)}>
-                    <textarea rows="3" cols="50"
-                      className="input-descrip" id="input-descrip"
+                    <textarea rows='3' cols='50'
+                      className='input-descrip' id='input-descrip'
                       onChange={this.handleInputChange.bind(this)}
                       value={this.state.description}></textarea>
                     <button type='submit'>{translate('app.dashboard.submit_des')}</button>
                 </form>
               </div>
-              <div className="info-descrip">
+              <div className='info-descrip'>
                 <div className='text-descrip'>{this.state.description}</div>
                 <button onClick={this.handleEdit}>
                   {translate('app.dashboard.edit_des')}
@@ -137,10 +139,12 @@ class Customer extends Component {
               </div>
             </div>
             <div className='shared shared-files'>
-              <div className='content-title'>
-                {translate('app.chat.shared_files')}
-              </div>
-              <div className='files-list'>
+              <button className='content-title collapsed'
+                data-toggle='collapse'
+                data-target='#files-list'>
+                  {translate('app.chat.shared_files')}
+              </button>
+              <div className='files-list collapse' id='files-list'>
                 {
                   this.state.files.map(file => {
                     return(
@@ -154,10 +158,12 @@ class Customer extends Component {
               </div>
             </div>
             <div className='shared shared-images'>
-              <div className='content-title'>
+              <button className='collapsed content-title'
+                data-toggle='collapse'
+                data-target='#images-list'>
                 {translate('app.chat.shared_images')}
-              </div>
-              <div className='images-list'>
+              </button>
+              <div className='images-list collapse' id='images-list'>
                 {
                   this.state.images.map(image => {
                     return(

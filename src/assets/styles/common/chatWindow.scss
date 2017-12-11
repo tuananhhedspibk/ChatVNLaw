@@ -128,13 +128,13 @@
     width: 100%;
 
     .fa {
-      color: $gray-medium;
+      color: $gray-darker;
       cursor: pointer;
       float: right;
       margin-left: 15px;
 
       &:active {
-        color: $gray-lighter;
+        color: $gray-medium;
       }
     }
 
