@@ -33,13 +33,17 @@ class SettingsLawyer extends Component {
 		var component = this;
 		firebase.database().ref(`lawyers/${key}`).once('value',
 			function(snapshot) {
-	    	component.setState({profile : snapshot.val(), isloading:false});
+        if(snapshot.exists()){
+          component.setState({profile : snapshot.val(), isloading:false});          
+        }
 	    })
 	}
 	
   componentWillMount() {
     var component = this;
-    var username = this.props.location.pathname.split('/settings/lawyers/')[1]
+    // var username = this.props.location.pathname.split('/settings/lawyers/')[1]
+    var username = this.props.match.params.user_name;
+    
     firebase.auth().onAuthStateChanged(function(user){
       if(user){
         checkUserWithUserName(username, data =>{

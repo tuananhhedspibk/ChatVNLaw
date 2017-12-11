@@ -4,25 +4,34 @@ import Nav from '../../homepage/nav';
 import MainContent from './maincontent';
 import Footer from '../../homepage/footer';
 import * as constant from '../../constants';
+import Loading from '../../shared/loading';
+import {EventEmitter} from 'fbemitter';
+import Toast from '../../notification/toast';
+import NotFound from '../../shared/notfound';
+import firebase from 'firebase';
 
 import '../../../assets/styles/common/lawyerProfile.css';
 
-var firebase = require('firebase');
 
 class LawyerProfile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			profile: '',
-			user: ''
+			profile: null,
+			user: null,
+			isloading : true,
+			issuccess : true
 		};
+		this.emitter = new EventEmitter(); 
   }
 
 	getUserProfile(key) {
 		var component = this;
 		firebase.database().ref(`lawyers/${key}`).once('value',
 			function(snapshot) {
-	    	component.setState({profile : snapshot.val()});
+				if(snapshot.exists()){
+					component.setState({profile : snapshot.val(), isloading: false});					
+				}
 	    })
 	}
 		
@@ -32,39 +41,59 @@ class LawyerProfile extends Component {
 			.equalTo(username).once('value')
 	    .then(function(snapshot){
 	      if(!snapshot.exists()){
-	        window.location = constant.BASE_URL;
+					component.setState({issuccess : false, isloading: false})
 	      }
 	      else {
-					firebase.database().ref('users').orderByChild('username')
-					.equalTo(username).once('child_added')
-	    		.then(function(snapshotUser) {
-	    			if(snapshotUser.val().role != 'lawyer')
-							window.location = constant.BASE_URL;
-	        	else {
-	        		component.setState({user: snapshotUser.val()});
-	        		component.getUserProfile(snapshotUser.key);
-	        	}
-	    		})
+					console.log(snapshot.val());
+					for(var key in snapshot.val()){
+						if(snapshot.val()[key].role != 'lawyer'){
+							component.setState({issuccess : false, isloading: false})							
+						}else{
+							component.setState({user : snapshot.val()[key]})
+							component.getUserProfile(key);
+						}
+					}
 	      }
 	  	})
 	}
 
   componentWillMount() {
-    if(!firebase.apps.length){
-      firebase.initializeApp(constant.APP_CONFIG);
-		}
 	  this.checkUserName(this.props.match.params.user_name);
-  }
+	}
 
+	renderView(){
+		if(this.state.issuccess){
+			return (
+				<div>
+					<Nav navStyle='inverse'/>
+					<MainContent profile={this.state.profile}
+						user={this.state.user}/>
+					<Footer/>
+					<Toast emitter={this.emitter}/>
+				</div>
+			);
+		}else{
+			return(
+				<div>
+					<NotFound />
+					<Toast emitter={this.emitter}/>
+				</div>
+			)
+		}
+	}
 	render() {
-		return (
-			<div>
-				<Nav navStyle='inverse'/>
-				<MainContent profile={this.state.profile}
-					user={this.state.user}/>
-				<Footer/>
-			</div>
-		);
+		if(this.state.isloading){
+			return(
+				<div>
+					<Loading />
+					<Toast emitter={this.emitter}/>
+				</div>
+			)
+		}else{
+			return(
+				this.renderView()				
+			)
+		}
 	}
 }
 

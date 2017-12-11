@@ -29,7 +29,9 @@ class SettingsCustomer extends Component {
   
   componentWillMount() {
     var component = this;
-    var username = this.props.location.pathname.split('/settings/customers/')[1]
+    // var username = this.props.location.pathname.split('/settings/customers/')[1]
+    var username = this.props.match.params.user_name;
+    
     firebase.auth().onAuthStateChanged(function(user){
       if(user){
         checkUserWithUserName(username, data =>{
