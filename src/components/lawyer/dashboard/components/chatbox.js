@@ -123,7 +123,25 @@ class ChatBox extends Component {
       this.autoExpand('input-mess-box');
       this.refs.scrollbars.scrollToBottom();
     }
-  }    
+  } 
+     
+  handleScroll(event) {
+    if(event.srcElement) {
+      if(event.srcElement.scrollTop == 0) {
+        let properties = {};
+        var component = this;
+        if(this.state.messages[0]){
+          properties['roomId'] = this.state.currentRoomId;
+          properties['component'] = this;
+          // properties['ts'] = '' + (new Date()).getTime();
+          properties['limit'] = 15;
+          properties['ts'] = ""+(parseInt(this.state.messages[0].msgTimeStamp) - 1);          
+          Messages.history(properties, function(){
+          });
+        }
+      }
+    }
+  }
 
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
@@ -196,6 +214,7 @@ class ChatBox extends Component {
               autoHide={true}
               ref='scrollbars'
               autoHideTimeout={1500}
+              onScroll={this.handleScroll.bind(this)}
               renderView={
                 props =>
                 <div {...props} className='custom-content'/>}>
