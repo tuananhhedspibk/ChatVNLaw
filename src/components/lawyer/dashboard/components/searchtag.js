@@ -9,13 +9,13 @@ class SearchTag extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      currentUser: '',
-      targetUser: '',
-      currentRoomId :'',
+      currentUser: null,
+      targetUser: null,
+      currentRoomId :null,
       tagResults: [],
       messages: [],
       currentResultIndex: 0,
-      keyword: ''
+      keyword: null
     };
     this.currentUser= null;
   }
@@ -89,7 +89,7 @@ class SearchTag extends Component {
     properties['roomId'] = component.state.currentRoomId;
     properties['ts'] =
       component.state.tagResults[component.state.currentResultIndex]
-        .data.msg_ts;
+        .data.msgTimeStamp;
     properties['limit'] = 15
     properties['component'] = component;
     Messages.loadTagNextMessages(properties);

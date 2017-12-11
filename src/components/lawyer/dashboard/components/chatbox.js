@@ -53,7 +53,7 @@ class ChatBox extends Component {
     var component = this;
     $(document).mouseup(function(e) {
       var container = $('.emoji-section');
-      var emojiPicker = $('#emoji-picker')
+      var emojiPicker = $('#emoji-picker');
       if (!container.is(e.target) && container.has(e.target).length === 0) {
         emojiPicker.css('visibility', 'hidden');
       }
@@ -61,6 +61,22 @@ class ChatBox extends Component {
     this.setHeight(this, 62.5);
     $(window).resize(function() {
       component.setHeight(component, $('#text-box').height());
+    });
+    $('.chat-box').mouseup(function(e) {
+      var container = $('.menu-box');
+      var tagsBox = $('.ReactTags__tags');
+      var tools;
+      
+      // if($('.tools').css('display') === 'flex') {
+      //   console.log('1');
+      // }
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        // console.log($('.tools:visible'))
+        if($('.tools:visible').length > 0){
+          $('.tools:visible').css('display', 'none');
+          tagsBox.css('display', 'none');
+        }
+      }
     });
   }
   
@@ -124,7 +140,7 @@ class ChatBox extends Component {
       this.refs.scrollbars.scrollToBottom();
     }
   } 
-     
+
   handleScroll(event) {
     if(event.srcElement) {
       if(event.srcElement.scrollTop == 0) {
