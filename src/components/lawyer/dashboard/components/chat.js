@@ -31,7 +31,15 @@ class Chat extends Component {
       component.setState({users :userArr})
     })
     this.props.emitter.addListener('getUserSearch', function(targetUser){
-      component.setState({targetUser: targetUser})
+      component.state.users.every((element)=>{
+        if(element.uid === targetUser.uid){
+          targetUser.rid = element.rid;
+          component.setState({targetUser: targetUser})
+          return false;
+        }
+        return true;
+      })
+     
     })
   }
   
@@ -68,7 +76,7 @@ class Chat extends Component {
     }
   }
 
-  render() {    
+  render() { 
     return(
       <div className='chat-section'>
         <div className='chat-users-list-wrapper'>
@@ -85,6 +93,7 @@ class Chat extends Component {
               {
                 this.state.users.map(user => {
                   if(JSON.stringify(this.state.targetUser) === JSON.stringify(user)){
+                  
                     return(
                       <div className='chat-user active-link'
                         onClick={this.changeUserChat.bind(this,user)}
@@ -94,6 +103,7 @@ class Chat extends Component {
                         </div>
                       </div>
                     )
+                  
                   } else{
                     return(
                       <div className='chat-user'
