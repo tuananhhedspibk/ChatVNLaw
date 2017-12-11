@@ -19,23 +19,27 @@ class StickyHighlight extends Component {
 			existSticky = true;
 		}
 		if (this.props.painting) {
-			sticky = <img src={constant.onStickyPic}  height="20" width="20" onClick={this.props.handleStickyOff}/>
+			sticky = (<div className="sticky-btn" onClick={this.props.handleStickyOff}>
+					<img src={constant.onStickyPic} height="20" width="20"/>
+					<span className='btn-text'> Đánh dấu văn bản</span>
+				</div>)
 		}
 		else {
-			sticky = <img src={constant.offStickyPic} height="20" width="20" onClick={this.props.handleSticky}/>
+			sticky = (<div className="sticky-btn" onClick={this.props.handleSticky}>
+					<img src={constant.offStickyPic} height="20" width="20"/>
+					<span> Đánh dấu văn bản</span>
+				</div>)	
 		}
 		console.log(this.props.stickies)
 		return (
-			<div>
-				<div className="sticky-btn">
-					{sticky} <p> Đánh dấu văn bản</p>
-				</div>
+			<div className="sticky-col">
+				{sticky}
 				<ul className="listSticky">
 					{existSticky &&
 						this.props.stickies.map(function(data, index){
-							console.log(true);
-            return <SitckyElement key={ index } data={data}/>;
-          })}
+						console.log(true);
+            			return <SitckyElement key={ index } data={data}/>;
+          			})}
 				</ul>
 			</div>
 			);

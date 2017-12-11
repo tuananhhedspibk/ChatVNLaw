@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import * as firebase from 'firebase';
 import { Header, TextArea,
   Button, Image,Modal, Dropdown } from 'semantic-ui-react';
+import * as $ from 'jquery';
+import axios from 'axios';
+import * as constant from '../../constants';
 
 let translate = require('counterpart');
 
@@ -52,6 +55,25 @@ class DetailInfoSettings extends Component {
   }
 
   paymentProcess(){
+    var component = this;
+    var instance = axios.create({
+      baseURL: constant.API_BASE_URL
+    });
+    var amount = $('#input_payment').val()
+    var param = {
+      amount: amount,
+      uid: component.props.user.uid
+    }
+    instance.get('/payments', { params: param 
+    })
+    .then(function (response) {
+      console.log(response.data.url)
+      component.handleCloseModal();
+      window.location = response.data.url;      
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
   }
 
   renderViewPayment(){

@@ -121,6 +121,7 @@ class VideoCall extends React.Component{
     var component = this;
 
     this.createPeer( (isValidPeer)=>{
+      console.log(isValidPeer);
       if(isValidPeer){
         console.log(component.state.peer);
         properties['rid'] = this.state.currentRoomId;
