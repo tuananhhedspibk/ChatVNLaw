@@ -55,7 +55,7 @@ class ChatSetting extends Component {
       images:[],
       files: [],
       modalOpen: false,
-      chatSettingHeight: ''
+      chatSettingHeight: null
     };
   }
 
@@ -65,40 +65,45 @@ class ChatSetting extends Component {
     component.setState({chatSettingHeight: vh - 55});
   }
 
-  componentDidMount() {
-    var component = this;
-    this.setHeight(this);
-    $(window).resize(function() {
-      component.setHeight(component);
-    });
-  }
-
   componentWillMount() {
     this.setState({currentRoomId : this.props.currentRoomId,
       targetUser: this.props.targetUser,
       currentUser: this.props.currentUser})
   }
 
-  componentWillReceiveProps(nextProps){
-    if(this.state.currentRoomId !== nextProps.currentRoomId && !! nextProps.currentRoomId){
-      this.setState({currentRoomId: nextProps.currentRoomId})
-    }
-    if(this.state.currentUser !== nextProps.currentUser && !! nextProps.currentUser){
-      this.setState({currentUser: nextProps.currentUser});
-    }
-    if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
-      this.setState({targetUser: nextProps.targetUser});
-    }
+  componentDidMount(){
+    var component = this;    
+    this.setHeight(this);
+    $(window).resize(function() {
+      component.setHeight(component);
+    });
+    let properties = {}
+    properties.component = this;
+    properties.roomId = this.props.currentRoomId;    
+    Files.showImagesAndFilesList(properties);
   }
+  // componentWillReceiveProps(nextProps){
+  //   if(this.state.currentRoomId !== nextProps.currentRoomId && !! nextProps.currentRoomId){
+  //     console.log(nextProps.currentRoomId);
+  //     this.setState({currentRoomId: nextProps.currentRoomId})
+  //   }
+  //   if(this.state.currentUser !== nextProps.currentUser && !! nextProps.currentUser){
+  //     this.setState({currentUser: nextProps.currentUser});
+  //   }
+  //   if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
+  //     this.setState({targetUser: nextProps.targetUser});
+  //   }
+  // }
   
-  componentWillUpdate(nextProps, nextState){
-    if(this.state.currentRoomId !== nextState.currentRoomId){
-      let properties = {}
-      properties.component = this;
-      properties.roomId = nextState.currentRoomId;
-      Files.showImagesAndFilesList(properties);
-    }
-  }
+
+  // componentWillUpdate(nextProps, nextState){
+  //   if(this.state.currentRoomId !== nextState.currentRoomId){
+  //     let properties = {}
+  //     properties.component = this;
+  //     properties.roomId = nextState.currentRoomId;
+  //     Files.showImagesAndFilesList(properties);
+  //   }
+  // }
 
   renderAva() {
     return(
@@ -244,10 +249,10 @@ class ChatSetting extends Component {
                   <div className='content-title'>
                     {translate('app.chat.lawyer_profile')}
                   </div>
-                  {/*<a target='_blank' href={constant.BASE_URL +
-                    '/lawyers/' + this.state.currentUser.username}>
+                  <a target='_blank' href={constant.BASE_URL +
+                    '/lawyers/' + this.state.targetUser.username}>
                     {constant.BASE_URL + '/lawyers/'
-                    + this.state.currentUser.username}</a>*/}
+                    + this.state.targetUser.username}</a>
                 </div>
                 <div className='shared shared-files'>
                   <div className='content-title'>
