@@ -72,7 +72,7 @@ class Chat extends Component {
         e.preventDefault();
         let file = e.target.files[0];
         properties["roomId"] = nextState.currentRoomId;
-        Files.upfile(properties,file,function(){
+        Files.upfile(properties, file, function(){
         });
       });
     }
@@ -209,9 +209,9 @@ class Chat extends Component {
         if(this.state.messages[0]){
           properties['roomId'] = this.state.currentRoomId;
           properties['component'] = this;
-          // properties['ts'] = '' + (new Date()).getTime();
           properties['limit'] = 15;
-          properties['ts'] = ""+(parseInt(this.state.messages[0].msgTimeStamp) - 1);          
+          properties['ts'] = "" + (parseInt(
+            this.state.messages[0].msgTimeStamp) - 1);          
           Messages.history(properties, function(){
           });
         }

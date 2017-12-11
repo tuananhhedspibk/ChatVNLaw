@@ -16,7 +16,6 @@ class Header extends Component {
 
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
@@ -74,8 +73,9 @@ class Header extends Component {
   }
 
   handleOnclickProfile(){
-    var component = this
-    firebase.database().ref(`users/${component.state.currentUser.uid}`).once('value', data=>{
+    var component = this;
+    firebase.database().ref(`users/${component.state.currentUser.uid}`)
+      .once('value', data=>{
       if(data.exists()){
         window.open(BASE_URL + '/lawyers/'+data.val().username)
       }
@@ -83,8 +83,9 @@ class Header extends Component {
   }
 
   handleOnclickEditProfile(){
-    var component = this
-    firebase.database().ref(`users/${component.state.currentUser.uid}`).once('value', data=>{
+    var component = this;
+    firebase.database().ref(`users/${component.state.currentUser.uid}`)
+      .once('value', data=>{
       if(data.exists()){
         window.open(BASE_URL + '/settings/lawyers/'+data.val().username)
       }
@@ -94,23 +95,31 @@ class Header extends Component {
   render() {
     return (
       <header className='app-header navbar'>
-        <NavbarToggler className='d-lg-none' onClick={this.mobileSidebarToggle}>&#9776;</NavbarToggler>
-        <NavbarBrand href='/'>{translate('app.identifier.app_name')}</NavbarBrand>
-        <NavbarToggler className='d-md-down-none' onClick={this.sidebarToggle}>&#9776;</NavbarToggler>
+        <NavbarToggler className='d-lg-none'
+          onClick={this.mobileSidebarToggle}>&#9776;</NavbarToggler>
+        <NavbarBrand href='/'>{translate('app.identifier.app_name')}
+        </NavbarBrand>
+        <NavbarToggler className='d-md-down-none'
+          onClick={this.sidebarToggle}>&#9776;</NavbarToggler>
         <Nav className='ml-auto' navbar>
           <NavItem>
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle className='nav-link dropdown-toggle'>
                 <img src={this.state.currentUser.photoURL}
                   className='img-avatar'/>
-                <span className='d-md-down-none'>{this.state.currentUser.displayName}</span>
+                <span className='d-md-down-none'>
+                  {this.state.currentUser.displayName}
+                </span>
               </DropdownToggle>
-              <DropdownMenu right className={this.state.dropdownOpen ? 'show' : ''}>
-                <DropdownItem header tag='div'>
-                  <strong onClick={this.handleOnclickProfile.bind(this)}>{translate('app.identifier.account')}</strong>
+              <DropdownMenu right
+                className={this.state.dropdownOpen ? 'show' : ''}>
+                <DropdownItem onClick={this.handleOnclickProfile.bind(this)}>
+                  <i className='fa fa-user'></i>
+                  {translate('app.identifier.account')}
                 </DropdownItem>
-                <DropdownItem header tag='div'>
-                  <strong onClick={this.handleOnclickEditProfile.bind(this)}>{translate('app.identifier.setting')}</strong>
+                <DropdownItem onClick={this.handleOnclickEditProfile.bind(this)}>
+                  <i className='fa fa-cog'></i>
+                  {translate('app.identifier.setting')}
                 </DropdownItem>
                 <DropdownItem onClick={this.logout.bind(this)}>
                   <i className='fa fa-lock'></i>
@@ -120,7 +129,8 @@ class Header extends Component {
             </Dropdown>
           </NavItem>
         </Nav>
-        <NavbarToggler className='d-md-down-none' type='button' onClick={this.chatToggle}>&#9776;</NavbarToggler>
+        <NavbarToggler className='d-md-down-none' type='button'
+          onClick={this.chatToggle}>&#9776;</NavbarToggler>
       </header>
     )
   }

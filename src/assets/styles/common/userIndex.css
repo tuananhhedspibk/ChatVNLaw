@@ -25,10 +25,11 @@
     text-align: left;
     text-transform: uppercase; }
     .list-users .search-box input {
-      background-color: #e5ecf0;
+      background-color: #f6f6f6;
       border: 0;
+      font-size: 1.15em;
       height: 25px;
-      padding: 18px;
+      padding: 20px 15px;
       width: 100%; }
   .list-users .ui.dropdown {
     float: left; }
@@ -46,6 +47,7 @@
       padding-left: 15px; }
     .list-users .ui.list a {
       display: inline-block;
+      outline: 0;
       text-decoration: none;
       width: 100%; }
     .list-users .ui.list .item {
@@ -98,7 +100,7 @@
   background-color: #f5455c; }
 
 .ui.dropdown .menu > .item {
-  font-size: .8em; }
+  font-size: .9em; }
 
 .ui.top.left.pointing.dropdown > .menu:after {
   width: 0 !important; }
@@ -108,6 +110,7 @@
 
 @-moz-document url-prefix() {
   .list-users .search-box input {
+    font-size: 1.05em;
     height: 35px;
     padding: 8px 10px; }
   .list-users .ui.list .item .content .header {

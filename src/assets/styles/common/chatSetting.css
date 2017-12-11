@@ -60,6 +60,7 @@
     .chat-setting .header .info {
       width: 215px; }
       .chat-setting .header .info .user-name {
+        font-size: .95em;
         overflow: hidden;
         text-overflow: ellipsis; }
     .chat-setting .header .config {
@@ -70,13 +71,33 @@
     padding: 15px; }
     .chat-setting .content .shared a {
       display: block;
+      font-size: .9em;
       margin-bottom: 3px;
       max-width: 100%;
       word-wrap: break-word; }
+  .chat-setting .content .shared-files .content-title, .chat-setting .content .shared-images .content-title {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+    position: relative; }
+    .chat-setting .content .shared-files .content-title:after, .chat-setting .content .shared-images .content-title:after {
+      content: "\f106";
+      font-family: FontAwesome;
+      font-size: 1.2em;
+      position: absolute;
+      right: 10px; }
   .chat-setting .content .content-title {
     color: #a2a2a2;
+    font-size: .9em;
+    margin-bottom: 3px;
+    padding: 0;
+    text-align: left;
     text-transform: none;
-    margin-bottom: 3px; }
+    width: 100%; }
+  .chat-setting .content .content-title.collapsed:after {
+    content: "\f107";
+    font-family: FontAwesome; }
 
 @-moz-document url-prefix() {
   .chat-setting {

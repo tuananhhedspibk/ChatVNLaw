@@ -1,24 +1,110 @@
 @import './variables.scss';
 
+.app-header.navbar .nav-item .nav-link .badge {
+  background-color: $red !important;
+  font-size: .5em;
+}
+
+.app-header.navbar {
+  border-bottom: solid 1px $border-color;
+
+  .navbar-nav .dropdown-toggle {
+    align-items: center;
+    color: #536c79 !important;
+    display: flex;
+    font-size: .8em;
+  }
+
+  .navbar-brand {
+    align-items: center;
+    border-bottom: none !important;
+    color: $blue;
+    display: flex;
+    height: 50px !important;
+    justify-content: center;
+    width: 225px !important;
+  }
+
+  .navbar-nav {
+    display: flex !important;
+  }
+
+  .dropdown-item {
+    min-width: 50px;
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    background-color: $white;
+    cursor: pointer;
+    width: 187px;
+  
+    .dropdown-header {
+      font-size: .9em;
+    }
+  
+    button.dropdown-item {
+      cursor: pointer;
+      font-size: 1.1em;
+    }
+  }
+}
+
+.app-body .main {
+  background-color: $main-background;
+  height: calc(100vh - 55px);
+
+  .custom-content {
+    margin-bottom: -26px !important;
+  }
+
+  .breadcrumb {
+    background-color: $white !important;
+    border-radius: 0;
+    font-size: 1.2em;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .container-fluid {
+    padding: 15px !important;
+  }
+}
+
+.app-body .main-customer .container-fluid {
+  padding: 0 !important;
+}
+
 .app-body {
+  height: calc(100vh - 56px);  
+  overflow-y: hidden;
+
+  #calendar {
+    width: calc(100% - 1px);
+  }
+
+  .nothing-todo-title {
+    font-size: 1.2em;
+  }
+
+  .chat-setting .content .content-title {
+    color: $black;
+    font-size: 1.1em;
+  }
+
+  .sidebar {
+    .custom-content {
+      margin-bottom: -26px !important;
+    }
+  }
+
   .chat-section {
     border-left: 1px solid $border-color;
     display: inline-block;
     transition: all .5s ease;
     width: calc((100% - 295px) / 2);
   }
-}
 
-.navbar {
-  border-radius: 0 !important;
-}
-
-.app-header.navbar .nav-item .nav-link .badge {
-  background-color: $red !important;
-  font-size: .5em;
-}
-
-.app-body {
   .chat-users-list-wrapper {
     border-right: 1px solid $border-color;
     display: inline-block;
@@ -52,19 +138,149 @@
       }
     }
   }
-}
 
-.app-body {
-  height: calc(100vh - 56px);
-}
+  .bubble-img {
+    img {
+      max-height: 230px !important;
+      max-width: 230px !important;
+    }
+  }
 
-.app-body .sidebar {
-  height: calc(100vh - 56px);
-}
+  .chat-setting {
+    border-left: none;
+    border-right: none;
+    overflow-y: hidden;
+    width: 100%;
 
-.app-body {
-  overflow-y: hidden;
+    .header {
+      .user-name {
+        font-size: 1.1em;
+      }
+    }
 
+    .header {
+      border: 0;
+      padding: 0 0 15px;
+    }
+
+    .shared-images {
+      background-color: $gray-more-lighter;
+    }
+
+    .shared-files {
+      border-left: 1px solid $gray-more-lighter;
+      border-right: 1px solid $gray-more-lighter;
+      width: calc(100% - 1px) !important;
+    }
+
+    .shared {
+      border-bottom: 0 !important;
+      padding: 20px !important;
+      width: 100%;
+
+      a {
+        font-size: 1.1em !important;
+      }
+    }
+
+    .description {
+      background-color: $gray-more-lighter;
+      display: inline-block;
+      padding: 20px;
+      width: 100%;
+
+      .title {
+        color: $black;
+        font-size: 1.1em;
+        margin-bottom: 3px;
+        text-transform: none;
+      }
+
+      .text-descrip {
+        background-color: $white;
+        margin: 10px 0 15px;
+        padding: 10px;
+      }
+
+      form {
+        margin: 15px 0 0;
+
+        textarea {
+          margin-bottom: 15px;
+          padding: 10px;
+          width: 100%;
+        }
+      }
+
+      button {
+        background-color: $blue;
+        border: 0;
+        border-radius: 3px;
+        color: $white;
+        font-size: 1em;
+        padding: 10px;
+
+        &:focus {
+          background-color: $blue-darker;
+          outline: 0;
+        }
+      }
+    }
+  }
+
+  .chat-section {
+    background-color: $white;
+    height: calc(100vh - 55px);
+    position: relative;
+
+    .video-call {
+      height: calc(100vh - 54px);
+
+      .video {
+        height: 380px;
+        margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
+        width: 380px;
+      }
+
+      .end-call-btn {
+        margin-left: 30px;
+      }
+    }
+
+    .header {
+      align-items: center;
+      border-bottom: 1px solid $border-color;
+      color: $blue;
+      display: flex;
+      float: left;
+      font-size: 1.2em;
+      padding: 10px;
+      position: relative;
+      width: 100%;
+
+      .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 85%;
+      }
+
+      .fa {
+        cursor: pointer;
+        margin-right: 10px;
+        position: absolute;
+      }
+
+      .fa-phone {
+        right: 25px;
+      }
+
+      .fa-video-camera {
+        right: 0;
+      }
+    }
+  }
+  
   .chat-box-wrapper {
     display: inline-block;
     height: calc(100vh - 55px);
@@ -100,11 +316,15 @@
       }
 
       .fa {
-        color: $gray;
+        color: $gray-darker;
         cursor: pointer;
         float: left;
         font-size: 1.5em;
         margin-right: 15px;
+
+        &:active {
+          color: $gray-medium;
+        }
       }
     }
 
@@ -163,13 +383,44 @@
   }
 
   .chat-setting {
+    border-left: none;
+    border-right: none;
+    overflow-y: hidden;
+    width: 100%;
+
     .header {
       .user-name {
         font-size: 1.1em;
       }
     }
+
+    .header {
+      border: 0;
+      padding: 0 0 15px;
+    }
+
+    .shared-images {
+      background-color: $gray-more-lighter;
+    }
+
+    .shared-files {
+      border-left: 1px solid $gray-more-lighter;
+      border-right: 1px solid $gray-more-lighter;
+      width: calc(100% - 1px) !important;
+    }
+
+    .shared {
+      border-bottom: 0 !important;
+      padding: 20px !important;
+      width: 100%;
+
+      a {
+        font-size: 1.1em !important;
+      }
+    }
+
     .description {
-      background-color: $gray-lighter;
+      background-color: $gray-more-lighter;
       display: inline-block;
       padding: 20px;
       width: 100%;
@@ -193,6 +444,7 @@
         textarea {
           margin-bottom: 15px;
           padding: 10px;
+          width: 100%;
         }
       }
 
@@ -266,18 +518,13 @@
   }
 }
 
-.app-header.navbar {
-  border-bottom: solid 1px $border-color;
-}
-
-.app-header.navbar .navbar-nav .dropdown-toggle {
-  color: #536c79 !important;
+.app-body .sidebar {
+  height: calc(100vh - 56px);
 }
 
 .nav-dropdown-items .nav-link {
-  font-size: 1em !important;
+  font-size: 1.05em !important;
 }
-
 
 .sidebar .nav .nav-item .nav-link.nav-dropdown-toggle::before,
 .sidebar .nav .nav-item .navbar .nav-dropdown-toggle.dropdown-toggle::before,
@@ -290,106 +537,16 @@
   font-weight: normal;
 }
 
-.app-header.navbar .navbar-brand {
-  border-bottom: none !important;
-  width: 225px !important;
-  height: 50px !important;
-}
-
-.app-header.navbar .navbar-nav {
-  display: flex !important;
-}
-
-.app-body {
-  .chat-setting .content .content-title {
-    color: $black;
-    font-size: 1.1em;
-  }
-
-  .sidebar {
-    .custom-content {
-      margin-bottom: -26px !important;
-    }
-  }
-}
-
-.sidebar .nav .nav-item .nav-link {
-  font-size: 1.2em;
-  width: 100%;
-
-  &:hover {
-    background-color: $blue !important;
-  }
+.navbar-toggler {
+  font-size: 1em !important;
 }
 
 .nav-link .dropdown-toggle .btn .btn-secondary {
   font-size: .9em;
 }
 
-.app-header.navbar .nav-item {
-  font-size: 1.1em;
-}
-
-.sidebar .nav .nav-item .nav-link {
-  padding: 1.3rem !important;
-}
-
-.sidebar .nav .nav-item .nav-link i {
-  color: $white !important;
-  margin-right: 10px !important;
-}
-
-.navbar-toggler {
-  font-size: 1em !important;
-}
-
-.sidebar .nav .nav-item .nav-link.active i {
-  color: $white !important;
-}
-
-.app-body .main {
-  background-color: $main-background;
-  height: calc(100vh - 55px);
-
-  .custom-content {
-    margin-bottom: -26px !important;
-  }
-
-  .breadcrumb {
-    background-color: $white !important;
-    border-radius: 0;
-    font-size: 1.2em;
-    margin-bottom: 0;
-    width: 100%;
-  }
-
-  .container-fluid {
-    padding: 15px !important;
-  }
-
-  .chat-setting {
-    border-right: none;
-    overflow-y: none;
-    width: 100%;
-
-    .header {
-      border: 0;
-      padding: 20px;
-    }
-
-    .shared-images {
-      background-color: $gray-lighter;
-    }
-
-    .shared {
-      border: 0;
-      padding: 20px !important;
-    }
-  }
-}
-
-.app-body .main-customer .container-fluid {
-  padding: 0 !important;
+.navbar {
+  border-radius: 0 !important;
 }
 
 .nav {
@@ -414,6 +571,28 @@
       width: 75px;
     }
   }
+}
+
+.sidebar .nav .nav-item .nav-link {
+  font-size: 1.2em;
+  width: 100%;
+
+  &:hover {
+    background-color: $blue !important;
+  }
+}
+
+.sidebar .nav .nav-item .nav-link {
+  padding: 1.3rem !important;
+}
+
+.sidebar .nav .nav-item .nav-link i {
+  color: $white !important;
+  margin-right: 10px !important;
+}
+
+.sidebar .nav .nav-item .nav-link.active i {
+  color: $white !important;
 }
 
 .btn-header-todo-list {
@@ -454,75 +633,6 @@
   margin-bottom: 20px;
 }
 
-#todo-list-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li{
-    cursor: pointer;
-    position: relative;
-    padding: 12px 35px 12px 40px;
-    background: $gray-medium-lighter;
-    font-size: 1.1em;
-    transition: 0.2s;
-    word-wrap: break-word;
-  
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  li:last-child{
-    background: $gray-medium-lighter;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-
-  li:hover {
-    background: $gray-medium-darker;
-    transition: all .3s ease;
-  }
-
-  li.checked {
-    background: $gray-medium-darker !important;
-    color: $black;
-  }
-
-  li.checked::before {
-    content: '';
-    position: absolute;
-    border-color: $black;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;
-  }
-
-  .close {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 13px 16px;
-
-    &:hover {
-      background-color: $blue;
-      color: $white;
-      transition: all .3s ease;
-    }
-
-    &:after {
-      width: 0;
-    }
-  }
-}
-
 .my-work-with {
   padding-bottom: 10px;
 
@@ -561,7 +671,7 @@
   }
 
   .add-todo-list-form {
-    margin-top: 10px;
+    margin-top: 15px;
 
     input {
       border: 1px solid $gray-lighter;
@@ -578,14 +688,82 @@
       border-radius: 5px;
       color: $white;
       cursor: pointer;
-      font-size: 1.1em;
-      margin-top: 8px;
-      padding: 10px 45px;
+      font-size: 1.2em;
+      margin-top: 10px;
+      padding: 6px 35px;
 
       &:focus {
         background-color: $blue-darker;
         outline: none;
       }
+    }
+  }
+}
+
+#todo-list-ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li{
+    cursor: pointer;
+    position: relative;
+    padding: 12px 35px 12px 40px;
+    background: #f7f7f7;
+    font-size: 1.1em;
+    transition: 0.2s;
+    word-wrap: break-word;
+  
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  li:last-child{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  li:hover {
+    background: #e2e2e2;
+    transition: all .3s ease;
+  }
+
+  li.checked {
+    background: $gray-medium !important;
+    color: $black;
+  }
+
+  li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: $black;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+  }
+
+  .close {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 13px 16px;
+
+    &:hover {
+      background-color: $blue;
+      color: $white;
+      transition: all .3s ease;
+    }
+
+    &:after {
+      width: 0;
     }
   }
 }
@@ -735,36 +913,126 @@
   }
 }
 
-.app-header.navbar .navbar-nav .dropdown-toggle {
-  align-items: center;
-  display: flex;
-  font-size: .8em;
+#myUL {
+  margin: 0;
+  padding: 0;
 }
 
-.app-header.navbar .dropdown-menu {
-  background-color: $white;
-  cursor: pointer;
-  font-size: .8em;
-
-  .dropdown-header {
-    font-size: .9em;
-  }
-
-  button.dropdown-item {
+#myUL {
+  li{
     cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #f2f2f2;
+    font-size: 18px;
+    transition: 0.2s;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  li:nth-child(odd){
+    background: #f7f7f7;
+  }
+
+  li:hover {
+    background: #e2e2e2;
+  }
+
+  li.checked {
+    background: #e2e2e2;
+    color: #fff;
+    text-decoration: line-through;
+  }
+
+  li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: $white;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
   }
 }
 
-.app-header.navbar .dropdown-item {
-  min-width: 50px;
-  width: 100%;
+.close {
+  padding: 12px 16px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
-.app-header.navbar .navbar-brand {
-  align-items: center;
-  color: $blue;
-  display: flex;
-  justify-content: center;
+.close:hover {
+  color: $white;
+}
+
+#myUL {
+  list-style: none;
+}
+
+.todo-list-lawyer {
+  width: 100%;
+  text-align: left !important
+}
+
+.todos-list {
+  border: 1px solid $gray-less-medium;
+  display: inline-block;
+  margin-bottom: 10px;
+  width: calc(100% - 1px);
+}
+
+.toggle-btn {
+  background-color: transparent !important;
+  border: 0;
+  cursor: pointer;
+  font-size: 1.2em !important;
+  padding: 12px 10px 12px 37px !important;
+  position: relative;
+  text-align: left !important;
+  word-wrap: break-word;
+  width: 100%;
+
+  div {
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  &:after {
+    color: $blue;
+    content: "\f107";
+    font-family: FontAwesome;
+    font-size: 1.2em;
+    position: absolute;
+    left: 12px;
+    top: 8px;
+  }
+
+  &:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+  }
+}
+
+.toggle-btn.collapsed {
+  &:after {
+    content: "\f105";
+    font-family: FontAwesome;
+  }
+}
+
+#myInput {
+  border: none;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
 }
 
 @-moz-document url-prefix() {

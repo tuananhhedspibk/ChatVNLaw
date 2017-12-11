@@ -22,13 +22,15 @@ class ChatBox extends Component {
       currentRoomId: null,
       currentUser: null,
       targetUser: null,
-      chatMessHeight: 0
+      chatMessHeight: 0,
+      emojiVisibility: false
     };
   }  
   
   componentWillMount(){
     var component = this;
-    this.setState({currentUser: this.props.currentUser, targetUser: this.props.targetUser});
+    this.setState({currentUser: this.props.currentUser,
+      targetUser: this.props.targetUser});
     this.props.emitter.addListener('ReSendData',function(callback){
       return callback(component.state.currentUser,
         component.state.targetUser, component.state.currentRoomId);
@@ -44,6 +46,7 @@ class ChatBox extends Component {
   setHeight(component, textBoxHeight) {
     var vh = Math.max(document.documentElement.clientHeight,
       window.innerHeight || 0);
+    console.log(vh);
     var chatMessHeight = vh - 45.5 - textBoxHeight
       - $('.app-header').height();
     component.setState({chatMessHeight: chatMessHeight});
@@ -66,12 +69,7 @@ class ChatBox extends Component {
       var container = $('.menu-box');
       var tagsBox = $('.ReactTags__tags');
       var tools;
-      
-      // if($('.tools').css('display') === 'flex') {
-      //   console.log('1');
-      // }
       if (!container.is(e.target) && container.has(e.target).length === 0) {
-        // console.log($('.tools:visible'))
         if($('.tools:visible').length > 0){
           $('.tools:visible').css('display', 'none');
           tagsBox.css('display', 'none');
@@ -119,6 +117,11 @@ class ChatBox extends Component {
     }
   }
 
+  onClickEmoji(emoji,event){
+    var inputTextArea = $('#input-mess-box');
+    inputTextArea.val(inputTextArea.val() + ' ' + emoji.colons + ' ');
+  }
+
   updateTag(mess){
     let properties = {}
     properties.component = this;
@@ -149,7 +152,6 @@ class ChatBox extends Component {
         if(this.state.messages[0]){
           properties['roomId'] = this.state.currentRoomId;
           properties['component'] = this;
-          // properties['ts'] = '' + (new Date()).getTime();
           properties['limit'] = 15;
           properties['ts'] = ""+(parseInt(this.state.messages[0].msgTimeStamp) - 1);          
           Messages.history(properties, function(){
@@ -200,12 +202,13 @@ class ChatBox extends Component {
   }
 
   renderEmojiPicker(e){
-    if ($('#emoji-picker').css('visibility') === 'hidden') {
-      $('#emoji-picker').css('visibility', 'visible');
-    }
-    else {
+    if(this.state.emojiVisibility) {
       $('#emoji-picker').css('visibility', 'hidden');
     }
+    else {
+      $('#emoji-picker').css('visibility', 'visible');
+    }
+    this.setState({emojiVisibility: !this.state.emojiVisibility});
   }
 
   renderVideo() {
@@ -259,12 +262,12 @@ class ChatBox extends Component {
                     />
                   </div>
                 </div>
-                <i className='fa fa-smile-o'
-                  aria-hidden='true'
-                  onClick={this.renderEmojiPicker}></i>
                 <i className='fa fa-file-image-o'
                   aria-hidden='true'
                   onClick={this.upfile}></i>
+                <i className='fa fa-smile-o'
+                  aria-hidden='true'
+                  onClick={this.renderEmojiPicker.bind(this)}></i>
               </div>
             </div>
           </div>
