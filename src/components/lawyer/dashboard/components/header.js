@@ -10,6 +10,7 @@ import firebase from 'firebase';
 
 import * as constant from '../../../constants';
 import * as translate from 'counterpart';
+import { BASE_URL } from '../../../constants';
 
 class Header extends Component {
 
@@ -72,6 +73,24 @@ class Header extends Component {
     $('.chat-box-wrapper').toggle();
   }
 
+  handleOnclickProfile(){
+    var component = this
+    firebase.database().ref(`users/${component.state.currentUser.uid}`).once('value', data=>{
+      if(data.exists()){
+        window.open(BASE_URL + '/lawyers/'+data.val().username)
+      }
+    })
+  }
+
+  handleOnclickEditProfile(){
+    var component = this
+    firebase.database().ref(`users/${component.state.currentUser.uid}`).once('value', data=>{
+      if(data.exists()){
+        window.open(BASE_URL + '/settings/lawyers/'+data.val().username)
+      }
+    })
+  }
+
   render() {
     return (
       <header className='app-header navbar'>
@@ -88,10 +107,10 @@ class Header extends Component {
               </DropdownToggle>
               <DropdownMenu right className={this.state.dropdownOpen ? 'show' : ''}>
                 <DropdownItem header tag='div'>
-                  <strong>{translate('app.identifier.account')}</strong>
+                  <strong onClick={this.handleOnclickProfile.bind(this)}>{translate('app.identifier.account')}</strong>
                 </DropdownItem>
                 <DropdownItem header tag='div'>
-                  <strong>{translate('app.identifier.setting')}</strong>
+                  <strong onClick={this.handleOnclickEditProfile.bind(this)}>{translate('app.identifier.setting')}</strong>
                 </DropdownItem>
                 <DropdownItem onClick={this.logout.bind(this)}>
                   <i className='fa fa-lock'></i>

@@ -26,6 +26,7 @@ import getStunServerList from '../../../lib/getstunserverlist';
 import {checkPermission, checkAuthen} from '../../../lib/notification/toast';
 import {onAuthStateChanged} from '../../../lib/user/authentication';
 import {getUserRoleByUid} from '../../../lib/user/getuserinfo';
+import Profile from '../profile/settings';
 
 import * as constant from '../../constants';
 import * as tableContant from '../../../lib/constants';
@@ -126,6 +127,8 @@ class UserDashBoard extends Component {
                       component={DashBoard}/>
                     <Route path='/dashboard/calendar' name='Calendar'
                       component={Calendar}/>
+                    <Route path="/dashboard/profile" name="Profile" 
+                      component={Profile} />
                   </Switch>
               </Scrollbars>
             </Container>

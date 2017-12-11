@@ -56,6 +56,7 @@ class SearchUser extends Component {
 
   clickUser(data){
     var component = this;
+    console.log('test')
     component.setState({
       targetUser: data
     })

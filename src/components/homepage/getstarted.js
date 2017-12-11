@@ -9,7 +9,7 @@ class GetStarted extends Component {
         <div className='title'>
           {translate('app.home.get_start.title')}
         </div>
-        <a className='get-start-btn' href='/attroney'>
+        <a className='get-start-btn' href='/attorney'>
           {translate('app.home.get_start.button_content')}
         </a>
       </div>

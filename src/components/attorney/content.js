@@ -4,6 +4,8 @@ import ReactLoading from 'react-loading';
 import * as constant from '../constants';
 
 import * as Lawyers from '../../lib/user/lawyers';
+import firebase from 'firebase';
+import { BASE_URL } from '../constants';
 
 let translate = require('counterpart');
 
@@ -67,13 +69,24 @@ class Content extends Component {
 		}
 	}
 
+	handleOnclickLawyer(uid){
+		console.log('test');
+		firebase.database().ref(`users/${uid}`).once('value', data=>{
+			if(data.exists()){
+				window.open(BASE_URL+'/lawyers/'+data.val().username)
+			}
+		})
+
+	}
+
 	renderResultArr(){
 		console.log(this.state.result);
 		return (
 			<div>
 				{this.state.result.map((element)=>{
+					console.log(element)
 					return(	
-						<div className='lawyer'>
+						<div className='lawyer' onClick={this.handleOnclickLawyer.bind(this,element.uid)}>
 							<img className='ava' src={element.photoURL} />
 							<div className='infor'>
 								<div className='name' title={element.fullname}>
