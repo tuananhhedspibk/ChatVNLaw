@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import ReactStars from 'react-stars';
+import { BASE_URL } from '../../constants';
 
 let translate = require('counterpart');
 
 class HeaderBlock extends Component {
   constructor(props) {
     super(props);
+  }
+
+  handleOnclickApplayLawyer(){
+    console.log('test')
+    console.log(this.props.user)
+    window.location.href = BASE_URL+'/applylawyer/'+this.props.user.username
   }
 
   render() {
@@ -31,7 +38,7 @@ class HeaderBlock extends Component {
                   size={24}
                   color2={'#ffd700'} />
                 </p>
-                <button className='btn-blue'>
+                <button className='btn-blue' onClick={this.handleOnclickApplayLawyer.bind(this)}>
                   {translate('app.lawyer.online_counsel')}
                 </button>
               </div>

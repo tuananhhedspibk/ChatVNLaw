@@ -97,8 +97,7 @@ class TodoList extends Component {
                 todoList: data
               })
             firebase.database()
-              .ref(`tasks/${component.state.currentUser.uid}/
-                ${component.state.currentRoomId}`)
+              .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
               .set(data);
         $('#form-input').val('');
       }

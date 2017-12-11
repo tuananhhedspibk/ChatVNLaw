@@ -122,18 +122,31 @@ class Notifications extends Component{
   }
 
   renderView(){
-    return (
-      <div>
+    if(this.state.notifications.length>0)
+    {
+      return (
+        <div>
+          <Nav navStyle='inverse'/>
+          <div className='notifi-wrapper'>
+            {this.state.notifications.map((element, index ) =>{
+              return(
+                this.renderNotificationItem(element)
+              )
+            })}
+          </div>
+        </div>  
+      )
+    }
+    else {
+      return (
+        <div>
         <Nav navStyle='inverse'/>
         <div className='notifi-wrapper'>
-          {this.state.notifications.map((element, index ) =>{
-            return(
-              this.renderNotificationItem(element)
-            )
-          })}
+          nothing in your eyes
         </div>
       </div>  
-    )
+      )
+    }
   }
 
   render(){
