@@ -10,6 +10,7 @@
     "bufferutil": "^3.0.2",
     "chart.js": "^2.7.0",
     "counterpart": "^0.18.1",
+    "dateformat": "^3.0.2",
     "ddp-client": "https://github.com/tranlinh265/node-ddp-client",
     "emoji-mart": "^2.1.1",
     "fbemitter": "^2.1.1",

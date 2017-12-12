@@ -7,6 +7,23 @@ let translate = require('counterpart');
 class HeaderBlock extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      rate: '',
+      count: ''
+    }
+  }
+
+  componentWillMount(){
+    var rate = 0
+    var count = 0
+    for(let i in this.props.user.review){
+      count = count + 1
+      rate = rate + this.props.user.review[i].star
+    }
+    this.setState({
+      rate: rate/count,
+      count: count
+    })
   }
 
   handleOnclickApplayLawyer(){
@@ -34,8 +51,9 @@ class HeaderBlock extends Component {
                 <p className='rate'>
                 <ReactStars
                   count={5}
-                  value={this.props.profile.rate}
+                  value={this.state.rate}
                   size={24}
+                  edit={false}
                   color2={'#ffd700'} />
                 </p>
                 <button className='btn-blue' onClick={this.handleOnclickApplayLawyer.bind(this)}>

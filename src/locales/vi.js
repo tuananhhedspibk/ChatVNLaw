@@ -449,7 +449,8 @@ module.exports = {
       intro: 'Giới thiệu',
       achievement: 'Thành tích',
       education: 'Giáo dục',
-      regis_now: 'Đăng kí ngay'
+      regis_now: 'Đăng kí ngay',
+      review: 'Đánh giá'
     },
     customer: {
       account_type: 'Loại tài khoản:'
