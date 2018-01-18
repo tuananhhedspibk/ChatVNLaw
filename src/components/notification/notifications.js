@@ -142,7 +142,6 @@ class Notifications extends Component{
         <div>
         <Nav navStyle='inverse'/>
         <div className='notifi-wrapper'>
-          nothing in your eyes
         </div>
       </div>  
       )

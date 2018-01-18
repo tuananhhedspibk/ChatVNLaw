@@ -210,9 +210,11 @@ class Chat extends Component {
           properties['roomId'] = this.state.currentRoomId;
           properties['component'] = this;
           properties['limit'] = 15;
-          properties['ts'] = "" + (parseInt(
-            this.state.messages[0].msgTimeStamp) - 1);          
+          properties['ts'] = ""+(parseInt(this.state.messages[0].msgTimeStamp) - 1); 
+                   
           Messages.history(properties, function(){
+
+
           });
         }
       }

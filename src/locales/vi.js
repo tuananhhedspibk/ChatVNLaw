@@ -253,7 +253,12 @@ module.exports = {
       chat_session_list: 'Lịch sử phiên chat',
       rate: 'Đánh giá',
       lawyer_profile: 'Thông tin của luật sư',
-      pay: 'Thanh toán'
+      pay: 'Thanh toán',
+      paid: 'Đã thanh toán',
+      account_owner: 'Chủ tài khoản',
+      money_to_be_paid: 'Số tiền cần thanh toán',
+      cancel: 'Hủy',
+      pending: 'Đang xử lý',
     },
     notfound: {
       content: {
@@ -454,6 +459,16 @@ module.exports = {
     },
     customer: {
       account_type: 'Loại tài khoản:'
+    },
+    modal: {
+      account: 'Tài khoản',
+      available: 'Hiện có',
+      payment: 'Thanh toán',
+      last: 'Còn lại',
+      money_unit: ' ( VNĐ )',
+      note: 'Ghi chú',
+      error: 'Tài khoản của bạn hiện không đủ thanh toán'
+      
     },
     settings: {
       basic_infor: 'Thông tin cơ bản',

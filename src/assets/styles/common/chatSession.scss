@@ -1,5 +1,17 @@
 @import 'variables.scss';
-
+.modal-confirm{
+  height: fit-content !important;
+}
+.ui .modal{
+  height: fit-content !important;
+}
+.wrap-word-table-cell{
+  word-wrap: break-word !important;
+  width: 80% !important;
+}
+.fix-font{
+font-family: "Montserrat", sans-serif !important;
+}
 .session-infor {
   .content-title {
     background-color: transparent;
@@ -66,11 +78,10 @@
       }
     }
 
-    .payment{
+    .session-button{
       background-color: $white;
       border: 0;  
       border-radius: 3px;
-      color: $red;
       cursor: pointer;
       margin-top: 2px;
       padding: 5px 10px;
@@ -78,7 +89,17 @@
       &:hover{
         background-color: $gray-medium;
         transition: all .4s ease;
-      }  
+      }
+      
+    }
+    .payment{
+      color: $red;
+    }
+    .paid{
+      color: $green;
+    }
+    .pending{
+      color: orange;
     }
   }
 }

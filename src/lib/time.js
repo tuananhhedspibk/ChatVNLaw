@@ -1,8 +1,23 @@
-function convertDateToHour(date){
+function convertDateToUTCHour(date){
   date = new Date(parseInt(date))
   return date.getUTCHours() + ':' + date.getUTCMinutes();
 }
 
+function convertDateToUTCSecond(date){
+  date = new Date(parseInt(date))
+  return date.getUTCHours() + ':' + date.getUTCMinutes() +
+    ':' + date.getUTCSeconds();
+}
+
+function convertDateToSecond(date) {
+  date = new Date(parseInt(date))
+  return date.getHours() + ':' + date.getMinutes() +
+    ':' + date.getSeconds();
+}
+function convertDateToHour(date){
+  date = new Date(parseInt(date))
+  return date.getHours() + ':' + date.getMinutes();
+}
 function convertDateToDay(date){
   date = new Date(parseInt(date))
   return date.getUTCDate() + '/' +
@@ -11,9 +26,18 @@ function convertDateToDay(date){
 
 module.exports = {
   convertDateToDay: function(date){
-    convertDateToDay(date);
+    return convertDateToDay(date);
   },
   convertDateToHour: function(date){
-    convertDateToHour(date);
+    return convertDateToHour(date);
+  },
+  convertDateToSecond: function(date){
+    return convertDateToSecond(date);
+  },
+  convertDateToUTCSecond: function(date){
+    return convertDateToUTCSecond(date);
+  },
+  convertDateToUTCHour: function(date){
+    return convertDateToUTCHour(date);
   }
 }
