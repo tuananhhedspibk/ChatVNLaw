@@ -474,7 +474,15 @@ module.exports = {
       payment: 'Thông tin tài khoản',
       acc_balance: 'Số dư tài khoản',
       money_unit: 'VNĐ',
-      input_money: 'Nhập số tiền muốn nạp'
+      input_money: 'Nhập số tiền muốn nạp',
+      job_done: 'Hoàn tất công việc'
+    },
+    rate: {
+      cost_money: 'Giá tiền',
+      tips: 'Phản hồi của bạn sẽ giúp chúng tôi phục vụ bạn tốt hơn',
+      thanks: 'Cảm ơn bạn !',
+      rate_tips: 'Vui lòng đánh giá dịch vụ của chúng tôi',
+      rate_done: 'Gửi đánh giá'
     }
   }
 }

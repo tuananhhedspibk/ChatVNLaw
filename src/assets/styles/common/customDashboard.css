@@ -143,41 +143,6 @@
         .app-body .chat-setting .description button:focus {
           background-color: #0974b8;
           outline: 0; }
-  .app-body .chat-section {
-    background-color: #fff;
-    height: calc(100vh - 55px);
-    position: relative; }
-    .app-body .chat-section .video-call {
-      height: calc(100vh - 54px); }
-      .app-body .chat-section .video-call .video {
-        height: 380px;
-        margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
-        width: 380px; }
-      .app-body .chat-section .video-call .end-call-btn {
-        margin-left: 30px; }
-    .app-body .chat-section .header {
-      align-items: center;
-      border-bottom: 1px solid #c2cfd6;
-      color: #2385f2;
-      display: flex;
-      float: left;
-      font-size: 1.2em;
-      padding: 10px;
-      position: relative;
-      width: 100%; }
-      .app-body .chat-section .header .user-name {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 85%; }
-      .app-body .chat-section .header .fa {
-        cursor: pointer;
-        margin-right: 10px;
-        position: absolute; }
-      .app-body .chat-section .header .fa-phone {
-        right: 25px; }
-      .app-body .chat-section .header .fa-video-camera {
-        right: 0; }
   .app-body .chat-box-wrapper {
     display: inline-block;
     height: calc(100vh - 55px);
@@ -325,9 +290,16 @@
         margin-right: 10px;
         position: absolute; }
       .app-body .chat-section .header .fa-phone {
-        right: 25px; }
+        right: 27px; }
       .app-body .chat-section .header .fa-video-camera {
-        right: 0; }
+        right: 3px; }
+      .app-body .chat-section .header .ui.dropdown {
+        float: right;
+        position: absolute;
+        right: 55px; }
+        .app-body .chat-section .header .ui.dropdown .menu {
+          left: -130px;
+          top: 30px; }
 
 .app-body .sidebar {
   height: calc(100vh - 56px); }

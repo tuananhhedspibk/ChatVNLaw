@@ -33,8 +33,8 @@ class Chat extends Component {
       chatContentHeight: 0,
       chatSettingHeight: 0
     };
-    this.peer=null;
-  }
+    this.peer = null;
+  }   
 
   componentWillMount() { 
     this.peer = this.props.peer;
@@ -118,15 +118,15 @@ class Chat extends Component {
     if(component.state.currentRoomId){
       let ref =firebase.database().ref().child('rooms')
         .child(component.state.currentRoomId).child('unread');
-      ref.once('value').then(function(data){
-        if(data.exists()){
-          if(data.val().count > 0 && data.val().lastMess.receiver_uid
-            === component.state.currentUser.uid){
-              ref.update({
-                count: 0
-              })
+        ref.once('value').then(function(data){
+          if(data.exists()){
+            if(data.val().count > 0 && data.val().lastMess.receiver_uid
+              === component.state.currentUser.uid){
+                ref.update({
+                  count: 0
+                })
+            }
           }
-        }
       })
     }
   }
@@ -187,7 +187,6 @@ class Chat extends Component {
       properties["content"] = textSubmit; 
       properties["component"] = component;
       Messages.chat(properties, function(){
-
       });
     }
   }
@@ -202,21 +201,17 @@ class Chat extends Component {
   }
 
   handleScroll(event) {
-    if(event.srcElement) {
-      if(event.srcElement.scrollTop == 0) {
-        let properties = {};
-        var component = this;
-        if(this.state.messages[0]){
-          properties['roomId'] = this.state.currentRoomId;
-          properties['component'] = this;
-          properties['limit'] = 15;
-          properties['ts'] = ""+(parseInt(this.state.messages[0].msgTimeStamp) - 1); 
-                   
-          Messages.history(properties, function(){
-
-
-          });
-        }
+    if(this.refs.scrollbars.getScrollTop() == 0) {
+      let properties = {};
+      var component = this;
+      if(this.state.messages[0]){
+        properties['roomId'] = this.state.currentRoomId;
+        properties['component'] = this;
+        properties['limit'] = 15;
+        properties['ts'] = "" + (parseInt(
+          this.state.messages[0].msgTimeStamp) - 1);          
+        Messages.history(properties, function(){
+        });
       }
     }
   }

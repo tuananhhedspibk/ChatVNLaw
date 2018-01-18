@@ -411,7 +411,15 @@ module.exports = {
       save: 'Save',
       acc_balance: 'Account balance',
       money_unit: 'VNĐ',
-      input_money: 'Enter the amount you want to load'
+      input_money: 'Enter the amount you want to load',
+      job_done: 'Completed work'
+    },
+    rate: {
+      cost_money: 'Price',
+      tips: 'Your feedback will help us serve you better',
+      thanks: 'Thanks you !',
+      rate_tips: 'Please rate our service',
+      rate_done: 'Submit a review' 
     }
   }
 }

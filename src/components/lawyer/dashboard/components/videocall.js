@@ -1,6 +1,7 @@
 import React from 'react'
 import $ from 'jquery';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
+import { Dropdown, Checkbox } from 'semantic-ui-react';
 import Loading from '../../../shared/loading';
 import getStunServerList from '../../../../lib/getstunserverlist';
 import {cantCreatePeer} from '../../../../lib/notification/toast';
@@ -10,7 +11,7 @@ import * as translate from 'counterpart';
 import * as Peer from 'peerjs';
 import * as constant from '../../../constants';
 
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class VideoCall extends React.Component{
   constructor(props){
@@ -27,15 +28,17 @@ class VideoCall extends React.Component{
   }
   componentWillMount(){
     var component = this;
-    this.setState({targetUser: this.props.targetUser, currentUser: this.props.currentUser, currentRoomId : this.props.currentRoomId},()=>{
-      if(!!component.state.currentRoomId){
-        let properties = {}
-        properties['roomId'] = component.state.currentRoomId;
-        properties['component'] = component;
-        videoCall.closeRef();
-        videoCall.closeStream();
-        videoCall.listenFromVideoCall(properties, () =>{})
-      }
+    this.setState({targetUser: this.props.targetUser,
+      currentUser: this.props.currentUser,
+      currentRoomId : this.props.currentRoomId},()=>{
+        if(!!component.state.currentRoomId){
+          let properties = {}
+          properties['roomId'] = component.state.currentRoomId;
+          properties['component'] = component;
+          videoCall.closeRef();
+          videoCall.closeStream();
+          videoCall.listenFromVideoCall(properties, () =>{})
+        }
     });
   }
 
@@ -52,26 +55,13 @@ class VideoCall extends React.Component{
   }
   componentWillUpdate(nextProps, nextState){
     if(this.state.currentRoomId !== nextState.currentRoomId){
-      // if(!!this.state.peer.id){
-        console.log(nextState.currentRoomId);
-        
-        let properties = {}
-        properties['roomId'] = nextState.currentRoomId;
-        properties['component'] = this;
-        videoCall.closeRef();
-        videoCall.closeStream();
-        videoCall.listenFromVideoCall(properties, () =>{})
-      // } 
-    }   
-    // if(this.state.peer !== nextState.peer){
-    //   let properties = {}
-    //   properties['roomId'] = this.state.currentRoomId;
-    //   properties['component'] = this;
-    //   properties['peer'] = nextState.peer;
-    //   videoCall.closeRef();
-    //   videoCall.closeStream();
-    //   videoCall.listenFromVideoCall(properties, () =>{})
-    // }
+      let properties = {}
+      properties['roomId'] = nextState.currentRoomId;
+      properties['component'] = this;
+      videoCall.closeRef();
+      videoCall.closeStream();
+      videoCall.listenFromVideoCall(properties, () =>{})
+    }
   }   
   
   createPeer(callback){
@@ -97,6 +87,7 @@ class VideoCall extends React.Component{
       return callback(false);
     })  
   }
+
   onConfirm(){
     var component = this;
     let properties ={}
@@ -106,6 +97,7 @@ class VideoCall extends React.Component{
       component.renderVideo();
     })
   }
+
   onCancel(){
     var component = this;
     let properties ={}
@@ -121,9 +113,7 @@ class VideoCall extends React.Component{
     var component = this;
 
     this.createPeer( (isValidPeer)=>{
-      console.log(isValidPeer);
       if(isValidPeer){
-        console.log(component.state.peer);
         properties['rid'] = this.state.currentRoomId;
         properties['uid'] = this.state.currentUser.uid;
         videoCall.checkRequest(properties, function(issuccess){
@@ -146,8 +136,6 @@ class VideoCall extends React.Component{
         })
       }
     })
-        
-    
   }
 
   endCall(){
@@ -203,6 +191,13 @@ class VideoCall extends React.Component{
             aria-hidden='true'></i>
           <i className='fa fa-phone'
             aria-hidden='true'></i>
+          <Dropdown icon='list layout'>
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                {translate('app.settings.job_done')}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
     )

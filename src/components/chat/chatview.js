@@ -76,10 +76,6 @@ class ChatView extends Component {
         getAllRoom(properties, (userArr) => {
           component.setState({users : userArr});
         })
-        
-        // firebase.database().ref(`users/${user.uid}`).update({
-        //   status: 'online'
-        // })
         Messages.notifyUnreadMessage(properties); 
         component.setState({isloading: false})
       }   
