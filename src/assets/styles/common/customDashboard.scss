@@ -227,59 +227,6 @@
       }
     }
   }
-
-  .chat-section {
-    background-color: $white;
-    height: calc(100vh - 55px);
-    position: relative;
-
-    .video-call {
-      height: calc(100vh - 54px);
-
-      .video {
-        height: 380px;
-        margin: calc((100vh - 466px) /2) calc((100% - 345px) / 2) 30px;
-        width: 380px;
-      }
-
-      .end-call-btn {
-        margin-left: 30px;
-      }
-    }
-
-    .header {
-      align-items: center;
-      border-bottom: 1px solid $border-color;
-      color: $blue;
-      display: flex;
-      float: left;
-      font-size: 1.2em;
-      padding: 10px;
-      position: relative;
-      width: 100%;
-
-      .user-name {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 85%;
-      }
-
-      .fa {
-        cursor: pointer;
-        margin-right: 10px;
-        position: absolute;
-      }
-
-      .fa-phone {
-        right: 25px;
-      }
-
-      .fa-video-camera {
-        right: 0;
-      }
-    }
-  }
   
   .chat-box-wrapper {
     display: inline-block;
@@ -508,11 +455,22 @@
       }
 
       .fa-phone {
-        right: 25px;
+        right: 27px;
       }
 
       .fa-video-camera {
-        right: 0;
+        right: 3px;
+      }
+
+      .ui.dropdown {
+        float: right;
+        position: absolute;
+        right: 55px;
+
+        .menu {
+          left: -130px;
+          top: 30px;
+        }
       }
     }
   }

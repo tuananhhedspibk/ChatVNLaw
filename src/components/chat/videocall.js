@@ -1,6 +1,8 @@
 import React from 'react';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
+import { Modal, Button } from 'semantic-ui-react';
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 import $ from 'jquery';
+import ReactStars from 'react-stars';
 import getStunServerList from '../../lib/getstunserverlist';
 
 import * as Peer from 'peerjs';
@@ -10,8 +12,7 @@ import * as videoCall from '../../lib/streaming/videocall';
 import {cantCreatePeer} from '../../lib/notification/toast';
 
 import '../../assets/styles/common/chatWindow.css';
-
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class VideoCall extends React.Component{
   constructor(props){
@@ -21,7 +22,8 @@ class VideoCall extends React.Component{
       currentUser: null,
       targetUser:null,
       peer: null,
-      currentRoomId: null
+      currentRoomId: null,
+      modalOpen: false
     };
     this.emitter=null;
   }
@@ -59,7 +61,9 @@ class VideoCall extends React.Component{
       let peer = null;      
       do{
         counter ++;
-        peer = new  Peer(component.props.currentUser.uid,{key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',secure:true,port: 443, config: stunServer});       
+        peer = new  Peer(component.props.currentUser.uid,
+          {key: constant.PEERJS_KEY,host: 'vnlaw-peerjs.herokuapp.com',
+          secure:true,port: 443, config: stunServer});       
       } while(!!!(peer.id) && counter < 10);
       if(!!peer.id){
         component.setState({peer : peer});
@@ -104,12 +108,14 @@ class VideoCall extends React.Component{
 
     this.createPeer( (isValidPeer)=>{
       if(isValidPeer){
-        console.log(component.state.peer);
         properties['rid'] = this.state.currentRoomId;
         properties['uid'] = this.state.currentUser.uid;
         videoCall.checkRequest(properties, function(issuccess){
           if(issuccess){
-            component.props.emitter.emit('AddNewErrorToast', translate('app.system_notice.error.title'), translate('app.system_notice.error.text.already_been_used'), 5000, () =>{});
+            component.props.emitter.emit('AddNewErrorToast',
+              translate('app.system_notice.error.title'),
+              translate('app.system_notice.error.text.already_been_used'),
+              5000, () =>{});
           }else{
             videoCall.createRequest(properties,function(issuccess){
               if(issuccess){
@@ -125,6 +131,15 @@ class VideoCall extends React.Component{
       }
     })
   }
+
+  handleOpenModal() {
+    this.setState({modalOpen: true});
+  }
+
+  handleCloseModal() {
+    this.setState({modalOpen: false});
+  }
+
   render(){
     return(
       <div>
@@ -159,7 +174,52 @@ class VideoCall extends React.Component{
               className='fa fa-video-camera'
               aria-hidden='true'></i>
             <i className='fa fa-phone'
-              aria-hidden='true'></i>
+              aria-hidden='true'
+              onClick={this.handleOpenModal.bind(this)}></i>
+              <Modal size='tiny'
+                onClose={this.handleCloseModal.bind(this)}
+                open={this.state.modalOpen}
+                id='rate-box' closeIcon={true}>
+                <div className='rate-form'>
+                  <div className='time-stamp'>
+                    8:31 A.M 19 tháng 1 năm 2018
+                  </div>
+                  <div className='cost-money'>
+                    <p className='title'>
+                      {translate('app.rate.cost_money')}
+                    </p>
+                    <p className='value'>
+                      14,000 VND
+                    </p>
+                  </div>
+                  <div className='tips'>
+                    {translate('app.rate.tips')}
+                  </div>
+                  <footer>
+                    <div className='thanks'>
+                      {translate('app.rate.thanks')}
+                    </div>
+                    <div className='lawyer-pic'>
+                      <img src={constant.avaLawyerPic} />
+                    </div>
+                    <div className='rate'>
+                      <div className='title'>
+                        {translate('app.rate.rate_tips')}
+                      </div>
+                      <div className='stars'>
+                        <ReactStars
+                          count={5}
+                          value={0}
+                          size={24}
+                          color2={'#ffd700'} />
+                      </div>
+                      <button className='rate-submit'>
+                        {translate('app.rate.rate_done')}
+                      </button>
+                    </div>
+                  </footer>
+                </div>
+              </Modal>
           </div>
         </div>
       </div>

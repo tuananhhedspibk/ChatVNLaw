@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, TextArea, Button, Image,Modal, Dropdown } from 'semantic-ui-react';
+import { Header, TextArea, Button, Image,
+  Modal, Dropdown } from 'semantic-ui-react';
 import $ from 'jquery';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ChatSessionList from './chatsetting/chatsessionlist';
@@ -82,28 +83,6 @@ class ChatSetting extends Component {
     properties.roomId = this.props.currentRoomId;    
     Files.showImagesAndFilesList(properties);
   }
-  // componentWillReceiveProps(nextProps){
-  //   if(this.state.currentRoomId !== nextProps.currentRoomId && !! nextProps.currentRoomId){
-  //     console.log(nextProps.currentRoomId);
-  //     this.setState({currentRoomId: nextProps.currentRoomId})
-  //   }
-  //   if(this.state.currentUser !== nextProps.currentUser && !! nextProps.currentUser){
-  //     this.setState({currentUser: nextProps.currentUser});
-  //   }
-  //   if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
-  //     this.setState({targetUser: nextProps.targetUser});
-  //   }
-  // }
-  
-
-  // componentWillUpdate(nextProps, nextState){
-  //   if(this.state.currentRoomId !== nextState.currentRoomId){
-  //     let properties = {}
-  //     properties.component = this;
-  //     properties.roomId = nextState.currentRoomId;
-  //     Files.showImagesAndFilesList(properties);
-  //   }
-  // }
 
   renderAva() {
     return(

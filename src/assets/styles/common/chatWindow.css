@@ -78,8 +78,10 @@
     .chat-window .chats .bubble {
       font-family: "Montserrat", sans-serif !important; }
   .chat-window .chat-body {
+    border-left: 1px solid #e5ecf0;
+    border-right: 1px solid #e5ecf0;
     float: left;
-    height: calc(100vh - 55px);
+    height: calc(100vh - 50px);
     position: relative;
     width: calc(100% - 320px); }
     .chat-window .chat-body .custom-content {
@@ -121,9 +123,70 @@
       .chat-window .text-box textarea:focus {
         outline: 0; }
 
+#rate-box {
+  color: #808080;
+  font-size: 1.2em;
+  padding: 15px 0 0;
+  text-align: center; }
+  #rate-box .rate-form {
+    height: 100%; }
+    #rate-box .rate-form .time-stamp {
+      border-bottom: 1px dotted #6298f7;
+      margin-bottom: 10px;
+      padding-bottom: 15px; }
+    #rate-box .rate-form .cost-money {
+      margin-bottom: 5px; }
+      #rate-box .rate-form .cost-money .title {
+        margin-bottom: 0; }
+      #rate-box .rate-form .cost-money .value {
+        color: #2385f2;
+        font-size: 1.9em;
+        font-weight: bold; }
+    #rate-box .rate-form .tips {
+      margin: 0 auto 20px auto;
+      width: 90%; }
+    #rate-box .rate-form footer {
+      background-color: #2385f2;
+      color: #fff;
+      margin-top: 15px;
+      padding: 15px; }
+      #rate-box .rate-form footer .thanks {
+        font-size: 1.6em;
+        font-weight: bold;
+        margin-bottom: 10px; }
+      #rate-box .rate-form footer img {
+        border-radius: 50%;
+        border: 5px solid #fff;
+        height: 110px;
+        margin-bottom: 10px;
+        width: 110px; }
+      #rate-box .rate-form footer .rate .title {
+        margin-bottom: 10px; }
+      #rate-box .rate-form footer button {
+        background-color: #FF4F20;
+        border: 0;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 9px;
+        margin-top: 10px;
+        padding: 14px 20px; }
+        #rate-box .rate-form footer button:hover {
+          background-color: #fff;
+          color: #FF4F20;
+          transition: all .5s ease; }
+        #rate-box .rate-form footer button:focus {
+          outline: 0; }
+  #rate-box .stars div {
+    display: inline-block; }
+
 @-moz-document url-prefix() {
+  .chat-window .chat-body {
+    height: calc(100vh - 47px); }
   .chat-window .title {
     font-size: .9em;
+    height: 47px;
     padding: 12px; }
     .chat-window .title .fa {
       font-size: 1.1em; } }
