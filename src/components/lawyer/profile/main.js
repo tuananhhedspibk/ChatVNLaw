@@ -86,7 +86,6 @@ class LawyerProfile extends Component {
 		if(this.state.isloading){
 			return(
 				<div>
-					<Loading />
 					<Toast emitter={this.emitter}/>
 				</div>
 			)

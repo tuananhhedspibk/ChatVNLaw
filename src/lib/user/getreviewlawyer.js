@@ -10,12 +10,12 @@ function getReviewLawyer(properties){
                     comment : properties.listReview[i].comment,
                     star: properties.listReview[i].star
                 })
+                properties.component.setState({
+                    review: review
+                })
             }
         })
     }
-    properties.component.setState({
-        review: review
-    })
 }
 
 module.exports = {

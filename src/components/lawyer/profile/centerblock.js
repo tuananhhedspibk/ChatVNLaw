@@ -17,17 +17,10 @@ class CenterBlock extends Component {
 
   componentWillMount(){
     var component = this
-    for(let i in this.props.user.review){
-      component.state.review.push({
-        img: component.props.user.review[i].photoURL,
-        comment: component.props.user.review[i].comment,
-        star: component.props.user.review[i].star
-      })
-    }
-    // let properties = {}
-    // properties['listReview'] = this.props.user.review
-    // properties['component'] = this
-    // Review.getReviewLawyer(properties)
+    let properties = {}
+    properties['listReview'] = this.props.user.review
+    properties['component'] = this
+    Review.getReviewLawyer(properties)
   }
 
   renderViewReview(){
