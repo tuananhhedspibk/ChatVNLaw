@@ -18,9 +18,9 @@ class HotLawyers extends Component {
 
   componentWillMount(){
     let properties = {}
+    var component = this
     properties['component'] = this;
     Lawyers.getLawyerList(properties, function(){
-      
     })
   }
 
@@ -33,40 +33,49 @@ class HotLawyers extends Component {
       this.state.currentLawyer.username;
   }
 
-  renderInfoLawyer(){
+  getInfoLawyer(){
+    var component = this
     if(!!this.state.currentLawyer){
       var profileLawyer = "/lawyers/"+ this.state.currentLawyer.username;
-      return (
-        <div className='lawyer-overview'>
-          <div className='title'>
-            {translate('app.home.recent_lawyer.lawyer_overview')}
-          </div>
-          <div className='content'>
-            <a href={profileLawyer}>
-              <div className='name' title={this.state.currentLawyer.displayName}>
-                {this.state.currentLawyer.displayName}
-              </div>
-            </a>
-            <div className='overview-infor'>
-              <div>
-                <i className='fa fa-money' aria-hidden='true'></i>
-                {this.state.currentLawyer.price} /
-                  {translate('app.home.recent_lawyer.hour')}
-              </div>
-              <div>
-                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-              </div>
-            </div>
-            <div className='description'>
-              {this.state.currentLawyer.intro}
-            </div>
-            <button className='apply-btn' onClick={this.applyLawyer.bind(this)}>
-              {translate('app.home.recent_lawyer.apply')}
-            </button>
-          </div>
-        </div>
-      )
+      return(component.renderInfoLawyer(profileLawyer, this.state.currentLawyer, component.bind))
     }
+    else {
+      var profileLawyer = "/lawyers/"+ this.state.lawyers[0].username;
+      return(component.renderInfoLawyer(profileLawyer, this.state.lawyers[0]))
+    }
+  }
+
+  renderInfoLawyer(profileLawyer, currentLawyer){
+    return (
+      <div className='lawyer-overview'>
+        <div className='title'>
+          {translate('app.home.recent_lawyer.lawyer_overview')}
+        </div>
+        <div className='content'>
+          <a href={profileLawyer}>
+            <div className='name' title={currentLawyer.displayName}>
+              {currentLawyer.displayName}
+            </div>
+          </a>
+          <div className='overview-infor'>
+            <div>
+              <i className='fa fa-money' aria-hidden='true'></i>
+              {currentLawyer.price} /
+                {translate('app.home.recent_lawyer.hour')}
+            </div>
+            <div>
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div className='description'>
+            {currentLawyer.intro}
+          </div>
+          <button className='apply-btn' onClick={this.applyLawyer.bind(this)}>
+            {translate('app.home.recent_lawyer.apply')}
+          </button>
+        </div>
+      </div>
+    )
   }
 
   renderView() {
@@ -103,7 +112,7 @@ class HotLawyers extends Component {
             </div>
           </div>
           <div className='col-sm-12 col-md-7'>
-            {this.renderInfoLawyer()}
+            {this.getInfoLawyer()}
           </div>
         </div>
       </div>
