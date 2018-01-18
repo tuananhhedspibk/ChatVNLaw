@@ -44,12 +44,13 @@ class LawyerProfile extends Component {
 					component.setState({issuccess : false, isloading: false})
 	      }
 	      else {
-					console.log(snapshot.val());
 					for(var key in snapshot.val()){
 						if(snapshot.val()[key].role != 'lawyer'){
 							component.setState({issuccess : false, isloading: false})							
 						}else{
-							component.setState({user : snapshot.val()[key]})
+							component.setState({
+								user : snapshot.val()[key]}
+							)
 							component.getUserProfile(key);
 						}
 					}
@@ -85,7 +86,6 @@ class LawyerProfile extends Component {
 		if(this.state.isloading){
 			return(
 				<div>
-					<Loading />
 					<Toast emitter={this.emitter}/>
 				</div>
 			)

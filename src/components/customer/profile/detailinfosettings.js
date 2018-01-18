@@ -5,6 +5,7 @@ import { Header, TextArea,
 import * as $ from 'jquery';
 import axios from 'axios';
 import * as constant from '../../constants';
+var dateFormat = require('dateformat');
 
 let translate = require('counterpart');
 
@@ -14,11 +15,13 @@ class DetailInfoSettings extends Component {
     this.state = {
       balance: 10000,
       type: 'VND',
-      modalOpen: false
+      modalOpen: false,
+      history: []
     }
   }
 
   componentWillMount() {
+    var history = []
     var component = this
     firebase.database()
       .ref(`moneyAccount/${this.props.user.uid}`)
@@ -29,6 +32,16 @@ class DetailInfoSettings extends Component {
             type: data.val().type
           })
         }
+    })
+    firebase.database().ref(`depositeHistory/${component.props.user.uid}`).once('value', data => {
+      if(data.exists()){
+        for(let i in data.val()){
+          history.push(data.val()[i])
+        }
+        component.setState({
+          history: history
+        })
+      }
     })
   }
 
@@ -76,6 +89,22 @@ class DetailInfoSettings extends Component {
     });
   }
 
+  renderViewHistoryPayment(){
+    var component = this 
+    if(component.state.history.length > 0 ){
+      return (
+        component.state.history.map((history, index) => {
+          return (
+            <tr>
+              <td>{history.amount}</td>
+              <td>{history.date}</td>
+            </tr>
+          )
+        })
+      )
+    }
+  }
+
   renderViewPayment(){
     return(
       <Modal 
@@ -109,20 +138,45 @@ class DetailInfoSettings extends Component {
 
   render() {
     return(
-      <div className='detail-info-settings'>
-        {this.renderViewPayment()}
-        <div className='info-block'>
-          <div className='title'>
-            {translate('app.settings.acc_balance')}:
-            <p className='money-value'>
-              {this.state.balance} {this.state.type}
-            </p>
+      <div>
+        <div className='detail-info-settings'>
+          {this.renderViewPayment()}
+          <div className='info-block'>
+            <div className='title'>
+              {translate('app.settings.acc_balance')}:
+              <p className='money-value'>
+                {this.state.balance} {this.state.type}
+              </p>
+            </div>
+            <button className='save-btn'
+              onClick={this.showDialog.bind(this)}>
+                <i className='fa fa-credit-card' aria-hidden='true'></i>
+                {translate('app.payment.recharge')}
+            </button>
           </div>
-          <button className='save-btn'
-            onClick={this.showDialog.bind(this)}>
-              <i className='fa fa-credit-card' aria-hidden='true'></i>
-              {translate('app.payment.recharge')}
-          </button>
+        </div>
+        <div className="info-block">
+          <div className="title">
+            Lịch sử thanh toán
+          </div>
+          <hr />
+          <div className='content'>
+            <table class="ui single line table">
+              <thead>
+                <tr>
+                  <th>
+                    Số tiền nạp
+                  </th>
+                  <th>
+                    Thời gian
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.renderViewHistoryPayment()}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     )
