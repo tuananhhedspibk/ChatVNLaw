@@ -5,6 +5,8 @@ import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
 import axios from 'axios';
 import * as constant from '../constants';
+import * as translate from 'counterpart';
+import '../../assets/styles/common/payment.css';
 
 const queryString = require('query-string');
 const firebase = require('firebase');
@@ -67,8 +69,17 @@ class PaymentProcess extends Component {
         var component = this
         if (!this.state.trueData) {
             return(
-                <div>
-                    Giao dịch không tồn tại.
+                <div className="result-notification">
+                    <div className="notification-icon" id="noti-error">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                            <g className="svg">
+                                <circle cx="-250.5" cy="249.5" r="12"/>
+                                <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                <path d="M-256.6 255.5 L-244.5 243.5"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <p className="notification-mess">{translate('app.payment.fail_deposite')}</p>
                 </div>
                 );                        
         }
@@ -88,8 +99,16 @@ class PaymentProcess extends Component {
                         date: currentTime
                     });
                     return(
-                        <div>
-                            Chúc mừng bạn đã thanh toán thành công {this.state.amount} {this.state.type}
+                        <div className="result-notification">
+                            <div className="notification-icon" id="noti-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                    <g className="svg">
+                                        <circle cx="-250.5" cy="249.5" r="12"/>
+                                        <path d="M-256.46 249.65l3.9 3.74 8.02-7.8"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p className="notification-mess">{translate('app.payment.success_deposit')} {this.state.amount} {this.state.type}</p>
                         </div>
                     )
                 }
@@ -97,120 +116,254 @@ class PaymentProcess extends Component {
             }
             case "1":{
                 return(
-                    <div>
-                        Ngân hàng từ chối giao dịch - Bank Declined
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_1')}</p>
                     </div>
                 )   
                 break
             }
             case "3": {
                 return(
-                    <div>
-                        Mã đơn vị không tồn tại - Merchant not exist
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_3')}</p>
                     </div>
                 )
                 break
             }
             case "4": {
                 return(
-                    <div>
-                        Không đúng access code - Invalid access code
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_4')}</p>
                     </div>
                 )
                 break
             }
             case "5": {
                 return(
-                    <div>
-                        Số tiền không hợp lệ - Invalid amount
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_5')}</p>
                     </div>
                 )
                 break
             }
             case "6": {
                 return(
-                    <div>
-                        Mã tiền tệ không tồn tại - Invalid currency code"
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_6')}</p>
                     </div>
                 )
                 break
             }
             case "7": {
                 return(
-                    <div>
-                        Lỗi không xác định - Unspecified Failure 
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_7')}</p>
                     </div>
                 )
                 break
             }
             case "8": {
                 return(
-                    <div>
-                        Số thẻ không đúng - Invalid card Number
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_8')}</p>
                     </div>
                 )
                 break
             }
             case "9": {
                 return(
-                    <div>
-                        Tên chủ thẻ không đúng - Invalid card name
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_9')}</p>
                     </div>
                 )
                 break
             }
             case "10": {
                 return(
-                    <div>
-                        Thẻ hết hạn/Thẻ bị khóa - Expired Card
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_10')}</p>
                     </div>
                 )
                 break
             }
             case "11": {
                 return(
-                    <div>
-                        Thẻ chưa đăng ký sử dụng dịch vụ - Card Not Registed Service(internet banking)
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_11')}</p>
                     </div>
                 )
                 break
             }
             case "12": {
                 return(
-                    <div>
-                        Ngày phát hành/Hết hạn không đúng - Invalid card date
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_12')}</p>
                     </div>
                 )
                 break
             }
             case "13": {
                 return(
-                    <div>
-                        Vượt quá hạn mức thanh toán - Exist Amount
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_13')}</p>
                     </div>
                 )
                 break
             }
             case "21": {
                 return(
-                    <div>
-                        Số tiền không đủ để thanh toán - Insufficient fund
-                    </div>
-                )
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_21')}</p>
+                    </div>                )
                 break
             }
             case "99": {
                 return(
-                    <div>
-                        Người sủ dụng hủy giao dịch - User cancel
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_99')}</p>
                     </div>
                 )
                 break
             }
             default: {
                 return(
-                    <div>
-                        Giao dịch thất bại - Failured
+                    <div className="result-notification">
+                        <div className="notification-icon" id="noti-error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-263.5 236.5 26 26">
+                                <g className="svg">
+                                    <circle cx="-250.5" cy="249.5" r="12"/>
+                                    <path d="M-256.5 243.5 L-244.5 255.5"/>
+                                    <path d="M-256.6 255.5 L-244.5 243.5"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <p className="notification-mess">{translate('app.payment.fail_deposite_default')}</p>
                     </div>
                 )
             }
@@ -220,7 +373,15 @@ class PaymentProcess extends Component {
     render(){
         var view = null;
         if(this.state.responseCode == '')
-            view = (<p>Xin đợi trong chốc lát</p>);
+            view = (
+                <div className="notification-waiting">
+                    <div className="waiting-icon">
+                        <img className="hammer" src={constant.hammerIcon} />
+                        <img className="anvil" src={constant.anvilIcon} />
+                        <img className="ting" src={constant.tingIcon} />
+                    </div>
+                    <p>Xin đợi trong chốc lát</p>
+                </div>);
         else
             view = this.renderView();
         return(
