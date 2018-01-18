@@ -1,18 +1,30 @@
 import React from 'react';
 
-import {getChatSession} from '../../../lib/room/chatsession';
+import {Modal,Header,Table,Message, Button,Icon} from 'semantic-ui-react';
+import {getChatSession, updatePayment,getAccountBalance} from '../../../lib/room/chatsession';
 import * as translate from 'counterpart';
 import * as constant from '../../constants';
+import * as Time from "../../../lib/time";
+import { formatMoney} from '../../../lib/money';
 
 import '../../../assets/styles/common/chatSession.css';
+import TableCell from 'semantic-ui-react/dist/commonjs/collections/Table/TableCell';
+import ModalActions from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalActions';
 
+const phrase1 = 'Thanh toán cho phiên làm việc trong ';
+const phrase2 = ', bắt đầu từ ';
+const phrase3 = ', kết thúc lúc ';
 class ChatSessionList extends React.Component{
   constructor(props){
     super(props);
     this.state={
       list:[],
       currentUser: null,
-      currentRoomId: null
+      currentRoomId: null,
+      modalOpen: false,
+      modalInfoOpen: false,
+      balance: 0,
+      element : null,
     };
   }
 
@@ -38,7 +50,6 @@ class ChatSessionList extends React.Component{
               tmp[index] = data.val();
               tmp[index].id = data.key;
               component.setState({list: tmp})
-              console.log(tmp);
               return false;
             }    
             return true;
@@ -49,24 +60,14 @@ class ChatSessionList extends React.Component{
       }
     })
   }
-
-  convertDateToHour(date){
-    date = new Date(parseInt(date))
-    return date.getUTCHours() + ':' + date.getUTCMinutes();
+  onClickPaymentButton(element){
+    var component = this;
+    getAccountBalance(component, (data) =>{
+      if(data.exists()){
+        component.setState({modalOpen : true, balance: data.val(), element: element})
+      }
+    })
   }
-
-  convertDateToSecond(date){
-    date = new Date(parseInt(date))
-    return date.getUTCHours() + ':' + date.getUTCMinutes() +
-      ':' + date.getUTCSeconds();
-  }
-
-  convertDateToDay(date){
-    date = new Date(parseInt(date))
-    return date.getUTCDate() + '/' +
-      (date.getUTCMonth() + 1) + '/' + date.getUTCFullYear();
-  }
-
   renderSessionList(){
     return(
       this.state.list.map(element =>{
@@ -74,37 +75,138 @@ class ChatSessionList extends React.Component{
           <div className='item-content'>
             <div className='time-start'>
               <img src={constant.openIcon}/>
-              {this.convertDateToDay(element.startTime) +
-                ' - ' + this.convertDateToHour(element.startTime)}
+              {Time.convertDateToDay(element.startTime) +
+                ' - ' + Time.convertDateToUTCHour(element.startTime)}
             </div>
             <div className='time-close'>
               <img src={constant.closeIcon}/>
-              {this.convertDateToDay(element.closeTime) +
-                ' - ' + this.convertDateToHour(element.closeTime)}
+              {Time.convertDateToDay(element.closeTime) +
+                ' - ' + Time.convertDateToHour(element.closeTime)}
             </div>
             <div className='time-total'>
               <div className='icon-container'>
                 <i className="fa fa-clock-o" aria-hidden="true"></i>
               </div>
-              {this.convertDateToSecond(element.totalTime)}
+              {Time.convertDateToUTCSecond(element.totalTime)}
             </div>
             <div className='cart'>
               <img src={constant.cartIcon}/>
-              {element.cart}
+              {formatMoney(element.cart,0,'.',',')}
             </div>
-            {
+            {element.isPending ? 
+              <button className='session-button pending'>
+                {translate('app.chat.pending')}
+              </button> 
+            : 
               !element.payment ?
-              <button className='payment'>
-                {translate('app.chat.pay')}
-              </button> : <div></div>
-            }
+                <button className='session-button payment' onClick={this.onClickPaymentButton.bind(this, element)}>
+                  {translate('app.chat.pay')}
+                </button> :
+                <button className='session-button paid'>
+                  {translate('app.chat.paid')}
+                </button> }
           </div>
         )
       })
     )
   }
 
-  render(){
+  payment(){
+    if(this.state.balance > this.state.element.cart){
+      updatePayment(this, this.state.element);
+      this.setState({ modalOpen: false,modalInfoOpen: true})
+    }else{
+      this.setState({ modalOpen: false })
+    }
+  }
+
+  renderModal(){
+    return(
+      <div>
+      <Modal className="modal-confirm"
+        onClose={ () =>{
+          this.setState({modalOpen: false});
+        }}
+        open={this.state.modalOpen}
+        closeIcon={false}>
+        <Modal.Header>
+          {translate('app.chat.pay')}
+        </Modal.Header>
+        <Modal.Content>
+          {this.state.balance < this.state.element.cart ? 
+            <Message negative>
+              <Message.Header className="fix-font">{translate('app.modal.error')}</Message.Header>
+            </Message> : 
+            <div></div>}
+          <Table basic='very'>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell><b>{translate('app.chat.account_owner')}</b></Table.Cell>
+                <Table.Cell></Table.Cell>
+                <Table.Cell textAlign='center'>{this.state.currentUser.displayName}</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell><b>{translate('app.modal.account')}</b></Table.Cell>
+                <Table.Cell>{translate('app.modal.available')}</Table.Cell>
+                <Table.Cell textAlign='center'>{formatMoney(this.state.balance, 0, '.', ',') + translate('app.modal.money_unit')}</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell></Table.Cell>
+                <Table.Cell>{translate('app.modal.payment')}</Table.Cell>
+                <Table.Cell textAlign='center'>{formatMoney(this.state.element.cart, 0, '.',',') + translate('app.modal.money_unit')}</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell></Table.Cell>
+                <Table.Cell>{translate('app.modal.last')}</Table.Cell>
+                <Table.Cell textAlign='center'>{formatMoney(this.state.balance - this.state.element.cart,0,'.',',') + translate('app.modal.money_unit')}</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell><b>{translate('app.modal.note')}</b></Table.Cell>
+                <Table.Cell className='wrap-word-table-cell' colSpan='3'>{phrase1 + Time.convertDateToUTCSecond(this.state.element.totalTime) + ' giây ' + phrase2 + Time.convertDateToDay(this.state.element.startTime) + '-' + Time.convertDateToSecond(this.state.element.startTime) + phrase3 + Time.convertDateToDay(this.state.element.closeTime) + '-' + Time.convertDateToSecond(this.state.element.closeTime)}</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
+        </Modal.Content>
+        {this.state.balance < this.state.element.cart ?
+          <Modal.Actions>
+            <Button color='red' inverted onClick={()=>{
+              this.setState({modalOpen : false})}}>
+              <Icon name='remove' /> {translate('app.chat.cancel')}
+            </Button>
+          </Modal.Actions>
+          :
+          <Modal.Actions>
+            <Button className="fix-font" color='red' inverted onClick={()=>{
+              this.setState({modalOpen : false})}}>
+              <Icon name='remove' /> {translate('app.chat.cancel')}
+            </Button>
+            <Button className="fix-font" color='green' inverted onClick={this.payment.bind(this)}>
+              <Icon name='checkmark' /> {translate('app.chat.pay')}
+            </Button>
+          </Modal.Actions>
+        }
+      </Modal>
+        <Modal className="modal-confirm" size='small' onClose={() => {
+        this.setState({modalInfoOpen:false, modalOpen: false });
+      }}
+        open={this.state.modalInfoOpen}
+      closeIcon={false}>
+        <Modal.Content>
+          Yêu cầu đang được xử lý, kết quả sẽ được hiển thị tại danh sách phiên làm việc.
+        </Modal.Content>
+        <Modal.Actions>
+          <Button className="fix-font" color='green' inverted onClick={()=>{
+            this.setState({ modalInfoOpen: false, modalOpen: false })
+          }}>
+              <Icon name='checkmark' /> {translate('app.dashboard.submit_des')}
+          </Button>
+        </Modal.Actions>
+      </Modal>
+      </div>
+    )
+  }
+
+  render(){    
     return(
       <div className='shared session-infor'>
         <button className='collapsed content-title'
@@ -116,6 +218,7 @@ class ChatSessionList extends React.Component{
           id='session-chat-content'>
             {this.renderSessionList()}
         </div>
+        {this.state.element ? this.renderModal() : <div></div>}
       </div>
     )  
   }

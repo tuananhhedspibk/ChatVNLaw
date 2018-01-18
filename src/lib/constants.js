@@ -16,8 +16,12 @@ export const TABLE = {
   reference : 'reference',
   notes : 'notes',
   lawyers : 'lawyers',
-  notifications: 'notifications'
+  notifications: 'notifications',
+  balance: 'moneyAccount'
 };
+export const BALANCE = {
+  amount: 'amount'
+}
 export const ROLE = {
   user: 'user',
   lawyer: 'lawyer'

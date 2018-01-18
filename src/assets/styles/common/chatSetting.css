@@ -99,6 +99,30 @@
     content: "\f107";
     font-family: FontAwesome; }
 
+.session-infor .content-title {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  position: relative;
+  text-align: left;
+  width: 100%; }
+  .session-infor .content-title:after {
+    content: "\f106";
+    font-family: FontAwesome;
+    font-size: 1.2em;
+    position: absolute;
+    right: 10px; }
+
+.session-infor .content-title.collapsed:after {
+  content: "\f107";
+  font-family: FontAwesome; }
+
+.session-infor .content-title.no-icon:after {
+  content: "\f107";
+  font-family: FontAwesome;
+  display: none; }
+
 @-moz-document url-prefix() {
   .chat-setting {
     font-size: .95em; }
