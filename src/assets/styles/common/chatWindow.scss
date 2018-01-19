@@ -108,7 +108,6 @@
   }
 
   .chat-body {
-    border-left: 1px solid $gray-lighter;
     border-right: 1px solid $gray-lighter;
     float: left;
     height: calc(100vh - 50px);
@@ -180,6 +179,10 @@
   font-size: 1.2em;
   padding: 15px 0 0;
   text-align: center;
+
+  .content {
+    padding: 0;
+  }
 
   .rate-form {
     height: 100%;
@@ -267,6 +270,10 @@
 }
 
 @-moz-document url-prefix() {
+  #rate-box {
+    max-height: 524px;
+  }
+
   .chat-window {
     .chat-body {
       height: calc(100vh - 47px);

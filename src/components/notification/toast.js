@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import {onAuthStateChanged} from '../../lib/user/authentication';
-import {extractNotification,noticeWhenNewNotiComing} from '../../lib/notification/notifications';
+import { NotificationContainer,
+  NotificationManager } from 'react-notifications';
 
-import * as constant from '../constants';
+import { onAuthStateChanged } from '../../lib/user/authentication';
+import { extractNotification,
+  noticeWhenNewNotiComing } from '../../lib/notification/notifications';
+
 import * as tableConstant from '../../lib/constants';
 
 import 'react-notifications/lib/notifications.css';
+
 class Toast extends Component{
   constructor(props) {
     super(props);

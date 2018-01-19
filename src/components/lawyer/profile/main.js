@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
+import {EventEmitter} from 'fbemitter';
+import firebase from 'firebase';
 
 import Nav from '../../homepage/nav';
 import MainContent from './maincontent';
 import Footer from '../../homepage/footer';
-import * as constant from '../../constants';
-import Loading from '../../shared/loading';
-import {EventEmitter} from 'fbemitter';
+
 import Toast from '../../notification/toast';
 import NotFound from '../../shared/notfound';
-import firebase from 'firebase';
 
 import '../../../assets/styles/common/lawyerProfile.css';
-
 
 class LawyerProfile extends Component {
 	constructor(props) {
@@ -45,7 +43,7 @@ class LawyerProfile extends Component {
 	      }
 	      else {
 					for(var key in snapshot.val()){
-						if(snapshot.val()[key].role != 'lawyer'){
+						if(snapshot.val()[key].role !== 'lawyer'){
 							component.setState({issuccess : false, isloading: false})							
 						}else{
 							component.setState({

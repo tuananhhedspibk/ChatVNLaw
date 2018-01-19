@@ -2,17 +2,12 @@ import React, {Component} from 'react';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
-import firebase from 'firebase';
-import getStunServerList from '../../../../lib/getstunserverlist';
-import VideoCall from './videocall';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-import * as RoomInfo from '../../../../lib/room/getroominfo';
+import VideoCall from './videocall';
+
 import * as Messages from '../../../../lib/messages/messages';
 import * as translate from 'counterpart';
-import * as videoCall from '../../../../lib/streaming/videocall';
-import * as constant from '../../../constants';
 
 class ChatBox extends Component {
   constructor(props) {
@@ -68,7 +63,6 @@ class ChatBox extends Component {
     $('.chat-box').mouseup(function(e) {
       var container = $('.menu-box');
       var tagsBox = $('.ReactTags__tags');
-      var tools;
       if (!container.is(e.target) && container.has(e.target).length === 0) {
         if($('.tools:visible').length > 0){
           $('.tools:visible').css('display', 'none');
@@ -146,9 +140,8 @@ class ChatBox extends Component {
 
   handleScroll(event) {
     if(event.srcElement) {
-      if(event.srcElement.scrollTop == 0) {
+      if(event.srcElement.scrollTop === 0) {
         let properties = {};
-        var component = this;
         if(this.state.messages[0]){
           properties['roomId'] = this.state.currentRoomId;
           properties['component'] = this;

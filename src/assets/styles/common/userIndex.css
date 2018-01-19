@@ -1,6 +1,7 @@
 .list-users {
+  border-right: 1px solid #e5ecf0;
   float: left;
-  height: 100%;
+  height: calc(100% + 5px);
   width: 320px; }
   .list-users .custom-content {
     margin-bottom: -26px !important; }

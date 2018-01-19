@@ -4,11 +4,8 @@ import Nav from '../../homepage/nav';
 import Footer from '../../homepage/footer';
 import HeaderBlock from './headerblock';
 
-import {getUserByUid} from '../../../lib/user/getuserinfo';
-
 import * as constant from '../../constants';
 import * as firebase from 'firebase';
-import * as translate from 'counterpart';
 
 import '../../../assets/styles/common/customerProfile.css';
 

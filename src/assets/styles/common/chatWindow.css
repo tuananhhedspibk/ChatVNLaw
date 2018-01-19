@@ -78,7 +78,6 @@
     .chat-window .chats .bubble {
       font-family: "Montserrat", sans-serif !important; }
   .chat-window .chat-body {
-    border-left: 1px solid #e5ecf0;
     border-right: 1px solid #e5ecf0;
     float: left;
     height: calc(100vh - 50px);
@@ -128,6 +127,8 @@
   font-size: 1.2em;
   padding: 15px 0 0;
   text-align: center; }
+  #rate-box .content {
+    padding: 0; }
   #rate-box .rate-form {
     height: 100%; }
     #rate-box .rate-form .time-stamp {
@@ -182,6 +183,8 @@
     display: inline-block; }
 
 @-moz-document url-prefix() {
+  #rate-box {
+    max-height: 524px; }
   .chat-window .chat-body {
     height: calc(100vh - 47px); }
   .chat-window .title {

@@ -2,14 +2,11 @@ import React,{Component} from 'react';
 import Nav from '../homepage/nav';
 import Toast from './toast';
 import Loading from '../shared/loading';
-import $ from 'jquery';
 
 import {EventEmitter} from 'fbemitter';
 import {onAuthStateChanged} from '../../lib/user/authentication';
 import {getAllNotification} from '../../lib/notification/notifications';
-import {getRoomId, createNewRoom} from '../../lib/room/rooms';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
-import {getUserByUid} from '../../lib/user/getuserinfo';
+import ReactConfirmAlert from 'react-confirm-alert';
 import RequestRoomItem from './notification_item/requestroom';
 import AcceptRoomItem from './notification_item/acceptroom';
 import RefuseRoomItem from './notification_item/refuseroom';
@@ -20,7 +17,7 @@ import * as translate from 'counterpart';
 import * as tableConstant from '../../lib/constants';
 
 import '../../assets/styles/common/notification.css';
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class Notifications extends Component{
   constructor(props){

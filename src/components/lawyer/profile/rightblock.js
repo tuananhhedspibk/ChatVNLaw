@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 let translate = require('counterpart');
 
 class RightBlock extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return(
       <div className='content-block right-block'>
