@@ -69,7 +69,8 @@ class BasicInfoSettings extends Component {
             <input type='file' id='upfile-setting'
               accept='image/*'/>
             <img onClick={this.upfile.bind(this)}
-              src={this.props.user.photoURL}/>
+              src={this.props.user.photoURL}
+              alt='upfile'/>
             <div className='change-ava-guide'>
               {translate('app.settings.change_ava_guide')}
             </div>

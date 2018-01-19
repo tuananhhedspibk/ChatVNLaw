@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Truncate from 'react-truncate';
 
-let translate = require('counterpart');
-
 class ReadMore extends Component {
   constructor(...args) {
     super(...args);

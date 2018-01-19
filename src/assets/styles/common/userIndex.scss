@@ -1,8 +1,9 @@
 @import 'variables.scss';
 
 .list-users {
+  border-right: 1px solid $gray-lighter;
   float: left;
-  height: 100%;
+  height: calc(100% + 5px);
   width: 320px;
 
   .custom-content {

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {EventEmitter} from 'fbemitter';
 
 import Nav from '../../homepage/nav';
 import Footer from '../../homepage/footer';
@@ -7,8 +8,7 @@ import DetailInfoSettings from './detailinfosettings';
 import SideBar from './sidebar';
 import Loading from '../../shared/loading';
 import Toast from '../../notification/toast';
-import {EventEmitter} from 'fbemitter';
-import {checkUserWithUserName} from '../../../lib/user/getuserinfo';
+import { checkUserWithUserName } from '../../../lib/user/getuserinfo';
 
 import * as constant from '../../constants';
 import * as firebase from 'firebase';
@@ -41,7 +41,6 @@ class SettingsLawyer extends Component {
 	
   componentWillMount() {
     var component = this;
-    // var username = this.props.location.pathname.split('/settings/lawyers/')[1]
     var username = this.props.match.params.user_name;
     
     firebase.auth().onAuthStateChanged(function(user){
@@ -57,7 +56,9 @@ class SettingsLawyer extends Component {
             }
           }
           component.setState({isloading :true});
-          component.emitter.emit('AddNewErrorToast', translate('app.system_notice.permission_denied.title'),translate('app.system_notice.permission_denied.text'),5000, ()=>{
+          component.emitter.emit('AddNewErrorToast',
+            translate('app.system_notice.permission_denied.title'),
+            translate('app.system_notice.permission_denied.text'), 5000, ()=>{
             window.location = constant.HOME_URI;
           })
           setTimeout(()=>{
@@ -66,7 +67,9 @@ class SettingsLawyer extends Component {
         })
       }else{
         component.setState({isloading : true})
-        component.emitter.emit('AddNewErrorToast', translate('app.system_notice.unauthenticated.title'),translate('app.system_notice.unauthenticated.text'),5000, ()=>{
+        component.emitter.emit('AddNewErrorToast',
+          translate('app.system_notice.unauthenticated.title'),
+          translate('app.system_notice.unauthenticated.text'), 5000, ()=>{
           window.location = constant.SIGN_IN_URI;
         })
         setTimeout(()=>{
@@ -77,7 +80,7 @@ class SettingsLawyer extends Component {
   }
 
   handleUpdate(table, name, newValue) {
-    if(table=='users' &&  name=='displayName'){
+    if(table === 'users' && name === 'displayName'){
       this.handleUpdate('lawyers','fullname',newValue);
     }
     var update = eval('('+`{${name}:'${newValue}'}`+')');
@@ -125,7 +128,8 @@ class SettingsLawyer extends Component {
     return(
       <div>
         <Toast emitter={this.emitter}/>
-        {!this.state.isloading && this.state.permission ? <div>{this.renderView()}</div> : <Loading/>}
+        {!this.state.isloading && this.state.permission ? 
+          <div>{this.renderView()}</div> : <Loading/>}
       </div>
     )
   }

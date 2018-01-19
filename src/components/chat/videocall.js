@@ -180,45 +180,46 @@ class VideoCall extends React.Component{
                 onClose={this.handleCloseModal.bind(this)}
                 open={this.state.modalOpen}
                 id='rate-box' closeIcon={true}>
-                <div className='rate-form'>
-                  <div className='time-stamp'>
-                    8:31 A.M 19 tháng 1 năm 2018
-                  </div>
-                  <div className='cost-money'>
-                    <p className='title'>
-                      {translate('app.rate.cost_money')}
-                    </p>
-                    <p className='value'>
-                      14,000 VND
-                    </p>
-                  </div>
-                  <div className='tips'>
-                    {translate('app.rate.tips')}
-                  </div>
-                  <footer>
-                    <div className='thanks'>
-                      {translate('app.rate.thanks')}
+                <Modal.Content>
+                  <div className='rate-form'>
+                    <div className='time-stamp'>
+                      8:31 A.M 19 tháng 1 năm 2018
                     </div>
-                    <div className='lawyer-pic'>
-                      <img src={constant.avaLawyerPic} />
+                    <div className='cost-money'>
+                      <p className='title'>
+                        {translate('app.rate.cost_money')}
+                      </p>
+                      <p className='value'>
+                        14,000 VND
+                      </p>
                     </div>
-                    <div className='rate'>
-                      <div className='title'>
-                        {translate('app.rate.rate_tips')}
+                    <div className='tips'>
+                      {translate('app.rate.tips')}
+                    </div>
+                    <footer>
+                      <div className='thanks'>
+                        {translate('app.rate.thanks')}
                       </div>
-                      <div className='stars'>
-                        <ReactStars
-                          count={5}
-                          value={0}
-                          size={24}
-                          color2={'#ffd700'} />
+                      <div className='lawyer-pic'>
+                        <img src={constant.avaLawyerPic} />
                       </div>
-                      <button className='rate-submit'>
-                        {translate('app.rate.rate_done')}
-                      </button>
-                    </div>
-                  </footer>
-                </div>
+                      <div className='rate'>
+                        <div className='title'>
+                          {translate('app.rate.rate_tips')}
+                        </div>
+                        <div className='stars'>
+                          <ReactStars count={5}
+                            value={0} size={24}
+                            color1={'white'}
+                            color2={'#ffd700'} />
+                        </div>
+                        <button className='rate-submit'>
+                          {translate('app.rate.rate_done')}
+                        </button>
+                      </div>
+                    </footer>
+                  </div>
+                </Modal.Content>
               </Modal>
           </div>
         </div>
