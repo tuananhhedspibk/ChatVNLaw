@@ -198,4 +198,5 @@
   bottom: 70px;
   position: absolute;
   right: 15px;
-  visibility: hidden; }
+  visibility: hidden;
+  z-index: 100; }
