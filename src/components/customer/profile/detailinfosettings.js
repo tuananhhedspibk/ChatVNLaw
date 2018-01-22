@@ -96,7 +96,7 @@ class DetailInfoSettings extends Component {
         component.state.history.map((history, index) => {
           return (
             <tr>
-              <td>{history.amount}</td>
+              <td>{history.amount.toLocaleString()} VNĐ</td>
               <td>{history.date}</td>
             </tr>
           )
@@ -145,7 +145,7 @@ class DetailInfoSettings extends Component {
             <div className='title'>
               {translate('app.settings.acc_balance')}:
               <p className='money-value'>
-                {this.state.balance} {this.state.type}
+                {this.state.balance.toLocaleString()} VNĐ
               </p>
             </div>
             <button className='save-btn'
@@ -161,7 +161,7 @@ class DetailInfoSettings extends Component {
           </div>
           <hr />
           <div className='content'>
-            <table class="ui single line table">
+            <table className="ui single line table">
               <thead>
                 <tr>
                   <th>
