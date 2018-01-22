@@ -216,6 +216,7 @@ class ChatSetting extends Component {
       </div>
     )
   }
+
   renderSharedImage(){
     return(
       <div className='shared session-infor shared-images'>

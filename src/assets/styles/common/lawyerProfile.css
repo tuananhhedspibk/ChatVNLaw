@@ -75,19 +75,62 @@
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 1px 1px 2px 1px #e5ecf0;
-    padding: 20px 25px; }
+    padding: 15px 25px; }
     .lawyer-profile .content-block .title {
       font-size: 1.5em;
       font-weight: 600;
-      padding-bottom: 12px; }
+      padding-bottom: 5px; }
     .lawyer-profile .content-block .content {
       font-size: 1.2em; }
+  .lawyer-profile button.content-block {
+    background-color: #f6f6f6 !important;
+    border: solid 1px #cbcbcb;
+    box-shadow: none;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.2em;
+    margin-top: 8px;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    text-align: center;
+    width: 100%; }
+    .lawyer-profile button.content-block:hover {
+      background-color: #f6f6f6; }
+  .lawyer-profile .review-block {
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0; }
+    .lawyer-profile .review-block .content {
+      padding-bottom: 0 !important; }
+    .lawyer-profile .review-block .title {
+      padding-bottom: 15px;
+      padding-left: 25px;
+      padding-right: 25px; }
+    .lawyer-profile .review-block .customer-review {
+      align-items: center;
+      display: flex;
+      padding: 15px 25px; }
+      .lawyer-profile .review-block .customer-review .review-content {
+        display: inline-block;
+        margin-bottom: 0;
+        margin-left: 15px;
+        width: calc(100% - 155px);
+        word-wrap: break-word; }
+      .lawyer-profile .review-block .customer-review .user-ava {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px; }
+      .lawyer-profile .review-block .customer-review .rate {
+        display: inline-block;
+        float: right; }
+    .lawyer-profile .review-block .review-grey {
+      background-color: #f1f1f1; }
   .lawyer-profile .center-block .content {
     padding-bottom: 5px; }
     .lawyer-profile .center-block .content div > span > span {
       word-wrap: break-word; }
   .lawyer-profile .center-block hr {
-    margin: 25px 0; }
+    margin: 15px 0; }
   .lawyer-profile .right-block {
     text-align: center; }
     .lawyer-profile .right-block .fa-headphones {
@@ -117,3 +160,85 @@
       margin-top: 25px; }
     .container-lawyer-wrapper .content-block {
       margin-bottom: 20px; } }
+
+.modals {
+  font-family: "Montserrat", sans-serif; }
+  .modals .header {
+    font-family: "Montserrat", sans-serif !important; }
+  .modals .ui.header {
+    color: #a2a2a2;
+    font-family: "Montserrat", sans-serif;
+    font-weight: normal;
+    margin-bottom: 27px;
+    margin-top: 12px; }
+    .modals .ui.header .number {
+      display: inline-block;
+      font-size: 2.3em; }
+    .modals .ui.header .char {
+      display: inline-block;
+      font-size: 1.2em;
+      margin-left: 5px; }
+  .modals .customer-review {
+    align-items: center;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e5ecf0;
+    display: flex;
+    font-size: 1.2em;
+    padding: 15px 25px; }
+    .modals .customer-review .review-content {
+      display: inline-block;
+      margin-bottom: 0;
+      margin-left: 15px;
+      width: calc(100% - 165px);
+      word-wrap: break-word; }
+    .modals .customer-review .user-ava {
+      border-radius: 50%;
+      height: 60px;
+      width: 60px; }
+    .modals .customer-review .rate {
+      display: inline-block;
+      float: right; }
+
+.media {
+  align-items: center !important;
+  display: flex;
+  padding: 15px 25px; }
+
+.media-img, .media-desc, .media-star {
+  display: inline-block;
+  vertical-align: top; }
+
+.media-img {
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  height: 60px;
+  margin: 0 15px 0 0;
+  width: 60px; }
+
+.media-desc {
+  margin-right: 15px;
+  width: calc(100% - 180px); }
+
+.media-star {
+  width: 90px; }
+
+.media-star .bar {
+  height: 25px;
+  margin: 0;
+  background-color: #f0f0f0; }
+
+.media-desc .bar {
+  height: 25px;
+  margin: 0;
+  background-color: #f0f0f0; }
+
+.media-img, .media-desc, .media-star .bar {
+  -webkit-animation: gleam 1.5s ease-in-out infinite;
+  background-image: -webkit-linear-gradient(left, #E9EAED, #f8f8f8, #E9EAED);
+  background-size: 600px auto; }
+
+@-webkit-keyframes gleam {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 600px 0; } }

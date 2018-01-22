@@ -110,6 +110,11 @@ module.exports = {
       book: 'Book now',
       view_profile: 'View profile'
     },
+    profile: {
+      user_review: 'User review',
+      view_all: 'View all',
+      review: 'review(s)'
+    },
     nav: {
       brow_law: 'Browse Law',
       brow_lawyers: 'Browse Lawyers',

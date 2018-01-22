@@ -90,6 +90,11 @@ module.exports = {
         }
       }
     },
+    profile: {
+      user_review: 'Đánh giá từ khách hàng',
+      view_all: 'Xem tất cả',
+      review: 'đánh giá'
+    },
     home: {
       footer: {
         content: 'VNLaw - LKBC 2017'
