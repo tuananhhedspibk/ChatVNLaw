@@ -1,5 +1,6 @@
 export const STORAGE_ITEM = 'chat_vnlaw_user';
 
+export const APP_NAME = 'VNLaw-Tư vấn pháp luật';
 export const BASE_URL = 'http://localhost:3000';
 export const HOME_URI = '/home';
 export const SIGN_IN_URI = '/login';

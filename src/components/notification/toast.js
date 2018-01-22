@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { NotificationContainer,
-  NotificationManager } from 'react-notifications';
-
-import { onAuthStateChanged } from '../../lib/user/authentication';
-import { extractNotification,
-  noticeWhenNewNotiComing } from '../../lib/notification/notifications';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {onAuthStateChanged} from '../../lib/user/authentication';
+import {extractNotification,noticeWhenNewNotiComing} from '../../lib/notification/notifications';
+import WebNotification from './webnotification';
+import $ from 'jquery';
 
 import * as tableConstant from '../../lib/constants';
 
@@ -15,7 +14,7 @@ class Toast extends Component{
     super(props);
     this.state = {
       timeStamp : '' + (new Date()).getTime(),
-      currentUser: null
+      currentUser: null,
     };
   }
   
@@ -33,25 +32,35 @@ class Toast extends Component{
               switch(type){
                 
                 case tableConstant.NOTIFICATION_TYPE.requestRoom:
-                  component.createNotification('info' , item.title, item.content, 5000, ()=>{
-                    if(!(window.location.pathname).startsWith('/notifications')){
-                      window.open('/notifications', "_blank")                  
-                    } 
-                  });
+                  component.props.emitter.emit('AddNewInfoToast', item.title, item.content, 5000, () => {
+                    if (!(window.location.pathname).startsWith('/notifications')) {
+                      window.open('/notifications', "_blank")
+                    }} );
+                  // component.createNotification('info' , item.title, item.content, 5000, ()=>{
+                  //   if(!(window.location.pathname).startsWith('/notifications')){
+                  //     window.open('/notifications', "_blank")                  
+                  //   } 
+                  // });
                   break;
                 case tableConstant.NOTIFICATION_TYPE.acceptRoomRequest:
-                  component.createNotification('success' , item.title, item.content, 5000, ()=>{
-                    if(!(window.location.pathname).startsWith('/notifications')){
-                      window.open('/notifications', "_blank")                  
-                    } 
+                  component.props.emitter.emit('AddNewSuccessToast', item.title, item.content, 5000, () => {
+                    if (!(window.location.pathname).startsWith('/notifications')) {
+                      window.open('/notifications', "_blank")
+                    }
                   });
+                  // component.createNotification('success' , item.title, item.content, 5000, ()=>{
+                  //   if(!(window.location.pathname).startsWith('/notifications')){
+                  //     window.open('/notifications', "_blank")                  
+                  //   } 
+                  // });
                   break;
                 case tableConstant.NOTIFICATION_TYPE.refuseRoomRequest:
-                  component.createNotification('warning' , item.title, item.content, 5000, ()=>{
-                    if(!(window.location.pathname).startsWith('/notifications')){
-                      window.open('/notifications', "_blank")                  
-                    } 
+                  component.props.emitter.emit('AddNewWarningToast', item.title, item.content, 5000, () => {
+                    if (!(window.location.pathname).startsWith('/notifications')) {
+                      window.open('/notifications', "_blank")
+                    }
                   });
+                  
                   break;
               }
                           
@@ -93,25 +102,28 @@ class Toast extends Component{
     })
   }
   createNotification(type,title, text, duration, callback){
-    switch (type) {
-      case 'info':
-        NotificationManager.info(text,title,duration,callback);
-        break;
-      case 'success':
-        NotificationManager.success(text,title,duration,callback);
-        break;
-      case 'warning':
-        NotificationManager.warning(text,title,duration,callback);
-        break;
-      case 'error':
-        NotificationManager.error(text,title,duration,callback);
-        break;
-    }
+    if(localStorage.getItem('isFocused') === 'true'){
+      switch (type) {
+        case 'info':
+          NotificationManager.info(text, title, duration, callback);
+          break;
+        case 'success':
+          NotificationManager.success(text, title, duration, callback);
+          break;
+        case 'warning':
+          NotificationManager.warning(text, title, duration, callback);
+          break;
+        case 'error':
+          NotificationManager.error(text, title, duration, callback);
+          break;
+      }
+    }  
   };
 
   render(){
     return(
       <div className='toast'>
+        <WebNotification emitter={this.props.emitter}/>
         <NotificationContainer/>    
       </div>
     )
