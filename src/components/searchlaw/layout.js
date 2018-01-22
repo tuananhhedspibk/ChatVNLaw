@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { parse } from 'qs';
 import axios from 'axios';
 import $ from 'jquery';
-import { ToastContainer, toast } from 'react-toastify';
 import ReactPaginate from 'react-paginate';
+import Toast from '../notification/toast';
+import { EventEmitter } from 'fbemitter';
 
 import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
@@ -14,7 +15,6 @@ import Category from './category';
 
 import * as constant from '../constants';
 
-import 'react-toastify/dist/ReactToastify.min.css';
 import '../../assets/styles/common/searchLaw.css';
 
 let translate = require('counterpart');
@@ -26,26 +26,20 @@ class SearchLaw extends Component {
 			articles: [],
 			offset: 1,
 			number_articles: 0,
-			toast_showed: false
 		};
-    this.handlerCategoryType = this.handlerCategoryType.bind(this);
-    this.handlerCategoryYear = this.handlerCategoryYear.bind(this);
-	}
-
-	notif() {
-		toast(translate('app.search.founded') + ' ' +
-			this.state.number_articles + ' '
-				+ translate('app.search.results'), {type: 'success'});
+		this.emitter = new EventEmitter();
+		this.handlerCategoryType = this.handlerCategoryType.bind(this);
+		this.handlerCategoryYear = this.handlerCategoryYear.bind(this);
 	}
 
 	handlePageClick (data) {
 		let component = this;
-    let selected = data.selected;
-    let offset = this.state.offset + 1;
+		let selected = data.selected;
+		let offset = this.state.offset + 1;
 
-    this.setState({offset: offset}, () => {
-			component.loadDataFromServer({});
-    });
+		this.setState({offset: offset}, () => {
+				component.loadDataFromServer({});
+		});
 	}
 
 	loadDataFromServer(objQuery) {
@@ -68,26 +62,50 @@ class SearchLaw extends Component {
 			component.setState({articles: response.data.articles,
 				pageCount: response.data.limit_page,
 				number_articles: response.data.number_articles});
-				if (!component.state.toast_showed) {
-					component.setState({toast_showed: true});
-					component.notif();
-				}
+				component.emitter.emit('AddNewSuccessToast', '', translate('app.search.founded') + ' ' +
+					component.state.number_articles + ' '
+					+ translate('app.search.results'), 5000, () => { })
 		})
 		.catch(function (error) {
-			if (!component.state.toast_showed) {
-				component.setState({toast_showed: true, pageCount: 0});
-				component.notif();
-			}
+			component.emitter.emit('AddNewErrorToast', '', translate('app.search.founded') + ' ' +
+				component.state.number_articles + ' '
+				+ translate('app.search.results'), 5000, () => { })
 		});
 	}
 
 	componentDidMount() {
 		this.loadDataFromServer({});
+		// this.checkTabIsFocusOrBlur();
 	}
 
+	checkTabIsFocusOrBlur() {
+		var component = this;
+		$(window).on("blur focus", function (e) {
+			var prevType = $(this).data("prevType");
+
+			if (prevType != e.type) {   //  reduce double fire issues
+				switch (e.type) {
+					case "blur":
+						$('div').text("Blured");
+						// component.setState({ isFocused: false })
+						console.log("blured");
+
+						// $('div').text("Blured");
+						break;
+					case "focus":
+						// component.setState({ isFocused: true })
+						$('div').text("Focused");
+						console.log("focus");
+
+						break;
+				}
+			}
+
+			$(this).data("prevType", e.type);
+		})
+	}
 	handlerSearch(event) {
 		event.preventDefault();
-		this.setState({toast_showed: false});
 		var query = $('.text-search-box input').val()
 		var group1 = '';
 		if($('.search-term #group1 input[name=group1]:checked').length >0) {
@@ -123,13 +141,7 @@ class SearchLaw extends Component {
 		return (
 			<div className='search-law'>
 				<Nav navStyle='inverse'/>
-				<ToastContainer
-          position='top-right'
-          autoClose={8000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          pauseOnHover/>
+				<Toast emitter={this.emitter} />
 				<div className='search-law-inner container'>
 					<div className='row'>
 						<div className='col-sm-12 col-md-4'>
