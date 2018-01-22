@@ -57,6 +57,9 @@ export const openIcon = require('../assets/images/open.png')
 export const closeIcon = require('../assets/images/close.png')
 export const cartIcon = require('../assets/images/cart.png')
 export const totalTimeIcon = require('../assets/images/total_time.png')
+export const hammerIcon = require('../assets/images/hammer.png')
+export const anvilIcon = require('../assets/images/anvil.png')
+export const tingIcon = require('../assets/images/ting.png')
 
 export const PEERJS_KEY = 'peerjs';
 

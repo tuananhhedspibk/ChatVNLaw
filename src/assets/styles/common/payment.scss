@@ -1,0 +1,124 @@
+@import 'variables.scss';
+
+.notification-waiting{
+  margin-top: 150px;
+	text-align: center;
+	width: 100%;
+  font-size: 1.5em;
+  height: 70vh;
+  display: inline-block;
+  p {
+  	display: inline-block;
+    position: relative;
+    bottom: -40px;
+    margin-left: 20px;
+    font-size: 1.6em;
+  }
+}
+
+.result-notification {
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+
+  .notification-mess {
+  	margin-top: 20px;
+    font-size: 2em;
+  }
+  #noti-success {
+	  stroke: #71C341;
+  }
+
+	#noti-error {
+		stroke: #fc3030;
+	} 
+	 
+	.svg {
+	  stroke-width: 2px;
+	  fill:none;
+	  & path {
+	    stroke-dasharray:17px, 17px; 
+	    stroke-dashoffset: 0px;
+	    -webkit-animation: checkmark 0.25s ease-in-out 0.7s backwards;
+	    animation: checkmark 0.25s ease-in-out 0.7s backwards;
+	  }
+	  & circle {
+	    stroke-dasharray:76px, 76px;
+	    stroke-dashoffset: 0px;
+	    transform:rotate(-90deg);
+	    transform-origin: 50% 50%;
+	    -webkit-animation: checkmark-circle 0.6s ease-in-out forwards;
+	    animation: checkmark-circle 0.6s ease-in-out forwards;
+	  }
+	}
+}
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 17px;
+  }
+
+  100% {
+    stroke-dashoffset: 0
+  }
+}
+
+@keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 76px;
+  }
+
+  100% {
+    stroke-dashoffset: 0px;
+  }
+}
+.hammer {
+  height: 60px;
+  animation-duration: 0.7s ;
+  animation-iteration-count: infinite;
+  animation-name: hammer-spin;
+  animation-timing-function: ease;
+  animation-direction: alternate;
+}
+.anvil {
+    height: 10px;
+    position: absolute;
+    bottom: -27px;
+    left: -13px;
+}
+.ting {
+    display: block;
+    opacity: 0;
+    height: 20px;
+    position: absolute;
+    left: -25px;
+    bottom: -25px;
+    animation-duration: 1.4s ;
+    animation-delay: 0.5s;
+    animation-name: ting-appear;
+    animation-iteration-count: infinite;
+}
+.waiting-icon {
+  display: inline-block;
+  position: relative;
+}
+@keyframes hammer-spin {
+  0% {
+    transform-origin: 100% 100%;
+  }
+  100% {
+    transform-origin: 100% 100%;
+    transform: rotate(-45deg);
+  }
+}
+@keyframes ting-appear {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
