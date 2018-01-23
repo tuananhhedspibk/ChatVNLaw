@@ -9,7 +9,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import Loading from '../shared/loading';
 import getStunServerList from '../../lib/getstunserverlist';
-import Chat from './chat';
+import ChatContent from './chatcontent';
 import Toast from '../notification/toast';
 import {checkAuthen} from '../../lib/notification/toast';
 
@@ -26,9 +26,9 @@ import '../../assets/styles/common/userIndex.css';
 const KEYS_TO_FILTERS = ['displayName'];
 
 const options = [
-  {icon: 'status status-icon online-status'},
-  {icon: 'status status-icon offline-status'},
-  {icon: 'status status-icon away-status'}
+  {icon_color: 'online'},
+  {icon_color: 'offline'},
+  {icon_color: 'away'}
 ];
 
 class ChatView extends Component {
@@ -63,7 +63,7 @@ class ChatView extends Component {
     var component = this;
     var properties = {}
     properties['component'] = this;
-    properties['keyword'] = this.props.match.params.user_name;
+    properties['keyword'] = this.props.userNameURL;
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
         component.setState({isloading : true})   
@@ -82,20 +82,20 @@ class ChatView extends Component {
     })
   }
 
-  elementBaseStatus(userStatus) {
+  classBaseStatus(userStatus) {
     if (userStatus === 'online') {
       return(
-        'status status-icon online-status icon'
+        options[0].icon_color
       )
     }
     else if (userStatus === 'offline') {
       return(
-        'status status-icon offline-status icon'
+        options[1].icon_color
       )
     }
     else if (userStatus === 'away') {
       return(
-        'status status-icon away-status icon'
+        options[2].icon_color
       )
     }
   }
@@ -110,16 +110,16 @@ class ChatView extends Component {
     if (uid === component.state.currentUser.uid) {
       return(
         <Dropdown id={component.state.currentUser.uid}
-          icon={this.elementBaseStatus(userStatus)}>
+          icon='circle' className={this.classBaseStatus(userStatus)}>
           <Dropdown.Menu className='dropdown-status'>
             <Dropdown.Item text={translate('app.user.status.online')}
-              icon={options[0].icon}
+              className={options[0].icon_color} icon='circle'
               onClick={this.changeStatus.bind(this)}/>
             <Dropdown.Item text={translate('app.user.status.offline')}
-              icon={options[1].icon}
+              className={options[1].icon_color} icon='circle'
               onClick={this.changeStatus.bind(this)}/>
             <Dropdown.Item text={translate('app.user.status.away')}
-              icon={options[2].icon}
+              className={options[2].icon_color} icon='circle'
               onClick={this.changeStatus.bind(this)}/>
           </Dropdown.Menu>
         </Dropdown>
@@ -127,7 +127,8 @@ class ChatView extends Component {
     }
     return(
       <Dropdown
-        icon={this.elementBaseStatus(userStatus)}/>
+        icon='circle'
+        className={this.classBaseStatus(userStatus)}/>
     );
   }
 
@@ -153,8 +154,8 @@ class ChatView extends Component {
       )
     }
   }
-  
-  renderView() {
+
+  renderView() {  
     const filteredUsers = this.state.users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     return (
@@ -190,24 +191,26 @@ class ChatView extends Component {
                   style={{display:'none'}}/>}>
               {
                 filteredUsers.map(user => {
+                  if(this.props.userNameURL === user.username) {
+                    $('.place-holder-ui').css('display', 'none');
+                  }
                   return(
                     <div className={
-                      this.props.match.params.user_name === user.username
+                      this.props.userNameURL === user.username
                         ? 'user active-link ': 'user'}
                       key={user.uid}>
                       {this.renderStatus(user.status, user.uid)}
-                      <Link to={'/chat/' + user.username} key={user.uid}
-                        activeClassName='active-link'>
-                          <List.Item key={user.uid}>
-                            <Image avatar src={user.photoURL}/>
-                            <List.Content>
-                              <List.Header>{user.uid !==
-                                this.state.currentUser.uid ? user.displayName :
-                                translate('app.chat.my_chat')}
-                              </List.Header>
-                            </List.Content>
-                            {this.renderUnreadMessages(user.uid)}
-                          </List.Item>
+                      <Link to={'/chat/' + user.username} key={user.uid}>
+                        <List.Item key={user.uid}>
+                          <Image avatar src={user.photoURL}/>
+                          <List.Content>
+                            <List.Header>{user.uid !==
+                              this.state.currentUser.uid ? user.displayName :
+                              translate('app.chat.my_chat')}
+                            </List.Header>
+                          </List.Content>
+                          {this.renderUnreadMessages(user.uid)}
+                        </List.Item>
                       </Link>
                     </div>
                   );
@@ -223,7 +226,7 @@ class ChatView extends Component {
                 <Route path={'/chat/' + user.username}
                   render={
                     (props) => (
-                      <Chat {...props}
+                      <ChatContent {...props}
                         targetUser={user}
                         currentUser={this.state.currentUser}
                         emitter={this.emitter}

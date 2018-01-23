@@ -436,7 +436,7 @@ module.exports = {
       problem: 'Vấn đề gặp phải',
       apply_lawyer: 'Yêu cầu luật sư',
       personal_info_overview: 'Với những thông tin cá nhân cơ bản sẽ giúp chúng tôi hiểu rõ bạn hơn',
-      proble_overview: 'Cùng chia sẻ với chúng tôi những vấn đề mà bạn gặp phải',
+      problem_overview: 'Cùng chia sẻ với chúng tôi những vấn đề mà bạn gặp phải',
       pre_step: 'Bước trước',
       recharge: 'Nạp tiền',
       title_recharge: 'Thông tin nạp tiền',

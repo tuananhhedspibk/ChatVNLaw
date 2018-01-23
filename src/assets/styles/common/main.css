@@ -28,6 +28,8 @@ body {
 .logo-app {
   background-color: #43a3df;
   height: 100vh;
+  position: absolute;
+  z-index: 100;
   width: 100%; }
   .logo-app .logo-section {
     text-align: center;

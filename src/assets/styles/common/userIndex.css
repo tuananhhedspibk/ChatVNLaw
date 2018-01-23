@@ -7,7 +7,6 @@
     margin-bottom: -26px !important; }
   .list-users .header-index {
     background-color: #2385f2;
-    border-bottom: 1px solid #e5ecf0;
     color: #fff;
     float: left;
     font-size: 1.3em;
@@ -90,14 +89,14 @@
   margin-right: 10px !important;
   width: 10px !important; }
 
-.online-status {
-  background-color: #2de0a5; }
+.ui.dropdown.online .circle {
+  color: #2de0a5; }
 
-.away-status {
-  background-color: #ffd21f; }
+.ui.dropdown.away .circle {
+  color: #ffd21f; }
 
-.offline-status {
-  background-color: #f5455c; }
+.ui.dropdown.offline .circle {
+  color: #f5455c; }
 
 .ui.dropdown .menu > .item {
   font-size: .9em; }
@@ -108,6 +107,51 @@
 .dropdown-status span.text {
   font-size: 1.3em; }
 
+.chat {
+  position: relative; }
+
+.place-holder-ui {
+  float: right;
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: calc(100% - 320px); }
+  .place-holder-ui .chat-text-box {
+    border-top: 1px solid #e5ecf0;
+    bottom: 0;
+    height: 60px;
+    position: absolute;
+    width: calc(100% - 320px); }
+  .place-holder-ui .chat-setting {
+    border-left: 1px solid #e5ecf0;
+    height: calc(100vh - 53px); }
+    .place-holder-ui .chat-setting .header .ava {
+      background-color: #f6f6f6;
+      border-radius: 50%;
+      height: 55px;
+      width: 55px; }
+    .place-holder-ui .chat-setting .header .info {
+      background-color: #f6f6f6;
+      height: 30px;
+      width: 180px; }
+    .place-holder-ui .chat-setting .shared {
+      height: 60px; }
+      .place-holder-ui .chat-setting .shared .bar {
+        background-color: #f6f6f6;
+        height: 30px;
+        width: 150px; }
+  .place-holder-ui .title {
+    align-items: center;
+    border-bottom: 1px solid #e5ecf0;
+    display: flex;
+    justify-content: center;
+    height: 53px; }
+    .place-holder-ui .title .bar {
+      background-color: #f6f6f6;
+      height: 60%;
+      width: 180px; }
+
 @-moz-document url-prefix() {
   .list-users .search-box input {
     font-size: 1.05em;
@@ -116,7 +160,9 @@
   .list-users .ui.list .item .content .header {
     font-size: 1.1em; }
   .list-users .header-index {
-    padding: 9px 11px 11px; } }
+    padding: 9px 11px 11px; }
+  .place-holder-ui .title {
+    height: 47px; } }
 
 @media (max-height: 400px) {
   .content {

@@ -155,98 +155,62 @@ class ApplyLawyer extends Component {
         <div className='container'>
           <div className='apply-lawyer-container'>
             <div className='row'>
-              <div className='col-sm-9'>
+              <div className='col-sm-12 col-md-9'>
                 <div className='tab-content'>
-                  <div className='tab-pane active' id='personal-info'>
-                    <div className='form-section'>
-                      <div className='apply-lawyer-header'>
-                        {translate('app.payment.personal_info')}
-                      </div>
-                      <div className='form-group apply-lawyer-contact'>
-                        <label htmlFor='usr'>
-                          {translate('app.payment.full_name')}
-                        </label>
-                        <input className='form-control apply-lawyer-name'
-                          id='usr' type='text'
-                          placeholder={translate('app.payment.placeholder_name')} />
-                      </div>
-                      <div className='form-group apply-lawyer-contact'>
-                        <label htmlFor='usr'>{translate('app.payment.country')}</label>
-                        <input type='text' id='usr'
-                          className='form-control apply-lawyer-address'
-                          placeholder={translate('app.payment.placeholder_country')} />
-                      </div>
-                      <div className='form-group apply-lawyer-contasearchct'>
-                        <label htmlFor='usr'>{translate('app.payment.age')}</label>
-                        <input type='number' id='usr'
-                          className='form-control apply-lawyer-age'
-                          placeholder={translate('app.payment.placeholder_age')} />
-                      </div>
-                      <div className='form-group apply-lawyer-contact'>
-                        <label htmlFor='usr'>
-                          {translate('app.payment.phone_number')}
-                        </label>
-                        <input type='number' id='usr'
-                          className='form-control apply-lawyer-phone'
-                          placeholder={translate('app.payment.placeholder_phone')} />
-                      </div>
+                  <div className='form-section'>
+                    <div className='apply-lawyer-header'>
+                      {translate('app.payment.personal_info')}
                     </div>
-                    <a 
-                      onClick={this.changeStep
-                        .bind(this, '#personal-info',
-                          '#problem-section', '#link-ps', '#link-pi')}
-                      className='change-step-btn'>
-                        {translate('app.payment.problem')}
-                    </a>
+                    <div className='form-group apply-lawyer-contact'>
+                      <label htmlFor='usr'>
+                        {translate('app.payment.full_name')}
+                      </label>
+                      <input className='form-control apply-lawyer-name'
+                        id='usr' type='text'
+                        placeholder={translate('app.payment.placeholder_name')} />
+                    </div>
+                    <div className='form-group apply-lawyer-contact'>
+                      <label htmlFor='usr'>{translate('app.payment.country')}</label>
+                      <input type='text' id='usr'
+                        className='form-control apply-lawyer-address'
+                        placeholder={translate('app.payment.placeholder_country')} />
+                    </div>
+                    <div className='form-group apply-lawyer-contasearchct'>
+                      <label htmlFor='usr'>{translate('app.payment.age')}</label>
+                      <input type='number' id='usr'
+                        className='form-control apply-lawyer-age'
+                        placeholder={translate('app.payment.placeholder_age')} />
+                    </div>
+                    <div className='form-group apply-lawyer-contact'>
+                      <label htmlFor='usr'>
+                        {translate('app.payment.phone_number')}
+                      </label>
+                      <input type='number' id='usr'
+                        className='form-control apply-lawyer-phone'
+                        placeholder={translate('app.payment.placeholder_phone')} />
+                    </div>
                   </div>
-                  <div className='tab-pane' id='problem-section'>
-                    <div className='form-section'>
-                      <div className='apply-lawyer-header'>
-                        {translate('app.payment.problem')}
-                      </div>
-                      <div className='form-group'>
-                        <textarea
-                          className='form-control apply-lawyer-problem'
-                          rows='5' id='problem'>
-                        </textarea>
-                      </div>
-                      <button type='button'
-                        className='btn apply-lawyer-button'
-                        onClick={this.handleClick.bind(this)}>
-                          {translate('app.payment.apply_lawyer')}
-                      </button>
-                      <a 
-                        onClick={this.changeStep
-                          .bind(this, '#problem-section',
-                            '#personal-info', '#link-pi', '#link-ps')}
-                        className='previous-step-btn change-step-btn'>
-                          {translate('app.payment.personal_info')}
-                      </a>
+                  <div className='form-section'>
+                    <div className='apply-lawyer-header'>
+                      {translate('app.payment.problem')}
                     </div>
+                    <div className='form-group'>
+                      <textarea
+                        className='form-control apply-lawyer-problem'
+                        rows='5' id='problem'>
+                      </textarea>
+                    </div>
+                    <button type='button'
+                      className='btn apply-lawyer-button'
+                      onClick={this.handleClick.bind(this)}>
+                        {translate('app.payment.apply_lawyer')}
+                    </button>
                   </div>
                 </div>
               </div>
-              <div className='col-sm-3 side-content'>
-                <nav className='nav-sidebar'>
-                  <ul className='nav nav-pills'>
-                    <li className='active'>
-                      <a id='link-pi'
-                        onClick={this.changeStep
-                          .bind(this, '#problem-section',
-                            '#personal-info', '#link-pi',
-                            '#link-ps')}>1</a>
-                    </li>
-                    <li>
-                      <a id='link-ps'
-                        onClick={this.changeStep
-                          .bind(this, '#personal-info',
-                            '#problem-section', '#link-ps',
-                            '#link-pi')}>2</a>
-                    </li>  
-                  </ul>
-                </nav>
-                <div className='overview-section'
-                  id='personal-info-overview'>
+              <div className='col-sm-12 col-md-3'>
+                <div className='side-content'>
+                  <div className='overview-section'>
                     <i className='fa fa-id-badge'
                       aria-hidden='true'></i>
                     <p className='title'>
@@ -255,16 +219,16 @@ class ApplyLawyer extends Component {
                     <div className='overview-content'>
                       {translate('app.payment.personal_info_overview')}
                     </div>
-                </div>
-                <div className='overview-section'
-                  id='problem-section-overview'>
-                  <i className='fa fa-exclamation-triangle'
-                    aria-hidden='true'></i>
-                  <p className='title'>
-                    {translate('app.payment.problem')}
-                  </p>
-                  <div className='overview-content'>
-                    {translate('app.payment.problem_overview')}
+                  </div>
+                  <div className='overview-section'>
+                    <i className='fa fa-exclamation-triangle'
+                      aria-hidden='true'></i>
+                    <p className='title'>
+                      {translate('app.payment.problem')}
+                    </p>
+                    <div className='overview-content'>
+                      {translate('app.payment.problem_overview')}
+                    </div>
                   </div>
                 </div>
               </div>

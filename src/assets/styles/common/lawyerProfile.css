@@ -234,7 +234,7 @@
 
 .media-img, .media-desc, .media-star .bar {
   -webkit-animation: gleam 1.5s ease-in-out infinite;
-  background-image: -webkit-linear-gradient(left, #E9EAED, #f8f8f8, #E9EAED);
+  background-image: -webkit-linear-gradient(left, #e9eaed, #f8f8f8, #e9eaed);
   background-size: 600px auto; }
 
 @-webkit-keyframes gleam {

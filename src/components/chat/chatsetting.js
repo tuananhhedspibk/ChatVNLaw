@@ -240,10 +240,10 @@ class ChatSetting extends Component {
       </div>
     )
   }
+
   render() {
     return(
       <div className='chat-setting'>
-        
         <Scrollbars style={{
           height: this.state.chatSettingHeight}}
           autoHide={true}
@@ -274,17 +274,16 @@ class ChatSetting extends Component {
               <div className='content'>
                 <div className='shared session-infor'>
                   <button className='content-title no-icon' onClick={ () =>{
-                      window.open(constant.BASE_URL +'/lawyers/' + this.state.targetUser.username)
-                    }}>
+                      window.open(constant.BASE_URL +'/lawyers/'
+                      + this.state.targetUser.username)}}>
                     {translate('app.chat.lawyer_profile')}
                   </button>
-                  
                 </div>
                 {this.renderSharedFile()}
                 {this.renderSharedImage()}
                 <ChatSessionList
-                        currentUser={this.props.currentUser}
-                        currentRoomId={this.props.currentRoomId} />
+                  currentUser={this.props.currentUser}
+                  currentRoomId={this.props.currentRoomId} />
             </div>
         </Scrollbars>
       </div>
