@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import ReactLoading from 'react-loading';
+import firebase from 'firebase';
 
 import * as constant from '../constants';
-
 import * as Lawyers from '../../lib/user/lawyers';
-import firebase from 'firebase';
-import { BASE_URL } from '../constants';
 
-let translate = require('counterpart');
+import * as translate from 'counterpart';
 
 class Content extends Component {
   constructor(props){
@@ -44,17 +42,17 @@ class Content extends Component {
 			if(!!this.state.name){
 				return(
 					<div className='result-stas'>
-						{translate('app.search.has')
-						+ ' ' + this.state.result.length
-						+ translate('app.dashboard.search.result_for')}
+						{translate('app.search.has')}
+						<b>{' ' + this.state.result.length}</b>
+						{translate('app.dashboard.search.result_for')}
 						<b>{this.state.name}</b></div>
 				)
 			}else{
 				return(
 					<div className='result-stas'>
-						{translate('app.search.has') + ' '
-						+ this.state.result.length
-						+ ' ' + translate('app.search.results')}</div>
+						{translate('app.search.has') + ' '}
+						<b>{this.state.result.length}</b>
+						{' ' + translate('app.search.results')}</div>
 				)
 			}
 		}else{
@@ -63,36 +61,67 @@ class Content extends Component {
 					{translate('app.dashboard.search.search_tag_not_found')
 					+ translate('app.dashboard.search.result_for')}
 					<b>{this.state.name}</b>
-					. {this.state.result.length
-					+ translate('app.dashboard.search.result_relate')}</div>
+					. <b>{this.state.result.length}</b>
+					{translate('app.dashboard.search.result_relate')}</div>
 			)
 		}
 	}
 
 	handleOnclickLawyer(uid){
-		console.log('test');
 		firebase.database().ref(`users/${uid}`).once('value', data=>{
 			if(data.exists()){
-				window.open(BASE_URL+'/lawyers/'+data.val().username)
+				window.open(constant.BASE_URL + '/lawyers/'
+					+ data.val().username)
 			}
 		})
-
 	}
 
 	renderResultArr(){
-		console.log(this.state.result);
 		return (
 			<div>
 				{this.state.result.map((element)=>{
-					console.log(element)
 					return(	
-						<div className='lawyer' onClick={this.handleOnclickLawyer.bind(this,element.uid)}>
-							<img className='ava' src={element.photoURL} />
-							<div className='infor'>
-								<div className='name' title={element.fullname}>
-									{element.fullname}
+						<div className='lawyer' onClick={
+							this.handleOnclickLawyer.bind(this,element.uid)}>
+								<img className='ava' src={element.photoURL} />
+								<div className='infor'>
+									<div className='name' title={element.fullname}>
+										{element.fullname}
+									</div>
+									<div className='cost'>
+										<div>{translate('app.attorney.cost')}</div>
+										<div className='value'>
+											200,000 Đ {translate('app.attorney.hour')}
+										</div>
+									</div>
+									<div className='specializes'>
+										<div className='item'>
+											Dân Sự
+										</div>
+										<div className='item'>
+											Tài Chính - Ngân Hàng
+										</div>
+										<div className='item'>
+											Bảo hiểm
+										</div>
+										<div className='item'>
+											Đất Đai
+										</div>
+										<div className='item'>
+											Quốc Tế
+										</div>
+									</div>
 								</div>
-							</div>
+								<div className='status-block'>
+									<div className='status-icon'>
+										<img src={constant.supportIcon}/>
+										<div className='icon online-icon'>
+										</div>
+									</div>
+									<div className='status-text online-text'>
+										{translate('app.attorney.online')}
+									</div>
+								</div>
 						</div>
 					)
 				})}

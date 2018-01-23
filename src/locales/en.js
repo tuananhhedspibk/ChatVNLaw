@@ -108,7 +108,11 @@ module.exports = {
     },
     attorney: {
       book: 'Book now',
-      view_profile: 'View profile'
+      view_profile: 'View profile',
+      cost: 'Consultant fee',
+      hour: ' / hour',
+      online: 'Online',
+      away: 'Away'
     },
     profile: {
       user_review: 'User review',

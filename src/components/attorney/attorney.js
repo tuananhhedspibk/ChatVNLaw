@@ -42,8 +42,9 @@ class Attorney extends Component {
         <Nav navStyle='inverse'/>
         <div className='attorney'>
           <div className='row justify-content-center'>
-            <div className='col-sm-6'>
+            <div className='col-md-9'>
               <Find sloganStyle='none'/>
+              <hr/>
               <div className='attorney-result-content'>
                 {this.renderContent()}
               </div>

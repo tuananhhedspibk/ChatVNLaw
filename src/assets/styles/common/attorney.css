@@ -1,16 +1,23 @@
 .attorney {
   background-color: #f6f6f6;
   min-height: calc(100vh - 225px); }
+  .attorney hr {
+    margin-bottom: 25px;
+    width: calc(100% - 30px); }
   .attorney .find {
     display: inline-block;
     font-size: 1.3em;
-    padding: 15px; }
+    padding: 15px;
+    padding-top: 25px; }
+    .attorney .find .title {
+      font-size: 1.5em;
+      font-weight: bold; }
     .attorney .find input {
       border: 1px solid #e5ecf0;
       border-radius: 5px;
       margin-right: 15px;
       margin-top: 15px;
-      padding: 10px 15px;
+      padding: 8px 12px;
       width: calc((100% - 87px) / 2); }
       .attorney .find input:focus {
         outline-width: 1px;
@@ -23,7 +30,7 @@
       border-radius: 5px;
       color: #fff;
       cursor: pointer;
-      padding: 10px 20px; }
+      padding: 8px 18px; }
       .attorney .find .search-button:focus {
         background-color: #0974b8;
         outline: 0; }
@@ -37,50 +44,6 @@
         font-weight: bold; }
       .attorney .search-result .results-statistic .key-matched {
         margin-left: 10px; }
-    .attorney .search-result .results {
-      height: 600px; }
-      .attorney .search-result .results .result {
-        align-items: center;
-        background-color: #fff;
-        border: 1px solid #e5ecf0;
-        border-radius: 5px;
-        display: flex;
-        margin-bottom: 15px;
-        padding: 15px;
-        width: 100%; }
-        .attorney .search-result .results .result .right-block {
-          background-color: #fff;
-          margin-left: calc(100% - 491px);
-          padding: 15px;
-          padding-right: 0;
-          width: 186px; }
-        .attorney .search-result .results .result .ava {
-          display: inline-block; }
-          .attorney .search-result .results .result .ava img {
-            border-radius: 50%;
-            height: 65px;
-            width: 65px; }
-        .attorney .search-result .results .result .name {
-          display: inline-block;
-          margin-left: 10px;
-          width: 230px;
-          word-wrap: break-word; }
-        .attorney .search-result .results .result button {
-          background-color: #2385f2;
-          border: 0;
-          border-radius: 5px;
-          color: #fff;
-          cursor: pointer;
-          padding: 8px 17px;
-          width: 100%;
-          margin-bottom: 10px; }
-          .attorney .search-result .results .result button:focus {
-            background-color: #0974b8;
-            outline: 0; }
-        .attorney .search-result .results .result .view-profile {
-          background-color: #0974b8; }
-          .attorney .search-result .results .result .view-profile:focus {
-            background-color: #00558c; }
   .attorney .attorney-result-content {
     padding: 0 15px;
     margin-bottom: 40px; }
@@ -88,28 +51,87 @@
       font-size: 1.3em;
       margin-bottom: 20px; }
     .attorney .attorney-result-content .lawyer {
-      align-items: center;
       background-color: #fff;
-      border: 1px solid #e5ecf0;
+      border-radius: 3px;
       cursor: pointer;
-      display: flex;
+      display: inline-block;
+      min-height: 120px;
       margin-bottom: 20px;
-      padding: 15px;
+      padding: 0 15px;
       width: 100%; }
-      .attorney .attorney-result-content .lawyer:hover {
-        background-color: #f7f7f7;
-        transition: all .3s ease; }
+      .attorney .attorney-result-content .lawyer:nth-child(odd):hover {
+        border-left: 4px solid #2385f2;
+        transition: all .08s ease; }
+      .attorney .attorney-result-content .lawyer:nth-child(even):hover {
+        border-left: 4px solid #2ab573;
+        transition: all .08s ease; }
       .attorney .attorney-result-content .lawyer .ava {
         border-radius: 50%;
-        height: 85px;
-        width: 85px; }
+        float: left;
+        height: 70px;
+        margin-top: 15px;
+        width: 70px; }
       .attorney .attorney-result-content .lawyer .infor {
+        border-right: 5px solid #f6f6f6;
+        border-radius: 3px;
         display: inline-block;
-        padding-left: 30px;
-        width: calc(100% - 85px); }
+        float: left;
+        font-size: 1.1em;
+        height: 100%;
+        padding-left: 25px;
+        padding-top: 15px;
+        width: calc(80% - 85px); }
         .attorney .attorney-result-content .lawyer .infor .name {
+          float: left;
           font-size: 1.3em;
           overflow: hidden;
           text-align: left;
           text-overflow: ellipsis;
-          width: 100%; }
+          width: 70%; }
+        .attorney .attorney-result-content .lawyer .infor .specializes {
+          display: inline-block;
+          padding-bottom: 15px;
+          padding-top: 10px;
+          width: 70%; }
+          .attorney .attorney-result-content .lawyer .infor .specializes .item {
+            border: 2px solid #e5ecf0;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 8px 16px;
+            margin-bottom: 10px;
+            margin-right: 10px; }
+            .attorney .attorney-result-content .lawyer .infor .specializes .item:hover {
+              border-color: #cbcbcb;
+              transition: all .2s ease; }
+        .attorney .attorney-result-content .lawyer .infor .cost {
+          color: #2385f2;
+          float: right;
+          font-weight: bold;
+          padding-right: 15px; }
+          .attorney .attorney-result-content .lawyer .infor .cost .value {
+            font-size: 1.3em; }
+      .attorney .attorney-result-content .lawyer .status-block {
+        display: inline-block;
+        float: right;
+        padding-top: 30px;
+        text-align: center;
+        width: 20%; }
+        .attorney .attorney-result-content .lawyer .status-block .status-icon {
+          height: 30px !important;
+          width: 100% !important;
+          position: relative; }
+          .attorney .attorney-result-content .lawyer .status-block .status-icon .icon {
+            border-radius: 50%;
+            bottom: -35px;
+            height: 12px;
+            margin: 0 auto;
+            position: absolute;
+            right: 83px;
+            width: 12px; }
+        .attorney .attorney-result-content .lawyer .status-block .status-text {
+          font-size: 1.5em;
+          padding-top: 45px; }
+        .attorney .attorney-result-content .lawyer .status-block .online-icon {
+          background-color: #2de0a5; }
+        .attorney .attorney-result-content .lawyer .status-block .awayicon {
+          background-color: #ffd21f; }
