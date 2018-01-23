@@ -322,7 +322,7 @@
 }
 
 .media-img {
-  background-color: #f0f0f0;
+  background-color: $media-white;
   border-radius: 50%;
   height: 60px;
   margin: 0 15px 0 0;
@@ -341,18 +341,19 @@
 .media-star .bar{
   height: 25px;
   margin: 0;
-  background-color:#f0f0f0;
+  background-color: $media-white;
 }
 
 .media-desc .bar{
   height: 25px;
   margin: 0;
-  background-color:#f0f0f0;
+  background-color: $media-white;
 }
 
 .media-img, .media-desc, .media-star .bar{
   -webkit-animation: gleam 1.5s ease-in-out infinite;
-  background-image:-webkit-linear-gradient(left, #E9EAED, #f8f8f8, #E9EAED);
+  background-image:-webkit-linear-gradient(left, $media-animation-color-1,
+    $media-animation-color-2, $media-animation-color-1);
   background-size: 600px auto;
 }
 

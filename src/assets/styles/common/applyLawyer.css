@@ -1,90 +1,85 @@
 .apply-lawyer-container {
   border-radius: 5px;
   border: 1px solid #e5ecf0;
+  margin-bottom: 40px;
   margin-top: 40px; }
   .apply-lawyer-container .tab-content {
     background-color: transparent;
     border: 0;
-    padding: 8px 15px; }
+    padding: 18px 25px; }
     .apply-lawyer-container .tab-content .form-section {
-      font-size: 1.2em; }
+      display: inline-block;
+      font-size: 1.2em;
+      width: 100%; }
       .apply-lawyer-container .tab-content .form-section .form-control {
         font-size: 1em; }
+      .apply-lawyer-container .tab-content .form-section textarea {
+        min-height: 80px; }
       .apply-lawyer-container .tab-content .form-section .apply-lawyer-header {
         font-size: 1.3em;
         font-weight: bold;
-        margin-bottom: 15px; }
-  .apply-lawyer-container .change-step-btn {
-    background-color: #2385f2;
-    border: 1px solid #2385f2;
-    border-radius: 5px;
-    color: #fff !important;
-    cursor: pointer;
-    display: inline-block;
-    float: right;
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 30px;
-    margin-top: 10px;
-    padding: 8px 15px; }
-    .apply-lawyer-container .change-step-btn:hover {
-      background-color: #fff;
-      color: #2385f2 !important;
-      transition: all .5s ease; }
-  .apply-lawyer-container .previous-step-btn {
-    background-color: #a2a2a2;
-    border: 1px solid #a2a2a2;
-    font-size: .9em; }
-    .apply-lawyer-container .previous-step-btn:hover {
-      background-color: #fff;
-      color: #a2a2a2 !important;
-      transition: all .5s ease; }
-  .apply-lawyer-container .apply-lawyer-button {
-    background-color: #2385f2;
-    border: 1px solid #2385f2;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    float: right;
-    font-size: .9em;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-left: 10px;
-    padding: 10px 15px; }
-    .apply-lawyer-container .apply-lawyer-button:hover {
-      background-color: #fff;
-      color: #2385f2;
-      transition: all .5s ease; }
-  .apply-lawyer-container #problem-section-overview {
-    display: none; }
-  .apply-lawyer-container .side-content {
-    box-shadow: -3px 0 6px 0 #e5ecf0; }
-  .apply-lawyer-container .overview-section {
-    font-size: 1.2em;
-    padding: 30px 10px;
-    text-align: center; }
-    .apply-lawyer-container .overview-section .fa {
-      color: #2385f2;
-      font-size: 2.8em;
-      margin-bottom: 5px; }
-    .apply-lawyer-container .overview-section .title {
-      font-size: 1.4em; }
-    .apply-lawyer-container .overview-section .overview-content {
-      color: #a2a2a2;
-      font-size: 1em; }
-  .apply-lawyer-container .nav-sidebar {
-    font-size: 1.2em;
-    padding-top: 22px; }
-    .apply-lawyer-container .nav-sidebar .nav-pills {
-      justify-content: center; }
-    .apply-lawyer-container .nav-sidebar li {
-      cursor: pointer;
-      height: 25px;
-      text-align: center;
-      width: 25px; }
-    .apply-lawyer-container .nav-sidebar .active {
+        margin-bottom: 8px; }
+      .apply-lawyer-container .tab-content .form-section:first-child {
+        margin-bottom: 10px; }
+    .apply-lawyer-container .tab-content .form-group {
+      margin-bottom: 10px; }
+    .apply-lawyer-container .tab-content .apply-lawyer-button {
       background-color: #2385f2;
-      border-radius: 50%;
-      color: #fff; }
-      .apply-lawyer-container .nav-sidebar .active:hover {
-        color: #fff; }
+      border: 1px solid #2385f2;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      float: right;
+      font-size: 1em;
+      font-weight: bold;
+      margin-bottom: 6px;
+      margin-top: 5px;
+      margin-left: 10px;
+      padding: 8px 13px; }
+      .apply-lawyer-container .tab-content .apply-lawyer-button:hover {
+        background-color: #fff;
+        color: #2385f2;
+        transition: all .5s ease; }
+  .apply-lawyer-container .side-content {
+    box-shadow: -3px 0 6px 0 #e5ecf0;
+    height: 100%; }
+    .apply-lawyer-container .side-content .overview-section {
+      font-size: 1.2em;
+      padding: 30px 10px;
+      text-align: center; }
+      .apply-lawyer-container .side-content .overview-section .fa {
+        color: #2385f2;
+        font-size: 2.8em;
+        margin-bottom: 5px; }
+      .apply-lawyer-container .side-content .overview-section .title {
+        font-size: 1.4em; }
+      .apply-lawyer-container .side-content .overview-section .overview-content {
+        color: #a2a2a2;
+        font-size: 1em; }
+
+@media (min-width: 695px) {
+  .side-content .overview-section {
+    padding-left: 10px !important;
+    padding-right: 10px !important; }
+    .side-content .overview-section:last-child {
+      margin-top: 15px !important; } }
+
+@media (min-width: 993px) {
+  .side-content .overview-section:last-child {
+    margin-top: 60px !important; } }
+
+@media (min-width: 1200px) {
+  .side-content .overview-section:last-child {
+    margin-top: 125px !important; } }
+
+@media (max-width: 770px) {
+  .side-content .overview-section {
+    padding-left: 30px !important;
+    padding-right: 30px !important; }
+    .side-content .overview-section .title {
+      margin-bottom: 0; }
+    .side-content .overview-section:first-child {
+      padding-bottom: 15px; }
+    .side-content .overview-section:last-child {
+      margin-top: 0 !important;
+      padding-top: 0; } }

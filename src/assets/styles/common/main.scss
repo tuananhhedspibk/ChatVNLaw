@@ -37,6 +37,8 @@ body {
 .logo-app {
   background-color: $blue-logo;
   height: 100vh;
+  position: absolute;
+  z-index: 100;
   width: 100%;
 
   .logo-section {

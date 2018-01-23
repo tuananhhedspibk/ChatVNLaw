@@ -139,17 +139,15 @@ class ChatBox extends Component {
   } 
 
   handleScroll(event) {
-    if(event.srcElement) {
-      if(event.srcElement.scrollTop === 0) {
-        let properties = {};
-        if(this.state.messages[0]){
-          properties['roomId'] = this.state.currentRoomId;
-          properties['component'] = this;
-          properties['limit'] = 15;
-          properties['ts'] = ""+(parseInt(this.state.messages[0].msgTimeStamp) - 1);          
-          Messages.history(properties, function(){
-          });
-        }
+    if(this.refs.scrollbars.getScrollTop() == 0) {
+      let properties = {};
+      if(this.state.messages[0]){
+        properties['roomId'] = this.state.currentRoomId;
+        properties['component'] = this;
+        properties['limit'] = 15;
+        properties['ts'] = ""+(parseInt(this.state.messages[0].msgTimeStamp) - 1);          
+        Messages.history(properties, function(){
+        });
       }
     }
   }

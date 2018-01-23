@@ -6,7 +6,7 @@ import UserLogin from './components/user/login';
 import UserSignUp from './components/user/signup';
 
 import UserDashBoard from './components/lawyer/dashboard/main';
-import ChatView from './components/chat/chatview';
+import Chat from './components/chat/chat';
 
 import Attorney from './components/attorney/attorney';
 import Payment from './components/payments/payment';
@@ -35,7 +35,7 @@ const Routes = props => (
       <Route path='/signup' component={UserSignUp}/>
       <Route path='/notifications' component={Notifications}/>
       <Route path='/dashboard' component={UserDashBoard}/>
-      <Route path='/chat/:user_name' component={ChatView}/>
+      <Route path='/chat/:user_name' component={Chat}/>
       <Route path='/attorney' component={Attorney}/>
       <Route path='/applylawyer/:user_name' component={ApplyLawyer} />
       <Route path='/searchlaw' component={SearchLaw} />

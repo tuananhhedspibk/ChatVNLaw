@@ -3,132 +3,141 @@
 .apply-lawyer-container {
   border-radius: 5px;
   border: 1px solid $gray-lighter;
+  margin-bottom: 40px;
   margin-top: 40px;
 
   .tab-content {
     background-color: transparent;
     border: 0;
-    padding: 8px 15px;
+    padding: 18px 25px;
 
     .form-section {
+      display: inline-block;
       font-size: 1.2em;
+      width: 100%;
 
       .form-control {
         font-size: 1em;
       }
 
+      textarea {
+        min-height: 80px;
+      }
+
       .apply-lawyer-header {
         font-size: 1.3em;
         font-weight: bold;
-        margin-bottom: 15px;
+        margin-bottom: 8px;
+      }
+
+      &:first-child {
+        margin-bottom: 10px;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+  
+    .apply-lawyer-button {
+      background-color: $blue;
+      border: 1px solid $blue;
+      border-radius: 5px;
+      color: $white;
+      cursor: pointer;
+      float: right;
+      font-size: 1em;
+      font-weight: bold;
+      margin-bottom: 6px;
+      margin-top: 5px;
+      margin-left: 10px;
+      padding: 8px 13px;
+  
+      &:hover {
+        background-color: $white;
+        color: $blue;
+        transition: all .5s ease;
       }
     }
   }
 
-  .change-step-btn {
-    background-color: $blue;
-    border: 1px solid $blue;
-    border-radius: 5px;
-    color: $white !important;
-    cursor: pointer;
-    display: inline-block;
-    float: right;
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 30px;
-    margin-top: 10px;
-    padding: 8px 15px;
-
-    &:hover {
-      background-color: $white;
-      color: $blue !important;
-      transition: all .5s ease;
-    }
-  }
-
-  .previous-step-btn {
-    background-color: $gray;
-    border: 1px solid $gray;
-    font-size: .9em;
-
-    &:hover {
-      background-color: $white;
-      color: $gray !important;
-      transition: all .5s ease;
-    }
-  }
-
-  .apply-lawyer-button {
-    background-color: $blue;
-    border: 1px solid $blue;
-    border-radius: 5px;
-    color: $white;
-    cursor: pointer;
-    float: right;
-    font-size: .9em;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-left: 10px;
-    padding: 10px 15px;
-
-    &:hover {
-      background-color: $white;
-      color: $blue;
-      transition: all .5s ease;
-    }
-  }
-
-  #problem-section-overview {
-    display: none;
-  }
-
   .side-content {
     box-shadow: -3px 0 6px 0 $gray-lighter;
-  }
+    height: 100%;
 
-  .overview-section {
-    font-size: 1.2em;
-    padding: 30px 10px;
-    text-align: center;
-
-    .fa {
-      color: $blue;
-      font-size: 2.8em;
-      margin-bottom: 5px;
-    }
-
-    .title {
-      font-size: 1.4em;
-    }
-
-    .overview-content {
-      color: $gray;
-      font-size: 1em;
-    }
-  }
-
-  .nav-sidebar {
-    font-size: 1.2em;
-    padding-top: 22px;
-
-    .nav-pills {
-      justify-content: center;
-    }
-
-    li {
-      cursor: pointer;
-      height: 25px;
+    .overview-section {
+      font-size: 1.2em;
+      padding: 30px 10px;
       text-align: center;
-      width: 25px;
+  
+      .fa {
+        color: $blue;
+        font-size: 2.8em;
+        margin-bottom: 5px;
+      }
+  
+      .title {
+        font-size: 1.4em;
+      }
+  
+      .overview-content {
+        color: $gray;
+        font-size: 1em;
+      }
     }
+  }
+}
 
-    .active {
-      background-color: $blue;
-      border-radius: 50%;
-      color: $white;
+@media (min-width: 695px) {
+  .side-content {
+    .overview-section {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
 
-      &:hover {
-        color: $white;
+      &:last-child {
+        margin-top: 15px !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 993px) {
+  .side-content {
+    .overview-section {
+      &:last-child {
+        margin-top: 60px !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .side-content {
+    .overview-section {
+      &:last-child {
+        margin-top: 125px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 770px) {
+  .side-content {
+    .overview-section {
+      padding-left: 30px !important;
+      padding-right: 30px !important;
+
+      .title {
+        margin-bottom: 0;
+      }
+
+      &:first-child {
+        padding-bottom: 15px;
+      }
+
+      &:last-child {
+        margin-top: 0 !important;
+        padding-top: 0;
       }
     }
   }
