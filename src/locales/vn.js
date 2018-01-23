@@ -165,7 +165,11 @@ module.exports = {
     },
     attorney: {
       book: 'Đặt lịch hẹn',
-      view_profile: 'Xem hồ sơ'
+      view_profile: 'Xem hồ sơ',
+      cost: 'Phí tư vấn',
+      hour: ' / giờ',
+      online: 'Đang hoạt động',
+      away: 'Không hoạt động'
     },
     nav: {
       brow_law: 'Tìm kiếm luật',

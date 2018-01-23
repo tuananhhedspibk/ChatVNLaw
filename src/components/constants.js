@@ -54,13 +54,14 @@ export const handShakePic = require('../assets/images/handshake.png');
 export const offStickyPic = require('../assets/images/sticky_off.png');
 export const onStickyPic = require('../assets/images/sticky_on.png');
 export const pencilCursorPic = require('../assets/images/pencil_cursor.png');
-export const openIcon = require('../assets/images/open.png')
-export const closeIcon = require('../assets/images/close.png')
-export const cartIcon = require('../assets/images/cart.png')
-export const totalTimeIcon = require('../assets/images/total_time.png')
-export const hammerIcon = require('../assets/images/hammer.png')
-export const anvilIcon = require('../assets/images/anvil.png')
-export const tingIcon = require('../assets/images/ting.png')
+export const openIcon = require('../assets/images/open.png');
+export const closeIcon = require('../assets/images/close.png');
+export const cartIcon = require('../assets/images/cart.png');
+export const totalTimeIcon = require('../assets/images/total_time.png');
+export const hammerIcon = require('../assets/images/hammer.png');
+export const anvilIcon = require('../assets/images/anvil.png');
+export const tingIcon = require('../assets/images/ting.png');
+export const supportIcon = require('../assets/images/support-icon.png');
 
 export const PEERJS_KEY = 'peerjs';
 
