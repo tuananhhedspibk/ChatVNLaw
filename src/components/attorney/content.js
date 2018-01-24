@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import ReactLoading from 'react-loading';
 import firebase from 'firebase';
+import ReactStars from 'react-stars';
+import { Dropdown } from 'semantic-ui-react';
 
+import ReadMore from '../shared/readmore';
 import * as constant from '../constants';
 import * as Lawyers from '../../lib/user/lawyers';
 
@@ -78,7 +81,7 @@ class Content extends Component {
 
 	renderResultArr(){
 		return (
-			<div>
+			<div className='lawyers'>
 				{this.state.result.map((element)=>{
 					return(	
 						<div className='lawyer' onClick={
@@ -88,11 +91,35 @@ class Content extends Component {
 									<div className='name' title={element.fullname}>
 										{element.fullname}
 									</div>
+									<div className='status online-status'>
+										{translate('app.attorney.online')}
+									</div>
 									<div className='cost'>
-										<div>{translate('app.attorney.cost')}</div>
 										<div className='value'>
 											200,000 Đ {translate('app.attorney.hour')}
 										</div>
+									</div>
+									<div className='rate'>
+										<ReactStars
+											count={5}
+											value={5}
+											edit={false}
+											size={20}
+											color2={'#ffd700'} />
+									</div>
+									<div className='attorney-intro'>
+										<ReadMore has_link={false} lines={2}>
+											Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào
+											việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được
+											sử dụng như một văn bản chuẩn cho ngành công nghiệp in ấn từ những
+											năm 1500, khi một họa sĩ vô danh ghép nhiều đoạn văn bản với nhau để
+											tạo thành một bản mẫu văn bản. Đoạn văn bản này không những đã tồn tại
+											năm thế kỉ, mà khi được áp dụng vào tin học văn phòng, nội dung của nó
+											vẫn không hề bị thay đổi. Nó đã được phổ biến trong những năm 1960 nhờ 
+											việc bán những bản giấy Letraset in những đoạn Lorem Ipsum,
+											và gần đây hơn, được sử dụng trong các ứng dụng dàn trang,
+											như Aldus PageMaker.
+										</ReadMore>
 									</div>
 									<div className='specializes'>
 										<div className='item'>
@@ -112,16 +139,6 @@ class Content extends Component {
 										</div>
 									</div>
 								</div>
-								<div className='status-block'>
-									<div className='status-icon'>
-										<img src={constant.supportIcon}/>
-										<div className='icon online-icon'>
-										</div>
-									</div>
-									<div className='status-text online-text'>
-										{translate('app.attorney.online')}
-									</div>
-								</div>
 						</div>
 					)
 				})}
@@ -130,10 +147,30 @@ class Content extends Component {
 	}
 
 	render() {
+		let sortOptions = [
+			{
+				text: translate('app.attorney.rate'),
+				value: translate('app.attorney.rate'),
+			},
+			{
+				text: translate('app.attorney.cost'),
+				value: translate('app.attorney.cost'),
+			}
+		];
+
 		if(!this.state.isLoading){
 			return(
-				<div>
-					{this.renderCountNumberOfResult()}
+				<div className='content-wrapper'>
+					<div className='header'>
+						{this.renderCountNumberOfResult()}
+						<div className='sort-by'>
+							<div className='label'>
+								{translate('app.attorney.sort_by')}
+							</div>
+							<Dropdown options={sortOptions}
+								defaultValue={sortOptions[0].value}/>
+						</div>
+					</div>
 					{this.renderResultArr()}
 				</div>
 			)

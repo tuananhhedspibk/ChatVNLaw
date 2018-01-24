@@ -61,7 +61,6 @@ export const totalTimeIcon = require('../assets/images/total_time.png');
 export const hammerIcon = require('../assets/images/hammer.png');
 export const anvilIcon = require('../assets/images/anvil.png');
 export const tingIcon = require('../assets/images/ting.png');
-export const supportIcon = require('../assets/images/support-icon.png');
 
 export const PEERJS_KEY = 'peerjs';
 

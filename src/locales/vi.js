@@ -167,10 +167,16 @@ module.exports = {
     attorney: {
       book: 'Đặt lịch hẹn',
       view_profile: 'Xem hồ sơ',
+      hour: ' / h',
+      online: 'Sẵn sàng',
+      away: 'Tạm nghỉ',
+      rate: 'Xếp hạng',
       cost: 'Phí tư vấn',
-      hour: ' / giờ',
-      online: 'Đang hoạt động',
-      away: 'Không hoạt động'
+      sort_by: 'Sắp xếp theo',
+      search_placeholder: 'Tìm kiếm theo tên luật sư',
+      filter: 'Lọc kết quả theo',
+      specialize: 'Lĩnh vực',
+      top_view: 'Luật sư được xem nhiều'
     },
     nav: {
       brow_law: 'Tìm kiếm luật',

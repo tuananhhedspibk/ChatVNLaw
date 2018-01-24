@@ -2,71 +2,142 @@
 
 .attorney {
   background-color: $gray-more-lighter;
+  padding: 35px 50px 0;
   min-height: calc(100vh - 225px);
 
   hr {
     margin-bottom: 25px;
+    margin-top: 20px;
     width: calc(100% - 30px);
   }
 
-  .find {
-    display: inline-block;
-    font-size: 1.3em;
-    padding: 15px;
-    padding-top: 25px;
-
+  .top-view {
     .title {
-      font-size: 1.5em;
+      font-size: 1.2em;
       font-weight: bold;
+      padding-top: 10px;
+      text-transform: uppercase;
+      word-wrap: break-word;
     }
 
-    input {
-      border: 1px solid $gray-lighter;
+    hr {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .item {
+      background-color: $white;
       border-radius: 5px;
-      margin-right: 15px;
-      margin-top: 15px;
-      padding: 8px 12px;
-      width: calc((100% - 87px) / 2);
-
-      &:focus {
-        outline-width: 1px;
-        outline-color: $blue;
-      }
-    }
-
-    .slogan {
-      margin-top: 15px;
-    }
-
-    .search-button {
-      background-color: $blue;
-      border: 0;
-      border-radius: 5px;
-      color: $white;
       cursor: pointer;
-      padding: 8px 18px;
-      
-      &:focus {
-        background-color: $blue-darker;
-        outline: 0;
+      display: inline-block;
+      margin-bottom: 15px;
+      padding: 15px 15px;
+      width: 100%;
+
+      &:hover {
+        box-shadow: 1px 1px 1px 1px $gray-medium;
+        transition: all .4s ease;
+      }
+
+      .intro {
+        color: $gray-darker;
+        float: left;
+        margin-left: 10px;
+        width: calc(100% - 70px);
+      }
+
+      img {
+        border-radius: 50%;
+        float: left;
+        height: 60px;
+        width: 60px;
+      }
+
+      .name {
+        display: inline-block;
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-bottom: 0;
+        margin-left: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
 
-  .search-result {
-    font-size: 1.2em;
-    .results-statistic {
-      padding: 0 15px;
-      div {
-        display: inline-block;
+  .filter-section {
+    .label {
+      font-size: 1.3em;
+      font-weight: bold;
+      padding-top: 10px;
+      text-transform: uppercase;
+    }
+
+    .specialize {
+      .title {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 8px;
       }
 
-      .key-search {
-        font-weight: bold;
+      .items {
+        font-size: 1.2em;
+
+        .item {
+          margin-bottom: 5px;
+        }
       }
-      
-      .key-matched {
-        margin-left: 10px;
+    }
+
+    hr {
+      margin-top: 14px;
+      width: 100%;
+    }
+  }
+
+  .search-section {
+    align-items: center;
+    display: flex;
+    padding-bottom: 15px;
+    padding-left: 15px;
+
+    input {
+      border: 1px solid $gray-lighter;
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      font-size: 1.3em;
+      outline: 0;
+      padding: 12px 18px;
+      width: calc(100% - 70px);
+
+      &:focus {
+        box-shadow: 1px 2px 8px 0 $gray-medium;
+        transition: all .3s ease;
+      }
+    }
+
+    button {
+      background-color: $blue;
+      border: 0;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+      color: $white;
+      cursor: pointer;
+      font-size: 1.4em;
+      padding: 12px 20px;
+
+      &:hover {
+        background-color: $blue-lighter;
+        transition: all .2s ease;
+      }
+
+      &:focus {
+        background-color: $blue-less-darker;
+      }
+
+      &:visited {
+        background-color: $blue;
       }
     }
   }
@@ -75,9 +146,40 @@
     padding: 0 15px;
     margin-bottom: 40px;
 
+    .header {
+      align-items: center;
+      display: flex;
+    }
+
+    .sort-by {
+      display: inline-block;
+      font-size: 1.2em;
+      margin-left: auto;
+  
+      .label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .ui.dropdown {
+        background-color: $white;
+        border: 1px solid $gray-lighter;
+        border-radius: 5px;
+        padding: 5px 8px;
+
+        span.text {
+          font-size: 1.1em;
+        }
+      }
+    }
+
     .result-stas {
+      display: inline-block;
       font-size: 1.3em;
-      margin-bottom: 20px;
+    }
+
+    .lawyers {
+      margin-top: 20px;
     }
 
     .lawyer{
@@ -90,18 +192,9 @@
       padding: 0 15px;
       width:  100%;
 
-      &:nth-child(odd) {
-        &:hover {
-          border-left: 4px solid $blue;
-          transition: all .08s ease;
-        }
-      }
-
-      &:nth-child(even) {
-        &:hover {
-          border-left: 4px solid $green-darker;
-          transition: all .08s ease;
-        }
+      &:hover {
+        box-shadow: 1px 1px 2px 1px $gray-medium;
+        transition: all .3s ease;
       }
 
       .ava {
@@ -113,7 +206,6 @@
       }
 
       .infor {
-        border-right: 5px solid $gray-more-lighter;
         border-radius: 3px;
         display: inline-block;
         float: left;
@@ -121,28 +213,59 @@
         height: 100%;
         padding-left: 25px;
         padding-top: 15px;
-        width: calc(80% - 85px);
+        width: calc(100% - 70px);
 
         .name {
           float: left;
           font-size: 1.3em;
+          max-width: 260px;
           overflow: hidden;
           text-align: left;
           text-overflow: ellipsis;
-          width: 70%;
+          white-space: nowrap;
+        }
+
+        .status {
+          border-radius: 20px;
+          color: $white;
+          display: inline-block;
+          font-weight: bold;
+          height: 29px;
+          margin-left: 15px;
+          padding: 3px 3px;
+          text-align: center;
+          width: 100px;
+        }
+
+        .online-status {
+          background-color: $online-color;
+        }
+
+        .away-status {
+          background-color: $away-color;
+        }
+
+        .attorney-intro {
+          color: $gray-darker;
+          width: 80%;
+        }
+
+        .rate {
+          display: inline-block;
+          width: 100%;
         }
 
         .specializes {
           display: inline-block;
-          padding-bottom: 15px;
+          padding-bottom: 5px;
           padding-top: 10px;
-          width: 70%;
+          width: 80%;
           
           .item {
             border: 2px solid $gray-lighter;
             border-radius: 20px;
             display: inline-block;
-            padding: 8px 16px;
+            padding: 4px 14px;
             margin-bottom: 10px;
             margin-right: 10px;
 
@@ -157,48 +280,10 @@
           color: $blue;
           float: right;
           font-weight: bold;
-          padding-right: 15px;
 
           .value {
             font-size: 1.3em;
           }
-        }
-      }
-
-      .status-block {
-        display: inline-block;
-        float: right;
-        padding-top: 30px;
-        text-align: center;
-        width: 20%;
-
-        .status-icon {
-          height: 30px !important;
-          width: 100% !important;
-          position: relative;
-
-          .icon {
-            border-radius: 50%;
-            bottom: -35px;
-            height: 12px;
-            margin: 0 auto;
-            position: absolute;
-            right: 83px;
-            width: 12px;
-          }
-        }
-
-        .status-text {
-          font-size: 1.5em;
-          padding-top: 45px;
-        }
-
-        .online-icon {
-          background-color: $online-color;
-        }
-
-        .awayicon {
-          background-color: $away-color;
         }
       }
     }

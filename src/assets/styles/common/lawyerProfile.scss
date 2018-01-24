@@ -220,6 +220,8 @@
       font-size: 1.2em;
       color: $gray;
       padding-bottom: 10px;
+      width: 100%;
+      word-wrap: break-word;
     }
   }
 }
@@ -293,7 +295,8 @@
       display: inline-block;
       margin-bottom: 0;
       margin-left: 15px;
-      width: calc(100% - 165px);
+      padding-right: 10px;
+      width: calc(100% - 175px);
       word-wrap: break-word;
     }
 
