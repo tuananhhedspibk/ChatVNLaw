@@ -4,9 +4,10 @@ import { parse } from 'qs';
 import axios from 'axios';
 import $ from 'jquery';
 import ReactPaginate from 'react-paginate';
-import Toast from '../notification/toast';
 import { EventEmitter } from 'fbemitter';
+import * as translate from 'counterpart';
 
+import Toast from '../notification/toast';
 import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
 import Result from './result';
@@ -16,8 +17,6 @@ import Category from './category';
 import * as constant from '../constants';
 
 import '../../assets/styles/common/searchLaw.css';
-
-let translate = require('counterpart');
 
 class SearchLaw extends Component {
 	constructor(props) {
@@ -38,7 +37,7 @@ class SearchLaw extends Component {
 		let offset = this.state.offset + 1;
 
 		this.setState({offset: offset}, () => {
-				component.loadDataFromServer({});
+			component.loadDataFromServer({});
 		});
 	}
 
@@ -57,7 +56,7 @@ class SearchLaw extends Component {
 		}
 		parsed.page = this.state.offset;
 
-		instance.get(constant.API_SEARCH_URI, {params: parsed})
+		instance.get(constant.API_SEARCH_ARTICLES_URI, {params: parsed})
 		.then(function (response) {
 			component.setState({articles: response.data.articles,
 				pageCount: response.data.limit_page,
@@ -75,7 +74,6 @@ class SearchLaw extends Component {
 
 	componentDidMount() {
 		this.loadDataFromServer({});
-		// this.checkTabIsFocusOrBlur();
 	}
 
 	checkTabIsFocusOrBlur() {
@@ -83,20 +81,14 @@ class SearchLaw extends Component {
 		$(window).on("blur focus", function (e) {
 			var prevType = $(this).data("prevType");
 
-			if (prevType != e.type) {   //  reduce double fire issues
+			if (prevType != e.type) {
 				switch (e.type) {
 					case "blur":
 						$('div').text("Blured");
-						// component.setState({ isFocused: false })
 						console.log("blured");
-
-						// $('div').text("Blured");
 						break;
 					case "focus":
-						// component.setState({ isFocused: true })
 						$('div').text("Focused");
-						console.log("focus");
-
 						break;
 				}
 			}
@@ -104,6 +96,7 @@ class SearchLaw extends Component {
 			$(this).data("prevType", e.type);
 		})
 	}
+
 	handlerSearch(event) {
 		event.preventDefault();
 		var query = $('.text-search-box input').val()

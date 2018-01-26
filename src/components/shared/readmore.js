@@ -31,6 +31,7 @@ class ReadMore extends Component {
     render() {
       const {
         children,
+        has_link,
         more,
         less,
         lines
@@ -41,30 +42,44 @@ class ReadMore extends Component {
         truncated
       } = this.state;
 
-      return (
-        <div>
+      if(this.props.has_link) {
+        return (
+          <div>
+            <Truncate
+              lines={!expanded && lines}
+              ellipsis={(
+                <span>... <a href='#'
+                  onClick={this.toggleLines}>{more}</a></span>
+              )}
+              onTruncate={this.handleTruncate}>
+                {children}
+            </Truncate>
+              {!truncated && expanded && (
+                <span> <a href='#'
+                  onClick={this.toggleLines}>{less}</a></span>
+              )}
+          </div>
+        );
+      }
+      else {
+        return(
           <Truncate
             lines={!expanded && lines}
             ellipsis={(
-              <span>... <a href='#'
-                onClick={this.toggleLines}>{more}</a></span>
-            )}
-            onTruncate={this.handleTruncate}>
-              {children}
+              <span>...</span>
+            )}>
+            {children}
           </Truncate>
-            {!truncated && expanded && (
-              <span> <a href='#'
-                onClick={this.toggleLines}>{less}</a></span>
-            )}
-        </div>
-      );
+        )
+      }
     }
 }
 
 ReadMore.defaultProps = {
   lines: 3,
   more: 'xem thêm',
-  less: 'thu nhỏ'
+  less: 'thu nhỏ',
+  has_link: true
 };
 
 ReadMore.propTypes = {
