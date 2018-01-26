@@ -226,9 +226,7 @@ module.exports = {
       results: 'result(s)',
       not_found_symbol: '>_<',
       has: 'Has',
-      search_lawyer: {
-        title: 'You searched for '
-      },
+      you_mean: 'You want to search: ',
       search_tool: {
         title: 'Search',
         key_search: 'Search keywords',

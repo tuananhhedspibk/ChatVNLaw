@@ -66,6 +66,14 @@
     }
   }
 
+  .ui.dropdown:not(.button)>.default.text {
+    color: $black;
+  }
+
+  .pretty .state label {
+    text-indent: 1.6em;
+  }
+
   .filter-section {
     .label {
       font-size: 1.3em;
@@ -85,7 +93,9 @@
         font-size: 1.2em;
 
         .item {
-          margin-bottom: 5px;
+          margin-bottom: 8px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -102,19 +112,27 @@
     padding-bottom: 15px;
     padding-left: 15px;
 
-    input {
-      border: 1px solid $gray-lighter;
-      border-bottom-left-radius: 5px;
-      border-top-left-radius: 5px;
-      font-size: 1.3em;
-      outline: 0;
-      padding: 12px 18px;
-      width: calc(100% - 70px);
+    form {
+      width: 100%;
+    }
 
-      &:focus {
-        box-shadow: 1px 2px 8px 0 $gray-medium;
-        transition: all .3s ease;
+    .rbt {
+      float: left;
+      width: calc(100% - 60px);
+
+      .dropdown-item {
+        font-size: 1.2em;
+        &:hover {
+          color: $white;
+        }
       }
+    }
+
+    .form-control {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      font-size: 1.3em;
+      padding: 14px 17px;
     }
 
     button {
@@ -143,8 +161,12 @@
   }
 
   .attorney-result-content{
-    padding: 0 15px;
     margin-bottom: 40px;
+    padding: 0 15px;
+
+    .loading-symbol {
+      margin: 6px auto 0;
+    }
 
     .header {
       align-items: center;
@@ -173,9 +195,37 @@
       }
     }
 
+    .header-wrapper {
+      display: inline-block;
+      padding-right: 10px;
+      width: 60%;
+    }
+
     .result-stas {
       display: inline-block;
       font-size: 1.3em;
+      width: 100%;
+    }
+
+    .suggest {
+      display: none;
+      font-size: 1.3em;
+      width: 100%;
+
+      .suggest-title {
+        color: $red;
+        display: inline-block;
+        font-weight: bold;
+      }
+
+      .suggest-name {
+        color: $blue;
+        cursor: pointer;
+        font-weight: bold;
+        margin-left: 10px;
+        text-decoration: underline;
+        word-wrap: break-word;
+      }
     }
 
     .lawyers {

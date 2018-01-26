@@ -290,10 +290,7 @@ module.exports = {
       results: 'kết quả',
       not_found_symbol: '>_<',
       has: 'Có',
-      search_lawyer: {
-        title: 'Bạn tìm kiếm cho ',
-        matches: ' kết quả khớp'
-      },
+      you_mean: 'Bạn muốn tìm: ',
       search_tool: {
         title: 'Tìm kiếm',
         key_search: 'Từ khóa tìm kiếm',

@@ -15,19 +15,13 @@ export const DASHBOARD_URI = '/dashboard';
 export const LAW_URI = '/articles/';
 
 export const API_BASE_URL = 'http://localhost:4000/api';
-export const API_SEARCH_URI = '/searches';
+export const API_SEARCH_ARTICLES_URI = '/search/articles';
+export const API_SEARCH_LAWYERS_URI = '/search/lawyers';
+export const API_TOP_LAWYERS_URI = '/lawyers/top';
+export const API_ALL_LAWYERS_NAME_URI = '/lawyers/names';
 export const API_ARTICLES_URI = '/articles';
 
 export const DEFAULT_AVATAR_URL = 'https://image.ibb.co/i23jUF/default_ava.png';
-
-let alertOptions = {
-  offset: 14,
-  position: 'top right',
-  theme: 'dark',
-  time: 5000,
-  transition: 'scale'
-}
-
 
 let config = {
   'apiKey': 'AIzaSyBMem-ZKdVhPS2uwB3gXLPtD1YdQQthDK0',
@@ -41,7 +35,6 @@ let config = {
 export const ROOM_FILES = 'room_files';
 export const STUN_SERVER_LIST = 'stun_server_list'; 
 export const APP_CONFIG = config;
-export const ALERT_OPTIONS = alertOptions;
 export const flag = true;
 
 export const avaLawyerPic = require('../assets/images/default-ava-lawyer.png');

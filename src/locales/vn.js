@@ -283,11 +283,8 @@ module.exports = {
       founded: 'Tìm thấy',
       results: 'kết quả',
       has: 'Có',
+      you_mean: 'Bạn muốn tìm: ',
       not_found_symbol: '>_<',
-      search_lawyer: {
-        title: 'Bạn tìm kiếm cho ',
-        matches: ' kết quả khớp'
-      },
       search_tool: {
         title: 'Tìm kiếm',
         key_search: 'Từ khóa tìm kiếm',

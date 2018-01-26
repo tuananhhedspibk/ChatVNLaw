@@ -18,12 +18,14 @@ class Result extends Component {
 							<div className='law-status'>
 								<div className='public-day'>
 									<div className='sub-title'>
-										{translate('app.search.search_tool.order_by.order_by_1')}: {this.props.article.public_day}
+										{translate('app.search.search_tool.order_by.order_by_1')}:
+										 {this.props.article.public_day}
 									</div>
 								</div>
 								<div className='effect-day'>
 									<div className='sub-title'>
-										{translate('app.search.search_tool.order_by.order_by_2')}: {this.props.article.effect_day}
+										{translate('app.search.search_tool.order_by.order_by_2')}:
+										 {this.props.article.effect_day}
 									</div>
 								</div>
 								<div className='effect-status'>
