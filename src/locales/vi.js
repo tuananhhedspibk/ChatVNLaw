@@ -13,7 +13,7 @@ module.exports = {
       signup: 'Đăng kí',
       login: 'Đăng nhập',
       logout: 'Đăng xuất',
-      search: 'Tìm kiếm luật',
+      search: 'Tra cứu luật',
       profile: 'Trang cá nhân',
       login_face: 'Đăng nhập bằng facebook',
       login_google: 'Đăng nhập bằng google',
@@ -116,7 +116,7 @@ module.exports = {
         button_content: 'Bắt đầu'
       },
       search_law: {
-        title: 'Tìm kiếm luật',
+        title: 'Tra cứu luật',
         des: 'Ngoài tư vấn luật bạn cũng có thể tra cứu luật cùng chúng tôi',
         field_1: {
           title: 'Hình sự',
@@ -179,7 +179,7 @@ module.exports = {
       top_view: 'Luật sư được xem nhiều'
     },
     nav: {
-      brow_law: 'Tìm kiếm luật',
+      brow_law: 'Tra cứu luật',
       brow_lawyers: 'Tìm kiếm luật sư',
       support: 'Hỗ trợ',
       chat: 'Chat',

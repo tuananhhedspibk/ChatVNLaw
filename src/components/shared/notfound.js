@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../homepage/nav';
+import Footer from '../homepage/footer';
 import NotFoundContent from './notfoundcontent';
 
 import * as constant from '../constants';
@@ -14,6 +15,7 @@ class NotFound extends Component {
       <div className='notfound-wrapper'>
         <Nav navStyle='inverse'/>
         <NotFoundContent />
+        <Footer/>
       </div>
     )
   }

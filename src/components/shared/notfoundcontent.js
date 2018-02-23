@@ -11,7 +11,6 @@ class NotFoundContent extends Component {
   render() {
     return (
       <div className='notfound-wrapper'>
-      
         <div className='container'>
           <div className='row justify-content-md-center'>
             <div className='error-pic'>
