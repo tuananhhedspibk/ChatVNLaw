@@ -1,7 +1,7 @@
 .search-law {
   background-color: #f1f1f1; }
   .search-law .search-law-inner {
-    min-height: calc(100vh - 225px); }
+    min-height: calc(100vh - 68px); }
 
 .side-section {
   background-color: #fff;
@@ -223,6 +223,10 @@
   .not-found-any-results .symbol-not-found {
     color: #2385f2;
     font-size: 2.3em; }
+
+@-moz-document url-prefix() {
+  .search-law .search-law-inner {
+    min-height: calc(100vh - 66.5px); } }
 
 @media (max-width: 750px) {
   .results {

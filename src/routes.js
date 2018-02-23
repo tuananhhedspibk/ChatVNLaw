@@ -49,7 +49,8 @@ const Routes = props => (
       <Route exact path='/' render={() => (
         <Redirect to='/home'/>  
       )}/>
-      <Route path='*' component={NotFoundPage}/>
+      <Route path='/404' component={NotFoundPage}/>
+      <Redirect from='*' to='/404'/>
     </Switch>
   </Router>
 );
