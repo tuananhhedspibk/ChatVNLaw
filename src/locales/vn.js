@@ -22,24 +22,24 @@ module.exports = {
     },
     button:{
       create_new_chat: 'Tạo cuộc trò chuyện',
-      destroy_room_request: 'Hủy yêu cầu.'
+      destroy_room_request: 'Hủy yêu cầu'
     },
     notification:{
-      new_request_from_other: ' đã gửi cho bạn một yêu cầu.',
+      new_request_from_other: ' đã gửi cho bạn một yêu cầu',
       new_room_request_title: ' gửi cho bạn yêu cầu tạo cuộc trò chuyện',
-      new_accept_room_request_title: ' đã chấp nhận yêu cầu tạo cuộc trò chuyện của bạn.',
-      new_refuse_room_request_title: ' đã từ chối yêu cầu tạo cuộc trò chuyện của bạn.',
-      new_accept_room_request: ' đã chấp nhận yêu cầu của bạn.',
-      new_refuse_room_request: ' đã từ chối yêu cầu của bạn.',
+      new_accept_room_request_title: ' đã chấp nhận yêu cầu tạo cuộc trò chuyện của bạn',
+      new_refuse_room_request_title: ' đã từ chối yêu cầu tạo cuộc trò chuyện của bạn',
+      new_accept_room_request: ' đã chấp nhận yêu cầu của bạn',
+      new_refuse_room_request: ' đã từ chối yêu cầu của bạn',
       click_here: 'Click để xem chi tiết!',
-      already_known: 'Tôi biết rồi.',
+      already_known: 'Tôi biết rồi',
       to_chat_room: 'Tới phòng chat',
       time_created: 'Thời gian tạo: ',
       detail: 'Chi tiết:',
       create_dialog: 'Tạo cuộc trò chuyện',
       evaluate: 'Đánh giá:',
-      agree_with_case: 'Tôi đồng ý tiếp nhận vụ án.',
-      disagree_with_case: 'Tôi không đồng ý tiếp nhận vụ án.',
+      agree_with_case: 'Tôi đồng ý tiếp nhận vụ án',
+      disagree_with_case: 'Tôi không đồng ý tiếp nhận vụ án',
       detail: 'Chi tiết:',
       create_new_chat: 'Tạo cuộc trò chuyện'
     },

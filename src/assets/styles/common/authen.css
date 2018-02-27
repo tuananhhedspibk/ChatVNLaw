@@ -13,6 +13,8 @@
   .login-page .header-nav {
     font-size: 1.1em; }
   .login-page .justify-content-md-center {
+    max-width: 100%;
+    min-height: calc(100vh - 63.5px);
     padding: 20px; }
     .login-page .justify-content-md-center .box {
       background-color: #fff;

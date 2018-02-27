@@ -22,6 +22,8 @@ $yellow-lighter: #fd9d16;
   }
 
   .justify-content-md-center {
+    max-width: 100%;
+    min-height: calc(100vh - 63.5px);
     padding: 20px; 
 
     .box {
