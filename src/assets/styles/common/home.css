@@ -115,6 +115,8 @@
   display: inline-block;
   padding: 0 85px 65px;
   width: 100%; }
+  .home-page .main-content .hot-lawyers .now-focus {
+    background-color: #f6f6f6; }
   .home-page .main-content .hot-lawyers .title {
     font-size: 1.5em;
     padding-bottom: 20px; }

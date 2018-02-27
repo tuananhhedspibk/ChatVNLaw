@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactLoading from 'react-loading';
+import $ from 'jquery';
 
 import * as constant from '../constants';
 import * as Lawyers from '../../lib/user/lawyers';
@@ -24,8 +25,12 @@ class HotLawyers extends Component {
     })
   }
 
-  changeLawyer(lawyer) {
+  changeLawyer(lawyer, current_lawyer_id) {
     this.setState({currentLawyer: lawyer});
+    for(var i = 0; i < this.state.lawyers.length; i++) {
+      $('#lawyer-' + i).removeClass('now-focus');
+    }
+    $('#lawyer-' + current_lawyer_id).addClass('now-focus');
   }
 
   applyLawyer(){
@@ -34,14 +39,17 @@ class HotLawyers extends Component {
   }
 
   getInfoLawyer(){
-    var component = this
-    if(!!this.state.currentLawyer){
-      var profileLawyer = "/lawyers/"+ this.state.currentLawyer.username;
-      return(component.renderInfoLawyer(profileLawyer, this.state.currentLawyer, component.bind))
+    var component = this;
+    if(this.state.currentLawyer){
+      var profileLawyer = "/lawyers/" + this.state.currentLawyer.username;
+      var current_lawyer_id = this.state.lawyers.indexOf(this.state.currentLawyer);
+      $('#lawyer-' + current_lawyer_id).addClass('now-focus');
+      return(component.renderInfoLawyer(profileLawyer, this.state.currentLawyer, component.bind));
     }
     else {
-      var profileLawyer = "/lawyers/"+ this.state.lawyers[0].username;
-      return(component.renderInfoLawyer(profileLawyer, this.state.lawyers[0]))
+      this.setState({currentLawyer: this.state.lawyers[0]});
+      $('#lawyer-0').addClass('now-focus');
+      return(component.renderInfoLawyer(profileLawyer, this.state.lawyers[0]));
     }
   }
 
@@ -89,10 +97,10 @@ class HotLawyers extends Component {
               </div>
               <div className='lawyers'>
                 {
-                  this.state.lawyers.map((lawyer) => {
+                  this.state.lawyers.map((lawyer, idx) => {
                     return(
-                      <div className='lawyer'
-                        onClick={this.changeLawyer.bind(this, lawyer)}>
+                      <div className='lawyer' id={'lawyer-' + idx}
+                        onClick={this.changeLawyer.bind(this, lawyer, idx)}>
                           <img className='ava'
                             src={lawyer.photoURL} />
                           <div className='infor'>
@@ -118,6 +126,7 @@ class HotLawyers extends Component {
       </div>
     )
   }
+
   render(){
     if(this.state.isloading){
       return(
