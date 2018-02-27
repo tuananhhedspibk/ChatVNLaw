@@ -1,19 +1,26 @@
 .notfound-wrapper {
   display: inline-block;
-  height: 100vh;
+  min-height: calc(100vh - 64px);
   width: 100%; }
   .notfound-wrapper .back-to-home {
     background-color: #2385f2;
-    border-radius: 10px;
+    border: 1px solid #2385f2;
+    border-radius: 5px;
     color: #fff;
+    cursor: pointer;
     font-size: 1.4em;
     font-weight: bold;
     margin-top: 25px;
-    padding: 15px 20px; }
+    padding: 10px 20px;
+    transition: all .4s ease; }
     .notfound-wrapper .back-to-home:hover {
-      text-decoration: none; }
+      background-color: #fff;
+      color: #2385f2;
+      text-decoration: none;
+      transition: all .4s ease; }
   .notfound-wrapper .container {
-    margin-top: 80px; }
+    margin-bottom: 95px;
+    margin-top: 95px; }
   .notfound-wrapper .error-pic {
     text-align: center;
     width: 100%; }
@@ -29,3 +36,10 @@
   .notfound-wrapper .main-content {
     color: #2385f2;
     display: inline-block; }
+
+@-moz-document url-prefix() {
+  .notfound-wrapper {
+    min-height: calc(100vh - 66.5px); }
+    .notfound-wrapper .container {
+      margin-bottom: 50px;
+      margin-top: 50px; } }

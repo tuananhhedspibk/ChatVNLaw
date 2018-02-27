@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import $ from 'jquery';
-import {signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged}
-  from '../../lib/user/authentication';
+import {EventEmitter} from 'fbemitter';
+
 import Loading from '../shared/loading';
 import Toast from '../notification/toast';
-import {EventEmitter} from 'fbemitter';
 import Nav from '../homepage/nav';
+import Footer from '../homepage/footer';
+
+import {signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged}
+  from '../../lib/user/authentication';
 import {checkAlreadyLogin} from '../../lib/notification/toast';
 
 import * as constant from '../constants';
@@ -178,6 +181,7 @@ class UserLogin extends Component {
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     )
   }
