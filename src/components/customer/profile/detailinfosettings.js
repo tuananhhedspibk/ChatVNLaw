@@ -4,9 +4,10 @@ import { Header, TextArea,
   Button, Image,Modal, Dropdown } from 'semantic-ui-react';
 import * as $ from 'jquery';
 import axios from 'axios';
-import * as constant from '../../constants';
-var dateFormat = require('dateformat');
 
+import * as constant from '../../constants';
+
+var dateFormat = require('dateformat');
 let translate = require('counterpart');
 
 class DetailInfoSettings extends Component {
