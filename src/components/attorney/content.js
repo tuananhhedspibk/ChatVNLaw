@@ -160,6 +160,7 @@ class Content extends Component {
 				}
 			})
 			.catch(function (error) {
+				component.setState({isLoading: false});
 				component.setState({
 					lawyers: [], number_lawyers: 0,
 					offset: 1, pageCount: 0

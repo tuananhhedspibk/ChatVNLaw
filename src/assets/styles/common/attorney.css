@@ -225,3 +225,7 @@
           font-weight: bold; }
           .attorney .attorney-result-content .lawyer .infor .cost .value {
             font-size: 1.3em; }
+
+@-moz-document url-prefix() {
+  .attorney .attorney-result-content .header-wrapper {
+    width: 56%; } }
