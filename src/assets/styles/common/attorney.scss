@@ -339,3 +339,13 @@
     }
   }
 }
+
+@-moz-document url-prefix() {
+  .attorney {
+    .attorney-result-content{
+      .header-wrapper {
+        width: 56%;
+      }
+    }
+  }
+}
