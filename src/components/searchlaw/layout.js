@@ -25,6 +25,7 @@ class SearchLaw extends Component {
 			articles: [],
 			offset: 1,
 			number_articles: 0,
+			pageCount: 0
 		};
 		this.emitter = new EventEmitter();
 		this.handlerCategoryType = this.handlerCategoryType.bind(this);

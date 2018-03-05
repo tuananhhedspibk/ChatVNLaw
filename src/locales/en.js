@@ -21,6 +21,7 @@ module.exports = {
       show_less: 'show less'
     },
     notification:{
+      no_noti: 'No notifcation now',
       new_request_from_other: ' has sended to you a request.',
       click_here: 'Click here for detail!',
       time_created: 'Time created: ',

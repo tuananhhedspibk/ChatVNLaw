@@ -139,6 +139,10 @@ class Notifications extends Component{
         <div>
         <Nav navStyle='inverse'/>
         <div className='notifi-wrapper'>
+          <div className='no-notifi-content'>
+            <i className='fa fa-bell'></i>
+            <div>{translate('app.notification.no_noti')}</div>
+          </div>
         </div>
       </div>  
       )

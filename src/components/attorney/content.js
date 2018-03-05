@@ -44,8 +44,13 @@ class Content extends Component {
 	}
 
 	componentDidMount() {
-		this.loadDataFromServer({}, false, false);
-		this.loadNameFromServer();
+		if (!this.props.lawyers) {
+			this.loadDataFromServer({}, false, false);
+			this.loadNameFromServer();
+		}
+		else {
+			this.setState({lawyers: this.props.lawyers});
+		}
 	}
 
 	handlePageClick (data) {
@@ -107,8 +112,8 @@ class Content extends Component {
 			this.setState({selectedLabel: translate('app.attorney.rate')});
 		}
 
-		this.setState({key_word: objQuery.query ? objQuery.query : ''});
-		$('.rbt-input-main').text(objQuery.query);
+		this.setState({key_word: objQuery.name ? objQuery.name : ''});
+		$('.rbt-input-main').text(objQuery.name);
 		this.setState({isLoading: true});
 
 		instance.get(constant.API_SEARCH_LAWYERS_URI, {params: objQuery})
@@ -174,7 +179,7 @@ class Content extends Component {
 	searchLawyer(event) {
 		event.preventDefault();
 		var query = $('.rbt-input-main').val();
-		var objQuery = {query: query};
+		var objQuery = {name: query};
 		this.loadDataFromServer(objQuery, false, false);
 	}
 

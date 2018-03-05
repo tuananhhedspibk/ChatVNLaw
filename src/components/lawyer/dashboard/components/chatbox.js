@@ -41,7 +41,6 @@ class ChatBox extends Component {
   setHeight(component, textBoxHeight) {
     var vh = Math.max(document.documentElement.clientHeight,
       window.innerHeight || 0);
-    console.log(vh);
     var chatMessHeight = vh - 45.5 - textBoxHeight
       - $('.app-header').height();
     component.setState({chatMessHeight: chatMessHeight});
@@ -56,7 +55,12 @@ class ChatBox extends Component {
         emojiPicker.css('visibility', 'hidden');
       }
     });
-    this.setHeight(this, 62.5);
+    if(!!window.chrome && !!window.chrome.webstore) {
+      this.setHeight(this, 80.5);
+    }
+    else {
+      this.setHeight(this, 60.5);
+    }
     $(window).resize(function() {
       component.setHeight(component, $('#text-box').height());
     });

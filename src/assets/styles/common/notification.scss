@@ -161,6 +161,19 @@
   padding-bottom: 30px;
 }
 
+.no-notifi-content {
+  font-size: 2.4em;
+  padding-top: 150px;
+  text-align: center;
+  width: 100%;
+
+  .fa {
+    color: $black-trans-light;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+}
+
 .notifi-content {
   display: block;
   margin: 0;

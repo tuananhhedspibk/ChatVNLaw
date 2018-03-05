@@ -610,13 +610,13 @@
 
 #myUL li.checked {
   background: #e2e2e2;
-  color: #fff;
+  color: #000;
   text-decoration: line-through; }
 
 #myUL li.checked::before {
   content: '';
   position: absolute;
-  border-color: #fff;
+  border-color: #000;
   border-style: solid;
   border-width: 0 2px 2px 0;
   top: 10px;
@@ -687,6 +687,8 @@
   .my-work-with .add-todo-list-form .add-btn {
     font-size: 1em;
     padding: 6px 35px; }
+  .app-body .chat-box textarea {
+    padding: 15px; }
   .breadcrumb-item a {
     font-size: .9em; }
   .my-work-with .add-todo-list-form input {
