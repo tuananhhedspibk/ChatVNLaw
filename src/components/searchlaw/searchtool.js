@@ -7,6 +7,7 @@ class SearchTool extends Component {
 	componentDidMount() {
 		$('#search-form-body').addClass('show');
 		$('.search-law-tool').find('.title').removeClass('collapsed');
+		$('#filter1').attr('checked', true);
 	}
 
 	render() {
@@ -63,8 +64,8 @@ class SearchTool extends Component {
 													{translate('app.search.search_tool.order_by.order_by_3')}
 											</option>
 											<option
-												value={translate('app.search.search_tool.order_by.order_by_1')}>
-													{translate('app.search.search_tool.order_by.order_by_1')}
+												value={translate('app.search.search_tool.order_by.order_by_4')}>
+													{translate('app.search.search_tool.order_by.order_by_4')}
 											</option>
 										</select>
 									</div>

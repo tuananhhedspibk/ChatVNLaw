@@ -99,6 +99,16 @@
 .notifi-wrapper {
   padding-bottom: 30px; }
 
+.no-notifi-content {
+  font-size: 2.4em;
+  padding-top: 150px;
+  text-align: center;
+  width: 100%; }
+  .no-notifi-content .fa {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1.5em;
+    margin-bottom: 15px; }
+
 .notifi-content {
   display: block;
   margin: 0;

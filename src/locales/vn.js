@@ -25,6 +25,7 @@ module.exports = {
       destroy_room_request: 'Hủy yêu cầu'
     },
     notification:{
+      no_noti: 'Hiện tại bạn chưa có thông báo nào',
       new_request_from_other: ' đã gửi cho bạn một yêu cầu',
       new_room_request_title: ' gửi cho bạn yêu cầu tạo cuộc trò chuyện',
       new_accept_room_request_title: ' đã chấp nhận yêu cầu tạo cuộc trò chuyện của bạn',
@@ -99,7 +100,8 @@ module.exports = {
         content: 'VNLaw - LKBC 2017'
       },
       find_box: {
-        title: 'Tìm luật sư',
+        search: 'Tìm kiếm & đặt hẹn với luật sư',
+        title: 'Đặt hẹn dễ dàng với luật sư',
         lawyer_name: 'Tên luật sư',
         lawyer_field: 'Lĩnh vực'
       },
@@ -161,7 +163,8 @@ module.exports = {
       find_content: 'Duyệt qua các hồ sơ luật sư để tìm luật sư phù hợp với bạn. Tất cả các luật sư VNLaw được cấp phép và hoạt động.',
       schedule_content: 'Lên kế hoạch tham khảo ý kiến miễn phí với luật sư địa phương dưới 60 giây ngày hôm nay. Xem ngay các khoảng thời gian có sẵn trong lịch luật sư và nhấp để đặt trước.',
       connect_content: 'Kết nối với luật sư địa phương để tham khảo ý kiến ban đầu một cách nhanh chóng và an toàn. VNLaw sử dụng công nghệ trò chuyện video tiên tiến nhất trên hành tinh. Bạn muốn gặp mặt trực tiếp? Chúng tôi cũng làm như vậy.',
-      slogan: 'So sánh luật sư được đánh giá cao nhất trong khu vực của bạn và lập kế hoạch tham vấn trong vài giây'
+      slogan_1: 'Chúng tôi cung cấp giải pháp',
+      slogan_2: 'Giúp bạn giải quyết các khúc mắc về pháp luật một cách đơn giản và nhanh chóng nhất'
     },
     attorney: {
       book: 'Đặt lịch hẹn',

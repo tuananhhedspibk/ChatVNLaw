@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
+
+import Attorney from '../attorney/attorney';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
@@ -20,41 +23,26 @@ class Find extends Component {
     })
     return input;
   }
-  onClick(){
-    var lawyerNameInputBox = $('#search-by-lawyer-name');
-    if(!!lawyerNameInputBox.val()){
-      var lawyerNameInput = lawyerNameInputBox.val();      
-      window.location = constant.BASE_URL + '/attorney?name=' + this.stringForm(lawyerNameInput);
-    }
-    else {
-      window.location = constant.BASE_URL + constant.ATTORNEY_URI;
-    }
+
+  navigateToAttorney() {
+    window.location = '/attorney';
   }
+
   render() {
     return (
       <div className='find'>
+        <div className='slogan'>
+          {translate('app.home.slogan_1')}
+        </div>
         <div className='title'>
           {translate('app.home.find_box.title')}
         </div>
-        <div className='search-box'>
-          <input className='search-input' id='search-by-lawyer-name'
-            placeholder={translate('app.home.find_box.lawyer_name')}/>
-          <input className='search-input'
-            placeholder={translate('app.home.find_box.lawyer_field')}/>
-          <button className='search-button' onClick={this.onClick.bind(this)}>
-            <i className='fa fa-search'
-              aria-hidden='true'></i>
-          </button>
+        <div className='slogan'>
+          {translate('app.home.slogan_2')}
         </div>
-        {
-          this.props.sloganStyle === 'none' ? (
-            <div></div>
-          ): (
-            <div className='slogan'>
-              {translate('app.home.slogan')}
-            </div>
-          )
-        }
+        <button onClick={this.navigateToAttorney}>
+          {translate('app.home.find_box.search')}
+        </button>
       </div>
     );
   }
