@@ -199,6 +199,8 @@
       .results .law-item a:hover {
         text-decoration: none; }
     .results .law-item .law-title {
+      align-items: center;
+      display: flex;
       font-size: 1.2em;
       font-weight: bold;
       overflow: hidden;
@@ -206,6 +208,10 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%; }
+      .results .law-item .law-title .content {
+        width: 50%; }
+      .results .law-item .law-title .tag {
+        width: 50%; }
       .results .law-item .law-title label {
         font-size: .9em;
         border-radius: 5px;
@@ -223,7 +229,7 @@
       .results .law-item .law-title a {
         color: #2385f2; }
     .results .law-item .law-detail-content {
-      padding: 0 25px 15px; }
+      padding: 0 25px 20px; }
     .results .law-item .law-status {
       font-size: 1.1em; }
       .results .law-item .law-status .sub-title label {

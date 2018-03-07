@@ -11,6 +11,7 @@ class Result extends Component {
 					constant.LAW_URI+ this.props.article.id}>
 						<div className='law-title'>
 							<a title={this.props.article.title}
+								className='content'
 								href={constant.BASE_URL + constant.LAW_URI+ this.props.article.id}>
 									{this.props.article.title}
 							</a>
@@ -18,22 +19,28 @@ class Result extends Component {
 								this.props.article.effect_status ==
 									translate('app.home.search_law.effect_status_1') ?
 								(
-									<label className='validated'>
-										{this.props.article.effect_status}
-									</label>
+									<div className='tag'>
+										<label className='validated'>
+											{this.props.article.effect_status}
+										</label>
+									</div>
 								):
 								(
 									this.props.article.effect_status ==
 										translate('app.home.search_law.effect_status_2') ?
 									(
-										<label className='expired'>
-											{this.props.article.effect_status}
-										</label>
+										<div className='tag'>
+											<label className='expired'>
+												{this.props.article.effect_status}
+											</label>
+										</div>
 									):
 									(
-										<label className='half-expired'>
-											{this.props.article.effect_status}
-										</label>
+										<div className='tag'>
+											<label className='half-expired'>
+												{this.props.article.effect_status}
+											</label>
+										</div>
 									)
 								)
 							}
