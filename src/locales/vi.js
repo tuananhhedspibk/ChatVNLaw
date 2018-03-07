@@ -151,7 +151,9 @@ module.exports = {
         field_8: {
           title: 'Doanh nghiệp',
           des: 'Các quy định của pháp luật về hoạt động kinh doanh thương mại,đầu tư doanh nghiệp'
-        }
+        },
+        effect_status_1: 'Còn hiệu lực',
+        effect_status_2: 'Hết hiệu lực toàn bộ'
       },
       find_lawyer: 'Trao đổi với luật sư &',
       find_law: 'Tra cứu luật',

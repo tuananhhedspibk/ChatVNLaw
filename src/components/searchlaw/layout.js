@@ -5,7 +5,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import ReactPaginate from 'react-paginate';
 import { EventEmitter } from 'fbemitter';
-import * as translate from 'counterpart';
+import ReactLoading from 'react-loading';
 
 import Toast from '../notification/toast';
 import Nav from '../homepage/nav';
@@ -14,6 +14,7 @@ import Result from './result';
 import SearchTool from './searchtool';
 import Category from './category';
 
+import * as translate from 'counterpart';
 import * as constant from '../constants';
 
 import '../../assets/styles/common/searchLaw.css';
@@ -22,34 +23,33 @@ class SearchLaw extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			isLoading: false,
 			articles: [],
 			offset: 1,
 			number_articles: 0,
 			pageCount: 0
 		};
 		this.emitter = new EventEmitter();
-		this.handlerCategoryType = this.handlerCategoryType.bind(this);
-		this.handlerCategoryYear = this.handlerCategoryYear.bind(this);
 	}
 
 	handlePageClick (data) {
 		let component = this;
 		let selected = data.selected;
-		let offset = this.state.offset + 1;
+		let offset = selected + 1;
 
 		this.setState({offset: offset}, () => {
-			component.loadDataFromServer({});
+			component.loadDataFromServer({}, true);
 		});
 	}
 
-	loadDataFromServer(objQuery) {
+	loadDataFromServer(objQuery, pageClick) {
 		var component = this;
 		const parsed = parse(this.props.location.search.substr(1));
 		var instance = axios.create({
 			baseURL: constant.API_BASE_URL
 		});
 
-		if (objQuery.group2_2 != '') {
+		if (!!objQuery.query) {
 			parsed.query = objQuery.query;
 			parsed.group1 = objQuery.group1;
 			parsed.group2_1 = objQuery.group2_1;
@@ -57,24 +57,46 @@ class SearchLaw extends Component {
 		}
 		parsed.page = this.state.offset;
 
+		this.setState({isLoading: true});
+
 		instance.get(constant.API_SEARCH_ARTICLES_URI, {params: parsed})
 		.then(function (response) {
+			component.setState({isLoading: false});
 			component.setState({articles: response.data.articles,
 				pageCount: response.data.limit_page,
 				number_articles: response.data.number_articles});
-				component.emitter.emit('AddNewSuccessToast', '', translate('app.search.founded') + ' ' +
-					component.state.number_articles + ' '
-					+ translate('app.search.results'), 5000, () => { })
+				if(!pageClick) {
+					component.emitter.emit('AddNewSuccessToast', '', translate('app.search.founded') + ' ' +
+						component.state.number_articles + ' '
+						+ translate('app.search.results'), 5000, () => { })
+				}
 		})
 		.catch(function (error) {
-			component.emitter.emit('AddNewErrorToast', '', translate('app.search.founded') + ' ' +
-				component.state.number_articles + ' '
-				+ translate('app.search.results'), 5000, () => { })
+			component.setState({isLoading: false});
+			if(!pageClick) {
+				component.emitter.emit('AddNewErrorToast', '',
+					translate('app.search.founded') + ' ' +
+					component.state.number_articles + ' '
+					+ translate('app.search.results'), 5000, () => { })
+			}
 		});
 	}
 
 	componentDidMount() {
-		this.loadDataFromServer({});
+		var queryParams = this.props.location.search;
+
+		if(queryParams.length <= 0) {
+			this.loadDataFromServer({}, false);
+		}
+		else {
+			queryParams = queryParams.substr(1, queryParams.length - 1).split('&');
+			var queryObj = {};
+			queryObj.query = queryParams[0].split("=")[1];
+			queryObj.group1 = queryParams[1].split("=")[1];
+			queryObj.group2_1 = queryParams[2].split("=")[1];
+			queryObj.group2_2 = queryParams[3].split("=")[1];
+			this.loadDataFromServer(queryObj, false);
+		}
 	}
 
 	checkTabIsFocusOrBlur() {
@@ -86,7 +108,6 @@ class SearchLaw extends Component {
 				switch (e.type) {
 					case "blur":
 						$('div').text("Blured");
-						console.log("blured");
 						break;
 					case "focus":
 						$('div').text("Focused");
@@ -110,25 +131,21 @@ class SearchLaw extends Component {
 			.val()
 		var group2_2 = $('.form-control[name=group2_2] option:selected')
 			.val();
-		var objQuery = {query: query,
-			group1: group1, group2_1: group2_1, group2_2: group2_2};
-		this.loadDataFromServer(objQuery);
+
+		var navigateURI = constant.SEARCH_LAW_URI + '?';
+		navigateURI += 'query=' + query + '&';
+		navigateURI += 'group1=' + group1 + '&';
+		navigateURI += 'group2_1=' + group2_1 + '&';
+		navigateURI += 'group2_2=' + group2_2;
+		window.location = navigateURI;
 	}
 
-	handlerCategoryOrgan({target}) {
-
-	}
-
-	handlerCategoryType({target}) {
-		window.location = constant.BASE_URL +
-			'/search-law?' + 'article_type='
-			+ target.attributes.getNamedItem('value').value
-	}
-
-	handlerCategoryYear({target}) {
-		var from_y = 'from_year=' + target.attributes.getNamedItem('from').value
-		var to_y = '&to_year=' + target.attributes.getNamedItem('to').value
-      window.location = constant.BASE_URL + '/search-law?' + from_y + to_y
+	renderLoading() {
+		return(
+			<ReactLoading className='loading-symbol'
+				type='cylon' color='#337ab7'
+				height='125' width='125'/>					
+		)
 	}
 
 	render() {
@@ -148,20 +165,25 @@ class SearchLaw extends Component {
 						</div>
 						<div className='col-sm-12 col-md-8 results'>
 							{
-								this.state.articles.length === 0 ? (
-									<div className='not-found-any-results'>
-										{translate('app.search.founded') + ' 0 ' + translate('app.search.results')}
-										<div className='symbol-not-found'>
-											{translate('app.search.not_found_symbol')}
-										</div>
-									</div>
-								) :
+								this.state.isLoading ? (
+									this.renderLoading()
+								):
 								(
-									this.state.articles.map(function(article, i) {
-										return(
-											<Result article={article} number={i}/>
-										);
-									})
+									this.state.articles.length === 0 ? (
+										<div className='not-found-any-results'>
+											{translate('app.search.founded') + ' 0 ' + translate('app.search.results')}
+											<div className='symbol-not-found'>
+												{translate('app.search.not_found_symbol')}
+											</div>
+										</div>
+									) :
+									(
+										this.state.articles.map(function(article, i) {
+											return(
+												<Result article={article} number={i}/>
+											);
+										})
+									)
 								)
 							}
 							<ReactPaginate
