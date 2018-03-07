@@ -289,6 +289,8 @@
     }
 
     .law-title {
+      align-items: center;
+      display: flex;
       font-size: 1.2em;
       font-weight: bold;
       overflow: hidden;
@@ -296,6 +298,14 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%;
+
+      .content {
+        width: 50%;
+      }
+
+      .tag {
+        width: 50%;
+      }
 
       label {
         font-size: .9em;
@@ -325,7 +335,7 @@
     }
 
     .law-detail-content {
-      padding: 0 25px 15px;
+      padding: 0 25px 20px;
     }
 
     .law-status {
