@@ -88,13 +88,7 @@ function getTargetChat(properties){
         })
     });
 }
-// function getUser(uid, callback){
-//     var ref = firebase.database().ref(`${constant.TABLE.users}/${uid}`)
-//     ref.on('value', data =>{
-//         console.log(data);
-//     })
-//     ref.on('')
-// }
+
 function getUserName(user, callback){
     firebase.database().ref(`${constant.TABLE.users}`).child(user.uid).child(`${constant.USERS.username}`).once('value').then(function(data){
         if(data.exists()){
@@ -103,7 +97,6 @@ function getUserName(user, callback){
     })
 }
 function checkUserName(properties, callback){
-    var component = properties.component;
     var ref = firebase.database().ref(`${constant.TABLE.users}`).orderByChild(`${constant.USERS.username}`).equalTo(properties.keyword)
     ref.once('value').then(function(snapshot){
         if(!snapshot.exists()){

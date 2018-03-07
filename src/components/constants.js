@@ -1,7 +1,7 @@
 export const STORAGE_ITEM = 'chat_vnlaw_user';
 
 export const APP_NAME = 'VNLaw-Tư vấn pháp luật';
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'http://vnlaw.datalab.vn';
 export const HOME_URI = '/home';
 export const SIGN_IN_URI = '/login';
 export const SIGN_UP_URI = '/signup';
@@ -14,12 +14,13 @@ export const LAWYER_PROFILE_URI = '/lawyers';
 export const DASHBOARD_URI = '/dashboard';
 export const LAW_URI = '/articles/';
 
-export const API_BASE_URL = 'http://localhost:4000/api';
-export const API_SEARCH_ARTICLES_URI = '/search/articles';
-export const API_SEARCH_LAWYERS_URI = '/search/lawyers';
-export const API_TOP_LAWYERS_URI = '/lawyers/top';
-export const API_ALL_LAWYERS_NAME_URI = '/lawyers/names';
-export const API_ARTICLES_URI = '/articles';
+export const API_BASE_URL = 'http://vnlawapi.datalab.vn';
+export const API_SEARCH_ARTICLES_URI = '/api/search/articles';
+export const API_SEARCH_LAWYERS_URI = '/api/search/lawyers';
+export const API_TOP_LAWYERS_URI = '/api/lawyers/top';
+export const API_ALL_LAWYERS_NAME_URI = '/api/lawyers/names';
+export const API_SEARCH_URI = '/api/searches';
+export const API_ARTICLES_URI = '/api/articles';
 
 export const DEFAULT_AVATAR_URL = 'https://image.ibb.co/i23jUF/default_ava.png';
 

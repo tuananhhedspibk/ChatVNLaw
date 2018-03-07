@@ -1,7 +1,7 @@
 .attorney {
   background-color: #f6f6f6;
   padding: 35px 50px 0;
-  min-height: calc(100vh - 225px); }
+  min-height: calc(100vh - 68px); }
   .attorney hr {
     margin-bottom: 25px;
     margin-top: 20px;
@@ -228,4 +228,6 @@
 
 @-moz-document url-prefix() {
   .attorney .attorney-result-content .header-wrapper {
-    width: 56%; } }
+    width: 56%; }
+  .attorney .attorney-result-content .sort-by .label {
+    margin-right: 3px; } }

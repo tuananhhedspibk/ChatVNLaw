@@ -14,7 +14,6 @@ import TopLawyers from './toplawyers';
 import Toast from '../notification/toast';
 import ReadMore from '../shared/readmore';
 import * as constant from '../constants';
-import * as Lawyers from '../../lib/user/lawyers';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -59,7 +58,7 @@ class Content extends Component {
 		let offset = Math.ceil(selected * 6);
 
 		this.setState({offset: offset, current_page: selected}, () => {
-			if(component.state.sort_by != ''){
+			if(component.state.sort_by !== ''){
 				component.loadDataFromServer({query: component.state.key_word,
 					page: selected + 1, sort_by: component.state.sort_by},
 					true, true);
@@ -192,12 +191,12 @@ class Content extends Component {
 	filterWhenChecked(lawyer, index, filter_value) {
 		let ct = 0;
 		lawyer.specializations.map(spe => {
-			if(spe.name == translate('app.home.search_law.' +
+			if(spe.name === translate('app.home.search_law.' +
 				filter_value + '.title')) {
 					ct++;
 			}
 		});
-		if(ct == 0){
+		if(ct === 0){
 			$('#lawyer-' + index).hide();
 		}
 	}
@@ -229,13 +228,13 @@ class Content extends Component {
 				}
 			});
 			this.state.lawyers.map((lawyer, index) => {
-				if($('#lawyer-' + index).css('display') == 'none') {
+				if($('#lawyer-' + index).css('display') === 'none') {
 					let mapFil = 0;
 					lawyer.specializations.map(spe => {
 						listSpecializes.map(item => {
 							if(item.checked) {
 								if (translate('app.home.search_law.' +
-									item.value + '.title') == spe.name) {
+									item.value + '.title') === spe.name) {
 										mapFil++;
 								}
 							}
@@ -263,7 +262,7 @@ class Content extends Component {
 					{translate('app.search.has')}
 					<b>{' ' + this.state.number_lawyers + ' '}</b>
 					{
-						this.state.key_word.length == 0 ?
+						this.state.key_word.length === 0 ?
 						translate('app.search.results') : 
 						translate('app.dashboard.search.result_for')
 					}
@@ -290,7 +289,7 @@ class Content extends Component {
 					return(	
 						<div className='lawyer' id={'lawyer-' + index}
 							onClick={this.handleOnclickLawyer.bind(this, lawyer.fb_id)}>
-								<img className='ava' src={lawyer.photo_url} />
+								<img className='ava' src={lawyer.photo_url} alt='ava' />
 								<div className='infor'>
 									<div className='name' title={lawyer.name}>{lawyer.name}</div>
 									<div className='status online-status'>

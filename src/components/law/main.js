@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 import $ from 'jquery';
 import NotFoundPage from '../shared/notfound';
@@ -10,7 +9,7 @@ import ArticleContent from './content';
 import ArticleDetail from './detail';
 import StickyHighlight from './sticky';
 import '../../assets/styles/common/articles.css'
-import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 import * as constant from '../constants';
 
 const firebase = require('firebase');
@@ -37,7 +36,6 @@ class Article extends Component {
     this.handleStickyOff = this.handleStickyOff.bind(this);
 	}
 
-
 	componentWillMount() {
 		var component = this;
 		var instance = axios.create({
@@ -48,7 +46,7 @@ class Article extends Component {
 	    	component.setState({article: response.data});
 	    })
 	    .catch(function (error) {
-	    	if (error.response.status == 404) {
+	    	if (error.response.status === 404) {
 	    		component.setState({error: 404})
 	    	}
 	    	else {
@@ -120,7 +118,7 @@ class Article extends Component {
       }
     }
     else {
-      if ($('.index').css('position') == 'fixed') {
+      if ($('.index').css('position') === 'fixed') {
         $('.index').css('position','relative');
         $('.index').css('left','0');
         $('.index').css('top','0');
@@ -151,7 +149,7 @@ class Article extends Component {
           color: defaultColor
         };
         stickies.push(sticky);
-        if(data.dup == 1) {
+        if(data.dup === 1) {
           var childPost = data.position;
           var element = $('.law-content');
           while (childPost.child) {
@@ -231,7 +229,7 @@ class Article extends Component {
 
   getNextNode(node, skipChildren, endNode,skipNode, defaultColor){
   
-      if (endNode == node) {
+      if (endNode === node) {
         return false;
       }
       if (node.firstChild && !skipChildren) {
@@ -280,7 +278,7 @@ class Article extends Component {
     var dup = document.getElementsByClassName('selecting-dup');
     var index;
     var title = $('#exampleInputEmail1').val();
-    title = title == '' ? 'Tiều đề' : title;
+    title = title === '' ? 'Tiều đề' : title;
     var dupStatus = 0;
     if (dup.length) {
       dupStatus = 1;
@@ -372,25 +370,7 @@ class Article extends Component {
         var endNode = rangeSelected.focusNode;
         var startOffset = rangeSelected.anchorOffset;
         var endOffset = rangeSelected.focusOffset;
-        // var endEl;
-        // if (endOffset == 0)
-        //   endEl = $(endNode).prev();
-        // else 
-        //   endEl = $(endNode).parent()
-        // var startEl = $(startNode).parent();
         var startLoop = startNode;
-        // if (endOffset == 0) {
-        //   console.log("test")
-        //   console.log(endNode)
-        //   endNode = endNode.previousElementSibling;
-        //   endOffset = endNode.textContent.length;
-        //   console.log(startNode)
-        //   console.log(endNode)
-        //   console.log(startNode == endNode)
-        //   console.log(endNode.contains(startNode))
-        //   console.log("test")
-
-        //   }
         if (endNode != startNode) {
           var range = document.createRange();
           range.setStart(startNode,startOffset);
@@ -420,15 +400,6 @@ class Article extends Component {
           span.appendChild(extractSelected);
           range.insertNode(span);
         }
-          // var r =  rangeSelected.getRangeAt(0)
-          // var extractSelected =r.extractContents();
-          // var span = document.createElement("span");
-          // span.style.backgroundColor = "green";
-          // span.className = "selecting-sticky";
-          // span.appendChild(extractSelected);
-          // r.insertNode(span);
-          // startEl.wrapInner( "<span class='start-hl'></span>" );
-          // endEl.wrapInner( "<span class='end-hl'></span>" );
         component.handleOpenModal();
       }
 		});
@@ -438,7 +409,7 @@ class Article extends Component {
 	render() {
 		if (this.state.error != null) {
 			console.log(this.state)
-			if (this.state.error == 404) {
+			if (this.state.error === 404) {
 				return (<NotFoundPage />);
       }
 			else { 

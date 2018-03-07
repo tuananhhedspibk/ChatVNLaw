@@ -21,7 +21,6 @@
     "install": "^0.10.1",
     "jquery": "^3.2.1",
     "node": "^8.3.0",
-    "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.1",
     "peerjs": "^0.3.14",
     "popper.js": "^1.12.5",
@@ -67,12 +66,8 @@
     "webpack-dev-server": "^2.7.1"
   },
   "scripts": {
-    "build-css-common": "node-sass-chokidar src/assets/styles/common -o src/assets/styles/common",
-    "build-css-dashboard": "node-sass-chokidar src/assets/styles/dashboard/style.scss -o src/assets/styles/dashboard/",
-    "watch-css": "npm run build-css-common && npm run build-css-dashboard && node-sass-chokidar src/assets/styles/common -o src/assets/styles/common --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "BROWSER=none npm-run-all -p watch-css start-js",
-    "build": "npm run build-css-common && npm run build-css-dashboard && react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

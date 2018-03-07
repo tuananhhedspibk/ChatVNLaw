@@ -10,22 +10,8 @@ import * as constant from '../constants';
 import * as translate from 'counterpart';
 
 class Find extends Component {
-  stringForm(input){
-    input = input.replace(/\s\s+/g, ' ');
-    input = input.replace(/\b[a-z]/g, function() {
-      if(arguments[1] !== 0){
-        if(arguments[2][arguments[1] -1] === ' '){
-          return  arguments[0].toUpperCase()          
-        }
-        return arguments[0].toLowerCase()
-      }
-      return  arguments[0].toUpperCase()
-    })
-    return input;
-  }
-
   navigateToAttorney() {
-    window.location = '/attorney';
+    window.location = constant.ATTORNEY_URI;
   }
 
   render() {
