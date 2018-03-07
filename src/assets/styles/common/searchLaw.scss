@@ -29,6 +29,7 @@
     border-top: 1px solid $gray-more-lighter;
     color: $black;
     cursor: pointer;
+    font-size: 1.1em;
     font-weight: bold;
     padding: 15px 0 0;
     position: relative;
@@ -44,7 +45,7 @@
       font-family: FontAwesome;
       font-size: 1.2em;
       position: absolute;
-      left: 170px;
+      left: 175px;
       top: 12px;
     }
 
@@ -128,7 +129,7 @@
     border: 0;
     color: $black;
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-weight: bold;
     padding: 0 0 15px;
     position: relative;
@@ -138,10 +139,10 @@
     &:after {
       content: "\f106";
       font-family: FontAwesome;
-      font-size: 1.2em;
+      font-size: 1.3em;
       position: absolute;
-      left: 120px;
-      top: 0;
+      left: 125px;
+      top: -5px;
     }
 
     &:focus {
@@ -232,10 +233,15 @@
   padding-top: 35px;
   width: 100%;
 
+  .loading-symbol {
+    margin: 0 auto;
+  }
+
   .pagination {
     cursor: pointer;
     font-size: 1.2em;
     justify-content: center;
+    margin-bottom: 40px;
     padding-top: 15px;
     width: 100%;
 
@@ -263,8 +269,12 @@
     border-radius: 5px;
     float: left;
     font-size: 1.1em;
-    margin: 8px 0;
+    margin: 5px 0;
     width: 100%;
+
+    &:first-child {
+      margin-top: 8px;
+    }
 
     &:hover {
       background-color: $gray-much-lighter;
@@ -279,25 +289,54 @@
     }
 
     .law-title {
-      font-size: 1.1em;
+      font-size: 1.2em;
       font-weight: bold;
       overflow: hidden;
-      padding: 10px 15px 0;
+      padding: 15px 25px 0;
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%;
 
+      label {
+        font-size: .9em;
+        border-radius: 5px;
+        color: $white;
+        float: right;
+        margin-bottom: 0;
+        margin-top: 7px;
+        padding: 3px 8px;
+      }
+
+      .validated {
+        background-color: $green-darker;
+      }
+
+      .expired {
+        background-color: $red;
+      }
+
+      .half-expired {
+        background-color: $brand-warning;
+      }
+
       a {
-        color: $black;
+        color: $blue;
       }
     }
 
     .law-detail-content {
-      padding: 0 15px 10px;
+      padding: 0 25px 15px;
     }
 
     .law-status {
       font-size: 1.1em;
+
+      .sub-title {
+        label {
+          margin-bottom: 2px;
+          margin-right: 6px;
+        }
+      }
 
       .effect-status {
         color: $red;
