@@ -15,21 +15,31 @@ class Home extends Component {
 		super(props);
     this.emitter = new EventEmitter();
 	}
+
 	componentDidMount() {
 		this.emitter.emit('AddNewSuccessToast', '',
 			translate('app.system_notice.success.text.welcome'), 5000,
 			()=>{} )
 		
-		window.addEventListener('scroll',this.handleScroll);
+		window.addEventListener('scroll', this.handleScroll);
 		this.handleScroll();
 	}
 
 	handleScroll() {
-		if (window.scrollY >= $('.find').offset().top) {
+		if (window.scrollY >= $('.slogan-section').offset().top) {
 			$('.nav-hidden').fadeIn(500);
 		}
 		else {
 			$('.nav-hidden').fadeOut(500);
+		}
+
+		if (window.scrollY >= ($('.slogan-section').offset().top + 120)) {
+			$('.hot-lawyers').css('display', 'inline-block');
+			$('.hot-lawyers').addClass('animated bounceInLeft');
+		}
+
+		if (window.scrollY >= ($('.hot-lawyers').offset().top + 350)) {
+			$('.search-law').addClass('animated slideInUp');
 		}
 	}
 

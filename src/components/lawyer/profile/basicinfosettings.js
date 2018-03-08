@@ -86,7 +86,11 @@ class BasicInfoSettings extends Component {
       }else{
         component.props.emitter.emit('AddNewErrorToast', '',translate('app.system_notice.error.text.some_thing_not_work'),5000, ()=>{})        
       }
-    })
+    });
+  }
+
+  modifyCategory(event, { value }) {
+    this.setState({category: value});
   }
 
   render() {
@@ -159,19 +163,16 @@ class BasicInfoSettings extends Component {
             </div>
           </div>
         </div>
-        <Dropdown placeholder='Select Country' fluid search selection options={constant.LAW_CATEGORY} />
         <div className='info-block'>
           <div className='category'>
             <div className='title'>
               {translate('app.settings.category')}
             </div>
-            <div className='ui left icon input'>
-              <input name='category'
-                onChange={this.handleInputChange.bind(this)}
-                placeholder={translate('app.settings.category')}
-                type='text' value={this.state.category}/>
-              <i className='browser icon'></i>
-            </div>
+            <Dropdown placeholder={translate('app.settings.category_ph')}
+              fluid search multiple selection
+              options={constant.LAW_CATEGORY}
+              defaultValue={this.state.category}
+              onChange={this.modifyCategory.bind(this)}/>
           </div>
         </div>
         <div className='info-block'>

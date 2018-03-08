@@ -4,8 +4,8 @@ import * as translate from 'counterpart';
 import Nav from '../../components/homepage/nav' ;
 import Content from './content';
 import Footer from '../../components/homepage/footer';
-import Find from '../homepage/find';
 import ReadMore from '../shared/readmore';
+
 import * as constant from '../constants';
 
 import '../../assets/styles/common/attorney.css';

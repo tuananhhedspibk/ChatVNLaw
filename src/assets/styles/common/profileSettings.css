@@ -6,8 +6,8 @@
     background-color: transparent;
     border: 0; }
   .container-settings-wrapper .nav-sidebar {
-    font-size: 1.2em;
-    padding: 30px 50px; }
+    font-size: 1.3em;
+    padding: 50px 50px 30px; }
     .container-settings-wrapper .nav-sidebar li {
       display: inline-block;
       width: 100%; }
@@ -42,14 +42,23 @@
     .container-settings-wrapper .save-btn .fa {
       margin-right: 15px; }
   .container-settings-wrapper .basic-info-settings {
-    padding-top: 25px;
+    padding-top: 45px;
     padding-bottom: 35px; }
     .container-settings-wrapper .basic-info-settings input {
-      font-size: 1.2em; }
+      font-size: 1.25em; }
+    .container-settings-wrapper .basic-info-settings .ui.multiple.search.dropdown > input.search {
+      font-size: 1em;
+      margin-bottom: 5px; }
+    .container-settings-wrapper .basic-info-settings .ui.multiple.dropdown > .label {
+      font-size: .9em;
+      margin-right: 7px; }
+    .container-settings-wrapper .basic-info-settings .dropdown {
+      font-size: 1.25em; }
     .container-settings-wrapper .basic-info-settings .save-btn {
       background-color: #2385f2;
       border: 1px solid #2385f2;
-      border-radius: 5px; }
+      border-radius: 5px;
+      margin-bottom: 30px; }
       .container-settings-wrapper .basic-info-settings .save-btn:hover {
         background-color: #fff;
         color: #2385f2;
@@ -72,7 +81,7 @@
           border-style: solid;
           border-width: 5px;
           content: "";
-          left: -9px;
+          left: -8px;
           margin-top: -5px;
           position: absolute;
           top: 50%; }
@@ -106,7 +115,7 @@
     .container-settings-wrapper .info-block .ui.input {
       width: 100%; }
     .container-settings-wrapper .info-block .title {
-      font-size: 1.2em;
+      font-size: 1.3em;
       font-weight: bold;
       margin-bottom: 10px;
       width: 100%; }
