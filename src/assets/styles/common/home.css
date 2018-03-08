@@ -26,12 +26,12 @@
   .home-page .navbar-collapse ul.navbar-left {
     display: inline-block; }
 
-.home-page .find {
+.home-page .slogan-section {
   height: calc(100vh - 80px);
   padding: calc((100vh - 380px) / 2) 85px;
   text-align: center;
   width: 100%; }
-  .home-page .find button {
+  .home-page .slogan-section button {
     background-color: #2385f2;
     border: 0;
     border-radius: 5px;
@@ -40,19 +40,19 @@
     font-size: 1.5em;
     margin-top: 30px;
     padding: 13px 30px; }
-    .home-page .find button:focus {
+    .home-page .slogan-section button:focus {
       outline: 0; }
-    .home-page .find button:hover {
+    .home-page .slogan-section button:hover {
       background-color: #0974b8;
       transition: all .4s ease; }
-  .home-page .find .title {
+  .home-page .slogan-section .title {
     color: #fff;
     font-size: 3.2em;
     font-weight: bold;
     margin-top: 7px;
     text-transform: uppercase;
     width: 100%; }
-  .home-page .find .slogan {
+  .home-page .slogan-section .slogan {
     color: #fff;
     font-size: 1.8em;
     font-weight: 300; }
@@ -106,7 +106,7 @@
       transition: all .5s ease; }
 
 .home-page .main-content .hot-lawyers {
-  display: inline-block;
+  display: none;
   padding: 0 85px 65px;
   width: 100%; }
   .home-page .main-content .hot-lawyers .now-focus {

@@ -9,7 +9,6 @@
 }
 
 .home-page {
-
   .header {
     background-image: url('http://www.vasterad.com/themes/workscout/images/banner-home-02.jpg');
     background-position: 50%;
@@ -42,7 +41,7 @@
     }
   }
 
-  .find {
+  .slogan-section {
     height: calc(100vh - 80px);
     padding: calc((100vh - 380px) / 2) 85px;
     text-align: center;
@@ -157,7 +156,7 @@
     }
 
     .hot-lawyers {
-      display: inline-block;
+      display: none;
       padding: 0 85px 65px;
       width: 100%;
 
