@@ -1,6 +1,6 @@
 .container-customer-wrapper {
   background-color: #f6f6f6;
-  height: calc(100vh - 227px);
+  min-height: calc(100vh - 68.5px);
   padding: 60px 160px; }
   .container-customer-wrapper .profile-header {
     background-color: #fff;
@@ -37,8 +37,8 @@
         margin-right: 10px; }
 
 @-moz-document url-prefix() {
-  #edit-user-profile-box {
-    height: 225px !important; } }
+  .container-customer-wrapper {
+    min-height: calc(100vh - 66.5px); } }
 
 @media (max-width: 1100px) {
   .container-customer-wrapper {

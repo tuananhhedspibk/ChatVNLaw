@@ -82,6 +82,9 @@
       padding-bottom: 5px; }
     .lawyer-profile .content-block .content {
       font-size: 1.2em; }
+    .lawyer-profile .content-block .no-review {
+      margin-top: -6px;
+      padding: 0 25px 15px; }
   .lawyer-profile button.content-block {
     background-color: #f6f6f6 !important;
     border: solid 1px #cbcbcb;
@@ -245,3 +248,7 @@
     background-position: 0 0; }
   100% {
     background-position: 600px 0; } }
+
+@-moz-document url-prefix() {
+  .ui .modal {
+    height: 530px !important; } }

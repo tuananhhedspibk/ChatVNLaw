@@ -39,68 +39,8 @@ class CenterBlock extends Component {
     if(component.state.review.length > 0){
       return(
         component.state.review.map((review, index) => {
-          if(index % 2 != 0){
-            return (
-              <div className='customer-review'>
-                <img className='user-ava' src={review.img}/>
-                <p className='review-content'>
-                  {review.comment}
-                </p>
-                <div className='rate'>
-                  <ReactStars
-                    count={5}
-                    value={review.star}
-                    edit={false}
-                    size={20}
-                    color2={'#ffd700'} />
-                </div>
-              </div>
-            )
-          }
-          else {
-            return (
-              <div className='customer-review review-grey'>
-                <img className='user-ava' src={review.img}/>
-                <p className='review-content'>
-                  {review.comment}
-                </p>
-                <div className='rate'>
-                  <ReactStars
-                    count={5}
-                    value={review.star}
-                    edit={false}
-                    size={20}
-                    color2={'#ffd700'} />
-                </div>
-              </div>
-            )
-          }
-        })
-      )
-    }
-  }
-
-  renderModalTemplate() {
-    return(
-      <Modal trigger={
-        <Button className='content-block center-block'>
-          {translate('app.profile.view_all') + ' 12,333 ' +
-            translate('app.profile.review')}
-        </Button>}>
-        <Modal.Header>
-          {translate('app.profile.user_review')}
-        </Modal.Header>
-        <Modal.Content scrolling>
-          <Header>
-            <div className='number'>
-              15,200
-            </div>
-            <div className='char'>
-              {translate('app.profile.review')}
-            </div>
-          </Header>
-          {
-            this.state.review.map((review, index) => {
+          if (index < 6) {
+            if(index % 2 != 0){
               return (
                 <div className='customer-review'>
                   <img className='user-ava' src={review.img}/>
@@ -117,20 +57,92 @@ class CenterBlock extends Component {
                   </div>
                 </div>
               )
-            })
+            }
+            else {
+              return (
+                <div className='customer-review review-grey'>
+                  <img className='user-ava' src={review.img}/>
+                  <p className='review-content'>
+                    {review.comment}
+                  </p>
+                  <div className='rate'>
+                    <ReactStars
+                      count={5}
+                      value={review.star}
+                      edit={false}
+                      size={20}
+                      color2={'#ffd700'} />
+                  </div>
+                </div>
+              )
+            }
           }
-          <div className='media'>
-            <div className='media-img'></div>
-            <div className='media-desc'>
-              <div className='bar'></div>
+        })
+      )
+    }
+    else {
+      return (
+        <div className='no-review'>
+          {translate('app.identifier.no_review')}
+        </div>
+      )
+    }
+  }
+
+  renderModalTemplate() {
+    if (this.state.review.length > 6) {
+      return(
+        <Modal trigger={
+          <Button className='content-block center-block'>
+            {translate('app.profile.view_all') + ' ' +
+              this.state.review.length + ' ' +
+              translate('app.profile.review')}
+          </Button>}>
+          <Modal.Header>
+            {translate('app.profile.user_review')}
+          </Modal.Header>
+          <Modal.Content scrolling>
+            <Header>
+              <div className='number'>
+                {this.state.review.length}
+              </div>
+              <div className='char'>
+                {translate('app.profile.review')}
+              </div>
+            </Header>
+            {
+              this.state.review.map((review, index) => {
+                return (
+                  <div className='customer-review'>
+                    <img className='user-ava' src={review.img}/>
+                    <p className='review-content'>
+                      {review.comment}
+                    </p>
+                    <div className='rate'>
+                      <ReactStars
+                        count={5}
+                        value={review.star}
+                        edit={false}
+                        size={20}
+                        color2={'#ffd700'} />
+                    </div>
+                  </div>
+                )
+              })
+            }
+            <div className='media'>
+              <div className='media-img'></div>
+              <div className='media-desc'>
+                <div className='bar'></div>
+              </div>
+              <div className='media-star'>
+                <div className='bar'></div>
+              </div>
             </div>
-            <div className='media-star'>
-              <div className='bar'></div>
-            </div>
-          </div>
-        </Modal.Content>
-      </Modal>
-    )
+          </Modal.Content>
+        </Modal>
+      )
+    }
   }
 
   render() {

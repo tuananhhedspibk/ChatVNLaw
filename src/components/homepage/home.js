@@ -33,13 +33,8 @@ class Home extends Component {
 			$('.nav-hidden').fadeOut(500);
 		}
 
-		if (window.scrollY >= ($('.slogan-section').offset().top + 120)) {
-			$('.hot-lawyers').css('display', 'inline-block');
-			$('.hot-lawyers').addClass('animated bounceInLeft');
-		}
-
 		if (window.scrollY >= ($('.hot-lawyers').offset().top + 350)) {
-			$('.search-law').addClass('animated slideInUp');
+			$('.search-law').addClass('animated zoomIn');
 		}
 	}
 

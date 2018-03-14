@@ -17,6 +17,19 @@ class HotLawyers extends Component {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  handleScroll() {
+    if (window.scrollY >= ($('.slogan-section').offset().top + 100)) {
+      if (!this.state.isloading) {
+        $('.hot-lawyers').css('display', 'inline-block');
+        $('.hot-lawyers').addClass('animated bounceInLeft');
+      }
+		}
+  }
+
   componentWillMount(){
     let properties = {}
     var component = this
@@ -69,14 +82,35 @@ class HotLawyers extends Component {
             <div>
               <i className='fa fa-money' aria-hidden='true'></i>
               {currentLawyer.price} /
-                {translate('app.home.recent_lawyer.hour')}
+              {translate('app.home.recent_lawyer.hour')}
             </div>
             <div>
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             </div>
           </div>
           <div className='description'>
-            {currentLawyer.intro}
+            {
+              currentLawyer.intro != null ?
+              (
+                currentLawyer.intro.length >= 330 ?
+                (
+                  <div>
+                    {currentLawyer.intro.substring(0, 330) + '... '}
+                    <a href={profileLawyer} target='_blank'>
+                      {translate('app.identifier.read_more')}
+                    </a>
+                  </div>
+                )
+                :
+                (
+                  currentLawyer.intro
+                )
+              )
+              :
+              (
+                ''
+              )
+            }
           </div>
           <button className='apply-btn' onClick={this.applyLawyer.bind(this)}>
             {translate('app.home.recent_lawyer.apply')}

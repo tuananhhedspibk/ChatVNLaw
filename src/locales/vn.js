@@ -18,7 +18,8 @@ module.exports = {
       login_face: 'Đăng nhập bằng facebook',
       login_google: 'Đăng nhập bằng google',
       read_more: 'xem thêm',
-      show_less: 'thu nhỏ'
+      show_less: 'thu nhỏ',
+      no_review: 'Xin lỗi, hiện tại luật sư chưa nhận được đánh giá nào'
     },
     button:{
       create_new_chat: 'Tạo cuộc trò chuyện',
@@ -108,7 +109,7 @@ module.exports = {
       recent_lawyer: {
         title: 'Luật sư tiêu biểu',
         lawyer_overview: 'Hồ sơ tổng quan',
-        hour: 'giờ',
+        hour: ' giờ',
         apply: 'Đặt lịch hẹn tư vấn',
         show_all: 'Xem toàn bộ luật sư'
       },
@@ -483,7 +484,7 @@ module.exports = {
       achievement: 'Thành tích',
       education: 'Giáo dục',
       regis_now: 'Đăng kí ngay',
-      review: 'Đánh giá'
+      review: 'Đánh giá từ khách hàng'
     },
     customer: {
       account_type: 'Loại tài khoản:'
@@ -518,6 +519,20 @@ module.exports = {
       thanks: 'Cảm ơn bạn !',
       rate_tips: 'Vui lòng đánh giá dịch vụ của chúng tôi',
       rate_done: 'Gửi đánh giá'
+    },
+    article: {
+      numerical_symbol: 'Số ký hiệu',
+      article_type: 'Loại văn bản',
+      public_day: 'Ngày ban hành',
+      effect_day: 'Ngày có hiệu lực',
+      source: 'Nguồn thu thập',
+      day_report: 'Ngày đăng công báo',
+      agency_issued: 'Cơ quan ban hành',
+      signer_title: 'Chức danh / Người ký',
+      scope: 'Phạm vi',
+      expire_day: 'Ngày hết hiệu lực',
+      markup: ' Đánh dấu văn bản',
+      index: 'Mục lục'
     }
   }
 }
