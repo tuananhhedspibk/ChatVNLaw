@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import $ from 'jquery';
-import NotFoundPage from '../shared/notfound';
+import { Button, Header,
+  Icon, Modal, Form } from 'semantic-ui-react';
 
+import NotFoundPage from '../shared/notfound';
 import Nav from '../homepage/nav';
 import ArticleIndex from './index';
 import ArticleContent from './content';
 import ArticleDetail from './detail';
 import StickyHighlight from './sticky';
-import '../../assets/styles/common/articles.css'
-import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
 import * as constant from '../constants';
+
+import '../../assets/styles/common/articles.css';
 
 const firebase = require('firebase');
 
@@ -36,7 +38,6 @@ class Article extends Component {
     this.handleScroll = this.handleScroll.bind(this);
     this.handleStickyOff = this.handleStickyOff.bind(this);
 	}
-
 
 	componentWillMount() {
 		var component = this;
@@ -66,7 +67,8 @@ class Article extends Component {
         window.location = constant.BASE_URL + constant.SIGN_IN_URI
       }
     });
-	}
+  }
+
   componentDidUpdate() {
     window.addEventListener('scroll',this.handleScroll);
     $(".internal_link").on('click', function(event) {
@@ -74,7 +76,6 @@ class Article extends Component {
         event.preventDefault();
 
         var hash = this.hash;
-        console.log(hash);
 
         $('html, body').animate({
           scrollTop: $(hash).offset().top
@@ -84,13 +85,12 @@ class Article extends Component {
         });
       }
     });
+  
     $('#detail-header').on('click',function() {
-      console.log(1);
       $('.index').hide();
       $('.sticky-col').hide();
     });
     $('#art-content-header').on('click',function() {
-      console.log(2);
       $('.index').show();
       $('.sticky-col').show();
     });
@@ -102,12 +102,9 @@ class Article extends Component {
         var defaultLeft = $('.index').offset().left;
         var defaultHeight = $('.index').offset().top -$('.nav-pills').offset().top;
         var defaultLeft1 = $('.sticky-col').offset().left;
-        var defaultRight1 =$(window).width() - $('.sticky-col').offset().left - $('.sticky-col').outerWidth();
+        var defaultRight1 = $(window).width() - $('.sticky-col').offset().left - $('.sticky-col').outerWidth();
         var defaultHeight1 = $('.sticky-col').offset().top -$('.nav-pills').offset().top;
-        console.log(defaultRight1)
-        console.log($(window).width())
-        console.log($('.sticky-col').outerWidth())
-        console.log($('.sticky-col').offset().left)
+
         $('.index').css('position','fixed');
         $('.index').css('left',defaultLeft);  
         $('.index').css('top',defaultHeight); 
@@ -130,8 +127,6 @@ class Article extends Component {
         $('.sticky-col').css('right','0');
         $('.sticky-col').css('top','0');
         $('.sticky-col').css('margin-top',70);
-
-        // $('.boundary-index').css('top','none');
       }
     }
   }
@@ -230,29 +225,26 @@ class Article extends Component {
   }
 
   getNextNode(node, skipChildren, endNode,skipNode, defaultColor){
-  
-      if (endNode == node) {
-        return false;
-      }
-      if (node.firstChild && !skipChildren) {
-        return node.firstChild;
-      }
-      if (!node.parentNode){
-        return false;
-      }
-      if (node != skipNode && !node.contains(skipNode)) {
-        $(node).css('background', defaultColor);
-      }
-      return node.nextSibling 
-             || this.getNextNode(node.parentNode, true, endNode, skipNode, defaultColor); 
+    if (endNode == node) {
+      return false;
+    }
+    if (node.firstChild && !skipChildren) {
+      return node.firstChild;
+    }
+    if (!node.parentNode){
+      return false;
+    }
+    if (node != skipNode && !node.contains(skipNode)) {
+      $(node).css('background', defaultColor);
+    }
+    return node.nextSibling 
+      || this.getNextNode(node.parentNode, true, endNode, skipNode, defaultColor); 
   }
+
   getPositionSticky(className) {
     var dup = document.getElementsByClassName(className);
     var firstParent = $(dup).parent();
     var offsetStart = firstParent.html().indexOf(`<span class="${className}">`);
-    console.log(`<span class="${className}">`)
-    console.log(firstParent.html())
-    console.log(offsetStart)
     var offsetEnd = firstParent.html().indexOf('</span>');
     var dupIndex = firstParent.parent().children().index(firstParent);
     var index = { indexHighlight: dupIndex,
@@ -372,25 +364,9 @@ class Article extends Component {
         var endNode = rangeSelected.focusNode;
         var startOffset = rangeSelected.anchorOffset;
         var endOffset = rangeSelected.focusOffset;
-        // var endEl;
-        // if (endOffset == 0)
-        //   endEl = $(endNode).prev();
-        // else 
-        //   endEl = $(endNode).parent()
-        // var startEl = $(startNode).parent();
-        var startLoop = startNode;
-        // if (endOffset == 0) {
-        //   console.log("test")
-        //   console.log(endNode)
-        //   endNode = endNode.previousElementSibling;
-        //   endOffset = endNode.textContent.length;
-        //   console.log(startNode)
-        //   console.log(endNode)
-        //   console.log(startNode == endNode)
-        //   console.log(endNode.contains(startNode))
-        //   console.log("test")
 
-        //   }
+        var startLoop = startNode;
+
         if (endNode != startNode) {
           var range = document.createRange();
           range.setStart(startNode,startOffset);
@@ -420,15 +396,6 @@ class Article extends Component {
           span.appendChild(extractSelected);
           range.insertNode(span);
         }
-          // var r =  rangeSelected.getRangeAt(0)
-          // var extractSelected =r.extractContents();
-          // var span = document.createElement("span");
-          // span.style.backgroundColor = "green";
-          // span.className = "selecting-sticky";
-          // span.appendChild(extractSelected);
-          // r.insertNode(span);
-          // startEl.wrapInner( "<span class='start-hl'></span>" );
-          // endEl.wrapInner( "<span class='end-hl'></span>" );
         component.handleOpenModal();
       }
 		});
@@ -516,12 +483,12 @@ class Article extends Component {
           </Modal>
 				</div>
 			);
-		else
+		else {
 			return(
 				<div>
 				</div>
-				);
-
+			);
+    }
 	}
 }
 

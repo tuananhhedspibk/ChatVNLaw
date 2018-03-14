@@ -124,6 +124,11 @@
     .content {
       font-size: 1.2em;
     }
+
+    .no-review {
+      margin-top: -6px;
+      padding: 0 25px 15px;
+    }
   }
 
   button.content-block {
@@ -363,4 +368,10 @@
 @-webkit-keyframes gleam{
   0% { background-position: 0 0 }
   100% { background-position:600px 0 }
+}
+
+@-moz-document url-prefix() {
+  .ui .modal {
+    height: 530px !important;
+  }
 }

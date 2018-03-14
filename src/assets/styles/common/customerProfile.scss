@@ -2,7 +2,7 @@
 
 .container-customer-wrapper {
   background-color: $gray-more-lighter;
-  height: calc(100vh - 227px);
+  min-height: calc(100vh - 68.5px);
   padding: 60px 160px;
 
   .profile-header {
@@ -58,8 +58,8 @@
 }
 
 @-moz-document url-prefix() {
-  #edit-user-profile-box {
-    height: 225px !important;
+  .container-customer-wrapper {
+    min-height: calc(100vh - 66.5px);
   }
 }
 

@@ -58,7 +58,7 @@
     font-size: 1.2em; }
   .app-body .chat-setting .content .content-title {
     color: #000;
-    font-size: 1.1em; }
+    font-size: 1.2em; }
   .app-body .sidebar .custom-content {
     margin-bottom: -26px !important; }
   .app-body .chat-section {
@@ -91,58 +91,6 @@
   .app-body .bubble-img img {
     max-height: 230px !important;
     max-width: 230px !important; }
-  .app-body .chat-setting {
-    border-left: none;
-    border-right: none;
-    overflow-y: hidden;
-    width: 100%; }
-    .app-body .chat-setting .header .user-name {
-      font-size: 1.1em; }
-    .app-body .chat-setting .header {
-      border: 0;
-      padding: 0 0 15px; }
-    .app-body .chat-setting .shared-images {
-      background-color: #f6f6f6; }
-    .app-body .chat-setting .shared-files {
-      border-left: 1px solid #f6f6f6;
-      border-right: 1px solid #f6f6f6;
-      width: calc(100% - 1px) !important; }
-    .app-body .chat-setting .shared {
-      border-bottom: 0 !important;
-      padding: 20px !important;
-      width: 100%; }
-      .app-body .chat-setting .shared a {
-        font-size: 1.1em !important; }
-    .app-body .chat-setting .description {
-      background-color: #f6f6f6;
-      display: inline-block;
-      padding: 20px;
-      width: 100%; }
-      .app-body .chat-setting .description .title {
-        color: #000;
-        font-size: 1.1em;
-        margin-bottom: 3px;
-        text-transform: none; }
-      .app-body .chat-setting .description .text-descrip {
-        background-color: #fff;
-        margin: 10px 0 15px;
-        padding: 10px; }
-      .app-body .chat-setting .description form {
-        margin: 15px 0 0; }
-        .app-body .chat-setting .description form textarea {
-          margin-bottom: 15px;
-          padding: 10px;
-          width: 100%; }
-      .app-body .chat-setting .description button {
-        background-color: #2385f2;
-        border: 0;
-        border-radius: 3px;
-        color: #fff;
-        font-size: 1em;
-        padding: 10px; }
-        .app-body .chat-setting .description button:focus {
-          background-color: #0974b8;
-          outline: 0; }
   .app-body .chat-box-wrapper {
     display: inline-block;
     height: calc(100vh - 55px);
@@ -211,11 +159,11 @@
     border-right: none;
     overflow-y: hidden;
     width: 100%; }
-    .app-body .chat-setting .header .user-name {
-      font-size: 1.1em; }
     .app-body .chat-setting .header {
       border: 0;
       padding: 0 0 15px; }
+      .app-body .chat-setting .header .user-name {
+        font-size: 1.2em !important; }
     .app-body .chat-setting .shared-images {
       background-color: #f6f6f6; }
     .app-body .chat-setting .shared-files {
@@ -235,7 +183,7 @@
       width: 100%; }
       .app-body .chat-setting .description .title {
         color: #000;
-        font-size: 1.1em;
+        font-size: 1.2em;
         margin-bottom: 3px;
         text-transform: none; }
       .app-body .chat-setting .description .text-descrip {
@@ -253,10 +201,14 @@
         border: 0;
         border-radius: 3px;
         color: #fff;
-        font-size: 1em;
-        padding: 10px; }
-        .app-body .chat-setting .description button:focus {
+        cursor: pointer;
+        font-size: 1.2em;
+        padding: 7px 11px; }
+        .app-body .chat-setting .description button:hover {
           background-color: #0974b8;
+          transition: all .3s ease; }
+        .app-body .chat-setting .description button:focus {
+          background-color: #00558c;
           outline: 0; }
   .app-body .chat-section {
     background-color: #fff;

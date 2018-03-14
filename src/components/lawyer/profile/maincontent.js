@@ -15,6 +15,9 @@ class MainContent extends Component {
 			return '...';
 		}
 		else {
+			if(Array.isArray(text)) {
+				return text.join(", ");
+			}
 			return text;
 		}
 	}

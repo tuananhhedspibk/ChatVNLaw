@@ -80,6 +80,7 @@ class LawyerProfile extends Component {
 			)
 		}
 	}
+
 	render() {
 		if(this.state.isloading){
 			return(

@@ -13,9 +13,6 @@ class RightBlock extends Component {
         <div className='sub-title'>
           {translate('app.lawyer.pay_for_hour')}
         </div>
-        <button className='btn-blue'>
-          {translate('app.lawyer.regis_now')}
-        </button>
       </div>
     )
   }
