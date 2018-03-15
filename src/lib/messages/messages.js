@@ -59,7 +59,6 @@ function notifyUnreadMessage(properties){
 
     ref.on('child_added', snapshot=>{
         unreadArr.push(exportUnreadItem(snapshot));
-        console.log(unreadArr);
         component.setState({unread: unreadArr})
     })
     ref.on('child_changed', snapshot=>{
@@ -149,7 +148,6 @@ function updateTag(properties){
     let mess = properties.mess;
     let tags = {};
     mess.tags.forEach(element => {
-        // tags.push(element.text);
         tags[element.text] = element.text;
     })
     firebase.database().ref(`${constant.TABLE.rooms}/${component.state.currentRoomId}/${constant.ROOMS.messages}/${mess[constant.MESSAGES.messagesId]}`).update({

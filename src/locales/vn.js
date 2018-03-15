@@ -94,7 +94,8 @@ module.exports = {
     profile: {
       user_review: 'Đánh giá từ khách hàng',
       view_all: 'Xem tất cả',
-      review: 'đánh giá'
+      review: 'đánh giá',
+      load_more: 'Xem thêm đánh giá'
     },
     home: {
       footer: {

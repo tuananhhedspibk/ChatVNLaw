@@ -318,56 +318,31 @@
   }
 }
 
-.media{
-  align-items: center !important;
-  display: flex;
-  padding: 15px 25px;
-}
-
-.media-img, .media-desc, .media-star{
+.load-more-sec {
   display: inline-block;
-  vertical-align: top;
+  text-align: center;
+  width: 100%;
 }
 
-.media-img {
-  background-color: $media-white;
-  border-radius: 50%;
-  height: 60px;
-  margin: 0 15px 0 0;
-  width: 60px;
-}
+.modal-btn {
+  background-color: $blue;
+  border: 0;
+  border-radius: 3px;
+  color: $white;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 8px 15px;
+  margin: 20px 0 0;
 
-.media-desc{
-  margin-right: 15px;
-  width: calc(100% - 180px);
-}
+  &:hover {
+    background-color: $blue-more-darker;
+    transition: all .3s ease;
+  }
 
-.media-star{
-  width: 90px;
-}
-
-.media-star .bar{
-  height: 25px;
-  margin: 0;
-  background-color: $media-white;
-}
-
-.media-desc .bar{
-  height: 25px;
-  margin: 0;
-  background-color: $media-white;
-}
-
-.media-img, .media-desc, .media-star .bar{
-  -webkit-animation: gleam 1.5s ease-in-out infinite;
-  background-image:-webkit-linear-gradient(left, $media-animation-color-1,
-    $media-animation-color-2, $media-animation-color-1);
-  background-size: 600px auto;
-}
-
-@-webkit-keyframes gleam{
-  0% { background-position: 0 0 }
-  100% { background-position:600px 0 }
+  &:focus {
+    background-color: $blue-darker;
+    transition: all .3s ease;
+  }
 }
 
 @-moz-document url-prefix() {

@@ -43,7 +43,8 @@ class MainContent extends Component {
 						<div className='col-sm-12 col-md-6'>
 							<CenterBlock convertContent={this.convertContent}
 								profile={this.props.profile}
-								user = {this.props.user}/>
+								user={this.props.user}
+								userId={this.props.userId}/>
 						</div>
 						<div className='col-sm-12 col-md-3'>
 							<RightBlock profile={this.props.profile}/>

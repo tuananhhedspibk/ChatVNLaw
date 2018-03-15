@@ -17,6 +17,7 @@ class LawyerProfile extends Component {
 		this.state = {
 			profile: null,
 			user: null,
+			userId: null,
 			isloading : true,
 			issuccess : true
 		};
@@ -47,7 +48,8 @@ class LawyerProfile extends Component {
 							component.setState({issuccess : false, isloading: false})							
 						}else{
 							component.setState({
-								user : snapshot.val()[key]}
+								user : snapshot.val()[key],
+								userId: key}
 							)
 							component.getUserProfile(key);
 						}
@@ -57,7 +59,7 @@ class LawyerProfile extends Component {
 	}
 
   componentWillMount() {
-	  this.checkUserName(this.props.match.params.user_name);
+		this.checkUserName(this.props.match.params.user_name);
 	}
 
 	renderView(){
@@ -66,7 +68,8 @@ class LawyerProfile extends Component {
 				<div>
 					<Nav navStyle='inverse'/>
 					<MainContent profile={this.state.profile}
-						user={this.state.user}/>
+						user={this.state.user}
+						userId={this.state.userId}/>
 					<Footer/>
 					<Toast emitter={this.emitter}/>
 				</div>
