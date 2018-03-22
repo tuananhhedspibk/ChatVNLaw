@@ -11,8 +11,12 @@ import * as translate from 'counterpart';
 import * as videoCall from '../../lib/streaming/videocall';
 import {cantCreatePeer} from '../../lib/notification/toast';
 
+import firebase from 'firebase';
+
 import '../../assets/styles/common/chatWindow.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+
+import Time from 'react-time'
 
 class VideoCall extends React.Component{
   constructor(props){
@@ -23,14 +27,24 @@ class VideoCall extends React.Component{
       targetUser:null,
       peer: null,
       currentRoomId: null,
-      modalOpen: false
+      modalOpen: false,
+      lawyer: null,
+      review : {
+        avatar: null,
+        username: null,
+        date : null,
+        star : 0,
+        comment: null
+      }
     };
     this.emitter=null;
   }
 
   componentWillMount(){
     this.setState({currentUser: this.props.currentUser,
-                  targetUser: this.props.targetUser})
+                  targetUser: this.props.targetUser,
+                  date: new Date()
+                })
   }
   componentWillReceiveProps(nextProps){
     if(this.state.currentRoomId !== nextProps.currentRoomId){
@@ -132,13 +146,68 @@ class VideoCall extends React.Component{
     })
   }
 
+  changeTypeDate(date){
+    var options = {
+      weekday: 'long', year: 'numeric', month: 'short',
+      day: 'numeric', hour: '2-digit', minute: '2-digit'
+    };
+    var dateFormatted = date.toLocaleDateString('vi-VN', options);
+    return dateFormatted
+  }
+
   handleOpenModal() {
-    this.setState({modalOpen: true});
+    var review = this.state.review;
+    var date = new Date();
+    this.setState({
+      modalOpen: true,
+      review : {
+        date : this.changeTypeDate(date),
+        star: review.star,
+        comment: review.comment
+      }
+    });
   }
 
   handleCloseModal() {
     this.setState({modalOpen: false});
   }
+
+  submitEndCall(){
+    var comment = $('.comment').val();
+    var review = this.state.review
+    this.setState({
+      review:{
+        avatar: review.avartar,
+        username: review.username,
+        star: review.star,
+        date: Date.now(),
+        comment: comment
+      },
+      modalOpen: false
+    })
+    var newPostKey = firebase.database().ref().child(`lawyers/${this.state.targetUser.uid}/reviews`).push().key;
+    firebase.database().ref(`lawyers/${this.state.targetUser.uid}/reviews/${newPostKey}`).set({
+      avartar: this.state.currentUser.photoURL,
+      username: this.state.currentUser.displayName,
+      star: review.star,
+      content: comment,
+      created_at: Date.now(),
+    })
+  }
+
+  ratingChanged(newRating, value){
+    var review = this.state.review
+    this.setState({
+      review: {
+        avatar: review.avartar,
+        username: review.username,
+        star: newRating,
+        date: review.date,
+        comment: review.comment
+      }
+    })
+  }
+
 
   render(){
     return(
@@ -173,7 +242,7 @@ class VideoCall extends React.Component{
             <i onClick={this.makeCallRequest.bind(this)}
               className='fa fa-video-camera'
               aria-hidden='true'></i>
-            <i className='fa fa-phone'
+            <i className='fa fa-unlink'
               aria-hidden='true'
               onClick={this.handleOpenModal.bind(this)}></i>
               <Modal size='tiny'
@@ -183,15 +252,7 @@ class VideoCall extends React.Component{
                 <Modal.Content>
                   <div className='rate-form'>
                     <div className='time-stamp'>
-                      8:31 A.M 19 tháng 1 năm 2018
-                    </div>
-                    <div className='cost-money'>
-                      <p className='title'>
-                        {translate('app.rate.cost_money')}
-                      </p>
-                      <p className='value'>
-                        14,000 VND
-                      </p>
+                      {this.state.review.date}
                     </div>
                     <div className='tips'>
                       {translate('app.rate.tips')}
@@ -209,11 +270,16 @@ class VideoCall extends React.Component{
                         </div>
                         <div className='stars'>
                           <ReactStars count={5}
-                            value={0} size={24}
+                            value={this.state.review.star} size={24}
+                            onChange={this.ratingChanged.bind(this)}
                             color1={'white'}
                             color2={'#ffd700'} />
                         </div>
-                        <button className='rate-submit'>
+                        <div class="form-group">
+                          <label for="comment">Đánh giá luật sư:</label>
+                          <textarea className="form-control comment" rows="3" id="comment"></textarea>
+                        </div>
+                        <button className='rate-submit' onClick = {this.submitEndCall.bind(this)}>
                           {translate('app.rate.rate_done')}
                         </button>
                       </div>
