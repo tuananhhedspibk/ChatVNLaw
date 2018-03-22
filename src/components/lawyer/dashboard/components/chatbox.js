@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import {Picker} from 'emoji-mart';
+import firebase from 'firebase';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import VideoCall from './videocall';
@@ -18,7 +19,8 @@ class ChatBox extends Component {
       currentUser: null,
       targetUser: null,
       chatMessHeight: 0,
-      emojiVisibility: false
+      emojiVisibility: false,
+      sign: null
     };
   }  
   

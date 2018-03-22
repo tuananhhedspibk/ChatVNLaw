@@ -550,6 +550,10 @@ module.exports = {
       expire_day: 'Ngày hết hiệu lực',
       markup: ' Đánh dấu văn bản',
       index: 'Mục lục'
+    },
+    close_chat: {
+      close: 'Đã kết thúc cuộc trò chuyện với bạn !',
+      submit: 'OK !'
     }
   }
 }

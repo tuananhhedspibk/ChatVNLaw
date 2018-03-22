@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ChatBox from './chatbox';
+import { Modal, Button } from 'semantic-ui-react';
 import firebase from 'firebase';
 import {getAllRoom} from '../../../../lib/room/rooms';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -7,6 +8,7 @@ import $ from 'jquery';
 
 import * as constant from '../../../constants';
 import * as translate from 'counterpart';
+import { runInNewContext } from 'vm';
 
 class Chat extends Component {
   constructor(props) {
@@ -16,14 +18,19 @@ class Chat extends Component {
       currentUser: null,
       users: [],
       unread: [],
-      listUsersHeight: 0
+      listUsersHeight: 0,
+      review: {},
+      modalOpen: false,
+      closeUser: null,
+      date: null
     };
   }
 
   componentWillMount(){
     var component = this;
-    this.setState({currentUser : this.props.currentUser});
-    
+    this.setState({
+      currentUser : this.props.currentUser
+    });
     let properties = {}
     properties['component'] = this;
     properties['currentUser'] = this.props.currentUser;
@@ -43,6 +50,32 @@ class Chat extends Component {
     })
   }
   
+ 
+  componentWillUpdate(nextProps, nextState) {
+    var component = this;
+    var date = new Date();
+    if(this.state.review !== nextState.review && nextState.users.length>0){
+      for(var i in nextState.review){
+        if(!!component.state.review[i]){
+          if(component.state.review[i].created_at !== nextState.review[i].created_at){
+            this.setState({
+              closeUser: i,
+              modalOpen: true,
+              date: component.changeTypeDate(date)
+            })
+          }
+        }
+        else {
+          this.setState({
+            closeUser: i,
+            modalOpen: true,
+            date: component.changeTypeDate(date)
+          })
+        }
+      }
+    }
+  }
+
   componentWillReceiveProps(nextProps){
     if(this.state.currentUser !== nextProps.currentUser){
       this.setState({currentUser: nextProps.currentUser});
@@ -58,6 +91,13 @@ class Chat extends Component {
 
   componentDidMount() {
     var component = this;
+    firebase.database().ref(`lawyers/${this.props.currentUser.uid}/reviews`).on('value', data => {
+      if(data.exists()){
+        component.setState({
+          review: data.val()
+        })
+      }
+    })
     this.setHeight(this);
     $(window).resize(function() {
       component.setHeight(component);
@@ -74,6 +114,35 @@ class Chat extends Component {
         $('.video-call').find('.end-call-btn').toggle();
       }
     }
+  }
+
+  changeTypeDate(date){
+    var options = {
+      weekday: 'long', year: 'numeric', month: 'short',
+      day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
+    };
+    var dateFormatted = date.toLocaleDateString('vi-VN', options);
+    return dateFormatted
+  }
+
+  handleCloseModal() {
+    this.setState({modalOpen: false});
+  }
+
+  handleOpenModal() {
+    var review = this.state.review;
+    var component = this
+    var date = new Date();
+    this.setState({
+      modalOpen: true,
+      date: component.changeTypeDate(date)
+    });
+  }
+
+  submitOk(){
+    this.setState({
+      modalOpen: false
+    })
   }
 
   render() { 
@@ -124,6 +193,31 @@ class Chat extends Component {
           targetUser={this.state.targetUser}
           currentUser={this.state.currentUser}
           emitter={this.props.emitter}/>
+        <Modal size='tiny'
+          onClose={this.handleCloseModal.bind(this)}
+          open={this.state.modalOpen}
+          id='rate-box' closeIcon={true}>
+          <Modal.Content>
+            <div className='rate-form'>
+              <div className='time-stamp'>
+                {this.state.date}
+              </div>
+              <footer>
+                <div className='thanks'>
+                 {this.state.closeUser} {translate('app.close_chat.close')}
+                </div>
+                <div className='lawyer-pic'>
+                  <img src={constant.avaLawyerPic} />
+                </div>
+                <div className='rate'>
+                  <button className='rate-submit' onClick = {this.submitOk.bind(this)}>
+                    {translate('app.close_chat.submit')}
+                  </button>
+                </div>
+              </footer>
+            </div>
+          </Modal.Content>
+        </Modal>
       </div>
     )
   }
