@@ -13,13 +13,26 @@ export const CUSTOMER_PROFILE_URI = '/customers';
 export const LAWYER_PROFILE_URI = '/lawyers';
 export const DASHBOARD_URI = '/dashboard';
 export const LAW_URI = '/articles/';
+export const APPLY_LAWYER_URI = '/applylawyer/';
+export const NF_URI = '/404';
 
-export const API_BASE_URL = 'http://localhost:4000/api';
-export const API_SEARCH_ARTICLES_URI = '/search/articles';
-export const API_SEARCH_LAWYERS_URI = '/search/lawyers';
-export const API_TOP_LAWYERS_URI = '/lawyers/top';
-export const API_ALL_LAWYERS_NAME_URI = '/lawyers/names';
-export const API_ARTICLES_URI = '/articles';
+export const API_BASE_URL = 'http://localhost:4000';
+export const API_SEARCH_ARTICLES_URI = '/api/search/articles';
+export const API_SEARCH_LAWYERS_URI = '/api/search/lawyers';
+export const API_TOP_LAWYERS_URI = '/api/search/top_lawyers';
+export const API_ALL_LAWYERS_NAME_URI = '/api/search/lawyers_names';
+export const API_ARTICLES_URI = '/api/articles';
+export const API_LOGIN_URI = '/api/login';
+export const API_SIGNUP_URI = '/api/signup';
+export const API_LOGOUT_URI = '/api/logout';
+export const API_USERS_URI = '/api/users/';
+export const API_ROOMS_URI = '/api/rooms';
+export const API_LAWYERS_URI = '/api/lawyers/';
+export const API_REVIEWS_URI = '/api/reviews/';
+export const API_TASKS_URI = '/api/tasks/';
+export const API_USER_NAME_URI = '/api/user_name/';
+export const API_SPE_URI = '/api/lawyer_specializes';
+export const API_ROOM_FILES_URI = '/room_files/';
 
 export const DEFAULT_AVATAR_URL = 'https://image.ibb.co/i23jUF/default_ava.png';
 
@@ -58,17 +71,17 @@ export const tingIcon = require('../assets/images/ting.png');
 export const PEERJS_KEY = 'peerjs';
 
 export const LAW_CATEGORY = [
-  { key: 'spy', value: 'Hình Sự', icon: 'spy', text: 'Hình Sự' },
-  { key: 'registered', value: 'Sở Hữu Trí Tuệ', icon: 'registered',
-    text: 'Sở Hữu Trí Tuệ' },
-  { key: 'heart', value: 'Hôn Nhân & Gia Đình', icon: 'heart',
-    text: 'Hôn Nhân & Gia Đình' },
-  { key: 'building outline', value: 'Nhà Đất - Xây Dựng',
-    icon: 'building outline', text: 'Nhà Đất - Xây Dựng' },
-  { key: 'payment', value: 'Tài Chính - Ngân Hàng', icon: 'payment',
-    text: 'Tài Chính - Ngân Hàng' },
-  { key: 'users', value: 'Dân Sự', icon: 'users', text: 'Dân Sự' },
-  { key: 'protect', value: 'Lao Động - Bảo Hiểm Xã Hội', icon: 'protect',
-    text: 'Lao Động - Bảo Hiểm Xã Hội' },
-  { key: 'suitcase', value: 'Doanh Nghiệp', icon: 'suitcase', text: 'Doanh Nghiệp' },
+  { key: 'spy', value: 'Hình sự', icon: 'spy', text: 'Hình Sự' },
+  { key: 'registered', value: 'Sở hữu trí tuệ', icon: 'registered',
+    text: 'Sở hữu trí tuệ' },
+  { key: 'heart', value: 'Hôn nhân & gia đình', icon: 'heart',
+    text: 'Hôn nhân & gia đình' },
+  { key: 'building outline', value: 'Nhà đất - Xây dựng',
+    icon: 'building outline', text: 'Nhà đất - Xây dựng' },
+  { key: 'payment', value: 'Tài chính - Ngân hàng', icon: 'payment',
+    text: 'Tài chính - Ngân hàng' },
+  { key: 'users', value: 'Dân sự', icon: 'users', text: 'Dân sự' },
+  { key: 'protect', value: 'Lao động - Bảo hiểm xã hội', icon: 'protect',
+    text: 'Lao động - Bảo hiểm xã hội' },
+  { key: 'suitcase', value: 'Doanh nghiệp', icon: 'suitcase', text: 'Doanh nghiệp' },
 ]

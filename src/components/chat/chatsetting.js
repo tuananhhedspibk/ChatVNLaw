@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, TextArea, Button, Image,
-  Modal, Dropdown } from 'semantic-ui-react';
+import { Header, Button, Image,
+  Modal } from 'semantic-ui-react';
 import $ from 'jquery';
 import { Scrollbars } from 'react-custom-scrollbars';
+
 import ChatSessionList from './chatsetting/chatsessionlist';
+
+import { getRoomFilesAndImages } from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as Files from '../../lib/upfile/files';
@@ -78,19 +81,36 @@ class ChatSetting extends Component {
     $(window).resize(function() {
       component.setHeight(component);
     });
-    let properties = {}
-    properties.component = this;
-    properties.roomId = this.props.currentRoomId;    
-    Files.showImagesAndFilesList(properties);
-  }
+    var properties = {
+      roomId: this.props.currentRoomId
+    };
+    var files = [];
+    var images = [];
+    getRoomFilesAndImages(properties, (success, response) => {
+      if (success) {
+        response.data.list_files.map((item, idx) => {
+          var url = item.file.url;
 
-  renderAva() {
-    return(
-      <div>     
-        <img  src={this.state.targetUser.photoURL}
-          alt='ava-lawyer' id='current-user-ava'/>
-      </div>
-    )
+          if(item.content_type_id === 1) {
+            images.push({
+              url: constant.API_BASE_URL + url,
+              name: response.data.list_files_names[idx]
+            });
+          }
+          else {
+            files.push({
+              url: constant.API_BASE_URL + url,
+              name: response.data.list_files_names[idx]
+            });
+          }
+        });
+        component.setState({
+          images: images,
+          files: files
+        });
+      }
+      else {}
+    });
   }
 
   upfile(event) {
@@ -114,23 +134,6 @@ class ChatSetting extends Component {
     })
   }
 
-  editProfile() {
-    var component = this;
-    let photoURL = $('#edit-user-ava').find('img').attr('src');
-    let displayName = $('#txtbox-username').val();
-    this.state.currentUser.updateProfile({
-      displayName: displayName,
-      photoURL: photoURL
-    }).then(function() {
-      firebase.database().ref(`users/${component.state.currentUser.uid}`).update({
-        photoURL:photoURL,
-        displayName: displayName
-      }).then(function(){
-        component.handleCloseModal()
-      })
-    })
-  }
-
   handleOpenModal() {
     this.setState({modalOpen: true});
   }
@@ -145,52 +148,13 @@ class ChatSetting extends Component {
     }).catch(function(error) {});
   }
 
-  renderConfig(){
-    if (this.state.currentUser.uid === this.state.targetUser.uid) {
-      return(
-        <Dropdown icon='settings'>
-          <Dropdown.Menu>
-            <Modal 
-              onClose={this.handleCloseModal.bind(this)}
-              open={this.state.modalOpen}
-              id='edit-user-profile-box' closeIcon={true}>
-              <Modal.Header>
-                {translate('app.user.edit.profile')}
-              </Modal.Header>
-              <Modal.Content image>
-                <div className='image-col' style={imgColStyle.base}>
-                  <Image wrapped size='medium' id='edit-user-ava'
-                    src={this.state.currentUser.photoURL}/>
-                  <a href='#' onClick={this.upfile.bind(this)}
-                    style={uploadNewPicStyle.base}>
-                      <i className='fa fa-camera'
-                      style={faCameraStyle} aria-hidden='true'></i>
-                      {translate('app.user.upload.ava')}
-                  </a>
-                  <input type='file' id='upfile-setting'
-                    accept='image/*' style={upfileStyle}/>
-                </div>
-                <Modal.Description>
-                  <Header>{translate('app.user.name')}</Header>
-                  <TextArea id='txtbox-username'
-                    autoHeight onChange={this.handleInputChange}
-                    rows={2} >{this.state.currentUser.displayName}</TextArea>
-                </Modal.Description>
-              </Modal.Content>
-              <Modal.Actions>
-                <Button color='blue' onClick={this.editProfile.bind(this)}>
-                  {translate('app.user.edit.profile')}
-                </Button>
-              </Modal.Actions>
-            </Modal>
-            <Dropdown.Item text={translate('app.user.edit.profile')}
-              onClick={this.handleOpenModal.bind(this)}/>
-            <Dropdown.Item text={translate('app.identifier.logout')}
-              onClick={this.logout.bind(this)}/>
-          </Dropdown.Menu>
-        </Dropdown>
-      )
-    }
+  renderAva() {
+    return(
+      <div>     
+        <img  src={constant.API_BASE_URL + this.state.targetUser.profile.avatar.url}
+          alt='ava-lawyer' id='current-user-ava'/>
+      </div>
+    )
   }
 
   renderSharedFile(){
@@ -205,7 +169,7 @@ class ChatSetting extends Component {
           {
             this.state.files.map(file => {
               return(
-                <Link to={file.downloadURL}
+                <Link to={file.url}
                   target='_blank'>
                     {file.name}
                 </Link>
@@ -229,7 +193,7 @@ class ChatSetting extends Component {
           {
             this.state.images.map(image => {
               return(
-                <Link to={image.downloadURL}
+                <Link to={image.url}
                   target='_blank'>
                     {image.name}
                 </Link>
@@ -263,19 +227,16 @@ class ChatSetting extends Component {
                 </div>
                 <div className='info'>
                   <div className={'user-name'}
-                    title={this.state.targetUser.displayName}>
-                    {this.state.targetUser.displayName}
+                    title={this.state.targetUser.profile.displayName}>
+                    {this.state.targetUser.profile.displayName}
                   </div>
                 </div>
-                <div className='config'>
-                  {this.renderConfig()}
-                </div> 
               </div>
               <div className='content'>
                 <div className='shared session-infor'>
                   <button className='content-title no-icon' onClick={ () =>{
-                      window.open(constant.BASE_URL +'/lawyers/'
-                      + this.state.targetUser.username)}}>
+                      window.open(constant.BASE_URL + constant.LAWYER_PROFILE_URI + '/'
+                      + this.state.targetUser.profile.userName)}}>
                     {translate('app.chat.lawyer_profile')}
                   </button>
                 </div>

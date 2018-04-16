@@ -21,10 +21,6 @@ module.exports = {
       show_less: 'thu nhỏ',
       no_review: 'Xin lỗi, hiện tại luật sư chưa nhận được đánh giá nào'
     },
-    button:{
-      create_new_chat: 'Tạo cuộc trò chuyện',
-      destroy_room_request: 'Hủy yêu cầu'
-    },
     notification:{
       no_noti: 'Hiện tại bạn chưa có thông báo nào',
       new_request_from_other: ' đã gửi cho bạn một yêu cầu',
@@ -39,11 +35,12 @@ module.exports = {
       time_created: 'Thời gian tạo: ',
       detail: 'Chi tiết:',
       create_dialog: 'Tạo cuộc trò chuyện',
+      goto_dialog: 'Đi đến cuộc trò chuyện',
+      destroy_room_request: 'Hủy yêu cầu',
       evaluate: 'Đánh giá:',
       agree_with_case: 'Tôi đồng ý tiếp nhận vụ án',
       disagree_with_case: 'Tôi không đồng ý tiếp nhận vụ án',
-      detail: 'Chi tiết:',
-      create_new_chat: 'Tạo cuộc trò chuyện'
+      detail: 'Chi tiết:'
     },
     confirm_dialog:{
       title: 'Thông báo',
@@ -274,7 +271,8 @@ module.exports = {
       rate: 'Đánh giá',
       lawyer_profile: 'Thông tin của luật sư',
       chat_session_list: 'Lịch sử phiên chat',
-      pay: 'Thanh toán'
+      pay: 'Thanh toán',
+      warning_file_size: 'Dung lượng file tối đa là 25MB'
     },
     notfound: {
       content: {
@@ -509,10 +507,14 @@ module.exports = {
       save: 'Lưu',
       payment: 'Thông tin tài khoản',
       acc_balance: 'Số dư tài khoản',
-      money_unit: 'VNĐ',
       input_money: 'Nhập số tiền muốn nạp',
       job_done: 'Hoàn tất công việc',
-      category_ph: 'Hãy chọn lĩnh vực yêu thích của bạn'
+      category_ph: 'Hãy chọn lĩnh vực yêu thích của bạn',
+      price: 'Giá tiền tư vấn',
+      money_unit: 'VNĐ',
+      payment_his: 'Lịch sử thanh toán',
+      mn_ipt: 'Số tiền nạp',
+      time: 'Thời gian'
     },
     rate: {
       cost_money: 'Giá tiền',
@@ -534,6 +536,9 @@ module.exports = {
       expire_day: 'Ngày hết hiệu lực',
       markup: ' Đánh dấu văn bản',
       index: 'Mục lục'
+    },
+    apply_lawyer: {
+      can_not: 'Không thể yêu cầu luật sư'
     }
   }
 }

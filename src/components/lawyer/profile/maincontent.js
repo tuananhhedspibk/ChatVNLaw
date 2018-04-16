@@ -29,8 +29,7 @@ class MainContent extends Component {
 					<div className='row'>
 						<div className='col-sm-12'>
 							<HeaderBlock convertContent={this.convertContent}
-								user={this.props.user}
-								profile={this.props.profile}/>
+								user={this.props.user}/>
 						</div>
 					</div>
 					<div className='space-wrapper'>
@@ -38,16 +37,15 @@ class MainContent extends Component {
 					<div className='row'>
 						<div className='col-sm-12 col-md-3'>
 							<LeftBlock convertContent={this.convertContent}
-								profile={this.props.profile}/>
+								user={this.props.user}/>
 						</div>
 						<div className='col-sm-12 col-md-6'>
 							<CenterBlock convertContent={this.convertContent}
-								profile={this.props.profile}
 								user={this.props.user}
-								userId={this.props.userId}/>
+								userName={this.props.user.base_profile.userName}/>
 						</div>
 						<div className='col-sm-12 col-md-3'>
-							<RightBlock profile={this.props.profile}/>
+							<RightBlock user={this.props.user}/>
 						</div>
 					</div>
 				</div>

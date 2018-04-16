@@ -5,7 +5,7 @@ import Loading from '../shared/loading';
 import Toast from '../notification/toast';
 import {EventEmitter} from 'fbemitter';
 import {checkAlreadyLogin} from '../../lib/notification/toast';
-import {updateUserInfo} from '../../lib/user/users';
+import {signupRails} from '../../lib/user/users';
 
 import Nav from '../homepage/nav';
 
@@ -14,8 +14,6 @@ import * as translate from 'counterpart';
 import * as userInfo from '../../lib/user/getuserinfo';
 
 import '../../assets/styles/common/authen.css';
-
-const warningImage = require('../../assets/images/warning.png');
 
 class UserSignUp extends Component {
   constructor(props) {
@@ -27,38 +25,32 @@ class UserSignUp extends Component {
       password: null,
       password_confirmation: null,
       currentUser: null,
-      isLoading: true
+      isLoading: false
     }
     this.emitter = new EventEmitter();    
   }
 
-  componentWillMount() {
-    var component = this;
-    onAuthStateChanged( user =>{
-      if(!!user){
-        userInfo.getUserName(user, function(result){
-          component.setState({isLoading : true})
-          checkAlreadyLogin(component.emitter, ()=>{
-            component.redirect(result);
-          })                  
-        })
-      }else{
-        component.setState({currentUser: user, isLoading : false})        
+  redirect(){
+    var uri = localStorage.getItem('redirect_uri');
+    if (uri.includes(constant.APPLY_LAWYER_URI)) {
+      if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
+        this.emitter.emit('AddNewErrorToast', '',
+          translate('app.apply_lawyer.can_not'),
+          5000, ()=>{});
+          setTimeout(() => {
+            window.location = constant.BASE_URL;
+          }, 5000);
+        return;
       }
-    })
-  }
-  redirect(result){
-    const target = localStorage.getItem('target')
-    switch(target){
-      case 'chat':
-        window.location = constant.BASE_URL+ '/chat/' + result; 
-        break;
-      default:
-        window.location = constant.BASE_URL+ '/home';
-        break;      
-    } 
+    }
+    window.location = constant.BASE_URL + uri;
   }
 
+  componentWillMount() {
+    if(localStorage.chat_vnlaw_user) {
+      this.redirect();
+    }
+  }
 
   handleInputChange(evt) {
     const target = evt.target;
@@ -72,6 +64,7 @@ class UserSignUp extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
+    var component = this;
     var displayName = this.state.displayName;
     var username = this.convertUserName(displayName);
     var component = this;
@@ -80,18 +73,29 @@ class UserSignUp extends Component {
     var email = this.state.email;
     var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if( !displayName || !password || !password_confirmation || !email){
-      this.emitter.emit('AddNewWarningToast',translate('app.system_notice.warning.title'),translate('app.system_notice.warning.text.please_fill_the_form'), 5000, ()=>{} )
+      this.emitter.emit('AddNewWarningToast',
+        translate('app.system_notice.warning.title'),
+        translate('app.system_notice.warning.text.please_fill_the_form'),
+        5000, ()=>{} )
       return;
     }
     if(! re.test(email)){
-      component.emitter.emit('AddNewWarningToast', '',translate('app.system_notice.error.text.invalid_email'), 5000, ()=>{ })                         
+      component.emitter.emit('AddNewWarningToast', '',
+        translate('app.system_notice.error.text.invalid_email'),
+        5000, ()=>{ })                         
       return;      
     }
     if(password !== password_confirmation){
-      this.emitter.emit('AddNewWarningToast',translate('app.system_notice.warning.title'),translate('app.system_notice.error.text.password_confirm_not_match'), 5000, ()=>{} )
+      this.emitter.emit('AddNewWarningToast',
+        translate('app.system_notice.warning.title'),
+        translate('app.system_notice.error.text.password_confirm_not_match'),
+        5000, ()=>{} )
       return;
     }
-    createUserWithEmailAndPassword(email,password, (issuccess , data) =>{
+
+    this.setState({isLoading: true});
+
+    createUserWithEmailAndPassword(email, password, (issuccess , data) =>{
       if(issuccess){
         if(data){             
           data.updateProfile({
@@ -100,24 +104,45 @@ class UserSignUp extends Component {
           }).then(function() {
             let properties = {}
             properties.currentUser = data;
-            properties.displayName = displayName;
-            properties.username = username;
+            properties.userName = username;
 
-            updateUserInfo(properties, (issuccess, error)=>{
-              if(issuccess){
-                window.location = constant.BASE_URL+'/chat/'+username;              
-              }else{
-                component.emitter.emit('AddNewErrorToast', '',error.message, 5000, ()=>{ })                         
+            signupRails(properties, password, (success, response)=>{
+              if(success){
+                let chat_vnlaw_user = {
+                  'id': properties.currentUser.uid,
+                  'email': properties.currentUser.email,
+                  'token': response.data.user.authentication_token,
+                  'role': response.data.role,
+                  'userName': properties.userName,
+                  'displayName': displayName,
+                  'avatar': response.data.user.profile.avatar.url
+                }
+                localStorage.setItem(constant.STORAGE_ITEM, JSON.stringify(chat_vnlaw_user));
+                onAuthStateChanged(user =>{
+                  if(!!user){
+                    component.setState({isLoading : true})
+                    checkAlreadyLogin(component.emitter, ()=>{
+                      component.redirect();
+                    });
+                  }else{
+                    component.setState({currentUser: user, isLoading : false})        
+                  }
+                })
+              }
+              else{
+                component.emitter.emit('AddNewErrorToast', '',
+                  response.message, 5000, ()=>{ })                         
                 data.delete().then(function() {
-                }).catch(function(error) {
+                }).catch(function(response) {
                 });
                 return;
               }
             })
           })
         }
-      }else{
-        component.emitter.emit('AddNewErrorToast', '',data.message, 5000, ()=>{ })                         
+      }
+      else{
+        component.emitter.emit('AddNewErrorToast', '', data.message, 5000, ()=>{})                         
       }
     })
   }
@@ -214,6 +239,7 @@ class UserSignUp extends Component {
       </div>
     )
   }
+
   renderMain(){
     if(this.state.isLoading){
       return(
@@ -230,6 +256,7 @@ class UserSignUp extends Component {
       }
     }
   }
+
   render(){
     return(
       <div>

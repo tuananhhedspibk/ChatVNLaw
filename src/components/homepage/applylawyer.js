@@ -18,7 +18,8 @@ import {onAuthStateChanged} from '../../lib/user/authentication';
 
 import * as constant from '../constants';
 import * as Lawyers from '../../lib/user/lawyers';
-import * as translate from 'counterpart'
+import * as translate from 'counterpart';
+
 import '../../assets/styles/common/applyLawyer.css';
 
 class ApplyLawyer extends Component {
@@ -38,33 +39,46 @@ class ApplyLawyer extends Component {
   }
 
   componentWillMount(){
-    var component = this
-    var username = this.props.location.pathname.split('/applylawyer/')[1];
-    Lawyers.findLawyersWithUserName(username, (data) => {
-      if(data.exists()){
-        for( var i in data.val()){
-          var item = {
-            username: data.val()[i].username,
-            displayName: data.val()[i].displayName,
-            uid : i,
-            photoURL: data.val()[i].photoURL
+    if(localStorage.chat_vnlaw_user) {
+      if (JSON.parse(localStorage.chat_vnlaw_user)['role'] == 'Lawyer') {
+        this.emitter.emit('AddNewErrorToast', '',
+          translate('app.apply_lawyer.can_not'),
+          5000, ()=>{
+            window.location = constant.BASE_URL;
+          });
+      }
+      else {
+        var component = this;
+        var username = this.props.location.pathname.split('/applylawyer/')[1];
+        Lawyers.loadProfilePage(username, (success, response) => {
+          if(success) {
+            var lawyer = {
+              username: response.data.lawyer_info.base_profile.userName,
+              displayName: response.data.lawyer_info.base_profile.displayName,
+              uid: response.data.lawyer_info.lawyer_profile.user_id,
+              photoURL: response.data.lawyer_info.base_profile.avatar.url
+            }
+            this.setState({isLoading: false, currentLawyer: lawyer})
           }
-        }
-        this.setState({isLoading: false,currentLawyer: item})
+          else {
+            component.emitter.emit('AddNewErrorToast', '',
+            translate('app.apply_lawyer.can_not'),
+            5000, ()=>{
+              window.location = constant.BASE_URL;
+            });
+          }
+        });
+        onAuthStateChanged(user =>{
+          if(user){
+            component.setState({currentUser: user, permission: true});
+          }
+          else{
+            component.setState({isLoading : true})   
+            checkAuthen(component.emitter, constant.HOME_URI , ()=>{})     
+          }
+        });
       }
-      else{
-        this.setState({isLoading: false})
-      }
-    });
-    onAuthStateChanged(user =>{
-      if(user){
-        component.setState({currentUser: user, permission: true})
-      }
-      else{
-        component.setState({isLoading : true})   
-        checkAuthen(component.emitter, constant.HOME_URI , ()=>{})     
-      }
-    });
+    }
   }
 
   handleOpenModal(){
@@ -74,11 +88,9 @@ class ApplyLawyer extends Component {
   }
 
   handleCloseModal(){
-    this.setState({modalOpen: false})
-  }
-
-  connectLawyer(){
-    console.log('done')
+    this.setState({
+      modalOpen: false
+    });
   }
 
   renderPaymentInfo(){
@@ -123,7 +135,8 @@ class ApplyLawyer extends Component {
       5000, () => {} )
     }
     else {
-      var info = fullname + '<br />' + address
+      var info = fullname
+      +'<br />' + address
       + '<br />' + phone
       + '<br />' + age
       + '<br />' + problem;

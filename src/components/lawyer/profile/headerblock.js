@@ -2,66 +2,94 @@ import React, { Component } from 'react';
 import ReactStars from 'react-stars';
 import { BASE_URL } from '../../constants';
 
-let translate = require('counterpart');
+import * as translate from 'counterpart';
+import * as constant from '../../constants';
 
 class HeaderBlock extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rate: '',
-      count: ''
-    }
-  }
-
-  componentWillMount(){
-    var rate = 0
-    var count = 0
-    for(let i in this.props.user.review){
-      count = count + 1
-      rate = rate + this.props.user.review[i].star
-    }
-    this.setState({
-      rate: rate/count,
-      count: count
-    })
   }
 
   handleOnclickApplyLawyer(){
-    window.location.href = BASE_URL + '/applylawyer/'
-      + this.props.user.username;
+    if(localStorage.chat_vnlaw_user) {
+      window.location.href = constant.BASE_URL + constant.APPLY_LAWYER_URI
+        + this.props.user.base_profile.userName;
+    }
+    else {
+      window.location.href = constant.BASE_URL + constant.SIGN_IN_URI; 
+    }
+  }
+
+  renderApplyBtn() {
+    if(localStorage.chat_vnlaw_user) {
+      if(JSON.parse(localStorage.chat_vnlaw_user)['role'] == 'User') {
+        return(
+          <button className='btn-blue' onClick={this.handleOnclickApplyLawyer.bind(this)}>
+            {translate('app.lawyer.online_counsel')}
+          </button>
+        )
+      }
+      else {
+        return (
+          ''
+        )
+      }
+    }
+    else {
+      localStorage.setItem('redirect_uri', constant.APPLY_LAWYER_URI +
+        this.props.user.base_profile.userName);
+      return (
+        <button className='btn-blue' onClick={this.handleOnclickApplyLawyer.bind(this)}>
+          {translate('app.lawyer.online_counsel')}
+        </button>
+      )
+    }
   }
 
   render() {
+    var spes_list = this.props.user.specializes;
     return(
       <div className='profile-header'>
         <div className='row'>
           <div className='col-sm-12 col-md-7'>
             <div className='avatar'>
-              <img src={this.props.user.photoURL}/>
+              <img src={constant.API_BASE_URL + '/' +
+                this.props.user.base_profile.avatar.url}/>
             </div>
             <div className='basic-infor'>
               <div className='left-block'>
                 <p className='name'>
-                  {this.props.profile.fullname}
+                  {this.props.user.base_profile.displayName}
                 </p>
                 <p className='expert'>
-                  {this.props.convertContent(this.props.profile.category)}
+                  {
+                    spes_list.map((spe, idx) => {
+                      if (idx == spes_list.length - 1) {
+                        return(
+                          spe.name
+                        )
+                      }
+                      else {
+                        return(
+                          spe.name + ', '
+                        )
+                      }
+                    })
+                  }
                 </p>
                 <p className='rate'>
                 <ReactStars
                   count={5}
-                  value={this.state.rate}
+                  value={this.props.user.lawyer_profile.rate}
                   size={24}
                   edit={false}
                   color2={'#ffd700'} />
                 </p>
-                <button className='btn-blue' onClick={this.handleOnclickApplyLawyer.bind(this)}>
-                  {translate('app.lawyer.online_counsel')}
-                </button>
+                {this.renderApplyBtn()}
               </div>
               <div className='right-block'>
                 <p className='cost'>
-                  {this.props.convertContent(this.props.profile.price)} $ /
+                  {this.props.convertContent(this.props.user.lawyer_profile.price)} Đ /
                    {translate('app.home.recent_lawyer.hour')}
                 </p>
               </div>
@@ -71,19 +99,19 @@ class HeaderBlock extends Component {
             <div className='another-infor'>
               <div className='block'>
                 <b>{translate('app.lawyer.birthday')}:</b>
-                <p>{this.props.convertContent(this.props.profile.birthday)}</p>
+                <p>{this.props.convertContent(this.props.user.base_profile.birthday)}</p>
               </div>
               <div className='block'>
                 <b>{translate('app.lawyer.card_number')}:</b>
-                <p>{this.props.convertContent(this.props.profile.cardNumber)}</p>
+                <p>{this.props.convertContent(this.props.user.lawyer_profile.cardNumber)}</p>
               </div>
               <div className='block'>
                 <b>{translate('app.lawyer.certificate')}:</b>
-                <p>{this.props.convertContent(this.props.profile.certificate)}</p>
+                <p>{this.props.convertContent(this.props.user.lawyer_profile.certificate)}</p>
               </div>
               <div className='block'>
                 <b>{translate('app.lawyer.experience')}:</b>
-                <p>{this.props.convertContent(this.props.profile.exp)}</p>
+                <p>{this.props.convertContent(this.props.user.lawyer_profile.exp)}</p>
               </div>
             </div>
           </div>

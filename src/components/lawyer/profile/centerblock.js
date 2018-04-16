@@ -7,26 +7,32 @@ import $ from 'jquery';
 import ReadMore from '../../shared/readmore';
 import * as Review from '../../../lib/user/getreviewlawyer';
 
-let translate = require('counterpart');
+import * as constant from '../../constants';
+import * as translate from 'counterpart';
 
 class CenterBlock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: '',
       reviews: [],
       modalOpen: false
     }
   }
 
-  componentWillMount(){
+  loadDataFromServer() {
     var component = this;
-    let properties = {};
-    properties['limit'] = 6;
-    properties['ts'] = (new Date()).getTime();
-    properties['lawyerId'] = this.props.userId;
-    properties['component'] = this;
-    Review.getReviewLawyer(properties);
+    Review.getReview(this.props.userName, (success, response) => {
+      if (success) {
+        component.setState({reviews: response.data.reviews});
+      }
+      else {
+
+      }
+    })
+  }
+
+  componentWillMount(){
+    this.loadDataFromServer();
   }
 
   handleOpenModal() {
@@ -46,7 +52,7 @@ class CenterBlock extends Component {
             if(index % 2 != 0){
               return (
                 <div className='customer-review'>
-                  <img className='user-ava' src={review.img}/>
+                  <img className='user-ava' src={constant.DEFAULT_AVATAR_URL}/>
                   <p className='review-content'>
                     {review.content}
                   </p>
@@ -64,7 +70,7 @@ class CenterBlock extends Component {
             else {
               return (
                 <div className='customer-review review-grey'>
-                  <img className='user-ava' src={review.img}/>
+                  <img className='user-ava' src={constant.DEFAULT_AVATAR_URL}/>
                   <p className='review-content'>
                     {review.content}
                   </p>
@@ -93,13 +99,13 @@ class CenterBlock extends Component {
   }
 
   renderModalTemplate() {
-    if (this.props.profile.reviews) {
-      if (Object.keys(this.props.profile.reviews).length > 6) {
+    if (this.state.reviews) {
+      if (Object.keys(this.state.reviews).length > 6) {
         return(
           <Modal trigger={
             <Button className='content-block center-block'>
               {translate('app.profile.view_all') + ' ' +
-              Object.keys(this.props.profile.reviews).length + ' ' +
+              Object.keys(this.state.reviews).length + ' ' +
                 translate('app.profile.review')}
             </Button>}>
             <Modal.Header>
@@ -108,7 +114,7 @@ class CenterBlock extends Component {
             <Modal.Content scrolling>
               <Header>
                 <div className='number'>
-                  {Object.keys(this.props.profile.reviews).length}
+                  {Object.keys(this.state.reviews).length}
                 </div>
                 <div className='char'>
                   {translate('app.profile.review')}
@@ -118,7 +124,7 @@ class CenterBlock extends Component {
                 this.state.reviews.map((review, index) => {
                   return (
                     <div className='customer-review'>
-                      <img className='user-ava' src={review.img}/>
+                      <img className='user-ava' src={constant.DEFAULT_AVATAR_URL}/>
                       <p className='review-content'>
                         {review.content}
                       </p>
@@ -135,7 +141,7 @@ class CenterBlock extends Component {
                 })
               }
               {
-                Object.keys(this.props.profile.reviews).length > this.state.reviews.length ?
+                Object.keys(this.state.reviews).length > this.state.reviews.length ?
                 (
                   <div className='load-more-sec'>
                     <button className='modal-btn' onClick={this.loadMoreReviews.bind(this)}>
@@ -177,7 +183,7 @@ class CenterBlock extends Component {
           <div className='content'>
             <ReadMore>
               {this.props.convertContent(
-                this.props.profile.intro)}
+                this.props.user.lawyer_profile.intro)}
             </ReadMore>
           </div>
           <hr/>
@@ -187,7 +193,7 @@ class CenterBlock extends Component {
           <div className='content'>
             <ReadMore>
               {this.props.convertContent(
-                this.props.profile.achievement)}
+                this.props.user.lawyer_profile.achievement)}
             </ReadMore>
           </div>
           <hr/>
@@ -197,7 +203,7 @@ class CenterBlock extends Component {
           <div className='content'>
             <ReadMore>
               {this.props.convertContent(
-                this.props.profile.education)}
+                this.props.user.lawyer_profile.education)}
             </ReadMore>
           </div>
         </div>

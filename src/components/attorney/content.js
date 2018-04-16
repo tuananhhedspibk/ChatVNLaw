@@ -60,12 +60,12 @@ class Content extends Component {
 
 		this.setState({offset: offset, current_page: selected}, () => {
 			if(component.state.sort_by != ''){
-				component.loadDataFromServer({query: component.state.key_word,
+				component.loadDataFromServer({name: component.state.key_word,
 					page: selected + 1, sort_by: component.state.sort_by},
 					true, true);
 			}
 			else {
-				component.loadDataFromServer({query: component.state.key_word,
+				component.loadDataFromServer({name: component.state.key_word,
 					page: selected + 1}, true, false);
 			}
 		});
@@ -80,15 +80,18 @@ class Content extends Component {
 	loadNameFromServer() {
 		var component = this;
 		var instance = axios.create({
-			baseURL: constant.API_BASE_URL
+			baseURL: constant.API_BASE_URL,
+			headers: {
+				'x-api-token': 'b1c7f840acdee887f402236e82736eba'
+			}
 		});
 		var names = [];
 
 		instance.get(constant.API_ALL_LAWYERS_NAME_URI)
 			.then(function(response) {
 				response.data.names.map (item => {
-					if(!names.includes(item.name)) {
-						names.push(item.name);
+					if(!names.includes(item)) {
+						names.push(item);
 					}
 				})
 				component.setState({names: names});
@@ -99,7 +102,10 @@ class Content extends Component {
 	loadDataFromServer(objQuery, pgClick, sort) {
 		var component = this;
 		var instance = axios.create({
-			baseURL: constant.API_BASE_URL
+			baseURL: constant.API_BASE_URL,
+			headers: {
+				'x-api-token': 'b1c7f840acdee887f402236e82736eba'
+			}
 		});
 
 		if(!pgClick) {
@@ -118,6 +124,7 @@ class Content extends Component {
 
 		instance.get(constant.API_SEARCH_LAWYERS_URI, {params: objQuery})
 			.then(function (response) {
+				console.log(response.data);
 				component.setState({isLoading: false});
 				if(!response.data.suggest) {
 					component.setState({
@@ -252,7 +259,7 @@ class Content extends Component {
 	handleSort(event, data) {
 		var sortBy = $('.ui.dropdown').children('.text').text();
 		this.setState({sort_by: sortBy});
-		this.loadDataFromServer({query: this.state.key_word,
+		this.loadDataFromServer({name: this.state.key_word,
 			sort_by: sortBy}, true, true);
 	}
 
@@ -275,7 +282,7 @@ class Content extends Component {
 					</div>
 					<a className='suggest-name' onClick={
 						this.loadDataFromServer.bind(this,
-							{query: this.state.suggest_name}, false, false)}>
+							{name: this.state.suggest_name}, false, false)}>
 								{this.state.suggest_name}
 					</a>
 				</div>
@@ -289,16 +296,16 @@ class Content extends Component {
 				{this.state.lawyers.map((lawyer, index)=>{
 					return(	
 						<div className='lawyer' id={'lawyer-' + index}
-							onClick={this.handleOnclickLawyer.bind(this, lawyer.fb_id)}>
-								<img className='ava' src={lawyer.photo_url} />
+							onClick={this.handleOnclickLawyer.bind(this, lawyer.user_id)}>
+								<img className='ava' src={constant.API_BASE_URL + '/' + lawyer.profile.avatar.url} />
 								<div className='infor'>
-									<div className='name' title={lawyer.name}>{lawyer.name}</div>
+									<div className='name' title={lawyer.profile.displayName}>{lawyer.profile.displayName}</div>
 									<div className='status online-status'>
 										{translate('app.attorney.online')}
 									</div>
 									<div className='cost'>
 										<div className='value'>
-											 {lawyer.cost + ' Đ' + translate('app.attorney.hour')}
+											 {lawyer.price + ' Đ' + translate('app.attorney.hour')}
 										</div>
 									</div>
 									<div className='rate'>

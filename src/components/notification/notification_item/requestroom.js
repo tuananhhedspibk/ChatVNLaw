@@ -1,71 +1,86 @@
 import React from 'react';
-import {getRoomId, createNewRoom} from '../../../lib/room/rooms';
 import $ from 'jquery';
-import {extractNotificationInfo,getAllNotification,deleteNotification,createNewNotification} from '../../../lib/notification/notifications';
+
 import BaseItem from './baseitem';
+
+import { createNewRoom } from '../../../lib/room/rooms';
+import { deleteNotification, createNewNotification } from '../../../lib/notification/notifications';
 
 import * as translate from 'counterpart';
 import * as tableConstant from '../../../lib/constants';
+import * as constant from '../../constants';
 
 class RequestRoomItem extends BaseItem {
-  
-  onClickButton(element){
-    switch($('input[name='+element.id+']:checked', '#form'+element.id).val()){
-      case '1':
-        var properties = {}
-        properties.currentUser = this.state.currentUser;
-        properties.targetUser = {}
-        properties.targetUser.uid = element.sender.uid;
-
-        getRoomId(properties, (isssuccess, data) =>{
-          if(!isssuccess){
-            properties.lawyerId = this.state.currentUser.uid;
-            properties.customerId = element.sender.uid;
-            createNewRoom(properties, (key)=>{
-              properties.nid = element.id;
-              deleteNotification(properties);
-              properties.type= tableConstant.NOTIFICATION_TYPE.acceptRoomRequest
-
-              createNewNotification(properties, ()=>{
-
-              })
-              
-            })
-          }else{
-            console.log(data);
-          }
-        })
-        break;
-      case '2':
-        var properties = {}
-        properties.currentUser = this.state.currentUser;
-        properties.targetUser = {}
-        properties.targetUser.uid = element.sender.uid;
-
-        properties.nid = element.id;
-        deleteNotification(properties);
-        properties.type= tableConstant.NOTIFICATION_TYPE.refuseRoomRequest
-              
-        createNewNotification(properties, ()=>{
-
-        })
-        break;
-      default:
-        return;
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasRoom: false
     }
+  }
+
+  notifiOperation(noti_type, element) {
+    var propertiesNoti = {}
+    propertiesNoti.currentUser = this.state.currentUser;
+    propertiesNoti.targetUser = {}
+    propertiesNoti.targetUser.uid = element.sender.uid;
+    propertiesNoti.nid = element.id;
+
+    deleteNotification(propertiesNoti);
+    propertiesNoti.type= noti_type;
+    createNewNotification(propertiesNoti, ()=>{
+    });
+  }
+
+  gotoDialogBtnClick(sender_user_name, element) {
+    this.notifiOperation(tableConstant.NOTIFICATION_TYPE.acceptRoomRequest,
+      element);
+    window.location = constant.CHAT_URI + '/' + sender_user_name;
+  }
+
+  createDialogBtnClick(element){
+    var propertiesNoti = {}
+    propertiesNoti.currentUser = this.state.currentUser;
+    propertiesNoti.targetUser = {}
+    propertiesNoti.targetUser.uid = element.sender.uid;
+
+    var properties = {
+      user_id: element.sender.uid,
+      description: ''
+    };
+    createNewRoom(properties, (success, response)=>{
+      if (success) {
+        propertiesNoti.nid = element.id;
+        deleteNotification(propertiesNoti);
+        propertiesNoti.type = tableConstant.NOTIFICATION_TYPE.acceptRoomRequest;
+        createNewNotification(propertiesNoti, ()=>{
+        });
+        window.location = constant.CHAT_URI + '/' +
+          response.data.room.user.profile.userName;
+      }
+      else {
+        console.log(response);
+      }
+    })
+  }
+
+  denyDialogBtnClick(element) {
+    this.notifiOperation(tableConstant.NOTIFICATION_TYPE.refuseRoomRequest,
+      element);
   }
 
   renderButton(element){
     switch($('input[name='+element.id+']:checked', '#form'+element.id).val()){
       case '1':
-        $('#button_'+element.id).text(translate('app.button.create_new_chat'));
+        $('#button_create_'+ element.id).show();
+        $('#button_deny_'+ element.id).hide();
         break;      
       case '2':
-        $('#button_'+element.id).text(translate('app.button.destroy_room_request'));
+        $('#button_create_'+ element.id).hide();
+        $('#button_deny_'+ element.id).show();
         break; 
     }
-    $('#button_'+element.id).show();
   }
+
   convertDateToHour(date){
     date = new Date(parseInt(date))
     return date.getUTCHours() + ':' + date.getUTCMinutes();
@@ -81,9 +96,7 @@ class RequestRoomItem extends BaseItem {
     var type = data.type;
     switch(type){
       case tableConstant.NOTIFICATION_TYPE.requestRoom:
-        var info =data.information.split('<br />');
-        var fullname = info[0];
-        var address = info[1];
+        var info = data.information.split('<br />');
         return (
           <ul>
             <li>{translate('app.payment.full_name') + ':\t' + info[0]}</li>
@@ -96,6 +109,38 @@ class RequestRoomItem extends BaseItem {
               + '\t' + this.convertDateToDay(data.timeStamp)}</li>
           </ul>
         )
+    }
+  }
+
+  renderAcceptBtn() {
+    var component = this;
+    var sender_user_name = '';
+    var hasRoom = false;
+    this.props.rooms.map((room, idx) => {
+      if(room.lawyer.id === JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id']
+        && room.user.id === this.props.element.sender.uid) {
+          hasRoom = true;
+          sender_user_name = room.user.profile.userName;
+        }
+    });
+    if (hasRoom) {
+      return (
+        <button className='button blue display_none'
+          id={'button_create_'+ this.state.element.id}
+          onClick={this.gotoDialogBtnClick.bind(this, sender_user_name,
+            this.state.element)}>
+              {translate('app.notification.goto_dialog')}
+        </button>
+      )
+    }
+    else {
+      return (
+        <button className='button blue display_none'
+          id={'button_create_'+this.state.element.id}
+          onClick={this.createDialogBtnClick.bind(this,this.state.element)}>
+            {translate('app.notification.create_dialog')}
+        </button>
+      )
     }
   }
 
@@ -139,10 +184,12 @@ class RequestRoomItem extends BaseItem {
               </div>
             </div>
           </div>
+          {this.renderAcceptBtn()}
           <button className='button blue display_none'
-            id={'button_'+this.state.element.id}
-            onClick={this.onClickButton.bind(this,this.state.element)}>
-              {translate('app.notification.create_dialog')}
+            id={'button_destroy_'+ this.state.element.id}
+            onClick={this.denyDialogBtnClick.bind(this,
+              this.state.element)}>
+                {translate('app.notification.destroy_room_request')}
           </button>
         </div>
         <div className='icon orange'>

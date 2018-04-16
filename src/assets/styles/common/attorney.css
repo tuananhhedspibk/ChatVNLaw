@@ -2,6 +2,8 @@
   background-color: #f6f6f6;
   padding: 35px 50px 0;
   min-height: calc(100vh - 225px); }
+  .attorney .pagination {
+    justify-content: center; }
   .attorney hr {
     margin-bottom: 25px;
     margin-top: 20px;

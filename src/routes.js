@@ -15,8 +15,7 @@ import SearchLaw from './components/searchlaw/layout';
 
 import Notifications from './components/notification/notifications';
 import ApplyLawyer from './components/homepage/applylawyer';
-import SettingsLawyer from './components/lawyer/profile/settings';
-import SettingsCustomer from './components/customer/profile/settings';
+import Settings from './components/user/settings';
 import LawyerProfile from './components/lawyer/profile/main';
 import CustomerProfile from './components/customer/profile/main';
 import Article from './components/law/main'
@@ -39,9 +38,8 @@ const Routes = props => (
       <Route path='/attorney' component={Attorney}/>
       <Route path='/applylawyer/:user_name' component={ApplyLawyer} />
       <Route path='/searchlaw' component={SearchLaw} />
-      <Route path='/settings/lawyers/:user_name' component={SettingsLawyer}/>
+      <Route path='/settings' component={Settings}/>
       <Route path='/lawyers/:user_name' component={LawyerProfile}/>
-      <Route path='/settings/customers/:user_name' component={SettingsCustomer}/>
       <Route path='/customers/:user_name' component={CustomerProfile}/>
       <Route path='/test' component={TestPayment}/>
       <Route path='/articles/:id' component={Article}/>

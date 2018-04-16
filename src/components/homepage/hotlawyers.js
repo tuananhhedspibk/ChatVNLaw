@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import ReactLoading from 'react-loading';
 import $ from 'jquery';
 
+import axios from 'axios';
+
 import * as constant from '../constants';
-import * as Lawyers from '../../lib/user/lawyers';
 
 let translate = require('counterpart');
 
@@ -31,14 +32,11 @@ class HotLawyers extends Component {
   }
 
   componentWillMount(){
-    let properties = {}
-    var component = this
-    properties['component'] = this;
-    Lawyers.getLawyerList(properties, function(){
-    })
+    this.loadDataFromServer();
   }
 
   changeLawyer(lawyer, current_lawyer_id) {
+    console.log(lawyer);
     this.setState({currentLawyer: lawyer});
     for(var i = 0; i < this.state.lawyers.length; i++) {
       $('#lawyer-' + i).removeClass('now-focus');
@@ -48,13 +46,13 @@ class HotLawyers extends Component {
 
   applyLawyer(){
     window.location = constant.BASE_URL + '/applylawyer/' +
-      this.state.currentLawyer.username;
+      this.state.currentLawyer.userName;
   }
 
   getInfoLawyer(){
     var component = this;
     if(this.state.currentLawyer){
-      var profileLawyer = "/lawyers/" + this.state.currentLawyer.username;
+      var profileLawyer = constant.LAWYER_PROFILE_URI + '/' + this.state.currentLawyer.userName;
       var current_lawyer_id = this.state.lawyers.indexOf(this.state.currentLawyer);
       $('#lawyer-' + current_lawyer_id).addClass('now-focus');
       return(component.renderInfoLawyer(profileLawyer, this.state.currentLawyer, component.bind));
@@ -64,6 +62,26 @@ class HotLawyers extends Component {
       $('#lawyer-0').addClass('now-focus');
       return(component.renderInfoLawyer(profileLawyer, this.state.lawyers[0]));
     }
+  }
+
+  loadDataFromServer() {
+    var component = this;
+		var instance = axios.create({
+      baseURL: constant.API_BASE_URL,
+      headers: {
+        'x-api-token': 'b1c7f840acdee887f402236e82736eba'
+      }
+    });
+
+    instance.get(constant.API_TOP_LAWYERS_URI)
+      .then(function (response) {
+        component.setState({
+          lawyers: response.data.top_lawyers,
+          isloading: false
+        });
+      })
+      .catch(function (error) {
+      });
   }
 
   renderInfoLawyer(profileLawyer, currentLawyer){
@@ -85,7 +103,7 @@ class HotLawyers extends Component {
               {translate('app.home.recent_lawyer.hour')}
             </div>
             <div>
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+              <i className='fa fa-shopping-bag' aria-hidden='true'></i>
             </div>
           </div>
           <div className='description'>
@@ -133,10 +151,10 @@ class HotLawyers extends Component {
                 {
                   this.state.lawyers.map((lawyer, idx) => {
                     return(
-                      <div className='lawyer' id={'lawyer-' + idx}
+                      <div className='lawyer' key={idx} id={'lawyer-' + idx}
                         onClick={this.changeLawyer.bind(this, lawyer, idx)}>
                           <img className='ava'
-                            src={lawyer.photoURL} />
+                            src={constant.API_BASE_URL + lawyer.avatar.url} />
                           <div className='infor'>
                             <div className='name' title={lawyer.displayName}>
                               {lawyer.displayName}

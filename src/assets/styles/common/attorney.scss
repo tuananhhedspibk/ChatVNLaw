@@ -5,6 +5,10 @@
   padding: 35px 50px 0;
   min-height: calc(100vh - 225px);
 
+  .pagination {
+    justify-content: center;
+  }
+
   hr {
     margin-bottom: 25px;
     margin-top: 20px;
