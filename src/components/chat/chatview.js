@@ -8,12 +8,14 @@ import {EventEmitter} from 'fbemitter';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import Loading from '../shared/loading';
-import getStunServerList from '../../lib/getstunserverlist';
 import ChatContent from './chatcontent';
 import Toast from '../notification/toast';
-import {checkAuthen} from '../../lib/notification/toast';
 
-import {getAllRoom} from '../../lib/room/rooms';
+import { getStunServerList} from '../../lib/getstunserverlist';
+import { checkAuthen } from '../../lib/notification/toast';
+import { logoutRails } from '../../lib/user/authentication';
+import { getAllRooms } from '../../lib/room/rooms';
+
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
 import * as Users from '../../lib/user/getuserinfo';
@@ -23,7 +25,7 @@ import * as firebase from 'firebase';
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/userIndex.css';
 
-const KEYS_TO_FILTERS = ['displayName'];
+const KEYS_TO_FILTERS = ['profile.displayName'];
 
 const options = [
   {icon_color: 'online'},
@@ -38,6 +40,7 @@ class ChatView extends Component {
       currentUser: null,
       users: [],
       unread: [],
+      roomIds: [],
       searchTerm: '',
       isloading: true,
       usersListHeight: 0
@@ -59,27 +62,62 @@ class ChatView extends Component {
     });
   }
 
+  checkAuthen() {
+    if(localStorage.chat_vnlaw_user) {
+      var user = {
+        uid: JSON.parse(localStorage.chat_vnlaw_user)['id'],
+        avatar: JSON.parse(localStorage.chat_vnlaw_user)['avatar']
+      }
+      return user;
+    }
+    else {
+      window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+    }
+  }
+
   componentWillMount(){
     var component = this;
     var properties = {}
     properties['component'] = this;
     properties['keyword'] = this.props.userNameURL;
+    
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
         component.setState({isloading : true})   
         checkAuthen(component.emitter, constant.BASE_URL+constant.SIGN_IN_URI, ()=>{
 
         })      
-      }else{
-        component.setState({currentUser: user})
-        properties['currentUser'] = user;
-        getAllRoom(properties, (userArr) => {
-          component.setState({users : userArr});
-        })
-        Messages.notifyUnreadMessage(properties); 
-        component.setState({isloading: false})
-      }   
-    })
+      }
+      else{
+        var user = null;
+        user = component.checkAuthen();
+        if(user) {
+          component.setState({currentUser: user});
+          properties['currentUser'] = user;
+          getAllRooms((success, response) => {
+            if (success) {
+              var users = [];
+              var roomIds = []
+              response.data.rooms.map((room, idx) => {
+                users.push(room.user);
+                roomIds.push(room.id);
+              })
+              component.setState({
+                users : users,
+                roomIds: roomIds
+              });
+            }
+            else {
+
+            }
+          })
+          if(component.state.currentUser) {
+            Messages.notifyUnreadMessage(properties);
+            component.setState({isloading: false});
+          }
+        }
+      }
+    });
   }
 
   classBaseStatus(userStatus) {
@@ -98,11 +136,6 @@ class ChatView extends Component {
         options[2].icon_color
       )
     }
-  }
-
-  changeStatus(event, data) {
-    firebase.database().ref(`users/${this.state.currentUser.uid}`)
-      .update({'status' : data.text});
   }
 
   renderStatus(userStatus, uid) {
@@ -137,9 +170,25 @@ class ChatView extends Component {
   }
 
   logout() {
+    var component = this;
+
     firebase.auth().signOut().then(function() {
-      window.location = constant.BASE_URL + constant.HOME_URI;
-    }).catch(function(error) {});
+      logoutRails((success, data) => {
+        if(success) {
+          localStorage.removeItem(constant.STORAGE_ITEM);
+          window.location = constant.BASE_URL + constant.HOME_URI;
+        }
+        else {
+          component.emitter.emit('AddNewErrorToast', '',
+          data.message, 5000, ()=>{})                         
+          return;
+        }
+      })
+    }).catch(function(error) {
+      component.emitter.emit('AddNewErrorToast', '',
+        error, 5000, ()=>{})                         
+      return;
+    });
   }
 
   renderUnreadMessages(targetUid){
@@ -155,7 +204,7 @@ class ChatView extends Component {
     }
   }
 
-  renderView() {  
+  renderView() {
     const filteredUsers = this.state.users.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     return (
@@ -191,25 +240,25 @@ class ChatView extends Component {
                   style={{display:'none'}}/>}>
               {
                 filteredUsers.map(user => {
-                  if(this.props.userNameURL === user.username) {
+                  if(this.props.userNameURL === user.profile.userName) {
                     $('.place-holder-ui').css('display', 'none');
                   }
                   return(
                     <div className={
-                      this.props.userNameURL === user.username
+                      this.props.userNameURL === user.profile.userName
                         ? 'user active-link ': 'user'}
                       key={user.uid}>
-                      {this.renderStatus(user.status, user.uid)}
-                      <Link to={'/chat/' + user.username} key={user.uid}>
-                        <List.Item key={user.uid}>
-                          <Image avatar src={user.photoURL}/>
+                      {this.renderStatus(user.status, user.id)}
+                      <Link to={'/chat/' + user.profile.userName} key={user.uid}>
+                        <List.Item key={user.id}>
+                          <Image avatar src={constant.API_BASE_URL + user.profile.avatar.url}/>
                           <List.Content>
-                            <List.Header>{user.uid !==
-                              this.state.currentUser.uid ? user.displayName :
+                            <List.Header>{user.id !==
+                              this.state.currentUser.id ? user.profile.displayName :
                               translate('app.chat.my_chat')}
                             </List.Header>
                           </List.Content>
-                          {this.renderUnreadMessages(user.uid)}
+                          {this.renderUnreadMessages(user.id)}
                         </List.Item>
                       </Link>
                     </div>
@@ -220,17 +269,17 @@ class ChatView extends Component {
           </List>
         </div>
         {
-          this.state.users.map(user => {
+          this.state.users.map((user, idx) => {
             return(
               <Switch>
-                <Route path={'/chat/' + user.username}
+                <Route path={'/chat/' + user.profile.userName}
                   render={
                     (props) => (
                       <ChatContent {...props}
                         targetUser={user}
                         currentUser={this.state.currentUser}
                         emitter={this.emitter}
-                        currentRoomId={user.rid}/>
+                        currentRoomId={this.state.roomIds[idx]}/>
                     )
                   }/>
               </Switch>

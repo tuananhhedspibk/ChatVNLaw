@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
-import {Picker} from 'emoji-mart';
+import { Picker } from 'emoji-mart';
 import firebase from 'firebase';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
@@ -10,16 +10,18 @@ import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 import VideoCall from './videocall'
 import ChatSetting from './chatsetting';
 
-import * as RoomInfo from '../../lib/room/getroominfo';
-import * as Files from '../../lib/upfile/files';
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
 import * as translate from 'counterpart';
 import * as videoCall from '../../lib/streaming/videocall';
+import { roomUpFiles } from '../../lib/room/rooms';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+
+let img_exts = ['png', 'jpg', 'jpeg', 'gif'];
+let file_exts = ['pdf', 'txt', 'doc'];
 
 class ChatContent extends Component {
   constructor(props) {
@@ -71,16 +73,72 @@ class ChatContent extends Component {
       fileButton.addEventListener('change', function(e){
         e.preventDefault();
         let file = e.target.files[0];
-        properties["roomId"] = nextState.currentRoomId;
-        Files.upfile(properties, file, function(){
-        });
+        if (file.size > 25000000) {
+          alert(translate('app.chat.warning_file_size'));
+          return ;
+        }
+        let fileName = file.name;
+        let ct_t_id = component.getFileType(fileName);
+        var width, height;
+        if (ct_t_id == 1) {
+          var _URL = window.URL || window.webkitURL;
+          var img = new Image();
+          img.onload = function() {
+            width = this.width;
+            height = this.height;
+          }
+          img.src = _URL.createObjectURL(file);
+        }
+        properties = {
+          room_id: nextState.currentRoomId,
+          file: {
+            name: fileName,
+            data: file
+          },
+          content_type_id: ct_t_id
+        }
+        roomUpFiles(properties, (success, response) => {
+          if (success) {
+            var ct_t = 'image';
+            var mess_properties = null;
+
+            if (ct_t_id == 2) {
+              ct_t = 'file'
+            }
+
+            if(ct_t == 'image') {
+              mess_properties = {
+                contentType: ct_t,
+                downloadURL: response.data.file_infor.file.url,
+                width: width,
+                height: height,
+                component: component,
+                timeStamp: response.data.file_infor.created_at
+              }
+            }
+            else {
+              mess_properties = {
+                contentType: ct_t,
+                downloadURL: response.data.file_infor.file.url,
+                name: fileName,
+                component: component,
+                timeStamp: response.data.file_infor.created_at
+              }
+            }
+            Messages.chat(mess_properties, function(){
+            });
+          }
+          else {
+            console.log(response);
+          }
+        })
       });
     }
   }
   
   componentDidMount() {   
     var component = this;
-    this.setState({currentRoomId: this.props.targetUser.rid})
+    this.setState({currentRoomId: this.props.currentRoomId})
 
     $(document).mouseup(function(e) {
       var container = $('.emoji-section');
@@ -90,12 +148,12 @@ class ChatContent extends Component {
       }
     });
 
-    $('.' + 'item_' + this.state.targetUser.uid).mouseenter(function(e){
+    $('.' + 'item_' + this.state.targetUser.id).mouseenter(function(e){
       e.preventDefault();
       component.deleteMessUnreadNumber();
     });
 
-    $('.' + 'item_' + this.state.targetUser.uid).mousemove(function(e){
+    $('.' + 'item_' + this.state.targetUser.id).mousemove(function(e){
       e.preventDefault();
       component.deleteMessUnreadNumber();
     });
@@ -104,6 +162,16 @@ class ChatContent extends Component {
     $(window).resize(function() {
       component.setHeight(component);
     });
+  }
+
+  getFileType(fileName) {
+    var f_ext = fileName.split('.')[1];
+    if (img_exts.indexOf(f_ext) > 0) {
+      return 1;
+    }
+    else {
+      return 2;
+    }
   }
 
   setHeight(component) {
@@ -219,7 +287,7 @@ class ChatContent extends Component {
   render() {
     return(  
       <div className={'chat-window ' + 'item_' +
-        this.state.targetUser.uid} id='chat-window' >
+        this.state.targetUser.id} id='chat-window' >
         <VideoCall currentUser={this.props.currentUser}
           targetUser={this.props.targetUser}
           currentRoomId={this.state.currentRoomId}
@@ -239,7 +307,8 @@ class ChatContent extends Component {
             }>
               <ChatBubble messages={this.state.messages}
                 targetUser={this.state.targetUser}
-                currentUser={this.state.currentUser} />
+                currentUser={this.state.currentUser}
+                base_url={constant.API_BASE_URL} />
           </Scrollbars>
           <div className='text-box' id='text-box'>
             <input type='file' id='upfile'/>

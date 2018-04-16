@@ -1,16 +1,18 @@
 import React,{Component} from 'react';
+import {EventEmitter} from 'fbemitter';
+import ReactConfirmAlert from 'react-confirm-alert';
+
+import RequestRoomItem from './notification_item/requestroom';
+import AcceptRoomItem from './notification_item/acceptroom';
+import RefuseRoomItem from './notification_item/refuseroom';
 import Nav from '../homepage/nav';
 import Toast from './toast';
 import Loading from '../shared/loading';
 
-import {EventEmitter} from 'fbemitter';
-import {onAuthStateChanged} from '../../lib/user/authentication';
-import {getAllNotification} from '../../lib/notification/notifications';
-import ReactConfirmAlert from 'react-confirm-alert';
-import RequestRoomItem from './notification_item/requestroom';
-import AcceptRoomItem from './notification_item/acceptroom';
-import RefuseRoomItem from './notification_item/refuseroom';
-import {checkAuthen} from '../../lib/notification/toast';
+import { onAuthStateChanged } from '../../lib/user/authentication';
+import { getAllNotification } from '../../lib/notification/notifications';
+import { checkAuthen } from '../../lib/notification/toast';
+import { getAllRooms } from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
@@ -26,8 +28,8 @@ class Notifications extends Component{
       currentUser: null,
       isLoading: true,
       permission: false,
-      notifications : [],
-      showDialog: false      
+      showDialog: false,
+      rooms: []  
     }
     this.emitter = new EventEmitter();
   }
@@ -36,7 +38,15 @@ class Notifications extends Component{
     var component= this;
     onAuthStateChanged(user =>{
       if(user){
-        component.setState({currentUser:user,permission: true}, ()=>{
+        getAllRooms((success, response) => {
+          if (success) {
+            component.setState({rooms: response.data.rooms});
+          }
+          else {
+            console.log(response);
+          }
+        })
+        component.setState({currentUser: user, permission: true}, ()=>{
           component.setState({isLoading: false})
           var properties = {}
           properties['currentUser'] = component.state.currentUser;
@@ -44,7 +54,7 @@ class Notifications extends Component{
           getAllNotification(properties, (event, data)=>{
             switch(event){
               case 'value':
-                
+                component.setState({notifications: notificationsArr});
                 break;
               case 'child_added':
                 notificationsArr.unshift(data);
@@ -52,12 +62,13 @@ class Notifications extends Component{
                 break;
               case 'child_removed':
                 notificationsArr.every(function(element,index){           
-                  if(element.id === data.id){
-                      notificationsArr.splice(index,1);
-                      component.setState({notifications: notificationsArr});
-                      return false;
-                  }else{
-                      return true;
+                  if (element.id === data.id){
+                    notificationsArr.splice(index,1);
+                    component.setState({notifications: notificationsArr});
+                    return false;
+                  }
+                  else{
+                    return true;
                   }
                 })
                 break;
@@ -73,13 +84,14 @@ class Notifications extends Component{
     })
   }
 
-
   onConfirm(){
     this.setState({showDialog: false})    
   }
+
   onCancel(){
     this.setState({showDialog: false})
   }
+
   renderDialog(){
     return (
       <div>
@@ -91,8 +103,7 @@ class Notifications extends Component{
           confirmLabel={translate('app.confirm_dialog.confirm_label_2')}
           cancelLabel={translate('app.confirm_dialog.cancel_label_2')}
           onConfirm={this.onConfirm.bind(this)}
-          onCancel={this.onCancel.bind(this)}
-        />
+          onCancel={this.onCancel.bind(this)}/>
       }
       </div>
     )
@@ -102,50 +113,52 @@ class Notifications extends Component{
     switch(element.type){
       case tableConstant.NOTIFICATION_TYPE.requestRoom:
         return(
-          <RequestRoomItem  element={element}
-                            currentUser={this.state.currentUser}/>
+          <RequestRoomItem element={element}
+            currentUser={this.state.currentUser}
+            rooms={this.state.rooms}/>
         )
       case tableConstant.NOTIFICATION_TYPE.refuseRoomRequest:
         return(
           <RefuseRoomItem element={element}
-                          currentUser={this.state.currentUser}/>
+            currentUser={this.state.currentUser}/>
         )
       case tableConstant.NOTIFICATION_TYPE.acceptRoomRequest:
         return(
           <AcceptRoomItem element={element} 
-                          currentUser={this.state.currentUser}/>
+            currentUser={this.state.currentUser}/>
         )
     }
   }
 
   renderView(){
-    if(this.state.notifications.length>0)
-    {
-      return (
-        <div>
-          <Nav navStyle='inverse'/>
-          <div className='notifi-wrapper'>
-            {this.state.notifications.map((element, index ) =>{
-              return(
-                this.renderNotificationItem(element)
-              )
-            })}
-          </div>
-        </div>  
-      )
-    }
-    else {
-      return (
-        <div>
-        <Nav navStyle='inverse'/>
-        <div className='notifi-wrapper'>
-          <div className='no-notifi-content'>
-            <i className='fa fa-bell'></i>
-            <div>{translate('app.notification.no_noti')}</div>
-          </div>
-        </div>
-      </div>  
-      )
+    if(this.state.notifications) {
+      if(this.state.notifications.length > 0){
+        return (
+          <div>
+            <Nav navStyle='inverse'/>
+            <div className='notifi-wrapper'>
+              {this.state.notifications.map((element, index ) =>{
+                return(
+                  this.renderNotificationItem(element)
+                )
+              })}
+            </div>
+          </div>  
+        )
+      }
+      else {
+        return (
+          <div>
+            <Nav navStyle='inverse'/>
+            <div className='notifi-wrapper'>
+              <div className='no-notifi-content'>
+                <i className='fa fa-bell'></i>
+                <div>{translate('app.notification.no_noti')}</div>
+              </div>
+            </div>
+          </div>  
+        )
+      }
     }
   }
 
@@ -153,8 +166,10 @@ class Notifications extends Component{
     return (
       <div>
         <Toast emitter={this.emitter}/>
-        {!this.state.isLoading && this.state.permission ? 
-          this.renderView() : <Loading/>}
+        {
+          !this.state.isLoading && this.state.permission ? 
+          this.renderView() : <Loading/>
+        }
       </div>
     )
   }

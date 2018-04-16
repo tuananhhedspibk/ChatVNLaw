@@ -26,9 +26,10 @@ function checkPermission(emitter,uri, callback){
   return callback();
 }
 
-function checkAuthen(emitter,uri, callback){
-  emitter.emit('AddNewErrorToast',translate('app.system_notice.unauthenticated.title'),translate('app.system_notice.unauthenticated.text'),5000, () => {
-    window.location = uri;
+function checkAuthen(emitter, uri, callback){
+  emitter.emit('AddNewErrorToast',translate('app.system_notice.unauthenticated.title'),
+    translate('app.system_notice.unauthenticated.text'),5000, () => {
+      window.location = uri;
   })
   setTimeout(() => {
     window.location = uri;

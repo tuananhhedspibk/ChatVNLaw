@@ -40,11 +40,11 @@ module.exports = {
       time_created: 'Thời gian tạo: ',
       detail: 'Chi tiết:',
       create_dialog: 'Tạo cuộc trò chuyện',
+      goto_dialog: 'Đi đến cuộc trò chuyện',
       evaluate: 'Đánh giá:',
       agree_with_case: 'Tôi đồng ý tiếp nhận vụ án',
       disagree_with_case: 'Tôi không đồng ý tiếp nhận vụ án',
-      detail: 'Chi tiết:',
-      create_new_chat: 'Tạo cuộc trò chuyện'
+      detail: 'Chi tiết:'
     },
     confirm_dialog:{
       title: 'Thông báo',
@@ -281,6 +281,7 @@ module.exports = {
       money_to_be_paid: 'Số tiền cần thanh toán',
       cancel: 'Hủy',
       pending: 'Đang xử lý',
+      warning_file_size: 'Dung lượng file tối đa là 25MB'
     },
     notfound: {
       content: {
@@ -528,7 +529,12 @@ module.exports = {
       money_unit: 'VNĐ',
       input_money: 'Nhập số tiền muốn nạp',
       job_done: 'Hoàn tất công việc',
-      category_ph: 'Hãy chọn lĩnh vực yêu thích của bạn'
+      category_ph: 'Hãy chọn lĩnh vực yêu thích của bạn',
+      price: 'Giá tiền tư vấn',
+      money_unit: 'VNĐ',
+      payment_his: 'Lịch sử thanh toán',
+      mn_ipt: 'Số tiền nạp',
+      time: 'Thời gian'
     },
     rate: {
       cost_money: 'Giá tiền',
@@ -550,6 +556,9 @@ module.exports = {
       expire_day: 'Ngày hết hiệu lực',
       markup: ' Đánh dấu văn bản',
       index: 'Mục lục'
+    },
+    apply_lawyer: {
+      can_not: 'Không thể yêu cầu luật sư'
     }
   }
 }

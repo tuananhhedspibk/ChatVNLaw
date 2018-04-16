@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const ROOM_FILES = 'room_files';
 export const STUN_SERVER_LIST = 'stun_server_list'; 
 export const STUN_SERVER_OPTIONS = {
@@ -123,3 +125,10 @@ export const VIDEO_CALL = {
   end: 'end',
   cancelRequest: 'cancel'
 }
+
+export const ax_ins = axios.create({
+  baseURL: 'http://localhost:4000',
+  headers: {
+    'x-api-token': 'b1c7f840acdee887f402236e82736eba'
+  }
+});

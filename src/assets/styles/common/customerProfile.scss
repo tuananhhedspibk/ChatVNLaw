@@ -1,8 +1,12 @@
 @import 'variables.scss';
 
+.loading-symbol {
+  margin: 0 auto !important;
+}
+
 .container-customer-wrapper {
   background-color: $gray-more-lighter;
-  min-height: calc(100vh - 68.5px);
+  min-height: calc(100vh - 230px);
   padding: 60px 160px;
 
   .profile-header {

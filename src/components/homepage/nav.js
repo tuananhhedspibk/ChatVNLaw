@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import firebase from 'firebase';
+import {EventEmitter} from 'fbemitter';
+
 import {getUserByUid} from '../../lib/user/getuserinfo';
+import {logoutRails} from '../../lib/user/authentication';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
@@ -15,50 +18,59 @@ class Nav extends Component {
       currentUser: null,
       isLawyer: false
     }
+    this.emitter = new EventEmitter();
   }
 
   componentWillMount(){
-    var component = this;
     localStorage.setItem('target', 'home');
-    firebase.auth().onAuthStateChanged(function(user){
-      if(user){
-        getUserByUid(user.uid, (event,data) =>{
-          switch(event){
-            case 'value':
-              var item = {
-                username: data.val().username,
-                displayName: data.val().displayName,
-                uid : data.key,
-                role: data.val().role,
-                status: data.val().status,
-                photoURL: data.val().photoURL
-              }
-              var bool = data.val().role === 'lawyer' ? true : false 
-              component.setState({currentUser: item, isLawyer: bool});
-              break;
-            case 'child_changed':
-              var bool = data.val().role === 'lawyer' ? true : false 
-              component.setState({isLawyer: bool})
-              break;
-          }
-        })
-      }     
-    })
+    if (localStorage.chat_vnlaw_user) {
+      var ls_u = JSON.parse(localStorage.chat_vnlaw_user);
+      this.setState({currentUser: ls_u});
+      if (ls_u.role == 'Lawyer') {
+        this.setState({isLawyer: true});
+      }
+    }
   }
 
   checkLogin() {
-    localStorage.setItem('target', 'chat')
     if(!this.state.isLawyer){
-      window.location = constant.BASE_URL + constant.SIGN_IN_URI;            
+      if (this.state.currentUser) {
+        window.location = constant.BASE_URL + constant.CHAT_URI;
+      }            
+      else {
+        localStorage.setItem('redirect_uri', constant.CHAT_URI);
+        window.location = constant.BASE_URL + constant.SIGN_IN_URI;
+      }
     }else{
       window.location = constant.BASE_URL + constant.DASHBOARD_URI;                
     }
   }
 
   logout() {
+    var component = this;
+
     firebase.auth().signOut().then(function() {
-      window.location = constant.BASE_URL + constant.HOME_URI;
-    }).catch(function(error) {});
+      logoutRails((success, data) => {
+        if(success) {
+          localStorage.removeItem(constant.STORAGE_ITEM);
+          window.location = constant.BASE_URL + constant.HOME_URI;
+        }
+        else {
+          component.emitter.emit('AddNewErrorToast', '',
+          data.message, 5000, ()=>{})                         
+          return;
+        }
+      })
+    }).catch(function(error) {
+      component.emitter.emit('AddNewErrorToast', '',
+        error, 5000, ()=>{})                         
+      return;
+    });
+  }
+
+  redirectToLoginPage() {
+    localStorage.setItem('redirect_uri', window.location.pathname);
+    window.location = constant.BASE_URL + constant.SIGN_IN_URI;
   }
 
   renderDropdown() {
@@ -84,7 +96,7 @@ class Nav extends Component {
                 (
                   <a className='headerNavListLink'
                     href={constant.BASE_URL + constant.LAWYER_PROFILE_URI
-                      + '/' + this.state.currentUser.username}>
+                      + '/' + this.state.currentUser.userName}>
                       {translate('app.identifier.profile')}
                   </a>
                 )
@@ -92,37 +104,21 @@ class Nav extends Component {
                 (
                   <a className='headerNavListLink'
                     href={constant.BASE_URL + constant.CUSTOMER_PROFILE_URI
-                      + '/' + this.state.currentUser.username}>
+                      + '/' + this.state.currentUser.userName}>
                       {translate('app.identifier.profile')}
                   </a>
                 )
               }
             </li>
             <li>
-              {
-                this.state.isLawyer ?
-                (
-                  <a className='headerNavListLink'
-                    href={constant.BASE_URL + constant.SETTINGS_URI
-                      + constant.LAWYER_PROFILE_URI
-                      + '/' + this.state.currentUser.username}>
-                      {translate('app.nav.setting')}
-                  </a>
-                )
-                :
-                (
-                  <a className='headerNavListLink'
-                    href={constant.BASE_URL + constant.SETTINGS_URI
-                      + constant.CUSTOMER_PROFILE_URI
-                      + '/' + this.state.currentUser.username}>
-                      {translate('app.nav.setting')}
-                  </a>
-                )
-              }
+                <a className='headerNavListLink'
+                  href={constant.BASE_URL + constant.SETTINGS_URI}>
+                    {translate('app.nav.setting')}
+                </a>
             </li>
             <li>
               <a className='headerNavListLink'
-                onClick={this.logout}>{translate('app.nav.sign_out')}
+                onClick={this.logout.bind(this)}>{translate('app.nav.sign_out')}
               </a>
             </li>
           </ul>
@@ -132,7 +128,7 @@ class Nav extends Component {
     else {
       return(
         <li className='nav-item'>
-          <a className='nav-link' href={constant.SIGN_IN_URI}>
+          <a className='nav-link' onClick={this.redirectToLoginPage.bind(this)}>
             {translate('app.identifier.login')}
           </a>
         </li>

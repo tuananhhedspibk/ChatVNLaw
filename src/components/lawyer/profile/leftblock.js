@@ -14,7 +14,7 @@ class LeftBlock extends Component {
         <div className='content'>
           <ReadMore>
             {this.props.convertContent(
-              this.props.profile.workPlace)}
+              this.props.user.lawyer_profile.workPlace)}
           </ReadMore>
         </div>
       </div>

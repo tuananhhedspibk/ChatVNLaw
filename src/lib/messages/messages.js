@@ -136,10 +136,29 @@ function loadTagNextMessages(properties){
 }
 function chat(properties){
     let component = properties.component;
-    let item = {}
-    item[constant.MESSAGES.content] = properties.content;
-    item[constant.MESSAGES.senderId] = component.state.currentUser.uid;
-    item[constant.MESSAGES.timeStamp] = ('' + (new Date()).getTime());
+    let item = {};
+    if(!properties.contentType) {
+        item[constant.MESSAGES.content] = properties.content;
+        item[constant.MESSAGES.senderId] = component.state.currentUser.uid;
+        item[constant.MESSAGES.timeStamp] = ('' + (new Date()).getTime());
+    }
+    else {
+        if (properties.contentType == 'image') {
+            item[constant.SHARED_FILES.senderId] = component.state.currentUser.uid;
+            item[constant.SHARED_FILES.downloadURL] = properties.downloadURL;
+            item[constant.SHARED_FILES.width] = properties.width;
+            item[constant.SHARED_FILES.height] = properties.height;
+            item[constant.SHARED_FILES.contentType] = properties.contentType;
+            item[constant.SHARED_FILES.timeStamp] = properties.timeStamp;
+        }
+        else {
+            item[constant.SHARED_FILES.contentType] = properties.contentType;
+            item[constant.SHARED_FILES.name] = properties.name;
+            item[constant.SHARED_FILES.downloadURL] = properties.downloadURL;
+            item[constant.SHARED_FILES.timeStamp] = properties.timeStamp;
+            item[constant.SHARED_FILES.senderId] = component.state.currentUser.uid;
+        }
+    }
     firebase.database().ref(`${constant.TABLE.rooms}/${component.state.currentRoomId}/${constant.ROOMS.messages}`).push().set(item)
 }
 

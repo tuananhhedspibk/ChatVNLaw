@@ -8,8 +8,8 @@ import Toast from '../notification/toast';
 import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
 
-import {signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged}
-  from '../../lib/user/authentication';
+import {signInWithPopup, signInWithEmailAndPassword,
+  onAuthStateChanged, loginRails} from '../../lib/user/authentication';
 import {checkAlreadyLogin} from '../../lib/notification/toast';
 
 import * as constant from '../constants';
@@ -23,41 +23,36 @@ class UserLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: null,
-      password: null,
+      email: '',
+      password: '',
       currentUser: null,
-      isLoading: true
+      isLoading: false
     }
     this.emitter = new EventEmitter();
-    
   }
 
   componentWillMount(){
-    var component = this;
-    onAuthStateChanged( user =>{
-      if(!!user){
-        userInfo.getUserName(user, function(result){
-          component.setState({isLoading : true})
-          checkAlreadyLogin(component.emitter,()=> {
-            component.redirect(result)
-          });
-        })
-      }else{
-        component.setState({currentUser: user, isLoading : false})        
+    if (localStorage.chat_vnlaw_user) {
+      this.redirect();
+    }
+  }
+
+  redirect(){
+    var uri = localStorage.getItem('redirect_uri');
+    if (uri.includes(constant.APPLY_LAWYER_URI)) {
+      if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
+        this.emitter.emit('AddNewErrorToast', '',
+          translate('app.apply_lawyer.can_not'),
+          5000, ()=>{});
+          setTimeout(() => {
+            window.location = constant.BASE_URL;
+          }, 5000);
+        return;
       }
-    })
+    }
+    window.location = constant.BASE_URL + uri;
   }
-  redirect(result){
-    const target = localStorage.getItem('target')
-    switch(target){
-      case 'chat':
-        window.location = constant.BASE_URL+ '/chat/' + result; 
-        break;
-      default:
-        window.location = constant.BASE_URL+ '/home';
-        break;      
-    } 
-  }
+
   componentDidUpdate(prevProps, prevState){
     if(prevState.isLoading !== this.state.isLoading){
       $('#button-login-with-facebook').on('click', event => {
@@ -92,21 +87,59 @@ class UserLogin extends Component {
     });
   }
 
+  logout() {
+    firebase.auth().signOut().then(function() {
+      window.location = constant.BASE_URL + constant.HOME_URI;
+    }).catch(function(error) {});
+  }
+
   handleSubmit(evt) {
     var component = this;
     evt.preventDefault();
     if(!this.state.email || !this.state.password){
-      this.emitter.emit('AddNewWarningToast',translate('app.system_notice.warning.title'),translate('app.system_notice.warning.text.please_fill_the_form'), 5000, ()=>{} )
+      this.emitter.emit('AddNewWarningToast',
+        translate('app.system_notice.warning.title'),
+        translate('app.system_notice.warning.text.please_fill_the_form'),
+        5000, ()=>{} )
       return;
     }
-    signInWithEmailAndPassword(this.state.email,this.state.password, (issuccess, data) =>{
+    signInWithEmailAndPassword(this.state.email, this.state.password, (issuccess, data) =>{
       if(issuccess){
         if(data){
-          firebase.database().ref().child('users').child(data.uid).update({
-            "status" : "online",
-          }).catch(function(error){
-            component.emitter.emit('AddNewErrorToast', '',error.message, 5000, ()=>{ })                    
-          }).then(function(){
+          loginRails(component.state.email, component.state.password, (success, response) => {
+            if (success) {
+              let chat_vnlaw_user = {
+                'id': response.data.id,
+                'email': component.state.email,
+                'token': response.data.userToken,
+                'role': response.data.role,
+                'userName': response.data.userName,
+                'displayName': response.data.displayName,
+                'avatar': response.data.avatar.url
+              }
+              if(chat_vnlaw_user.role == 'Lawyer') {
+                chat_vnlaw_user['lawyer_id'] = response.data.lawyer_id;
+              }
+              localStorage.setItem(constant.STORAGE_ITEM, JSON.stringify(chat_vnlaw_user));
+              onAuthStateChanged( user =>{
+                if(!!user){
+                  component.setState({isLoading : true})
+                  checkAlreadyLogin(component.emitter, () => {
+                    if(localStorage.chat_vnlaw_user) {
+                      component.redirect();
+                    }
+                  });
+                }else{
+                  component.setState({currentUser: user, isLoading : false})        
+                }
+              })
+            }
+            else {
+              component.logout();
+              component.emitter.emit('AddNewErrorToast', '',
+                response.message, 5000, ()=>{ })                         
+              return;
+            }
           })
         }        
       }else{
@@ -117,6 +150,11 @@ class UserLogin extends Component {
               5000, ()=>{ })                         
             break;
           case 'auth/user-not-found':
+            component.emitter.emit('AddNewErrorToast', '',
+              translate('app.system_notice.error.text.user_not_found'),
+              5000, ()=>{ })                        
+            break;
+          case 'auth/wrong-password':
             component.emitter.emit('AddNewErrorToast', '',
               translate('app.system_notice.error.text.user_not_found'),
               5000, ()=>{ })                        
@@ -185,6 +223,7 @@ class UserLogin extends Component {
       </div>
     )
   }
+
   renderMain() {
     if(this.state.isLoading){
       return(
@@ -200,6 +239,7 @@ class UserLogin extends Component {
       }
     }
   }
+
   render(){
     return(
       <div>

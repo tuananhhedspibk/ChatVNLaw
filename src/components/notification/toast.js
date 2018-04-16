@@ -36,11 +36,6 @@ class Toast extends Component{
                     if (!(window.location.pathname).startsWith('/notifications')) {
                       window.open('/notifications', "_blank")
                     }} );
-                  // component.createNotification('info' , item.title, item.content, 5000, ()=>{
-                  //   if(!(window.location.pathname).startsWith('/notifications')){
-                  //     window.open('/notifications', "_blank")                  
-                  //   } 
-                  // });
                   break;
                 case tableConstant.NOTIFICATION_TYPE.acceptRoomRequest:
                   component.props.emitter.emit('AddNewSuccessToast', item.title, item.content, 5000, () => {
@@ -48,11 +43,6 @@ class Toast extends Component{
                       window.open('/notifications', "_blank")
                     }
                   });
-                  // component.createNotification('success' , item.title, item.content, 5000, ()=>{
-                  //   if(!(window.location.pathname).startsWith('/notifications')){
-                  //     window.open('/notifications', "_blank")                  
-                  //   } 
-                  // });
                   break;
                 case tableConstant.NOTIFICATION_TYPE.refuseRoomRequest:
                   component.props.emitter.emit('AddNewWarningToast', item.title, item.content, 5000, () => {
@@ -60,7 +50,6 @@ class Toast extends Component{
                       window.open('/notifications', "_blank")
                     }
                   });
-                  
                   break;
               }
                           
@@ -130,4 +119,4 @@ class Toast extends Component{
   }
 } 
 
-export default Toast; 
+export default Toast;

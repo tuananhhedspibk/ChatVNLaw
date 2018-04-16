@@ -9,67 +9,49 @@ import Footer from '../../homepage/footer';
 import Toast from '../../notification/toast';
 import NotFound from '../../shared/notfound';
 
+import * as constant from '../../constants';
+import * as Lawyer from '../../../lib/user/lawyers';
+
 import '../../../assets/styles/common/lawyerProfile.css';
 
 class LawyerProfile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			profile: null,
-			user: null,
-			userId: null,
-			isloading : true,
-			issuccess : true
+			currentUser: null,
+			success: false,
+			isLoading: true
 		};
 		this.emitter = new EventEmitter(); 
   }
 
-	getUserProfile(key) {
+	loadDataFromServer() {
 		var component = this;
-		firebase.database().ref(`lawyers/${key}`).once('value',
-			function(snapshot) {
-				if(snapshot.exists()){
-					component.setState({profile : snapshot.val(), isloading: false});					
-				}
-	    })
-	}
-		
-	checkUserName(username){
-		var component = this;
-		firebase.database().ref('users').orderByChild('username')
-			.equalTo(username).once('value')
-	    .then(function(snapshot){
-	      if(!snapshot.exists()){
-					component.setState({issuccess : false, isloading: false})
-	      }
-	      else {
-					for(var key in snapshot.val()){
-						if(snapshot.val()[key].role !== 'lawyer'){
-							component.setState({issuccess : false, isloading: false})							
-						}else{
-							component.setState({
-								user : snapshot.val()[key],
-								userId: key}
-							)
-							component.getUserProfile(key);
-						}
-					}
-	      }
-	  	})
+		Lawyer.loadProfilePage(this.props.match.params.user_name, (success, response) => {
+			if (success) {
+				component.setState({
+					currentUser: response.data.lawyer_info,
+					isLoading: false,
+					success: true
+				});
+			}
+			else {
+				console.log(response);
+				//window.location = constant.BASE_URL + constant.NF_URI;
+			}
+		})
 	}
 
   componentWillMount() {
-		this.checkUserName(this.props.match.params.user_name);
-	}
+		this.loadDataFromServer();
+  }
 
 	renderView(){
-		if(this.state.issuccess){
+		if(this.state.success){
 			return (
 				<div>
 					<Nav navStyle='inverse'/>
-					<MainContent profile={this.state.profile}
-						user={this.state.user}
-						userId={this.state.userId}/>
+					<MainContent user={this.state.currentUser}/>
 					<Footer/>
 					<Toast emitter={this.emitter}/>
 				</div>
@@ -85,7 +67,7 @@ class LawyerProfile extends Component {
 	}
 
 	render() {
-		if(this.state.isloading){
+		if(this.state.isLoading){
 			return(
 				<div>
 					<Toast emitter={this.emitter}/>

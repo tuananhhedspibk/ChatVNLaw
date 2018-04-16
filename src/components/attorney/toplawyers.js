@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import * as translate from 'counterpart';
 import axios from 'axios';
 
 import ReadMore from '../shared/readmore';
+
+import * as translate from 'counterpart';
 import * as constant from '../constants';
 
 class TopLawyers extends Component {
@@ -21,7 +22,10 @@ class TopLawyers extends Component {
   loadDataFromServer() {
     var component = this;
 		var instance = axios.create({
-			baseURL: constant.API_BASE_URL
+      baseURL: constant.API_BASE_URL,
+      headers: {
+        'x-api-token': 'b1c7f840acdee887f402236e82736eba'
+      }
     });
 
     instance.get(constant.API_TOP_LAWYERS_URI)
@@ -56,8 +60,8 @@ class TopLawyers extends Component {
               return (
                 <div className='item' onClick={
                   this.handleOnclickLawyer.bind(this, lawyer.fb_id)}>
-                    <img src={lawyer.photo_url}/>
-                    <p className='name'>{lawyer.name}</p>
+                    <img src={constant.API_BASE_URL + '/' + lawyer.avatar.url}/>
+                    <p className='name'>{lawyer.displayName}</p>
                     <p className='intro'>
                       <ReadMore has_link={false} lines={2}>
                         {lawyer.intro}

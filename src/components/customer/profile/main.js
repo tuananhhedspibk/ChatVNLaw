@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 import Nav from '../../homepage/nav';
 import Footer from '../../homepage/footer';
 import HeaderBlock from './headerblock';
 
 import * as constant from '../../constants';
-import * as firebase from 'firebase';
+import * as User from '../../../lib/user/users';
 
 import '../../../assets/styles/common/customerProfile.css';
 
@@ -13,33 +15,28 @@ class CustomerProfile extends Component {
 	constructor(props) {
 	  super(props);
 	  this.state = {
-	    currentUser: ''
+			currentUser: '',
+			isLoading: true
 	  }
 	}
-		
-	checkUserName(username){
+
+	loadDataFromServer() {
 		var component = this;
-		firebase.database().ref('users').orderByChild('username')
-			.equalTo(username).once('value')
-	    .then(function(snapshot){
-	      if(!snapshot.exists()){
-	        window.location = constant.BASE_URL;
-	      }
-	      else {
-					firebase.database().ref('users').orderByChild('username')
-					.equalTo(username).once('child_added')
-	    		.then(function(snapshotUser) {
-	        	component.setState({currentUser: snapshotUser.val()});
-	    		})
-	      }
-	  	})
+		User.loadProfilePage(this.props.match.params.user_name, (success, response) => {
+			if (success) {
+				component.setState({
+					currentUser: response.data.user_info,
+					isLoading: false
+				});
+			}
+			else {
+				window.location = constant.BASE_URL + constant.NF_URI;
+			}
+		})
 	}
 
   componentWillMount() {
-    if(!firebase.apps.length){
-      firebase.initializeApp(constant.APP_CONFIG);
-    }
-	  this.checkUserName(this.props.match.params.user_name);
+		this.loadDataFromServer();
   }
 
 	render() {
@@ -47,7 +44,18 @@ class CustomerProfile extends Component {
 			<div>
 				<Nav navStyle='inverse'/>
 				<div className='container-customer-wrapper'>
-					<HeaderBlock user={this.state.currentUser}/>
+					{
+						this.state.isLoading ?
+						(
+							<ReactLoading className='loading-symbol'
+								type='cylon' color='#337ab7'
+								height='125' width='125'/>
+						)
+						:
+						(
+							<HeaderBlock user={this.state.currentUser}/>
+						)
+					}
 				</div>
 				<Footer/>
 			</div>
