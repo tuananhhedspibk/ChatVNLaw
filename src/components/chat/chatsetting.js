@@ -75,12 +75,7 @@ class ChatSetting extends Component {
       currentUser: this.props.currentUser})
   }
 
-  componentDidMount(){
-    var component = this;    
-    this.setHeight(this);
-    $(window).resize(function() {
-      component.setHeight(component);
-    });
+  fetchFiles(component) {
     var properties = {
       roomId: this.props.currentRoomId
     };
@@ -113,25 +108,16 @@ class ChatSetting extends Component {
     });
   }
 
-  upfile(event) {
-    var component = this;
-    event.preventDefault();
-    $('#upfile-setting').trigger('click');
-    var fileButton = document.getElementById('upfile-setting');
-    fileButton.addEventListener('change', function(e){
-      e.preventDefault();
-      let file = e.target.files[0];
-      var storeageRef = firebase.storage().ref(`avatar/${component.state.currentUser.uid}`);
-      var task = storeageRef.put(file);
-      task.on('state_changed', 
-      function(snapshot){
-      },
-      function(err){
-      },
-      function(){
-        $('#edit-user-ava').find('img').attr('src',task.snapshot.downloadURL);
-      })
-    })
+  componentDidMount(){
+    var component = this;    
+    this.setHeight(this);
+    $(window).resize(function() {
+      component.setHeight(component);
+    });
+    this.props.emitter.addListener('fetch_files', () => {
+      component.fetchFiles(component);
+    });
+    this.fetchFiles(component);
   }
 
   handleOpenModal() {
@@ -151,7 +137,7 @@ class ChatSetting extends Component {
   renderAva() {
     return(
       <div>     
-        <img  src={constant.API_BASE_URL + this.state.targetUser.profile.avatar.url}
+        <img  src={constant.API_BASE_URL + this.state.targetUser.avatar.url}
           alt='ava-lawyer' id='current-user-ava'/>
       </div>
     )
@@ -227,8 +213,8 @@ class ChatSetting extends Component {
                 </div>
                 <div className='info'>
                   <div className={'user-name'}
-                    title={this.state.targetUser.profile.displayName}>
-                    {this.state.targetUser.profile.displayName}
+                    title={this.state.targetUser.displayName}>
+                    {this.state.targetUser.displayName}
                   </div>
                 </div>
               </div>
@@ -236,7 +222,7 @@ class ChatSetting extends Component {
                 <div className='shared session-infor'>
                   <button className='content-title no-icon' onClick={ () =>{
                       window.open(constant.BASE_URL + constant.LAWYER_PROFILE_URI + '/'
-                      + this.state.targetUser.profile.userName)}}>
+                      + this.state.targetUser.userName)}}>
                     {translate('app.chat.lawyer_profile')}
                   </button>
                 </div>

@@ -92,6 +92,10 @@ function notifyMessagesComming(properties, callback){
             let arr = properties.component.state.messages;
             arr.push(item);
             properties.component.setState({messages: arr});
+            if (item.contentType == 'image' || item.contentType == 'file') {
+                properties.component.props.emitter.emit('fetch_files');
+            }
+            return callback();
         }
     })
     messageStreamRef.on('child_changed', function(snapshot){
@@ -134,7 +138,7 @@ function loadTagNextMessages(properties){
         }
     })
 }
-function chat(properties){
+function chat(properties, callback){
     let component = properties.component;
     let item = {};
     if(!properties.contentType) {
@@ -159,7 +163,8 @@ function chat(properties){
             item[constant.SHARED_FILES.senderId] = component.state.currentUser.uid;
         }
     }
-    firebase.database().ref(`${constant.TABLE.rooms}/${component.state.currentRoomId}/${constant.ROOMS.messages}`).push().set(item)
+    firebase.database().ref(`${constant.TABLE.rooms}/${component.state.currentRoomId}/${constant.ROOMS.messages}`).push().set(item);
+    return callback();
 }
 
 function updateTag(properties){
@@ -193,6 +198,7 @@ function searchTag(properties,callback){
         }
     })
 }
+
 module.exports = {
     streamingMessage: function(properties, callback){
         notifyMessagesComming(properties, callback);
@@ -203,8 +209,8 @@ module.exports = {
     closeStreamRef: function(){
         closeStreamRef();
     },
-    chat: function(properties){
-        chat(properties);
+    chat: function(properties, callback){
+        chat(properties, callback);
     },
     updateTag: function(properties){
         updateTag(properties);

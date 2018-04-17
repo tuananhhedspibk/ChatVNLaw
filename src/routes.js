@@ -34,7 +34,7 @@ const Routes = props => (
       <Route path='/signup' component={UserSignUp}/>
       <Route path='/notifications' component={Notifications}/>
       <Route path='/dashboard' component={UserDashBoard}/>
-      <Route path='/chat/:user_name' component={Chat}/>
+      <Route path='/chat/:user_name?' component={Chat}/>
       <Route path='/attorney' component={Attorney}/>
       <Route path='/applylawyer/:user_name' component={ApplyLawyer} />
       <Route path='/searchlaw' component={SearchLaw} />
@@ -48,7 +48,6 @@ const Routes = props => (
         <Redirect to='/home'/>  
       )}/>
       <Route path='/404' component={NotFoundPage}/>
-      <Redirect from='*' to='/404'/>
     </Switch>
   </Router>
 );

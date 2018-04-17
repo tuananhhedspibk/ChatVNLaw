@@ -65,7 +65,7 @@ class ChatContent extends Component {
       Messages.history(properties, function(){
         component.refs.scrollbars.scrollToBottom();
       });
-      Messages.streamingMessage(properties, function(){
+      Messages.streamingMessage(properties, () => {
         component.refs.scrollbars.scrollToBottom();
       })
     
@@ -125,7 +125,8 @@ class ChatContent extends Component {
                 timeStamp: response.data.file_infor.created_at
               }
             }
-            Messages.chat(mess_properties, function(){
+            Messages.chat(mess_properties, () => {
+              component.props.emitter.emit('fetch_files');
             });
           }
           else {
@@ -148,12 +149,12 @@ class ChatContent extends Component {
       }
     });
 
-    $('.' + 'item_' + this.state.targetUser.id).mouseenter(function(e){
+    $('.' + 'item_' + this.state.targetUser.uid).mouseenter(function(e){
       e.preventDefault();
       component.deleteMessUnreadNumber();
     });
 
-    $('.' + 'item_' + this.state.targetUser.id).mousemove(function(e){
+    $('.' + 'item_' + this.state.targetUser.uid).mousemove(function(e){
       e.preventDefault();
       component.deleteMessUnreadNumber();
     });
@@ -166,7 +167,7 @@ class ChatContent extends Component {
 
   getFileType(fileName) {
     var f_ext = fileName.split('.')[1];
-    if (img_exts.indexOf(f_ext) > 0) {
+    if (img_exts.indexOf(f_ext) > -1) {
       return 1;
     }
     else {
@@ -287,7 +288,7 @@ class ChatContent extends Component {
   render() {
     return(  
       <div className={'chat-window ' + 'item_' +
-        this.state.targetUser.id} id='chat-window' >
+        this.state.targetUser.uid} id='chat-window' >
         <VideoCall currentUser={this.props.currentUser}
           targetUser={this.props.targetUser}
           currentRoomId={this.state.currentRoomId}
@@ -341,7 +342,8 @@ class ChatContent extends Component {
         <ChatSetting
           currentRoomId={this.props.currentRoomId}
           currentUser={this.props.currentUser}
-          targetUser={this.props.targetUser}/> 
+          targetUser={this.props.targetUser}
+          emitter={this.props.emitter}/> 
       </div>
     )
   }
