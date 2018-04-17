@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import {NotificationManager} from 'react-notifications';
 import firebase from 'firebase';
+import {getTasksByRoom,createTask,deleteTask,updateTask} from '../../../../lib/user/lawyers';
 
 import * as translate from 'counterpart';
 
@@ -25,7 +26,7 @@ class TodoList extends Component {
           currentRoomId: roomId})      
     });
     this.props.emitter.addListener('RoomChatHasChanged',
-      function(currentUser, targetUser,roomId) {
+      function(currentUser, targetUser,roomId,roomDes) {
         component.setState({currentUser: currentUser,
           targetUser: targetUser,
           currentRoomId: roomId})      
@@ -35,36 +36,58 @@ class TodoList extends Component {
   componentWillUpdate(nextProps, nextState){
     var component = this;
     if(component.state.currentRoomId !== nextState.currentRoomId){
-      firebase.database()
-        .ref(`tasks/${component.state.currentUser.uid}/${nextState.currentRoomId}`)
-        .once('value', (data) => {
-          if(data){
-            component.setState({
-              todoList: data.val()
-            })
+      // firebase.database()
+      //   .ref(`tasks/${component.state.currentUser.uid}/${nextState.currentRoomId}`)
+      //   .once('value', (data) => {
+      //     if(data){
+      //       component.setState({
+      //         todoList: data.val()
+      //       })
+      //     }
+      //     else {
+      //       component.setState({
+      //         todoList: []
+      //       })
+      //     }
+      // })
+      getTasksByRoom(nextState.currentRoomId, (success,response) => {
+        var tempData = []
+        if(success && response){ 
+          for(var i in response.data.tasks){
+            tempData.push(response.data.tasks[i])
           }
-          else {
-            component.setState({
-              todoList: []
-            })
-          }
-      })
+        }
+        component.setState({
+            todoList: tempData
+        })
+      });
     }
   }
 
   componentDidMount(){
     $('main.main').removeClass('main-customer');
     var component = this;
-    if(!!this.state.currentRoomId){
-      firebase.database()
-        .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
-        .once('value', (data) => {
-          component.setState({
-            todoList: data.val()
-          })
-      })
+    // if(!!this.state.currentRoomId){
+    //   firebase.database()
+    //     .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
+    //     .once('value', (data) => {
+    //       component.setState({
+    //         todoList: data.val()
+    //       })
+    //   })
+    getTasksByRoom(component.state.currentRoomId, (success,response) => {
+        var tempData = []
+        if(success && response){ 
+          for(var i in response.data.tasks){
+            tempData.push(response.data.tasks[i])
+          }
+        }
+        component.setState({
+            todoList: tempData
+        })
+      });
     }
-  }
+
 
   componentDidUpdate(){
     this.loadCSS();
@@ -72,7 +95,7 @@ class TodoList extends Component {
 
   createElementTaskList(e){
     e.preventDefault();
-    var TimeCreate = (new Date()).getTime();
+    // var TimeCreate = (new Date()).getTime();
     if(this.state.todoList !== null){
       var data = this.state.todoList
     }
@@ -87,19 +110,24 @@ class TodoList extends Component {
           translate('app.dashboard.todo_list_warning'));
       }
       else {
-        data.push({'status' : 0,
-          'text' : inputValue,
-          'target_uid': component.state.targetUser.uid,
-          'timecreate': TimeCreate,
-          'targetuserdisplayname' :
-            component.state.targetUser.displayName })
-              component.setState({
-                todoList: data
-              })
-            firebase.database()
-              .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
-              .set(data);
-        $('#form-input').val('');
+        // data.push({'status' : 'Doing',
+          // 'content' : inputValue,
+          // 'target_uid': component.state.targetUser.uid,
+          // 'targetuserdisplayname' :
+          //   component.state.targetUser.displayName })
+          //     component.setState({
+          //       todoList: data
+              // })
+        //     firebase.database()
+        //       .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
+        //       .set(data);
+        createTask(component.state.currentRoomId, inputValue, (success,response) => {
+          if(success && response){
+            $('#form-input').val('');
+            data.push(response.data.task);
+            component.setState('todoList': data);
+          } 
+        });
       }
     }
   }
@@ -110,36 +138,47 @@ class TodoList extends Component {
     var data = this.state.todoList;
     var index = data.indexOf(ev);
     if(data[index]){
-      if(data[index].status === 1){
-        $('#todo-list-ul li').eq(index).removeClass('checked')
-        data[index].status = 0;
-        data[index].TimeCreate = time;
-      }
-      else {
-        $('#todo-list-ul li').eq(index).addClass('checked')
-        data[index].status = 1;
-        data[index].TimeCreate = time;
-      }
-      this.setState({
-          todoList: data
-      })
-      firebase.database()
-        .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
-        .set(this.state.todoList);
+      if(data[index].status === 'Doing')
+        updateTask(component.state.currentRoomId, ev.id,ev.content,"Done", (success,response) => {
+          if(success && response){
+              $('#todo-list-ul li').eq(index).removeClass('Doing');
+              $('#todo-list-ul li').eq(index).addClass('Done');
+              data[index].status = 'Done';
+              this.setState({todoList: data});
+            }
+          });
+      else
+        updateTask(component.state.currentRoomId, ev.id,ev.content,"Doing", (success,response) => {
+          if(success && response){
+              $('#todo-list-ul li').eq(index).removeClass('Done');
+              $('#todo-list-ul li').eq(index).addClass('Doing');
+              data[index].status = 'Doing';
+              this.setState({todoList: data});
+            }
+      });
+      // firebase.database()
+      //   .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
+      //   .set(this.state.todoList);
     }
+
   }
 
   handleClickDelete(ev){
     var component = this;
     var data = this.state.todoList;
     var index = data.indexOf(ev);
-    data.splice(index, 1);
-    this.setState({
-        todoList: data
-    })
-    firebase.database()
-      .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
-      .set(this.state.todoList);
+    // this.setState({
+    //     todoList: data
+    // })
+    // firebase.database()
+    //   .ref(`tasks/${component.state.currentUser.uid}/${component.state.currentRoomId}`)
+    //   .set(this.state.todoList);
+    deleteTask(component.state.currentRoomId, ev.id, (success,response) => {
+      if(success && response){
+        data.splice(index, 1);
+        component.setState({todoList: data});
+      } 
+    });
   }
 
   loadCSS(){
@@ -188,11 +227,11 @@ class TodoList extends Component {
           {
             this.state.targetUser && this.state.todoList !== null ? 
             (
-              this.state.todoList.map(content => (
-                <li onClick={this.handleClick.bind(this, content)}>
-                  {content.text}
+              this.state.todoList.map(task => (
+                <li className={task.status} onClick={this.handleClick.bind(this, task)}>
+                  {task.content}
                   <span className='close'
-                    onClick={this.handleClickDelete.bind(this, content)}>
+                    onClick={this.handleClickDelete.bind(this, task)}>
                       x
                   </span>
                 </li>

@@ -46,7 +46,7 @@ class Article extends Component {
 	    });
 		instance.get(constant.API_ARTICLES_URI+'/'+ this.props.match.params.id )
 	    .then(function (response) {
-	    	component.setState({article: response.data});
+	    	component.setState({article: ""});
 	    })
 	    .catch(function (error) {
 	    	if (error.response.status == 404) {
@@ -70,22 +70,6 @@ class Article extends Component {
   }
 
   componentDidUpdate() {
-    window.addEventListener('scroll',this.handleScroll);
-    $(".internal_link").on('click', function(event) {
-      if (this.hash !== "") {
-        event.preventDefault();
-
-        var hash = this.hash;
-
-        $('html, body').animate({
-          scrollTop: $(hash).offset().top
-        }, 1100, function(){
-      
-        window.location.hash = hash;
-        });
-      }
-    });
-  
     $('#detail-header').on('click',function() {
       $('.index').hide();
       $('.sticky-col').hide();
@@ -403,8 +387,8 @@ class Article extends Component {
 	
 
 	render() {
-		if (this.state.error != null) {
-			console.log(this.state)
+		if (false) {
+      // this.state.error != null
 			if (this.state.error == 404) {
 				return (<NotFoundPage />);
       }
@@ -485,11 +469,17 @@ class Article extends Component {
 			);
 		else {
 			return(
-				<div>
-				</div>
-			);
-    }
-	}
+        <div className="notification-waiting">
+            <div className="waiting-icon">
+              <img className="hammer" src={constant.hammerIcon} />
+              <img className="anvil" src={constant.anvilIcon} />
+              <img className="ting" src={constant.tingIcon} />
+            </div>
+            <p>Xin đợi trong chốc lát</p>
+        </div>
+        );
+	  }
+  }
 }
 
 export default Article;

@@ -143,6 +143,7 @@ class UserLogin extends Component {
           })
         }        
       }else{
+        console.log(data.code);
         switch(data.code){
           case 'auth/invalid-email':
             component.emitter.emit('AddNewErrorToast',

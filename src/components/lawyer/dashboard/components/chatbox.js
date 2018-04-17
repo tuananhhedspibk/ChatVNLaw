@@ -8,6 +8,7 @@ import VideoCall from './videocall';
 
 import * as Messages from '../../../../lib/messages/messages';
 import * as translate from 'counterpart';
+import * as constant from '../../../constants';
 
 class ChatBox extends Component {
   constructor(props) {
@@ -97,7 +98,7 @@ class ChatBox extends Component {
     if(this.state.currentRoomId !== nextState.currentRoomId){
       component.props.emitter.emit('RoomChatHasChanged',
         nextProps.currentUser, nextProps.targetUser,
-        nextState.currentRoomId);         
+        nextState.currentRoomId,nextProps.roomDes);         
       let properties = {}
       properties['roomId'] = nextState.currentRoomId;
       properties['component'] = component;
@@ -235,6 +236,7 @@ class ChatBox extends Component {
               <ChatBubble messages={this.state.messages} 
                 emitter={this.props.emitter}
                 renderHastag={true}
+                base_url={constant.API_BASE_URL}
                 currentUser={this.state.currentUser}
                 targetUser={this.state.targetUser}/>
             </Scrollbars>

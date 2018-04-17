@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 import $ from 'jquery';
 import firebase from 'firebase';
+import {logoutRails} from '../../../../lib/user/authentication';
 
 import * as constant from '../../../constants';
 import * as translate from 'counterpart';
@@ -24,21 +25,29 @@ class Header extends Component {
   }
 
   componentWillMount() {
-    var component = this;
-
-    if(!firebase.apps.length){
-      firebase.initializeApp(constant.APP_CONFIG);
-    }
-    firebase.auth().onAuthStateChanged(user => {
-      component.state.currentUser = user;
-      component.setState(component.state);
-    });
+    this.setState({currentUser: this.props.currentUser});
   }
 
   logout() {
+    var component = this;
+
     firebase.auth().signOut().then(function() {
-      window.location = constant.BASE_URL + constant.HOME_URI;
-    }).catch(function(error) {});
+      logoutRails((success, data) => {
+        if(success) {
+          localStorage.removeItem(constant.STORAGE_ITEM);
+          window.location = constant.BASE_URL + constant.HOME_URI;
+        }
+        else {
+          component.emitter.emit('AddNewErrorToast', '',
+          data.message, 5000, ()=>{})                         
+          return;
+        }
+      })
+    }).catch(function(error) {
+      component.emitter.emit('AddNewErrorToast', '',
+        error, 5000, ()=>{})                         
+      return;
+    });
   }
 
   toggle() {
@@ -73,23 +82,11 @@ class Header extends Component {
   }
 
   handleOnclickProfile(){
-    var component = this;
-    firebase.database().ref(`users/${component.state.currentUser.uid}`)
-      .once('value', data=>{
-      if(data.exists()){
-        window.open(BASE_URL + '/lawyers/'+data.val().username)
-      }
-    })
+    window.open(BASE_URL + '/lawyers/'+ this.props.currentUser.userName)
   }
 
   handleOnclickEditProfile(){
-    var component = this;
-    firebase.database().ref(`users/${component.state.currentUser.uid}`)
-      .once('value', data=>{
-      if(data.exists()){
-        window.open(BASE_URL + '/settings/lawyers/'+data.val().username)
-      }
-    })
+     window.open(BASE_URL + '/settings/lawyers/'+this.props.currentUser.userName);
   }
 
   render() {

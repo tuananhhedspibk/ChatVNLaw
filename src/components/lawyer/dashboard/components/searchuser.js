@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import firebase from 'firebase';
-
+import {getAllRooms} from '../../../../lib/room/rooms';
 import * as translate from 'counterpart';
+import * as constant from '../../../constants';
+import SearchInput, {createFilter} from 'react-search-input';
+const KEYS_TO_FILTERS = ['displayName'];
 
 class SearchUser extends Component {
   constructor(props) {
@@ -10,71 +13,92 @@ class SearchUser extends Component {
     this.state = {
       userName: '',
       targetUser: '',
-      result: []
+      result: [],
+      users: [],
+      searchTerm: ''
     }
   }
 
-  handleInputChange(evt){
-    const target = evt.target;
-    const value = target.value;
-    this.setState({
-      userName: value
-    });
+  componentWillMount() {
+    var component = this;
+    getAllRooms( (success, response) =>{
+      if (success) {
+        var users = []
+        for (var i in response.data.rooms) {
+          var user = {
+            rid: response.data.rooms[i].id,
+            id: response.data.rooms[i].user.id,
+            displayName: response.data.rooms[i].user.displayName,
+            photoURL: response.data.rooms[i].user.avatar.url
+          }
+          users.push(user) 
+        }
+        console.log("_SS_SSSSS")
+        console.log(users)
+        component.setState({
+          users: users,
+          result: users
+        });
+      }
+    })
   }
-
   handleSubmit(evt) {
     var component = this;
     evt.preventDefault();
-    var ref = firebase.database().ref(`users`)
-      .orderByChild('displayName')
-      .equalTo(this.state.userName).once('value', (data)=> {
-        if(data.val() !== null){
-          var arr = [];
-          for(var y in data.val()){
-            var item = {
-              username: data.val()[y]['username'],
-              displayName: data.val()[y]['displayName'],
-              uid : y,
-              status: data.val()[y]['status'],
-              photoURL: data.val()[y]['photoURL']
-            };
-            arr.push(item);
-          }
-          component.setState({result: arr})
-        }
-        else{
-          component.setState({result: []})
-          $('.error-search-name').css('display', 'block');
-          $('.error-search-name')
-              .text(translate('app.dashboard.search.search_user_not_found'));
-          $('.error-search-name-symbol').css('display', 'block');
-          $('.error-search-name-symbol')
-            .text(translate('app.dashboard.search.search_user_not_found_symbol'));
-        }
-    });
+    // var ref = firebase.database().ref(`users`)
+    //   .orderByChild('displayName')
+    //   .equalTo(this.state.userName).once('value', (data)=> {
+    //     if(data.val() !== null){
+    //       var arr = [];
+    //       for(var y in data.val()){
+    //         var item = {
+    //           username: data.val()[y]['username'],
+    //           displayName: data.val()[y]['displayName'],
+    //           uid : y,
+    //           status: data.val()[y]['status'],
+    //           photoURL: data.val()[y]['photoURL']
+    //         };
+    //         arr.push(item);
+    //       }
+    //       component.setState({result: arr})
+    //     }
+    //     else{
+    //       component.setState({result: []})
+    //       $('.error-search-name').css('display', 'block');
+    //       $('.error-search-name')
+    //           .text(translate('app.dashboard.search.search_user_not_found'));
+    //       $('.error-search-name-symbol').css('display', 'block');
+    //       $('.error-search-name-symbol')
+    //         .text(translate('app.dashboard.search.search_user_not_found_symbol'));
+    //     }
+    // });
+  }
+
+  searchUpdated(term) {
+    this.setState({searchTerm: term});
   }
 
   clickUser(data){
     var component = this;
     console.log('test')
     component.setState({
-      targetUser: data
+      targetUser: data.users
     })
     this.props.emitter.emit('getUserSearch', data);
     document.body.classList.remove('chat-section-hidden');
     $('.video-call').hide();
   }
 
-  renderResult(){
-    if(this.state.result.length > 0){
+  renderResult(filteredUsers){
+    if(filteredUsers.length > 0){
       return(
         <div className='users-result'>
-          {this.state.result.map(element=>{
+          {filteredUsers.map(element=>{
             return(
               <div className='user-result'
                 onClick={this.clickUser.bind(this,element)}>
                   <img className='user-ava'
-                    src={element.photoURL}
+                    src={constant.API_BASE_URL + element.photoURL}
                     title={element.displayName}/>
                   <div className='user-name'>
                     {element.displayName}
@@ -96,17 +120,16 @@ class SearchUser extends Component {
   }
 
   render(){
+    const filteredUsers = this.state.users.filter(
+      createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     return (
       <div className='search-user search-feature'>
-        <form className='form-search'
-          onSubmit={this.handleSubmit.bind(this)}>
-            <input type='text' placeholder={translate('app.dashboard.search.input_user_name')}
-              onInput={this.handleInputChange.bind(this)} />
-            <button type='submit'>
-              {translate('app.dashboard.search.title')}
-            </button>
-          </form>
-          {this.renderResult()}
+        <div className='search-box'>
+          <SearchInput className='search-input'
+            onChange={this.searchUpdated.bind(this)}
+            placeholder={translate('app.user.search') + '...'} />
+        </div>
+          {this.renderResult(filteredUsers)}
       </div>
     )
   }

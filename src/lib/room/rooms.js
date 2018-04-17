@@ -1,5 +1,4 @@
 var firebase = require('firebase');
-
 var constantLib = require('../constants');
 var constantUI = require('../../components/constants');
 
@@ -66,7 +65,6 @@ var constantUI = require('../../components/constants');
 
 //     })
 // }
-
 // // rooms:
 // //     roomId:
 // //         members:
@@ -112,6 +110,22 @@ function getAllRooms(callback) {
     instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
   instance.get(constantUI.API_ROOMS_URI)
+    .then(response => {
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    })
+}
+function updateRoom(roomID, desc, callback) {
+  var instance = constantLib.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  let formData = new FormData();
+  formData.append('rooms[description]',desc);
+  instance.patch(constantUI.API_ROOMS_URI+ roomID , formData )
     .then(response => {
       return callback(true, response);
     })
@@ -176,6 +190,9 @@ function roomUpFiles(properties, callback) {
 module.exports = {
   createNewRoom: function(properties, callback) {
     createNewRoom(properties, callback);
+  },
+  updateRoom: function(roomID, desc, callback) {
+    updateRoom(roomID, desc, callback);
   },
   getAllRooms: function(callback) {
     getAllRooms(callback);

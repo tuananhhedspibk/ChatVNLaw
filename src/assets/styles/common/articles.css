@@ -1,4 +1,13 @@
 @charset "UTF-8";
+.external-circle {
+  stroke: #fff;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  troke-dasharray: 187;
+  -webkit-animation: internal 1s ease-in-out infinite;
+  animation: internal 1s ease-in-out infinite;
+  opacity: .4; }
+
 #confirm-sticky input[type=text] {
   margin-bottom: 20px; }
 
@@ -113,6 +122,9 @@
   padding: 10px 20px;
   box-shadow: 1px 1px 2px 1px #c1c1c1;
   margin-bottom: 45px; }
+  .article-page .article-content .fa-edit {
+    color: #007bff;
+    margin-left: 10px; }
 
 .article-page .link_modify {
   display: inline-block;

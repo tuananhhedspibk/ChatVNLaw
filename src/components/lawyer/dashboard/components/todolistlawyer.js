@@ -3,6 +3,7 @@ import $ from 'jquery';
 import * as firebase from 'firebase';
 
 import * as translate from 'counterpart';
+import {getAllTasks} from '../../../../lib/user/lawyers';
 
 class TodoListLawyer extends Component {
   constructor(props) {
@@ -15,39 +16,48 @@ class TodoListLawyer extends Component {
     }
   }
 
-    componentWillMount(){
-      var component = this;
-      this.props.emitter.emit('ReSendData',
-        function(currentUser, targetUser, roomId){
+  componentWillMount(){
+    var component = this;
+    this.props.emitter.emit('ReSendData',
+      function(currentUser, targetUser, roomId){
+      component.setState({currentUser: currentUser,
+        targetUser: targetUser,
+        currentRoomId: roomId})    
+    });
+    this.props.emitter.addListener('RoomChatHasChanged',
+      function(currentUser, targetUser,roomId,roomDes) {
         component.setState({currentUser: currentUser,
           targetUser: targetUser,
-          currentRoomId: roomId})    
-      });
-      this.props.emitter.addListener('RoomChatHasChanged',
-        function(currentUser, targetUser,roomId) {
-          component.setState({currentUser: currentUser,
-            targetUser: targetUser,
-            currentRoomId: roomId})
-      });
-    }
+          currentRoomId: roomId})
+    });
+  }
 
-    componentDidMount(){
-        var component = this;
-        var tempData = [];
-        var currentUser = firebase.auth().currentUser.uid;
-        firebase.database().ref(`tasks/${currentUser}`)
-        .once('value', (data) => {
-          if(data){
-              for(var i in data.val()){
-                  tempData.push(data.val()[i])
-              }
-          }
-          component.setState({
-              todoList: tempData
-          })
-        })
-
-    }
+  componentDidMount(){
+    var component = this;
+    var tempData = [];
+    // var currentUser = firebase.auth().currentUser.uid;
+    // firebase.database().ref(`tasks/${currentUser}`)
+    // .once('value', (data) => {
+    //   if(data){
+    //       for(var i in data.val()){
+    //           tempData.push(data.val()[i])
+    //       }
+    //   }
+    //   component.setState({
+    //       todoList: tempData
+    //   })
+    // })
+    getAllTasks(this.props.currentUser.lawyer_id, (success,response) => {
+      if(success && response){    
+        for(var i in response.data.rooms){
+            tempData.push(response.data.rooms[i])
+        }
+      }
+      component.setState({
+          todoList: tempData
+      })
+    });
+  }
 
     renderTodoList(){
       var component = this;
@@ -60,14 +70,13 @@ class TodoListLawyer extends Component {
                   'btn toggle-btn collapsed' data-toggle='collapse'
                   data-target={'#todo-list-lawyer' + index}>
                     <div>{translate('app.dashboard.with')}</div>
-                    {todoList[0].targetuserdisplayname}
+                    {todoList.targetUser}
                 </button>
                 <div id={'todo-list-lawyer' + index} className='collapse'>
                   <ul id='myUL'>
-                    {todoList.map(content => (
-                      <li className={content.status === 1 ?
-                        'checked' : 'uncheck'}>
-                          {content.text}
+                    {todoList.tasks.map(content => (
+                      <li className={content.status} >
+                          {content.content}
                       </li>
                     ))}
                   </ul>

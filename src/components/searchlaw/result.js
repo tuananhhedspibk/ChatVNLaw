@@ -4,7 +4,9 @@ import * as translate from 'counterpart';
 import * as constant from '../constants';
 
 class Result extends Component {
+
 	render() {
+		console.log(this.props.article)
 		return(
 			<div className='law-item'>
 				<a href={constant.BASE_URL +
@@ -13,11 +15,11 @@ class Result extends Component {
 							<a title={this.props.article.title}
 								className='content'
 								href={constant.BASE_URL + constant.LAW_URI+ this.props.article.id}>
-									{this.props.article.title}
+									{this.props.article.article_type + ' ' + this.props.article.numerical_symbol}
 							</a>
 							{
-								this.props.article.effect_status ==
-									translate('app.home.search_law.effect_status_1') ?
+								this.props.article.effect_status.includes(
+									translate('app.home.search_law.effect_status_1')) ?
 								(
 									<div className='tag'>
 										<label className='validated'>
@@ -26,8 +28,8 @@ class Result extends Component {
 									</div>
 								):
 								(
-									this.props.article.effect_status ==
-										translate('app.home.search_law.effect_status_2') ?
+									this.props.article.effect_status.includes(
+										translate('app.home.search_law.effect_status_2')) ?
 									(
 										<div className='tag'>
 											<label className='expired'>
@@ -47,6 +49,9 @@ class Result extends Component {
 						</div>
 						<div className='law-detail-content'>
 							<div className='law-status'>
+								<div className='law-brief'>
+									{this.props.article.article_type + ' ' + this.props.article.title}
+								</div>
 								<div className='public-day'>
 									<div className='sub-title'>
 										<label>

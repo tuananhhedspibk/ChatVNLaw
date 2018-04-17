@@ -610,12 +610,12 @@
     transition: all .3s ease;
   }
 
-  li.checked {
+  li.Done {
     background: $gray-medium !important;
     color: $black;
   }
 
-  li.checked::before {
+  li.Done::before {
     content: '';
     position: absolute;
     border-color: $black;

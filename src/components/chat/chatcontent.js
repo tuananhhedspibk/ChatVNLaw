@@ -149,12 +149,12 @@ class ChatContent extends Component {
       }
     });
 
-    $('.' + 'item_' + this.state.targetUser.uid).mouseenter(function(e){
+    $('.' + 'item_' + this.state.targetUser.id).mouseenter(function(e){
       e.preventDefault();
       component.deleteMessUnreadNumber();
     });
 
-    $('.' + 'item_' + this.state.targetUser.uid).mousemove(function(e){
+    $('.' + 'item_' + this.state.targetUser.id).mousemove(function(e){
       e.preventDefault();
       component.deleteMessUnreadNumber();
     });
@@ -288,7 +288,7 @@ class ChatContent extends Component {
   render() {
     return(  
       <div className={'chat-window ' + 'item_' +
-        this.state.targetUser.uid} id='chat-window' >
+        this.state.targetUser.id} id='chat-window' >
         <VideoCall currentUser={this.props.currentUser}
           targetUser={this.props.targetUser}
           currentRoomId={this.state.currentRoomId}
