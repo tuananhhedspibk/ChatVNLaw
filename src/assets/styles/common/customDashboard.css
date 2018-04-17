@@ -408,10 +408,10 @@
   #todo-list-ul li:hover {
     background: #e2e2e2;
     transition: all .3s ease; }
-  #todo-list-ul li.checked {
+  #todo-list-ul li.Done {
     background: #d1d1d1 !important;
     color: #000; }
-  #todo-list-ul li.checked::before {
+  #todo-list-ul li.Done::before {
     content: '';
     position: absolute;
     border-color: #000;

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ChatBox from './chatbox';
 import firebase from 'firebase';
-import {getAllRoom} from '../../../../lib/room/rooms';
+import {getAllRooms} from '../../../../lib/room/rooms';
 import { Scrollbars } from 'react-custom-scrollbars';
 import $ from 'jquery';
 
@@ -14,34 +14,34 @@ class Chat extends Component {
     this.state = {
       targetUser:null,
       currentUser: null,
-      users: [],
+      rooms: [],
       unread: [],
-      listUsersHeight: 0
+      listUsersHeight: 0,
+      roomDes: ''
     };
   }
 
   componentWillMount(){
     var component = this;
     this.setState({currentUser : this.props.currentUser});
+    getAllRooms( (success, response) =>{
+      if (success) {
+        component.setState({rooms: response.data.rooms});
+        this.props.emitter.addListener('getUserSearch', function(targetUser){
+          component.state.rooms.every((element)=>{
+            if(element.user.uid === targetUser.uid){
+              targetUser = element.user
+              targetUser.rid = element.id;
+              component.setState({targetUser: targetUser});
+              return false;
+            }
+            return true;
+          })
+        })  
+      }
+    })
     
-    let properties = {}
-    properties['component'] = this;
-    properties['currentUser'] = this.props.currentUser;
-    getAllRoom(properties, (userArr) =>{
-      component.setState({users :userArr})
-    })
-    this.props.emitter.addListener('getUserSearch', function(targetUser){
-      component.state.users.every((element)=>{
-        if(element.uid === targetUser.uid){
-          targetUser.rid = element.rid;
-          component.setState({targetUser: targetUser})
-          return false;
-        }
-        return true;
-      })
-     
-    })
-  }
+}
   
   componentWillReceiveProps(nextProps){
     if(this.state.currentUser !== nextProps.currentUser){
@@ -64,9 +64,14 @@ class Chat extends Component {
     });
   }
 
-  changeUserChat(user){
+  changeUserChat(user,rid,roomDes){
     document.body.classList.remove('chat-section-hidden');
-    this.setState({targetUser: user});
+    user.rid = rid;
+    this.setState({
+      targetUser: user,
+      roomDes: roomDes});
+    console.log('chatjs')
+    console.log(user)
     if ($('.chat-box-wrapper').css('display') == 'none') {
       $('.chat-box-wrapper').toggle();
       if($('.video-call').css('display') !== 'none') {
@@ -91,15 +96,14 @@ class Chat extends Component {
             }>
             <div className='chat-users-list'>
               {
-                this.state.users.map(user => {
-                  if(JSON.stringify(this.state.targetUser) === JSON.stringify(user)){
-                  
+                this.state.rooms.map(room => {
+                  if(this.state.targetUser != null && this.state.targetUser.id === room.user.id){
                     return(
                       <div className='chat-user active-link'
-                        onClick={this.changeUserChat.bind(this,user)}
-                        key={user.uid}>
+                        onClick={this.changeUserChat.bind(this,room.user,room.id, room.description)}
+                        key={room.id}>
                         <div className='user-ava'>
-                          <img src={user.photoURL} title={user.displayName}/>
+                          <img src={constant.API_BASE_URL + room.user.avatar.url} title={room.user.displayName}/>
                         </div>
                       </div>
                     )
@@ -107,10 +111,10 @@ class Chat extends Component {
                   } else{
                     return(
                       <div className='chat-user'
-                        onClick={this.changeUserChat.bind(this,user)}
-                        key={user.uid}>
+                        onClick={this.changeUserChat.bind(this,room.user,room.id,room.description)}
+                        key={room.id}>
                         <div className='user-ava'>
-                          <img src={user.photoURL} title={user.displayName}/>
+                          <img src={constant.API_BASE_URL + room.user.avatar.url} title={room.user.displayName}/>
                         </div>
                       </div>
                     )
@@ -123,6 +127,7 @@ class Chat extends Component {
         <ChatBox
           targetUser={this.state.targetUser}
           currentUser={this.state.currentUser}
+          roomDes = {this.state.roomDes}
           emitter={this.props.emitter}/>
       </div>
     )

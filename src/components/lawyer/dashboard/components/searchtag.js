@@ -29,7 +29,7 @@ class SearchTag extends Component {
     });
 
     this.props.emitter.addListener('RoomChatHasChanged',
-      function(currentUser, targetUser,roomId) {
+      function(currentUser, targetUser,roomId, roomDes) {
         component.setState({currentUser: currentUser,
           targetUser: targetUser,
           currentRoomId: roomId})            

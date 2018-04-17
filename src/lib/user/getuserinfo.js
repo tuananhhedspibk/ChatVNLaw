@@ -1,5 +1,6 @@
 var firebase = require('firebase');
 var constant = require('../constants');
+// var user = require('users');
 
 function updatePhotoURL(link){
     try{
@@ -18,15 +19,17 @@ function extractUser(data){
         displayName: data.val().displayName,
         uid : data.key,
         status: data.val().status,
-        photoURL: data.val().photoURL
+        photoURL: data.val().photoURL,
     }
     return item;
 }
-function getUserRoleByUid(input, callback){
-    var ref =firebase.database().ref(`${constant.TABLE.users}/${input}/${constant.USERS.role}`)
-    ref.on('value', data =>{
-        return callback(data);
-    })
+function getUserRoleByUid( callback){
+    // var ref =firebase.database().ref(`${constant.TABLE.users}/${input}/${constant.USERS.role}`)
+    // ref.on('value', data =>{
+    //     return callback(data);
+    // })
+    var userDetail = JSON.parse(localStorage.chat_vnlaw_user)
+    return callback(userDetail['role'])
 }
 function getUserByUid(input, callback){
     var ref = firebase.database().ref(`${constant.TABLE.users}/${input}`)

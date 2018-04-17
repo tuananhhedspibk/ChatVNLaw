@@ -281,6 +281,10 @@
     }
 
     a {
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
       color: $black;
 
       &:hover {
@@ -336,10 +340,17 @@
 
     .law-detail-content {
       padding: 0 25px 20px;
+      .law-brief{
+        font-size: 1em !important;
+        width: 65%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
 
     .law-status {
-      font-size: 1.1em;
+      font-size: 0.9em;
 
       .sub-title {
         label {

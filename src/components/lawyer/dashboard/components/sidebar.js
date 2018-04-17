@@ -31,15 +31,9 @@ class Sidebar extends Component {
   }
 
   componentWillMount() {
-    var component = this;
-
-    if(!firebase.apps.length){
-      firebase.initializeApp(constant.APP_CONFIG);
-    }
-    firebase.auth().onAuthStateChanged(user => {
-      component.state.current_user = user;
-      component.setState(component.state);
-    });
+    console.log("sidebar")
+    console.log(this.props.currentUser)
+    this.setState({current_user: this.props.currentUser});
   }
 
   setHeight(component) {
@@ -129,7 +123,7 @@ class Sidebar extends Component {
           <nav className='sidebar-nav'>
             <Nav>
               <div className='user-info'>
-                <img className='ava' src={this.state.current_user.photoURL}/>
+                <img className='ava' src={constant.API_BASE_URL + this.state.current_user.avatar.url}/>
                 <p className='user-name'>{this.state.current_user.displayName}</p>
               </div>
               {navList(nav.items)}

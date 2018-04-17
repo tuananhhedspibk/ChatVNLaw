@@ -118,7 +118,7 @@ class Settings extends Component {
                 <div className='main-content'>
                   <div className='tab-content'>
                     <div className='tab-pane active' id='tab-basic'>
-                      <BasicSettings user={this.state.user}
+                    <BasicSettings user={this.state.user}
                         role={this.state.role}
                         emitter={this.emitter}/>
                     </div>

@@ -23,7 +23,6 @@ class DetailSettings extends Component {
 
   componentWillMount() {
     this.setState({userName: JSON.parse(localStorage.chat_vnlaw_user)['userName']});
-
     if(this.props.role == 'Lawyer'){
       this.setState({
         intro: this.props.user.intro,

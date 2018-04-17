@@ -213,8 +213,8 @@ class ChatSetting extends Component {
                 </div>
                 <div className='info'>
                   <div className={'user-name'}
-                    title={this.state.targetUser.displayName}>
-                    {this.state.targetUser.displayName}
+                    title={this.state.targetUser.profile.displayName}>
+                    {this.state.targetUser.profile.displayName}
                   </div>
                 </div>
               </div>

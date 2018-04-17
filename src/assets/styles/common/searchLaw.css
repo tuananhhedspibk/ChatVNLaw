@@ -195,6 +195,9 @@
     .results .law-item:hover {
       background-color: #f9f9f9; }
     .results .law-item a {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
       color: #000; }
       .results .law-item a:hover {
         text-decoration: none; }
@@ -230,8 +233,14 @@
         color: #2385f2; }
     .results .law-item .law-detail-content {
       padding: 0 25px 20px; }
+      .results .law-item .law-detail-content .law-brief {
+        font-size: 1em !important;
+        width: 65%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden; }
     .results .law-item .law-status {
-      font-size: 1.1em; }
+      font-size: 0.9em; }
       .results .law-item .law-status .sub-title label {
         margin-bottom: 2px;
         margin-right: 6px; }

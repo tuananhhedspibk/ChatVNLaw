@@ -57,7 +57,7 @@
   animation-duration: 0.7s;
   animation-iteration-count: infinite;
   animation-name: hammer-spin;
-  animation-timing-function: ease;
+  animation-timing-function: ease-in;
   animation-direction: alternate; }
 
 .anvil {
@@ -74,7 +74,7 @@
   left: -25px;
   bottom: -25px;
   animation-duration: 1.4s;
-  animation-delay: 0.5s;
+  animation-delay: 0.6s;
   animation-name: ting-appear;
   animation-iteration-count: infinite; }
 

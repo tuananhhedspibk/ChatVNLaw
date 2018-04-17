@@ -16,6 +16,7 @@ export const LAW_URI = '/articles/';
 export const APPLY_LAWYER_URI = '/applylawyer/';
 export const NF_URI = '/404';
 
+
 export const API_BASE_URL = 'http://localhost:4000';
 export const API_SEARCH_ARTICLES_URI = '/api/search/articles';
 export const API_SEARCH_LAWYERS_URI = '/api/search/lawyers';
@@ -26,7 +27,7 @@ export const API_LOGIN_URI = '/api/login';
 export const API_SIGNUP_URI = '/api/signup';
 export const API_LOGOUT_URI = '/api/logout';
 export const API_USERS_URI = '/api/users/';
-export const API_ROOMS_URI = '/api/rooms';
+export const API_ROOMS_URI = '/api/rooms/';
 export const API_LAWYERS_URI = '/api/lawyers/';
 export const API_REVIEWS_URI = '/api/reviews/';
 export const API_TASKS_URI = '/api/tasks/';

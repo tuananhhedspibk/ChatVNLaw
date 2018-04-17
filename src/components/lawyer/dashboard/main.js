@@ -48,27 +48,35 @@ class UserDashBoard extends Component {
   componentWillMount(){
     var component = this;
     onAuthStateChanged(user =>{
-      if(user){
-        getUserRoleByUid(user.uid, data =>{
-          if(data.val() == tableContant.ROLE.lawyer){
-            component.setState({currentUser: user})
-            component.setState({isLoading: false})                
-          }
-          else {
-            component.setState({isLoading : true})
-            checkPermission(component.emitter,
-              constant.HOME_URI, () =>{
-              
-            })
-          }
-        }) 
-      }else{
-        component.setState({isLoading : true})
-        checkAuthen(component.emitter,constant.HOME_URI
-          + constant.SIGN_IN_URI, () =>{
+      if(localStorage.chat_vnlaw_user)  
+        if(localStorage.chat_vnlaw_user){
+          getUserRoleByUid( data =>{
+            if(data == 'Lawyer'){
+              var currentUser = {
+                avatar: JSON.parse(localStorage.chat_vnlaw_user)['avatar'],
+                displayName: JSON.parse(localStorage.chat_vnlaw_user)['displayName'],
+                email: JSON.parse(localStorage.chat_vnlaw_user)['email'],
+                uid: JSON.parse(localStorage.chat_vnlaw_user)['id']
+              }
+              component.setState({currentUser: currentUser});
+              component.setState({isLoading: false});             
+            }
+            else {
+              component.setState({isLoading : true});
+              checkPermission(component.emitter,
+                constant.HOME_URI, () =>{
+                
+               })
+            }
+          }) 
+        }
+        else{
+          component.setState({isLoading : true})
+          checkAuthen(component.emitter,constant.HOME_URI
+            + constant.SIGN_IN_URI, () =>{
 
-        })
-      }
+          })
+        }
     })
   }
 
@@ -88,11 +96,12 @@ class UserDashBoard extends Component {
   }
 
   renderView() {
+    console.log("asdadasdadads");
     return(
       <div className='app'>
-        <Header/>
+        <Header currentUser={this.state.currentUser}/>
         <div className='app-body'>
-          <Sidebar {...this.props}/>
+          <Sidebar {...this.props} currentUser={this.state.currentUser}/>
           <main className='main'>
             <Breadcrumb/>
             <Container fluid>
@@ -110,7 +119,7 @@ class UserDashBoard extends Component {
                   <Switch>
                     <Route path='/dashboard/todolistlawyer' name='Todo List Lawyer' 
                       render={(props) => (
-                        <TodoListLawyer emitter={this.emitter} {...props} />)}/>
+                        <TodoListLawyer currentUser = {this.state.currentUser} emitter={this.emitter} {...props} />)}/>
                     <Route path='/dashboard/files-shared' name='Files Shared'
                       render={(props) => (
                         <Customer emitter={this.emitter} {...props} />)}/>
