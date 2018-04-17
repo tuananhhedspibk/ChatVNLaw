@@ -45,10 +45,11 @@ function createNewNotification(properties,callback){
 
   item[constant.NOTIFICATIONS.sender] = {};
   item[constant.NOTIFICATIONS.sender][constant.NOTIFICATIONS.senderDisplayName] = properties.currentUser.displayName;
-  // item[constant.NOTIFICATIONS.sender][constant.NOTIFICATIONS.senderRole] = properties.currentUser.role;
   item[constant.NOTIFICATIONS.sender][constant.NOTIFICATIONS.senderId] = properties.currentUser.uid;
-  
-  
+  if (properties.currentUser.userName) {
+    item[constant.NOTIFICATIONS.sender][constant.NOTIFICATIONS.senderUserName] = properties.currentUser.userName;
+  }
+
   item[constant.NOTIFICATIONS.type] = properties.type;
   item[constant.NOTIFICATIONS.info] = properties.info || '';
   item[constant.NOTIFICATIONS.timeStamp] = '' + (new Date()).getTime();
@@ -63,7 +64,6 @@ function getAllNotification(properties, callback){
   ref.on('child_added', data =>{
     var item = data.val()
     item[constant.NOTIFICATIONS.id] = data.key;
-    // console.log(item);
     return callback('child_added', item);
   })
   ref.on('child_removed', data=>{
@@ -82,11 +82,12 @@ function noticeWhenNewNotiComing(properties, callback){
     }
   })
 }
+
 module.exports = {
   createNewNotification: function(properties,callback){
     createNewNotification(properties,callback)
   },
-  noticeWhenNewNotiComing(properties, callback){
+  noticeWhenNewNotiComing: function(properties, callback){
     noticeWhenNewNotiComing(properties,callback);
   },
   extractNotification(data,callback){

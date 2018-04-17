@@ -94,6 +94,10 @@
     text-align: left;
     text-transform: none;
     width: 100%; }
+  .chat-setting .content .profile-btn {
+    color: #2385f2; }
+    .chat-setting .content .profile-btn:hover {
+      text-decoration: underline; }
   .chat-setting .content .content-title.collapsed:after {
     content: "\f107";
     font-family: FontAwesome; }

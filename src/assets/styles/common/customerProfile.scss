@@ -8,11 +8,34 @@
   background-color: $gray-more-lighter;
   min-height: calc(100vh - 230px);
   padding: 60px 160px;
+  
+  .content-block {
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 1px $gray-lighter;
+    padding: 15px 25px;
+
+    .title {
+      font-size: 1.5em;
+      font-weight: 600;
+      padding-bottom: 5px;
+    }
+
+    .content {
+      font-size: 1.2em;
+    }
+
+    .no-review {
+      margin-top: -6px;
+      padding: 0 25px 15px;
+    }
+  }
 
   .profile-header {
     background-color: $white;
     border-radius: 5px;
     box-shadow: 1px 1px 2px 1px $gray-lighter;
+    margin-bottom: 30px;
     padding: 40px;
 
     .col-md-3, .col-md-9 {

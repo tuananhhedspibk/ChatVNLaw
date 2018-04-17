@@ -8,45 +8,47 @@
     margin-bottom: 25px;
     margin-top: 20px;
     width: calc(100% - 30px); }
-  .attorney .top-view .title {
-    font-size: 1.2em;
-    font-weight: bold;
-    padding-top: 10px;
-    text-transform: uppercase;
-    word-wrap: break-word; }
-  .attorney .top-view hr {
-    width: 100%;
-    margin-bottom: 15px; }
-  .attorney .top-view .item {
-    background-color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    display: inline-block;
-    margin-bottom: 15px;
-    padding: 15px 15px;
-    width: 100%; }
-    .attorney .top-view .item:hover {
-      box-shadow: 1px 1px 1px 1px #d1d1d1;
-      transition: all .4s ease; }
-    .attorney .top-view .item .intro {
-      color: #808080;
-      float: left;
-      margin-left: 10px;
-      width: calc(100% - 70px); }
-    .attorney .top-view .item img {
-      border-radius: 50%;
-      float: left;
-      height: 60px;
-      width: 60px; }
-    .attorney .top-view .item .name {
-      display: inline-block;
-      font-size: 1.1em;
+  .attorney .top-view {
+    margin-bottom: 20px; }
+    .attorney .top-view .title {
+      font-size: 1.2em;
       font-weight: bold;
-      margin-bottom: 0;
-      margin-left: 10px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap; }
+      padding-top: 10px;
+      text-transform: uppercase;
+      word-wrap: break-word; }
+    .attorney .top-view hr {
+      width: 100%;
+      margin-bottom: 15px; }
+    .attorney .top-view .item {
+      background-color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 15px;
+      padding: 15px 15px;
+      width: 100%; }
+      .attorney .top-view .item:hover {
+        box-shadow: 1px 1px 1px 1px #d1d1d1;
+        transition: all .4s ease; }
+      .attorney .top-view .item .intro {
+        color: #808080;
+        float: left;
+        margin-left: 10px;
+        width: calc(100% - 70px); }
+      .attorney .top-view .item img {
+        border-radius: 50%;
+        float: left;
+        height: 60px;
+        width: 60px; }
+      .attorney .top-view .item .name {
+        display: inline-block;
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-bottom: 0;
+        margin-left: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
   .attorney .ui.dropdown:not(.button) > .default.text {
     color: #000; }
   .attorney .pretty .state label {

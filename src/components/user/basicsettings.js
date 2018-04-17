@@ -52,9 +52,13 @@ class BasicSettings extends Component {
   }
 
   componentWillMount() {
+    var birthday = '';
+    if (!!this.props.user.birthday) {
+      birthday = new Date(this.props.user.birthday).toLocaleDateString('vn-VN');
+    }
     this.setState({
       displayName: this.props.user.displayName,
-      birthday: new Date(this.props.user.birthday).toLocaleDateString('vn-VN'),
+      birthday: birthday,
       avatar: this.props.user.avatar,
       userName: JSON.parse(localStorage.chat_vnlaw_user)['userName']
     });
@@ -291,7 +295,7 @@ class BasicSettings extends Component {
             <input type='file' id='upfile-setting'
               accept='image/*'/>
             <img onClick={this.upfile.bind(this)}
-              src={this.props.user.avatar.url}
+              src={constant.API_BASE_URL + this.props.user.avatar.url}
               alt='upfile'/>
             <div className='change-ava-guide'>
               {translate('app.settings.change_ava_guide')}
