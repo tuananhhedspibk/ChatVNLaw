@@ -275,6 +275,7 @@ module.exports = {
       chat_session_list: 'Lịch sử phiên chat',
       rate: 'Đánh giá',
       lawyer_profile: 'Thông tin của luật sư',
+      customer_profile: 'Thông tin của khách hàng',
       pay: 'Thanh toán',
       paid: 'Đã thanh toán',
       account_owner: 'Chủ tài khoản',
@@ -495,7 +496,8 @@ module.exports = {
       review: 'Đánh giá từ khách hàng'
     },
     customer: {
-      account_type: 'Loại tài khoản:'
+      account_type: 'Loại tài khoản:',
+      bank_account: 'Số tiền hiện có trong tài khoản'
     },
     modal: {
       account: 'Tài khoản',

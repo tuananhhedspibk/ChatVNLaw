@@ -270,6 +270,7 @@ module.exports = {
       shared_images: 'Ảnh được chia sẻ',
       rate: 'Đánh giá',
       lawyer_profile: 'Thông tin của luật sư',
+      customer_profile: 'Thông tin của khách hàng',
       chat_session_list: 'Lịch sử phiên chat',
       pay: 'Thanh toán',
       warning_file_size: 'Dung lượng file tối đa là 25MB'
@@ -486,7 +487,8 @@ module.exports = {
       review: 'Đánh giá từ khách hàng'
     },
     customer: {
-      account_type: 'Loại tài khoản:'
+      account_type: 'Loại tài khoản:',
+      bank_account: 'Số tiền hiện có trong tài khoản'
     },
     settings: {
       basic_infor: 'Thông tin cơ bản',

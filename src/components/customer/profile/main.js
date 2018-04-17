@@ -7,7 +7,8 @@ import Footer from '../../homepage/footer';
 import HeaderBlock from './headerblock';
 
 import * as constant from '../../constants';
-import * as User from '../../../lib/user/users';
+import { loadProfilePage } from '../../../lib/user/users';
+import * as translate from 'counterpart';
 
 import '../../../assets/styles/common/customerProfile.css';
 
@@ -22,7 +23,7 @@ class CustomerProfile extends Component {
 
 	loadDataFromServer() {
 		var component = this;
-		User.loadProfilePage(this.props.match.params.user_name, (success, response) => {
+		loadProfilePage(this.props.match.params.user_name, (success, response) => {
 			if (success) {
 				component.setState({
 					currentUser: response.data.user_info,
@@ -53,7 +54,30 @@ class CustomerProfile extends Component {
 						)
 						:
 						(
-							<HeaderBlock user={this.state.currentUser}/>
+							<div>
+								<HeaderBlock user={this.state.currentUser}/>
+								{
+									this.state.currentUser.mn_acc ?
+									(
+										<div className='row'>
+											<div className='col-sm-12 col-md-3'>
+												<div className='content-block left-block'>
+													<div className='title'>
+														{translate('app.customer.bank_account')}
+													</div>
+													<div className='content'>
+														{this.state.currentUser.mn_acc.ammount} Đ
+													</div>
+												</div>
+											</div>
+										</div>
+									)
+									:
+									(
+										''
+									)
+								}
+							</div>
 						)
 					}
 				</div>

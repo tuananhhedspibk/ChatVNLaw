@@ -32,12 +32,10 @@ export const NOTIFICATIONS = {
   id :'id',
   sender: 'sender',
   senderDisplayName: 'displayName',
+  senderUserName: 'userName',
   senderRole: 'role',
   senderId : 'uid',
   type: 'type',
-  //  value:
-  //    'requestRoom': when ask lawyer,
-  //    'acceptRoom': when lawyer accepted and create new room
   info: 'information',
   timeStamp: 'timeStamp'
 }

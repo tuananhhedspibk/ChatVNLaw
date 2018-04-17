@@ -15,14 +15,15 @@ class DetailSettings extends Component {
       intro: null,
       achievement: null,
       education: null,
-      workPlace: null
+      workPlace: null,
+      balance: 0,
+      history: []
     }
   }
 
   componentWillMount() {
     this.setState({userName: JSON.parse(localStorage.chat_vnlaw_user)['userName']});
 
-    console.log(this.props.user);
     if(this.props.role == 'Lawyer'){
       this.setState({
         intro: this.props.user.intro,
@@ -124,6 +125,10 @@ class DetailSettings extends Component {
         })
       )
     }
+  }
+
+  paymentProcess() {
+
   }
 
   renderViewPayment(){

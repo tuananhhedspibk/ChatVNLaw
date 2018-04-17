@@ -220,11 +220,25 @@ class ChatSetting extends Component {
               </div>
               <div className='content'>
                 <div className='shared session-infor'>
-                  <button className='content-title no-icon' onClick={ () =>{
-                      window.open(constant.BASE_URL + constant.LAWYER_PROFILE_URI + '/'
-                      + this.state.targetUser.userName)}}>
-                    {translate('app.chat.lawyer_profile')}
-                  </button>
+                  {
+                    JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'User' ?
+                    (
+                      <button className='profile-btn content-title no-icon'
+                        onClick={ () =>{
+                          window.open(constant.BASE_URL + constant.LAWYER_PROFILE_URI + '/'
+                            + this.state.targetUser.userName)}}>
+                            {translate('app.chat.lawyer_profile')}
+                      </button>
+                    ):
+                    (
+                      <button className='profile-btn content-title no-icon'
+                        onClick={ () =>{
+                          window.open(constant.BASE_URL + constant.CUSTOMER_PROFILE_URI + '/'
+                            + this.state.targetUser.userName)}}>
+                            {translate('app.chat.customer_profile')}
+                      </button>
+                    )
+                  }
                 </div>
                 {this.renderSharedFile()}
                 {this.renderSharedImage()}

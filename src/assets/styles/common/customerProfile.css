@@ -5,10 +5,25 @@
   background-color: #f6f6f6;
   min-height: calc(100vh - 230px);
   padding: 60px 160px; }
+  .container-customer-wrapper .content-block {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 1px #e5ecf0;
+    padding: 15px 25px; }
+    .container-customer-wrapper .content-block .title {
+      font-size: 1.5em;
+      font-weight: 600;
+      padding-bottom: 5px; }
+    .container-customer-wrapper .content-block .content {
+      font-size: 1.2em; }
+    .container-customer-wrapper .content-block .no-review {
+      margin-top: -6px;
+      padding: 0 25px 15px; }
   .container-customer-wrapper .profile-header {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 1px 1px 2px 1px #e5ecf0;
+    margin-bottom: 30px;
     padding: 40px; }
     .container-customer-wrapper .profile-header .col-md-3, .container-customer-wrapper .profile-header .col-md-9 {
       padding: 0; }

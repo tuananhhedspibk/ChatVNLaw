@@ -38,7 +38,6 @@ class Settings extends Component {
       this.setState({role: role});
       if(role == 'Lawyer') {
         Lawyer.loadProfilePage(userName, (success, response) => {
-          console.log(response);
           if (success) {
             var user = {
               id: response.data.lawyer_info.id,
@@ -70,9 +69,10 @@ class Settings extends Component {
         User.loadProfilePage(userName, (success, response) => {
           if (success) {
             var user = {
-              displayName: response.data.profile.displayName,
-              avatar: response.data.profile.avatar,
-              mn_acc: response.data.mn_acc
+              displayName: response.data.user_info.profile.displayName,
+              avatar: response.data.user_info.profile.avatar,
+              birthday: response.data.user_info.profile.birthday,
+              mn_acc: response.data.user_info.mn_acc
             }
             component.setState({
               user: user,
