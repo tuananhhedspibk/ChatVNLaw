@@ -115,7 +115,7 @@ class UserSignUp extends Component {
                   'role': response.data.role,
                   'userName': properties.userName,
                   'displayName': displayName,
-                  'avatar': response.data.user.profile.avatar.url
+                  'avatar': response.data.user.profile.avatar
                 }
                 localStorage.setItem(constant.STORAGE_ITEM, JSON.stringify(chat_vnlaw_user));
                 onAuthStateChanged(user =>{

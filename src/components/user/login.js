@@ -115,7 +115,7 @@ class UserLogin extends Component {
                 'role': response.data.role,
                 'userName': response.data.userName,
                 'displayName': response.data.displayName,
-                'avatar': response.data.avatar.url
+                'avatar': response.data.avatar
               }
               if(chat_vnlaw_user.role == 'Lawyer') {
                 chat_vnlaw_user['lawyer_id'] = response.data.lawyer_id;
