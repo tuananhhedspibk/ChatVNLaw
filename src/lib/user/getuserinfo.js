@@ -1,18 +1,6 @@
 var firebase = require('firebase');
 var constant = require('../constants');
-// var user = require('users');
 
-function updatePhotoURL(link){
-    try{
-        var currentUser = firebase.auth().currentUser
-        firebase.database().ref(`${constant.TABLE.users}/${currentUser.uid}`).update({photoURL: link})
-        currentUser.updateProfile({
-          photoURL: link
-        })
-    }catch( exception){
-
-    }
-}
 function extractUser(data){
     var item = {
         username: data.val().username,
@@ -23,14 +11,12 @@ function extractUser(data){
     }
     return item;
 }
+
 function getUserRoleByUid( callback){
-    // var ref =firebase.database().ref(`${constant.TABLE.users}/${input}/${constant.USERS.role}`)
-    // ref.on('value', data =>{
-    //     return callback(data);
-    // })
     var userDetail = JSON.parse(localStorage.chat_vnlaw_user)
     return callback(userDetail['role'])
 }
+
 function getUserByUid(input, callback){
     var ref = firebase.database().ref(`${constant.TABLE.users}/${input}`)
     ref.once('value').then(data =>{
@@ -40,6 +26,7 @@ function getUserByUid(input, callback){
         return callback('child_changed', data);
     })
 }
+
 function getTargetChat(properties){
     var ref = firebase.database().ref(`${constant.TABLE.users}`).orderByChild(`${constant.USERS.role}`).equalTo(properties.keyword);
     var userArr = []
@@ -91,13 +78,7 @@ function getTargetChat(properties){
         })
     });
 }
-// function getUser(uid, callback){
-//     var ref = firebase.database().ref(`${constant.TABLE.users}/${uid}`)
-//     ref.on('value', data =>{
-//         console.log(data);
-//     })
-//     ref.on('')
-// }
+
 function getUserName(user, callback){
     firebase.database().ref(`${constant.TABLE.users}`).child(user.uid).child(`${constant.USERS.username}`).once('value').then(function(data){
         if(data.exists()){
@@ -105,6 +86,7 @@ function getUserName(user, callback){
         }
     })
 }
+
 function checkUserName(properties, callback){
     var component = properties.component;
     var ref = firebase.database().ref(`${constant.TABLE.users}`).orderByChild(`${constant.USERS.username}`).equalTo(properties.keyword)
@@ -124,6 +106,7 @@ function checkUserWithUserName(input, callback){
         return callback(data);
     })
 }
+
 module.exports = {
     getUserName: function(user, callback){
         getUserName(user,callback);
@@ -143,10 +126,7 @@ module.exports = {
     checkUserWithUserName: function(input, callback){
         checkUserWithUserName(input, callback)
     },
-    updatePhotoURL: function(link){
-        updatePhotoURL(link);
-    },
-    getUserRoleByUid(input, callback){
+    getUserRoleByUid: function(input, callback){
         getUserRoleByUid(input, callback);
     }
 }

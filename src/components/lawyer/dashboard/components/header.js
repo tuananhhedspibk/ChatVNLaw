@@ -5,13 +5,14 @@ import {
   NavLink, NavbarToggler, NavbarBrand,
   DropdownToggle
 } from 'reactstrap';
+
 import $ from 'jquery';
 import firebase from 'firebase';
 import {logoutRails} from '../../../../lib/user/authentication';
 
 import * as constant from '../../../constants';
 import * as translate from 'counterpart';
-import { BASE_URL } from '../../../constants';
+import { BASE_URL, LAWYER_PROFILE_URI, SETTINGS_URI } from '../../../constants';
 
 class Header extends Component {
 
@@ -82,11 +83,11 @@ class Header extends Component {
   }
 
   handleOnclickProfile(){
-    window.open(BASE_URL + '/lawyers/'+ this.props.currentUser.userName)
+    window.open(BASE_URL + LAWYER_PROFILE_URI + '/' + this.props.currentUser.userName)
   }
 
   handleOnclickEditProfile(){
-     window.open(BASE_URL + '/settings/lawyers/'+this.props.currentUser.userName);
+     window.open(BASE_URL + SETTINGS_URI );
   }
 
   render() {

@@ -39,6 +39,7 @@ class UserLogin extends Component {
 
   redirect(){
     var uri = localStorage.getItem('redirect_uri');
+    localStorage.removeItem('redirect_uri');
     if (uri.includes(constant.APPLY_LAWYER_URI)) {
       if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
         this.emitter.emit('AddNewErrorToast', '',
@@ -50,7 +51,7 @@ class UserLogin extends Component {
         return;
       }
     }
-    window.location = constant.BASE_URL + uri;
+    window.location = uri;
   }
 
   componentDidUpdate(prevProps, prevState){

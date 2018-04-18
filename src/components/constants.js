@@ -16,7 +16,6 @@ export const LAW_URI = '/articles/';
 export const APPLY_LAWYER_URI = '/applylawyer/';
 export const NF_URI = '/404';
 
-
 export const API_BASE_URL = 'http://localhost:4000';
 export const API_SEARCH_ARTICLES_URI = '/api/search/articles';
 export const API_SEARCH_LAWYERS_URI = '/api/search/lawyers';
