@@ -23,7 +23,6 @@ class AcceptRoomItem extends BaseItem{
   }
 
   render(){
-    console.log(this.state.element);
     return(
       <div className='notifi-content'>
       <div className='notification-item green'>

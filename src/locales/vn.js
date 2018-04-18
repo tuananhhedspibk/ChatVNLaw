@@ -51,6 +51,11 @@ module.exports = {
       confirm_label_2: 'Tôi đồng ý và muốn tiếp tục.',
       cancel_label_2: 'Tôi sẽ suy nghĩ lại.'
     },
+    init_mess: {
+      content_1: 'Xin chào luật sư.\nTôi tên là: ',
+      content_2: '.\nHiện tại tôi đang gặp vấn đề: ',
+      content_3: '.\nRất mong được luật sư tư vấn, tôi xin chân thành cảm ơn luật sư.'
+    },
     system_notice:{
       unauthenticated: {
         title: 'Từ chối truy cập',
@@ -273,7 +278,8 @@ module.exports = {
       customer_profile: 'Thông tin của khách hàng',
       chat_session_list: 'Lịch sử phiên chat',
       pay: 'Thanh toán',
-      warning_file_size: 'Dung lượng file tối đa là 25MB'
+      warning_file_size: 'Dung lượng file tối đa là 25MB',
+      warning_file_ext: 'Loại file không hợp lệ'
     },
     notfound: {
       content: {

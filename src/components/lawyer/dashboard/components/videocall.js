@@ -53,6 +53,7 @@ class VideoCall extends React.Component{
       this.setState({currentRoomId: nextProps.currentRoomId});
     }
   }
+
   componentWillUpdate(nextProps, nextState){
     if(this.state.currentRoomId !== nextState.currentRoomId){
       let properties = {}
@@ -62,8 +63,8 @@ class VideoCall extends React.Component{
       videoCall.closeStream();
       videoCall.listenFromVideoCall(properties, () =>{})
     }
-  }   
-  
+  }
+
   createPeer(callback){
     var component = this;
     if(!!this.state.peer){

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import ChatBox from './chatbox';
 import firebase from 'firebase';
-import {getAllRooms} from '../../../../lib/room/rooms';
 import { Scrollbars } from 'react-custom-scrollbars';
 import $ from 'jquery';
+
+import { getAllRooms, upFile } from '../../../../lib/room/rooms';
+import { chat } from '../../../../lib/messages/messages';
 
 import * as constant from '../../../constants';
 import * as translate from 'counterpart';
@@ -17,7 +19,9 @@ class Chat extends Component {
       rooms: [],
       unread: [],
       listUsersHeight: 0,
-      roomDes: ''
+      roomDes: '',
+      fileBtn: null,
+      currentRoomId: ''
     };
   }
 
@@ -40,8 +44,7 @@ class Chat extends Component {
         })  
       }
     })
-    
-}
+  }
   
   componentWillReceiveProps(nextProps){
     if(this.state.currentUser !== nextProps.currentUser){
@@ -62,16 +65,21 @@ class Chat extends Component {
     $(window).resize(function() {
       component.setHeight(component);
     });
+    var fileBtn = document.getElementById('upfile');
+    fileBtn.addEventListener('change', function(e){
+      e.preventDefault();
+      upFile(component, component.state.currentRoomId, e, chat);
+    });
   }
 
-  changeUserChat(user,rid,roomDes){
+  changeUserChat(user, rid, roomDes){
     document.body.classList.remove('chat-section-hidden');
     user.rid = rid;
     this.setState({
       targetUser: user,
-      roomDes: roomDes});
-    console.log('chatjs')
-    console.log(user)
+      roomDes: roomDes,
+      currentRoomId: rid
+    });
     if ($('.chat-box-wrapper').css('display') == 'none') {
       $('.chat-box-wrapper').toggle();
       if($('.video-call').css('display') !== 'none') {
@@ -79,6 +87,10 @@ class Chat extends Component {
         $('.video-call').find('.end-call-btn').toggle();
       }
     }
+  }
+
+  upfile() {
+    $('#upfile:hidden').trigger('click');
   }
 
   render() { 
@@ -94,28 +106,30 @@ class Chat extends Component {
               props =>
               <div {...props} className='custom-content'/>
             }>
+            <input type='file' id='upfile'/>
             <div className='chat-users-list'>
               {
                 this.state.rooms.map(room => {
-                  if(this.state.targetUser != null && this.state.targetUser.uid === room.user.uid){
+                  if(this.state.targetUser && this.state.targetUser.uid === room.user.uid){
                     return(
                       <div className='chat-user active-link'
-                        onClick={this.changeUserChat.bind(this,room.user,room.id, room.description)}
-                        key={room.id}>
-                        <div className='user-ava'>
-                          <img src={constant.API_BASE_URL + room.user.avatar.url} title={room.user.displayName}/>
+                        onClick={this.changeUserChat.bind(this, room.user,
+                          room.id, room.description)} key={room.id}>
+                          <div className='user-ava'>
+                            <img src={constant.API_BASE_URL + room.user.avatar.url}
+                              title={room.user.displayName}/>
+                          </div>
                         </div>
-                      </div>
                     )
-                  
                   } else{
                     return(
                       <div className='chat-user'
-                        onClick={this.changeUserChat.bind(this,room.user,room.id,room.description)}
-                        key={room.id}>
-                        <div className='user-ava'>
-                          <img src={constant.API_BASE_URL + room.user.avatar.url} title={room.user.displayName}/>
-                        </div>
+                        onClick={this.changeUserChat.bind(this, room.user,
+                          room.id, room.description)} key={room.id}>
+                          <div className='user-ava'>
+                            <img src={constant.API_BASE_URL + room.user.avatar.url}
+                              title={room.user.displayName}/>
+                          </div>
                       </div>
                     )
                   }         
@@ -125,6 +139,8 @@ class Chat extends Component {
           </Scrollbars>
         </div>
         <ChatBox
+          upfile={this.upfile}
+          fileBtn={this.state.fileBtn}
           targetUser={this.state.targetUser}
           currentUser={this.state.currentUser}
           roomDes = {this.state.roomDes}

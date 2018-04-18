@@ -19,7 +19,8 @@ class ChatBox extends Component {
       currentUser: null,
       targetUser: null,
       chatMessHeight: 0,
-      emojiVisibility: false
+      emojiVisibility: false,
+      fileButton: null
     };
   }  
   
@@ -80,8 +81,10 @@ class ChatBox extends Component {
   componentWillReceiveProps(nextProps){
     var component = this;
     if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
-      this.setState({targetUser: nextProps.targetUser,
-        currentRoomId: nextProps.targetUser.rid});
+      this.setState({
+        targetUser: nextProps.targetUser,
+        currentRoomId: nextProps.targetUser.rid
+      });
       if(!!this.state.targetUser){
         if(this.state.targetUser.rid !== nextProps.targetUser.rid){
           this.setState({messages: []})
@@ -106,13 +109,12 @@ class ChatBox extends Component {
       properties['limit'] = 15;
       
       Messages.closeStreamRef();
-      Messages.history(properties, function(){
+      Messages.history(properties, () => {
         component.refs.scrollbars.scrollToBottom();        
       });
-      Messages.streamingMessage(properties,function(){
+      Messages.streamingMessage(properties, () => {
         component.refs.scrollbars.scrollToBottom();        
-      })
-      
+      });
     }
   }
 
@@ -189,12 +191,14 @@ class ChatBox extends Component {
     if (textSubmit.replace(/\s/g, '').length !== 0) {
       properties['content'] = textSubmit; 
       properties['component'] = component;
-      Messages.chat(properties);
+      Messages.chat(properties, () => {
+        
+      });
     }
   }
 
   upfile() {
-    $('#upfile:hidden').trigger('click');
+    this.props.upfile();
   }
 
   renderEmojiPicker(e){
@@ -253,7 +257,7 @@ class ChatBox extends Component {
                       emojiSize={24} 
                       perLine={9}    
                       skin={1}       
-                      set='messenger'                
+                      set='messenger'
                       showPreview={false}
                       autoFocus={true}
                     />
@@ -261,7 +265,7 @@ class ChatBox extends Component {
                 </div>
                 <i className='fa fa-file-image-o'
                   aria-hidden='true'
-                  onClick={this.upfile}></i>
+                  onClick={this.upfile.bind(this)}></i>
                 <i className='fa fa-smile-o'
                   aria-hidden='true'
                   onClick={this.renderEmojiPicker.bind(this)}></i>

@@ -14,14 +14,11 @@ import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
 import * as translate from 'counterpart';
 import * as videoCall from '../../lib/streaming/videocall';
-import { roomUpFiles } from '../../lib/room/rooms';
+import { upFile } from '../../lib/room/rooms';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-
-let img_exts = ['png', 'jpg', 'jpeg', 'gif'];
-let file_exts = ['pdf', 'txt', 'doc'];
 
 class ChatContent extends Component {
   constructor(props) {
@@ -72,67 +69,7 @@ class ChatContent extends Component {
       var fileButton = document.getElementById('upfile');
       fileButton.addEventListener('change', function(e){
         e.preventDefault();
-        let file = e.target.files[0];
-        if (file.size > 25000000) {
-          alert(translate('app.chat.warning_file_size'));
-          return ;
-        }
-        let fileName = file.name;
-        let ct_t_id = component.getFileType(fileName);
-        var width, height;
-        if (ct_t_id == 1) {
-          var _URL = window.URL || window.webkitURL;
-          var img = new Image();
-          img.onload = function() {
-            width = this.width;
-            height = this.height;
-          }
-          img.src = _URL.createObjectURL(file);
-        }
-        properties = {
-          room_id: nextState.currentRoomId,
-          file: {
-            name: fileName,
-            data: file
-          },
-          content_type_id: ct_t_id
-        }
-        roomUpFiles(properties, (success, response) => {
-          if (success) {
-            var ct_t = 'image';
-            var mess_properties = null;
-
-            if (ct_t_id == 2) {
-              ct_t = 'file'
-            }
-
-            if(ct_t == 'image') {
-              mess_properties = {
-                contentType: ct_t,
-                downloadURL: response.data.file_infor.file.url,
-                width: width,
-                height: height,
-                component: component,
-                timeStamp: response.data.file_infor.created_at
-              }
-            }
-            else {
-              mess_properties = {
-                contentType: ct_t,
-                downloadURL: response.data.file_infor.file.url,
-                name: fileName,
-                component: component,
-                timeStamp: response.data.file_infor.created_at
-              }
-            }
-            Messages.chat(mess_properties, () => {
-              component.props.emitter.emit('fetch_files');
-            });
-          }
-          else {
-            console.log(response);
-          }
-        })
+        upFile(component, nextState.currentRoomId, e, Messages.chat);
       });
     }
   }
@@ -163,16 +100,6 @@ class ChatContent extends Component {
     $(window).resize(function() {
       component.setHeight(component);
     });
-  }
-
-  getFileType(fileName) {
-    var f_ext = fileName.split('.')[1];
-    if (img_exts.indexOf(f_ext) > -1) {
-      return 1;
-    }
-    else {
-      return 2;
-    }
   }
 
   setHeight(component) {

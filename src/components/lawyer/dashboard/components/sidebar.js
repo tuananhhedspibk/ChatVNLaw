@@ -31,8 +31,6 @@ class Sidebar extends Component {
   }
 
   componentWillMount() {
-    console.log("sidebar")
-    console.log(this.props.currentUser)
     this.setState({current_user: this.props.currentUser});
   }
 

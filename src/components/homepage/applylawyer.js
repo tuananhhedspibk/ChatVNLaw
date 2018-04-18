@@ -40,12 +40,10 @@ class ApplyLawyer extends Component {
 
   componentWillMount(){
     if(localStorage.chat_vnlaw_user) {
-      if (JSON.parse(localStorage.chat_vnlaw_user)['role'] == 'Lawyer') {
+      if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
         this.emitter.emit('AddNewErrorToast', '',
-          translate('app.apply_lawyer.can_not'),
-          5000, ()=>{
-            window.location = constant.BASE_URL;
-          });
+          translate('app.apply_lawyer.can_not'), 5000, ()=>{});
+        window.location = constant.BASE_URL;
       }
       else {
         var component = this;
@@ -147,8 +145,8 @@ class ApplyLawyer extends Component {
       properties['info'] = info;
       
       createNewNotification(properties, () =>{
+      });
 
-      })
       this.setState({done: true},()=>{
         component.emitter.emit('AddNewSuccessToast', '',
           translate('app.system_notice.success.text.submit_form_to_request_room'),

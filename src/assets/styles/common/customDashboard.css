@@ -76,10 +76,8 @@
       margin-bottom: -26px !important; }
   .app-body .chat-users-list {
     display: inline-block;
-    height: calc(100vh - 56px);
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden; }
+    overflow-x: hidden;
+    width: 100%; }
     .app-body .chat-users-list .active-link {
       background-color: #e5ecf0; }
     .app-body .chat-users-list .chat-user {
@@ -98,14 +96,14 @@
   .app-body .bubble-img img {
     max-height: 230px !important;
     max-width: 230px !important; }
+  .app-body #upfile {
+    display: none; }
   .app-body .chat-box {
     display: inline-block;
     float: left;
     width: 100%; }
     .app-body .chat-box .custom-content {
       margin-bottom: -26px !important; }
-    .app-body .chat-box #upfile {
-      display: none; }
     .app-body .chat-box .input-section {
       align-items: center;
       display: flex; }
@@ -161,7 +159,7 @@
     width: 100%; }
     .app-body .chat-setting .header {
       border: 0;
-      padding: 0 0 15px; }
+      padding: 15px; }
       .app-body .chat-setting .header .user-name {
         font-size: 1.2em !important; }
     .app-body .chat-setting .shared-images {

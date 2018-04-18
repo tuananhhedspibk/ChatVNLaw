@@ -28,9 +28,7 @@ class Toast extends Component{
           properties['timeStamp'] = this.state.timeStamp || '' + (new Date()).getTime();
           noticeWhenNewNotiComing(properties, (data) =>{
             extractNotification(data,(type,item) =>{
-              console.log(type);
               switch(type){
-                
                 case tableConstant.NOTIFICATION_TYPE.requestRoom:
                   component.props.emitter.emit('AddNewInfoToast', item.title, item.content, 5000, () => {
                     if (!(window.location.pathname).startsWith('/notifications')) {
