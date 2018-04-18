@@ -199,6 +199,14 @@ function searchTag(properties,callback){
     })
 }
 
+function createInitMessage(properties, callback) {
+    let item = {};
+    item[constant.MESSAGES.content] = properties.content;
+    item[constant.MESSAGES.senderId] = properties.senderId;
+    item[constant.MESSAGES.timeStamp] = ('' + (new Date()).getTime());
+    firebase.database().ref(`${constant.TABLE.rooms}/${properties.currentRoomId}/${constant.ROOMS.messages}`).push().set(item);
+}
+
 module.exports = {
     streamingMessage: function(properties, callback){
         notifyMessagesComming(properties, callback);
@@ -226,5 +234,8 @@ module.exports = {
     },
     resetUnreadMess: function(roomId,callback){
         resetUnreadMess(roomId,callback);
+    },
+    createInitMessage: function(properties, callback) {
+        createInitMessage(properties, callback);
     }
 }

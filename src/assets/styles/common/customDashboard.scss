@@ -119,10 +119,8 @@
 
   .chat-users-list {
     display: inline-block;
-    height: calc(100vh - 56px);
-    width: 100%;
-    overflow-y: auto;
     overflow-x: hidden;
+    width: 100%;
 
     .active-link {
       background-color: $gray-lighter;
@@ -159,6 +157,11 @@
     }
   }
 
+
+  #upfile {
+    display: none;
+  }
+
   .chat-box {
     display: inline-block;
     float: left;
@@ -166,10 +169,6 @@
 
     .custom-content {
       margin-bottom: -26px !important;
-    }
-
-    #upfile {
-      display: none;
     }
 
     .input-section {
@@ -255,7 +254,7 @@
 
     .header {
       border: 0;
-      padding: 0 0 15px;
+      padding: 15px;
     
       .user-name {
         font-size: 1.2em !important;

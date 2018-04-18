@@ -128,12 +128,6 @@ class ChatSetting extends Component {
     this.setState({modalOpen: false});
   }
 
-  logout() {
-    firebase.auth().signOut().then(function() {
-      window.location = constant.BASE_URL + constant.HOME_URI;
-    }).catch(function(error) {});
-  }
-
   renderAva() {
     return(
       <div>     
@@ -213,8 +207,8 @@ class ChatSetting extends Component {
                 </div>
                 <div className='info'>
                   <div className={'user-name'}
-                    title={this.state.targetUser.profile.displayName}>
-                    {this.state.targetUser.profile.displayName}
+                    title={this.state.targetUser.displayName}>
+                    {this.state.targetUser.displayName}
                   </div>
                 </div>
               </div>

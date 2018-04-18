@@ -2,106 +2,10 @@ var firebase = require('firebase');
 var constantLib = require('../constants');
 var constantUI = require('../../components/constants');
 
-// function extractUser(data, rid){
-//     var item = {
-//         username: data.val().username,
-//         displayName: data.val().displayName,
-//         uid : data.key,
-//         status: data.val().status,
-//         photoURL: data.val().photoURL,
-//         rid: rid
-//     }
-//     return item;
-// }
+var translate = require('counterpart');
 
-// // reference :
-//     // currentUser.uid :
-//         // targetUser.uid : rid
-
-// function getRoomId(properties, callback){
-//     firebase.database().ref(`${constant.TABLE.reference}/${properties.currentUser.uid}/${properties.targetUser.uid}`).once('value').then(data =>{
-//         if(data.exists()){
-//             // get room Id
-//             return callback(true, data.val());
-//         }
-//         return callback(false, data.val());
-//     })
-// }
-// function getAllRoom(properties, callback){
-//     var userArr = []    
-//     var ref = firebase.database().ref(`${constant.TABLE.reference}/${properties.currentUser.uid}`)
-//     ref.on('child_added', snapshot => {
-//         // snapshot.key : uid, snapshot.val() : rid
-//         Users.getUserByUid(snapshot.key, (event,data) =>{
-//             switch(event){
-//                 case 'value':
-//                     if(snapshot.key === properties.currentUser.uid){
-//                         userArr.unshift(extractUser(data,snapshot.val()));
-//                     }else{
-//                         userArr.push(extractUser(data,snapshot.val()));  
-//                     }
-//                     return callback(userArr);
-//                     break;
-//                 case 'child_changed':
-//                     userArr.every((element, index) =>{
-//                         if(element.uid === snapshot.key){
-//                             userArr[index][data.key] = data.val()
-//                             return false; 
-//                         }else{
-//                             return true;
-//                         }
-//                     })
-//                     return callback(userArr)
-//                     break;
-//                 // console.log(extractUser(data,snapshot.val()));
-//             }         
-//         })
-//     })
-//     ref.on('child_changed', snapshot =>{
-//         console.log(snapshot);
-//         console.log(snapshot.val());
-//     })
-//     ref.on('child_removed', snapshot =>{
-
-//     })
-// }
-// // rooms:
-// //     roomId:
-// //         members:
-// //             lawyer: uid
-// //             customer: uid
-
-// function createNewRoom(properties, callback){
-//   let ref = firebase.database().ref(`${constant.TABLE.rooms}`).push();
-//   let item = {}
-
-//   let members = {};
-//   members[constant.MEMBERS.lawyer] = properties.lawyerId;
-//   members[constant.MEMBERS.customer] = properties.customerId;
-
-//   let unread = {};
-//   unread[constant.UNREAD_MESSAGES.count] = 0;
-
-//   item[constant.ROOMS.members] = members;
-//   item[constant.ROOMS.messages] = [];
-//   item[constant.ROOMS.unReadMessage] = unread;
-  
-//   ref.set(item).then(()=>{
-//       return callback(ref.key);
-//   })
-// }
-
-// module.exports = {
-//     getRoomId: function(properties, callback){
-//         getRoomId(properties, callback);
-//     },
-//     createNewRoom: function (properties, callback){
-//         createNewRoom(properties, callback);
-//     },
-//     getAllRoom: function (properties, callback){
-//         getAllRoom(properties, callback);
-//     }
-// }
+let img_exts = ['png', 'jpg', 'jpeg', 'gif'];
+let file_exts = ['pdf', 'txt', 'doc'];
 
 function getAllRooms(callback) {
   var instance = constantLib.ax_ins;
@@ -117,6 +21,7 @@ function getAllRooms(callback) {
       return callback(false, error);
     })
 }
+
 function updateRoom(roomID, desc, callback) {
   var instance = constantLib.ax_ins;
   if (localStorage.chat_vnlaw_user) {
@@ -158,13 +63,15 @@ function getRoomFilesAndImages(properties, callback) {
     instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
     instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
-  instance.get(constantUI.API_ROOMS_URI + '/' + properties.roomId + constantUI.API_ROOM_FILES_URI)
-    .then(response => {
-      return callback(true, response);
+  if(properties.roomId) {
+    instance.get(constantUI.API_ROOMS_URI + properties.roomId + constantUI.API_ROOM_FILES_URI)
+      .then(response => {
+        return callback(true, response);
+      })
+      .catch(error => {
+        return callback(false, error);
     })
-    .catch(error => {
-      return callback(false, error);
-  })
+  }
 }
 
 function roomUpFiles(properties, callback) {
@@ -187,6 +94,87 @@ function roomUpFiles(properties, callback) {
     });
 }
 
+function getFileType(fileName) {
+  var f_ext = fileName.split('.')[1];
+  if (img_exts.indexOf(f_ext) > -1) {
+    return 1;
+  }
+  else if(file_exts.indexOf(f_ext) > -1) {
+    return 2;
+  }
+  else {
+    return 3;
+  }
+}
+
+function upFile(component, currentRoomId, e, chat) {
+  let file = e.target.files[0];
+  if (file.size > 25000000) {
+    alert(translate('app.chat.warning_file_size'));
+    return ;
+  }
+  let fileName = file.name;
+  let ct_t_id = getFileType(fileName);
+  if (ct_t_id === 3) {
+    alert(translate('app.chat.warning_file_ext'));
+    return ;
+  }
+  var width, height;
+  if (ct_t_id === 1) {
+    var _URL = window.URL || window.webkitURL;
+    var img = new Image();
+    img.onload = function() {
+      width = this.width;
+      height = this.height;
+    }
+    img.src = _URL.createObjectURL(file);
+  }
+  var properties = {
+    room_id: currentRoomId,
+    file: {
+      name: fileName,
+      data: file
+    },
+    content_type_id: ct_t_id
+  }
+  roomUpFiles(properties, (success, response) => {
+    if (success) {
+      var ct_t = 'image';
+      var mess_properties = null;
+
+      if (ct_t_id == 2) {
+        ct_t = 'file'
+      }
+
+      if(ct_t == 'image') {
+        mess_properties = {
+          contentType: ct_t,
+          downloadURL: response.data.file_infor.file.url,
+          width: width,
+          height: height,
+          component: component,
+          timeStamp: response.data.file_infor.created_at
+        }
+      }
+      else {
+        mess_properties = {
+          contentType: ct_t,
+          downloadURL: response.data.file_infor.file.url,
+          name: fileName,
+          component: component,
+          timeStamp: response.data.file_infor.created_at
+        }
+      }
+      chat(mess_properties, () => {
+        component.props.emitter.emit('fetch_files', currentRoomId);
+      });
+    }
+    else {
+      console.log(response);
+    }
+  });
+}
+
 module.exports = {
   createNewRoom: function(properties, callback) {
     createNewRoom(properties, callback);
@@ -200,7 +188,7 @@ module.exports = {
   getRoomFilesAndImages: function(properties, callback) {
     getRoomFilesAndImages(properties, callback);
   },
-  roomUpFiles: function(properties, callback) {
-    roomUpFiles(properties, callback);
+  upFile: function(component, currentRoomId, e, chat) {
+    upFile(component, currentRoomId, e, chat);
   }
 }

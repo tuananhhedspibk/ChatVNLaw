@@ -21,7 +21,11 @@ class Customer extends Component {
   }
 
   componentDidMount() {
+    var component = this;
     $('main.main').addClass('main-customer');
+    this.props.emitter.addListener('fetch_files', () => {
+      component.fetchFiles(component, this.state.currentRoomId);
+    });
   }
 
   componentWillMount(){
@@ -32,6 +36,42 @@ class Customer extends Component {
     this.props.emitter.addListener('RoomChatHasChanged', function(currentUser, targetUser,roomId,roomDes) {
       component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId,description: roomDes}) 
     });
+    this.props.emitter.addListener('fetch_files', currentRoomId => {
+      component.fetchFiles(component, currentRoomId);
+    });
+  }
+
+  fetchFiles(component, currentRoomId) {
+    var properties = {
+      roomId: currentRoomId
+    };
+    var files = [];
+    var images = [];
+    getRoomFilesAndImages(properties, (success, response) => {
+      if (success) {
+        response.data.list_files.map((item, idx) => {
+          var url = item.file.url;
+
+          if(item.content_type_id === 1) {
+            images.push({
+              url: constant.API_BASE_URL + url,
+              name: response.data.list_files_names[idx]
+            });
+          }
+          else {
+            files.push({
+              url: constant.API_BASE_URL + url,
+              name: response.data.list_files_names[idx]
+            });
+          }
+        });
+        component.setState({
+          images: images,
+          files: files
+        });
+      }
+      else {}
+    });
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -40,85 +80,12 @@ class Customer extends Component {
     if(component.state.currentRoomId != nextState.currentRoomId){
       $('.info-descrip').css('display', 'block');
       $('.edit-descrip').css('display', 'none');
-      // Files.closeRef();
-      let properties ={};
-      properties.roomId = nextState.currentRoomId;
-      // component.setState({images:[], files: []});
-      getRoomFilesAndImages(properties, (success, response) => {
-        var images = []
-        var files = []
-        if (success) {
-          response.data.list_files.map((item, idx) => {
-            var url = item.file.url;
-
-            if(item.content_type_id === 1) {
-              images.push({
-                url: constant.API_BASE_URL + url,
-                name: response.data.list_files_names[idx]
-              });
-            }
-            else {
-              files.push({
-                url: constant.API_BASE_URL + url,
-                name: response.data.list_files_names[idx]
-              });
-            }
-          });
-          component.setState({
-            images: images,
-            files: files
-          });
-        }
-        else {}
-      })
-      // Files.showImagesAndFilesList(properties);
-      // firebase.database().ref(`rooms/${nextState.currentRoomId}/description`)
-      //   .once('value', (data) =>{
-        
-      // });
-      // component.setState({
-      //     description: nextState.description
-      //   })
+      this.fetchFiles(component, nextState.currentRoomId);
     }
   }
 
-  // componentDidMount(){
-  //   // var component = this
-  //   // firebase.database().ref(`rooms/${this.state.currentRoomId}/description`)
-  //   //   .once('value', (data) =>{
-  //   //   component.setState({
-  //   //     description: data.val()
-  //   //   })
-  //   // });
-  //   $('.info-descrip').css('display', 'block');
-  //   $('.edit-descrip').css('display', 'none');
-  // }
-
-  // renderAva(){
-  //   if(this.state.currentUser && this.state.targetUser){
-  //     return(
-  //       <div>
-  //         <img  src={this.state.currentUser.uid === this.state.targetUser.uid ?
-  //           this.state.currentUser.photoURL : this.state.targetUser.photoURL}
-  //           alt='ava-lawyer' id='current-user-ava'/>
-  //       </div>
-  //     )
-  //   }
-  // }
-
-  // handleInputChange(evt) {
-  //   const target = evt.target;
-  //   const value = target.value;
-  //   this.setState({
-  //       description: value
-  //   });
-  // }
-
   handleSubmit(evt) {
     evt.preventDefault();
-    // firebase.database().ref(`rooms/${this.state.currentRoomId}`).set({
-    //     description: this.state.description
-    // });
     var component = this;
     var desc = $('textarea.input-descrip').val();
     updateRoom(this.state.currentRoomId,desc, (success,respon) => {

@@ -17,10 +17,6 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
-		this.emitter.emit('AddNewSuccessToast', '',
-			translate('app.system_notice.success.text.welcome'), 5000,
-			()=>{} )
-		
 		window.addEventListener('scroll', this.handleScroll);
 		this.handleScroll();
 	}

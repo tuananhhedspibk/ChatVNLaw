@@ -4,8 +4,10 @@ import $ from 'jquery';
 import BaseItem from './baseitem';
 
 import { createNewRoom } from '../../../lib/room/rooms';
-import { deleteNotification, createNewNotification } from '../../../lib/notification/notifications';
+import { deleteNotification,
+  createNewNotification } from '../../../lib/notification/notifications';
 
+import { createInitMessage } from '../../../lib/messages/messages';
 
 import * as translate from 'counterpart';
 import * as tableConstant from '../../../lib/constants';
@@ -15,7 +17,7 @@ class RequestRoomItem extends BaseItem {
   constructor(props) {
     super(props);
     this.state = {
-      hasRoom: false
+      currentRoomId: ''
     }
   }
 
@@ -32,15 +34,41 @@ class RequestRoomItem extends BaseItem {
     });
   }
 
-  gotoDialogBtnClick(sender_user_name, element) {
+  sendInitMessage(element, currentRoomId) {
+    var initMessContent = '';
+    var data = element.information.split('<br />');
+    initMessContent += translate('app.init_mess.content_1') + data[0] +
+      translate('app.init_mess.content_2') + data[4] +
+      translate('app.init_mess.content_3');
+    
+    var properties = {
+      content: initMessContent,
+      senderId: element.sender.uid,
+      currentRoomId: currentRoomId
+    }
+    createInitMessage(properties, () => {
+
+    });
+  }
+
+  gotoDialogBtnClick(element) {
     this.notifiOperation(tableConstant.NOTIFICATION_TYPE.acceptRoomRequest,
       element);
-    window.location = constant.CHAT_URI + '/' + sender_user_name;
+    var currentRoomId = null;
+    this.props.rooms.map(room => {
+      if(room.lawyer.id === JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id']
+        && room.user.uid === this.props.element.sender.uid) {
+          currentRoomId = room.id;
+      }
+    });
+    this.sendInitMessage(element, currentRoomId);
+    window.location = constant.DASHBOARD_URI;
   }
 
   createDialogBtnClick(element){
     var propertiesNoti = {}
     var currentUser = this.state.currentUser;
+    var component = this;
     currentUser.userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
     this.setState({currentUser: currentUser});
     propertiesNoti.currentUser = this.state.currentUser;
@@ -58,8 +86,7 @@ class RequestRoomItem extends BaseItem {
         propertiesNoti.type = tableConstant.NOTIFICATION_TYPE.acceptRoomRequest;
         createNewNotification(propertiesNoti, ()=>{
         });
-        window.location = constant.CHAT_URI + '/' +
-          response.data.room.user.profile.userName;
+        component.sendInitMessage(element, response.data.room.id);
       }
       else {
         console.log(response);
@@ -118,20 +145,18 @@ class RequestRoomItem extends BaseItem {
 
   renderAcceptBtn() {
     var component = this;
-    var sender_user_name = '';
     var hasRoom = false;
-    this.props.rooms.map((room, idx) => {
+    this.props.rooms.map(room => {
       if(room.lawyer.id === JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id']
-        && room.user.id === this.props.element.sender.uid) {
+        && room.user.uid === this.props.element.sender.uid) {
           hasRoom = true;
-          sender_user_name = room.user.profile.userName;
         }
     });
     if (hasRoom) {
       return (
         <button className='button blue display_none'
           id={'button_create_'+ this.state.element.id}
-          onClick={this.gotoDialogBtnClick.bind(this, sender_user_name,
+          onClick={this.gotoDialogBtnClick.bind(this,
             this.state.element)}>
               {translate('app.notification.goto_dialog')}
         </button>
