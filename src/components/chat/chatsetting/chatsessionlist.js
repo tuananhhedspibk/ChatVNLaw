@@ -1,19 +1,19 @@
 import React from 'react';
-
-import {Modal,Header,Table,Message, Button,Icon} from 'semantic-ui-react';
-import {getChatSession, updatePayment,getAccountBalance} from '../../../lib/room/chatsession';
+import {Modal, Header, Table,
+  Message, Button, Icon} from 'semantic-ui-react';
 import * as translate from 'counterpart';
 import * as constant from '../../constants';
-import * as Time from "../../../lib/time";
-import { formatMoney} from '../../../lib/money';
 
-import '../../../assets/styles/common/chatSession.css';
+import { getChatSession, updatePayment,
+  getAccountBalance } from '../../../lib/room/chatsession';
+import * as Time from '../../../lib/time';
+import { formatMoney } from '../../../lib/money';
+
 import TableCell from 'semantic-ui-react/dist/commonjs/collections/Table/TableCell';
 import ModalActions from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalActions';
 
-const phrase1 = 'Thanh toán cho phiên làm việc trong ';
-const phrase2 = ', bắt đầu từ ';
-const phrase3 = ', kết thúc lúc ';
+import '../../../assets/styles/common/chatSession.css';
+
 class ChatSessionList extends React.Component{
   constructor(props){
     super(props);
@@ -60,6 +60,7 @@ class ChatSessionList extends React.Component{
       }
     })
   }
+
   onClickPaymentButton(element){
     var component = this;
     getAccountBalance(component, (data) =>{
@@ -68,6 +69,7 @@ class ChatSessionList extends React.Component{
       }
     })
   }
+
   renderSessionList(){
     return(
       this.state.list.map(element =>{
@@ -85,13 +87,13 @@ class ChatSessionList extends React.Component{
             </div>
             <div className='time-total'>
               <div className='icon-container'>
-                <i className="fa fa-clock-o" aria-hidden="true"></i>
+                <i className='fa fa-clock-o' aria-hidden='true'></i>
               </div>
               {Time.convertDateToUTCSecond(element.totalTime)}
             </div>
             <div className='cart'>
               <img src={constant.cartIcon}/>
-              {formatMoney(element.cart,0,'.',',')}
+              {formatMoney(element.cart, 0, '.', ',')}
             </div>
             {element.isPending ? 
               <button className='session-button pending'>
@@ -99,8 +101,9 @@ class ChatSessionList extends React.Component{
               </button> 
             : 
               !element.payment ?
-                <button className='session-button payment' onClick={this.onClickPaymentButton.bind(this, element)}>
-                  {translate('app.chat.pay')}
+                <button className='session-button payment'
+                  onClick={this.onClickPaymentButton.bind(this, element)}>
+                    {translate('app.chat.pay')}
                 </button> :
                 <button className='session-button paid'>
                   {translate('app.chat.paid')}
@@ -123,7 +126,7 @@ class ChatSessionList extends React.Component{
   renderModal(){
     return(
       <div>
-      <Modal className="modal-confirm"
+      <Modal className='modal-confirm'
         onClose={ () =>{
           this.setState({modalOpen: false});
         }}
@@ -135,34 +138,58 @@ class ChatSessionList extends React.Component{
         <Modal.Content>
           {this.state.balance < this.state.element.cart ? 
             <Message negative>
-              <Message.Header className="fix-font">{translate('app.modal.error')}</Message.Header>
+              <Message.Header className='fix-font'>
+                {translate('app.modal.error')}
+              </Message.Header>
             </Message> : 
             <div></div>}
           <Table basic='very'>
             <Table.Body>
               <Table.Row>
-                <Table.Cell><b>{translate('app.chat.account_owner')}</b></Table.Cell>
+                <Table.Cell>
+                  <b>{translate('app.chat.account_owner')}</b>
+                </Table.Cell>
                 <Table.Cell></Table.Cell>
-                <Table.Cell textAlign='center'>{this.state.currentUser.displayName}</Table.Cell>
+                <Table.Cell textAlign='center'>
+                  {this.state.currentUser.displayName}
+                </Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell><b>{translate('app.modal.account')}</b></Table.Cell>
                 <Table.Cell>{translate('app.modal.available')}</Table.Cell>
-                <Table.Cell textAlign='center'>{formatMoney(this.state.balance, 0, '.', ',') + translate('app.modal.money_unit')}</Table.Cell>
+                <Table.Cell textAlign='center'>
+                  {formatMoney(this.state.balance, 0, '.', ',') +
+                    translate('app.modal.money_unit')}
+                </Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell></Table.Cell>
                 <Table.Cell>{translate('app.modal.payment')}</Table.Cell>
-                <Table.Cell textAlign='center'>{formatMoney(this.state.element.cart, 0, '.',',') + translate('app.modal.money_unit')}</Table.Cell>
+                <Table.Cell textAlign='center'>
+                  {formatMoney(this.state.element.cart, 0, '.',',') +
+                    translate('app.modal.money_unit')}
+                </Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell></Table.Cell>
                 <Table.Cell>{translate('app.modal.last')}</Table.Cell>
-                <Table.Cell textAlign='center'>{formatMoney(this.state.balance - this.state.element.cart,0,'.',',') + translate('app.modal.money_unit')}</Table.Cell>
+                <Table.Cell textAlign='center'>
+                  {formatMoney(this.state.balance - this.state.element.cart, 0, '.', ',') +
+                    translate('app.modal.money_unit')}
+                </Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell><b>{translate('app.modal.note')}</b></Table.Cell>
-                <Table.Cell className='wrap-word-table-cell' colSpan='3'>{phrase1 + Time.convertDateToUTCSecond(this.state.element.totalTime) + ' giây ' + phrase2 + Time.convertDateToDay(this.state.element.startTime) + '-' + Time.convertDateToSecond(this.state.element.startTime) + phrase3 + Time.convertDateToDay(this.state.element.closeTime) + '-' + Time.convertDateToSecond(this.state.element.closeTime)}</Table.Cell>
+                <Table.Cell className='wrap-word-table-cell'
+                  colSpan='3'>{translate('app.chat.chat_session_list.phrase_1') +
+                    Time.convertDateToUTCSecond(this.state.element.totalTime) +
+                    ' giây ' + translate('app.chat.chat_session_list.phrase_2') +
+                    Time.convertDateToDay(this.state.element.startTime) + '-' +
+                    Time.convertDateToSecond(this.state.element.startTime) +
+                    translate('app.chat.chat_session_list.phrase_3') +
+                    Time.convertDateToDay(this.state.element.closeTime) + '-' +
+                    Time.convertDateToSecond(this.state.element.closeTime)}
+                </Table.Cell>
               </Table.Row>
             </Table.Body>
           </Table>
@@ -176,31 +203,29 @@ class ChatSessionList extends React.Component{
           </Modal.Actions>
           :
           <Modal.Actions>
-            <Button className="fix-font" color='red' inverted onClick={()=>{
+            <Button className='fix-font' color='red' inverted onClick={()=>{
               this.setState({modalOpen : false})}}>
               <Icon name='remove' /> {translate('app.chat.cancel')}
             </Button>
-            <Button className="fix-font" color='green' inverted onClick={this.payment.bind(this)}>
+            <Button className='fix-font' color='green' inverted onClick={this.payment.bind(this)}>
               <Icon name='checkmark' /> {translate('app.chat.pay')}
             </Button>
           </Modal.Actions>
         }
       </Modal>
-        <Modal className="modal-confirm" size='small' onClose={() => {
-        this.setState({modalInfoOpen:false, modalOpen: false });
-      }}
+      <Modal className='modal-confirm' size='small' onClose={() => {
+        this.setState({modalInfoOpen:false, modalOpen: false });}}
         open={this.state.modalInfoOpen}
-      closeIcon={false}>
-        <Modal.Content>
-          Yêu cầu đang được xử lý, kết quả sẽ được hiển thị tại danh sách phiên làm việc.
-        </Modal.Content>
-        <Modal.Actions>
-          <Button className="fix-font" color='green' inverted onClick={()=>{
-            this.setState({ modalInfoOpen: false, modalOpen: false })
-          }}>
+        closeIcon={false}>
+          <Modal.Content>
+          {translate('app.chat.chat_session_list.processing')}
+          </Modal.Content>
+          <Modal.Actions>
+            <Button className='fix-font' color='green' inverted onClick={()=>{
+              this.setState({ modalInfoOpen: false, modalOpen: false })}}>
               <Icon name='checkmark' /> {translate('app.dashboard.submit_des')}
-          </Button>
-        </Modal.Actions>
+            </Button>
+          </Modal.Actions>
       </Modal>
       </div>
     )

@@ -277,7 +277,13 @@ module.exports = {
       todo_list: 'Danh sách công việc',
       shared_files: 'Tệp được chia sẻ',
       shared_images: 'Ảnh được chia sẻ',
-      chat_session_list: 'Lịch sử phiên chat',
+      chat_session_list: {
+        title: 'Lịch sử phiên chat',
+        phrase_1: 'Thanh toán cho phiên làm việc trong ',
+        phrase_2: ', bắt đầu từ ',
+        phrase_3: ', kết thúc lúc ',
+        processing: 'Yêu cầu đang được xử lý, kết quả sẽ được hiển thị tại danh sách phiên làm việc.'
+      },
       rate: 'Đánh giá',
       lawyer_profile: 'Thông tin của luật sư',
       customer_profile: 'Thông tin của khách hàng',

@@ -71,6 +71,7 @@ class ChatView extends Component {
       return user;
     }
     else {
+      localStorage.setItem('redirect_uri', constant.CHAT_URI);
       window.location = constant.BASE_URL + constant.SIGN_IN_URI;
     }
   }

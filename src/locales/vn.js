@@ -276,7 +276,13 @@ module.exports = {
       rate: 'Đánh giá',
       lawyer_profile: 'Thông tin của luật sư',
       customer_profile: 'Thông tin của khách hàng',
-      chat_session_list: 'Lịch sử phiên chat',
+      chat_session_list: {
+        title: 'Lịch sử phiên chat',
+        phrase_1: 'Thanh toán cho phiên làm việc trong ',
+        phrase_2: ', bắt đầu từ ',
+        phrase_3: ', kết thúc lúc ',
+        processing: 'Yêu cầu đang được xử lý, kết quả sẽ được hiển thị tại danh sách phiên làm việc.'
+      },
       pay: 'Thanh toán',
       warning_file_size: 'Dung lượng file tối đa là 25MB',
       warning_file_ext: 'Loại file không hợp lệ'

@@ -48,37 +48,35 @@ class UserDashBoard extends Component {
   componentWillMount(){
     var component = this;
     onAuthStateChanged(user =>{
-      if(localStorage.chat_vnlaw_user)  
-        if(localStorage.chat_vnlaw_user){
-          getUserRoleByUid( data =>{
-            if(data == 'Lawyer'){
-              var currentUser = {
-                avatar: JSON.parse(localStorage.chat_vnlaw_user)['avatar'],
-                displayName: JSON.parse(localStorage.chat_vnlaw_user)['displayName'],
-                email: JSON.parse(localStorage.chat_vnlaw_user)['email'],
-                uid: JSON.parse(localStorage.chat_vnlaw_user)['id'],
-                lawyer_id: JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id'],
-                userName: JSON.parse(localStorage.chat_vnlaw_user)['userName']
-              }
-              component.setState({currentUser: currentUser});
-              component.setState({isLoading: false});             
+      if(localStorage.chat_vnlaw_user){
+        getUserRoleByUid( data =>{
+          if(data == 'Lawyer'){
+            var currentUser = {
+              avatar: JSON.parse(localStorage.chat_vnlaw_user)['avatar'],
+              displayName: JSON.parse(localStorage.chat_vnlaw_user)['displayName'],
+              email: JSON.parse(localStorage.chat_vnlaw_user)['email'],
+              uid: JSON.parse(localStorage.chat_vnlaw_user)['id'],
+              lawyer_id: JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id'],
+              userName: JSON.parse(localStorage.chat_vnlaw_user)['userName']
             }
-            else {
-              component.setState({isLoading : true});
-              checkPermission(component.emitter,
-                constant.HOME_URI, () =>{
-                
-               })
-            }
-          }) 
-        }
-        else{
-          component.setState({isLoading : true})
-          checkAuthen(component.emitter,constant.HOME_URI
-            + constant.SIGN_IN_URI, () =>{
-
-          })
-        }
+            component.setState({currentUser: currentUser});
+            component.setState({isLoading: false});             
+          }
+          else {
+            component.setState({isLoading : true});
+            checkPermission(component.emitter,
+              constant.HOME_URI, () =>{
+              
+              })
+          }
+        }) 
+      }
+      else{
+        component.setState({isLoading : true});
+        localStorage.setItem('redirect_uri', constant.DASHBOARD_URI);
+        checkAuthen(component.emitter, constant.SIGN_IN_URI,
+          () =>{});
+      }
     })
   }
 
