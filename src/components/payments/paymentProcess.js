@@ -7,6 +7,7 @@ import axios from 'axios';
 import * as constant from '../constants';
 import * as translate from 'counterpart';
 import '../../assets/styles/common/payment.css';
+import {checkDeposit,loadCurrentUserProfile} from '../../lib/user/users';
 
 const queryString = require('query-string');
 const firebase = require('firebase');
@@ -29,31 +30,23 @@ class PaymentProcess extends Component {
 
     componentWillMount(){
         var component = this
-        var instance = axios.create({
-            baseURL: constant.API_BASE_URL
-        });
-        
-        instance.get('/checkpayment', { params:  queryString.parse(this.props.location.search)
+        var properties = {params: queryString.parse(this.props.location.search)}
+        checkDeposit(properties, (success,response) => {
+            if (success) {
+                component.getCurrentAccount(response.data)
+            }
         })
-        .then( function (response) {
-            component.getCurrentAccount(response.data)
-            return;
-        })
-        .catch( function (error) {
-        });
         
     }
     getCurrentAccount(data) {
         var component = this;
         component.setState({ trueData: (data.true),currentUser: (data.uid)});
         if(component.state.currentUser!='') {
-            firebase.database().ref(`moneyAccount/${component.state.currentUser}`).once('value', function(data){ 
-                console.log(data.val())
-                if(data.val() != null)
-                    component.getAccountBalance(data.val().amount)
-                else
-                    component.getAccountBalance(0)
-                })
+            loadCurrentUserProfile((success,response) => {
+                if (success) {
+                    component.getAccountBalance(response.data.user_info.mn_acc.ammount);    
+                }
+            })
         }
     }
     getAccountBalance(data) {

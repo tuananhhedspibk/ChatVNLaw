@@ -97,7 +97,7 @@ class Chat extends Component {
             <div className='chat-users-list'>
               {
                 this.state.rooms.map(room => {
-                  if(this.state.targetUser != null && this.state.targetUser.id === room.user.id){
+                  if(this.state.targetUser != null && this.state.targetUser.uid === room.user.uid){
                     return(
                       <div className='chat-user active-link'
                         onClick={this.changeUserChat.bind(this,room.user,room.id, room.description)}

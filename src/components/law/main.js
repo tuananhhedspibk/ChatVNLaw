@@ -12,7 +12,7 @@ import ArticleContent from './content';
 import ArticleDetail from './detail';
 import StickyHighlight from './sticky';
 import * as constant from '../constants';
-
+import { ax_ins } from '../../lib/constants';
 import '../../assets/styles/common/articles.css';
 
 const firebase = require('firebase');
@@ -41,32 +41,46 @@ class Article extends Component {
 
 	componentWillMount() {
 		var component = this;
-		var instance = axios.create({
-	      baseURL: constant.API_BASE_URL
-	    });
-		instance.get(constant.API_ARTICLES_URI+'/'+ this.props.match.params.id )
-	    .then(function (response) {
-	    	component.setState({article: ""});
-	    })
-	    .catch(function (error) {
-	    	if (error.response.status == 404) {
-	    		component.setState({error: 404})
-	    	}
-	    	else {
-	    		component.setState({error: error.response.status,errorText: error.response.statusText})
-	    	}
-			});
-    if(!firebase.apps.length){
-          firebase.initializeApp(constant.APP_CONFIG);
-      }
-      firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        component.setState({uid: user.uid});
-        component.extractStykies();
-      } else {
-        window.location = constant.BASE_URL + constant.SIGN_IN_URI
-      }
-    });
+    var instance = ax_ins;
+    instance.get(constant.API_ARTICLES_URI+'/'+ this.props.match.params.id )
+      .then(function (response) {
+        console.log(response.data)
+        component.setState({article: response.data});
+      })
+      .catch(function (error) {
+        if (error.response.status == 404) {
+          component.setState({error: 404})
+       }
+      else {
+         component.setState({error: error.response.status,errorText: error.response.statusText})
+       }
+     });
+		// var instance = axios.create({
+	 //      baseURL: constant.API_BASE_URL
+	 //    });
+		// instance.get(constant.API_ARTICLES_URI+'/'+ this.props.match.params.id )
+	 //    .then(function (response) {
+	 //    	component.setState({article: ""});
+	 //    })
+	 //    .catch(function (error) {
+	 //    	if (error.response.status == 404) {
+	 //    		component.setState({error: 404})
+	 //    	}
+	 //    	else {
+	 //    		component.setState({error: error.response.status,errorText: error.response.statusText})
+	 //    	}
+		// 	});
+  //   if(!firebase.apps.length){
+  //         firebase.initializeApp(constant.APP_CONFIG);
+  //     }
+  //     firebase.auth().onAuthStateChanged(function(user) {
+  //     if (user) {
+  //       component.setState({uid: user.uid});
+  //       component.extractStykies();
+  //     } else {
+  //       window.location = constant.BASE_URL + constant.SIGN_IN_URI
+  //     }
+  //   });
   }
 
   componentDidUpdate() {

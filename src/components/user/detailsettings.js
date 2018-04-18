@@ -4,9 +4,9 @@ import { Header, TextArea,
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
-
+import * as $ from 'jquery';
 import * as Lawyer from '../../lib/user/lawyers';
-import * as User from '../../lib/user/users';
+import {createDepositRequests,getDepositHistories} from '../../lib/user/users';
 
 class DetailSettings extends Component {
   constructor(props) {
@@ -32,7 +32,11 @@ class DetailSettings extends Component {
       });
     }
     else {
-
+      getDepositHistories(this.props.user.id, (success,response) => {
+        if (success) {
+          this.setState({history: response.data.d_h})
+        }
+      })
     }
   }
 
@@ -88,7 +92,6 @@ class DetailSettings extends Component {
     var component = this;
     if(this.props.role == 'Lawyer') {
       var lawyer_profile_pro = this.makeLawyerProfileProperties();
-      console.log(lawyer_profile_pro);
       if(lawyer_profile_pro.keys.length > 0) {
         Lawyer.updateLawyerInfoRails(this.state.userName, lawyer_profile_pro,
           (success, response) => {
@@ -117,8 +120,8 @@ class DetailSettings extends Component {
         component.state.history.map((history, index) => {
           return (
             <tr>
-              <td>{history.amount.toLocaleString()} VNĐ</td>
-              <td>{history.date}</td>
+              <td>{history.ammount.toLocaleString()} VNĐ</td>
+              <td>{history.created_at}</td>
             </tr>
           )
         })
@@ -127,7 +130,18 @@ class DetailSettings extends Component {
   }
 
   paymentProcess() {
-
+    var component = this;
+    var amount = $('#input_payment').val()
+    createDepositRequests(amount, (success,response) => {
+      if (success) {
+        component.handleCloseModal();
+        if (response.data.url)
+          window.location = response.data.url; 
+      }
+      else {
+        component.handleCloseModal();
+      }
+    })
   }
 
   renderViewPayment(){
@@ -170,7 +184,7 @@ class DetailSettings extends Component {
             <div className='title'>
               {translate('app.settings.acc_balance')}:
               <p className='money-value'>
-                {this.state.balance.toLocaleString()} {translate('app.settings.money_unit')}
+                {this.props.user.mn_acc.ammount.toLocaleString()} {translate('app.settings.money_unit')}
               </p>
             </div>
             <button className='save-btn'

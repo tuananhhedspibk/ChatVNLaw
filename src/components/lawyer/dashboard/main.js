@@ -56,7 +56,9 @@ class UserDashBoard extends Component {
                 avatar: JSON.parse(localStorage.chat_vnlaw_user)['avatar'],
                 displayName: JSON.parse(localStorage.chat_vnlaw_user)['displayName'],
                 email: JSON.parse(localStorage.chat_vnlaw_user)['email'],
-                uid: JSON.parse(localStorage.chat_vnlaw_user)['id']
+                uid: JSON.parse(localStorage.chat_vnlaw_user)['id'],
+                lawyer_id: JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id'],
+                userName: JSON.parse(localStorage.chat_vnlaw_user)['userName']
               }
               component.setState({currentUser: currentUser});
               component.setState({isLoading: false});             
@@ -96,7 +98,6 @@ class UserDashBoard extends Component {
   }
 
   renderView() {
-    console.log("asdadasdadads");
     return(
       <div className='app'>
         <Header currentUser={this.state.currentUser}/>
