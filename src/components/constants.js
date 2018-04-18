@@ -34,6 +34,8 @@ export const API_TASKS_URI = '/api/tasks/';
 export const API_USER_NAME_URI = '/api/user_name/';
 export const API_SPE_URI = '/api/lawyer_specializes';
 export const API_ROOM_FILES_URI = '/room_files/';
+export const API_DEPOSITS_URI ='/api/deposits/';
+export const API_CHECKDEPOSIT_URI ='/api/checkdeposit/';
 
 export const DEFAULT_AVATAR_URL = 'https://image.ibb.co/i23jUF/default_ava.png';
 

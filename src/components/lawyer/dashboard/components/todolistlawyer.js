@@ -48,7 +48,9 @@ class TodoListLawyer extends Component {
     //   })
     // })
     getAllTasks(this.props.currentUser.lawyer_id, (success,response) => {
-      if(success && response){    
+      if(success && response){
+          console.log("cia lon")
+      console.log(response.data.rooms)    
         for(var i in response.data.rooms){
             tempData.push(response.data.rooms[i])
         }

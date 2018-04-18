@@ -72,6 +72,7 @@ class Settings extends Component {
               displayName: response.data.user_info.profile.displayName,
               avatar: response.data.user_info.profile.avatar,
               birthday: response.data.user_info.profile.birthday,
+              id: response.data.user_info.id,
               mn_acc: response.data.user_info.mn_acc
             }
             component.setState({

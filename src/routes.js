@@ -43,7 +43,7 @@ const Routes = props => (
       <Route path='/customers/:user_name' component={CustomerProfile}/>
       <Route path='/test' component={TestPayment}/>
       <Route path='/articles/:id' component={Article}/>
-      <Route path='/payment_process' component={PaymentProcess}/>
+      <Route path='/deposit_process' component={PaymentProcess}/>
       <Route exact path='/' render={() => (
         <Redirect to='/home'/>  
       )}/>

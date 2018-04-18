@@ -35,6 +35,7 @@ function loadProfilePage(userName, callback) {
   var instance = constantLib.ax_ins;
   if(localStorage.chat_vnlaw_user) {
     instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
   instance.get(constantUI.API_USERS_URI + userName)
     .then(response => {
@@ -71,6 +72,67 @@ function updateUserInfoRails(userName, properties, callback) {
     })
 }
 
+function loadCurrentUserProfile(callback) {
+  var instance = constantLib.ax_ins;
+  if(localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  instance.get(constantUI.API_USERS_URI + JSON.parse(localStorage.chat_vnlaw_user)['userName'])
+    .then(response => {
+      console.log(response)
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    })
+}
+
+
+function createDepositRequests(amount,callback) {
+  var instance = constantLib.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  let formData = new FormData();
+  formData.append('deposits[amount]',amount)
+  instance.post(constantUI.API_BASE_URL + constantUI.API_DEPOSITS_URI, formData)
+    .then(response => {
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    })
+}
+function checkDeposit(properties, callback) {
+  var instance = constantLib.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  instance.get(constantUI.API_BASE_URL + constantUI.API_CHECKDEPOSIT_URI, properties)
+    .then(response => {
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    })
+}
+function getDepositHistories(userID, callback) {
+  var instance = constantLib.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  instance.get(constantUI.API_BASE_URL + constantUI.API_USERS_URI + userID + '/deposit_histories')
+    .then(response => {
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    })
+}
 module.exports ={
   updateUserInfo: function(properties, callback){
     updateUserInfo(properties, callback);
@@ -83,5 +145,17 @@ module.exports ={
   },
   updateUserInfoRails: function(userName, properties, callback) {
     updateUserInfoRails(userName, properties, callback);
+  },
+  createDepositRequests: function(amount,callback) {
+    createDepositRequests(amount,callback);
+  },
+  checkDeposit: function(properties, callback) {
+    checkDeposit(properties, callback);
+  },
+  loadCurrentUserProfile: function(callback) {
+    loadCurrentUserProfile(callback);
+  },
+  getDepositHistories: function(userID, callback) {
+    getDepositHistories(userID, callback);
   }
 }

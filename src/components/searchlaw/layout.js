@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { parse } from 'qs';
-import axios from 'axios';
 import $ from 'jquery';
 import ReactPaginate from 'react-paginate';
 import { EventEmitter } from 'fbemitter';
@@ -16,6 +15,7 @@ import Category from './category';
 
 import * as translate from 'counterpart';
 import * as constant from '../constants';
+import { ax_ins } from '../../lib/constants';
 
 import '../../assets/styles/common/searchLaw.css';
 
@@ -45,9 +45,7 @@ class SearchLaw extends Component {
 	loadDataFromServer(objQuery, pageClick) {
 		var component = this;
 		const parsed = parse(this.props.location.search.substr(1));
-		var instance = axios.create({
-			baseURL: constant.API_BASE_URL
-		});
+		var instance = ax_ins;
 
 		if (!!objQuery.query) {
 			parsed.query = objQuery.query;
