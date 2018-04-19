@@ -1,7 +1,7 @@
 import React from 'react'
 import $ from 'jquery';
 import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
-import { Dropdown, Checkbox } from 'semantic-ui-react';
+import { Checkbox } from 'semantic-ui-react';
 import Loading from '../../../shared/loading';
 import getStunServerList from '../../../../lib/getstunserverlist';
 import {cantCreatePeer} from '../../../../lib/notification/toast';
@@ -192,13 +192,6 @@ class VideoCall extends React.Component{
             aria-hidden='true'></i>
           <i className='fa fa-phone'
             aria-hidden='true'></i>
-          <Dropdown icon='list layout'>
-            <Dropdown.Menu>
-              <Dropdown.Item>
-                {translate('app.settings.job_done')}
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
         </div>
       </div>
     )

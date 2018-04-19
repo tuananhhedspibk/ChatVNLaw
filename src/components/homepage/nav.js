@@ -22,14 +22,22 @@ class Nav extends Component {
   }
 
   componentWillMount(){
+    var component = this;
     localStorage.setItem('target', 'home');
-    if (localStorage.chat_vnlaw_user) {
-      var ls_u = JSON.parse(localStorage.chat_vnlaw_user);
-      this.setState({currentUser: ls_u});
-      if (ls_u.role == 'Lawyer') {
-        this.setState({isLawyer: true});
+    firebase.auth().onAuthStateChanged(function(user){
+      if (user) {
+        if (localStorage.chat_vnlaw_user) {
+          var ls_u = JSON.parse(localStorage.chat_vnlaw_user);
+          component.setState({currentUser: ls_u});
+          if (ls_u.role == 'Lawyer') {
+            component.setState({isLawyer: true});
+          }
+        }
       }
-    }
+      else {
+        component.setState({currentUser: null});
+      }
+    });
   }
 
   checkLogin() {

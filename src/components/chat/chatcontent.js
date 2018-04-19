@@ -30,7 +30,8 @@ class ChatContent extends Component {
       currentUser: null,
       showDialog: false,
       chatContentHeight: 0,
-      chatSettingHeight: 0
+      chatSettingHeight: 0,
+      talking: true
     };
     this.peer = null;
   }   
@@ -76,7 +77,13 @@ class ChatContent extends Component {
   
   componentDidMount() {   
     var component = this;
-    this.setState({currentRoomId: this.props.currentRoomId})
+    this.setState({currentRoomId: this.props.currentRoomId});
+    if (this.props.currentRoomStatus === 'Talking') {
+      this.setState({talking: true});
+    }
+    else {
+      this.setState({talking: false});
+    }
 
     $(document).mouseup(function(e) {
       var container = $('.emoji-section');
@@ -212,11 +219,19 @@ class ChatContent extends Component {
     }
   }
 
+  finishSession() {
+    this.setState({talking: false});
+    this.props.changeRoomStatus();
+  }
+
   render() {
     return(  
       <div className={'chat-window ' + 'item_' +
         this.state.targetUser.id} id='chat-window' >
-        <VideoCall currentUser={this.props.currentUser}
+        <VideoCall
+          talking={this.state.talking}
+          finishSession={this.finishSession.bind(this)}
+          currentUser={this.props.currentUser}
           targetUser={this.props.targetUser}
           currentRoomId={this.state.currentRoomId}
           emitter={this.props.emitter}/>
@@ -238,33 +253,42 @@ class ChatContent extends Component {
                 currentUser={this.state.currentUser}
                 base_url={constant.API_BASE_URL} />
           </Scrollbars>
-          <div className='text-box' id='text-box'>
-            <input type='file' id='upfile'/>
-            <textarea id='input-mess-box'
-              placeholder={translate('app.chat.input_place_holder')}
-              onKeyDown={this.handleInputChange.bind(this)} />
-            <div className='addons-field'>
-              <div className='emoji-section'>
-                <div id='emoji-picker'>
-                  <Picker
-                    onClick={this.onClickEmoji}
-                    emojiSize={24} 
-                    perLine={9}    
-                    skin={1}       
-                    set='messenger'                
-                    showPreview={false}
-                    autoFocus={true}
-                  />
+          {
+            this.state.talking ?
+            (
+              <div className='text-box' id='text-box'>
+                <input type='file' id='upfile'/>
+                <textarea id='input-mess-box'
+                  placeholder={translate('app.chat.input_place_holder')}
+                  onKeyDown={this.handleInputChange.bind(this)} />
+                <div className='addons-field'>
+                  <div className='emoji-section'>
+                    <div id='emoji-picker'>
+                      <Picker
+                        onClick={this.onClickEmoji}
+                        emojiSize={24} 
+                        perLine={9}    
+                        skin={1}       
+                        set='messenger'                
+                        showPreview={false}
+                        autoFocus={true}
+                      />
+                    </div>
+                    <i className='fa fa-smile-o'
+                      aria-hidden='true'
+                      onClick={this.renderEmojiPicker}></i>
+                  </div>
+                  <i className='fa fa-file-image-o'
+                    aria-hidden='true'
+                    onClick={this.upfile}></i>
                 </div>
-                <i className='fa fa-smile-o'
-                  aria-hidden='true'
-                  onClick={this.renderEmojiPicker}></i>
               </div>
-              <i className='fa fa-file-image-o'
-                aria-hidden='true'
-                onClick={this.upfile}></i>
-            </div>
-          </div>
+            )
+            :
+            (
+              ''
+            )
+          }
         </div>
         <ChatSetting
           currentRoomId={this.props.currentRoomId}

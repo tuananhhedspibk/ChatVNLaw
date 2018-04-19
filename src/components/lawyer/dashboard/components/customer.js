@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import firebase from 'firebase';
+
 import * as constant from '../../../constants';
-import {updateRoom,getRoomFilesAndImages} from '../../../../lib/room/rooms'
+import { updateRoom, getRoomFilesAndImages } from '../../../../lib/room/rooms'
 import * as Files from '../../../../lib/upfile/files';
 import * as translate from 'counterpart';
 
@@ -88,7 +89,7 @@ class Customer extends Component {
     evt.preventDefault();
     var component = this;
     var desc = $('textarea.input-descrip').val();
-    updateRoom(this.state.currentRoomId,desc, (success,respon) => {
+    updateRoom(this.state.currentRoomId, desc, null, (success,respon) => {
       if (success) {
         $('.info-descrip').css('display', 'block');
         $('.edit-descrip').css('display', 'none');

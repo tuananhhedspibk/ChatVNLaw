@@ -4,8 +4,8 @@ var constantUI = require('../../components/constants');
 
 function updateUserInfo(properties, callback){
   firebase.database().ref(`${constantLib.TABLE.users}/${properties.currentUser.uid}`).update({
-    "displayName" : properties.displayName,
-    "username": properties.username
+    'displayName' : properties.displayName,
+    'username': properties.username
   }).then(function() {
     return callback(true)
   }).catch(function(error){
@@ -97,7 +97,7 @@ function createDepositRequests(amount,callback) {
   }
   let formData = new FormData();
   formData.append('deposits[amount]',amount)
-  instance.post(constantUI.API_BASE_URL + constantUI.API_DEPOSITS_URI, formData)
+  instance.post(constantUI.API_DEPOSITS_URI, formData)
     .then(response => {
       return callback(true, response);
     })
@@ -111,7 +111,7 @@ function checkDeposit(properties, callback) {
     instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
     instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
-  instance.get(constantUI.API_BASE_URL + constantUI.API_CHECKDEPOSIT_URI, properties)
+  instance.get(constantUI.API_CHECKDEPOSIT_URI, properties)
     .then(response => {
       return callback(true, response);
     })
@@ -125,7 +125,7 @@ function getDepositHistories(userID, callback) {
     instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
     instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
-  instance.get(constantUI.API_BASE_URL + constantUI.API_USERS_URI + userID + '/deposit_histories')
+  instance.get(constantUI.API_USERS_URI + userID + '/deposit_histories')
     .then(response => {
       return callback(true, response);
     })
@@ -133,6 +133,27 @@ function getDepositHistories(userID, callback) {
       return callback(false, error);
     })
 }
+
+function reviewLawyer(properties, callback) {
+  var instance = constantLib.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  var formData = new FormData();
+  formData.append('reviews[user_id]', properties.user_id);
+  formData.append('reviews[lawyer_id]', properties.lawyer_id);
+  formData.append('reviews[content]', properties.content);
+  formData.append('reviews[star]', properties.star);
+  instance.post(constantUI.API_REVIEWS_URI, formData)
+    .then(response => {
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    });
+}
+
 module.exports ={
   updateUserInfo: function(properties, callback){
     updateUserInfo(properties, callback);
@@ -157,5 +178,8 @@ module.exports ={
   },
   getDepositHistories: function(userID, callback) {
     getDepositHistories(userID, callback);
+  },
+  reviewLawyer: function(properties, callback) {
+    reviewLawyer(properties, callback);
   }
 }

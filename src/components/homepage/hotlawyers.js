@@ -5,8 +5,7 @@ import $ from 'jquery';
 import axios from 'axios';
 
 import * as constant from '../constants';
-
-let translate = require('counterpart');
+import * as translate from 'counterpart';
 
 class HotLawyers extends Component {
   constructor(props) {

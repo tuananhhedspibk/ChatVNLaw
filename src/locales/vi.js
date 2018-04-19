@@ -542,7 +542,7 @@ module.exports = {
       acc_balance: 'Số dư tài khoản',
       money_unit: 'VNĐ',
       input_money: 'Nhập số tiền muốn nạp',
-      job_done: 'Hoàn tất công việc',
+      job_done: 'Kết thúc phiên làm việc',
       category_ph: 'Hãy chọn lĩnh vực yêu thích của bạn',
       price: 'Giá tiền tư vấn',
       money_unit: 'VNĐ',

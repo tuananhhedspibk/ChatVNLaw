@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {EventEmitter} from 'fbemitter';
+import * as firebase from 'firebase';
 
 import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
@@ -7,17 +9,14 @@ import DetailSettings from './detailsettings';
 import SideBar from './sidebar';
 import Loading from '../shared/loading';
 import Toast from '../notification/toast';
-import {EventEmitter} from 'fbemitter';
-
-import * as constant from '../constants';
-import * as firebase from 'firebase';
 
 import * as Lawyer from '../../lib/user/lawyers';
 import * as User from '../../lib/user/users';
 
 import '../../assets/styles/common/profileSettings.css';
 
-let translate = require('counterpart');
+import * as constant from '../constants';
+import * as translate from 'counterpart';
 
 class Settings extends Component {
   constructor(props) {
@@ -31,64 +30,71 @@ class Settings extends Component {
   }
   
   componentWillMount() {
-    if(localStorage.chat_vnlaw_user) {
-      var component = this;
-      var role = JSON.parse(localStorage.chat_vnlaw_user)['role'];
-      var userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
-      this.setState({role: role});
-      if(role == 'Lawyer') {
-        Lawyer.loadProfilePage(userName, (success, response) => {
-          if (success) {
-            var user = {
-              id: response.data.lawyer_info.id,
-              achievement: response.data.lawyer_info.lawyer_profile.achievement,
-              cardNumber: response.data.lawyer_info.lawyer_profile.cardNumber,
-              certificate: response.data.lawyer_info.lawyer_profile.certificate,
-              education: response.data.lawyer_info.lawyer_profile.education,
-              intro: response.data.lawyer_info.lawyer_profile.intro,
-              price: response.data.lawyer_info.lawyer_profile.price,
-              exp: response.data.lawyer_info.lawyer_profile.exp,
-              workPlace: response.data.lawyer_info.lawyer_profile.workPlace,
-              displayName: response.data.lawyer_info.base_profile.displayName,
-              birthday: response.data.lawyer_info.base_profile.birthday,
-              avatar: response.data.lawyer_info.base_profile.avatar,
-              specializes: response.data.lawyer_info.specializes,
-              lawyer_specializes: response.data.lawyer_info.lawyer_specializes
-            }
-            component.setState({
-              user: user,
-              isloading: false
-            });
+    firebase.auth().onAuthStateChanged(function(user){
+      if (user) {
+        if(localStorage.chat_vnlaw_user) {
+          var component = this;
+          var role = JSON.parse(localStorage.chat_vnlaw_user)['role'];
+          var userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
+          this.setState({role: role});
+          if(role == 'Lawyer') {
+            Lawyer.loadProfilePage(userName, (success, response) => {
+              if (success) {
+                var user = {
+                  id: response.data.lawyer_info.id,
+                  achievement: response.data.lawyer_info.lawyer_profile.achievement,
+                  cardNumber: response.data.lawyer_info.lawyer_profile.cardNumber,
+                  certificate: response.data.lawyer_info.lawyer_profile.certificate,
+                  education: response.data.lawyer_info.lawyer_profile.education,
+                  intro: response.data.lawyer_info.lawyer_profile.intro,
+                  price: response.data.lawyer_info.lawyer_profile.price,
+                  exp: response.data.lawyer_info.lawyer_profile.exp,
+                  workPlace: response.data.lawyer_info.lawyer_profile.workPlace,
+                  displayName: response.data.lawyer_info.base_profile.displayName,
+                  birthday: response.data.lawyer_info.base_profile.birthday,
+                  avatar: response.data.lawyer_info.base_profile.avatar,
+                  specializes: response.data.lawyer_info.specializes,
+                  lawyer_specializes: response.data.lawyer_info.lawyer_specializes
+                }
+                component.setState({
+                  user: user,
+                  isloading: false
+                });
+              }
+              else {
+                component.errorAndRedirect(response);
+              }
+            })
           }
-          else {
-            component.errorAndRedirect(response);
+          else{
+            User.loadProfilePage(userName, (success, response) => {
+              if (success) {
+                var user = {
+                  displayName: response.data.user_info.profile.displayName,
+                  avatar: response.data.user_info.profile.avatar,
+                  birthday: response.data.user_info.profile.birthday,
+                  id: response.data.user_info.id,
+                  mn_acc: response.data.user_info.mn_acc
+                }
+                component.setState({
+                  user: user,
+                  isloading: false
+                });
+              }
+              else {
+                component.errorAndRedirect(response);
+              }
+            })
           }
-        })
+        }
+        else {
+          this.errorAndRedirect(translate('app.system_notice.unauthenticated.text'));
+        }
       }
-      else{
-        User.loadProfilePage(userName, (success, response) => {
-          if (success) {
-            var user = {
-              displayName: response.data.user_info.profile.displayName,
-              avatar: response.data.user_info.profile.avatar,
-              birthday: response.data.user_info.profile.birthday,
-              id: response.data.user_info.id,
-              mn_acc: response.data.user_info.mn_acc
-            }
-            component.setState({
-              user: user,
-              isloading: false
-            });
-          }
-          else {
-            component.errorAndRedirect(response);
-          }
-        })
+      else {
+        this.errorAndRedirect(translate('app.system_notice.unauthenticated.text'));
       }
-    }
-    else {
-      this.errorAndRedirect(translate('app.system_notice.unauthenticated.text'));
-    }
+    });
   }
 
   errorAndRedirect(message) {

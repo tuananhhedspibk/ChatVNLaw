@@ -14,7 +14,7 @@ import Toast from '../notification/toast';
 import { getStunServerList} from '../../lib/getstunserverlist';
 import { checkAuthen } from '../../lib/notification/toast';
 import { logoutRails } from '../../lib/user/authentication';
-import { getAllRooms } from '../../lib/room/rooms';
+import { getAllRooms, updateRoom } from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
@@ -41,6 +41,7 @@ class ChatView extends Component {
       users: [],
       unread: [],
       roomIds: [],
+      roomStatus: [],
       searchTerm: '',
       isloading: true,
       usersListHeight: 0
@@ -99,21 +100,25 @@ class ChatView extends Component {
             if (success) {
               var users = [];
               var roomIds = [];
+              var roomStatus = [];
               if(JSON.parse(localStorage.chat_vnlaw_user)['role'] == 'User') {
                 response.data.rooms.map((room, idx) => {
                   users.push(room.lawyer);
                   roomIds.push(room.id);
+                  roomStatus.push(room.status);
                 });
               }
               else {
                 response.data.rooms.map((room, idx) => {
                   users.push(room.user);
                   roomIds.push(room.id);
+                  roomStatus.push(room.status);
                 });
               }
               component.setState({
                 users : users,
-                roomIds: roomIds
+                roomIds: roomIds,
+                roomStatus: roomStatus
               });
             }
             else {
@@ -180,6 +185,31 @@ class ChatView extends Component {
       component.emitter.emit('AddNewErrorToast', '',
         error, 5000, ()=>{})                         
       return;
+    });
+  }
+
+  getIdxOfRoomByRoomId(rid) {
+    var r_idx = -1;
+    this.state.roomIds.map((item, idx) => {
+      if (item === rid) {
+        r_idx = idx;
+      }
+    });
+    return r_idx
+  }
+
+  changeRoomStatus(rid) {
+    var r_idx = this.getIdxOfRoomByRoomId(rid);
+    var room_status = this.state.roomStatus;
+    room_status[r_idx] = 'Finish';
+    this.setState({roomStatus: room_status});
+    updateRoom(rid, null, 'Finish', (success, response) => {
+      if (success) {
+
+      }
+      else {
+        console.log(response);
+      }
     });
   }
 
@@ -267,9 +297,11 @@ class ChatView extends Component {
                   render={
                     (props) => (
                       <ChatContent {...props}
+                        changeRoomStatus={this.changeRoomStatus.bind(this, this.state.roomIds[idx])}
                         targetUser={user}
                         currentUser={this.state.currentUser}
                         emitter={this.emitter}
+                        currentRoomStatus={this.state.roomStatus[idx]}
                         currentRoomId={this.state.roomIds[idx]}/>
                     )
                   }/>
