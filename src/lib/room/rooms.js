@@ -22,15 +22,20 @@ function getAllRooms(callback) {
     })
 }
 
-function updateRoom(roomID, desc, callback) {
+function updateRoom(roomID, desc, status, callback) {
   var instance = constantLib.ax_ins;
   if (localStorage.chat_vnlaw_user) {
     instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
     instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
   let formData = new FormData();
-  formData.append('rooms[description]',desc);
-  instance.patch(constantUI.API_ROOMS_URI+ roomID , formData )
+  if (desc) {
+    formData.append('rooms[description]', desc);
+  }
+  if (status) {
+    formData.append('rooms[status]', status);
+  }
+  instance.patch(constantUI.API_ROOMS_URI + roomID , formData )
     .then(response => {
       return callback(true, response);
     })
@@ -179,8 +184,8 @@ module.exports = {
   createNewRoom: function(properties, callback) {
     createNewRoom(properties, callback);
   },
-  updateRoom: function(roomID, desc, callback) {
-    updateRoom(roomID, desc, callback);
+  updateRoom: function(roomID, desc, status, callback) {
+    updateRoom(roomID, desc, status, callback);
   },
   getAllRooms: function(callback) {
     getAllRooms(callback);

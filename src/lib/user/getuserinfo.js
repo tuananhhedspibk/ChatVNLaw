@@ -12,7 +12,7 @@ function extractUser(data){
     return item;
 }
 
-function getUserRoleByUid( callback){
+function getUserRoleByUid(callback){
     var userDetail = JSON.parse(localStorage.chat_vnlaw_user)
     return callback(userDetail['role'])
 }

@@ -61,8 +61,13 @@
   }
 
   .call-section {
-    display: inline-block;
-    float: right;
+    align-items: center;
+    display: flex;
+
+    .ui.dropdown .menu {
+      left: -150px;
+      top: 25px;
+    }
   }
 
   .title {
@@ -207,9 +212,12 @@
       }
     }
 
-    .tips {
-      margin: 0 auto 20px auto;
-      width: 90%;
+    .input {
+      border: 0;
+      border-radius: 3px;
+      margin: 10px auto;
+      padding: 8px;
+      width: 85%;
     }
 
     footer {

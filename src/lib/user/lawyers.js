@@ -280,7 +280,7 @@ function updateTask(roomID,taskID,content, status,callback) {
   let formData = new FormData();
   formData.append('tasks[content]',content);
   formData.append('tasks[status]',status);
-  instance.patch(constantUI.API_ROOMS_URI+ roomID +'/tasks/' + taskID, formData )
+  instance.patch(constantUI.API_ROOMS_URI + roomID +'/tasks/' + taskID, formData )
     .then(response => {
       return callback(true, response);
     })
@@ -371,30 +371,6 @@ function destroySpecialize(id, callback) {
 }
 
 module.exports = {
-  // getLawyerList: function(properties, callback){
-  //   getLawyerList(properties,callback);
-  // },
-  // findLawyersNameStartWithInput: function(input,properties,callback){
-  //   findLawyersNameStartWithInput(input,properties,callback);
-  // },
-  // findLawyersWithInput: function(input, properties ,callback){
-  //   findLawyersWithInput(input, properties ,callback)
-  // },
-  // findLawyers: function(properties, callback){
-  //   findLawyers(properties, callback);
-  // },
-  // findLawyersWithUserName: function(input, callback){
-  //   findLawyersWithUserName(input, callback);
-  // },
-  // findLawyersWithoutInput: function(properties,callback){
-  //   findLawyersWithoutInput(properties,callback);
-  // },
-  // isLawyer: function(uid, callback){
-  //   isLawyer(uid, callback);
-  // },
-  // storeLawyerData: function(properties, callback){
-  //   storeLawyerData(properties, callback)
-  // },
   getAllTasks: function(userID, callback) {
     getAllTasks(userID, callback);
   },
