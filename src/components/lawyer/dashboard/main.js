@@ -5,11 +5,9 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import {Container} from 'reactstrap';
 import {NotificationContainer} from 'react-notifications';
 import $ from 'jquery';
-import * as translate from 'counterpart';
 
 import Header from './components/header';
 import Sidebar from './components/sidebar';
-import DashBoard from './components/dashboard';
 import Customer from './components/customer';
 import TodoListLawyer from './components/todolistlawyer';
 import Calendar from './components/calendar';
@@ -20,14 +18,14 @@ import TodoList from './components/todolist';
 import Chat from './components/chat';
 
 import Loading from '../../shared/loading';
-import {isLawyer} from '../../../lib/user/lawyers';
 import Toast from '../../notification/toast';
 import getStunServerList from '../../../lib/getstunserverlist';
-import {checkPermission, checkAuthen} from '../../../lib/notification/toast';
-import {onAuthStateChanged} from '../../../lib/user/authentication';
-import {getUserRoleByUid} from '../../../lib/user/getuserinfo';
+import { checkPermission, checkAuthen } from '../../../lib/notification/toast';
+import { onAuthStateChanged } from '../../../lib/user/authentication';
+import  { getUserRoleByUid } from '../../../lib/user/getuserinfo';
 import Settings from '../../user/settings';
 
+import * as translate from 'counterpart';
 import * as constant from '../../constants';
 import * as tableContant from '../../../lib/constants';
 
@@ -116,31 +114,38 @@ class UserDashBoard extends Component {
                   <div {...props} className='custom-content'/>
                 }>
                   <Switch>
-                    <Route path='/dashboard/todolistlawyer' name='Todo List Lawyer' 
+                    <Route path={constant.DASHBOARD_URI + constant.TODO_LIST_LAWYER_URI}
+                      name='Todo List Lawyer' 
                       render={(props) => (
-                        <TodoListLawyer currentUser = {this.state.currentUser} emitter={this.emitter} {...props} />)}/>
-                    <Route path='/dashboard/files-shared' name='Files Shared'
+                        <TodoListLawyer currentUser = {this.state.currentUser}
+                          emitter={this.emitter} {...props} />)}/>
+                    <Route path={constant.DASHBOARD_URI + constant.FILE_SHARED_URI}
+                      name='Files Shared'
                       render={(props) => (
                         <Customer emitter={this.emitter} {...props} />)}/>
-                    <Route path='/dashboard/todos' name='Todo List'
+                    <Route path={constant.DASHBOARD_URI + constant.TODO_LAWYER_URI}
+                      name='Todo List'
                       render={(props) => (
                         <TodoList emitter={this.emitter} {...props} />)}/>
-                    <Route path='/dashboard/search_tag' name='SearchUser'
+                    <Route path={constant.DASHBOARD_URI + constant.SEARCH_TAG_DASH_URI}
+                      name='SearchTag'
                       render={(props) => (
                         <SearchTag emitter={this.emitter} {...props} />)}/>
-                    <Route path='/dashboard/search_user' name='SearchUser'
+                    <Route path={constant.DASHBOARD_URI + constant.SEARCH_USER_DASH_URI}
+                      name='SearchUser'
                       render={(props) => (
                         <SearchUser emitter={this.emitter} {...props} />)}/>
-                    <Route path='/dashboard/dashboard' name='Dashboard'
-                      component={DashBoard}/>
-                    <Route path='/dashboard/calendar' name='Calendar'
+                    <Route path={constant.DASHBOARD_URI + constant.CALENDAR_URI}
+                      name='Calendar'
                       component={Calendar}/>
-                    <Route path="/dashboard/profile" name="Profile" 
+                    <Route path={constant.DASHBOARD_URI + constant.PROFILE_DASH_URI}
+                      name='Profile' 
                       component={Settings} />
                   </Switch>
               </Scrollbars>
             </Container>
           </main>
+          <Toast emitter = {this.emitter}/>
           <Chat emitter={this.emitter}
             currentUser={this.state.currentUser}/>
         </div>

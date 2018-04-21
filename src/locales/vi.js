@@ -282,7 +282,8 @@ module.exports = {
         phrase_1: 'Thanh toán cho phiên làm việc trong ',
         phrase_2: ', bắt đầu từ ',
         phrase_3: ', kết thúc lúc ',
-        processing: 'Yêu cầu đang được xử lý, kết quả sẽ được hiển thị tại danh sách phiên làm việc.'
+        process_succ: 'Yêu cầu đã được xử lý xong, kết quả được hiển thị tại danh sách phiên làm việc.',
+        process_failed: 'Số tiền hiện tại trong tài khoản của bạn không đủ để thanh toán, mong bạn kiểm tra lại tài khoản một lần nữa'
       },
       rate: 'Đánh giá',
       lawyer_profile: 'Thông tin của luật sư',

@@ -14,6 +14,7 @@ import TopLawyers from './toplawyers';
 import Toast from '../notification/toast';
 import ReadMore from '../shared/readmore';
 import * as constant from '../constants';
+import { ax_ins } from '../../lib/constants';
 import * as Lawyers from '../../lib/user/lawyers';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -79,15 +80,9 @@ class Content extends Component {
 
 	loadNameFromServer() {
 		var component = this;
-		var instance = axios.create({
-			baseURL: constant.API_BASE_URL,
-			headers: {
-				'x-api-token': 'b1c7f840acdee887f402236e82736eba'
-			}
-		});
 		var names = [];
 
-		instance.get(constant.API_ALL_LAWYERS_NAME_URI)
+		ax_ins.get(constant.API_ALL_LAWYERS_NAME_URI)
 			.then(function(response) {
 				response.data.names.map (item => {
 					if(!names.includes(item)) {
@@ -101,12 +96,6 @@ class Content extends Component {
 
 	loadDataFromServer(objQuery, pgClick, sort) {
 		var component = this;
-		var instance = axios.create({
-			baseURL: constant.API_BASE_URL,
-			headers: {
-				'x-api-token': 'b1c7f840acdee887f402236e82736eba'
-			}
-		});
 
 		if(!pgClick) {
 			this.uncheckFilter();
@@ -122,9 +111,8 @@ class Content extends Component {
 		$('.rbt-input-main').text(objQuery.name);
 		this.setState({isLoading: true});
 
-		instance.get(constant.API_SEARCH_LAWYERS_URI, {params: objQuery})
+		ax_ins.get(constant.API_SEARCH_LAWYERS_URI, {params: objQuery})
 			.then(function (response) {
-				console.log(response.data);
 				component.setState({isLoading: false});
 				if(!response.data.suggest) {
 					component.setState({
@@ -209,12 +197,8 @@ class Content extends Component {
 		}
 	}
 
-	handleOnclickLawyer(uid){
-		firebase.database().ref(`users/${uid}`).once('value', data => {
-			if(data.exists()){
-				window.open(constant.BASE_URL + '/lawyers/' + data.val().username)
-			}
-		})
+	handleOnclickLawyer(userName){
+		window.open(constant.BASE_URL + constant.LAWYER_PROFILE_URI + '/' + userName, '_blank');	
 	}
 
 	handleFilter(key) {
@@ -296,7 +280,7 @@ class Content extends Component {
 				{this.state.lawyers.map((lawyer, index)=>{
 					return(	
 						<div className='lawyer' id={'lawyer-' + index}
-							onClick={this.handleOnclickLawyer.bind(this, lawyer.user_id)}>
+							onClick={this.handleOnclickLawyer.bind(this, lawyer.profile.userName)}>
 								<img className='ava' src={constant.API_BASE_URL + '/' + lawyer.profile.avatar.url} />
 								<div className='infor'>
 									<div className='name' title={lawyer.profile.displayName}>{lawyer.profile.displayName}</div>

@@ -35,22 +35,8 @@ class TodoListLawyer extends Component {
   componentDidMount(){
     var component = this;
     var tempData = [];
-    // var currentUser = firebase.auth().currentUser.uid;
-    // firebase.database().ref(`tasks/${currentUser}`)
-    // .once('value', (data) => {
-    //   if(data){
-    //       for(var i in data.val()){
-    //           tempData.push(data.val()[i])
-    //       }
-    //   }
-    //   component.setState({
-    //       todoList: tempData
-    //   })
-    // })
     getAllTasks(this.props.currentUser.lawyer_id, (success,response) => {
-      if(success && response){
-          console.log("cia lon")
-      console.log(response.data.rooms)    
+      if(success && response){   
         for(var i in response.data.rooms){
             tempData.push(response.data.rooms[i])
         }

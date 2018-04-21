@@ -92,8 +92,18 @@ function notifyMessagesComming(properties, callback){
             let arr = properties.component.state.messages;
             arr.push(item);
             properties.component.setState({messages: arr});
-            if (item.contentType == 'image' || item.contentType == 'file') {
-                properties.component.props.emitter.emit('fetch_files');
+            if (!item.contentType) {
+                if (properties.component.state.talking === false ){
+                    properties.component.props.emitter.emit('open_room');
+                }
+            }
+            else {
+                if (item.contentType === 'image' || item.contentType === 'file') {
+                    properties.component.props.emitter.emit('fetch_files');
+                }
+                else if (item.contentType === 'close_room') {
+                    properties.component.props.emitter.emit('close_room');
+                }
             }
             return callback();
         }
@@ -147,7 +157,7 @@ function chat(properties, callback){
         item[constant.MESSAGES.timeStamp] = ('' + (new Date()).getTime());
     }
     else {
-        if (properties.contentType == 'image') {
+        if (properties.contentType === 'image') {
             item[constant.SHARED_FILES.senderId] = component.state.currentUser.uid;
             item[constant.SHARED_FILES.downloadURL] = properties.downloadURL;
             item[constant.SHARED_FILES.width] = properties.width;
@@ -155,12 +165,17 @@ function chat(properties, callback){
             item[constant.SHARED_FILES.contentType] = properties.contentType;
             item[constant.SHARED_FILES.timeStamp] = properties.timeStamp;
         }
-        else {
+        else if (properties.contentType === 'file'){
             item[constant.SHARED_FILES.contentType] = properties.contentType;
             item[constant.SHARED_FILES.name] = properties.name;
             item[constant.SHARED_FILES.downloadURL] = properties.downloadURL;
             item[constant.SHARED_FILES.timeStamp] = properties.timeStamp;
             item[constant.SHARED_FILES.senderId] = component.state.currentUser.uid;
+        }
+        else if (properties.contentType === 'close_room') {
+            item[constant.MESSAGES.contentType] = properties.contentType;
+            item[constant.MESSAGES.senderId] = component.state.currentUser.uid;
+            item[constant.MESSAGES.timeStamp] = ('' + (new Date()).getTime());
         }
     }
     firebase.database().ref(`${constant.TABLE.rooms}/${component.state.currentRoomId}/${constant.ROOMS.messages}`).push().set(item);
@@ -205,6 +220,7 @@ function createInitMessage(properties, callback) {
     item[constant.MESSAGES.senderId] = properties.senderId;
     item[constant.MESSAGES.timeStamp] = ('' + (new Date()).getTime());
     firebase.database().ref(`${constant.TABLE.rooms}/${properties.currentRoomId}/${constant.ROOMS.messages}`).push().set(item);
+    return callback();
 }
 
 module.exports = {

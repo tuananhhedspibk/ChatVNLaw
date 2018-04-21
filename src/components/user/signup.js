@@ -33,24 +33,32 @@ class UserSignUp extends Component {
   redirect(){
     var uri = localStorage.getItem('redirect_uri');
     localStorage.removeItem('redirect_uri');
-    if (uri.includes(constant.APPLY_LAWYER_URI)) {
-      if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
-        this.emitter.emit('AddNewErrorToast', '',
-          translate('app.apply_lawyer.can_not'),
-          5000, ()=>{});
-          setTimeout(() => {
-            window.location = constant.BASE_URL;
-          }, 5000);
-        return;
+    if (uri) {
+      if (uri.includes(constant.APPLY_LAWYER_URI)) {
+        if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
+          this.emitter.emit('AddNewErrorToast', '',
+            translate('app.apply_lawyer.can_not'),
+            5000, ()=>{});
+            setTimeout(() => {
+              window.location = constant.BASE_URL;
+            }, 5000);
+          return;
+        }
       }
+      window.location = uri;
     }
-    window.location = uri;
+    window.location = constant.BASE_URL;
   }
 
-  componentWillMount() {
-    if(localStorage.chat_vnlaw_user) {
-      this.redirect();
-    }
+  componentWillMount(){
+    var component = this;
+    firebase.auth().onAuthStateChanged(function(user){
+      if (user) {
+        if (localStorage.chat_vnlaw_user) {
+          component.redirect();
+        }
+      }
+    });
   }
 
   handleInputChange(evt) {

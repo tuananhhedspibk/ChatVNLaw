@@ -40,17 +40,17 @@ class ApplyLawyer extends Component {
   }
 
   componentWillMount(){
+    var component = this;
     firebase.auth().onAuthStateChanged(function(user){
       if (user) {
         if(localStorage.chat_vnlaw_user) {
           if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
-            this.emitter.emit('AddNewErrorToast', '',
+            component.emitter.emit('AddNewErrorToast', '',
               translate('app.apply_lawyer.can_not'), 5000, ()=>{});
             window.location = constant.BASE_URL;
           }
           else {
-            var component = this;
-            var username = this.props.location.pathname.split('/applylawyer/')[1];
+            var username = window.location.pathname.split('/applylawyer/')[1];
             Lawyers.loadProfilePage(username, (success, response) => {
               if(success) {
                 var lawyer = {
@@ -59,7 +59,7 @@ class ApplyLawyer extends Component {
                   uid: response.data.lawyer_info.lawyer_profile.user_id,
                   photoURL: response.data.lawyer_info.base_profile.avatar.url
                 }
-                this.setState({isLoading: false, currentLawyer: lawyer})
+                component.setState({isLoading: false, currentLawyer: lawyer})
               }
               else {
                 component.emitter.emit('AddNewErrorToast', '',
@@ -82,9 +82,19 @@ class ApplyLawyer extends Component {
         }
       }
       else {
-        window.location = constant.SIGN_IN_URI;
+        component.errorAndRedirect(translate('app.system_notice.unauthenticated.text'), component);
       }
     });
+  }
+
+  errorAndRedirect(message, component) {
+    component.setState({isloading :true});    
+    component.emitter.emit('AddNewErrorToast',
+      translate('app.system_notice.unauthenticated.title'),
+      message, 5000, ()=>{})
+    setTimeout(()=>{
+      window.location = constant.SIGN_IN_URI;
+    }, 5000);
   }
 
   handleOpenModal(){

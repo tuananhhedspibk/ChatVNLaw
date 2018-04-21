@@ -59,9 +59,7 @@ class UserLogin extends Component {
       }
       window.location = uri;
     }
-    else {
-      window.location = constant.BASE_URL;
-    }
+    window.location = constant.BASE_URL;
   }
 
   componentDidUpdate(prevProps, prevState){

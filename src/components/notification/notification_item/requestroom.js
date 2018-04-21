@@ -3,9 +3,9 @@ import $ from 'jquery';
 
 import BaseItem from './baseitem';
 
-import { createNewRoom } from '../../../lib/room/rooms';
+import { createNewRoom, createNewRoomFb } from '../../../lib/room/rooms';
 import { deleteNotification,
-  createNewNotification } from '../../../lib/notification/notifications';
+  createNewNotification }from '../../../lib/notification/notifications';
 
 import { createInitMessage } from '../../../lib/messages/messages';
 
@@ -81,12 +81,19 @@ class RequestRoomItem extends BaseItem {
     };
     createNewRoom(properties, (success, response)=>{
       if (success) {
-        propertiesNoti.nid = element.id;
-        deleteNotification(propertiesNoti);
-        propertiesNoti.type = tableConstant.NOTIFICATION_TYPE.acceptRoomRequest;
-        createNewNotification(propertiesNoti, ()=>{
+        var properties_fb = {
+          roomId: response.data.room.id,
+          lawyerId: component.state.currentUser.uid,
+          customerId: element.sender.uid
+        }
+        createNewRoomFb(properties_fb, key => {
+          propertiesNoti.nid = element.id;
+          deleteNotification(propertiesNoti);
+          propertiesNoti.type = tableConstant.NOTIFICATION_TYPE.acceptRoomRequest;
+          createNewNotification(propertiesNoti, ()=>{
+          });
+          component.sendInitMessage(element, response.data.room.id);
         });
-        component.sendInitMessage(element, response.data.room.id);
       }
       else {
         console.log(response);

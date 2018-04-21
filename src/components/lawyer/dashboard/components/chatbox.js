@@ -20,7 +20,8 @@ class ChatBox extends Component {
       targetUser: null,
       chatMessHeight: 0,
       emojiVisibility: false,
-      fileButton: null
+      fileButton: null,
+      talking: true
     };
   }  
   
@@ -76,6 +77,12 @@ class ChatBox extends Component {
         }
       }
     });
+    this.props.emitter.addListener('close_room', () => {
+      this.setState({talking: false});
+    });
+    this.props.emitter.addListener('open_room', () => {
+      this.setState({talking: true});
+    });
   }
   
   componentWillReceiveProps(nextProps){
@@ -110,7 +117,14 @@ class ChatBox extends Component {
       
       Messages.closeStreamRef();
       Messages.history(properties, () => {
-        component.refs.scrollbars.scrollToBottom();        
+        var mess_ct = component.state.messages.length;
+        if (component.state.messages[mess_ct - 1].contentType === 'close_room') {
+          component.setState({talking: false});
+        }
+        else {
+          component.setState({talking: true});
+        }
+        component.refs.scrollbars.scrollToBottom(); 
       });
       Messages.streamingMessage(properties, () => {
         component.refs.scrollbars.scrollToBottom();        
@@ -223,7 +237,9 @@ class ChatBox extends Component {
     if(this.state.currentRoomId){
       return(
         <div className='chat-box-wrapper'>
-          <VideoCall currentRoomId={this.state.currentRoomId}
+          <VideoCall
+            talking={this.state.talking}
+            currentRoomId={this.state.currentRoomId}
             currentUser={this.state.currentUser}
             targetUser={this.state.targetUser}
             emitter={this.props.emitter} />
@@ -244,33 +260,42 @@ class ChatBox extends Component {
                 currentUser={this.state.currentUser}
                 targetUser={this.state.targetUser}/>
             </Scrollbars>
-            <div className='input-section text-box' id='text-box'>  
-              <textarea id='input-mess-box'
-                placeholder={translate('app.chat.input_place_holder')}
-                onKeyDown={this.handleInputChange.bind(this)} />
-              <input type='file' id='upfile'/>
-              <div className='addons-field'>
-                <div className='emoji-section'>
-                  <div id='emoji-picker'>
-                    <Picker
-                      onClick={this.onClickEmoji}
-                      emojiSize={24} 
-                      perLine={9}    
-                      skin={1}       
-                      set='messenger'
-                      showPreview={false}
-                      autoFocus={true}
-                    />
+            {
+              this.state.talking ?
+              (
+                <div className='input-section text-box' id='text-box'>  
+                  <textarea id='input-mess-box'
+                    placeholder={translate('app.chat.input_place_holder')}
+                    onKeyDown={this.handleInputChange.bind(this)} />
+                  <input type='file' id='upfile'/>
+                  <div className='addons-field'>
+                    <div className='emoji-section'>
+                      <div id='emoji-picker'>
+                        <Picker
+                          onClick={this.onClickEmoji}
+                          emojiSize={24} 
+                          perLine={9}    
+                          skin={1}       
+                          set='messenger'
+                          showPreview={false}
+                          autoFocus={true}
+                        />
+                      </div>
+                    </div>
+                    <i className='fa fa-file-image-o'
+                      aria-hidden='true'
+                      onClick={this.upfile.bind(this)}></i>
+                    <i className='fa fa-smile-o'
+                      aria-hidden='true'
+                      onClick={this.renderEmojiPicker.bind(this)}></i>
                   </div>
                 </div>
-                <i className='fa fa-file-image-o'
-                  aria-hidden='true'
-                  onClick={this.upfile.bind(this)}></i>
-                <i className='fa fa-smile-o'
-                  aria-hidden='true'
-                  onClick={this.renderEmojiPicker.bind(this)}></i>
-              </div>
-            </div>
+              )
+              :
+              (
+                ''
+              )
+            }
           </div>
         </div>
       )
