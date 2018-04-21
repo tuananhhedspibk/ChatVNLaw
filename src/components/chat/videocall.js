@@ -12,7 +12,8 @@ import getStunServerList from '../../lib/getstunserverlist';
 import * as videoCall from '../../lib/streaming/videocall';
 import { cantCreatePeer } from '../../lib/notification/toast';
 import { getUserRoleByUid } from '../../lib/user/getuserinfo';
-import { reviewLawyer } from '../../lib/user/users';
+import { createReviewLawyer, updateReviewLawyer } from '../../lib/user/users';
+import { getReview } from '../../lib/user/getreviewlawyer';
 
 import '../../assets/styles/common/chatWindow.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -29,7 +30,9 @@ class VideoCall extends React.Component{
       modalOpen: false,
       userRole: '',
       star_value: 0,
-      content: ''
+      content: '',
+      reviews: [],
+      reviewCreatedTime: ''
     };
     this.emitter=null;
   }
@@ -61,6 +64,14 @@ class VideoCall extends React.Component{
     getUserRoleByUid((user_role) => {
       component.setState({userRole: user_role});
     });
+    getReview(this.props.targetUser.userName, (success, response) => {
+      if (success) {
+        component.setState({reviews: response.data.reviews})
+      }
+      else {
+        console.log(response);
+      }
+    })
   }
 
   createPeer(callback){
@@ -150,30 +161,52 @@ class VideoCall extends React.Component{
 
   handleOpenModal() {
     this.setState({modalOpen: true});
+    this.timeFormat();
+  }
+
+  currentReviewId() {
+    var currentReviewId = -1;
+    var component = this;
+    this.state.reviews.map(review => {
+      if (review.user_id === this.props.currentUser.uid) {
+        currentReviewId = review.id;
+      }
+    });
+    return currentReviewId;
   }
 
   handleCloseModal() {
     var component = this;
-    this.setState({modalOpen: false});
     var properties = {
-      lawyer_id: this.props.targetUser.id,
-      user_id: this.props.currentUser.uid,
       content: this.state.content,
       star: this.state.star_value
     }
-    reviewLawyer(properties, (success, response) => {
-      if (success) {
-        component.props.finishSession();
-      }
-      else {
-        console.log(response);
-      }
-    })
-  }
-
-  finishSession() {
-    var component = this;
-    this.handleOpenModal();
+    var currentReviewId = this.currentReviewId();
+    if (currentReviewId > -1) {
+      properties.reviewId = currentReviewId;
+      updateReviewLawyer(properties, (success, response) => {
+        if (success) {
+          component.props.finishSession();
+          component.setState({modalOpen: false});
+        }
+        else {
+          console.log(response);
+        }
+      })
+    }
+    else {
+      properties.lawyer_id = this.props.targetUser.id;
+      properties.user_id = this.props.currentUser.uid;
+      createReviewLawyer(properties, (success, response) => {
+        if (success) {
+          component.props.finishSession();
+          component.setState({modalOpen: false});
+        }
+        else {
+          console.log(response);
+        }
+      });
+    }
   }
 
   handleInputChange(evt) {
@@ -188,6 +221,16 @@ class VideoCall extends React.Component{
 
   ratingChanged(newRating) {
     this.setState({star_value: newRating});
+  }
+
+  timeFormat() {
+    var date = new Date();
+    var options = {
+      weekday: 'long', year: 'numeric', month: 'short',
+      day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
+    };
+    var dateFormatted = date.toLocaleDateString('vi-VN', options);
+    this.setState({reviewCreatedTime: dateFormatted});
   }
 
   render(){
@@ -219,85 +262,82 @@ class VideoCall extends React.Component{
           <div className={'user-name'}>
             {this.state.targetUser.displayName}
           </div>
-          <div className='call-section'>
-            {
-              this.props.talking ?
+          {
+            this.props.talking ?
+            (
+              this.state.userRole === 'User' ?
               (
-                this.state.userRole === 'User' ?
-                (
-                  <div>
-                    <Dropdown icon='list layout'>
-                      <Dropdown.Menu>
-                        <Dropdown.Item onClick={this.finishSession.bind(this)}>
-                          {translate('app.settings.job_done')}
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <i onClick={this.makeCallRequest.bind(this)}
-                      className='fa fa-video-camera'
-                      aria-hidden='true'></i>
-                  </div>
-                )
-                :
-                (
+                <div className='call-section'>
+                  <Dropdown icon='list layout'>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={this.handleOpenModal.bind(this)}>
+                        {translate('app.settings.job_done')}
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                   <i onClick={this.makeCallRequest.bind(this)}
                     className='fa fa-video-camera'
                     aria-hidden='true'></i>
-                )
+                </div>
               )
               :
               (
-                ''
-              )
-            }
-            <Modal size='tiny'
-              open={this.state.modalOpen}
-              id='rate-box'>
-              <Modal.Content>
-                <div className='rate-form'>
-                  <div className='time-stamp'>
-                    8:31 A.M 19 tháng 1 năm 2018
-                  </div>
-                  <div className='cost-money'>
-                    <p className='title'>
-                      {translate('app.rate.cost_money')}
-                    </p>
-                    <p className='value'>
-                      14,000 VND
-                    </p>
-                  </div>
-                  <div className='tips'>
-                    {translate('app.rate.tips')}
-                  </div>
-                  <footer>
-                    <div className='thanks'>
-                      {translate('app.rate.thanks')}
-                    </div>
-                    <div className='lawyer-pic'>
-                      <img src={constant.avaLawyerPic} />
-                    </div>
-                    <div className='rate'>
-                      <input className='input' name='content'
-                        value={this.state.content}
-                        onChange={this.handleInputChange.bind(this)}
-                        placeholder={translate('app.rate.rate_tips')} />
-                      <div className='stars'>
-                        <ReactStars count={5}
-                          value={this.state.star_value}
-                          size={24} onChange={this.ratingChanged.bind(this)}
-                          color1={'white'}
-                          color2={'#ffd700'} />
-                      </div>
-                      <button className='rate-submit'
-                        onClick={this.handleCloseModal.bind(this)}>
-                          {translate('app.rate.rate_done')}
-                      </button>
-                    </div>
-                  </footer>
+                <div className='call-section'>
+                  <i onClick={this.makeCallRequest.bind(this)}
+                    className='fa fa-video-camera'
+                    aria-hidden='true'></i>
                 </div>
-              </Modal.Content>
-            </Modal>
-          </div>
+              )
+            )
+            :
+            (
+              ''
+            )
+          }
+          <Modal size='tiny'
+            open={this.state.modalOpen}
+            id='rate-box'>
+            <Modal.Content>
+              <div className='rate-form'>
+                <div className='time-stamp'>
+                  {this.state.reviewCreatedTime}
+                </div>
+                <div className='cost-money'>
+                  <p className='title'>
+                    {translate('app.rate.cost_money')}
+                  </p>
+                </div>
+                <div className='tips'>
+                  {translate('app.rate.tips')}
+                </div>
+                <footer>
+                  <div className='thanks'>
+                    {translate('app.rate.thanks')}
+                  </div>
+                  <div className='lawyer-pic'>
+                    <img src={constant.avaLawyerPic} />
+                  </div>
+                  <div className='rate'>
+                    <input className='input' name='content'
+                      value={this.state.content}
+                      onChange={this.handleInputChange.bind(this)}
+                      placeholder={translate('app.rate.rate_tips')} />
+                    <div className='stars'>
+                      <ReactStars count={5}
+                        value={this.state.star_value}
+                        size={24} onChange={this.ratingChanged.bind(this)}
+                        color1={'white'}
+                        color2={'#ffd700'} />
+                    </div>
+                    <button className='rate-submit'
+                      onClick={this.handleCloseModal.bind(this)}>
+                        {translate('app.rate.rate_done')}
+                    </button>
+                  </div>
+                </footer>
+              </div>
+            </Modal.Content>
+          </Modal>
         </div>
       </div>
     )

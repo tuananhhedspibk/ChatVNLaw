@@ -14,7 +14,7 @@ import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
 import * as translate from 'counterpart';
 import * as videoCall from '../../lib/streaming/videocall';
-import { upFile } from '../../lib/room/rooms';
+import { upFile, updateRoom } from '../../lib/room/rooms';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
@@ -47,7 +47,7 @@ class ChatContent extends Component {
     if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
       this.setState({targetUser: nextProps.targetUser})
     }
-    if(this.state.currentUser !== nextProps.currentUser && !! nextProps.currentUser){
+    if(this.state.currentUser !== nextProps.currentUser && !!nextProps.currentUser){
       this.setState({currentUser: nextProps.currentUser})
     }
   }
@@ -61,6 +61,10 @@ class ChatContent extends Component {
       properties['ts'] = '' + (new Date()).getTime();
       properties['limit'] = 15;
       Messages.history(properties, function(){
+        var mess_ct = component.state.messages.length;
+        if (component.state.messages[mess_ct - 1].contentType === 'close_room') {
+          component.setState({talking: false});
+        }
         component.refs.scrollbars.scrollToBottom();
       });
       Messages.streamingMessage(properties, () => {
@@ -77,13 +81,9 @@ class ChatContent extends Component {
   
   componentDidMount() {   
     var component = this;
-    this.setState({currentRoomId: this.props.currentRoomId});
-    if (this.props.currentRoomStatus === 'Talking') {
-      this.setState({talking: true});
-    }
-    else {
-      this.setState({talking: false});
-    }
+    this.setState({
+      currentRoomId: this.props.currentRoomId
+    });
 
     $(document).mouseup(function(e) {
       var container = $('.emoji-section');
@@ -106,6 +106,12 @@ class ChatContent extends Component {
     this.setHeight(this);
     $(window).resize(function() {
       component.setHeight(component);
+    });
+    this.props.emitter.addListener('close_room', () => {
+      component.setState({talking: false});
+    });
+    this.props.emitter.addListener('open_room', () => {
+      component.setState({talking: true});
     });
   }
 
@@ -220,8 +226,13 @@ class ChatContent extends Component {
   }
 
   finishSession() {
-    this.setState({talking: false});
-    this.props.changeRoomStatus();
+    var mess_properties = {
+      contentType: 'close_room',
+      component: this
+    }
+    Messages.chat(mess_properties, () => {
+
+    });
   }
 
   render() {

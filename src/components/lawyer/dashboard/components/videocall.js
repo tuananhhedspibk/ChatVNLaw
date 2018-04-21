@@ -4,7 +4,7 @@ import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 import { Checkbox } from 'semantic-ui-react';
 import Loading from '../../../shared/loading';
 import getStunServerList from '../../../../lib/getstunserverlist';
-import {cantCreatePeer} from '../../../../lib/notification/toast';
+import { cantCreatePeer } from '../../../../lib/notification/toast';
 
 import * as videoCall from '../../../../lib/streaming/videocall';
 import * as translate from 'counterpart';
@@ -22,10 +22,12 @@ class VideoCall extends React.Component{
       currentRoomId: null,
       showDialog: false,
       isLoading: true,
-      peer : null
+      peer : null,
+      talking: true
     }
     this.peer = null;
   }
+
   componentWillMount(){
     var component = this;
     this.setState({targetUser: this.props.targetUser,
@@ -172,26 +174,42 @@ class VideoCall extends React.Component{
           />
         }
         </div>
-        <div className='video-call'>
-          <video className='video'
-            id='localStream' autoPlay></video>
-          <button onClick={this.endCall.bind(this)}
-              className='end-call-btn'>
-                <i className='fa fa-phone'
-                  aria-hidden='true'></i>
-            </button>
-        </div>
+        {
+          this.props.talking ?
+          (
+            <div className='video-call'>
+              <video className='video'
+                id='localStream' autoPlay></video>
+              <button onClick={this.endCall.bind(this)}
+                  className='end-call-btn'>
+                    <i className='fa fa-phone'
+                      aria-hidden='true'></i>
+                </button>
+            </div>
+          )
+          :
+          (
+            ''
+          )
+        }
         <div className='header'>
           {this.state.targetUser ?
               <div className='user-name'>
                 {this.state.targetUser.displayName}
               </div> :
               translate('app.dashboard.chat_title')}
-          <i onClick={this.makeCallRequest.bind(this)}
-            className='fa fa-video-camera'
-            aria-hidden='true'></i>
-          <i className='fa fa-phone'
-            aria-hidden='true'></i>
+          {
+            this.props.talking ?
+            (
+              <i onClick={this.makeCallRequest.bind(this)}
+                className='fa fa-video-camera'
+                aria-hidden='true'></i>
+            )
+            :
+            (
+              ''
+            )
+          }
         </div>
       </div>
     )

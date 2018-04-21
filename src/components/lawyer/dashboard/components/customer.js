@@ -37,9 +37,6 @@ class Customer extends Component {
     this.props.emitter.addListener('RoomChatHasChanged', function(currentUser, targetUser,roomId,roomDes) {
       component.setState({currentUser: currentUser,targetUser: targetUser,currentRoomId: roomId,description: roomDes}) 
     });
-    this.props.emitter.addListener('fetch_files', currentRoomId => {
-      component.fetchFiles(component, currentRoomId);
-    });
   }
 
   fetchFiles(component, currentRoomId) {
@@ -89,7 +86,11 @@ class Customer extends Component {
     evt.preventDefault();
     var component = this;
     var desc = $('textarea.input-descrip').val();
-    updateRoom(this.state.currentRoomId, desc, null, (success,respon) => {
+    var properties = {
+      roomId: this.state.currentRoomId,
+      desc: desc
+    };
+    updateRoom(properties, (success,respon) => {
       if (success) {
         $('.info-descrip').css('display', 'block');
         $('.edit-descrip').css('display', 'none');

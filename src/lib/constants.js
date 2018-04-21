@@ -73,6 +73,7 @@ export const MEMBERS = {
   customer: 'customer'
 }
 export const MESSAGES = {
+  contentType: 'contentType',
   messagesId : 'mid',
   timeStamp: 'msgTimeStamp',
   senderId: 'senderUid',

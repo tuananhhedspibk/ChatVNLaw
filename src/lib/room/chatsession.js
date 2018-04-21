@@ -1,5 +1,6 @@
 var constant = require('../constants');
-var firebase = require('firebase')
+var constantUI = require('../../components/constants');
+var firebase = require('firebase');
 
 function getChatSession(component, properties, callback){
   var ref = firebase.database().ref().child(`${constant.TABLE.rooms}/${component.state.currentRoomId}/${constant.ROOMS.chatSession}/`)
@@ -14,25 +15,49 @@ function getChatSession(component, properties, callback){
   })
 }
 
-function updatePayment(component,element){
+function updatePayment(component, element, callback){
   var ref = firebase.database().ref().child(`${constant.TABLE.rooms}/${component.state.currentRoomId}/${constant.ROOMS.chatSession}/${element.id}`);
-  ref.update({isPending: true});
+  var instance = constant.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  var formData = new FormData();
+  formData.append('money_account[ammount]', element.cart);
+
+  instance.patch(constantUI.API_MONEY_ACCOUNT_URI, formData)
+    .then(response => {
+      ref.update({payment: true});
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    })
 }
 
-function getAccountBalance(component, callback){
-  var ref = firebase.database().ref().child(`${constant.TABLE.balance}/${component.state.currentUser.uid}/${constant.BALANCE.amount}`)
-  ref.once('value').then((data) =>{
-    return callback(data);
-  })
+function getAccountBalance(callback){
+  var instance = constant.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  instance.get(constantUI.API_MONEY_ACCOUNT_URI)
+    .then(response => {
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    })
 }
+
 module.exports = {
   getChatSession: function(component, properties, callback){
     getChatSession(component, properties, callback);
   },
-  updatePayment: function(component,element){
-    updatePayment(component, element);
+  updatePayment: function(component, element, callback){
+    updatePayment(component, element, callback);
   },
-  getAccountBalance: function(component, callback){
-    getAccountBalance(component,callback);
+  getAccountBalance: function(callback){
+    getAccountBalance(callback);
   }
 }

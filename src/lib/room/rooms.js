@@ -7,6 +7,25 @@ var translate = require('counterpart');
 let img_exts = ['png', 'jpg', 'jpeg', 'gif'];
 let file_exts = ['pdf', 'txt', 'doc'];
 
+function createNewRoomFb(properties, callback){
+  let ref = firebase.database().ref(`${constantLib.TABLE.rooms}/${properties.roomId}`);
+
+  let item = {}
+  let members = {};
+  members[constantLib.MEMBERS.lawyer] = properties.lawyerId;
+  members[constantLib.MEMBERS.customer] = properties.customerId;
+
+  let unread = {};
+  unread[constantLib.UNREAD_MESSAGES.count] = 0;
+  item[constantLib.ROOMS.members] = members;
+  item[constantLib.ROOMS.messages] = [];
+  item[constantLib.ROOMS.unReadMessage] = unread;
+
+  ref.set(item).then(()=>{
+    return callback();
+  })
+}
+
 function getAllRooms(callback) {
   var instance = constantLib.ax_ins;
   if (localStorage.chat_vnlaw_user) {
@@ -22,20 +41,15 @@ function getAllRooms(callback) {
     })
 }
 
-function updateRoom(roomID, desc, status, callback) {
+function updateRoom(properties, callback) {
   var instance = constantLib.ax_ins;
   if (localStorage.chat_vnlaw_user) {
     instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
     instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
   let formData = new FormData();
-  if (desc) {
-    formData.append('rooms[description]', desc);
-  }
-  if (status) {
-    formData.append('rooms[status]', status);
-  }
-  instance.patch(constantUI.API_ROOMS_URI + roomID , formData )
+  formData.append('rooms[description]', properties.desc);
+  instance.patch(constantUI.API_ROOMS_URI + properties.roomId , formData )
     .then(response => {
       return callback(true, response);
     })
@@ -97,6 +111,21 @@ function roomUpFiles(properties, callback) {
     .catch(error => {
       return callback(false, error);
     });
+}
+
+function getRoomById(roomId, callback) {
+  var instance = constantLib.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  instance.get(constantUI.API_ROOMS_URI + roomId)
+    .then(response => {
+      return callback(true, response);
+    })
+    .catch(error => {
+      return callback(false, error);
+    })
 }
 
 function getFileType(fileName) {
@@ -184,8 +213,8 @@ module.exports = {
   createNewRoom: function(properties, callback) {
     createNewRoom(properties, callback);
   },
-  updateRoom: function(roomID, desc, status, callback) {
-    updateRoom(roomID, desc, status, callback);
+  updateRoom: function(properties, callback) {
+    updateRoom(properties, callback);
   },
   getAllRooms: function(callback) {
     getAllRooms(callback);
@@ -195,5 +224,11 @@ module.exports = {
   },
   upFile: function(component, currentRoomId, e, chat) {
     upFile(component, currentRoomId, e, chat);
+  },
+  getRoomById: function(roomId, callback) {
+    getRoomById(roomId. callback);
+  },
+  createNewRoomFb: function(properties, callback) {
+    createNewRoomFb(properties, callback);
   }
 }

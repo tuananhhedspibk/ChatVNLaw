@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 import {Route, Switch} from 'react-router-dom';
 import $ from 'jquery';
-import {EventEmitter} from 'fbemitter';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import Loading from '../shared/loading';
@@ -14,7 +13,7 @@ import Toast from '../notification/toast';
 import { getStunServerList} from '../../lib/getstunserverlist';
 import { checkAuthen } from '../../lib/notification/toast';
 import { logoutRails } from '../../lib/user/authentication';
-import { getAllRooms, updateRoom } from '../../lib/room/rooms';
+import { getAllRooms } from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
@@ -41,12 +40,10 @@ class ChatView extends Component {
       users: [],
       unread: [],
       roomIds: [],
-      roomStatus: [],
       searchTerm: '',
       isloading: true,
       usersListHeight: 0
     };
-    this.emitter = new EventEmitter();    
   }
 
   setHeight(component) {
@@ -77,6 +74,34 @@ class ChatView extends Component {
     }
   }
 
+  fetch_rooms(component) {
+    getAllRooms((success, response) => {
+      if (success) {
+        var users = [];
+        var roomIds = [];
+        if(JSON.parse(localStorage.chat_vnlaw_user)['role'] == 'User') {
+          response.data.rooms.map((room, idx) => {
+            users.push(room.lawyer);
+            roomIds.push(room.id);
+          });
+        }
+        else {
+          response.data.rooms.map((room, idx) => {
+            users.push(room.user);
+            roomIds.push(room.id);
+          });
+        }
+        component.setState({
+          users : users,
+          roomIds: roomIds,
+        });
+      }
+      else {
+
+      }
+    })
+  }
+
   componentWillMount(){
     var component = this;
     var properties = {}
@@ -96,35 +121,7 @@ class ChatView extends Component {
         if(user) {
           component.setState({currentUser: user});
           properties['currentUser'] = user;
-          getAllRooms((success, response) => {
-            if (success) {
-              var users = [];
-              var roomIds = [];
-              var roomStatus = [];
-              if(JSON.parse(localStorage.chat_vnlaw_user)['role'] == 'User') {
-                response.data.rooms.map((room, idx) => {
-                  users.push(room.lawyer);
-                  roomIds.push(room.id);
-                  roomStatus.push(room.status);
-                });
-              }
-              else {
-                response.data.rooms.map((room, idx) => {
-                  users.push(room.user);
-                  roomIds.push(room.id);
-                  roomStatus.push(room.status);
-                });
-              }
-              component.setState({
-                users : users,
-                roomIds: roomIds,
-                roomStatus: roomStatus
-              });
-            }
-            else {
-
-            }
-          })
+          component.fetch_rooms(component);
           if(component.state.currentUser) {
             if(properties['keyword']) {
               Messages.notifyUnreadMessage(properties);
@@ -188,29 +185,14 @@ class ChatView extends Component {
     });
   }
 
-  getIdxOfRoomByRoomId(rid) {
+  getIdxOfRoom(rid) {
     var r_idx = -1;
     this.state.roomIds.map((item, idx) => {
-      if (item === rid) {
+      if (rid === item) {
         r_idx = idx;
       }
     });
-    return r_idx
-  }
-
-  changeRoomStatus(rid) {
-    var r_idx = this.getIdxOfRoomByRoomId(rid);
-    var room_status = this.state.roomStatus;
-    room_status[r_idx] = 'Finish';
-    this.setState({roomStatus: room_status});
-    updateRoom(rid, null, 'Finish', (success, response) => {
-      if (success) {
-
-      }
-      else {
-        console.log(response);
-      }
-    });
+    return r_idx;
   }
 
   renderUnreadMessages(targetUid){
@@ -297,11 +279,9 @@ class ChatView extends Component {
                   render={
                     (props) => (
                       <ChatContent {...props}
-                        changeRoomStatus={this.changeRoomStatus.bind(this, this.state.roomIds[idx])}
                         targetUser={user}
                         currentUser={this.state.currentUser}
-                        emitter={this.emitter}
-                        currentRoomStatus={this.state.roomStatus[idx]}
+                        emitter={this.props.emitter}
                         currentRoomId={this.state.roomIds[idx]}/>
                     )
                   }/>
@@ -316,7 +296,7 @@ class ChatView extends Component {
   render(){
     return(
       <div>
-        <Toast emitter={this.emitter} />
+        <Toast emitter={this.props.emitter} />
         {this.state.isloading ? <Loading /> : <div>{this.renderView()}</div>}
       </div>
     )

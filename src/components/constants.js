@@ -12,7 +12,14 @@ export const ATTORNEY_URI = '/attorney';
 export const CUSTOMER_PROFILE_URI = '/customers';
 export const LAWYER_PROFILE_URI = '/lawyers';
 export const DASHBOARD_URI = '/dashboard';
+export const TODO_LIST_LAWYER_URI = '/todolistlawyer';
+export const FILE_SHARED_URI = '/files-shared';
+export const TODO_LAWYER_URI = '/todos';
+export const SEARCH_TAG_DASH_URI = '/search_tag';
+export const SEARCH_USER_DASH_URI = '/search_user';
+export const CALENDAR_URI = '/calendar';
 export const LAW_URI = '/articles/';
+export const PROFILE_DASH_URI = '/profile';
 export const APPLY_LAWYER_URI = '/applylawyer/';
 export const NF_URI = '/404';
 
@@ -34,6 +41,7 @@ export const API_USER_NAME_URI = '/api/user_name/';
 export const API_SPE_URI = '/api/lawyer_specializes';
 export const API_ROOM_FILES_URI = '/room_files/';
 export const API_DEPOSITS_URI ='/api/deposits/';
+export const API_MONEY_ACCOUNT_URI = '/api/money_account';
 export const API_CHECKDEPOSIT_URI ='/api/checkdeposit/';
 
 export const DEFAULT_AVATAR_URL = 'https://image.ibb.co/i23jUF/default_ava.png';

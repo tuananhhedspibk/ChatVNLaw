@@ -236,9 +236,9 @@ class ChatSetting extends Component {
                 </div>
                 {this.renderSharedFile()}
                 {this.renderSharedImage()}
-                {/* <ChatSessionList
+                <ChatSessionList
                   currentUser={this.props.currentUser}
-                  currentRoomId={this.props.currentRoomId} /> */}
+                  currentRoomId={this.props.currentRoomId} />
             </div>
         </Scrollbars>
       </div>

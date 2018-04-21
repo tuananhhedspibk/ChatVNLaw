@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
+import { EventEmitter } from 'fbemitter';
+
 import ChatView from './chatview';
 
 class Chat extends Component {
   constructor(props) {
     super(props);
+    this.emitter = new EventEmitter();
   }
 
   render() {
     return(
       <div className='chat'>
-        <ChatView userNameURL={this.props.match.params.user_name}/>
+        <ChatView
+          emitter={this.emitter}
+          userNameURL={this.props.match.params.user_name}/>
         <div className='place-holder-ui'>
           <div className='title'>
             <div className='bar'>

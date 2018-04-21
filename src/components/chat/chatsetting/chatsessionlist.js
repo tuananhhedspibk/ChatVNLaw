@@ -1,16 +1,16 @@
 import React from 'react';
 import {Modal, Header, Table,
   Message, Button, Icon} from 'semantic-ui-react';
-import * as translate from 'counterpart';
-import * as constant from '../../constants';
+import TableCell from 'semantic-ui-react/dist/commonjs/collections/Table/TableCell';
+import ModalActions from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalActions';
 
 import { getChatSession, updatePayment,
   getAccountBalance } from '../../../lib/room/chatsession';
 import * as Time from '../../../lib/time';
 import { formatMoney } from '../../../lib/money';
 
-import TableCell from 'semantic-ui-react/dist/commonjs/collections/Table/TableCell';
-import ModalActions from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalActions';
+import * as translate from 'counterpart';
+import * as constant from '../../constants';
 
 import '../../../assets/styles/common/chatSession.css';
 
@@ -22,7 +22,8 @@ class ChatSessionList extends React.Component{
       currentUser: null,
       currentRoomId: null,
       modalOpen: false,
-      modalInfoOpen: false,
+      modalSuccessOpen: false,
+      modalFailedOpen: false,
       balance: 0,
       element : null,
     };
@@ -63,64 +64,91 @@ class ChatSessionList extends React.Component{
 
   onClickPaymentButton(element){
     var component = this;
-    getAccountBalance(component, (data) =>{
-      if(data.exists()){
-        component.setState({modalOpen : true, balance: data.val(), element: element})
+    getAccountBalance((success, response) => {
+      if (success) {
+        component.setState({
+          modalOpen : true,
+          balance: response.data.balance,
+          element: element
+        });
       }
-    })
+      else {
+        console.log(response);
+      }
+    });
+  }
+
+  payment(){
+    var component = this;
+    if(this.state.balance > this.state.element.cart){
+      updatePayment(this, this.state.element, (success, response) => {
+        if (success) {
+          component.setState({
+            modalOpen: false,
+            modalSuccessOpen: true,
+            modalFailedOpen: false
+          });    
+        }
+        else {
+          component.setState({
+            modalOpen: false,
+            modalSuccessOpen: false,
+            modalFailedOpen: true
+          });
+        }
+      });
+    }
+    else{
+      this.setState({ modalOpen: false })
+    }
   }
 
   renderSessionList(){
     return(
       this.state.list.map(element =>{
-        return(
-          <div className='item-content'>
-            <div className='time-start'>
-              <img src={constant.openIcon}/>
-              {Time.convertDateToDay(element.startTime) +
-                ' - ' + Time.convertDateToUTCHour(element.startTime)}
-            </div>
-            <div className='time-close'>
-              <img src={constant.closeIcon}/>
-              {Time.convertDateToDay(element.closeTime) +
-                ' - ' + Time.convertDateToHour(element.closeTime)}
-            </div>
-            <div className='time-total'>
-              <div className='icon-container'>
-                <i className='fa fa-clock-o' aria-hidden='true'></i>
+        if (element.cart > 0) {
+          return(
+            <div className='item-content'>
+              <div className='time-start'>
+                <img src={constant.openIcon}/>
+                {Time.convertDateToDay(element.startTime) +
+                  ' - ' + Time.convertDateToHour(element.startTime)}
               </div>
-              {Time.convertDateToUTCSecond(element.totalTime)}
+              <div className='time-close'>
+                <img src={constant.closeIcon}/>
+                {Time.convertDateToDay(element.closeTime) +
+                  ' - ' + Time.convertDateToHour(element.closeTime)}
+              </div>
+              <div className='time-total'>
+                <div className='icon-container'>
+                  <i className='fa fa-clock-o' aria-hidden='true'></i>
+                </div>
+                {Time.convertDateToUTCSecond(element.totalTime)}
+              </div>
+              <div className='cart'>
+                <img src={constant.cartIcon}/>
+                {formatMoney(element.cart, 0, '.', ',')}
+              </div>
+              {
+                !element.payment ?
+                (
+                  <button className='session-button payment'
+                    onClick={this.onClickPaymentButton.bind(this, element)}>
+                      {translate('app.chat.pay')}
+                  </button>
+                )
+                :
+                (
+                  <button className='session-button paid'>
+                    {translate('app.chat.paid')}
+                  </button>
+                )
+              }
             </div>
-            <div className='cart'>
-              <img src={constant.cartIcon}/>
-              {formatMoney(element.cart, 0, '.', ',')}
-            </div>
-            {element.isPending ? 
-              <button className='session-button pending'>
-                {translate('app.chat.pending')}
-              </button> 
-            : 
-              !element.payment ?
-                <button className='session-button payment'
-                  onClick={this.onClickPaymentButton.bind(this, element)}>
-                    {translate('app.chat.pay')}
-                </button> :
-                <button className='session-button paid'>
-                  {translate('app.chat.paid')}
-                </button> }
-          </div>
-        )
+          )
+        }
       })
     )
-  }
-
-  payment(){
-    if(this.state.balance > this.state.element.cart){
-      updatePayment(this, this.state.element);
-      this.setState({ modalOpen: false,modalInfoOpen: true})
-    }else{
-      this.setState({ modalOpen: false })
-    }
   }
 
   renderModal(){
@@ -214,15 +242,29 @@ class ChatSessionList extends React.Component{
         }
       </Modal>
       <Modal className='modal-confirm' size='small' onClose={() => {
-        this.setState({modalInfoOpen:false, modalOpen: false });}}
-        open={this.state.modalInfoOpen}
+        this.setState({modalSuccessOpen:false, modalOpen: false, modalFailedOpen: false});}}
+        open={this.state.modalSuccessOpen}
         closeIcon={false}>
           <Modal.Content>
-          {translate('app.chat.chat_session_list.processing')}
+            {translate('app.chat.chat_session_list.process_succ')}
           </Modal.Content>
           <Modal.Actions>
             <Button className='fix-font' color='green' inverted onClick={()=>{
-              this.setState({ modalInfoOpen: false, modalOpen: false })}}>
+              this.setState({ modalSuccessOpen: false, modalOpen: false, modalFailedOpen: false })}}>
+              <Icon name='checkmark' /> {translate('app.dashboard.submit_des')}
+            </Button>
+          </Modal.Actions>
+      </Modal>
+      <Modal className='modal-confirm' size='small' onClose={() => {
+        this.setState({modalFailedOpen:false, modalOpen: false, modalSuccessOpen: false});}}
+        open={this.state.modalFailedOpen}
+        closeIcon={false}>
+          <Modal.Content>
+            {translate('app.chat.chat_session_list.process_failed')}
+          </Modal.Content>
+          <Modal.Actions>
+            <Button className='fix-font' color='red' inverted onClick={()=>{
+              this.setState({ modalFailedOpen: false, modalOpen: false, modalSuccessOpen: false })}}>
               <Icon name='checkmark' /> {translate('app.dashboard.submit_des')}
             </Button>
           </Modal.Actions>
@@ -237,7 +279,7 @@ class ChatSessionList extends React.Component{
         <button className='collapsed content-title'
           data-toggle='collapse'
 					data-target='#session-chat-content'>
-          {translate('app.chat.chat_session_list')}
+          {translate('app.chat.chat_session_list.title')}
         </button>
         <div className='items-list collapse'
           id='session-chat-content'>
