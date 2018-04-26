@@ -30,13 +30,13 @@ class Settings extends Component {
   }
   
   componentWillMount() {
+    var component = this;
     firebase.auth().onAuthStateChanged(function(user){
       if (user) {
         if(localStorage.chat_vnlaw_user) {
-          var component = this;
           var role = JSON.parse(localStorage.chat_vnlaw_user)['role'];
           var userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
-          this.setState({role: role});
+          component.setState({role: role});
           if(role == 'Lawyer') {
             Lawyer.loadProfilePage(userName, (success, response) => {
               if (success) {
@@ -88,11 +88,11 @@ class Settings extends Component {
           }
         }
         else {
-          this.errorAndRedirect(translate('app.system_notice.unauthenticated.text'));
+          component.errorAndRedirect(translate('app.system_notice.unauthenticated.text'));
         }
       }
       else {
-        this.errorAndRedirect(translate('app.system_notice.unauthenticated.text'));
+        component.errorAndRedirect(translate('app.system_notice.unauthenticated.text'));
       }
     });
   }
