@@ -161,6 +161,11 @@ class Nav extends Component {
             id={'navbarToggleExternalContent' + this.props.id}>
             <ul className='navbar-nav ml-auto'>
               <li className='nav-item'>
+                <a className='nav-link' href={constant.LDA_LINK} target='_blank'>
+                  {translate('app.nav.modeling_law')}
+                </a>
+              </li>
+              <li className='nav-item'>
                 <a className='nav-link' href={constant.SEARCH_LAW_URI}
                   role='button'>
                     {translate('app.nav.brow_law')}
@@ -179,10 +184,10 @@ class Nav extends Component {
                 </a>
               </li>
               <li className='nav-item'>
-              <a className='nav-link' href='/notifications'>
-                {translate('app.nav.notification')}
-              </a>
-            </li>
+                <a className='nav-link' href={constant.NOTIFI_URI}>
+                  {translate('app.nav.notification')}
+                </a>
+              </li>
               {this.renderDropdown()}
             </ul>
           </div>

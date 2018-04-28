@@ -9,7 +9,6 @@ import UserDashBoard from './components/lawyer/dashboard/main';
 import Chat from './components/chat/chat';
 
 import Attorney from './components/attorney/attorney';
-import Payment from './components/payments/payment';
 
 import SearchLaw from './components/searchlaw/layout';
 

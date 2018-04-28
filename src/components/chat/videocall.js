@@ -302,11 +302,6 @@ class VideoCall extends React.Component{
                 <div className='time-stamp'>
                   {this.state.reviewCreatedTime}
                 </div>
-                <div className='cost-money'>
-                  <p className='title'>
-                    {translate('app.rate.cost_money')}
-                  </p>
-                </div>
                 <div className='tips'>
                   {translate('app.rate.tips')}
                 </div>
