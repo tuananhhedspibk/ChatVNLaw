@@ -97,6 +97,7 @@
     border-bottom: 2px solid #6d8082; }
 
 .notifi-wrapper {
+  min-height: calc(100vh - 230px);
   padding-bottom: 30px; }
 
 .no-notifi-content {

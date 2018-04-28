@@ -20,8 +20,10 @@ export const SEARCH_USER_DASH_URI = '/search_user';
 export const CALENDAR_URI = '/calendar';
 export const LAW_URI = '/articles/';
 export const PROFILE_DASH_URI = '/profile';
+export const NOTIFI_URI = '/notifications';
 export const APPLY_LAWYER_URI = '/applylawyer/';
 export const NF_URI = '/404';
+export const LDA_LINK = 'https://vnlaw.github.io/lda';
 
 export const API_BASE_URL = 'http://localhost:4000';
 export const API_SEARCH_ARTICLES_URI = '/api/search/articles';

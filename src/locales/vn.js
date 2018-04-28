@@ -195,6 +195,7 @@ module.exports = {
       sign_out: 'Đăng xuất',
       setting: 'Thiết lập',
       notification: 'Thông báo',
+      modeling_law: 'Mô hình luật VN'
     },
     login: {
       login_error: 'Sai mật khẩu hoặc email',

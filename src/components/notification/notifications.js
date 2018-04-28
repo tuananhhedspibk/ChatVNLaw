@@ -1,11 +1,12 @@
-import React,{Component} from 'react';
-import {EventEmitter} from 'fbemitter';
+import React, { Component}  from 'react';
+import { EventEmitter } from 'fbemitter';
 import ReactConfirmAlert from 'react-confirm-alert';
 
 import RequestRoomItem from './notification_item/requestroom';
 import AcceptRoomItem from './notification_item/acceptroom';
 import RefuseRoomItem from './notification_item/refuseroom';
 import Nav from '../homepage/nav';
+import Footer from '../homepage/footer';
 import Toast from './toast';
 import Loading from '../shared/loading';
 
@@ -29,7 +30,8 @@ class Notifications extends Component{
       isLoading: true,
       permission: false,
       showDialog: false,
-      rooms: []  
+      rooms: [],
+      notifications: []
     }
     this.emitter = new EventEmitter();
   }
@@ -143,7 +145,8 @@ class Notifications extends Component{
                 )
               })}
             </div>
-          </div>  
+            <Footer/>
+          </div>
         )
       }
       else {
@@ -156,6 +159,7 @@ class Notifications extends Component{
                 <div>{translate('app.notification.no_noti')}</div>
               </div>
             </div>
+            <Footer/>
           </div>  
         )
       }
