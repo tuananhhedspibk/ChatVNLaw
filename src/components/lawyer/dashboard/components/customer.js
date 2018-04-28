@@ -27,6 +27,7 @@ class Customer extends Component {
     this.props.emitter.addListener('fetch_files', () => {
       component.fetchFiles(component, this.state.currentRoomId);
     });
+    this.fetchFiles(component, this.state.currentRoomId);
   }
 
   componentWillMount(){
