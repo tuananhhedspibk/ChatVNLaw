@@ -60,6 +60,22 @@
         float: left;
         width: 70%;
 
+        .rate {
+          align-items: center;
+          display: flex;
+  
+          div {
+            display: inline-block;
+          }
+  
+          p {
+            display: inline-block;
+            font-size: 1.2em;
+            margin-bottom: 0;
+            margin-left: 5px;
+          }
+        }
+
         p {
           margin-bottom: 9px;
         }
