@@ -283,9 +283,11 @@ class Content extends Component {
 							onClick={this.handleOnclickLawyer.bind(this, lawyer.profile.userName)}>
 								<img className='ava' src={constant.API_BASE_URL + '/' + lawyer.profile.avatar.url} />
 								<div className='infor'>
-									<div className='name' title={lawyer.profile.displayName}>{lawyer.profile.displayName}</div>
-									<div className='status online-status'>
-										{translate('app.attorney.online')}
+									<div className='header-infor'>
+										<div className='name' title={lawyer.profile.displayName}>{lawyer.profile.displayName}</div>
+										<div className='status online-status'>
+											{translate('app.attorney.online')}
+										</div>
 									</div>
 									<div className='cost'>
 										<div className='value'>
@@ -295,6 +297,9 @@ class Content extends Component {
 									<div className='rate'>
 										<ReactStars count={5} value={lawyer.rate}
 											edit={false} size={20} color2={'#ffd700'} />
+										<p className='vote-infor'>
+											({lawyer.votes} {translate('app.attorney.people_vote')})
+										</p>
 									</div>
 									<div className='attorney-intro'>
 										<ReadMore has_link={false} lines={2}>

@@ -185,7 +185,8 @@ module.exports = {
       search_placeholder: 'Tìm kiếm theo tên luật sư',
       filter: 'Lọc kết quả theo',
       specialize: 'Lĩnh vực',
-      top_view: 'Luật sư được xem nhiều'
+      top_view: 'Luật sư được xem nhiều',
+      people_vote: 'người dùng đánh giá'
     },
     nav: {
       brow_law: 'Tra cứu luật',

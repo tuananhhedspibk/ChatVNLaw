@@ -10,6 +10,18 @@ class HeaderBlock extends Component {
     super(props);
   }
 
+  timeFormat(birthday) {
+    if (birthday !== '...' ) {
+      var date = new Date(birthday)
+      var options = {
+        year: 'numeric', month: 'numeric', day: 'numeric'
+      };
+      var birthdayFormated = date.toLocaleDateString('vi-VN', options);
+      return birthdayFormated;
+    }
+    return birthday
+  }
+
   handleOnclickApplyLawyer(){
     if(localStorage.chat_vnlaw_user) {
       window.location.href = constant.BASE_URL + constant.APPLY_LAWYER_URI
@@ -77,14 +89,19 @@ class HeaderBlock extends Component {
                     })
                   }
                 </p>
-                <p className='rate'>
-                <ReactStars
-                  count={5}
-                  value={this.props.user.lawyer_profile.rate}
-                  size={24}
-                  edit={false}
-                  color2={'#ffd700'} />
-                </p>
+                <div className='rate'>
+                  <ReactStars
+                    count={5}
+                    value={this.props.user.lawyer_profile.rate}
+                    size={24}
+                    edit={false}
+                    color2={'#ffd700'} />
+                    <p>
+                      (
+                        {this.props.user.votes} {translate('app.attorney.people_vote')}
+                      )
+                    </p>
+                </div>
                 {this.renderApplyBtn()}
               </div>
               <div className='right-block'>
@@ -99,7 +116,11 @@ class HeaderBlock extends Component {
             <div className='another-infor'>
               <div className='block'>
                 <b>{translate('app.lawyer.birthday')}:</b>
-                <p>{this.props.convertContent(this.props.user.base_profile.birthday)}</p>
+                <p>
+                  {this.timeFormat(
+                    this.props.convertContent(this.props.user.base_profile.birthday)
+                  )}
+                </p>
               </div>
               <div className='block'>
                 <b>{translate('app.lawyer.card_number')}:</b>

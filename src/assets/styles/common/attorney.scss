@@ -42,7 +42,7 @@
 
       &:hover {
         box-shadow: 1px 1px 1px 1px $gray-medium;
-        transition: all .4s ease;
+        transition: all .3s ease;
       }
 
       .intro {
@@ -271,34 +271,36 @@
         padding-top: 15px;
         width: calc(100% - 70px);
 
-        .name {
+        .header-infor {
           float: left;
-          font-size: 1.3em;
-          max-width: 260px;
-          overflow: hidden;
-          text-align: left;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
+          width: calc(100% - 150px);
 
-        .status {
-          border-radius: 20px;
-          color: $white;
-          display: inline-block;
-          font-weight: bold;
-          height: 29px;
-          margin-left: 15px;
-          padding: 3px 3px;
-          text-align: center;
-          width: 100px;
-        }
+          .name {
+            float: left;
+            font-size: 1.3em;
+            max-width: calc(100% - 125px);
+            text-align: left;
+          }
 
-        .online-status {
-          background-color: $online-color;
-        }
+          .status {
+            border-radius: 20px;
+            color: $white;
+            display: inline-block;
+            font-weight: bold;
+            height: 29px;
+            margin-left: 15px;
+            padding: 3px 3px;
+            text-align: center;
+            width: 100px;
+          }
 
-        .away-status {
-          background-color: $away-color;
+          .online-status {
+            background-color: $online-color;
+          }
+
+          .away-status {
+            background-color: $away-color;
+          }
         }
 
         .attorney-intro {
@@ -307,8 +309,19 @@
         }
 
         .rate {
-          display: inline-block;
+          align-items: center;
+          display: flex;
+          padding-top: 5px;
           width: 100%;
+
+          div {
+            display: inline-block;
+          }
+
+          .vote-infor {
+            display: inline-block;
+            margin-left: 10px;
+          }
         }
 
         .specializes {
@@ -336,6 +349,7 @@
           color: $blue;
           float: right;
           font-weight: bold;
+          width: 135px;
 
           .value {
             font-size: 1.3em;

@@ -29,7 +29,7 @@
       width: 100%; }
       .attorney .top-view .item:hover {
         box-shadow: 1px 1px 1px 1px #d1d1d1;
-        transition: all .4s ease; }
+        transition: all .3s ease; }
       .attorney .top-view .item .intro {
         color: #808080;
         float: left;
@@ -180,34 +180,41 @@
         padding-left: 25px;
         padding-top: 15px;
         width: calc(100% - 70px); }
-        .attorney .attorney-result-content .lawyer .infor .name {
+        .attorney .attorney-result-content .lawyer .infor .header-infor {
           float: left;
-          font-size: 1.3em;
-          max-width: 260px;
-          overflow: hidden;
-          text-align: left;
-          text-overflow: ellipsis;
-          white-space: nowrap; }
-        .attorney .attorney-result-content .lawyer .infor .status {
-          border-radius: 20px;
-          color: #fff;
-          display: inline-block;
-          font-weight: bold;
-          height: 29px;
-          margin-left: 15px;
-          padding: 3px 3px;
-          text-align: center;
-          width: 100px; }
-        .attorney .attorney-result-content .lawyer .infor .online-status {
-          background-color: #2de0a5; }
-        .attorney .attorney-result-content .lawyer .infor .away-status {
-          background-color: #ffd21f; }
+          width: calc(100% - 150px); }
+          .attorney .attorney-result-content .lawyer .infor .header-infor .name {
+            float: left;
+            font-size: 1.3em;
+            max-width: calc(100% - 125px);
+            text-align: left; }
+          .attorney .attorney-result-content .lawyer .infor .header-infor .status {
+            border-radius: 20px;
+            color: #fff;
+            display: inline-block;
+            font-weight: bold;
+            height: 29px;
+            margin-left: 15px;
+            padding: 3px 3px;
+            text-align: center;
+            width: 100px; }
+          .attorney .attorney-result-content .lawyer .infor .header-infor .online-status {
+            background-color: #2de0a5; }
+          .attorney .attorney-result-content .lawyer .infor .header-infor .away-status {
+            background-color: #ffd21f; }
         .attorney .attorney-result-content .lawyer .infor .attorney-intro {
           color: #808080;
           width: 80%; }
         .attorney .attorney-result-content .lawyer .infor .rate {
-          display: inline-block;
+          align-items: center;
+          display: flex;
+          padding-top: 5px;
           width: 100%; }
+          .attorney .attorney-result-content .lawyer .infor .rate div {
+            display: inline-block; }
+          .attorney .attorney-result-content .lawyer .infor .rate .vote-infor {
+            display: inline-block;
+            margin-left: 10px; }
         .attorney .attorney-result-content .lawyer .infor .specializes {
           display: inline-block;
           padding-bottom: 5px;
@@ -226,7 +233,8 @@
         .attorney .attorney-result-content .lawyer .infor .cost {
           color: #2385f2;
           float: right;
-          font-weight: bold; }
+          font-weight: bold;
+          width: 135px; }
           .attorney .attorney-result-content .lawyer .infor .cost .value {
             font-size: 1.3em; }
 
