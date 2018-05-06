@@ -59,9 +59,17 @@ class Notifications extends Component{
                 component.setState({notifications: notificationsArr});
                 break;
               case 'child_added':
-                notificationsArr.unshift(data);
-                component.setState({notifications: notificationsArr});
-                break;
+                getAllRooms((success, response) => {
+                  if (success) {
+                    component.setState({rooms: response.data.rooms});
+                    notificationsArr.unshift(data);
+                    component.setState({notifications: notificationsArr});
+                    break;
+                  }
+                  else {
+                    console.log(response);
+                  }
+                })
               case 'child_removed':
                 notificationsArr.every(function(element,index){           
                   if (element.id === data.id){
