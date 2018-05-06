@@ -10,7 +10,6 @@ import ChatSessionList from './chatsetting/chatsessionlist';
 import { getRoomFilesAndImages } from '../../lib/room/rooms';
 
 import * as constant from '../constants';
-import * as Files from '../../lib/upfile/files';
 import * as translate from 'counterpart';
 import * as firebase from 'firebase';
 
