@@ -3,10 +3,9 @@ import $ from 'jquery';
 
 import BaseItem from './baseitem';
 
-import { createNewRoom, createNewRoomFb } from '../../../lib/room/rooms';
+import { createNewRoom, createNewRoomFb, getAllRooms } from '../../../lib/room/rooms';
 import { deleteNotification,
   createNewNotification }from '../../../lib/notification/notifications';
-
 import { createInitMessage } from '../../../lib/messages/messages';
 
 import * as translate from 'counterpart';
@@ -17,12 +16,28 @@ class RequestRoomItem extends BaseItem {
   constructor(props) {
     super(props);
     this.state = {
-      currentRoomId: ''
+      currentRoomId: '',
+      rooms: []
     }
+  }
+
+  componentDidMount() {
+    var component = this;
+    getAllRooms((success, response) => {
+      if (success) {
+        component.setState({rooms: response.data.rooms});
+      }
+      else {
+        console.log(response);
+      }
+    })
   }
 
   notifiOperation(noti_type, element) {
     var propertiesNoti = {}
+    var currentUser = this.state.currentUser;
+    currentUser.userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
+    this.setState({currentUser: currentUser});
     propertiesNoti.currentUser = this.state.currentUser;
     propertiesNoti.targetUser = {}
     propertiesNoti.targetUser.uid = element.sender.uid;
@@ -55,7 +70,7 @@ class RequestRoomItem extends BaseItem {
     this.notifiOperation(tableConstant.NOTIFICATION_TYPE.acceptRoomRequest,
       element);
     var currentRoomId = null;
-    this.props.rooms.map(room => {
+    this.state.rooms.map(room => {
       if(room.lawyer.id === JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id']
         && room.user.uid === this.props.element.sender.uid) {
           currentRoomId = room.id;
@@ -153,7 +168,7 @@ class RequestRoomItem extends BaseItem {
   renderAcceptBtn() {
     var component = this;
     var hasRoom = false;
-    this.props.rooms.map(room => {
+    this.state.rooms.map(room => {
       if(room.lawyer.id === JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id']
         && room.user.uid === this.props.element.sender.uid) {
           hasRoom = true;
