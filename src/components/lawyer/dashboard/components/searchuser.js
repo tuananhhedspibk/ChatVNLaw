@@ -28,7 +28,7 @@ class SearchUser extends Component {
         for (var i in response.data.rooms) {
           var user = {
             rid: response.data.rooms[i].id,
-            id: response.data.rooms[i].user.id,
+            uid: response.data.rooms[i].user.uid,
             displayName: response.data.rooms[i].user.displayName,
             photoURL: response.data.rooms[i].user.avatar.url
           }

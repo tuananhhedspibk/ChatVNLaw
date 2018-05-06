@@ -327,18 +327,21 @@ module.exports = {
           order_by_1: 'Ngày phát hành',
           order_by_2: 'Ngày có hiệu lực',
           order_by_3: 'Mới tới cũ',
-          order_by_4: 'Cũ tới mới'
+          order_by_4: 'Cũ tới mới',
+          order_by_5: 'Chính xác nhất'
         }
       },
       category_title: 'Phân loại theo',
       category_organ: {
         title: 'Cơ quan ban hành',
         organ_1: 'Quốc hội',
-        organ_2: 'Ủy ban thường vụ quốc hội',
-        organ_3: 'Chính phủ',
-        organ_4: 'Thủ tướng Chính phủ',
-        organ_5: 'Các Bộ, cơ quan ngang Bộ',
-        organ_6: 'Các cơ quan khác',
+        organ_2: 'Chính phủ',
+        organ_3: 'Bộ Công an',
+        organ_4: 'Bộ công thương',
+        organ_4: 'Bộ Giao thông vận tải',
+        organ_5: 'Bộ Tài chính',
+        organ_6: 'Bộ Quốc phòng',
+        organ_7: 'Bộ Y tế'
       },
       category_type: {
         title: 'Loại văn bản',
@@ -358,16 +361,16 @@ module.exports = {
         title: 'Năm ban hành',
         year_1: {
           title: '1945 đến 1950',
-          from_year: '1945',
+          from: '1945',
           year_mid_1: '1946',
           year_mid_2: '1947',
           year_mid_3: '1948',
           year_mid_4: '1949',
-          to_year: '1950',
+          to: '1950',
         },
         year_2: {
           title: '1951 đến 1960',
-          from_year: '1951',
+          from: '1951',
           year_mid_1: '1952',
           year_mid_2: '1953',
           year_mid_3: '1954',
@@ -376,11 +379,11 @@ module.exports = {
           year_mid_6: '1957',
           year_mid_7: '1958',
           year_mid_8: '1959',
-          to_year: '1960'
+          to: '1960'
         },
         year_3: {
           title: '1961 đến 1970',
-          from_year: '1961',
+          from: '1961',
           year_mid_1: '1962',
           year_mid_2: '1963',
           year_mid_3: '1964',
@@ -389,11 +392,11 @@ module.exports = {
           year_mid_6: '1967',
           year_mid_7: '1968',
           year_mid_8: '1969',
-          to_year: '1970'
+          to: '1970'
         },
         year_4: {
           title: '1971 đến 1980',
-          from_year: '1971',
+          from: '1971',
           year_mid_1: '1972',
           year_mid_2: '1973',
           year_mid_3: '1974',
@@ -402,11 +405,11 @@ module.exports = {
           year_mid_6: '1977',
           year_mid_7: '1978',
           year_mid_8: '1979',
-          to_year: '1980'
+          to: '1980'
         },
         year_5: {
           title: '1981 đến 1990',
-          from_year: '1981',
+          from: '1981',
           year_mid_1: '1982',
           year_mid_2: '1983',
           year_mid_3: '1984',
@@ -415,11 +418,11 @@ module.exports = {
           year_mid_6: '1987',
           year_mid_7: '1988',
           year_mid_8: '1989',
-          to_year: '1990'
+          to: '1990'
         },
         year_6: {
           title: '1991 đến 2000',
-          from_year: '1991',
+          from: '1991',
           year_mid_1: '1992',
           year_mid_2: '1993',
           year_mid_3: '1994',
@@ -428,11 +431,11 @@ module.exports = {
           year_mid_6: '1997',
           year_mid_7: '1998',
           year_mid_8: '1999',
-          to_year: '2000'
+          to: '2000'
         },
         year_7: {
           title: '2001 đến 2010',
-          from_year: '2001',
+          from: '2001',
           year_mid_1: '2002',
           year_mid_2: '2003',
           year_mid_3: '2004',
@@ -441,11 +444,11 @@ module.exports = {
           year_mid_6: '2007',
           year_mid_7: '2008',
           year_mid_8: '2009',
-          to_year: '2010'
+          to: '2010'
         },
         year_8: {
           title: '2011 đến 2020',
-          from_year: '2011',
+          from: '2011',
           year_mid_1: '2012',
           year_mid_2: '2013',
           year_mid_3: '2014',

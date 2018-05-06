@@ -75,14 +75,12 @@ class TodoList extends Component {
 
   createElementTaskList(e){
     e.preventDefault();
+    var data = [];
+    var component = this;
     if(this.state.todoList !== null){
-      var data = this.state.todoList
-    }
-    else {
-      var data = [];
+      data = this.state.todoList
     }
     if(this.state.currentRoomId){
-      var component = this;
       var inputValue = document.getElementById('form-input').value;
       if(inputValue === '') {
         NotificationManager.warning(
@@ -93,7 +91,7 @@ class TodoList extends Component {
           if(success && response){
             $('#form-input').val('');
             data.push(response.data.task);
-            component.setState({'todoList': data});
+            component.setState({todoList: data});
           } 
         });
       }
@@ -125,7 +123,7 @@ class TodoList extends Component {
             }
       });
     }
-
+    return false;
   }
 
   handleClickDelete(ev){
@@ -138,6 +136,7 @@ class TodoList extends Component {
         component.setState({todoList: data});
       } 
     });
+    return false;
   }
 
   loadCSS(){
@@ -187,8 +186,8 @@ class TodoList extends Component {
             this.state.targetUser && this.state.todoList !== null ? 
             (
               this.state.todoList.map(task => (
-                <li className={task.status} onClick={this.handleClick.bind(this, task)}>
-                  {task.content}
+                <li className={task.status}>
+                  <span className='task-content' onClick={this.handleClick.bind(this, task)}>{task.content}</span> 
                   <span className='close'
                     onClick={this.handleClickDelete.bind(this, task)}>
                       x

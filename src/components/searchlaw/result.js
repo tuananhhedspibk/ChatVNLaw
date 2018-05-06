@@ -6,7 +6,6 @@ import * as constant from '../constants';
 class Result extends Component {
 
 	render() {
-		console.log(this.props.article)
 		return(
 			<div className='law-item'>
 				<a href={constant.BASE_URL +
@@ -47,10 +46,10 @@ class Result extends Component {
 								)
 							}
 						</div>
-						<div className='law-detail-content'>
+						<div className='law-detail-content' title={this.props.article.article_type + ' ' + this.props.article.title}>
 							<div className='law-status'>
 								<div className='law-brief'>
-									{this.props.article.article_type + ' ' + this.props.article.title}
+									{this.props.article.title}
 								</div>
 								<div className='public-day'>
 									<div className='sub-title'>

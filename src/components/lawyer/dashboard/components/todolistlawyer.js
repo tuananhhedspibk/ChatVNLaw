@@ -41,6 +41,10 @@ class TodoListLawyer extends Component {
             tempData.push(response.data.rooms[i])
         }
       }
+      else {
+        console.log("ciaaaa")
+        console.log(response)
+      }
       component.setState({
           todoList: tempData
       })

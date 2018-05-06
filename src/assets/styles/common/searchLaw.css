@@ -84,6 +84,8 @@
           color: #2385f2;
           text-decoration: none;
           transition: all .3s ease; }
+    .category-filter .category-filter-content .category-item.filtering {
+      background-color: #FFF9C4; }
 
 .search-law-tool .title {
   background-color: #fff;

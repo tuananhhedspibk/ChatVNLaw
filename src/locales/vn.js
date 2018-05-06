@@ -319,18 +319,21 @@ module.exports = {
           order_by_1: 'Ngày phát hành',
           order_by_2: 'Ngày có hiệu lực',
           order_by_3: 'Mới tới cũ',
-          order_by_4: 'Cũ tới mới'
+          order_by_4: 'Cũ tới mới',
+          order_by_5: 'Chính xác nhất'
         }
       },
       category_title: 'Phân loại theo',
       category_organ: {
         title: 'Cơ quan ban hành',
         organ_1: 'Quốc hội',
-        organ_2: 'Ủy ban thường vụ quốc hội',
-        organ_3: 'Chính phủ',
-        organ_4: 'Thủ tướng Chính phủ',
-        organ_5: 'Các Bộ, cơ quan ngang Bộ',
-        organ_6: 'Các cơ quan khác',
+        organ_2: 'Chính phủ',
+        organ_3: 'Bộ Công an',
+        organ_4: 'Bộ công thương',
+        organ_4: 'Bộ Giao thông vận tải',
+        organ_5: 'Bộ Tài chính',
+        organ_6: 'Bộ Quốc phòng',
+        organ_7: 'Bộ Y tế'
       },
       category_type: {
         title: 'Loại văn bản',

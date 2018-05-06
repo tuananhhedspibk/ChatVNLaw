@@ -2,49 +2,60 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import * as constant from '../constants';
-import SitckyElement from './stickyelement';
-
-import * as translate from 'counterpart';
+import $ from 'jquery';
+import { Checkbox } from 'semantic-ui-react';
 
 class StickyHighlight extends Component {
 	constructor(props) {
 		super(props);
+    this.handleDef = this.handleDef.bind(this);
+    this.handleModified = this.handleModified.bind(this);
+    this.handleModify = this.handleModify.bind(this);
+	}
+	handleDef() {
+		if($('.checked.sticky-def').length) {
+			$('.definition-popover').css('color','#212529');
+			$('.definition-popover').attr('data-toggle','');
+		}
+		else {
+			$('.definition-popover').css('color','#00cc00');
+			$('.definition-popover').attr('data-toggle','popover');
+		}
+	}
+	handleModified() {
+		if($('.checked.sticky-modified').length) {
+			$('*[data-target="#modify-modal"]').css('background-color','white');
+		}
+		else {
+			$('*[data-target="#modify-modal"]').css('background-color', '#FFF9C4');
+		}
+	}
+	handleModify() {
+		if($('.checked.sticky-modify').length) {
+			$('#modify-box').css('background-color','white');
+		}
+		else {
+			$('#modify-box').css('background-color','#E1F5FE');
+		}
 	}
 
 	render() {
-		let sticky = null;
-		var existSticky = false;
-
-		if (this.props.stickies) {
-			existSticky = true;
-		}
-
-		if (this.props.painting) {
-			sticky = (<div className='sticky-btn' onClick={this.props.handleStickyOff}>
-				<img src={constant.onStickyPic} height='20' width='20'/>
-				<span className='btn-text'>{translate('app.article.markup')}</span>
-			</div>)
-		}
-		else {
-			sticky = (<div className='sticky-btn' onClick={this.props.handleSticky}>
-				<img src={constant.offStickyPic} height='20' width='20'/>
-				<span>{translate('app.article.markup')}</span>
-			</div>)	
-		}
-
 		return (
 			<div className='sticky-col'>
-				{sticky}
-				<ul className='listSticky'>
-					{
-						existSticky &&
-							this.props.stickies.map(function(data, index){
-            		return <SitckyElement key={ index } data={data}/>;
-          	})
-					}
-				</ul>
+				<div className='sticky-title'>
+					Tùy chọn hiển thị
+				</div>
+				<Checkbox className="sticky-def" onChange={this.handleDef} defaultChecked label={<label className="form-check-label"> 
+            <div className="color-box" style={{backgroundColor: '#00cc00'}}></div> Định nghĩa
+          </label>} />
+        <Checkbox defaultChecked className="sticky-modified" onChange={this.handleModified} label={<label className="form-check-label"> 
+            <div className="color-box" style={{backgroundColor: '#FFF9C4'}}></div> Được sửa đổi, bổ sung
+          </label>} />
+        <Checkbox defaultChecked className="sticky-modify" onChange={this.handleModify} label={<label className="form-check-label"> 
+            <div className="color-box" style={{backgroundColor: '#E1F5FE'}}></div> Sửa đổi, bổ sung
+          </label>} />
 			</div>
-		);
+		)
 	}
 }
 
