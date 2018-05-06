@@ -41,10 +41,8 @@
       .lawyer-profile .profile-header .basic-infor .left-block {
         float: left;
         width: 70%; }
-        .lawyer-profile .profile-header .basic-infor .left-block .rate {
-          display: inline-block; }
-          .lawyer-profile .profile-header .basic-infor .left-block .rate p {
-            font-size: 1.2em; }
+        .lawyer-profile .profile-header .basic-infor .left-block .rate p {
+          font-size: 1.2em; }
         .lawyer-profile .profile-header .basic-infor .left-block p {
           margin-bottom: 9px; }
         .lawyer-profile .profile-header .basic-infor .left-block .name {

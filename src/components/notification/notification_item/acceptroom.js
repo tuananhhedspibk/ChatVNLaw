@@ -18,7 +18,7 @@ class AcceptRoomItem extends BaseItem{
   }
 
   toChatRoom(element){
-    let userName = element[tableConstant.NOTIFICATIONS.sender].userName;
+    let userName = element.sender.userName;
     window.location = constant.BASE_URL + constant.CHAT_URI + '/' + userName;
   }
 
