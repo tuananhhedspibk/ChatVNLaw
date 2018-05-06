@@ -13,7 +13,6 @@ import Loading from '../shared/loading';
 import { onAuthStateChanged } from '../../lib/user/authentication';
 import { getAllNotification } from '../../lib/notification/notifications';
 import { checkAuthen } from '../../lib/notification/toast';
-import { getAllRooms } from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
@@ -30,7 +29,6 @@ class Notifications extends Component{
       isLoading: true,
       permission: false,
       showDialog: false,
-      rooms: [],
       notifications: []
     }
     this.emitter = new EventEmitter();
@@ -40,14 +38,6 @@ class Notifications extends Component{
     var component= this;
     onAuthStateChanged(user =>{
       if(user){
-        getAllRooms((success, response) => {
-          if (success) {
-            component.setState({rooms: response.data.rooms});
-          }
-          else {
-            console.log(response);
-          }
-        })
         component.setState({currentUser: user, permission: true}, ()=>{
           component.setState({isLoading: false})
           var properties = {}
@@ -59,17 +49,9 @@ class Notifications extends Component{
                 component.setState({notifications: notificationsArr});
                 break;
               case 'child_added':
-                getAllRooms((success, response) => {
-                  if (success) {
-                    component.setState({rooms: response.data.rooms});
-                    notificationsArr.unshift(data);
-                    component.setState({notifications: notificationsArr});
-                    break;
-                  }
-                  else {
-                    console.log(response);
-                  }
-                })
+                notificationsArr.unshift(data);
+                component.setState({notifications: notificationsArr});
+                break;
               case 'child_removed':
                 notificationsArr.every(function(element,index){           
                   if (element.id === data.id){
@@ -124,8 +106,7 @@ class Notifications extends Component{
       case tableConstant.NOTIFICATION_TYPE.requestRoom:
         return(
           <RequestRoomItem element={element}
-            currentUser={this.state.currentUser}
-            rooms={this.state.rooms}/>
+            currentUser={this.state.currentUser}/>
         )
       case tableConstant.NOTIFICATION_TYPE.refuseRoomRequest:
         return(

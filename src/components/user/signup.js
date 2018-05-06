@@ -150,7 +150,8 @@ class UserSignUp extends Component {
         }
       }
       else{
-        component.emitter.emit('AddNewErrorToast', '', data.message, 5000, ()=>{})                         
+        component.emitter.emit('AddNewErrorToast', '', data.message, 5000, ()=>{})
+        window.location = constant.SIGN_UP_URI;                         
       }
     })
   }
