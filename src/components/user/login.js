@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import $ from 'jquery';
-import {EventEmitter} from 'fbemitter';
+import { EventEmitter } from 'fbemitter';
 
 import Loading from '../shared/loading';
 import Toast from '../notification/toast';
 import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
 
-import {signInWithPopup, signInWithEmailAndPassword,
-  onAuthStateChanged, loginRails} from '../../lib/user/authentication';
-import {checkAlreadyLogin} from '../../lib/notification/toast';
+import { signInWithPopup, signInWithEmailAndPassword,
+  onAuthStateChanged, loginRails } from '../../lib/user/authentication';
+import { checkAlreadyLogin } from '../../lib/notification/toast';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
-import * as userInfo from '../../lib/user/getuserinfo';
 
 import '../../assets/styles/common/authen.css';
 import '../../assets/styles/common/main.css';

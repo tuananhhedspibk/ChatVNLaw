@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import firebase from 'firebase';
-import {EventEmitter} from 'fbemitter';
+import { EventEmitter } from 'fbemitter';
 
-import {getUserByUid} from '../../lib/user/getuserinfo';
-import {logoutRails} from '../../lib/user/authentication';
+import { logoutRails } from '../../lib/user/authentication';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';

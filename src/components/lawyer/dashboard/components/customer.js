@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
-import firebase from 'firebase';
+
+import { updateRoom, getRoomFilesAndImages } from '../../../../lib/room/rooms'
 
 import * as constant from '../../../constants';
-import { updateRoom, getRoomFilesAndImages } from '../../../../lib/room/rooms'
-import * as Files from '../../../../lib/upfile/files';
 import * as translate from 'counterpart';
 
 class Customer extends Component {
