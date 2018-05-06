@@ -38,7 +38,7 @@ class RequestRoomItem extends BaseItem {
     var currentUser = this.state.currentUser;
     currentUser.userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
     this.setState({currentUser: currentUser});
-    propertiesNoti.currentUser = this.state.currentUser;
+    propertiesNoti.currentUser = currentUser;
     propertiesNoti.targetUser = {}
     propertiesNoti.targetUser.uid = element.sender.uid;
     propertiesNoti.nid = element.id;
