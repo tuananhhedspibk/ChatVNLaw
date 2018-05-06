@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import {createUserWithEmailAndPassword,onAuthStateChanged} from '../../lib/user/authentication';
+import { createUserWithEmailAndPassword, onAuthStateChanged } from '../../lib/user/authentication';
 import Loading from '../shared/loading';
 import Toast from '../notification/toast';
 import {EventEmitter} from 'fbemitter';
@@ -11,7 +11,6 @@ import Nav from '../homepage/nav';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
-import * as userInfo from '../../lib/user/getuserinfo';
 
 import '../../assets/styles/common/authen.css';
 

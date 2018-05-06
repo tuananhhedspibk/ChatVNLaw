@@ -1,4 +1,3 @@
-// Node Get ICE STUN and TURN list
 const https = require("https");
 const constant = require('./constants');
 

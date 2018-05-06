@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
-import firebase from 'firebase';
-import {getAllRooms} from '../../../../lib/room/rooms';
+import SearchInput, {createFilter} from 'react-search-input';
+
+import { getAllRooms } from '../../../../lib/room/rooms';
 import * as translate from 'counterpart';
 import * as constant from '../../../constants';
-import SearchInput, {createFilter} from 'react-search-input';
+
 const KEYS_TO_FILTERS = ['displayName'];
 
 class SearchUser extends Component {
@@ -33,45 +34,12 @@ class SearchUser extends Component {
           }
           users.push(user) 
         }
-        console.log("_SS_SSSSS")
-        console.log(users)
         component.setState({
           users: users,
           result: users
         });
       }
     })
-  }
-  handleSubmit(evt) {
-    var component = this;
-    evt.preventDefault();
-    // var ref = firebase.database().ref(`users`)
-    //   .orderByChild('displayName')
-    //   .equalTo(this.state.userName).once('value', (data)=> {
-    //     if(data.val() !== null){
-    //       var arr = [];
-    //       for(var y in data.val()){
-    //         var item = {
-    //           username: data.val()[y]['username'],
-    //           displayName: data.val()[y]['displayName'],
-    //           uid : y,
-    //           status: data.val()[y]['status'],
-    //           photoURL: data.val()[y]['photoURL']
-    //         };
-    //         arr.push(item);
-    //       }
-    //       component.setState({result: arr})
-    //     }
-    //     else{
-    //       component.setState({result: []})
-    //       $('.error-search-name').css('display', 'block');
-    //       $('.error-search-name')
-    //           .text(translate('app.dashboard.search.search_user_not_found'));
-    //       $('.error-search-name-symbol').css('display', 'block');
-    //       $('.error-search-name-symbol')
-    //         .text(translate('app.dashboard.search.search_user_not_found_symbol'));
-    //     }
-    // });
   }
 
   searchUpdated(term) {
@@ -80,7 +48,6 @@ class SearchUser extends Component {
 
   clickUser(data){
     var component = this;
-    console.log('test')
     component.setState({
       targetUser: data.users
     })

@@ -3,13 +3,14 @@ import axios from 'axios';
 export const ROOM_FILES = 'room_files';
 export const STUN_SERVER_LIST = 'stun_server_list'; 
 export const STUN_SERVER_OPTIONS = {
-  host: "global.xirsys.net",
-  path: "/_turn/MyFirstApp",
-  method: "PUT",
+  host: 'global.xirsys.net',
+  path: '/_turn/MyFirstApp',
+  method: 'PUT',
   headers: {
-      "Authorization": "Basic " + new Buffer("lkbcteam:54beba0c-a6d2-11e7-ae16-600b82d3c98a").toString("base64")
+    'Authorization': 'Basic ' + new Buffer('lkbcteam:54beba0c-a6d2-11e7-ae16-600b82d3c98a').toString('base64')
   }
 };
+
 export const TABLE = {
   users : 'users',
   tasks : 'tasks',
@@ -21,13 +22,16 @@ export const TABLE = {
   notifications: 'notifications',
   balance: 'moneyAccount'
 };
+
 export const BALANCE = {
   amount: 'amount'
 }
+
 export const ROLE = {
   user: 'user',
   lawyer: 'lawyer'
 }
+
 export const NOTIFICATIONS = {
   id :'id',
   sender: 'sender',
@@ -72,6 +76,7 @@ export const MEMBERS = {
   lawyer: 'lawyer',
   customer: 'customer'
 }
+
 export const MESSAGES = {
   contentType: 'contentType',
   messagesId : 'mid',

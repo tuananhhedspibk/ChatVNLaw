@@ -2,17 +2,6 @@ var firebase = require('firebase');
 var constantLib = require('../constants');
 var constantUI = require('../../components/constants');
 
-function updateUserInfo(properties, callback){
-  firebase.database().ref(`${constantLib.TABLE.users}/${properties.currentUser.uid}`).update({
-    'displayName' : properties.displayName,
-    'username': properties.username
-  }).then(function() {
-    return callback(true)
-  }).catch(function(error){
-    return callback(false,error);
-  })
-}
-
 function signupRails(properties, password, callback) {
   let formData = new FormData();
   formData.append('signup[id]', properties.currentUser.uid);
@@ -173,9 +162,6 @@ function updateReviewLawyer(properties, callback) {
 }
 
 module.exports ={
-  updateUserInfo: function(properties, callback){
-    updateUserInfo(properties, callback);
-  },
   signupRails: function(properties, password, callback) {
     signupRails(properties, password, callback);
   },

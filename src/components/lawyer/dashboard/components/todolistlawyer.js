@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
-import * as firebase from 'firebase';
+
+import { getAllTasks } from '../../../../lib/user/lawyers';
 
 import * as translate from 'counterpart';
-import {getAllTasks} from '../../../../lib/user/lawyers';
 
 class TodoListLawyer extends Component {
   constructor(props) {
@@ -47,41 +47,41 @@ class TodoListLawyer extends Component {
     });
   }
 
-    renderTodoList(){
-      var component = this;
-      if(component.state.todoList.length > 0){
-        return(
-          component.state.todoList.map((todoList, index) => {
-            return(
-              <div className='todos-list'>
-                <button type='button' className=
-                  'btn toggle-btn collapsed' data-toggle='collapse'
-                  data-target={'#todo-list-lawyer' + index}>
-                    <div>{translate('app.dashboard.with')}</div>
-                    {todoList.targetUser}
-                </button>
-                <div id={'todo-list-lawyer' + index} className='collapse'>
-                  <ul id='myUL'>
-                    {todoList.tasks.map(content => (
-                      <li className={content.status} >
-                          {content.content}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+  renderTodoList(){
+    var component = this;
+    if(component.state.todoList.length > 0){
+      return(
+        component.state.todoList.map((todoList, index) => {
+          return(
+            <div className='todos-list'>
+              <button type='button' className=
+                'btn toggle-btn collapsed' data-toggle='collapse'
+                data-target={'#todo-list-lawyer' + index}>
+                  <div>{translate('app.dashboard.with')}</div>
+                  {todoList.targetUser}
+              </button>
+              <div id={'todo-list-lawyer' + index} className='collapse'>
+                <ul id='myUL'>
+                  {todoList.tasks.map(content => (
+                    <li className={content.status} >
+                        {content.content}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )
-          })
-        )
-      } 
-      else {
-        return (
-          <div className='nothing-todo-title'>
-            {translate('app.dashboard.todo_list_none')}
-          </div>
-        )
-      }
+            </div>
+          )
+        })
+      )
+    } 
+    else {
+      return (
+        <div className='nothing-todo-title'>
+          {translate('app.dashboard.todo_list_none')}
+        </div>
+      )
     }
+  }
 
   render(){
     var component = this
