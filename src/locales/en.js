@@ -240,7 +240,8 @@ module.exports = {
           order_by_1: 'Public day',
           order_by_2: 'Effect day',
           order_by_3: 'New to old',
-          order_by_4: 'Old to new'
+          order_by_4: 'Old to new',
+          order_by_5: 'The most exactly'
         }
       },
       category_title: 'Filter by',

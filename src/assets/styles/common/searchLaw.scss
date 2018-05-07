@@ -101,7 +101,8 @@
       border-bottom: 1px solid $gray-more-lighter;
       cursor: pointer;
       padding: 10px 45px;
-
+      .filtering{
+      }
       &:last-child {
         border-bottom: none;
       }
@@ -119,6 +120,10 @@
           transition: all .3s ease;
         }
       }
+    }
+    .category-item.filtering {
+        background-color: #FFF9C4;
+      
     }
   }
 }

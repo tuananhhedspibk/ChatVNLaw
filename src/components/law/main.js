@@ -5,10 +5,12 @@ import $ from 'jquery';
 import { Button, Header,
   Icon, Modal, Form } from 'semantic-ui-react';
 
+import Loading from '../shared/loading';
 import NotFoundPage from '../shared/notfound';
 import Nav from '../homepage/nav';
 import ArticleIndex from './index';
 import ArticleContent from './content';
+import ArticleTopics from './topics';
 import ArticleDetail from './detail';
 import StickyHighlight from './sticky';
 import * as constant from '../constants';
@@ -25,65 +27,86 @@ class Article extends Component {
 			modalOpen: false,
       painting: false,
       uid: null,
-      stickies: []
+      stickies: [],
+      loading: true,
+      error: '',
+      statusText: ''
 		};
-		this.handleSticky  = this.handleSticky.bind(this);
-    this.handleOpenModal  = this.handleOpenModal.bind(this);
-    this.handleCloseModal  = this.handleCloseModal.bind(this);
-    this.handleSaveSticky = this.handleSaveSticky.bind(this);
     this.getNextNode = this.getNextNode.bind(this);
-    this.handleCancelSticky = this.handleCancelSticky.bind(this);
-    this.pushHighlight = this.pushHighlight.bind(this);
-    this.extractStykies = this.extractStykies.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
-    this.handleStickyOff = this.handleStickyOff.bind(this);
 	}
 
 	componentWillMount() {
+
+
 		var component = this;
     var instance = ax_ins;
     instance.get(constant.API_ARTICLES_URI+'/'+ this.props.match.params.id )
       .then(function (response) {
-        console.log(response.data)
-        component.setState({article: response.data});
+        component.setState({article: response.data, loading: false});
       })
       .catch(function (error) {
-        if (error.response.status == 404) {
-          component.setState({error: 404})
-       }
-      else {
-         component.setState({error: error.response.status,errorText: error.response.statusText})
-       }
+        component.setState({error: error.response.status, statusText: error.response.statusText, loading: false})
      });
-		// var instance = axios.create({
-	 //      baseURL: constant.API_BASE_URL
-	 //    });
-		// instance.get(constant.API_ARTICLES_URI+'/'+ this.props.match.params.id )
-	 //    .then(function (response) {
-	 //    	component.setState({article: ""});
-	 //    })
-	 //    .catch(function (error) {
-	 //    	if (error.response.status == 404) {
-	 //    		component.setState({error: 404})
-	 //    	}
-	 //    	else {
-	 //    		component.setState({error: error.response.status,errorText: error.response.statusText})
-	 //    	}
-		// 	});
-  //   if(!firebase.apps.length){
-  //         firebase.initializeApp(constant.APP_CONFIG);
-  //     }
-  //     firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       component.setState({uid: user.uid});
-  //       component.extractStykies();
-  //     } else {
-  //       window.location = constant.BASE_URL + constant.SIGN_IN_URI
-  //     }
-  //   });
+  }
+
+  renderModal() {
+    if (this.state.article != '') {
+      return(
+        <div className="modal fade" id="modify-modal" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title">Lịch sử sửa đổi</h4>
+              </div>
+              <div className="modal-body">
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-default" data-dismiss="modal">Đóng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  renderModifiedContent(content, title,date, law_id, law_pst) {
+    var html = `<div class="modal-law-modify"> \
+        <div class="modal-law-modify-date"> \
+          <svg height="20" width="20"> \
+            <circle cx="10" cy="10" r="8" stroke="#4ec885" stroke-width="2.5" fill="white" /> \
+          </svg> \
+          ${date} \
+        </div> \
+        <h4>Sửa đổi bởi \
+          <a target="_blank" href="/articles/${law_id}#${law_pst}">${title}\
+          </a>\
+        </h4>\
+        <h5>Nội dung : </h5>\
+        <p class="modal-law-modify-content"> ${content} </p>\
+      </div>`
+    return html
+  }
+  custom_sort(a, b) {
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    var aDate = new Date(a.modify_law_date.replace(pattern,'$3-$2-$1')).getTime();
+    var bDate = new Date(b.modify_law_date.replace(pattern,'$3-$2-$1')).getTime();
+    return bDate - aDate;
+  }
+
+  renderModifyContent(val){
+    var html = `<div class="modify-content-element"> \
+        <a target="_blank" href="/articles/${val.id}#${val.position}">\
+          <p>${val.position_name} của ${val.title} </p></a> \
+          <div class="modify-content-detail">${val.content}</div>
+        </div>`
+    return html
   }
 
   componentDidUpdate() {
+    var component = this;
+    
     $('#detail-header').on('click',function() {
       $('.index').hide();
       $('.sticky-col').hide();
@@ -92,6 +115,76 @@ class Article extends Component {
       $('.index').show();
       $('.sticky-col').show();
     });
+
+    if (this.state.article != '') {
+      window.addEventListener('scroll',this.handleScroll);
+      eval($('#article-script script').html()); 
+      this.state.article.modified_arr.map((passage, index) => {
+        var startNode = document.getElementsByName(passage.modified_post)[0];
+        var endNode = document.getElementsByName(passage.nxt_post)[0];
+        var startLoop = startNode;
+        if(startNode && endNode)
+          while (startLoop = component.getNextNode(startLoop, false , endNode,startNode,'#FFF9C4',passage.modify_laws ));
+      });
+
+      this.state.article.modify_arr.map((passage, index) => {
+        var modify_box = $(`.modify-box-${passage.post}`);
+        if(modify_box.length) {
+          $(`<div class="modified-content-${passage.post}"><div class="modified-content-body"><h5>Nội dung văn bản gốc:</h5></div> \
+              <i class="fa fa-chevron-circle-right"></i></div>`).insertAfter($(modify_box));
+          var box_body = $(`.modified-content-${passage.post} .modified-content-body`)
+          passage.modified_laws.map((law,idx) => {
+            box_body.append(component.renderModifyContent(law));
+          })
+        }
+      });
+
+      if(this.props.location.hash != '') {
+        var hash_position = this.props.location.hash.replace('#','');
+        if ($(`a[name="${hash_position}"`).length > 0) {
+          window.scrollTo(0, $(`a[name="${hash_position}"`).offset().top)
+        }
+      }
+      $("a.internal_link").on('click', function(event) {
+          if (this.hash !== "") {
+            event.preventDefault();
+
+            var hash = this.hash;
+            var hash_position = hash.replace('#','');
+            $('html, body').animate({
+              scrollTop: $(`a[name="${hash_position}"`).offset().top
+            }, 1100, function(){
+          
+            window.location.hash = hash;
+            });
+          }
+        }); 
+    }
+
+    $('.modify-text').on('click', function (event) {
+      var val = $(this).data('whatever');
+      val.sort(component.custom_sort)
+      $('.modal .modal-body').html("");
+      $('.modal .modal-body').append('<div class="timeline"></div>')
+      val.map((article,index) => {
+        $('.modal .modal-body').append(component.renderModifiedContent(article.content, article.modify_law_title,
+            article.modify_law_date, article.modify_law_id, article.modify_law_pst));
+      })
+    })
+    $('.fa-chevron-circle-right').on('click' ,function(event) {
+      if($(this).prev().css('display') == 'none') {
+        $(this).parent().css('width', '50%');
+        $(this).css('transform' , 'rotate(0)');
+        setTimeout(function(){
+        }, 1000); 
+        $(this).prev().css('display', 'block');
+      }
+      else {
+        $(this).prev().css('display', 'none');
+        $(this).parent().css('width', '0px');
+        $(this).css('transform' , 'rotate(180deg)');
+      }
+    })
   }
 
   handleScroll() {
@@ -128,101 +221,8 @@ class Article extends Component {
       }
     }
   }
-  extractStykies() {
-    var component = this;
-    firebase.database().ref(`stickies/${this.state.uid}/${this.props.match.params.id}`).once('value', function(data){
-      var stickies = [];
-      data.forEach(function(childSnapshot) {
-        var data = childSnapshot.val();
-        var defaultColor = data.color;
-        var key = childSnapshot.key;
-        var title = data.title;
-        var sticky = {
-          dup: data.dup,
-          title: title,
-          key: key,
-          color: defaultColor
-        };
-        stickies.push(sticky);
-        if(data.dup == 1) {
-          var childPost = data.position;
-          var element = $('.law-content');
-          while (childPost.child) {
-            element = element.children().eq(childPost.indexChild);
-            childPost = childPost.child;
-          }
-          element = element.children().eq(childPost.indexHighlight);
-          var htmlElement = element.html();
-          htmlElement = [htmlElement.slice(0, childPost.offsetStart),'<span class="selecting-dup">', htmlElement.slice(childPost.offsetStart)].join('');
-          htmlElement = [htmlElement.slice(0, childPost.offsetEnd),'</span>', htmlElement.slice(childPost.offsetEnd)].join('');
-          element.html(htmlElement);
-          var hightlightElement =  $('.selecting-dup');
-          hightlightElement.prop('title', title);
-          hightlightElement.addClass(`sticky-${key}`);
-          hightlightElement.attr('id',`sticky-${key}`)
-          hightlightElement.css('background',defaultColor);
-          hightlightElement.removeClass('selecting-dup');
-        }
-        else {
-          var childPost = data.positionStart;
-          var element = $('.law-content');
-          while (childPost.child) {
-            element = element.children().eq(childPost.indexChild);
-            childPost = childPost.child;
-          }
-          element = element.children().eq(childPost.indexHighlight);
-          var htmlElement = element.html();
-          htmlElement = [htmlElement.slice(0, childPost.offsetStart),'<span class="selecting-start">', htmlElement.slice(childPost.offsetStart)].join('');
-          htmlElement = [htmlElement.slice(0, childPost.offsetEnd),'</span>', htmlElement.slice(childPost.offsetEnd)].join('');
-          element.html(htmlElement);
-          var elementHighlight =  $('.selecting-start');
-          elementHighlight.prop('title', title);
-          elementHighlight.addClass(`stickyS-${key}`);
-          elementHighlight.attr('id',`sticky-${key}`)
-          elementHighlight.css('background',defaultColor);
-          elementHighlight.removeClass('selecting-start');
 
-          var childPost = data.positionEnd;
-          var element = $('.law-content');
-          while (childPost.child) {
-            element = element.children().eq(childPost.indexChild);
-            childPost = childPost.child;
-          }
-          element = element.children().eq(childPost.indexHighlight);
-          var htmlElement = element.html();
-          htmlElement = [htmlElement.slice(0, childPost.offsetStart),'<span class="selecting-end">', htmlElement.slice(childPost.offsetStart)].join('');
-          htmlElement = [htmlElement.slice(0, childPost.offsetEnd),'</span>', htmlElement.slice(childPost.offsetEnd)].join('');
-          element.html(htmlElement);
-          var elementHighlight =  $('.selecting-end');
-          elementHighlight.prop('title', title);
-          elementHighlight.addClass(`stickyE-${key}`);
-          elementHighlight.css('background',defaultColor);
-          elementHighlight.removeClass('selecting-end');
-          var startNode = document.getElementsByClassName(`stickyS-${key}`)[0];
-          var endNode = document.getElementsByClassName(`stickyE-${key}`)[0];
-          var startLoop = startNode;
-          while (startLoop = component.getNextNode(startLoop, false , endNode,startNode,defaultColor));
-        }
-      });
-      component.setState({stickies:stickies});
-    })
-  }
-  pushHighlight(newValue) {
-    var ref = firebase.database().ref().child(`stickies/${this.state.uid}/${this.props.match.params.id}`).push();
-    ref.set(newValue);
-    return ref.key;
-  }
-
-  handleOpenModal() {
-    this.setState({modalOpen: true});
-  }
-
-  handleCloseModal() {
-    this.setState({modalOpen: false});
-    this.handleStickyOff();
-  }
-
-  getNextNode(node, skipChildren, endNode,skipNode, defaultColor){
+  getNextNode(node, skipChildren, endNode,skipNode, defaultColor, modalContent){
     if (endNode == node) {
       return false;
     }
@@ -234,190 +234,24 @@ class Article extends Component {
     }
     if (node != skipNode && !node.contains(skipNode)) {
       $(node).css('background', defaultColor);
+      $(node).attr('title','Phần văn bản được sửa đổi, bổ sung. Click để hiển thị chi tiết');
+      $(node).attr('data-toggle','modal');
+      $(node).attr('data-target','#modify-modal');
+      $(node).data('whatever',modalContent);
+      $(node).addClass('modify-text');
     }
     return node.nextSibling 
-      || this.getNextNode(node.parentNode, true, endNode, skipNode, defaultColor); 
+      || this.getNextNode(node.parentNode, true, endNode, skipNode, defaultColor,modalContent ); 
   }
-
-  getPositionSticky(className) {
-    var dup = document.getElementsByClassName(className);
-    var firstParent = $(dup).parent();
-    var offsetStart = firstParent.html().indexOf(`<span class="${className}">`);
-    var offsetEnd = firstParent.html().indexOf('</span>');
-    var dupIndex = firstParent.parent().children().index(firstParent);
-    var index = { indexHighlight: dupIndex,
-      offsetStart: offsetStart,
-      offsetEnd: offsetEnd};
-    while(!firstParent.parent().is($('.law-content'))) {
-      firstParent = firstParent.parent();
-      var indexChild = firstParent.parent().children().index(firstParent);
-      index = {
-        indexChild: indexChild,
-        child: index
-      }
-    }
-    return index;
-  }
-  handleStickyOff() {
-    this.setState({
-      painting: false
-    });
-    $('#article_content').unbind();
-    $('#article_content').css('cursor', 'default');
-  }
-  handleSaveSticky() {
-    var defaultColor = $('input[name="opt-radio-color"]:checked').val();
-    var dup = document.getElementsByClassName('selecting-dup');
-    var index;
-    var title = $('#exampleInputEmail1').val();
-    title = title == '' ? 'Tiều đề' : title;
-    var dupStatus = 0;
-    if (dup.length) {
-      dupStatus = 1;
-      var index = this.getPositionSticky('selecting-dup');
-      index = {
-        title: title,
-        position: index,
-        color: defaultColor,
-        dup: 1
-      }
-      var key = this.pushHighlight(index);
-      $(dup).css('background',defaultColor);
-      $(dup).addClass(`sticky-${key}`);
-      $(dup).attr('id',`sticky-${key}`);
-      $(dup).removeClass('selecting-dup');
-    }
-    else {
-      var startNode = document.getElementsByClassName("selecting-start");
-      var endNode = document.getElementsByClassName("selecting-end");
-      var indexStart = this.getPositionSticky('selecting-start')
-      var indexEnd = this.getPositionSticky('selecting-end')
-      index = {
-        title: title,
-        positionStart: indexStart,
-        positionEnd: indexEnd,
-        color: defaultColor,
-        dup: 0
-      }
-      var key = this.pushHighlight(index);
-      
-      var startLoop = startNode[0];
-      $(startNode).css("background",defaultColor);
-      $(endNode).css("background",defaultColor);
-      while (startLoop = this.getNextNode(startLoop, false , endNode[0],startNode[0],defaultColor));
-      $(startNode).attr('id',`sticky-${key}`);
-      $(startNode).addClass(`stickyS-${key}`);
-      $(startNode).removeClass("selecting-start");
-      $(endNode).addClass(`stickyE-${key}`);
-      $(endNode).removeClass("selecting-end");
-    }
-    var stickies = this.state.stickies;
-    var newStick = {
-      color: defaultColor,
-      dup: dupStatus,
-      key: key,
-      title: title
-    }
-    stickies.push(newStick);
-    this.setState({stickies:stickies});
-    this.handleCloseModal();
-  }
-  handleCancelSticky() {
-    var dup = document.getElementsByClassName("selecting-dup");
-    if (dup.length > 0) {
-      var h = $(dup).parent().html();
-      h = h.replace('<span class="selecting-dup">',"");
-      h = h.replace('</span>',"");
-      $(dup).parent().html(h);
-    }
-    else {
-      var startNode = document.getElementsByClassName("selecting-start");
-      var endNode = document.getElementsByClassName("selecting-end");
-      var h = $(startNode).parent().html();
-      h = h.replace('<span class="selecting-start">',"");
-      h = h.replace('</span>',"");
-      $(startNode).parent().html(h);
-      var h = $(endNode).parent().html();
-      h = h.replace('<span class="selecting-end">',"");
-      h = h.replace('</span>',"");
-      $(endNode).parent().html(h);
-    }
-    $('.container-fluid')[0].click(function(){
-     }); 
-    this.handleCloseModal();
-  }
-
-	handleSticky() {
-    var component = this;
-    this.setState({
-      painting: true
-    });
-		$('#article_content').css('cursor', `url(${constant.pencilCursorPic}), auto`);
-		$('#article_content').bind("mouseup",function(){
-      var rangeSelected = window.getSelection();
-      if (!rangeSelected.isCollapsed) {
-        console.log(rangeSelected);
-        
-        var startNode = rangeSelected.anchorNode;
-        var endNode = rangeSelected.focusNode;
-        var startOffset = rangeSelected.anchorOffset;
-        var endOffset = rangeSelected.focusOffset;
-
-        var startLoop = startNode;
-
-        if (endNode != startNode) {
-          var range = document.createRange();
-          range.setStart(startNode,startOffset);
-          range.setEnd(startNode,startNode.textContent.length);
-          var extractSelected =range.extractContents();
-          var span = document.createElement("span");
-          span.className = "selecting-start";
-          span.appendChild(extractSelected);
-          range.insertNode(span);
-
-          var range = document.createRange();
-          range.setStart(endNode,0);
-          range.setEnd(endNode, endOffset);         
-          var extractSelected =range.extractContents();
-          var span = document.createElement("span");
-          span.className = "selecting-end";
-          span.appendChild(extractSelected);
-          range.insertNode(span);
-        }
-        else {
-          var range = document.createRange();
-          range.setStart(startNode,startOffset);
-          range.setEnd(startNode,endOffset);
-          var extractSelected =range.extractContents();
-          var span = document.createElement("span");
-          span.className = "selecting-dup";
-          span.appendChild(extractSelected);
-          range.insertNode(span);
-        }
-        component.handleOpenModal();
-      }
-		});
-	}
-	
 
 	render() {
-		if (false) {
-      // this.state.error != null
-			if (this.state.error == 404) {
-				return (<NotFoundPage />);
-      }
-			else { 
-        return (
-				<div>
-					<Nav navStyle='inverse'/>
-					<h1 className="error-notification">{this.state.errorText}</h1>
-				</div>
-				);
-      }
-		}
+    if (this.state.loading) {
+      return (<Loading />)
+    }
 		else if (this.state.article != '')
 			return(
 				<div className='article-page'>
+          {this.renderModal()}
 					<Nav navStyle='inverse'/>
 					<div className="row">
 						<div className="col-md-2 col-md-index">
@@ -436,6 +270,7 @@ class Article extends Component {
 							</div>
 							<div className="tab-content">
 								<div id="article_content" className="tab-pane active">
+                  <ArticleTopics topics={this.state.article.detail.topics} />
 									<ArticleContent art_html={this.state.article.full_html} />
 								</div>
 								<div id="article_detail" className="tab-pane">
@@ -444,54 +279,29 @@ class Article extends Component {
 							</div>
 						</div>
 						<div className="col-md-2 col-md-sticky">
-							<StickyHighlight stickies={this.state.stickies} painting={this.state.painting} handleSticky={this.handleSticky} handleStickyOff={this.handleStickyOff}/>
+              <StickyHighlight />
 						</div>
 					</div>
-					<Modal 
-            onClose={this.handleCloseModal}
-            open={this.state.modalOpen}
-            closeOnDimmerClick={false}
-            id='confirm-sticky' basic size='small'>
-            <Header icon='pin' content="Thêm đánh dấu"/>
-            <Modal.Content>
-              <form>
-                <div className="form-group">
-                  <label htmlFor="exampleInputEmail1">Tiêu đề</label>
-                  <input type="text" className="form-control" id="exampleInputEmail1" autoFocus placeholder="Tiêu đề ..." required/>
-                  <div className="radio">
-                    <label><input type="radio" defaultChecked name="opt-radio-color" value="#d5ffb3"/><div style={{background : '#d5ffb3'}} className="opt-color"></div></label>
-                  </div>
-                  <div className="radio">
-                    <label><input type="radio" name="opt-radio-color" value="#ffff99"/><div style={{background : '#ffff99'}} className="opt-color"></div></label>
-                  </div>
-                  <div className="radio">
-                    <label><input type="radio" name="opt-radio-color" value="#FFCDD2"/><div style={{background : '#FFCDD2'}} className="opt-color"></div></label>
-                  </div>
-                </div>
-              </form>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button basic color='red' inverted onClick={this.handleCancelSticky}>
-                <Icon name='remove' /> Hủy
-              </Button>
-              <Button color='green' inverted onClick={this.handleSaveSticky}>
-                <Icon name='checkmark' /> Lưu
-              </Button>
-            </Modal.Actions>
-          </Modal>
+          <div id="article-script">
+            <script type="text/javascript">
+               $('[data-toggle="popover"]').popover();   
+                $('[data-toggle="tooltip"]').tooltip(); 
+            </script>
+          </div>
 				</div>
 			);
 		else {
-			return(
-        <div className="notification-waiting">
-            <div className="waiting-icon">
-              <img className="hammer" src={constant.hammerIcon} />
-              <img className="anvil" src={constant.anvilIcon} />
-              <img className="ting" src={constant.tingIcon} />
-            </div>
-            <p>Xin đợi trong chốc lát</p>
+      if (this.state.error == 404) {
+        return (<NotFoundPage />);
+      }
+      else { 
+        return (
+        <div>
+          <Nav navStyle='inverse'/>
+          <h1 className="error-notification">{this.state.errorText}</h1>
         </div>
         );
+      }
 	  }
   }
 }

@@ -8,6 +8,38 @@
   animation: internal 1s ease-in-out infinite;
   opacity: .4; }
 
+.modify-container {
+  display: table;
+  width: 100%; }
+  .modify-container #modify-box {
+    display: table-cell; }
+  .modify-container div[class^='modified-content-'] {
+    display: table-cell;
+    position: relative;
+    padding: 10px;
+    width: 0px;
+    -webkit-transition: width .5s;
+    transition: width .5s; }
+    .modify-container div[class^='modified-content-'] .fa {
+      left: -12px;
+      position: absolute;
+      color: #FB8C00;
+      font-size: 2em;
+      transform: rotate(180deg);
+      transition: transform 1s;
+      -webkit-transition: transform 1s;
+      top: calc(50% - 14px); }
+    .modify-container div[class^='modified-content-'] .modified-content-body {
+      display: none;
+      width: 100%; }
+      .modify-container div[class^='modified-content-'] .modified-content-body h5 {
+        modified-content-body: center; }
+      .modify-container div[class^='modified-content-'] .modified-content-body .modify-content-element {
+        margin-top: 10px; }
+
+#modify-box {
+  background-color: #E1F5FE; }
+
 #confirm-sticky input[type=text] {
   margin-bottom: 20px; }
 
@@ -16,6 +48,68 @@
   display: inline-block;
   height: 20px;
   width: 40px; }
+
+a[data-toggle="popover"] {
+  text-decoration: none;
+  color: #00cc00; }
+  a[data-toggle="popover"]:hover {
+    text-decoration: none;
+    color: #00cc00; }
+
+.popover-body {
+  font-size: 1.2em; }
+
+.tooltip-inner {
+  font-size: 1.3em !important;
+  background-color: #00cc00 !important; }
+
+.tooltip.bs-tooltip-right .arrow:before {
+  font-size: 1.3em !important;
+  border-right-color: #00cc00 !important; }
+
+.tooltip.bs-tooltip-left .arrow:before {
+  font-size: 1.3em !important;
+  border-right-color: #00cc00 !important; }
+
+.tooltip.bs-tooltip-bottom .arrow:before {
+  font-size: 1.3em !important;
+  border-right-color: #00cc00 !important; }
+
+.tooltip.bs-tooltip-top .arrow:before {
+  font-size: 1.3em !important;
+  border-right-color: #00cc00 !important; }
+
+.modal-dialog {
+  max-width: 70% !important; }
+  .modal-dialog .modal-body {
+    position: relative; }
+    .modal-dialog .modal-body .timeline {
+      position: absolute;
+      left: 15px;
+      height: calc(100% - 70px);
+      width: 5px;
+      background-color: #B3E5FC;
+      margin-top: 20px;
+      margin-bottom: 50px; }
+    .modal-dialog .modal-body .modal-law-modify {
+      margin: 20px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      padding: 20px;
+      margin-left: 110px; }
+      .modal-dialog .modal-body .modal-law-modify .modal-law-modify-date {
+        margin-top: 10px;
+        position: absolute;
+        left: 10px;
+        align-items: center;
+        vertical-align: middle;
+        font-weight: 900; }
+        .modal-dialog .modal-body .modal-law-modify .modal-law-modify-date svg {
+          vertical-align: middle; }
+      .modal-dialog .modal-body .modal-law-modify h5 {
+        text-decoration: underline; }
+      .modal-dialog .modal-body .modal-law-modify .modal-law-modify-content {
+        margin-left: 20px; }
 
 .article-page .btn-text {
   color: #2385f2; }
@@ -46,29 +140,20 @@
     cursor: pointer; }
     .article-page .sticky-col .sticky-btn:hover {
       background: #f6f6f6; }
-  .article-page .sticky-col .listSticky {
-    list-style: none;
-    padding: 0; }
-    .article-page .sticky-col .listSticky li {
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      padding-top: 5px;
-      display: inline-block; }
-      .article-page .sticky-col .listSticky li div {
-        margin-right: 5px;
-        width: 20px;
-        float: left;
-        height: 20px; }
-      .article-page .sticky-col .listSticky li a {
-        width: 100%;
-        display: inline-block;
-        text-decoration: none; }
-      .article-page .sticky-col .listSticky li span {
-        display: flex;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden; }
+  .article-page .sticky-col .sticky-title {
+    padding: 5px;
+    text-align: center;
+    background: #f9f9f9;
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%; }
+  .article-page .sticky-col .color-box {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    border-radius: 2px;
+    border: 1px solid #eee; }
 
 .article-page .article-detail table, .article-page .article-detail th, .article-page .article-detail td, .article-page .article-detail thead {
   border: 1px solid #d1d1d1;
@@ -226,6 +311,58 @@
       border-bottom: 1px solid #c1c1c1; }
       .article-page .index .content .law_index a {
         color: #000; }
+
+.article-page .article-topics {
+  border: 1px solid  #eee;
+  border-radius: 4px;
+  padding: 20px 10px 10px 10px;
+  margin-bottom: 1rem; }
+  .article-page .article-topics .article-topics-div {
+    position: relative;
+    margin-left: 190px; }
+  .article-page .article-topics .topics-title {
+    position: absolute;
+    left: -180px; }
+  .article-page .article-topics .topics-detail {
+    display: inline-block; }
+    .article-page .article-topics .topics-detail .topic-element {
+      background: #eee;
+      border-radius: 3px 0 0 3px;
+      color: #999;
+      display: inline-block;
+      height: 26px;
+      line-height: 26px;
+      padding: 0 20px 0 23px;
+      position: relative;
+      margin-left: 10px;
+      text-decoration: none;
+      -webkit-transition: color 0.2s; }
+    .article-page .article-topics .topics-detail .topic-element {
+      margin-bottom: 10px; }
+    .article-page .article-topics .topics-detail .topic-element::before {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+      content: '';
+      height: 6px;
+      left: 10px;
+      position: absolute;
+      width: 6px;
+      top: 10px; }
+    .article-page .article-topics .topics-detail .topic-element::after {
+      background: #fff;
+      border-bottom: 13px solid transparent;
+      border-left: 10px solid #eee;
+      border-top: 13px solid transparent;
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0; }
+    .article-page .article-topics .topics-detail .topic-element:hover {
+      background-color: #b2ebf2;
+      color: white; }
+    .article-page .article-topics .topics-detail .topic-element:hover::after {
+      border-left-color: #b2ebf2; }
 
 @media (max-width: 1315px) {
   .article-page .index {

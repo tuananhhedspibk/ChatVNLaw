@@ -24,12 +24,48 @@ class SearchLaw extends Component {
 		super(props)
 		this.state = {
 			isLoading: false,
-			articles: [],
+			articles: null,
 			offset: 1,
 			number_articles: 0,
-			pageCount: 0
+			pageCount: 0,
+			group1: 0,
+			group2_1: 0,
+			group2_2: 0,
+			query: '',
+			group3_1: null,
+			group3_2: null,
+			group3_3: null
 		};
 		this.emitter = new EventEmitter();
+	}
+
+	componentWillMount() {
+		var query = parse(this.props.location.search.substr(1))
+		if(query.group1 && query.group1 == 'Có tất cả từ trên') {
+			this.setState({group1: 1});
+		}
+		if(query.group2_1 && query.group2_1 == 'Ngày có hiệu lực') {
+			this.setState({group2_1: 2});
+		}
+		else if (query.group2_1 && query.group2_1 =='Ngày phát hành')
+		{
+			this.setState({group2_1: 2});
+		}
+		if(query.group2_2 && query.group2_2 == 'Cũ tới mới') {
+			this.setState({group2_2: 1});
+		}
+		if(query.query) {
+			this.setState({query: query.query});
+		}
+		if(query.group3_1) {
+			this.setState({group3_1: query.group3_1});
+		}
+		if(query.group3_2) {
+			this.setState({group3_2: query.group3_2});
+		}
+		if(query.group3_3) {
+			this.setState({group3_3: query.group3_3});
+		}
 	}
 
 	handlePageClick (data) {
@@ -47,24 +83,35 @@ class SearchLaw extends Component {
 		const parsed = parse(this.props.location.search.substr(1));
 		var instance = ax_ins;
 
-		if (!!objQuery.query) {
-			parsed.query = objQuery.query;
-			parsed.group1 = objQuery.group1;
-			parsed.group2_1 = objQuery.group2_1;
-			parsed.group2_2 = objQuery.group2_2;
-		}
-		parsed.page = this.state.offset;
-
 		this.setState({isLoading: true});
+		var defaultParams = {
+			query: '',
+			group1: translate('app.search.search_tool.filter.filter_1'),
+			group2_1: translate('app.search.search_tool.order_by.order_by_5'),
+			group2_2: translate('app.search.search_tool.order_by.order_by_3')
+		}
+		if(parsed.query)
+			defaultParams.query = parsed.query;
+		if(parsed.group1)
+			defaultParams.group1 = parsed.group1;
+		if(parsed.group2_1)
+			defaultParams.group2_1 = parsed.group2_1;
+		if(parsed.group2_2)
+			defaultParams.group2_2 = parsed.group2_2;
+		if(parsed.group3_1)
+			defaultParams.group3_1 = parsed.group3_1;
+		else if(parsed.group3_2)
+			defaultParams.group3_2 = parsed.group3_2;
+		defaultParams.page = this.state.offset;
 
-		instance.get(constant.API_SEARCH_ARTICLES_URI, {params: parsed})
+		instance.get(constant.API_SEARCH_ARTICLES_URI, {params: defaultParams})
 		.then(function (response) {
 			component.setState({isLoading: false});
 			component.setState({articles: response.data.articles,
 				pageCount: response.data.limit_page,
 				number_articles: response.data.number_articles});
 				if(!pageClick) {
-					component.emitter.emit('AddNewSuccessToast', '', translate('app.search.founded') + ' ' +
+					component.emit('AddNewSuccessToast', '', translate('app.search.founded') + ' ' +
 						component.state.number_articles + ' '
 						+ translate('app.search.results'), 5000, () => { })
 				}
@@ -87,14 +134,16 @@ class SearchLaw extends Component {
 			this.loadDataFromServer({}, false);
 		}
 		else {
-			queryParams = queryParams.substr(1, queryParams.length - 1).split('&');
-			var queryObj = {};
-			queryObj.query = queryParams[0].split("=")[1];
-			queryObj.group1 = queryParams[1].split("=")[1];
-			queryObj.group2_1 = queryParams[2].split("=")[1];
-			queryObj.group2_2 = queryParams[3].split("=")[1];
-			this.loadDataFromServer(queryObj, false);
+			// queryParams = queryParams.substr(1, queryParams.length - 1).split('&');
+			// var queryObj = {};
+			// queryObj.query = queryParams[0].split("=")[1];
+			// queryObj.group1 = queryParams[1].split("=")[1];
+			// queryObj.group2_1 = queryParams[2].split("=")[1];
+			// queryObj.group2_2 = queryParams[3].split("=")[1];
+
+			this.loadDataFromServer({}, false);
 		}
+
 	}
 
 	checkTabIsFocusOrBlur() {
@@ -118,7 +167,8 @@ class SearchLaw extends Component {
 	}
 
 	handlerSearch(event) {
-		event.preventDefault();
+		if (event)
+			event.preventDefault();
 		var query = $('.text-search-box input').val()
 		var group1 = '';
 		if($('.search-term #group1 input[name=group1]:checked').length >0) {
@@ -135,7 +185,36 @@ class SearchLaw extends Component {
 		navigateURI += 'group1=' + group1 + '&';
 		navigateURI += 'group2_1=' + group2_1 + '&';
 		navigateURI += 'group2_2=' + group2_2;
+
+		if($('.category-filter .category-organization .filtering').length > 0) {
+			var group3_1 = $('.category-filter .category-organization .filtering a').attr('value');
+			navigateURI += '&group3_1=' + group3_1;
+		}
+		else if ($('.category-filter .category-type .filtering').length > 0) {
+			var group3_2 = $('.category-filter .category-type .filtering a').attr('value');
+			navigateURI += '&group3_2=' + group3_2;
+		}
+
 		window.location = navigateURI;
+	}
+	handlerCategoryType(val){
+		if ($('.category-filter .filtering a').attr('value') === val) {
+			$('.category-filter .filtering').removeClass('filtering');
+		}
+		else {
+			$('.category-filter .filtering').removeClass('filtering');
+			$(`.category-filter a[value='${val}']`).parent().addClass('filtering');	
+		}
+		this.handlerSearch()
+	}
+
+	handlerCategoryYear(e,j){
+	}
+
+	handlerCategoryOrgan(val){
+		$('.category-filter .filtering').removeClass('filtering');
+		$(`.category-filter a[value='${val}']`).parent().addClass('filtering');
+		this.handlerSearch();
 	}
 
 	renderLoading() {
@@ -155,10 +234,14 @@ class SearchLaw extends Component {
 					<div className='row'>
 						<div className='col-sm-12 col-md-4'>
 							<div className='side-section'>
-								<SearchTool handler={this.handlerSearch.bind(this)}/>
-								<Category handlerType={this.handlerCategoryType}
-									handlerYear={this.handlerCategoryYear}
-									handlerOrgan={this.handlerCategoryOrgan}/>
+								<SearchTool handler={this.handlerSearch.bind(this)} group1={this.state.group1}
+									group2_1={this.state.group2_1} group2_2={this.state.group2_2} 
+									query={this.state.query}/>
+								<Category handlerType={this.handlerCategoryType.bind(this)}
+									handlerYear={this.handlerCategoryYear.bind(this)}
+									handlerOrgan={this.handlerCategoryOrgan.bind(this)}
+									group3_1={this.state.group3_1} group3_2={this.state.group3_2} 
+									group3_3={this.state.group3_3}/>
 							</div>
 						</div>
 						<div className='col-sm-12 col-md-8 results'>
@@ -167,7 +250,7 @@ class SearchLaw extends Component {
 									this.renderLoading()
 								):
 								(
-									this.state.articles.length === 0 ? (
+									this.state.articles === null ? (
 										<div className='not-found-any-results'>
 											{translate('app.search.founded') + ' 0 ' + translate('app.search.results')}
 											<div className='symbol-not-found'>

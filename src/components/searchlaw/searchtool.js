@@ -7,7 +7,21 @@ class SearchTool extends Component {
 	componentDidMount() {
 		$('#search-form-body').addClass('show');
 		$('.search-law-tool').find('.title').removeClass('collapsed');
-		$('#filter1').attr('checked', true);
+		if (this.props.group1 == 0)
+			$('#filter1').attr('checked', true);
+		else
+			$('#filter2').attr('checked', true);
+		if (this.props.group2_1 == 0)
+			$('#group2_1 option[id=val3]').attr('selected','selected');
+		else if (this.props.group2_1 == 1)
+			$('#group2_1 option[id=val1]').attr('selected','selected');
+		else
+			$('#group2_1 option[id=val2]').attr('selected','selected');
+		if (this.props.group2_2 == 0)
+			$('#group2_2 option[id=val1]').attr('selected','selected');
+		else
+			$('#group2_2 option[id=val2]').attr('selected','selected');	
+		$('.text-search-box input').val(this.props.query)
 	}
 
 	render() {
@@ -22,8 +36,8 @@ class SearchTool extends Component {
 			    <div className='search-law-tool-body collapse' id='search-form-body'>
 			      <div className='text-search-box'>
 			        <input type='text' name='query' id='query'
-								className='form-control'
-								placeholder={translate('app.search.search_tool.key_search')}/>
+						className='form-control'
+						placeholder={translate('app.search.search_tool.key_search')}/>
 			      </div>
 			      <div className='filter-list'>
 			        <div className='search-term'>
@@ -48,22 +62,26 @@ class SearchTool extends Component {
 										{translate('app.search.search_tool.order_by.title')}
 									</label>
 									<div className='select-section'>
-										<select className='form-control topic' name='group2_1'>
-											<option 
+										<select className='form-control topic' name='group2_1' id='group2_1'>
+											<option id='val3' 
+												value={translate('app.search.search_tool.order_by.order_by_5')}>
+													{translate('app.search.search_tool.order_by.order_by_5')}
+											</option>
+											<option id='val1' 
 												value={translate('app.search.search_tool.order_by.order_by_1')}>
 													{translate('app.search.search_tool.order_by.order_by_1')}
 											</option>
-											<option 
+											<option id='val2' 
 												value={translate('app.search.search_tool.order_by.order_by_2')}>
 													{translate('app.search.search_tool.order_by.order_by_2')}
 											</option>
 										</select>
-										<select className='form-control' name='group2_2'>
-											<option
+										<select className='form-control' name='group2_2' id='group2_2'>
+											<option id='val1' 
 												value={translate('app.search.search_tool.order_by.order_by_3')}>
 													{translate('app.search.search_tool.order_by.order_by_3')}
 											</option>
-											<option
+											<option id='val2' 
 												value={translate('app.search.search_tool.order_by.order_by_4')}>
 													{translate('app.search.search_tool.order_by.order_by_4')}
 											</option>
