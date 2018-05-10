@@ -107,37 +107,32 @@ class Article extends Component {
   componentDidUpdate() {
     var component = this;
     
-    $('#detail-header').on('click',function() {
-      $('.index').hide();
-      $('.sticky-col').hide();
-    });
-    $('#art-content-header').on('click',function() {
-      $('.index').show();
-      $('.sticky-col').show();
-    });
-
     if (this.state.article != '') {
       window.addEventListener('scroll',this.handleScroll);
-      eval($('#article-script script').html()); 
-      this.state.article.modified_arr.map((passage, index) => {
-        var startNode = document.getElementsByName(passage.modified_post)[0];
-        var endNode = document.getElementsByName(passage.nxt_post)[0];
-        var startLoop = startNode;
-        if(startNode && endNode)
-          while (startLoop = component.getNextNode(startLoop, false , endNode,startNode,'#FFF9C4',passage.modify_laws ));
-      });
-
-      this.state.article.modify_arr.map((passage, index) => {
-        var modify_box = $(`.modify-box-${passage.post}`);
-        if(modify_box.length) {
-          $(`<div class="modified-content-${passage.post}"><div class="modified-content-body"><h5>Nội dung văn bản gốc:</h5></div> \
-              <i class="fa fa-chevron-circle-right"></i></div>`).insertAfter($(modify_box));
-          var box_body = $(`.modified-content-${passage.post} .modified-content-body`)
-          passage.modified_laws.map((law,idx) => {
-            box_body.append(component.renderModifyContent(law));
-          })
-        }
-      });
+      var abc = $('#article-script script').html();
+      eval(abc);
+      if (this.state.article.modified_arr) { 
+        this.state.article.modified_arr.map((passage, index) => {
+          var startNode = document.getElementsByName(passage.modified_post)[0];
+          var endNode = document.getElementsByName(passage.nxt_post)[0];
+          var startLoop = startNode;
+          if(startNode && endNode)
+            while (startLoop = component.getNextNode(startLoop, false , endNode,startNode,'#FFF9C4',passage.modify_laws ));
+        });
+      }
+      if (this.state.article.modify_arr) {
+        this.state.article.modify_arr.map((passage, index) => {
+          var modify_box = $(`.modify-box-${passage.post}`);
+          if(modify_box.length) {
+            $(`<div class="modified-content-${passage.post}"><div class="modified-content-body"><h5>Nội dung văn bản gốc:</h5></div> \
+                <i class="fa fa-chevron-circle-right"></i></div>`).insertAfter($(modify_box));
+            var box_body = $(`.modified-content-${passage.post} .modified-content-body`)
+            passage.modified_laws.map((law,idx) => {
+              box_body.append(component.renderModifyContent(law));
+            })
+          }
+        });
+      }
 
       if(this.props.location.hash != '') {
         var hash_position = this.props.location.hash.replace('#','');
@@ -145,6 +140,14 @@ class Article extends Component {
           window.scrollTo(0, $(`a[name="${hash_position}"`).offset().top)
         }
       }
+      $('#detail-header').on('click',function() {
+        $('.index').hide();
+        $('.sticky-col').hide();
+      });
+      $('#art-content-header').on('click',function() {
+        $('.index').show();
+        $('.sticky-col').show();
+      });
       $("a.internal_link").on('click', function(event) {
           if (this.hash !== "") {
             event.preventDefault();
@@ -158,7 +161,7 @@ class Article extends Component {
             window.location.hash = hash;
             });
           }
-        }); 
+        });
     }
 
     $('.modify-text').on('click', function (event) {
@@ -284,8 +287,8 @@ class Article extends Component {
 					</div>
           <div id="article-script">
             <script type="text/javascript">
-               $('[data-toggle="popover"]').popover();   
-                $('[data-toggle="tooltip"]').tooltip(); 
+              $('[data-toggle="popover"]').popover();   
+              $('[data-toggle="tooltip"]').tooltip(); 
             </script>
           </div>
 				</div>
