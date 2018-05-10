@@ -4,6 +4,7 @@ import ChatBubble from 'react-chat-bubble';
 
 import * as Messages from '../../../../lib/messages/messages';
 import * as translate from 'counterpart';
+import * as constant from '../../../constants';
 
 class SearchTag extends Component {
   constructor(props) {
@@ -116,7 +117,9 @@ class SearchTag extends Component {
                 translate('app.dashboard.search.result_for')
                 + (this.state.keyword) }</p>
           </div>
-          <ChatBubble messages={this.state.messages} 
+          <ChatBubble
+            base_url={constant.API_BASE_URL}
+            messages={this.state.messages} 
             targetUser={this.state.targetUser}
             currentUser={this.state.currentUser}/>
         </div>
