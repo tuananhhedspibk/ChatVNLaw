@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import ReactStars from 'react-stars';
-import { BASE_URL } from '../../constants';
 
 import * as translate from 'counterpart';
 import * as constant from '../../constants';
 
 class HeaderBlock extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   timeFormat(birthday) {
     if (birthday !== '...' ) {
       var date = new Date(birthday)
@@ -34,7 +29,7 @@ class HeaderBlock extends Component {
 
   renderApplyBtn() {
     if(localStorage.chat_vnlaw_user) {
-      if(JSON.parse(localStorage.chat_vnlaw_user)['role'] == 'User') {
+      if(JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'User') {
         return(
           <button className='btn-blue' onClick={this.handleOnclickApplyLawyer.bind(this)}>
             {translate('app.lawyer.online_counsel')}
@@ -65,8 +60,9 @@ class HeaderBlock extends Component {
         <div className='row'>
           <div className='col-sm-12 col-md-7'>
             <div className='avatar'>
-              <img src={constant.API_BASE_URL + '/' +
-                this.props.user.base_profile.avatar.url}/>
+              <img alt='avatar'
+                src={constant.API_BASE_URL + '/' +
+                  this.props.user.base_profile.avatar.url}/>
             </div>
             <div className='basic-infor'>
               <div className='left-block'>
@@ -76,7 +72,7 @@ class HeaderBlock extends Component {
                 <p className='expert'>
                   {
                     spes_list.map((spe, idx) => {
-                      if (idx == spes_list.length - 1) {
+                      if (idx === spes_list.length - 1) {
                         return(
                           spe.name
                         )

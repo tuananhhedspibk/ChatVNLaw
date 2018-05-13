@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import {onAuthStateChanged} from '../../lib/user/authentication';
-import {extractNotification,noticeWhenNewNotiComing} from '../../lib/notification/notifications';
+
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { onAuthStateChanged } from '../../lib/user/authentication';
+import { extractNotification, noticeWhenNewNotiComing } from '../../lib/notification/notifications';
 import WebNotification from './webnotification';
-import $ from 'jquery';
 
 import * as tableConstant from '../../lib/constants';
 
@@ -49,8 +49,9 @@ class Toast extends Component{
                     }
                   });
                   break;
-              }
-                          
+                default:
+                  break;
+              }      
             })
           })
         }  
@@ -102,6 +103,8 @@ class Toast extends Component{
           break;
         case 'error':
           NotificationManager.error(text, title, duration, callback);
+          break;
+        default:
           break;
       }
     }  

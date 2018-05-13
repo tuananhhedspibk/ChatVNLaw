@@ -100,7 +100,6 @@ class TodoList extends Component {
 
   handleClick(ev){
     var component = this;
-    var time = (new Date()).getTime();
     var data = this.state.todoList;
     var index = data.indexOf(ev);
     if(data[index]){

@@ -176,11 +176,11 @@ function upFile(component, currentRoomId, e, chat) {
       var ct_t = 'image';
       var mess_properties = null;
 
-      if (ct_t_id == 2) {
+      if (ct_t_id === 2) {
         ct_t = 'file'
       }
 
-      if(ct_t == 'image') {
+      if(ct_t === 'image') {
         mess_properties = {
           contentType: ct_t,
           downloadURL: response.data.file_infor.file.url,
@@ -226,7 +226,7 @@ module.exports = {
     upFile(component, currentRoomId, e, chat);
   },
   getRoomById: function(roomId, callback) {
-    getRoomById(roomId. callback);
+    getRoomById(roomId, callback);
   },
   createNewRoomFb: function(properties, callback) {
     createNewRoomFb(properties, callback);

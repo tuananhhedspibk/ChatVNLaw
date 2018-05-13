@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import {Route, Redirect, Switch} from 'react-router-dom';
-import {EventEmitter} from 'fbemitter';
+import { Route, Switch } from 'react-router-dom';
+import { EventEmitter } from 'fbemitter';
 import { Scrollbars } from 'react-custom-scrollbars';
-import {Container} from 'reactstrap';
-import {NotificationContainer} from 'react-notifications';
+import { Container } from 'reactstrap';
 import $ from 'jquery';
 
 import Header from './components/header';
@@ -19,15 +18,12 @@ import Chat from './components/chat';
 
 import Loading from '../../shared/loading';
 import Toast from '../../notification/toast';
-import getStunServerList from '../../../lib/getstunserverlist';
 import { checkPermission, checkAuthen } from '../../../lib/notification/toast';
 import { onAuthStateChanged } from '../../../lib/user/authentication';
 import  { getUserRoleByUid } from '../../../lib/user/getuserinfo';
 import Settings from '../../user/settings';
 
-import * as translate from 'counterpart';
 import * as constant from '../../constants';
-import * as tableContant from '../../../lib/constants';
 
 import '../../../assets/styles/dashboard/style.css';
 import '../../../assets/styles/common/customDashboard.css';
@@ -48,7 +44,7 @@ class UserDashBoard extends Component {
     onAuthStateChanged(user =>{
       if(localStorage.chat_vnlaw_user){
         getUserRoleByUid( data =>{
-          if(data == 'Lawyer'){
+          if(data === 'Lawyer'){
             var currentUser = {
               avatar: JSON.parse(localStorage.chat_vnlaw_user)['avatar'],
               displayName: JSON.parse(localStorage.chat_vnlaw_user)['displayName'],

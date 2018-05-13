@@ -31,7 +31,6 @@ class ReadMore extends Component {
     render() {
       const {
         children,
-        has_link,
         more,
         less,
         lines

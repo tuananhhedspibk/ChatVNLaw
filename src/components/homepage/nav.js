@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 import firebase from 'firebase';
 import { EventEmitter } from 'fbemitter';
 
@@ -28,7 +27,7 @@ class Nav extends Component {
         if (localStorage.chat_vnlaw_user) {
           var ls_u = JSON.parse(localStorage.chat_vnlaw_user);
           component.setState({currentUser: ls_u});
-          if (ls_u.role == 'Lawyer') {
+          if (ls_u.role === 'Lawyer') {
             component.setState({isLawyer: true});
           }
         }

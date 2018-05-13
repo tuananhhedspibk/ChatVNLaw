@@ -1,5 +1,3 @@
-var firebase = require('firebase');
-
 var constantLib = require('../constants');
 var constantUI = require('../../components/constants');
 

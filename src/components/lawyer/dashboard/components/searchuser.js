@@ -64,7 +64,7 @@ class SearchUser extends Component {
             return(
               <div className='user-result'
                 onClick={this.clickUser.bind(this,element)}>
-                  <img className='user-ava'
+                  <img className='user-ava' alt='ava'
                     src={constant.API_BASE_URL + element.photoURL}
                     title={element.displayName}/>
                   <div className='user-name'>

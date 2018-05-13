@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
-import * as constant from '../constants';
 import * as translate from 'counterpart';
 
 class ArticleIndex extends Component {

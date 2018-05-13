@@ -73,9 +73,8 @@ class Customer extends Component {
   }
 
   componentWillUpdate(nextProps, nextState){
-    var descrip = [];
     var component = this;
-    if(component.state.currentRoomId != nextState.currentRoomId){
+    if(component.state.currentRoomId !== nextState.currentRoomId){
       $('.info-descrip').css('display', 'block');
       $('.edit-descrip').css('display', 'none');
       this.fetchFiles(component, nextState.currentRoomId);
@@ -112,7 +111,8 @@ class Customer extends Component {
         <div className='chat-setting'>
           <div className='header'>
             <div className='ava'>
-              <img id='current-user-ava' src={constant.API_BASE_URL + this.state.targetUser.avatar.url}/>
+              <img id='current-user-ava' alt='ava'
+                src={constant.API_BASE_URL + this.state.targetUser.avatar.url}/>
             </div>
             <div className='info'>
               <div className='user-name'>

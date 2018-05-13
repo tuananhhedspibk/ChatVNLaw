@@ -64,6 +64,8 @@ class Notifications extends Component{
                   }
                 })
                 break;
+              default:
+                break;
             }
           })
         })
@@ -117,6 +119,11 @@ class Notifications extends Component{
         return(
           <AcceptRoomItem element={element} 
             currentUser={this.state.currentUser}/>
+        )
+      default:
+        return(
+          <div>
+          </div>
         )
     }
   }

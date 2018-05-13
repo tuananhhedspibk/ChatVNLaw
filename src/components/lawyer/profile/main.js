@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {EventEmitter} from 'fbemitter';
-import firebase from 'firebase';
 
 import Nav from '../../homepage/nav';
 import MainContent from './maincontent';
@@ -9,7 +8,6 @@ import Footer from '../../homepage/footer';
 import Toast from '../../notification/toast';
 import NotFound from '../../shared/notfound';
 
-import * as constant from '../../constants';
 import * as Lawyer from '../../../lib/user/lawyers';
 
 import '../../../assets/styles/common/lawyerProfile.css';

@@ -75,7 +75,6 @@ class UserSignUp extends Component {
     var component = this;
     var displayName = this.state.displayName;
     var username = this.convertUserName(displayName);
-    var component = this;
     var password = this.state.password;
     var password_confirmation = this.state.password_confirmation;
     var email = this.state.email;

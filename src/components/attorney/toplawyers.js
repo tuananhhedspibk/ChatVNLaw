@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
-import axios from 'axios';
 
 import ReadMore from '../shared/readmore';
 
@@ -50,7 +48,8 @@ class TopLawyers extends Component {
               return (
                 <div className='item' onClick={
                   this.handleOnclickLawyer.bind(this, lawyer.userName)}>
-                    <img src={constant.API_BASE_URL + '/' + lawyer.avatar.url}/>
+                    <img alt='ava'
+                      src={constant.API_BASE_URL + '/' + lawyer.avatar.url}/>
                     <p className='name'>{lawyer.displayName}</p>
                     <p className='intro'>
                       <ReadMore has_link={false} lines={2}>

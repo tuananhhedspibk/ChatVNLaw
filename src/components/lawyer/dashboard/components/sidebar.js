@@ -3,7 +3,6 @@ import {NavLink} from 'react-router-dom';
 import {Badge, Nav, NavItem} from 'reactstrap';
 import classNames from 'classnames';
 import nav from './_nav';
-import firebase from 'firebase';
 import { Scrollbars } from 'react-custom-scrollbars';
 import $ from 'jquery';
 
@@ -121,7 +120,8 @@ class Sidebar extends Component {
           <nav className='sidebar-nav'>
             <Nav>
               <div className='user-info'>
-                <img className='ava' src={constant.API_BASE_URL + this.state.current_user.avatar.url}/>
+                <img className='ava' alt='ava'
+                  src={constant.API_BASE_URL + this.state.current_user.avatar.url}/>
                 <p className='user-name'>{this.state.current_user.displayName}</p>
               </div>
               {navList(nav.items)}

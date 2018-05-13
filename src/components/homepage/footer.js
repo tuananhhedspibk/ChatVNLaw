@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
