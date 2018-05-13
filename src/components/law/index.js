@@ -5,7 +5,7 @@ import * as translate from 'counterpart';
 class ArticleIndex extends Component {
 	render() {
 		return (
-			<div className='index'>
+			<div className='article-index'>
 				<div className='title'>
 					{translate('app.article.index')}
 				</div>

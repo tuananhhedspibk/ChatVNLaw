@@ -1,3 +1,6 @@
+.article-page-content {
+  min-height: calc(100vh - 68px); }
+
 .external-circle {
   stroke: #fff;
   stroke-dashoffset: 0;
@@ -132,7 +135,7 @@ a[data-toggle="popover"] {
   max-height: 70vh;
   margin-top: 45px;
   width: initial; }
-  .article-page .sticky-col .ui.checked.checkbox {
+  .article-page .sticky-col .ui.checkbox {
     display: block;
     font-size: 1em;
     padding: 7.5px 15px; }
@@ -166,7 +169,6 @@ a[data-toggle="popover"] {
     border: 1px solid #eee; }
 
 .article-page .article-detail {
-  margin-bottom: 125px;
   font-size: 1.2em; }
   .article-page .article-detail table, .article-page .article-detail th, .article-page .article-detail td, .article-page .article-detail thead {
     border: 1px solid #d1d1d1;
@@ -274,45 +276,45 @@ a[data-toggle="popover"] {
   width: calc(100%);
   height: inherit; }
 
-.article-page .index {
+.article-page .article-index {
   border: 1px solid #d1d1d1;
   float: right;
   font-size: 1.2em;
   margin-top: 45px;
-  width: initial; }
-  .article-page .index .title {
+  width: 100%; }
+  .article-page .article-index .title {
     padding: 8px;
     color: #fff;
     font-weight: bold;
     background-color: #2385f2; }
-  .article-page .index .content {
+  .article-page .article-index .content {
     overflow-y: scroll;
     max-height: 400px; }
-    .article-page .index .content a {
+    .article-page .article-index .content a {
       color: #fff;
       text-decoration: none; }
-    .article-page .index .content .part_index {
+    .article-page .article-index .content .part_index {
       padding: 8px;
       color: #fff;
       font-weight: bold;
       background-color: #25b4f5; }
-    .article-page .index .content .chap_index {
+    .article-page .article-index .content .chap_index {
       padding: 8px;
       color: #fff;
       font-weight: bold;
       background-color: #d2810e; }
-    .article-page .index .content .sec_index {
+    .article-page .article-index .content .sec_index {
       padding: 8px;
       color: #fff;
       font-weight: bold;
       background-color: #f39d24; }
-    .article-page .index .content .law_index {
+    .article-page .article-index .content .law_index {
       padding: 8px;
       color: #fff;
       font-weight: bold;
       font-weight: normal;
       border-bottom: 1px solid #c1c1c1; }
-      .article-page .index .content .law_index a {
+      .article-page .article-index .content .law_index a {
         color: #000; }
 
 .article-page .article-topics {
@@ -347,7 +349,7 @@ a[data-toggle="popover"] {
       text-decoration: none;
       -webkit-transition: color 0.2s; }
     .article-page .article-topics .topics-detail .topic-element::before {
-      background: #fff;
+      background: #2385f2;
       border-radius: 10px;
       box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
       content: '';
@@ -359,35 +361,49 @@ a[data-toggle="popover"] {
     .article-page .article-topics .topics-detail .topic-element:hover {
       background-color: #2385f2;
       color: #fff; }
-    .article-page .article-topics .topics-detail .topic-element:hover::after {
-      border-left-color: #2385f2; }
+    .article-page .article-topics .topics-detail .topic-element:hover::before {
+      background-color: #fff; }
 
 @media (max-width: 1315px) {
-  .article-page .index {
+  .article-page .article-index {
     width: 150px;
     margin-left: 40px; } }
 
 @media (max-width: 1200px) {
-  .article-page .index {
+  .article-page .article-index {
     margin-left: -20px; } }
 
 @media (max-width: 992px) {
-  .article-page .index {
+  .article-page .article-index {
     visibility: hidden; } }
 
 .recommend-articles {
   border: 1px solid #d1d1d1;
   border-radius: 3px;
   font-size: 1.2em;
-  margin-top: 20px; }
+  margin-top: 20px;
+  padding-bottom: 7px;
+  width: 100%; }
   .recommend-articles .title {
     background-color: #2385f2;
     color: #fff;
     font-weight: bold;
+    margin-bottom: 10px;
     padding: 8px;
     text-align: center; }
   .recommend-articles .article {
-    display: inline-block;
+    align-items: center;
+    display: flex;
+    padding: 0 15px 3px;
     width: 100%; }
     .recommend-articles .article .article-ct {
-      display: inline-block; }
+      color: #808080;
+      display: inline-block;
+      font-size: 1.3em;
+      margin-bottom: 0;
+      margin-right: 10px;
+      width: 32px; }
+  .recommend-articles .article-nm-sym {
+    display: block !important;
+    width: calc(100% - 42px);
+    word-wrap: break-word; }
