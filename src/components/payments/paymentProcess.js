@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import { log } from 'util';
 import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
 
@@ -42,7 +40,7 @@ class PaymentProcess extends Component {
     getCurrentAccount(data) {
         var component = this;
         component.setState({ trueData: (data.true),currentUser: (data.uid)});
-        if(component.state.currentUser!='') {
+        if(component.state.currentUser !== '') {
             loadCurrentUserProfile((success,response) => {
                 if (success) {
                     component.getAccountBalance(response.data.user_info.mn_acc.ammount);    
@@ -354,15 +352,15 @@ class PaymentProcess extends Component {
 
     render(){
         var view = null;
-        if(this.state.responseCode == '')
+        if(this.state.responseCode === '')
             view = (
                 <div className='notification-waiting'>
                     <div className='waiting-icon'>
-                        <img className='hammer' src={constant.hammerIcon} />
-                        <img className='anvil' src={constant.anvilIcon} />
-                        <img className='ting' src={constant.tingIcon} />
+                        <img alt='hammer' className='hammer' src={constant.hammerIcon} />
+                        <img alt='anvil' className='anvil' src={constant.anvilIcon} />
+                        <img alt='ting' className='ting' src={constant.tingIcon} />
                     </div>
-                    <p>Xin đợi trong chốc lát</p>
+                    <p>{translate('app.payment.wait')}</p>
                 </div>);
         else
             view = this.renderView();

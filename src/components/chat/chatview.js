@@ -10,14 +10,12 @@ import Loading from '../shared/loading';
 import ChatContent from './chatcontent';
 import Toast from '../notification/toast';
 
-import { getStunServerList} from '../../lib/getstunserverlist';
 import { checkAuthen } from '../../lib/notification/toast';
 import { logoutRails } from '../../lib/user/authentication';
 import { getAllRooms } from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
-import * as Users from '../../lib/user/getuserinfo';
 import * as translate from 'counterpart';
 import * as firebase from 'firebase';
 
@@ -79,7 +77,7 @@ class ChatView extends Component {
       if (success) {
         var users = [];
         var roomIds = [];
-        if(JSON.parse(localStorage.chat_vnlaw_user)['role'] == 'User') {
+        if(JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'User') {
           response.data.rooms.map((room, idx) => {
             users.push(room.lawyer);
             roomIds.push(room.id);

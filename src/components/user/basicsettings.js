@@ -62,7 +62,7 @@ class BasicSettings extends Component {
       avatar: this.props.user.avatar,
       userName: JSON.parse(localStorage.chat_vnlaw_user)['userName']
     });
-    if(this.props.role == 'Lawyer') {
+    if(this.props.role === 'Lawyer') {
       this.setState({
         exp: this.props.user.exp,
         cardNumber: this.props.user.cardNumber,
@@ -93,15 +93,15 @@ class BasicSettings extends Component {
   makeBaseProfileProperties() {
     var properties_keys = [];
     var properties_values = [];
-    if(this.state.displayName != this.props.user.displayName) {
+    if(this.state.displayName !== this.props.user.displayName) {
       properties_keys.push('displayName');
       properties_values.push(this.state.displayName);
     }
-    if(this.state.birthday != this.props.user.birthday) {
+    if(this.state.birthday !== this.props.user.birthday) {
       properties_keys.push('birthday');
       properties_values.push(this.state.birthday);
     }
-    if(this.state.avatar != this.props.user.avatar) {
+    if(this.state.avatar !== this.props.user.avatar) {
       properties_keys.push('avatar');
       properties_values.push({
         file: this.state.avatar,
@@ -118,19 +118,19 @@ class BasicSettings extends Component {
   makeLawyerProfileProperties() {
     var properties_keys = [];
     var properties_values = [];
-    if(this.state.certificate != this.props.user.certificate) {
+    if(this.state.certificate !== this.props.user.certificate) {
       properties_keys.push('certificate');
       properties_values.push(this.state.certificate);
     }
-    if(this.state.exp != this.props.user.exp) {
+    if(this.state.exp !== this.props.user.exp) {
       properties_keys.push('exp');
       properties_values.push(this.state.exp);
     }
-    if(this.state.cardNumber != this.props.user.cardNumber) {
+    if(this.state.cardNumber !== this.props.user.cardNumber) {
       properties_keys.push('cardNumber');
       properties_values.push(this.state.cardNumber);
     }
-    if(this.state.price != this.props.user.price) {
+    if(this.state.price !== this.props.user.price) {
       properties_keys.push('price');
       properties_values.push(this.state.price);
     }
@@ -144,7 +144,7 @@ class BasicSettings extends Component {
   editProfile() {
     var component = this;
     var base_profile_pro = this.makeBaseProfileProperties();
-    if(this.props.role == 'Lawyer') {
+    if(this.props.role === 'Lawyer') {
       var lawyer_profile_pro = this.makeLawyerProfileProperties();
       if(lawyer_profile_pro.keys.length > 0) {
         Lawyer.updateLawyerInfoRails(this.state.userName, lawyer_profile_pro,
@@ -346,7 +346,7 @@ class BasicSettings extends Component {
             </div>
             <input type='file' id='upfile-setting'
               accept='image/*'/>
-            <img onClick={this.upfile.bind(this)}
+            <img onClick={this.upfile.bind(this)} alt='ava'
               src={constant.API_BASE_URL + this.props.user.avatar.url}/>
             <div className='change-ava-guide'>
               {translate('app.settings.change_ava_guide')}
@@ -456,7 +456,7 @@ class BasicSettings extends Component {
   }
 
   render() {
-    if(this.props.role == 'Lawyer') {
+    if(this.props.role === 'Lawyer') {
       return(
         this.renderLawyerSettings()
       )

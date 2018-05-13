@@ -37,7 +37,7 @@ class Settings extends Component {
           var role = JSON.parse(localStorage.chat_vnlaw_user)['role'];
           var userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
           component.setState({role: role});
-          if(role == 'Lawyer') {
+          if(role === 'Lawyer') {
             Lawyer.loadProfilePage(userName, (success, response) => {
               if (success) {
                 var user = {

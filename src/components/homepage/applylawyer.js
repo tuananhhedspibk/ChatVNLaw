@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Header, TextArea, Button, Image,Modal, Dropdown } from 'semantic-ui-react';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { EventEmitter } from 'fbemitter';
 import * as firebase from 'firebase';
 
@@ -9,13 +7,12 @@ import Nav from './nav';
 import Footer from './footer';
 import NotFound from '../shared/notfound';
 import Loading from '../shared/loading';
-import Payment from '../payments/payment';
-import {createNewNotification,noticeWhenNewNotiComing}
+import { createNewNotification }
   from '../../lib/notification/notifications';
 import ThankLayoutContent from '../shared/thanklayoutcontent';
 import Toast from '../notification/toast';
-import {checkAuthen} from '../../lib/notification/toast';
-import {onAuthStateChanged} from '../../lib/user/authentication';
+import { checkAuthen } from '../../lib/notification/toast';
+import { onAuthStateChanged } from '../../lib/user/authentication';
 
 import * as constant from '../constants';
 import * as Lawyers from '../../lib/user/lawyers';
@@ -109,22 +106,6 @@ class ApplyLawyer extends Component {
     });
   }
 
-  renderPaymentInfo(){
-    return(
-      <Modal 
-        onClose={this.handleCloseModal.bind(this)}
-        open={this.state.modalOpen}
-        id='edit-user-profile-box' closeIcon={true}>
-        <Modal.Header>
-          {translate('app.payment.title')}
-        </Modal.Header>
-        <Modal.Content>
-          <Payment fullInfo={this.state.info}/>
-        </Modal.Content>
-      </Modal>
-    )
-  }
-
   changeStep(previousSection, nextSection,
     itemIdActive, itemIdNotActive) {
       $(previousSection).removeClass('active');
@@ -142,7 +123,6 @@ class ApplyLawyer extends Component {
     var phone = $('.apply-lawyer-phone').val();
     var age = $('.apply-lawyer-age').val();
     var problem = $('textarea#problem').val();
-    var fullInfo = [];
     if(fullname === ''|| address === ''|| phone === ''
       || age === '' || problem === ''){
       this.emitter.emit('AddNewWarningToast',
@@ -275,6 +255,7 @@ class ApplyLawyer extends Component {
           <div>
             <Nav navStyle='inverse'/>
             {this.state.done ? <ThankLayoutContent/> : this.renderView()}
+            <Footer/>
           </div>
         );
       }else{

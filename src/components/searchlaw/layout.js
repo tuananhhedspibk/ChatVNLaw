@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { parse } from 'qs';
 import $ from 'jquery';
 import ReactPaginate from 'react-paginate';
@@ -41,17 +40,17 @@ class SearchLaw extends Component {
 
 	componentWillMount() {
 		var query = parse(this.props.location.search.substr(1))
-		if(query.group1 && query.group1 == 'Có tất cả từ trên') {
+		if(query.group1 && query.group1 === 'Có tất cả từ trên') {
 			this.setState({group1: 1});
 		}
-		if(query.group2_1 && query.group2_1 == 'Ngày có hiệu lực') {
+		if(query.group2_1 && query.group2_1 === 'Ngày có hiệu lực') {
 			this.setState({group2_1: 2});
 		}
-		else if (query.group2_1 && query.group2_1 =='Ngày phát hành')
+		else if (query.group2_1 && query.group2_1 === 'Ngày phát hành')
 		{
 			this.setState({group2_1: 2});
 		}
-		if(query.group2_2 && query.group2_2 == 'Cũ tới mới') {
+		if(query.group2_2 && query.group2_2 === 'Cũ tới mới') {
 			this.setState({group2_2: 1});
 		}
 		if(query.query) {
@@ -134,35 +133,27 @@ class SearchLaw extends Component {
 			this.loadDataFromServer({}, false);
 		}
 		else {
-			// queryParams = queryParams.substr(1, queryParams.length - 1).split('&');
-			// var queryObj = {};
-			// queryObj.query = queryParams[0].split("=")[1];
-			// queryObj.group1 = queryParams[1].split("=")[1];
-			// queryObj.group2_1 = queryParams[2].split("=")[1];
-			// queryObj.group2_2 = queryParams[3].split("=")[1];
-
 			this.loadDataFromServer({}, false);
 		}
 
 	}
 
 	checkTabIsFocusOrBlur() {
-		var component = this;
-		$(window).on("blur focus", function (e) {
-			var prevType = $(this).data("prevType");
-
-			if (prevType != e.type) {
+		$(window).on('blur focus', function (e) {
+			var prevType = $(this).data('prevType');
+			if (prevType !== e.type) {
 				switch (e.type) {
-					case "blur":
-						$('div').text("Blured");
+					case 'blur':
+						$('div').text('Blured');
 						break;
-					case "focus":
-						$('div').text("Focused");
+					case 'focus':
+						$('div').text('Focused');
+						break;
+					default:
 						break;
 				}
 			}
-
-			$(this).data("prevType", e.type);
+			$(this).data('prevType', e.type);
 		})
 	}
 
@@ -171,7 +162,7 @@ class SearchLaw extends Component {
 			event.preventDefault();
 		var query = $('.text-search-box input').val()
 		var group1 = '';
-		if($('.search-term #group1 input[name=group1]:checked').length >0) {
+		if($('.search-term #group1 input[name=group1]:checked').length > 0) {
 			group1 = $('.search-term #group1 input[name=group1]:checked')
 				.val();
 		}

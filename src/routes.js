@@ -11,16 +11,16 @@ import Chat from './components/chat/chat';
 import Attorney from './components/attorney/attorney';
 
 import SearchLaw from './components/searchlaw/layout';
+import Article from './components/law/main';
 
 import Notifications from './components/notification/notifications';
 import ApplyLawyer from './components/homepage/applylawyer';
+
 import Settings from './components/user/settings';
 import LawyerProfile from './components/lawyer/profile/main';
 import CustomerProfile from './components/customer/profile/main';
-import Article from './components/law/main'
 import PaymentProcess from'./components/payments/paymentProcess';
 
-import TestPayment from './components/payments/test'
 import NotFoundPage from './components/shared/notfound';
 
 const Routes = props => (
@@ -40,7 +40,6 @@ const Routes = props => (
       <Route path='/settings' component={Settings}/>
       <Route path='/lawyers/:user_name' component={LawyerProfile}/>
       <Route path='/customers/:user_name' component={CustomerProfile}/>
-      <Route path='/test' component={TestPayment}/>
       <Route path='/articles/:id' component={Article}/>
       <Route path='/deposit_process' component={PaymentProcess}/>
       <Route exact path='/' render={() => (

@@ -86,7 +86,6 @@ class ChatBox extends Component {
   }
   
   componentWillReceiveProps(nextProps){
-    var component = this;
     if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
       this.setState({
         targetUser: nextProps.targetUser,
@@ -160,13 +159,13 @@ class ChatBox extends Component {
   } 
 
   handleScroll(event) {
-    if(this.refs.scrollbars.getScrollTop() == 0) {
+    if(this.refs.scrollbars.getScrollTop() === 0) {
       let properties = {};
       if(this.state.messages[0]){
         properties['roomId'] = this.state.currentRoomId;
         properties['component'] = this;
         properties['limit'] = 15;
-        properties['ts'] = ""+(parseInt(this.state.messages[0].msgTimeStamp) - 1);          
+        properties['ts'] = '' + (parseInt(this.state.messages[0].msgTimeStamp) - 1);          
         Messages.history(properties, function(){
         });
       }
@@ -175,7 +174,6 @@ class ChatBox extends Component {
 
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
-    var chats = document.getElementsByClassName('chats')[0];
     var vh = Math.max(document.documentElement.clientHeight,
       window.innerHeight || 0);
 
@@ -227,7 +225,7 @@ class ChatBox extends Component {
 
   renderVideo() {
     $('.video-call').show();
-    if($('.video-call').find('.video').css('display') == 'none') {
+    if($('.video-call').find('.video').css('display') === 'none') {
       $('.video-call').find('.video').show();
       $('.video-call').find('.end-call-btn').show();
     }

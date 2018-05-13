@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
 import $ from 'jquery';
-import { Button, Header,
-  Icon, Modal, Form } from 'semantic-ui-react';
 
 import Loading from '../shared/loading';
 import NotFoundPage from '../shared/notfound';
 import Nav from '../homepage/nav';
+import Footer from '../homepage/footer';
 import ArticleIndex from './index';
 import ArticleContent from './content';
 import ArticleTopics from './topics';
 import ArticleDetail from './detail';
 import StickyHighlight from './sticky';
-import * as constant from '../constants';
+import Recommend from './recommend';
+
 import { ax_ins } from '../../lib/constants';
+
 import '../../assets/styles/common/articles.css';
 
-const firebase = require('firebase');
+import * as constant from '../constants';
+import * as translate from 'counterpart';
 
 class Article extends Component {
 	constructor(props) {
@@ -37,32 +37,37 @@ class Article extends Component {
 	}
 
 	componentWillMount() {
-
-
 		var component = this;
     var instance = ax_ins;
-    instance.get(constant.API_ARTICLES_URI+'/'+ this.props.match.params.id )
+    instance.get(constant.API_ARTICLES_URI + '/' + this.props.match.params.id )
       .then(function (response) {
         component.setState({article: response.data, loading: false});
       })
       .catch(function (error) {
-        component.setState({error: error.response.status, statusText: error.response.statusText, loading: false})
+        component.setState({error: error.response.status,
+          statusText: error.response.statusText,
+          loading: false})
      });
   }
 
   renderModal() {
-    if (this.state.article != '') {
+    if (this.state.article !== '') {
       return(
-        <div className="modal fade" id="modify-modal" role="dialog">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title">Lịch sử sửa đổi</h4>
+        <div className='modal fade' id='modify-modal' role='dialog'>
+          <div className='modal-dialog'>
+            <div className='modal-content'>
+              <div className='modal-header'>
+                <h4 className='modal-title'>
+                  {translate('app.article.edit_his')}
+                </h4>
               </div>
-              <div className="modal-body">
+              <div className='modal-body'>
               </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Đóng</button>
+              <div className='modal-footer'>
+                <button type='button' className='btn btn-default'
+                  data-dismiss='modal'>
+                    {translate('app.article.close')}
+                </button>
               </div>
             </div>
           </div>
@@ -88,6 +93,7 @@ class Article extends Component {
       </div>`
     return html
   }
+
   custom_sort(a, b) {
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
     var aDate = new Date(a.modify_law_date.replace(pattern,'$3-$2-$1')).getTime();
@@ -107,7 +113,7 @@ class Article extends Component {
   componentDidUpdate() {
     var component = this;
     
-    if (this.state.article != '') {
+    if (this.state.article !== '') {
       window.addEventListener('scroll',this.handleScroll);
       var abc = $('#article-script script').html();
       eval(abc);
@@ -117,7 +123,8 @@ class Article extends Component {
           var endNode = document.getElementsByName(passage.nxt_post)[0];
           var startLoop = startNode;
           if(startNode && endNode)
-            while (startLoop = component.getNextNode(startLoop, false , endNode,startNode,'#FFF9C4',passage.modify_laws ));
+            while (startLoop = component.getNextNode(startLoop, false,
+              endNode, startNode, '#FFF9C4', passage.modify_laws));
         });
       }
       if (this.state.article.modify_arr) {
@@ -134,7 +141,7 @@ class Article extends Component {
         });
       }
 
-      if(this.props.location.hash != '') {
+      if(this.props.location.hash !== '') {
         var hash_position = this.props.location.hash.replace('#','');
         if ($(`a[name="${hash_position}"`).length > 0) {
           window.scrollTo(0, $(`a[name="${hash_position}"`).offset().top)
@@ -148,12 +155,12 @@ class Article extends Component {
         $('.index').show();
         $('.sticky-col').show();
       });
-      $("a.internal_link").on('click', function(event) {
-          if (this.hash !== "") {
+      $('a.internal_link').on('click', function(event) {
+          if (this.hash !== '') {
             event.preventDefault();
 
             var hash = this.hash;
-            var hash_position = hash.replace('#','');
+            var hash_position = hash.replace('#', '');
             $('html, body').animate({
               scrollTop: $(`a[name="${hash_position}"`).offset().top
             }, 1100, function(){
@@ -175,7 +182,7 @@ class Article extends Component {
       })
     })
     $('.fa-chevron-circle-right').on('click' ,function(event) {
-      if($(this).prev().css('display') == 'none') {
+      if($(this).prev().css('display') === 'none') {
         $(this).parent().css('width', '50%');
         $(this).css('transform' , 'rotate(0)');
         setTimeout(function(){
@@ -192,7 +199,7 @@ class Article extends Component {
 
   handleScroll() {
     if (window.scrollY>= $('.nav-pills').offset().top) {
-      if ($('.index').css('position') != 'fixed') {
+      if ($('.index').css('position') !== 'fixed') {
         var defaultLeft = $('.index').offset().left;
         var defaultHeight = $('.index').offset().top -$('.nav-pills').offset().top;
         var defaultLeft1 = $('.sticky-col').offset().left;
@@ -200,33 +207,33 @@ class Article extends Component {
         var defaultHeight1 = $('.sticky-col').offset().top -$('.nav-pills').offset().top;
 
         $('.index').css('position','fixed');
-        $('.index').css('left',defaultLeft);  
-        $('.index').css('top',defaultHeight); 
-        $('.index').css('margin-top',0);
+        $('.index').css('left', defaultLeft);  
+        $('.index').css('top', defaultHeight); 
+        $('.index').css('margin-top', 0);
         $('.sticky-col').css('position','fixed');
-        $('.sticky-col').css('left',defaultLeft1);
-        $('.sticky-col').css('right',defaultRight1);  
-        $('.sticky-col').css('top',defaultHeight1); 
-        $('.sticky-col').css('margin-top',0);
+        $('.sticky-col').css('left', defaultLeft1);
+        $('.sticky-col').css('right', defaultRight1);  
+        $('.sticky-col').css('top', defaultHeight1);
+        $('.sticky-col').css('margin-top', 0);
       }
     }
     else {
-      if ($('.index').css('position') == 'fixed') {
-        $('.index').css('position','relative');
+      if ($('.index').css('position') === 'fixed') {
+        $('.index').css('position', 'relative');
         $('.index').css('left','0');
         $('.index').css('top','0');
-        $('.index').css('margin-top',70);
+        $('.index').css('margin-top', 45);
         $('.sticky-col').css('position','relative');
         $('.sticky-col').css('left','0');
         $('.sticky-col').css('right','0');
         $('.sticky-col').css('top','0');
-        $('.sticky-col').css('margin-top',70);
+        $('.sticky-col').css('margin-top', 45);
       }
     }
   }
 
   getNextNode(node, skipChildren, endNode,skipNode, defaultColor, modalContent){
-    if (endNode == node) {
+    if (endNode === node) {
       return false;
     }
     if (node.firstChild && !skipChildren) {
@@ -235,7 +242,7 @@ class Article extends Component {
     if (!node.parentNode){
       return false;
     }
-    if (node != skipNode && !node.contains(skipNode)) {
+    if (node !== skipNode && !node.contains(skipNode)) {
       $(node).css('background', defaultColor);
       $(node).attr('title','Phần văn bản được sửa đổi, bổ sung. Click để hiển thị chi tiết');
       $(node).attr('data-toggle','modal');
@@ -251,42 +258,50 @@ class Article extends Component {
     if (this.state.loading) {
       return (<Loading />)
     }
-		else if (this.state.article != '')
+		else if (this.state.article !== '')
 			return(
 				<div className='article-page'>
           {this.renderModal()}
 					<Nav navStyle='inverse'/>
-					<div className="row">
-						<div className="col-md-2 col-md-index">
+					<div className='row'>
+						<div className='col-md-2 col-md-index'>
 					    <ArticleIndex index_html={this.state.article.index_html}/>
 						</div>
-						<div className="col-md-8">
-							<div className="container-fluid">
-								<ul className="nav nav-pills">
+						<div className='col-md-8'>
+							<div className='container-fluid'>
+								<ul className='nav nav-pills'>
 								    <li>
-								    	<a id='art-content-header' href="#article_content" data-toggle="tab" className="active" >Toàn văn</a>
+								    	<a id='art-content-header' href='#article_content'
+                        data-toggle='tab' className='active' >
+                          {translate('app.article.full_text')}
+                      </a>
 								    </li>
 								    <li >
-								    	<a id='detail-header' href="#article_detail" data-toggle="tab">Thuộc tính</a>
+								    	<a id='detail-header' href='#article_detail'
+                        data-toggle='tab'>
+                          {translate('app.article.attr')}
+                      </a>
 								    </li>
 								</ul>
 							</div>
-							<div className="tab-content">
-								<div id="article_content" className="tab-pane active">
+							<div className='tab-content'>
+								<div id='article_content' className='tab-pane active'>
                   <ArticleTopics topics={this.state.article.detail.topics} />
 									<ArticleContent art_html={this.state.article.full_html} />
 								</div>
-								<div id="article_detail" className="tab-pane">
+								<div id='article_detail' className='tab-pane'>
 									<ArticleDetail detail={this.state.article.detail}/>
 								</div>
 							</div>
 						</div>
-						<div className="col-md-2 col-md-sticky">
+						<div className='col-md-2 col-md-sticky'>
               <StickyHighlight />
+              <Recommend articles={this.state.article.neighbors}/>
 						</div>
 					</div>
-          <div id="article-script">
-            <script type="text/javascript">
+          <Footer/>
+          <div id='article-script'>
+            <script type='text/javascript'>
               $('[data-toggle="popover"]').popover();   
               $('[data-toggle="tooltip"]').tooltip(); 
             </script>
@@ -294,14 +309,17 @@ class Article extends Component {
 				</div>
 			);
 		else {
-      if (this.state.error == 404) {
+      if (this.state.error === 404) {
         return (<NotFoundPage />);
       }
       else { 
         return (
         <div>
           <Nav navStyle='inverse'/>
-          <h1 className="error-notification">{this.state.errorText}</h1>
+          <h1 className='error-notification'>
+            {this.state.errorText}
+          </h1>
+          <Footer/>
         </div>
         );
       }

@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import $ from 'jquery';
+import React, { Component } from 'react';
 
 import { getAllTasks } from '../../../../lib/user/lawyers';
 

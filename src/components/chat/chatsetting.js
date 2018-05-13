@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, Button, Image,
-  Modal } from 'semantic-ui-react';
 import $ from 'jquery';
 import { Scrollbars } from 'react-custom-scrollbars';
 
@@ -11,42 +9,8 @@ import { getRoomFilesAndImages } from '../../lib/room/rooms';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
-import * as firebase from 'firebase';
 
 import '../../assets/styles/common/chatSetting.css';
-
-var upfileStyle = {
-  display: 'none'
-}
-
-var uploadNewPicStyle = {
-  base: {
-    opacity: 1,
-    zIndex: 2,
-    display: 'inline-block',
-    fontSize: '1.2em',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    height: '60px',
-    width: '100%',
-    padding: '20px 20px',
-    color: 'white',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    backgroundColor: 'rgba(0, 0, 0, .5)'
-  }
-}
-
-var faCameraStyle = {
-  marginRight: '20px'
-}
-
-var imgColStyle = {
-  base: {
-    position: 'relative',
-  }
-}
 
 class ChatSetting extends Component {
   constructor(props) {

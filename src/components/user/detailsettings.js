@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import { Header, TextArea,
-  Button, Image,Modal, Dropdown } from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
 
-import * as constant from '../constants';
 import * as translate from 'counterpart';
 import * as $ from 'jquery';
 import * as Lawyer from '../../lib/user/lawyers';
-import {createDepositRequests,getDepositHistories} from '../../lib/user/users';
+import { createDepositRequests, getDepositHistories } from '../../lib/user/users';
 
 class DetailSettings extends Component {
   constructor(props) {
@@ -23,7 +21,7 @@ class DetailSettings extends Component {
 
   componentWillMount() {
     this.setState({userName: JSON.parse(localStorage.chat_vnlaw_user)['userName']});
-    if(this.props.role == 'Lawyer'){
+    if(this.props.role === 'Lawyer'){
       this.setState({
         intro: this.props.user.intro,
         achievement: this.props.user.achievement,
@@ -65,19 +63,19 @@ class DetailSettings extends Component {
   makeLawyerProfileProperties() {
     var properties_keys = [];
     var properties_values = [];
-    if(this.state.intro != this.props.user.intro) {
+    if(this.state.intro !== this.props.user.intro) {
       properties_keys.push('intro');
       properties_values.push(this.state.intro);
     }
-    if(this.state.achievement != this.props.user.achievement) {
+    if(this.state.achievement !== this.props.user.achievement) {
       properties_keys.push('achievement');
       properties_values.push(this.state.achievement);
     }
-    if(this.state.education != this.props.user.education) {
+    if(this.state.education !== this.props.user.education) {
       properties_keys.push('education');
       properties_values.push(this.state.education);
     }
-    if(this.state.workPlace != this.props.user.workPlace) {
+    if(this.state.workPlace !== this.props.user.workPlace) {
       properties_keys.push('workPlace');
       properties_values.push(this.state.workPlace);
     }
@@ -90,7 +88,7 @@ class DetailSettings extends Component {
 
   editProfile(){
     var component = this;
-    if(this.props.role == 'Lawyer') {
+    if(this.props.role === 'Lawyer') {
       var lawyer_profile_pro = this.makeLawyerProfileProperties();
       if(lawyer_profile_pro.keys.length > 0) {
         Lawyer.updateLawyerInfoRails(this.state.userName, lawyer_profile_pro,
@@ -277,7 +275,7 @@ class DetailSettings extends Component {
   }
 
   render() {
-    if(this.props.role == 'Lawyer') {
+    if(this.props.role === 'Lawyer') {
       return(
         this.renderLawyerSettings()
       )

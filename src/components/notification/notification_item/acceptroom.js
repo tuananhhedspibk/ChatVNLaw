@@ -3,7 +3,6 @@ import {deleteNotification} from '../../../lib/notification/notifications';
 import BaseItem from './baseitem';
 
 import * as translate from 'counterpart';
-import * as tableConstant from '../../../lib/constants';
 import * as constant from '../../constants';
 
 class AcceptRoomItem extends BaseItem{

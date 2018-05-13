@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import ChatBubble from 'react-chat-bubble';
 import $ from 'jquery';
 import { Picker } from 'emoji-mart';
 import firebase from 'firebase';
 import { Scrollbars } from 'react-custom-scrollbars';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 
 import VideoCall from './videocall'
 import ChatSetting from './chatsetting';
@@ -13,8 +11,7 @@ import ChatSetting from './chatsetting';
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
 import * as translate from 'counterpart';
-import * as videoCall from '../../lib/streaming/videocall';
-import { upFile, updateRoom } from '../../lib/room/rooms';
+import { upFile } from '../../lib/room/rooms';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
@@ -43,7 +40,6 @@ class ChatContent extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    var component = this;
     if(this.state.targetUser !== nextProps.targetUser && !!nextProps.targetUser){
       this.setState({targetUser: nextProps.targetUser})
     }
@@ -142,8 +138,6 @@ class ChatContent extends Component {
 
   autoExpand(elementId) {
     var input = document.getElementById(elementId);
-    var chats = document.getElementsByClassName('chats')[0];
-    var deltaChatHeight = 0;
     var vh = Math.max(document.documentElement.clientHeight,
       window.innerHeight || 0);
 
@@ -153,7 +147,6 @@ class ChatContent extends Component {
 
     var textbox = document.getElementById('text-box');
     textbox.style.height = contentHeight + 2 + 'px';
-    deltaChatHeight = 55 + contentHeight;
     this.setState({chatContentHeight: vh - 55 - contentHeight});
   }
 
@@ -210,9 +203,8 @@ class ChatContent extends Component {
   }
 
   handleScroll(event) {
-    if(this.refs.scrollbars.getScrollTop() == 0) {
+    if(this.refs.scrollbars.getScrollTop() === 0) {
       let properties = {};
-      var component = this;
       if(this.state.messages[0]){
         properties['roomId'] = this.state.currentRoomId;
         properties['component'] = this;

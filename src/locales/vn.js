@@ -489,7 +489,8 @@ module.exports = {
       fail_deposite_13: 'Vượt quá hạn mức thanh toán',
       fail_deposite_21: 'Số tiền không đủ để thanh toán',
       fail_deposite_99: 'Người sử dụng hủy giao dịch',
-      fail_deposite_default: 'Giao dịch thất bại'
+      fail_deposite_default: 'Giao dịch thất bại',
+      wait: 'Xin đợi trong chốc lát'
     },
     lawyer: {
       online_counsel: 'Tư vấn trực tuyến',
@@ -556,7 +557,19 @@ module.exports = {
       scope: 'Phạm vi',
       expire_day: 'Ngày hết hiệu lực',
       markup: ' Đánh dấu văn bản',
-      index: 'Mục lục'
+      index: 'Mục lục',
+      close: 'Đóng',
+      full_text: 'Toàn văn',
+      attr: 'Thuộc tính',
+      edit_his: 'Lịch sử sửa đổi',
+      recommend: 'Các văn bản liên quan',
+      keyword: ' Các từ khóa liên quan:',
+      sticky: {
+        title: 'Tùy chọn hiển thị',
+        determine: ' Định nghĩa',
+        edit: ' Sửa đổi, bổ sung',
+        is_editted: ' Được sửa đổi, bổ sung'
+      }
     },
     apply_lawyer: {
       can_not: 'Không thể yêu cầu luật sư'

@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import ReactStars from 'react-stars';
 
 import HeaderBlock from './headerblock';
 import LeftBlock from './leftblock';
 import RightBlock from './rightblock';
 import CenterBlock from './centerblock';
 
-import * as constant from '../../constants';
-
 class MainContent extends Component {
 	convertContent(text) {
-		if (text == null || text == '') {
+		if (text === null || text === '') {
 			return '...';
 		}
 		else {
 			if(Array.isArray(text)) {
-				return text.join(", ");
+				return text.join(', ');
 			}
 			return text;
 		}

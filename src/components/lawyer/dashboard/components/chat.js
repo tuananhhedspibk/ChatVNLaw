@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ChatBox from './chatbox';
-import firebase from 'firebase';
 import { Scrollbars } from 'react-custom-scrollbars';
 import $ from 'jquery';
 
@@ -8,7 +7,6 @@ import { getAllRooms, upFile } from '../../../../lib/room/rooms';
 import { chat } from '../../../../lib/messages/messages';
 
 import * as constant from '../../../constants';
-import * as translate from 'counterpart';
 
 class Chat extends Component {
   constructor(props) {
@@ -80,7 +78,7 @@ class Chat extends Component {
       roomDes: roomDes,
       currentRoomId: rid
     });
-    if ($('.chat-box-wrapper').css('display') == 'none') {
+    if ($('.chat-box-wrapper').css('display') === 'none') {
       $('.chat-box-wrapper').toggle();
       if($('.video-call').css('display') !== 'none') {
         $('.video-call').find('.video').toggle();
@@ -116,7 +114,8 @@ class Chat extends Component {
                         onClick={this.changeUserChat.bind(this, room.user,
                           room.id, room.description)} key={room.id}>
                           <div className='user-ava'>
-                            <img src={constant.API_BASE_URL + room.user.avatar.url}
+                            <img alt='ava'
+                              src={constant.API_BASE_URL + room.user.avatar.url}
                               title={room.user.displayName}/>
                           </div>
                         </div>
@@ -127,7 +126,8 @@ class Chat extends Component {
                         onClick={this.changeUserChat.bind(this, room.user,
                           room.id, room.description)} key={room.id}>
                           <div className='user-ava'>
-                            <img src={constant.API_BASE_URL + room.user.avatar.url}
+                            <img alt='ava'
+                              src={constant.API_BASE_URL + room.user.avatar.url}
                               title={room.user.displayName}/>
                           </div>
                       </div>

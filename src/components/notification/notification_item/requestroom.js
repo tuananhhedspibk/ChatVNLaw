@@ -131,6 +131,8 @@ class RequestRoomItem extends BaseItem {
         $('#button_create_'+ element.id).hide();
         $('#button_deny_'+ element.id).show();
         break; 
+      default:
+        break;
     }
   }
 
@@ -162,11 +164,15 @@ class RequestRoomItem extends BaseItem {
               + '\t' + this.convertDateToDay(data.timeStamp)}</li>
           </ul>
         )
+      default:
+        return(
+          <div>
+          </div>
+        )
     }
   }
 
   renderAcceptBtn() {
-    var component = this;
     var hasRoom = false;
     this.state.rooms.map(room => {
       if(room.lawyer.id === JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id']

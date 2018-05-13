@@ -43,7 +43,7 @@ class Category extends Component {
 		else if (type === 'year') {
 			handleFunction = this.props.handlerYear;
 		}
-		if (type != 'year') {
+		if (type !== 'year') {
 			return(
 				itemIndex.map(i => {
 					return(

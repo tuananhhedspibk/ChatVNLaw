@@ -35,7 +35,6 @@ class HotLawyers extends Component {
   }
 
   changeLawyer(lawyer, current_lawyer_id) {
-    console.log(lawyer);
     this.setState({currentLawyer: lawyer});
     for(var i = 0; i < this.state.lawyers.length; i++) {
       $('#lawyer-' + i).removeClass('now-focus');
@@ -152,7 +151,7 @@ class HotLawyers extends Component {
                     return(
                       <div className='lawyer' key={idx} id={'lawyer-' + idx}
                         onClick={this.changeLawyer.bind(this, lawyer, idx)}>
-                          <img className='ava'
+                          <img className='ava' alt={'ava-' + idx}
                             src={constant.API_BASE_URL + lawyer.avatar.url} />
                           <div className='infor'>
                             <div className='name' title={lawyer.displayName}>

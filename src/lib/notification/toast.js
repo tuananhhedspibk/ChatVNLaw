@@ -1,4 +1,3 @@
-var constant = require('../../components/constants');
 var translate = require('counterpart');
 
 function checkPermission(emitter, uri, callback){

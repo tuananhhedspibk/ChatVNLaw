@@ -125,7 +125,7 @@ class UserLogin extends Component {
                 'displayName': response.data.displayName,
                 'avatar': response.data.avatar
               }
-              if(chat_vnlaw_user.role == 'Lawyer') {
+              if(chat_vnlaw_user.role === 'Lawyer') {
                 chat_vnlaw_user['lawyer_id'] = response.data.lawyer_id;
               }
               localStorage.setItem(constant.STORAGE_ITEM, JSON.stringify(chat_vnlaw_user));
@@ -166,6 +166,8 @@ class UserLogin extends Component {
             component.emitter.emit('AddNewErrorToast', '',
               translate('app.system_notice.error.text.user_not_found'),
               5000, ()=>{ })                        
+            break;
+          default:
             break;
         }
       }

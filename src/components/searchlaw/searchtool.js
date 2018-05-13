@@ -7,17 +7,17 @@ class SearchTool extends Component {
 	componentDidMount() {
 		$('#search-form-body').addClass('show');
 		$('.search-law-tool').find('.title').removeClass('collapsed');
-		if (this.props.group1 == 0)
+		if (this.props.group1 === 0)
 			$('#filter1').attr('checked', true);
 		else
 			$('#filter2').attr('checked', true);
-		if (this.props.group2_1 == 0)
+		if (this.props.group2_1 === 0)
 			$('#group2_1 option[id=val3]').attr('selected','selected');
-		else if (this.props.group2_1 == 1)
+		else if (this.props.group2_1 === 1)
 			$('#group2_1 option[id=val1]').attr('selected','selected');
 		else
 			$('#group2_1 option[id=val2]').attr('selected','selected');
-		if (this.props.group2_2 == 0)
+		if (this.props.group2_2 === 0)
 			$('#group2_2 option[id=val1]').attr('selected','selected');
 		else
 			$('#group2_2 option[id=val2]').attr('selected','selected');	

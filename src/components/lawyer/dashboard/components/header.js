@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {
-  Badge, Dropdown, DropdownMenu,
+  Dropdown, DropdownMenu,
   DropdownItem, Nav, NavItem,
-  NavLink, NavbarToggler, NavbarBrand,
+  NavbarToggler, NavbarBrand,
   DropdownToggle
 } from 'reactstrap';
 
@@ -103,7 +103,8 @@ class Header extends Component {
           <NavItem>
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle className='nav-link dropdown-toggle'>
-                <img src={this.state.currentUser.photoURL}
+                <img alt='ava'
+                  src={this.state.currentUser.photoURL}
                   className='img-avatar'/>
                 <span className='d-md-down-none'>
                   {this.state.currentUser.displayName}

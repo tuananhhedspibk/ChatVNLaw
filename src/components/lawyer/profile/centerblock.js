@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
 import ReactStars from 'react-stars';
 import { Modal, Button, Header } from 'semantic-ui-react';
-import $ from 'jquery';
 
 import ReadMore from '../../shared/readmore';
 import * as Review from '../../../lib/user/getreviewlawyer';
@@ -49,10 +47,11 @@ class CenterBlock extends Component {
       return(
         component.state.reviews.map((review, index) => {
           if(index < 6) {
-            if(index % 2 != 0){
+            if(index % 2 !== 0){
               return (
                 <div className='customer-review'>
-                  <img className='user-ava' src={constant.DEFAULT_AVATAR_URL}/>
+                  <img className='user-ava' alt={'ava' + index}
+                    src={constant.DEFAULT_AVATAR_URL}/>
                   <p className='review-content'>
                     {review.content}
                   </p>
@@ -70,7 +69,8 @@ class CenterBlock extends Component {
             else {
               return (
                 <div className='customer-review review-grey'>
-                  <img className='user-ava' src={constant.DEFAULT_AVATAR_URL}/>
+                  <img className='user-ava' alt={'ava' + index}
+                    src={constant.DEFAULT_AVATAR_URL}/>
                   <p className='review-content'>
                     {review.content}
                   </p>
@@ -124,7 +124,8 @@ class CenterBlock extends Component {
                 this.state.reviews.map((review, index) => {
                   return (
                     <div className='customer-review'>
-                      <img className='user-ava' src={constant.DEFAULT_AVATAR_URL}/>
+                      <img className='user-ava' alt={'ava' + index}
+                        src={constant.DEFAULT_AVATAR_URL}/>
                       <p className='review-content'>
                         {review.content}
                       </p>

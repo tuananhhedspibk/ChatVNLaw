@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-
-import * as constant from '../constants';
-import $ from 'jquery';
 import { Checkbox } from 'semantic-ui-react';
+import $ from 'jquery';
+
+import * as translate from 'counterpart';
 
 class StickyHighlight extends Component {
 	constructor(props) {
@@ -12,6 +11,7 @@ class StickyHighlight extends Component {
     this.handleModified = this.handleModified.bind(this);
     this.handleModify = this.handleModify.bind(this);
 	}
+
 	handleDef() {
 		if($('.checked.sticky-def').length) {
 			$('.definition-popover').css('color','#212529');
@@ -22,6 +22,7 @@ class StickyHighlight extends Component {
 			$('.definition-popover').attr('data-toggle','popover');
 		}
 	}
+
 	handleModified() {
 		if($('.checked.sticky-modified').length) {
 			$('*[data-target="#modify-modal"]').css('background-color','white');
@@ -30,6 +31,7 @@ class StickyHighlight extends Component {
 			$('*[data-target="#modify-modal"]').css('background-color', '#FFF9C4');
 		}
 	}
+
 	handleModify() {
 		if($('.checked.sticky-modify').length) {
 			$('#modify-box').css('background-color','white');
@@ -43,16 +45,26 @@ class StickyHighlight extends Component {
 		return (
 			<div className='sticky-col'>
 				<div className='sticky-title'>
-					Tùy chọn hiển thị
+					{translate('app.article.sticky.title')}
 				</div>
-				<Checkbox className="sticky-def" onChange={this.handleDef} defaultChecked label={<label className="form-check-label"> 
-            <div className="color-box" style={{backgroundColor: '#00cc00'}}></div> Định nghĩa
+				<Checkbox className="sticky-def" onChange={this.handleDef} defaultChecked label={
+					<label className="form-check-label"> 
+            <div className="color-box" style={{backgroundColor: '#00cc00'}}>
+						</div>
+						{translate('app.article.sticky.determine')}
+          </label>
+				} />
+        <Checkbox defaultChecked className="sticky-modified" onChange={this.handleModified} label={
+					<label className="form-check-label"> 
+            <div className="color-box" style={{backgroundColor: '#FFF9C4'}}>
+						</div>
+						{translate('app.article.sticky.is_editted')}
           </label>} />
-        <Checkbox defaultChecked className="sticky-modified" onChange={this.handleModified} label={<label className="form-check-label"> 
-            <div className="color-box" style={{backgroundColor: '#FFF9C4'}}></div> Được sửa đổi, bổ sung
-          </label>} />
-        <Checkbox defaultChecked className="sticky-modify" onChange={this.handleModify} label={<label className="form-check-label"> 
-            <div className="color-box" style={{backgroundColor: '#E1F5FE'}}></div> Sửa đổi, bổ sung
+        <Checkbox defaultChecked className="sticky-modify" onChange={this.handleModify} label={
+					<label className="form-check-label"> 
+            <div className="color-box" style={{backgroundColor: '#E1F5FE'}}>
+						</div>
+						{translate('app.article.sticky.edit')}
           </label>} />
 			</div>
 		)

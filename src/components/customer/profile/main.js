@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import ReactLoading from 'react-loading';
 
 import Nav from '../../homepage/nav';

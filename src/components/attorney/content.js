@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ReactLoading from 'react-loading';
-import firebase from 'firebase';
 import ReactStars from 'react-stars';
-import axios from 'axios';
 import { Dropdown } from 'semantic-ui-react';
 import ReactPaginate from 'react-paginate';
 import $ from 'jquery';
@@ -15,7 +13,6 @@ import Toast from '../notification/toast';
 import ReadMore from '../shared/readmore';
 import * as constant from '../constants';
 import { ax_ins } from '../../lib/constants';
-import * as Lawyers from '../../lib/user/lawyers';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -60,7 +57,7 @@ class Content extends Component {
 		let offset = Math.ceil(selected * 6);
 
 		this.setState({offset: offset, current_page: selected}, () => {
-			if(component.state.sort_by != ''){
+			if(component.state.sort_by !== ''){
 				component.loadDataFromServer({name: component.state.key_word,
 					page: selected + 1, sort_by: component.state.sort_by},
 					true, true);
@@ -187,12 +184,12 @@ class Content extends Component {
 	filterWhenChecked(lawyer, index, filter_value) {
 		let ct = 0;
 		lawyer.specializations.map(spe => {
-			if(spe.name == translate('app.home.search_law.' +
+			if(spe.name === translate('app.home.search_law.' +
 				filter_value + '.title')) {
 					ct++;
 			}
 		});
-		if(ct == 0){
+		if(ct === 0){
 			$('#lawyer-' + index).hide();
 		}
 	}
@@ -206,7 +203,7 @@ class Content extends Component {
 		listSpecializes[key].checked = !listSpecializes[key].checked;
 		if(listSpecializes[key].checked){
 			this.state.lawyers.map((lawyer, index) => {
-				if($('#lawyer-' + index).css('display') != 'none') {
+				if($('#lawyer-' + index).css('display') !== 'none') {
 					component.filterWhenChecked(lawyer, index,
 						listSpecializes[key].value);
 				}
@@ -220,13 +217,13 @@ class Content extends Component {
 				}
 			});
 			this.state.lawyers.map((lawyer, index) => {
-				if($('#lawyer-' + index).css('display') == 'none') {
+				if($('#lawyer-' + index).css('display') === 'none') {
 					let mapFil = 0;
 					lawyer.specializations.map(spe => {
 						listSpecializes.map(item => {
 							if(item.checked) {
 								if (translate('app.home.search_law.' +
-									item.value + '.title') == spe.name) {
+									item.value + '.title') === spe.name) {
 										mapFil++;
 								}
 							}
@@ -254,7 +251,7 @@ class Content extends Component {
 					{translate('app.search.has')}
 					<b>{' ' + this.state.number_lawyers + ' '}</b>
 					{
-						this.state.key_word.length == 0 ?
+						this.state.key_word.length === 0 ?
 						translate('app.search.results') : 
 						translate('app.dashboard.search.result_for')
 					}
@@ -281,7 +278,8 @@ class Content extends Component {
 					return(	
 						<div className='lawyer' id={'lawyer-' + index}
 							onClick={this.handleOnclickLawyer.bind(this, lawyer.profile.userName)}>
-								<img className='ava' src={constant.API_BASE_URL + '/' + lawyer.profile.avatar.url} />
+								<img className='ava' alt='ava'
+									src={constant.API_BASE_URL + '/' + lawyer.profile.avatar.url} />
 								<div className='infor'>
 									<div className='header-infor'>
 										<div className='name' title={lawyer.profile.displayName}>{lawyer.profile.displayName}</div>

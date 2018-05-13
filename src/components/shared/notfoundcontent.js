@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import Nav from '../homepage/nav';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
@@ -14,13 +13,17 @@ class NotFoundContent extends Component {
         <div className='container'>
           <div className='row justify-content-md-center'>
             <div className='error-pic'>
-              <img src={constant.notFoundPic}/>
+              <img alt='not-found-img' src={constant.notFoundPic}/>
             </div>
             <div className='content'>
-              <div className='temp-content'>{translate('app.notfound.content.oh')}</div>
-              <div className='main-content'>{translate('app.notfound.content.main')}</div>
+              <div className='temp-content'>
+                {translate('app.notfound.content.oh')}
+              </div>
+              <div className='main-content'>
+                {translate('app.notfound.content.main')}
+              </div>
             </div>
-            <Link to='/home' className='back-to-home'>
+            <Link to={constant.HOME_URI} className='back-to-home'>
               {translate('app.notfound.content.back_home')}
             </Link>
           </div>

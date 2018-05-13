@@ -1,4 +1,3 @@
-var firebase = require('firebase');
 var constantLib = require('../constants');
 var constantUI = require('../../components/constants');
 
@@ -43,7 +42,7 @@ function updateUserInfoRails(userName, properties, callback) {
   }
   let formData = new FormData();
   for(var i = 0; i < properties.keys.length; i++) {
-    if(properties.keys[i] == 'avatar') {
+    if(properties.keys[i] === 'avatar') {
       formData.append('users[profile_attributes][' + properties.keys[i] + ']',
         properties.values[i].file, properties.values[i].fileName);
     }

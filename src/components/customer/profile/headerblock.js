@@ -2,20 +2,15 @@ import React, { Component } from 'react';
 
 import * as constant from '../../constants';
 
-import * as translate from 'counterpart';
-
 class HeaderBlock extends Component {
-	constructor(props) {
-    super(props);
-  }
-
 	render() {
 		return(
 			<div className='profile-header'>
         <div className='row'>
           <div className='col-sm-12 col-md-3'>
             <div className='avatar'>
-              <img src={constant.API_BASE_URL + '/' + this.props.user.profile.avatar.url}/>
+              <img alt='ava'
+                src={constant.API_BASE_URL + '/' + this.props.user.profile.avatar.url}/>
             </div>
           </div>
           <div className='col-sm-12 col-md-9'>

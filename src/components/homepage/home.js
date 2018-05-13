@@ -4,9 +4,7 @@ import Content from './content';
 import Footer from './footer';
 import $ from 'jquery'
 import Toast from '../notification/toast';
-import {EventEmitter} from 'fbemitter';
-
-import * as translate from 'counterpart';
+import { EventEmitter } from 'fbemitter';
 
 import '../../assets/styles/common/home.css';
 

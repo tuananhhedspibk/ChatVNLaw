@@ -1,6 +1,6 @@
 import React from 'react';
-import { Modal, Button } from 'semantic-ui-react';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
+import { Modal } from 'semantic-ui-react';
+import ReactConfirmAlert from 'react-confirm-alert';
 import { Dropdown } from 'semantic-ui-react';
 import $ from 'jquery';
 import ReactStars from 'react-stars';
@@ -166,7 +166,6 @@ class VideoCall extends React.Component{
 
   currentReviewId() {
     var currentReviewId = -1;
-    var component = this;
     this.state.reviews.map(review => {
       if (review.user_id === this.props.currentUser.uid) {
         currentReviewId = review.id;
@@ -310,7 +309,7 @@ class VideoCall extends React.Component{
                     {translate('app.rate.thanks')}
                   </div>
                   <div className='lawyer-pic'>
-                    <img src={constant.avaLawyerPic} />
+                    <img alt='lawyer-pic' src={constant.avaLawyerPic} />
                   </div>
                   <div className='rate'>
                     <input className='input' name='content'

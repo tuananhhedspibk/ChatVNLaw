@@ -1,8 +1,6 @@
 import React from 'react';
-import {Modal, Header, Table,
+import {Modal, Table,
   Message, Button, Icon} from 'semantic-ui-react';
-import TableCell from 'semantic-ui-react/dist/commonjs/collections/Table/TableCell';
-import ModalActions from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalActions';
 
 import { getChatSession, updatePayment,
   getAccountBalance } from '../../../lib/room/chatsession';
@@ -58,6 +56,8 @@ class ChatSessionList extends React.Component{
           break;
         case 'child_removed':
           break;
+        default:
+          break;
       }
     })
   }
@@ -110,12 +110,12 @@ class ChatSessionList extends React.Component{
           return(
             <div className='item-content'>
               <div className='time-start'>
-                <img src={constant.openIcon}/>
+                <img alt='start' src={constant.openIcon}/>
                 {Time.convertDateToDay(element.startTime) +
                   ' - ' + Time.convertDateToHour(element.startTime)}
               </div>
               <div className='time-close'>
-                <img src={constant.closeIcon}/>
+                <img alt='close' src={constant.closeIcon}/>
                 {Time.convertDateToDay(element.closeTime) +
                   ' - ' + Time.convertDateToHour(element.closeTime)}
               </div>
@@ -126,7 +126,7 @@ class ChatSessionList extends React.Component{
                 {Time.convertDateToUTCSecond(element.totalTime)}
               </div>
               <div className='cart'>
-                <img src={constant.cartIcon}/>
+                <img alt='cart' src={constant.cartIcon}/>
                 {formatMoney(element.cart, 0, '.', ',')}
               </div>
               {

@@ -1,8 +1,6 @@
 import React from 'react'
 import $ from 'jquery';
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
-import { Checkbox } from 'semantic-ui-react';
-import Loading from '../../../shared/loading';
+import ReactConfirmAlert from 'react-confirm-alert';
 import getStunServerList from '../../../../lib/getstunserverlist';
 import { cantCreatePeer } from '../../../../lib/notification/toast';
 
@@ -152,7 +150,7 @@ class VideoCall extends React.Component{
 
   renderVideo() {
     $('.video-call').show();
-    if($('.video-call').find('.video').css('display') == 'none') {
+    if($('.video-call').find('.video').css('display') === 'none') {
       $('.video-call').find('.video').show();
       $('.video-call').find('.end-call-btn').show();
     }
