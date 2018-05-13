@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import * as translate from 'counterpart';
+import * as constants from '../constants';
 
 class Recommend extends Component {
   render() {
@@ -14,11 +15,12 @@ class Recommend extends Component {
             return (
               <div className='article' title={article.title}>
                 <p className='article-ct'>
-                  {idx + 1}
+                  {'0'}{idx + 1}
                 </p>
-                <div className='article-nm-sym'>
-                  {article.numerical_symbol}
-                </div>
+                <a href={constants.LAW_URI + article.id}
+                  target='_blank' className='article-nm-sym'>
+                    {article.numerical_symbol}
+                </a>
               </div>
             )
           })

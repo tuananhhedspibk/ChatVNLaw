@@ -148,12 +148,14 @@ class Article extends Component {
         }
       }
       $('#detail-header').on('click',function() {
-        $('.index').hide();
+        $('.article-index').hide();
         $('.sticky-col').hide();
+        $('.recommend-articles').hide();
       });
       $('#art-content-header').on('click',function() {
-        $('.index').show();
+        $('.article-index').show();
         $('.sticky-col').show();
+        $('.recommend-articles').show();
       });
       $('a.internal_link').on('click', function(event) {
           if (this.hash !== '') {
@@ -199,35 +201,58 @@ class Article extends Component {
 
   handleScroll() {
     if (window.scrollY>= $('.nav-pills').offset().top) {
-      if ($('.index').css('position') !== 'fixed') {
-        var defaultLeft = $('.index').offset().left;
-        var defaultHeight = $('.index').offset().top -$('.nav-pills').offset().top;
+      if ($('.article-index').css('position') !== 'fixed') {
+        var defaultLeft = $('.article-index').offset().left;
+        var defaultHeight = $('.article-index').offset().top -$('.nav-pills').offset().top;
+        var defaultWidth = $('.article-index').width() + 2;
+
         var defaultLeft1 = $('.sticky-col').offset().left;
         var defaultRight1 = $(window).width() - $('.sticky-col').offset().left - $('.sticky-col').outerWidth();
         var defaultHeight1 = $('.sticky-col').offset().top -$('.nav-pills').offset().top;
 
-        $('.index').css('position','fixed');
-        $('.index').css('left', defaultLeft);  
-        $('.index').css('top', defaultHeight); 
-        $('.index').css('margin-top', 0);
+        var defaultLeft2 = $('.recommend-articles').offset().left;
+        var defaultRight2 = $(window).width() - $('.recommend-articles').offset().left - $('.recommend-articles').outerWidth();
+        var defaultHeight2 = $('.recommend-articles').offset().top -$('.nav-pills').offset().top;
+
+        $('.article-index').css('position','fixed');
+        $('.article-index').css('left', defaultLeft);  
+        $('.article-index').css('top', defaultHeight); 
+        $('.article-index').css('margin-top', 0);
+        $('.article-index').css('width', defaultWidth);
+
         $('.sticky-col').css('position','fixed');
         $('.sticky-col').css('left', defaultLeft1);
         $('.sticky-col').css('right', defaultRight1);  
         $('.sticky-col').css('top', defaultHeight1);
         $('.sticky-col').css('margin-top', 0);
+        $('.sticky-col').css('width', defaultWidth);
+
+        $('.recommend-articles').css('position','fixed');
+        $('.recommend-articles').css('left', defaultLeft2);
+        $('.recommend-articles').css('right', defaultRight2);  
+        $('.recommend-articles').css('top', defaultHeight2);
+        $('.recommend-articles').css('margin-top', 0);
+        $('.recommend-articles').css('width', defaultWidth);
       }
     }
     else {
-      if ($('.index').css('position') === 'fixed') {
-        $('.index').css('position', 'relative');
-        $('.index').css('left','0');
-        $('.index').css('top','0');
-        $('.index').css('margin-top', 45);
-        $('.sticky-col').css('position','relative');
-        $('.sticky-col').css('left','0');
-        $('.sticky-col').css('right','0');
-        $('.sticky-col').css('top','0');
+      if ($('.article-index').css('position') === 'fixed') {
+        $('.article-index').css('position', 'relative');
+        $('.article-index').css('left', '0');
+        $('.article-index').css('top', '0');
+        $('.article-index').css('margin-top', 45);
+
+        $('.sticky-col').css('position', 'relative');
+        $('.sticky-col').css('left', '0');
+        $('.sticky-col').css('right', '0');
+        $('.sticky-col').css('top', '0');
         $('.sticky-col').css('margin-top', 45);
+
+        $('.recommend-articles').css('position', 'relative');
+        $('.recommend-articles').css('left', '0');
+        $('.recommend-articles').css('right', '0');
+        $('.recommend-articles').css('top', '0');
+        $('.recommend-articles').css('margin-top', 20);
       }
     }
   }
@@ -263,42 +288,44 @@ class Article extends Component {
 				<div className='article-page'>
           {this.renderModal()}
 					<Nav navStyle='inverse'/>
-					<div className='row'>
-						<div className='col-md-2 col-md-index'>
-					    <ArticleIndex index_html={this.state.article.index_html}/>
-						</div>
-						<div className='col-md-8'>
-							<div className='container-fluid'>
-								<ul className='nav nav-pills'>
-								    <li>
-								    	<a id='art-content-header' href='#article_content'
-                        data-toggle='tab' className='active' >
-                          {translate('app.article.full_text')}
-                      </a>
-								    </li>
-								    <li >
-								    	<a id='detail-header' href='#article_detail'
-                        data-toggle='tab'>
-                          {translate('app.article.attr')}
-                      </a>
-								    </li>
-								</ul>
-							</div>
-							<div className='tab-content'>
-								<div id='article_content' className='tab-pane active'>
-                  <ArticleTopics topics={this.state.article.detail.topics} />
-									<ArticleContent art_html={this.state.article.full_html} />
-								</div>
-								<div id='article_detail' className='tab-pane'>
-									<ArticleDetail detail={this.state.article.detail}/>
-								</div>
-							</div>
-						</div>
-						<div className='col-md-2 col-md-sticky'>
-              <StickyHighlight />
-              <Recommend articles={this.state.article.neighbors}/>
-						</div>
-					</div>
+          <div className='article-page-content'>
+            <div className='row'>
+              <div className='col-md-2 col-md-index'>
+                <ArticleIndex index_html={this.state.article.index_html}/>
+              </div>
+              <div className='col-md-8'>
+                <div className='container-fluid'>
+                  <ul className='nav nav-pills'>
+                      <li>
+                        <a id='art-content-header' href='#article_content'
+                          data-toggle='tab' className='active' >
+                            {translate('app.article.full_text')}
+                        </a>
+                      </li>
+                      <li >
+                        <a id='detail-header' href='#article_detail'
+                          data-toggle='tab'>
+                            {translate('app.article.attr')}
+                        </a>
+                      </li>
+                  </ul>
+                </div>
+                <div className='tab-content'>
+                  <div id='article_content' className='tab-pane active'>
+                    <ArticleTopics topics={this.state.article.detail.topics} />
+                    <ArticleContent art_html={this.state.article.full_html} />
+                  </div>
+                  <div id='article_detail' className='tab-pane'>
+                    <ArticleDetail detail={this.state.article.detail}/>
+                  </div>
+                </div>
+              </div>
+              <div className='col-md-2 col-md-sticky'>
+                <StickyHighlight />
+                <Recommend articles={this.state.article.neighbors}/>
+              </div>
+            </div>
+          </div>
           <Footer/>
           <div id='article-script'>
             <script type='text/javascript'>
