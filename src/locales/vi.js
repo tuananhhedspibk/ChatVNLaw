@@ -97,6 +97,7 @@ module.exports = {
           invalid_email: 'Bạn hãy chắc chắn email nhập vào là chính xác!',
           user_not_found: 'Bạn hãy chắc chắn email và mật khẩu là chính xác!',
           password_confirm_not_match: 'Mật khẩu xác nhận không khớp!',
+          password_too_short: 'Mật khẩu phải có độ dài tối thiểu 6 kí tự',
           some_thing_not_work: 'Đã có lỗi xảy ra, xin hãy thử lại sau!'
         }
       }

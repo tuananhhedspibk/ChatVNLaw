@@ -100,6 +100,13 @@ class UserSignUp extends Component {
         5000, ()=>{} )
       return;
     }
+    if (password.length < 6) {
+      this.emitter.emit('AddNewWarningToast',
+        translate('app.system_notice.warning.title'),
+        translate('app.system_notice.error.text.password_too_short'),
+        5000, ()=>{} )
+      return;
+    }
 
     this.setState({isLoading: true});
 
