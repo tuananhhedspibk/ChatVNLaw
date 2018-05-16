@@ -33,7 +33,6 @@ class VideoCall extends React.Component{
       reviews: [],
       reviewCreatedTime: ''
     };
-    this.emitter=null;
   }
 
   componentWillMount(){
@@ -63,14 +62,6 @@ class VideoCall extends React.Component{
     getUserRoleByUid((user_role) => {
       component.setState({userRole: user_role});
     });
-    getReview(this.props.targetUser.userName, (success, response) => {
-      if (success) {
-        component.setState({reviews: response.data.reviews})
-      }
-      else {
-        component.toastError(component);
-      }
-    })
   }
 
   createPeer(callback){
@@ -159,8 +150,17 @@ class VideoCall extends React.Component{
   }
 
   handleOpenModal() {
+    var component = this;
     this.setState({modalOpen: true});
     this.timeFormat();
+    getReview(this.props.targetUser.userName, (success, response) => {
+      if (success) {
+        component.setState({reviews: response.data.reviews})
+      }
+      else {
+        component.toastError(component);
+      }
+    })
   }
 
   currentReviewId() {
