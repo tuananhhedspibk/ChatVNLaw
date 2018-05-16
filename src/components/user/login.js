@@ -103,6 +103,7 @@ class UserLogin extends Component {
               }
               if(chat_vnlaw_user.role === 'Lawyer') {
                 chat_vnlaw_user['lawyer_id'] = response.data.lawyer_id;
+                chat_vnlaw_user['price'] = response.data.price;
               }
               localStorage.setItem(constant.STORAGE_ITEM, JSON.stringify(chat_vnlaw_user));
               onAuthStateChanged( user =>{

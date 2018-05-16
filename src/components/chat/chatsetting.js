@@ -209,6 +209,7 @@ class ChatSetting extends Component {
                 {this.renderSharedFile()}
                 {this.renderSharedImage()}
                 <ChatSessionList
+                  targetUser={this.props.targetUser}
                   currentUser={this.props.currentUser}
                   currentRoomId={this.props.currentRoomId} />
             </div>
