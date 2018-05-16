@@ -112,14 +112,15 @@ class DetailSettings extends Component {
   }
 
   renderViewHistoryPayment(){
-    var component = this 
+    var component = this;
     if(component.state.history.length > 0 ){
       return (
         component.state.history.map((history, index) => {
+          var date = (new  Date(history.updated_at)).toLocaleString()
           return (
             <tr>
               <td>{history.ammount.toLocaleString()} VNĐ</td>
-              <td>{history.created_at}</td>
+              <td>{date}</td>
             </tr>
           )
         })
@@ -166,7 +167,7 @@ class DetailSettings extends Component {
           </Modal.Content>
           <Modal.Actions>
             <Button color='blue' onClick={this.paymentProcess.bind(this)}>
-              {translate('app.payment.process')}
+              {translate('app.payment.recharge')}
             </Button>
           </Modal.Actions>
       </Modal>
