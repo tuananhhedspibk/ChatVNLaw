@@ -117,7 +117,7 @@ class RequestRoomItem extends BaseItem {
     currentUser.displayName = JSON.parse(localStorage.chat_vnlaw_user)['displayName'];
     currentUser.uid = JSON.parse(localStorage.chat_vnlaw_user)['id'];
     this.setState({currentUser: currentUser});
-    propertiesNoti.currentUser = this.state.currentUser;
+    propertiesNoti.currentUser = currentUser;
     propertiesNoti.targetUser = {}
     propertiesNoti.targetUser.uid = element.sender.uid;
 

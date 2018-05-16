@@ -132,17 +132,26 @@ class UserLogin extends Component {
           case 'auth/invalid-email':
             component.emitter.emit('AddNewErrorToast',
               '', translate('app.system_notice.error.text.invalid_email'),
-              5000, ()=>{ })                         
+              5000, ()=>{ });
+            setTimeout(() => {
+              window.location = constant.SIGN_IN_URI;
+            }, 5000);
             break;
           case 'auth/user-not-found':
             component.emitter.emit('AddNewErrorToast', '',
               translate('app.system_notice.error.text.user_not_found'),
-              5000, ()=>{ })                        
+              5000, ()=>{ });
+            setTimeout(() => {
+              window.location = constant.SIGN_IN_URI;
+            }, 5000);
             break;
           case 'auth/wrong-password':
             component.emitter.emit('AddNewErrorToast', '',
               translate('app.system_notice.error.text.user_not_found'),
-              5000, ()=>{ })                        
+              5000, ()=>{ });
+            setTimeout(() => {
+              window.location = constant.SIGN_IN_URI;
+            }, 5000);                   
             break;
           default:
             break;
