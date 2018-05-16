@@ -8,15 +8,6 @@ function onAuthStateChanged(callback){
   })
 }
 
-// sign in omniauth
-function signInWithPopup(provider,callback){
-  firebase.auth().signInWithPopup(provider).then(result =>{
-    return callback(true,result);
-  }).catch(function(error) {
-    return callback(false, error); 
-  })
-}
-
 function signInWithEmailAndPassword(email, password, callback){
   firebase.auth().signInWithEmailAndPassword(email, password)
   .catch(error =>{
@@ -64,9 +55,6 @@ function logoutRails(callback) {
 module.exports = {
   onAuthStateChanged: function(callback){
     onAuthStateChanged(callback);
-  },
-  signInWithPopup: function(provider, callback){
-    signInWithPopup(provider,callback);
   },
   signInWithEmailAndPassword: function(email, password, callback){
     signInWithEmailAndPassword(email, password,callback);

@@ -89,18 +89,24 @@ class SearchLaw extends Component {
 			group2_1: translate('app.search.search_tool.order_by.order_by_5'),
 			group2_2: translate('app.search.search_tool.order_by.order_by_3')
 		}
-		if(parsed.query)
+		if(parsed.query) {
 			defaultParams.query = parsed.query;
-		if(parsed.group1)
+		}
+		if(parsed.group1) {
 			defaultParams.group1 = parsed.group1;
-		if(parsed.group2_1)
+		}
+		if(parsed.group2_1) {
 			defaultParams.group2_1 = parsed.group2_1;
-		if(parsed.group2_2)
+		}
+		if(parsed.group2_2) {
 			defaultParams.group2_2 = parsed.group2_2;
-		if(parsed.group3_1)
+		}
+		if(parsed.group3_1) {
 			defaultParams.group3_1 = parsed.group3_1;
-		else if(parsed.group3_2)
+		}
+		else if(parsed.group3_2) {
 			defaultParams.group3_2 = parsed.group3_2;
+		}
 		defaultParams.page = this.state.offset;
 
 		instance.get(constant.API_SEARCH_ARTICLES_URI, {params: defaultParams})
@@ -110,7 +116,7 @@ class SearchLaw extends Component {
 				pageCount: response.data.limit_page,
 				number_articles: response.data.number_articles});
 				if(!pageClick) {
-					component.emit('AddNewSuccessToast', '', translate('app.search.founded') + ' ' +
+					component.emitter.emit('AddNewSuccessToast', '', translate('app.search.founded') + ' ' +
 						component.state.number_articles + ' '
 						+ translate('app.search.results'), 5000, () => { })
 				}

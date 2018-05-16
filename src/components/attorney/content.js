@@ -5,14 +5,15 @@ import { Dropdown } from 'semantic-ui-react';
 import ReactPaginate from 'react-paginate';
 import $ from 'jquery';
 import { EventEmitter } from 'fbemitter';
-import * as translate from 'counterpart';
-import {Typeahead} from 'react-bootstrap-typeahead';
+import { Typeahead } from 'react-bootstrap-typeahead';
 
 import TopLawyers from './toplawyers';
 import Toast from '../notification/toast';
 import ReadMore from '../shared/readmore';
-import * as constant from '../constants';
+
 import { ax_ins } from '../../lib/constants';
+import * as constant from '../constants';
+import * as translate from 'counterpart';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -88,8 +89,17 @@ class Content extends Component {
 				})
 				component.setState({names: names});
 			})
-			.catch(function (error) {})
+			.catch(function (error) {
+				component.toastError(error);
+			})
 	}
+
+	toastError(component) {
+    component.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    2000, ()=>{});
+  }
 
 	loadDataFromServer(objQuery, pgClick, sort) {
 		var component = this;
@@ -164,7 +174,7 @@ class Content extends Component {
 				})
 				component.emitter.emit('AddNewErrorToast', '',
 					translate('app.search.founded') + ' ' +
-					' 0 ' + translate('app.search.results'), 5000, () => { })
+					' 0 ' + translate('app.search.results'), 2000, () => { })
 			});
 	}
 	
@@ -430,7 +440,7 @@ class Content extends Component {
 										this.renderContent(sortOptions): this.renderLoading()}
 							</div>
 						</div>
-						<div className='col-md-4'><TopLawyers /></div>
+						<div className='col-md-4'><TopLawyers emitter={this.emitter}/></div>
 					</div>
         </div>
 			</div>

@@ -11,11 +11,10 @@ import ChatSetting from './chatsetting';
 import * as constant from '../constants';
 import * as Messages from '../../lib/messages/messages';
 import * as translate from 'counterpart';
-import { upFile } from '../../lib/room/rooms';
+import { upFile, updateRoom } from '../../lib/room/rooms';
 
 import '../../assets/styles/common/chatWindow.css';
 import '../../assets/styles/common/emoji-mart.css';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class ChatContent extends Component {
   constructor(props) {
@@ -104,11 +103,36 @@ class ChatContent extends Component {
       component.setHeight(component);
     });
     this.props.emitter.addListener('close_room', () => {
-      component.setState({talking: false});
+      var propertiesRoom = {
+        opening: false,
+        roomId: component.state.currentRoomId
+      };
+      updateRoom(propertiesRoom, (success, response) => {
+        if (success) {
+          component.setState({talking: false});
+          component.toastCloseRoom(component);
+        }
+        else {
+          component.toastError(component);
+        }
+      });
     });
     this.props.emitter.addListener('open_room', () => {
       component.setState({talking: true});
     });
+  }
+
+  toastCloseRoom(component) {
+    component.props.emitter.emit('AddNewSuccessToast',
+    '', translate('app.system_notice.success.text.end_talking'),
+    5000, ()=>{});
+  }
+
+  toastError(component) {
+    component.props.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    5000, ()=>{});
   }
 
   setHeight(component) {
@@ -186,9 +210,10 @@ class ChatContent extends Component {
     let properties = {}
     var textSubmit = $('#input-mess-box').val();
     if (textSubmit.replace(/\s/g, '').length !== 0) {
-      properties["content"] = textSubmit; 
-      properties["component"] = component;
+      properties['content'] = textSubmit; 
+      properties['component'] = component;
       Messages.chat(properties, function(){
+        component.refs.scrollbars.scrollToBottom();
       });
     }
   }
@@ -209,7 +234,7 @@ class ChatContent extends Component {
         properties['roomId'] = this.state.currentRoomId;
         properties['component'] = this;
         properties['limit'] = 15;
-        properties['ts'] = "" + (parseInt(
+        properties['ts'] = '' + (parseInt(
           this.state.messages[0].msgTimeStamp) - 1);          
         Messages.history(properties, function(){
         });

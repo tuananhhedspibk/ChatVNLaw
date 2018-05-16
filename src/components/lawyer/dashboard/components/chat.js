@@ -19,7 +19,8 @@ class Chat extends Component {
       listUsersHeight: 0,
       roomDes: '',
       fileBtn: null,
-      currentRoomId: ''
+      currentRoomId: '',
+      isVideoCalling: false
     };
   }
 
@@ -78,6 +79,10 @@ class Chat extends Component {
       roomDes: roomDes,
       currentRoomId: rid
     });
+    if ($('#open-chat-btn').css('display') !== 'none'){
+      $('#open-chat-btn').fadeOut();
+      $('#close-chat-btn').fadeIn();
+    }
     if ($('.chat-box-wrapper').css('display') === 'none') {
       $('.chat-box-wrapper').toggle();
       if($('.video-call').css('display') !== 'none') {
@@ -85,6 +90,14 @@ class Chat extends Component {
         $('.video-call').find('.end-call-btn').toggle();
       }
     }
+  }
+
+  blockWhenVideoCalling() {
+    this.setState({isVideoCalling: true});
+  }
+
+  openWhenEndVideoCalling() {
+    this.setState({isVideoCalling: false});
   }
 
   upfile() {
@@ -121,17 +134,30 @@ class Chat extends Component {
                         </div>
                     )
                   } else{
-                    return(
-                      <div className='chat-user'
-                        onClick={this.changeUserChat.bind(this, room.user,
-                          room.id, room.description)} key={room.id}>
+                    if (!this.state.isVideoCalling) {
+                      return(
+                        <div className='chat-user'
+                          onClick={this.changeUserChat.bind(this, room.user,
+                            room.id, room.description)} key={room.id}>
+                            <div className='user-ava'>
+                              <img alt='ava'
+                                src={constant.API_BASE_URL + room.user.avatar.url}
+                                title={room.user.displayName}/>
+                            </div>
+                        </div>
+                      )
+                    }
+                    else {
+                      return (
+                        <div className='chat-user' key={room.id}>
                           <div className='user-ava'>
                             <img alt='ava'
                               src={constant.API_BASE_URL + room.user.avatar.url}
                               title={room.user.displayName}/>
                           </div>
-                      </div>
-                    )
+                        </div>
+                      )
+                    }
                   }         
                 })
               }
@@ -139,6 +165,8 @@ class Chat extends Component {
           </Scrollbars>
         </div>
         <ChatBox
+          openWhenEndVideoCalling={this.openWhenEndVideoCalling.bind(this)}
+          blockWhenVideoCalling={this.blockWhenVideoCalling.bind(this)}
           upfile={this.upfile}
           fileBtn={this.state.fileBtn}
           targetUser={this.state.targetUser}

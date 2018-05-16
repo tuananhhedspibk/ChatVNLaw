@@ -48,7 +48,12 @@ function updateRoom(properties, callback) {
     instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
   let formData = new FormData();
-  formData.append('rooms[description]', properties.desc);
+  if (properties.desc) {
+    formData.append('rooms[description]', properties.desc);
+  }
+  if (properties.opening !== null) {
+    formData.append('rooms[opening]', properties.opening);
+  }
   instance.patch(constantUI.API_ROOMS_URI + properties.roomId , formData )
     .then(response => {
       return callback(true, response);
@@ -209,6 +214,24 @@ function upFile(component, currentRoomId, e, chat) {
   });
 }
 
+function userGetRoom(properties, callback) {
+  var instance = constantLib.ax_ins;
+  if (localStorage.chat_vnlaw_user) {
+    instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
+    instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
+  }
+  var query = {
+    lawyer_id: properties.lawyer_id
+  }
+  instance.get(constantUI.API_USER_GET_ROOM_URI, {params: query})
+    .then(response => {
+      callback(true, response);
+    })
+    .catch(error => {
+      callback(false, error);
+    });
+}
+
 module.exports = {
   createNewRoom: function(properties, callback) {
     createNewRoom(properties, callback);
@@ -230,5 +253,8 @@ module.exports = {
   },
   createNewRoomFb: function(properties, callback) {
     createNewRoomFb(properties, callback);
+  },
+  userGetRoom: function(properties, callback) {
+    userGetRoom(properties, callback);
   }
 }

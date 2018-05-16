@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import { createUserWithEmailAndPassword, onAuthStateChanged } from '../../lib/user/authentication';
+import { EventEmitter} from 'fbemitter';
+
 import Loading from '../shared/loading';
 import Toast from '../notification/toast';
-import {EventEmitter} from 'fbemitter';
-import {checkAlreadyLogin} from '../../lib/notification/toast';
-import {signupRails} from '../../lib/user/users';
-
 import Nav from '../homepage/nav';
+
+import { checkAlreadyLogin } from '../../lib/notification/toast';
+import { signupRails } from '../../lib/user/users';
+import { createUserWithEmailAndPassword, onAuthStateChanged } from '../../lib/user/authentication';
 
 import * as constant from '../constants';
 import * as translate from 'counterpart';
@@ -230,17 +231,6 @@ class UserSignUp extends Component {
                   {translate('app.signup.submit')}
                 </button>
               </form>
-              <div className='or'>
-                {translate('app.identifier.or')}
-              </div>
-              <div className='omni-auth'>
-                <button id='button-login-with-facebook'>
-                  {translate('app.identifier.login_face')}
-                </button>
-                <button id='button-login-with-google'>
-                  {translate('app.identifier.login_google')}
-                </button>
-              </div>
             </div>
           </div>
         </div>

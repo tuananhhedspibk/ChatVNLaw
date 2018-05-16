@@ -28,7 +28,15 @@ class TopLawyers extends Component {
         });
       })
       .catch(function (error) {
+        component.toastError(component);
       });
+  }
+
+  toastError(component) {
+    component.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    2000, ()=>{});
   }
 
   handleOnclickLawyer(userName){

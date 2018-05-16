@@ -60,3 +60,9 @@ body {
 
 .notification-container {
   top: 60px; }
+
+.ui .modal .content {
+  font-size: 1.2em !important; }
+
+.ui.modal .actions > .button {
+  font-family: "Montserrat", sans-serif; }

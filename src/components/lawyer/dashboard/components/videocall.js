@@ -1,6 +1,6 @@
 import React from 'react'
 import $ from 'jquery';
-import ReactConfirmAlert from 'react-confirm-alert';
+import { Confirm } from 'semantic-ui-react';
 import getStunServerList from '../../../../lib/getstunserverlist';
 import { cantCreatePeer } from '../../../../lib/notification/toast';
 
@@ -8,8 +8,6 @@ import * as videoCall from '../../../../lib/streaming/videocall';
 import * as translate from 'counterpart';
 import * as Peer from 'peerjs';
 import * as constant from '../../../constants';
-
-import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class VideoCall extends React.Component{
   constructor(props){
@@ -94,8 +92,8 @@ class VideoCall extends React.Component{
     let properties ={}
     properties.component = this;
     videoCall.onConfirm(properties, () =>{
-      component.setState({showDialog: false})
-      component.renderVideo();
+      component.setState({showDialog: false});
+      component.renderVideo(component);
     })
   }
 
@@ -126,7 +124,7 @@ class VideoCall extends React.Component{
           }else{
             videoCall.createRequest(properties,function(issuccess){
               if(issuccess){
-                component.renderVideo();
+                component.renderVideo(component);
               }
             });
           }
@@ -134,6 +132,7 @@ class VideoCall extends React.Component{
       }else{
         cantCreatePeer(component.props.emitter,()=>{
           $('.video-call').hide();
+          component.props.openWhenEndVideoCalling();
         })
       }
     })
@@ -141,15 +140,17 @@ class VideoCall extends React.Component{
 
   endCall(){
     $('.video-call').hide();
+    var component = this;
     var properties = {}
     properties['rid'] = this.state.currentRoomId;
+    component.props.openWhenEndVideoCalling();
     videoCall.endCall(properties, ()=>{
-
     })
   }
 
-  renderVideo() {
+  renderVideo(component) {
     $('.video-call').show();
+    component.props.blockWhenVideoCalling();
     if($('.video-call').find('.video').css('display') === 'none') {
       $('.video-call').find('.video').show();
       $('.video-call').find('.end-call-btn').show();
@@ -159,19 +160,17 @@ class VideoCall extends React.Component{
   renderView(){
     return (
       <div>
-        <div>
         {
           this.state.showDialog &&
-          <ReactConfirmAlert
-            title={translate('app.confirm_dialog.title')}
-            message={translate('app.confirm_dialog.message')}
-            confirmLabel={translate('app.confirm_dialog.confirm_label')}
-            cancelLabel={translate('app.confirm_dialog.cancel_label')}
+          <Confirm
+            open={this.state.showDialog}
+            header={translate('app.confirm_dialog.title')}
+            content={translate('app.confirm_dialog.message')}
+            cancelButton={translate('app.confirm_dialog.cancel_label')}
+            confirmButton={translate('app.confirm_dialog.confirm_label')}
             onConfirm={this.onConfirm.bind(this)}
-            onCancel={this.onCancel.bind(this)}
-          />
+            onCancel={this.onCancel.bind(this)}/>
         }
-        </div>
         {
           this.props.talking ?
           (

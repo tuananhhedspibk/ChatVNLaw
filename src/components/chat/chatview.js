@@ -95,9 +95,16 @@ class ChatView extends Component {
         });
       }
       else {
-
+        component.toastError(component);
       }
     })
+  }
+
+  toastError(component) {
+    component.props.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    5000, ()=>{});
   }
 
   componentWillMount(){
@@ -109,7 +116,7 @@ class ChatView extends Component {
     firebase.auth().onAuthStateChanged(function(user){
       if(!user){
         component.setState({isloading : true})   
-        checkAuthen(component.emitter, constant.BASE_URL+constant.SIGN_IN_URI, ()=>{
+        checkAuthen(component.props.emitter, constant.BASE_URL+constant.SIGN_IN_URI, ()=>{
 
         })      
       }
@@ -171,14 +178,14 @@ class ChatView extends Component {
           window.location = constant.BASE_URL + constant.HOME_URI;
         }
         else {
-          component.emitter.emit('AddNewErrorToast', '',
-          data.message, 5000, ()=>{})                         
+          component.props.emitter.emit('AddNewErrorToast', '',
+          data.message, 2000, ()=>{})                         
           return;
         }
       })
     }).catch(function(error) {
-      component.emitter.emit('AddNewErrorToast', '',
-        error, 5000, ()=>{})                         
+      component.props.emitter.emit('AddNewErrorToast', '',
+        error, 2000, ()=>{})                         
       return;
     });
   }
@@ -219,7 +226,7 @@ class ChatView extends Component {
                   onClick={this.logout.bind(this)}/>
               </Dropdown.Menu>
             </Dropdown>
-            <a href="/home">{translate('app.identifier.app_name')} </a>
+            <a href={constant.HOME_URI}>{translate('app.identifier.app_name')} </a>
           </div>
           <List>
             <div className='search-box'>
@@ -251,7 +258,7 @@ class ChatView extends Component {
                         ? 'user active-link ': 'user'}
                       key={user.user_id}>
                       {this.renderStatus(user.status)}
-                      <Link to={'/chat/' + user.userName} key={user.uid}>
+                      <Link to={constant.CHAT_URI + '/' + user.userName} key={user.uid}>
                         <List.Item key={user.uid}>
                           <Image avatar src={constant.API_BASE_URL + user.avatar.url}/>
                           <List.Content>
@@ -273,7 +280,7 @@ class ChatView extends Component {
           this.state.users.map((user, idx) => {
             return(
               <Switch>
-                <Route path={'/chat/' + user.userName}
+                <Route path={constant.CHAT_URI + '/' + user.userName}
                   render={
                     (props) => (
                       <ChatContent {...props}

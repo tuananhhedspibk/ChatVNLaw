@@ -36,6 +36,7 @@ export const API_SIGNUP_URI = '/api/signup';
 export const API_LOGOUT_URI = '/api/logout';
 export const API_USERS_URI = '/api/users/';
 export const API_ROOMS_URI = '/api/rooms/';
+export const API_USER_GET_ROOM_URI = '/api/user_get_room'
 export const API_LAWYERS_URI = '/api/lawyers/';
 export const API_REVIEWS_URI = '/api/reviews/';
 export const API_TASKS_URI = '/api/tasks/';

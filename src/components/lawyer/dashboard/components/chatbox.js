@@ -223,12 +223,9 @@ class ChatBox extends Component {
     this.setState({emojiVisibility: !this.state.emojiVisibility});
   }
 
-  renderVideo() {
-    $('.video-call').show();
-    if($('.video-call').find('.video').css('display') === 'none') {
-      $('.video-call').find('.video').show();
-      $('.video-call').find('.end-call-btn').show();
-    }
+  blockWhenVideoCalling() {
+    console.log('123');
+    this.props.blockWhenVideoCalling();
   }
 
   render() {
@@ -236,6 +233,8 @@ class ChatBox extends Component {
       return(
         <div className='chat-box-wrapper'>
           <VideoCall
+            blockWhenVideoCalling={this.props.blockWhenVideoCalling}
+            openWhenEndVideoCalling={this.props.openWhenEndVideoCalling}
             talking={this.state.talking}
             currentRoomId={this.state.currentRoomId}
             currentUser={this.state.currentUser}

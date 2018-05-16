@@ -9,6 +9,8 @@
     color: #536c79 !important;
     display: flex;
     font-size: .8em; }
+  .app-header.navbar .img-avatar {
+    margin-right: 8px !important; }
   .app-header.navbar .navbar-brand {
     align-items: center;
     border-bottom: none !important;
@@ -670,3 +672,15 @@
     right: 1.8rem; }
   .sidebar .nav .nav-item .nav-link {
     font-size: 1.1em; } }
+
+.custom-semantic-btn {
+  background-color: transparent !important;
+  border: 1px solid #d1d1d1 !important;
+  color: #808080 !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: .8em !important;
+  margin-left: 8px !important;
+  width: 160px; }
+
+#close-chat-btn {
+  display: none; }
