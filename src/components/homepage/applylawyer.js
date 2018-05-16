@@ -139,27 +139,26 @@ class ApplyLawyer extends Component {
     }
     userGetRoom(properties, (success, response) => {
       if (success) {
-        if (response.data.room.opening) {
-          component.redirectWhenCannotApply(component);
-        }
-        else {
-          component.setState({isLoading: false});
-        }
-      }
-      else {
-        if (response.response.status === 404) {
-          if (response.response.data.message === translate('app.apply_lawyer.room_not_found')) {
+        if (response.data.room !== undefined) {
+          if (response.data.room.opening) {
+            component.redirectWhenCannotApply(component);
+          }
+          else {
             if (!component.state.has_noti) {
               component.setState({isLoading: false});
             }
           }
-          else if(response.response.data.message === translate('app.apply_lawyer.lawyer_not_found.en')) {
-            component.toastError(component, translate('app.apply_lawyer.lawyer_not_found.vi'))
-          }
         }
         else {
-          component.toastError(component, translate('app.system_notice.error.text.some_thing_not_work'));
+          if (response.data.message === translate('app.apply_lawyer.room_not_found')) {
+            if (!component.state.has_noti) {
+              component.setState({isLoading: false});
+            }
+          }
         }
+      }
+      else {
+        component.toastError(component, translate('app.system_notice.error.text.some_thing_not_work'));
       }
     });
   }
