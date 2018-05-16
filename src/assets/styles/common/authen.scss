@@ -56,30 +56,6 @@ $yellow-lighter: #fd9d16;
       }
     }
 
-    .omni-auth {
-      padding: 15px 0 0;
-      font-size: 1.3em;
-
-      button {
-        border: 0;
-      }
-
-      #button-login-with-facebook {
-        background-color: $blue-face;
-        margin-bottom: 15px;
-      }
-
-      #button-login-with-google {
-        background-color: $red-google;
-      }
-    }
-
-    .or {
-      color: $gray;
-      font-size: 1.3em;
-      margin-top: 15px;
-    }
-
     input {
       border-radius: 5px !important;
       color: $black;

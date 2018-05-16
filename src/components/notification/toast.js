@@ -32,20 +32,20 @@ class Toast extends Component{
                 case tableConstant.NOTIFICATION_TYPE.requestRoom:
                   component.props.emitter.emit('AddNewInfoToast', item.title, item.content, 5000, () => {
                     if (!(window.location.pathname).startsWith('/notifications')) {
-                      window.open('/notifications', "_blank")
+                      window.open('/notifications', '_blank')
                     }} );
                   break;
                 case tableConstant.NOTIFICATION_TYPE.acceptRoomRequest:
                   component.props.emitter.emit('AddNewSuccessToast', item.title, item.content, 5000, () => {
                     if (!(window.location.pathname).startsWith('/notifications')) {
-                      window.open('/notifications', "_blank")
+                      window.open('/notifications', '_blank')
                     }
                   });
                   break;
                 case tableConstant.NOTIFICATION_TYPE.refuseRoomRequest:
                   component.props.emitter.emit('AddNewWarningToast', item.title, item.content, 5000, () => {
                     if (!(window.location.pathname).startsWith('/notifications')) {
-                      window.open('/notifications', "_blank")
+                      window.open('/notifications', '_blank')
                     }
                   });
                   break;
@@ -67,47 +67,49 @@ class Toast extends Component{
 
   onCreateNewInfoToastRequest(){
     var component = this;
-    this.props.emitter.addListener('AddNewInfoToast', function(title,text,duration,callback){
-      component.createNotification('info', title,text,duration,callback);
-    })
+    this.props.emitter.addListener('AddNewInfoToast', function(title, text, duration, callback){
+      component.createNotification('info', title, text, duration, callback);
+    });
   }
+
   onCreateNewSuccessToastRequest(){
     var component = this;
-    this.props.emitter.addListener('AddNewSuccessToast', function(title,text,duration,callback){
-      component.createNotification('success', title,text,duration,callback);
-    })
+    this.props.emitter.addListener('AddNewSuccessToast', function(title, text, duration, callback){
+      component.createNotification('success', title, text, duration, callback);
+    });
   }
+
   onCreateNewWarningToastRequest(){
     var component = this;
-    this.props.emitter.addListener('AddNewWarningToast', function(title,text,duration,callback){
-      component.createNotification('warning', title,text,duration,callback);
-    })
+    this.props.emitter.addListener('AddNewWarningToast', function(title, text, duration, callback){
+      component.createNotification('warning', title, text, duration, callback);
+    });
   }
+
   onCreateNewErrorToastRequest(){
     var component = this;
-    this.props.emitter.addListener('AddNewErrorToast', function(title,text,duration,callback){
-      component.createNotification('error', title,text,duration,callback);
-    })
+    this.props.emitter.addListener('AddNewErrorToast', function(title, text, duration, callback){
+      component.createNotification('error', title, text, duration, callback);
+    });
   }
-  createNotification(type,title, text, duration, callback){
-    if(localStorage.getItem('isFocused') === 'true'){
-      switch (type) {
-        case 'info':
-          NotificationManager.info(text, title, duration, callback);
-          break;
-        case 'success':
-          NotificationManager.success(text, title, duration, callback);
-          break;
-        case 'warning':
-          NotificationManager.warning(text, title, duration, callback);
-          break;
-        case 'error':
-          NotificationManager.error(text, title, duration, callback);
-          break;
-        default:
-          break;
-      }
-    }  
+
+  createNotification(type, title, text, duration, callback){
+    switch (type) {
+      case 'info':
+        NotificationManager.info(text, title, duration, callback);
+        break;
+      case 'success':
+        NotificationManager.success(text, title, duration, callback);
+        break;
+      case 'warning':
+        NotificationManager.warning(text, title, duration, callback);
+        break;
+      case 'error':
+        NotificationManager.error(text, title, duration, callback);
+        break;
+      default:
+        break;
+    }
   };
 
   render(){

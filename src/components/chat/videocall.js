@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'semantic-ui-react';
-import ReactConfirmAlert from 'react-confirm-alert';
+import { Confirm } from 'semantic-ui-react';
 import { Dropdown } from 'semantic-ui-react';
 import $ from 'jquery';
 import ReactStars from 'react-stars';
@@ -16,7 +16,6 @@ import { createReviewLawyer, updateReviewLawyer } from '../../lib/user/users';
 import { getReview } from '../../lib/user/getreviewlawyer';
 
 import '../../assets/styles/common/chatWindow.css';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class VideoCall extends React.Component{
   constructor(props){
@@ -69,7 +68,7 @@ class VideoCall extends React.Component{
         component.setState({reviews: response.data.reviews})
       }
       else {
-        console.log(response);
+        component.toastError(component);
       }
     })
   }
@@ -189,7 +188,7 @@ class VideoCall extends React.Component{
           component.setState({modalOpen: false});
         }
         else {
-          console.log(response);
+          component.toastError(component);
         }
       })
     }
@@ -202,10 +201,17 @@ class VideoCall extends React.Component{
           component.setState({modalOpen: false});
         }
         else {
-          console.log(response);
+          component.toastError(component);
         }
       });
     }
+  }
+
+  toastError(component) {
+    component.props.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    5000, ()=>{});
   }
 
   handleInputChange(evt) {
@@ -238,14 +244,14 @@ class VideoCall extends React.Component{
         <div>
         {
           this.state.showDialog &&
-          <ReactConfirmAlert
-            title={translate('app.confirm_dialog.title')}
-            message={translate('app.confirm_dialog.message')}
-            confirmLabel={translate('app.confirm_dialog.confirm_label')}
-            cancelLabel={translate('app.confirm_dialog.cancel_label')}
+          <Confirm
+            open={this.state.showDialog}
+            header={translate('app.confirm_dialog.title')}
+            content={translate('app.confirm_dialog.message')}
+            cancelButton={translate('app.confirm_dialog.cancel_label')}
+            confirmButton={translate('app.confirm_dialog.confirm_label')}
             onConfirm={this.onConfirm.bind(this)}
-            onCancel={this.onCancel.bind(this)}
-          />
+            onCancel={this.onCancel.bind(this)}/>
         }
         </div>
         <div className='video-call'>

@@ -40,20 +40,6 @@
         top: -80px;
         left: calc(50% - 55px);
         width: 110px; }
-    .login-page .justify-content-md-center .omni-auth {
-      padding: 15px 0 0;
-      font-size: 1.3em; }
-      .login-page .justify-content-md-center .omni-auth button {
-        border: 0; }
-      .login-page .justify-content-md-center .omni-auth #button-login-with-facebook {
-        background-color: #49629e;
-        margin-bottom: 15px; }
-      .login-page .justify-content-md-center .omni-auth #button-login-with-google {
-        background-color: #d54b37; }
-    .login-page .justify-content-md-center .or {
-      color: #a2a2a2;
-      font-size: 1.3em;
-      margin-top: 15px; }
     .login-page .justify-content-md-center input {
       border-radius: 5px !important;
       color: #000;

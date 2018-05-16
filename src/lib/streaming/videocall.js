@@ -163,14 +163,20 @@ function listenFromVideoCall(properties, callback){
 					}
 					$('.video-call').hide();   
 					component.state.peer.destroy() 
-					component.setState({showDialog: false})                                            
+					component.setState({showDialog: false});
+					if (component.props.openWhenEndVideoCalling !== undefined) {
+						component.props.openWhenEndVideoCalling();
+					}                                           
 					component.props.emitter.emit('AddNewWarningToast', translate('app.system_notice.warning.title'), translate('app.system_notice.warning.text.end_call'), 5000, ()=>{})                                   
 				}
 				break;
 			case `${constant.VIDEO_CALL.cancelRequest}`:
 				if(data.val() !== component.state.currentUser.uid){
-					$('.video-call').hide(); 
-					component.setState({showDialog: false})                        
+					$('.video-call').hide();
+					component.setState({showDialog: false});
+					if (component.props.openWhenEndVideoCalling !== undefined) {
+						component.props.openWhenEndVideoCalling();
+					}                 
 					component.props.emitter.emit('AddNewWarningToast', translate('app.system_notice.warning.title'), translate('app.system_notice.warning.text.cancel_call_request'), 5000, ()=>{})                                                       
 				}
 				component.state.peer.destroy()
@@ -181,29 +187,30 @@ function listenFromVideoCall(properties, callback){
 	})
 	return callback(streamRef);
 }
+
 module.exports = {
-    checkRequest: function(properties,callback){
-        checkRequest(properties,callback);
-    },
-    createRequest: function(properties, callback){
-        createRequest(properties,callback);
-    },
-    endCall: function(properties, callback){
-        endCall(properties,callback);
-    },
-    closeStream: function(properties, callback){
-        closeStream(properties,callback);
-    },
-    closeRef: function(properties,callback){
-        closeRef(properties,callback);
-    },
-    listenFromVideoCall: function(properties, callback){
-        listenFromVideoCall(properties,callback);
-    },
-    onConfirm: function(properties, callback){
-        onConfirm(properties, callback);
-    },
-    onCancel: function(properties, callback){
-        onCancel(properties, callback);
-    }
+	checkRequest: function(properties,callback){
+			checkRequest(properties,callback);
+	},
+	createRequest: function(properties, callback){
+			createRequest(properties,callback);
+	},
+	endCall: function(properties, callback){
+			endCall(properties,callback);
+	},
+	closeStream: function(properties, callback){
+			closeStream(properties,callback);
+	},
+	closeRef: function(properties,callback){
+			closeRef(properties,callback);
+	},
+	listenFromVideoCall: function(properties, callback){
+			listenFromVideoCall(properties,callback);
+	},
+	onConfirm: function(properties, callback){
+			onConfirm(properties, callback);
+	},
+	onCancel: function(properties, callback){
+			onCancel(properties, callback);
+	}
 }

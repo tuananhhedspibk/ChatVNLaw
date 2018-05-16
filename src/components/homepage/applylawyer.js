@@ -7,18 +7,18 @@ import Nav from './nav';
 import Footer from './footer';
 import NotFound from '../shared/notfound';
 import Loading from '../shared/loading';
-import { createNewNotification }
-  from '../../lib/notification/notifications';
+import { createNewNotification, getAllNotification } from '../../lib/notification/notifications';
 import ThankLayoutContent from '../shared/thanklayoutcontent';
 import Toast from '../notification/toast';
-import { checkAuthen } from '../../lib/notification/toast';
-import { onAuthStateChanged } from '../../lib/user/authentication';
+import { userGetRoom } from '../../lib/room/rooms';
+import { loadProfilePage } from '../../lib/user/lawyers';
 
 import * as constant from '../constants';
-import * as Lawyers from '../../lib/user/lawyers';
 import * as translate from 'counterpart';
 
 import '../../assets/styles/common/applyLawyer.css';
+
+let info_pub = 0;
 
 class ApplyLawyer extends Component {
   constructor(props) {
@@ -28,10 +28,11 @@ class ApplyLawyer extends Component {
       currentLawyer: null,
       isLoading: true,
       roomId: '',
-      modalOpen: false,
-      info: [],
+      info: '',
       done: false,
-      permission: false
+      permission: false,
+      notifications: [],
+      has_noti: true,
     };
     this.emitter = new EventEmitter();
   }
@@ -44,38 +45,70 @@ class ApplyLawyer extends Component {
           if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
             component.emitter.emit('AddNewErrorToast', '',
               translate('app.apply_lawyer.can_not'), 5000, ()=>{});
-            window.location = constant.BASE_URL;
+            setTimeout(() => {
+              window.location = constant.HOME_URI;
+            }, 5000);
           }
           else {
             var username = window.location.pathname.split('/applylawyer/')[1];
-            Lawyers.loadProfilePage(username, (success, response) => {
+            loadProfilePage(username, (success, response) => {
               if(success) {
                 var lawyer = {
                   username: response.data.lawyer_info.base_profile.userName,
                   displayName: response.data.lawyer_info.base_profile.displayName,
                   uid: response.data.lawyer_info.lawyer_profile.user_id,
-                  photoURL: response.data.lawyer_info.base_profile.avatar.url
+                  photoURL: response.data.lawyer_info.base_profile.avatar.url,
+                  id: response.data.lawyer_info.id
                 }
-                component.setState({isLoading: false, currentLawyer: lawyer})
+                component.setState({currentLawyer: lawyer}, () => {
+                  component.setState({currentUser: user});
+                  var properties = {};
+                  properties['currentUser'] = lawyer;
+                  var notificationsArr = [];
+                  getAllNotification(properties, (event, data)=>{
+                    switch(event){
+                      case 'value':
+                        component.setState({notifications: notificationsArr});
+                        component.checkNoti(notificationsArr, component);
+                        component.checkRoom(component, lawyer);
+                        break;
+                      case 'child_added':
+                        notificationsArr.unshift(data);
+                        component.setState({notifications: notificationsArr});
+                        component.checkNoti(notificationsArr, component);
+                        break;
+                      case 'child_removed':
+                        notificationsArr.every(function(element,index){           
+                          if (element.id === data.id){
+                            notificationsArr.splice(index, 1);
+                            component.setState({notifications: notificationsArr});
+                            return false;
+                          }
+                          else{
+                            return true;
+                          }
+                        })
+                        break;
+                      default:
+                        break;
+                    }
+                  });
+                });
               }
               else {
                 component.emitter.emit('AddNewErrorToast', '',
                 translate('app.apply_lawyer.can_not'),
-                5000, ()=>{
-                  window.location = constant.BASE_URL;
-                });
+                5000, ()=>{});
+                setTimeout(() => {
+                  window.location = constant.HOME_URI;
+                }, 5000);
               }
             });
-            onAuthStateChanged(user =>{
-              if(user){
-                component.setState({currentUser: user, permission: true});
-              }
-              else{
-                component.setState({isLoading : true})   
-                checkAuthen(component.emitter, constant.HOME_URI , ()=>{})     
-              }
-            });
+            component.setState({currentUser: user, permission: true});
           }
+        }
+        else {
+          component.errorAndRedirect(translate('app.system_notice.unauthenticated.text'), component);
         }
       }
       else {
@@ -84,36 +117,81 @@ class ApplyLawyer extends Component {
     });
   }
 
-  errorAndRedirect(message, component) {
-    component.setState({isloading :true});    
+  checkNoti(notificationsArr, component) {
+    var has_noti = false;
+    notificationsArr.map((noti, idx) => {
+      if (noti.type === 'requestRoom' & noti.sender.uid === component.state.currentUser.uid) {
+        has_noti = true;
+      }
+    });
+    component.setState({has_noti: has_noti});
+    if (has_noti) {
+      if (info_pub === 0) {
+        info_pub = -1;
+        component.redirectWhenCannotApply(component);
+      }
+    }
+  }
+
+  checkRoom(component, lawyer) {
+    var properties = {
+      lawyer_id: lawyer.id
+    }
+    userGetRoom(properties, (success, response) => {
+      if (success) {
+        if (response.data.room.opening) {
+          component.redirectWhenCannotApply(component);
+        }
+        else {
+          component.setState({isLoading: false});
+        }
+      }
+      else {
+        if (response.response.status === 404) {
+          if (response.response.data.message === translate('app.apply_lawyer.room_not_found')) {
+            if (!component.state.has_noti) {
+              component.setState({isLoading: false});
+            }
+          }
+          else if(response.response.data.message === translate('app.apply_lawyer.lawyer_not_found.en')) {
+            component.toastError(component, translate('app.apply_lawyer.lawyer_not_found.vi'))
+          }
+        }
+        else {
+          component.toastError(component, translate('app.system_notice.error.text.some_thing_not_work'));
+        }
+      }
+    });
+  }
+
+  toastError(component, message) {
     component.emitter.emit('AddNewErrorToast',
-      translate('app.system_notice.unauthenticated.title'),
-      message, 5000, ()=>{})
-    setTimeout(()=>{
-      window.location = constant.SIGN_IN_URI;
+    translate('app.system_notice.error.title'),
+    message, 5000, ()=>{});
+    setTimeout(() => {
+      window.location = constant.HOME_URI;
     }, 5000);
   }
 
-  handleOpenModal(){
-    this.setState({
-      modalOpen: true
-    });
+  redirectWhenCannotApply(component) {
+    component.setState({isLoading: true});
+    component.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.unauthenticated.title'),
+    translate('app.system_notice.can_not_create_noti'), 5000, ()=>{});
+    setTimeout(() => {
+      window.location = constant.HOME_URI;
+    }, 5000);
   }
 
-  handleCloseModal(){
-    this.setState({
-      modalOpen: false
-    });
-  }
-
-  changeStep(previousSection, nextSection,
-    itemIdActive, itemIdNotActive) {
-      $(previousSection).removeClass('active');
-      $(previousSection + '-overview').hide();
-      $(nextSection).addClass('active');
-      $(nextSection + '-overview').show();
-      $(itemIdActive).parent().addClass('active');
-      $(itemIdNotActive).parent().removeClass('active');
+  errorAndRedirect(message, component) {
+    component.setState({isLoading :true});    
+    component.emitter.emit('AddNewErrorToast',
+      translate('app.system_notice.unauthenticated.title'),
+      message, 5000, ()=>{}
+    );
+    setTimeout(() => {
+      window.location = constant.SIGN_IN_URI;
+    }, 5000);
   }
 
   handleClick(){
@@ -129,7 +207,7 @@ class ApplyLawyer extends Component {
       translate('app.system_notice.warning.title'),
       translate('app.system_notice.warning.text.please_fill_the_form'),
       5000, () => {} )
-    }
+    } 
     else {
       var info = fullname
       +'<br />' + address
@@ -141,6 +219,8 @@ class ApplyLawyer extends Component {
       properties['currentUser'] = this.state.currentUser;
       properties['type'] = 'requestRoom';
       properties['info'] = info;
+
+      info_pub = 1;
       
       createNewNotification(properties, () =>{
       });
@@ -148,9 +228,10 @@ class ApplyLawyer extends Component {
       this.setState({done: true},()=>{
         component.emitter.emit('AddNewSuccessToast', '',
           translate('app.system_notice.success.text.submit_form_to_request_room'),
-          5000, ()=>{
+          5000, ()=>{});
+        setTimeout(() => {
           window.location = constant.HOME_URI;
-        })
+        }, 5000);
       })
     }
   }
@@ -158,9 +239,6 @@ class ApplyLawyer extends Component {
   renderView(){
     return (
       <div>
-        <div>
-          {this.renderPaymentInfo()}
-        </div>
         <div className='container'>
           <div className='apply-lawyer-container'>
             <div className='row'>

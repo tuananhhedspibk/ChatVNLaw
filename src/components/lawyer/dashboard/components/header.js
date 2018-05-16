@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Dropdown, DropdownMenu,
   DropdownItem, Nav, NavItem,
   NavbarToggler, NavbarBrand,
   DropdownToggle
 } from 'reactstrap';
+import { Button, Icon } from 'semantic-ui-react';
 
 import $ from 'jquery';
 import firebase from 'firebase';
-import {logoutRails} from '../../../../lib/user/authentication';
+import { logoutRails } from '../../../../lib/user/authentication';
 
 import * as constant from '../../../constants';
 import * as translate from 'counterpart';
-import { BASE_URL, LAWYER_PROFILE_URI, SETTINGS_URI } from '../../../constants';
 
 class Header extends Component {
 
@@ -73,6 +73,14 @@ class Header extends Component {
   }
 
   chatToggle(e) {
+    if (this.id === 'open-chat-btn') {
+      $('#close-chat-btn').fadeIn();
+    }
+    else if (this.id === 'close-chat-btn') {
+      $('#open-chat-btn').fadeIn();
+    }
+    $('#' + this.id).fadeOut();
+
     e.preventDefault();
     document.body.classList.toggle('chat-section-hidden');
     if($('.video-call').css('display') !== 'none') {
@@ -83,11 +91,11 @@ class Header extends Component {
   }
 
   handleOnclickProfile(){
-    window.open(BASE_URL + LAWYER_PROFILE_URI + '/' + this.props.currentUser.userName)
+    window.open(constant.BASE_URL + constant.LAWYER_PROFILE_URI + '/' + this.props.currentUser.userName)
   }
 
   handleOnclickEditProfile(){
-     window.open(BASE_URL + SETTINGS_URI );
+     window.open(constant.BASE_URL + constant.SETTINGS_URI);
   }
 
   render() {
@@ -104,7 +112,7 @@ class Header extends Component {
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle className='nav-link dropdown-toggle'>
                 <img alt='ava'
-                  src={this.state.currentUser.photoURL}
+                  src={constant.API_BASE_URL + this.state.currentUser.avatar.url}
                   className='img-avatar'/>
                 <span className='d-md-down-none'>
                   {this.state.currentUser.displayName}
@@ -128,8 +136,24 @@ class Header extends Component {
             </Dropdown>
           </NavItem>
         </Nav>
-        <NavbarToggler className='d-md-down-none' type='button'
-          onClick={this.chatToggle}>&#9776;</NavbarToggler>
+        <Button animated onClick={this.chatToggle} id='close-chat-btn'
+          className='custom-semantic-btn'>
+            <Button.Content hidden>
+              {translate('app.dashboard.close_chat')}
+            </Button.Content>
+            <Button.Content visible>
+              <Icon name='right arrow' />
+            </Button.Content>
+          </Button>
+        <Button animated onClick={this.chatToggle} id='open-chat-btn'
+          className='custom-semantic-btn'>
+            <Button.Content hidden>
+              {translate('app.dashboard.open_chat')}
+            </Button.Content>
+            <Button.Content visible>
+              <Icon name='left arrow' />
+            </Button.Content>
+        </Button>
       </header>
     )
   }

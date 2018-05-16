@@ -39,6 +39,16 @@ function deleteNotification(properties){
   ref.remove();
 }
 
+function timeFormat() {
+  var date = new Date();
+  var options = {
+    year: 'numeric', month: 'numeric', day: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  };
+  var dateFormatted = date.toLocaleDateString('vi-VN', options);
+  return dateFormatted
+}
+
 function createNewNotification(properties,callback){
   var ref = firebase.database().ref(`${constant.TABLE.notifications}/${properties.targetUser.uid}`).push()
   let item = {}
@@ -52,7 +62,7 @@ function createNewNotification(properties,callback){
 
   item[constant.NOTIFICATIONS.type] = properties.type;
   item[constant.NOTIFICATIONS.info] = properties.info || '';
-  item[constant.NOTIFICATIONS.timeStamp] = '' + (new Date()).getTime();
+  item[constant.NOTIFICATIONS.timeStamp] = timeFormat();
   ref.set(item);
 }
 
@@ -77,7 +87,6 @@ function noticeWhenNewNotiComing(properties, callback){
   var ref = firebase.database().ref(`${constant.TABLE.notifications}/${properties.currentUser.uid}`)
   ref.on('child_added', data =>{
     if(data.val().timeStamp > properties.timeStamp){
-      console.log(data.val());
       return callback(data);
     }
   })

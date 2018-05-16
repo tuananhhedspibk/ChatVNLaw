@@ -7,6 +7,7 @@ import { createNewRoom, createNewRoomFb, getAllRooms } from '../../../lib/room/r
 import { deleteNotification,
   createNewNotification }from '../../../lib/notification/notifications';
 import { createInitMessage } from '../../../lib/messages/messages';
+import { updateRoom } from '../../../lib/room/rooms';
 
 import * as translate from 'counterpart';
 import * as tableConstant from '../../../lib/constants';
@@ -28,9 +29,16 @@ class RequestRoomItem extends BaseItem {
         component.setState({rooms: response.data.rooms});
       }
       else {
-        console.log(response);
+        component.toastError(component);
       }
     })
+  }
+
+  toastError(component) {
+    component.props.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    5000, ()=>{});
   }
 
   notifiOperation(noti_type, element) {
@@ -70,6 +78,7 @@ class RequestRoomItem extends BaseItem {
     this.notifiOperation(tableConstant.NOTIFICATION_TYPE.acceptRoomRequest,
       element);
     var currentRoomId = null;
+    var component = this;
     this.state.rooms.map(room => {
       if(room.lawyer.id === JSON.parse(localStorage.chat_vnlaw_user)['lawyer_id']
         && room.user.uid === this.props.element.sender.uid) {
@@ -77,7 +86,26 @@ class RequestRoomItem extends BaseItem {
       }
     });
     this.sendInitMessage(element, currentRoomId);
+    var propertiesRoom = {
+      opening: true,
+      roomId: currentRoomId
+    }
+    updateRoom(propertiesRoom, (success, response) => {
+      if (success) {
+
+      }
+      else {
+        component.toastError(component);
+      }
+    })
     window.location = constant.DASHBOARD_URI;
+  }
+
+  toastError(component) {
+    component.props.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    5000, ()=>{});
   }
 
   createDialogBtnClick(element){
@@ -111,9 +139,19 @@ class RequestRoomItem extends BaseItem {
         });
       }
       else {
-        console.log(response);
+        component.toastError(component,
+          translate('app.system_notice.error.text.some_thing_not_work'));
       }
     })
+  }
+
+  toastError(component, message) {
+    component.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    message, 5000, ()=>{});
+    setTimeout(() => {
+      window.location = constant.HOME_URI;
+    }, 5000);
   }
 
   denyDialogBtnClick(element) {
@@ -136,17 +174,6 @@ class RequestRoomItem extends BaseItem {
     }
   }
 
-  convertDateToHour(date){
-    date = new Date(parseInt(date))
-    return date.getUTCHours() + ':' + date.getUTCMinutes();
-  }
-
-  convertDateToDay(date){
-    date = new Date(parseInt(date))
-    return date.getUTCDate() + '/' +
-      (date.getUTCMonth() + 1) + '/' + date.getUTCFullYear();
-  }
-
   renderDetailInfo(data){
     var type = data.type;
     switch(type){
@@ -160,8 +187,7 @@ class RequestRoomItem extends BaseItem {
             <li>{translate('app.payment.age') + ':\t' + info[3]}</li>
             <li>{translate('app.payment.problem') + ':\t' + info[4]}</li>
             <li>{translate('app.notification.time_created') +
-              this.convertDateToHour(data.timeStamp)
-              + '\t' + this.convertDateToDay(data.timeStamp)}</li>
+              data.timeStamp}</li>
           </ul>
         )
       default:
@@ -234,7 +260,7 @@ class RequestRoomItem extends BaseItem {
               <div className='ui radio checkbox'>
                 <input type='radio' id={'radio-2-' + this.state.element.id}
                   name={this.state.element.id} value='2'
-                  onClick={this.renderButton.bind(this,this.state.element)}/>
+                  onClick={this.renderButton.bind(this, this.state.element)}/>
                 <label htmlFor={'radio-2-' + this.state.element.id}>
                   {translate('app.notification.disagree_with_case')}
                 </label>
@@ -243,10 +269,10 @@ class RequestRoomItem extends BaseItem {
           </div>
           {this.renderAcceptBtn()}
           <button className='button blue display_none'
-            id={'button_destroy_'+ this.state.element.id}
+            id={'button_deny_'+ this.state.element.id}
             onClick={this.denyDialogBtnClick.bind(this,
               this.state.element)}>
-                {translate('app.notification.destroy_room_request')}
+                {translate('app.notification.deny_room_request')}
           </button>
         </div>
         <div className='icon orange'>

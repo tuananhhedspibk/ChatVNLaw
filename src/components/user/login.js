@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import $ from 'jquery';
 import { EventEmitter } from 'fbemitter';
 
 import Loading from '../shared/loading';
@@ -8,7 +7,7 @@ import Toast from '../notification/toast';
 import Nav from '../homepage/nav';
 import Footer from '../homepage/footer';
 
-import { signInWithPopup, signInWithEmailAndPassword,
+import { signInWithEmailAndPassword,
   onAuthStateChanged, loginRails } from '../../lib/user/authentication';
 import { checkAlreadyLogin } from '../../lib/notification/toast';
 
@@ -49,40 +48,15 @@ class UserLogin extends Component {
         if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'Lawyer') {
           this.emitter.emit('AddNewErrorToast', '',
             translate('app.apply_lawyer.can_not'),
-            5000, ()=>{});
-            setTimeout(() => {
+            5000, ()=>{
               window.location = constant.BASE_URL;
-            }, 5000);
+            });
           return;
         }
       }
       window.location = uri;
     }
     window.location = constant.BASE_URL;
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.isLoading !== this.state.isLoading){
-      $('#button-login-with-facebook').on('click', event => {
-        var provider = new firebase.auth.FacebookAuthProvider();
-        this.signInWithPopup(provider);
-      });
-  
-      $('#button-login-with-google').on('click', event => {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        this.signInWithPopup(provider);      
-      });
-    }
-  }
-
-  signInWithPopup(provider){
-    var component = this;    
-    signInWithPopup(provider, (issuccess,result) =>{
-      if(issuccess){
-      }else{
-        component.emitter.emit('AddNewErrorToast', '',result.message, 5000, ()=>{ })        
-      }
-    })  
   }
 
   handleInputChange(evt) {
@@ -108,9 +82,11 @@ class UserLogin extends Component {
       this.emitter.emit('AddNewWarningToast',
         translate('app.system_notice.warning.title'),
         translate('app.system_notice.warning.text.please_fill_the_form'),
-        5000, ()=>{} )
+        5000, ()=>{})
       return;
     }
+    this.setState({isLoading: true});
+
     signInWithEmailAndPassword(this.state.email, this.state.password, (issuccess, data) =>{
       if(issuccess){
         if(data){
@@ -145,7 +121,7 @@ class UserLogin extends Component {
             else {
               component.logout();
               component.emitter.emit('AddNewErrorToast', '',
-                response.message, 5000, ()=>{ })                         
+                response.message, 5000, ()=>{})                         
               return;
             }
           })
@@ -215,17 +191,6 @@ class UserLogin extends Component {
                   {translate('app.login.submit')}
                 </button>
               </form>
-              <div className='or'>
-                {translate('app.identifier.or')}
-              </div>
-              <div className='omni-auth'>
-                <button id='button-login-with-facebook'>
-                  {translate('app.identifier.login_face')}
-                </button>
-                <button id='button-login-with-google'>
-                  {translate('app.identifier.login_google')}
-                </button>
-              </div>
             </div>
           </div>
         </div>

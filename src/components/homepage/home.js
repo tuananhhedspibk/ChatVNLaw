@@ -37,7 +37,7 @@ class Home extends Component {
 			<div className='home-page'>
 				<Toast emitter = {this.emitter}/>
 				<Header/>
-				<Content/>
+				<Content emitter={this.emitter}/>
 				<Footer/>
 			</div>
     );

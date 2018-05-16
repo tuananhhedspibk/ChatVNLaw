@@ -68,7 +68,6 @@ function loadCurrentUserProfile(callback) {
   }
   instance.get(constantUI.API_USERS_URI + JSON.parse(localStorage.chat_vnlaw_user)['userName'])
     .then(response => {
-      console.log(response)
       return callback(true, response);
     })
     .catch(error => {

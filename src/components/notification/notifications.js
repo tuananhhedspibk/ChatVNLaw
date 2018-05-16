@@ -1,6 +1,5 @@
 import React, { Component}  from 'react';
 import { EventEmitter } from 'fbemitter';
-import ReactConfirmAlert from 'react-confirm-alert';
 
 import RequestRoomItem from './notification_item/requestroom';
 import AcceptRoomItem from './notification_item/acceptroom';
@@ -19,7 +18,6 @@ import * as translate from 'counterpart';
 import * as tableConstant from '../../lib/constants';
 
 import '../../assets/styles/common/notification.css';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class Notifications extends Component{
   constructor(props){
@@ -55,7 +53,7 @@ class Notifications extends Component{
               case 'child_removed':
                 notificationsArr.every(function(element,index){           
                   if (element.id === data.id){
-                    notificationsArr.splice(index,1);
+                    notificationsArr.splice(index, 1);
                     component.setState({notifications: notificationsArr});
                     return false;
                   }
@@ -67,8 +65,8 @@ class Notifications extends Component{
               default:
                 break;
             }
-          })
-        })
+          });
+        });
       }
       else{
         checkAuthen(component.emitter,constant.HOME_URI, ()=>{
@@ -84,23 +82,6 @@ class Notifications extends Component{
 
   onCancel(){
     this.setState({showDialog: false})
-  }
-
-  renderDialog(){
-    return (
-      <div>
-      {
-        this.state.showDialog &&
-        <ReactConfirmAlert
-          title={translate('app.confirm_dialog.title')}
-          message={translate('app.confirm_dialog.message_2')}
-          confirmLabel={translate('app.confirm_dialog.confirm_label_2')}
-          cancelLabel={translate('app.confirm_dialog.cancel_label_2')}
-          onConfirm={this.onConfirm.bind(this)}
-          onCancel={this.onCancel.bind(this)}/>
-      }
-      </div>
-    )
   }
  
   renderNotificationItem(element){

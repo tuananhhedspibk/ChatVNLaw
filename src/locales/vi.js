@@ -41,6 +41,7 @@ module.exports = {
       detail: 'Chi tiết:',
       create_dialog: 'Tạo cuộc trò chuyện',
       goto_dialog: 'Đi đến cuộc trò chuyện',
+      deny_room_request: 'Hủy yêu cầu',
       evaluate: 'Đánh giá:',
       agree_with_case: 'Tôi đồng ý tiếp nhận vụ án',
       disagree_with_case: 'Tôi không đồng ý tiếp nhận vụ án',
@@ -69,6 +70,7 @@ module.exports = {
         title: 'Từ chối truy cập',
         text: 'Bạn không có quyền truy cập vào đây!'
       },
+      can_not_create_noti: 'Bạn không thể tạo thêm yêu cầu do yêu cầu đã tồn tại hoặc bạn vẫn đang trong cuộc trò chuyện',
       warning:{
         title: 'Chú ý',
         text: {
@@ -82,12 +84,14 @@ module.exports = {
         text:{
           submit_form_to_request_room: 'Thông tin của bạn đã được gửi đến luật sư!',
           welcome:'Chào mừng đến với VNLaw.',
-          success_update_profile: 'Thông tin của bạn đã được thay đổi.'
+          success_update_profile: 'Thông tin của bạn đã được thay đổi.',
+          end_talking: 'Cuộc trò chuyện đã kết thúc, cảm ơn bạn vì đã sử dụng dịch vụ của chúng tôi'
         }
       },
       error:{
         title: 'Lỗi',
-        text:{cant_create_peer: 'Trình duyệt của bạn không hỗ trợ chức năng này',
+        text:{
+          cant_create_peer: 'Trình duyệt của bạn không hỗ trợ chức năng này',
           already_been_used: 'Dịch vụ hiện đang được sử dụng.',
           already_login: 'Bạn đã đăng nhập vào hệ thống!',
           invalid_email: 'Bạn hãy chắc chắn email nhập vào là chính xác!',
@@ -241,6 +245,8 @@ module.exports = {
       submit_des: 'Hoàn tất',
       edit_des: 'Chỉnh sửa mô tả',
       chat_setting_des_title: 'Mô tả cuộc trò chuyện',
+      open_chat: 'Mở cửa sổ chat',
+      close_chat: 'Đóng cửa sổ chat',
       search: {
         title: 'Tìm kiếm',
         by_user: 'Tìm kiếm theo người dùng',
@@ -591,7 +597,12 @@ module.exports = {
       }
     },
     apply_lawyer: {
-      can_not: 'Không thể yêu cầu luật sư'
+      can_not: 'Không thể yêu cầu luật sư',
+      room_not_found: 'Room not found',
+      lawyer_not_found: {
+        en: 'Lawyer not found',
+        vi: 'Không tìm thấy luật sư'
+      }
     }
   }
 }

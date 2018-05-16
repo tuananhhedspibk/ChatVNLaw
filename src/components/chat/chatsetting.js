@@ -67,8 +67,17 @@ class ChatSetting extends Component {
           files: files
         });
       }
-      else {}
+      else {
+        component.toastError(component);
+      }
     });
+  }
+
+  toastError(component) {
+    component.props.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    5000, ()=>{});
   }
 
   componentDidMount(){

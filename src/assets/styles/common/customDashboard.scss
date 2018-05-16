@@ -15,6 +15,10 @@
     font-size: .8em;
   }
 
+  .img-avatar {
+    margin-right: 8px !important;
+  }
+
   .navbar-brand {
     align-items: center;
     border-bottom: none !important;
@@ -980,4 +984,18 @@
   .sidebar .nav .nav-item .nav-link {
     font-size: 1.1em;
   }
+}
+
+.custom-semantic-btn {
+  background-color: transparent !important;
+  border: 1px solid $gray-medium !important;
+  color: $gray-darker !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: .8em !important;
+  margin-left: 8px !important;
+  width: 160px;
+}
+
+#close-chat-btn {
+  display: none;
 }
