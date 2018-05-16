@@ -92,13 +92,12 @@ class RequestRoomItem extends BaseItem {
     }
     updateRoom(propertiesRoom, (success, response) => {
       if (success) {
-
+        window.location = constant.DASHBOARD_URI;
       }
       else {
         component.toastError(component);
       }
     })
-    window.location = constant.DASHBOARD_URI;
   }
 
   toastError(component) {
