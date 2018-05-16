@@ -20,7 +20,8 @@ class PaymentProcess extends Component {
             amount: 0,
             type: '',
             beforeBalance: 0,
-            trueData: false   
+            trueData: false,
+            loading: true   
         }
         this.getCurrentAccount = this.getCurrentAccount.bind(this);
         this.getAccountBalance = this.getAccountBalance.bind(this);
@@ -40,58 +41,61 @@ class PaymentProcess extends Component {
     getCurrentAccount(data) {
         var component = this;
         component.setState({ trueData: (data.true),currentUser: (data.uid)});
-        if(component.state.currentUser !== '') {
+        if(component.state.currentUser!='' && data.true) {
             loadCurrentUserProfile((success,response) => {
                 if (success) {
                     component.getAccountBalance(response.data.user_info.mn_acc.ammount);    
                 }
             })
         }
+        else {
+            component.setState({responseCode: (queryString.parse(this.props.location.search)).vpc_TxnResponseCode,
+                loading: false})
+        }
     }
     getAccountBalance(data) {
         let urlParams = queryString.parse(this.props.location.search); 
-        this.setState({beforeBalance: parseInt(data)})
+        this.setState({})
         this.setState({
             responseCode: urlParams.vpc_TxnResponseCode,
             amount: parseInt(urlParams.vpc_Amount)/100,
-            type: urlParams.vpc_CurrencyCode          
+            type: urlParams.vpc_CurrencyCode,
+            beforeBalance: parseInt(data),
+            loading: false          
             });
     }
     renderView(){
-        var component = this
-        if (!this.state.trueData) {
+        if (this.state.trueData) {
             return(
                 <div className='result-notification'>
-                    <div className='notification-icon' id='noti-error'>
+                    <div className='notification-icon' id='noti-success'>
                         <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='-263.5 236.5 26 26'>
                             <g className='svg'>
                                 <circle cx='-250.5' cy='249.5' r='12'/>
-                                <path d='M-256.5 243.5 L-244.5 255.5'/>
-                                <path d='M-256.6 255.5 L-244.5 243.5'/>
+                                <path d='M-256.46 249.65l3.9 3.74 8.02-7.8'/>
                             </g>
                         </svg>
                     </div>
-                    <p className='notification-mess'>{translate('app.payment.fail_deposite')}</p>
+                    <p className='notification-mess'>{translate('app.payment.success_deposit')} {this.state.amount} {this.state.type}</p>
                 </div>
                 );                        
         }
         switch(this.state.responseCode){
             case '0' :{
-                if(!!component.state.currentUser){
-                    return(
-                        <div className='result-notification'>
-                            <div className='notification-icon' id='noti-success'>
-                                <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='-263.5 236.5 26 26'>
-                                    <g className='svg'>
-                                        <circle cx='-250.5' cy='249.5' r='12'/>
-                                        <path d='M-256.46 249.65l3.9 3.74 8.02-7.8'/>
-                                    </g>
-                                </svg>
-                            </div>
-                            <p className='notification-mess'>{translate('app.payment.success_deposit')} {this.state.amount} {this.state.type}</p>
+                return(
+                    <div className='result-notification'>
+                        <div className='notification-icon' id='noti-error'>
+                            <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='-263.5 236.5 26 26'>
+                                <g className='svg'>
+                                    <circle cx='-250.5' cy='249.5' r='12'/>
+                                    <path d='M-256.5 243.5 L-244.5 255.5'/>
+                                    <path d='M-256.6 255.5 L-244.5 243.5'/>
+                                </g>
+                            </svg>
                         </div>
-                    )
-                }
+                        <p className='notification-mess'>{translate('app.payment.fail_deposite')}</p>
+                    </div>
+                )
                 break
             }
             case '1':{
@@ -352,7 +356,11 @@ class PaymentProcess extends Component {
 
     render(){
         var view = null;
+<<<<<<< baec325e0ed120ec1a49732af0577be66e924522
         if(this.state.responseCode === '')
+=======
+        if(this.state.loading)
+>>>>>>> fix deposit
             view = (
                 <div className='notification-waiting'>
                     <div className='waiting-icon'>
