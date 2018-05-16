@@ -24,12 +24,25 @@ class ChatSessionList extends React.Component{
       modalFailedOpen: false,
       balance: 0,
       element : null,
+      targetUser: null
     };
   }
 
   componentWillMount(){
     this.setState({currentUser: this.props.currentUser,
-      currentRoomId : this.props.currentRoomId})
+      currentRoomId : this.props.currentRoomId,
+      targetUser: this.props.targetUser});
+  }
+
+  calMoney(total_time, component) {
+    if (JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'User') {
+      var money_acc = parseFloat(component.state.targetUser.price) / 3600 * (total_time / 1000);
+      return money_acc;
+    }
+    else {
+      var money_acc = parseFloat(JSON.parse(localStorage.chat_vnlaw_user)['price']) / 3600 * (total_time / 1000);
+      return money_acc;
+    }
   }
 
   componentDidMount(){
@@ -40,6 +53,7 @@ class ChatSessionList extends React.Component{
         case 'child_added':
           var item = data.val();
           item.id = data.key;
+          item.cart = component.calMoney(item.totalTime, component);
           tmp.push(item);
           component.setState({list : tmp});
           break;
@@ -47,6 +61,7 @@ class ChatSessionList extends React.Component{
           tmp.every((element, index) =>{
             if(element.id === data.key){
               tmp[index] = data.val();
+              tmp[index].cart = component.calMoney(data.val().totalTime, component);
               tmp[index].id = data.key;
               component.setState({list: tmp})
               return false;
@@ -73,9 +88,18 @@ class ChatSessionList extends React.Component{
         });
       }
       else {
-        console.log(response);
+        component.toastError(component);
       }
     });
+  }
+
+  toastError(component, message) {
+    component.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    message, 5000, ()=>{});
+    setTimeout(() => {
+      window.location = constant.HOME_URI;
+    }, 5000);
   }
 
   payment(){
@@ -130,18 +154,25 @@ class ChatSessionList extends React.Component{
                 {formatMoney(element.cart, 0, '.', ',')}
               </div>
               {
-                !element.payment ?
+                JSON.parse(localStorage.chat_vnlaw_user)['role'] === 'User' ?
                 (
-                  <button className='session-button payment'
-                    onClick={this.onClickPaymentButton.bind(this, element)}>
-                      {translate('app.chat.pay')}
-                  </button>
+                  !element.payment ?
+                  (
+                    <button className='session-button payment'
+                      onClick={this.onClickPaymentButton.bind(this, element)}>
+                        {translate('app.chat.pay')}
+                    </button>
+                  )
+                  :
+                  (
+                    <button className='session-button paid'>
+                      {translate('app.chat.paid')}
+                    </button>
+                  )
                 )
                 :
                 (
-                  <button className='session-button paid'>
-                    {translate('app.chat.paid')}
-                  </button>
+                  '' 
                 )
               }
             </div>
