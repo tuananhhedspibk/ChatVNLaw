@@ -356,11 +356,7 @@ class PaymentProcess extends Component {
 
     render(){
         var view = null;
-<<<<<<< baec325e0ed120ec1a49732af0577be66e924522
-        if(this.state.responseCode === '')
-=======
         if(this.state.loading)
->>>>>>> fix deposit
             view = (
                 <div className='notification-waiting'>
                     <div className='waiting-icon'>
