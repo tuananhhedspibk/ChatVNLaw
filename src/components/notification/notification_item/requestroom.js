@@ -45,8 +45,12 @@ class RequestRoomItem extends BaseItem {
     var propertiesNoti = {}
     var currentUser = this.state.currentUser;
     currentUser.userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
-    currentUser.displayName = JSON.parse(localStorage.chat_vnlaw_user)['displayName'];
-    currentUser.uid = JSON.parse(localStorage.chat_vnlaw_user)['id'];
+    if (currentUser.displayName === null || currentUser.displayName.length === 0) {
+      currentUser.displayName = JSON.parse(localStorage.chat_vnlaw_user)['displayName'];
+    }
+    if (currentUser.uid === null || currentUser.uid.length === 0) {
+      currentUser.uid = JSON.parse(localStorage.chat_vnlaw_user)['id'];
+    }
     this.setState({currentUser: currentUser});
     propertiesNoti.currentUser = currentUser;
     propertiesNoti.targetUser = {}
@@ -114,8 +118,12 @@ class RequestRoomItem extends BaseItem {
     var currentUser = this.state.currentUser;
     var component = this;
     currentUser.userName = JSON.parse(localStorage.chat_vnlaw_user)['userName'];
-    currentUser.displayName = JSON.parse(localStorage.chat_vnlaw_user)['displayName'];
-    currentUser.uid = JSON.parse(localStorage.chat_vnlaw_user)['id'];
+    if (currentUser.displayName === null || currentUser.displayName.length === 0) {
+      currentUser.displayName = JSON.parse(localStorage.chat_vnlaw_user)['displayName'];
+    }
+    if (currentUser.uid === null || currentUser.uid.length === 0) {
+      currentUser.uid = JSON.parse(localStorage.chat_vnlaw_user)['id'];
+    }
     this.setState({currentUser: currentUser});
     propertiesNoti.currentUser = this.state.currentUser;
     propertiesNoti.targetUser = {}
