@@ -20,7 +20,7 @@ function checkAuthen(emitter, uri, callback){
   })
   setTimeout(() => {
     window.location = uri;
-  },5000);
+  }, 5000);
   return callback();
 }
 

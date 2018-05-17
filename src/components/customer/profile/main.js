@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import ReactLoading from 'react-loading';
+import { EventEmitter } from 'fbemitter';
 
 import Nav from '../../homepage/nav';
 import Footer from '../../homepage/footer';
 import HeaderBlock from './headerblock';
 
+import Toast from '../../notification/toast';
+
 import * as constant from '../../constants';
 import { loadProfilePage } from '../../../lib/user/users';
+import { onAuthStateChanged } from '../../../lib/user/authentication';
+import { checkAuthen } from '../../../lib/notification/toast';
+
 import * as translate from 'counterpart';
 
 import '../../../assets/styles/common/customerProfile.css';
@@ -17,7 +23,8 @@ class CustomerProfile extends Component {
 	  this.state = {
 			currentUser: '',
 			isLoading: true
-	  }
+		},
+		this.emitter = new EventEmitter();
 	}
 
 	loadDataFromServer() {
@@ -37,12 +44,38 @@ class CustomerProfile extends Component {
 
   componentWillMount() {
 		this.loadDataFromServer();
-  }
+	}
+	
+	componentDidMount() {
+		var component = this;
+		onAuthStateChanged(user =>{
+      if (user) {
+        if(localStorage.chat_vnlaw_user){
+
+				}
+				else {
+					if (component.state.currentUser.mn_acc) {
+						component.setState({isLoading: true});
+						checkAuthen(component.emitter, constant.SIGN_IN_URI, ()=>{
+						});
+					}
+				}
+			}
+			else {
+				if (component.state.currentUser.mn_acc) {
+					component.setState({isLoading: true});
+					checkAuthen(component.emitter, constant.SIGN_IN_URI, ()=>{
+					});
+				}
+			}
+		});
+	}
 
 	render() {
 		return(
 			<div>
 				<Nav navStyle='inverse'/>
+				<Toast emitter={this.emitter}/>
 				<div className='container-customer-wrapper'>
 					{
 						this.state.isLoading ?

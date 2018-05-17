@@ -16,19 +16,21 @@ function getAllTasks(userID,callback){
     })
 }
 
-function getTasksByRoom(roomID,callback){
+function getTasksByRoom(roomID, callback){
   var instance = constantLib.ax_ins;
   if (localStorage.chat_vnlaw_user) {
     instance.defaults.headers['x-user-token'] = JSON.parse(localStorage.chat_vnlaw_user)['token'];
     instance.defaults.headers['x-user-email'] = JSON.parse(localStorage.chat_vnlaw_user)['email'];
   }
-  instance.get(constantUI.API_ROOMS_URI+ roomID +'/tasks'  )
-    .then(response => {
-      return callback(true, response);
-    })
-    .catch(error => {
-      return callback(false, error);
-    })
+  if (roomID) {
+    instance.get(constantUI.API_ROOMS_URI+ roomID + '/tasks')
+      .then(response => {
+        return callback(true, response);
+      })
+      .catch(error => {
+        return callback(false, error);
+      });
+  }
 }
 
 function createTask(roomID,content,callback) {

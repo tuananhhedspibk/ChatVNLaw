@@ -101,10 +101,10 @@ class Settings extends Component {
     this.setState({isloading :true});    
     this.emitter.emit('AddNewErrorToast',
       translate('app.system_notice.unauthenticated.title'),
-      message, 2000, ()=>{
-        window.location = constant.SIGN_IN_URI;
-      }
-    );
+      message, 5000, ()=>{});
+    setTimeout(() => {
+      window.location = constant.SIGN_IN_URI;
+    }, 5000);
   }
   
   renderView() {
