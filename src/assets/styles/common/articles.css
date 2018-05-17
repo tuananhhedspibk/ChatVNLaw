@@ -364,20 +364,21 @@ a[data-toggle="popover"] {
     .article-page .article-topics .topics-detail .topic-element:hover::before {
       background-color: #fff; }
 
-@media (max-width: 1315px) {
+@media (max-width: 1300px) {
   .article-page .article-index {
-    width: 150px;
-    margin-left: 40px; } }
-
-@media (max-width: 1200px) {
-  .article-page .article-index {
-    margin-left: -20px; } }
-
-@media (max-width: 992px) {
-  .article-page .article-index {
+    visibility: hidden; }
+  .article-page .recommend-articles {
+    visibility: hidden; }
+  .article-page .sticky-col {
     visibility: hidden; } }
 
+@media (max-width: 850px) {
+  .article-page .topics-detail {
+    margin-top: 15px;
+    width: 100% !important; } }
+
 .recommend-articles {
+  background-color: #fff;
   border: 1px solid #d1d1d1;
   border-radius: 3px;
   font-size: 1.2em;

@@ -480,27 +480,30 @@ a[data-toggle="popover"] {
     }
   }
 
-  @media (max-width: 1315px) {
-    .article-index {
-      width: 150px;
-      margin-left: 40px;
-    }
-  }
-
-  @media (max-width: 1200px) {
-    .article-index {
-      margin-left: -20px;
-    }
-  }
-
-  @media (max-width: 992px){
+  @media (max-width: 1300px){
     .article-index {
       visibility: hidden;
+    }
+
+    .recommend-articles {
+      visibility: hidden;
+    }
+
+    .sticky-col {
+      visibility: hidden;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .topics-detail {
+      margin-top: 15px;
+      width: 100% !important;
     }
   }
 }
 
 .recommend-articles {
+  background-color: $white;
   border: 1px solid $gray-medium;
   border-radius: 3px;
   font-size: 1.2em;

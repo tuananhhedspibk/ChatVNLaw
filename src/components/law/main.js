@@ -4,7 +4,6 @@ import $ from 'jquery';
 import Loading from '../shared/loading';
 import NotFoundPage from '../shared/notfound';
 import Nav from '../homepage/nav';
-import Footer from '../homepage/footer';
 import ArticleIndex from './index';
 import ArticleContent from './content';
 import ArticleTopics from './topics';
@@ -290,10 +289,10 @@ class Article extends Component {
 					<Nav navStyle='inverse'/>
           <div className='article-page-content'>
             <div className='row'>
-              <div className='col-md-2 col-md-index'>
+              <div className='col-sm-0 col-md-2 col-md-index'>
                 <ArticleIndex index_html={this.state.article.index_html}/>
               </div>
-              <div className='col-md-8'>
+              <div className='col-sm-12 col-md-8'>
                 <div className='container-fluid'>
                   <ul className='nav nav-pills'>
                       <li>
@@ -320,13 +319,12 @@ class Article extends Component {
                   </div>
                 </div>
               </div>
-              <div className='col-md-2 col-md-sticky'>
+              <div className='col-sm-0 col-md-2 col-md-sticky'>
                 <StickyHighlight />
                 <Recommend articles={this.state.article.neighbors}/>
               </div>
             </div>
           </div>
-          <Footer/>
           <div id='article-script'>
             <script type='text/javascript'>
               $('[data-toggle="popover"]').popover();   
@@ -346,7 +344,6 @@ class Article extends Component {
           <h1 className='error-notification'>
             {this.state.errorText}
           </h1>
-          <Footer/>
         </div>
         );
       }
