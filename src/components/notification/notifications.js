@@ -69,7 +69,8 @@ class Notifications extends Component{
         });
       }
       else{
-        checkAuthen(component.emitter,constant.HOME_URI, ()=>{
+        component.setState({isLoading: true});
+        checkAuthen(component.emitter, constant.SIGN_IN_URI, ()=>{
 
         })
       }

@@ -41,13 +41,19 @@ class TodoListLawyer extends Component {
         }
       }
       else {
-        console.log("ciaaaa")
-        console.log(response)
+        component.toastError(component)
       }
       component.setState({
           todoList: tempData
       })
     });
+  }
+
+  toastError(component) {
+    component.props.emitter.emit('AddNewErrorToast',
+    translate('app.system_notice.error.title'),
+    translate('app.system_notice.error.text.some_thing_not_work'),
+    5000, ()=>{});
   }
 
   renderTodoList(){
