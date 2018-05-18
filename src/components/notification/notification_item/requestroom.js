@@ -24,21 +24,32 @@ class RequestRoomItem extends BaseItem {
 
   componentDidMount() {
     var component = this;
+    this.setState({element: this.props.element});
     getAllRooms((success, response) => {
       if (success) {
         component.setState({rooms: response.data.rooms});
       }
       else {
-        component.toastError(component);
+        component.toastError(component,
+          translate('app.system_notice.error.text.some_thing_not_work'));
       }
     })
   }
 
-  toastError(component) {
-    component.props.emitter.emit('AddNewErrorToast',
-    translate('app.system_notice.error.title'),
-    translate('app.system_notice.error.text.some_thing_not_work'),
-    5000, ()=>{});
+  componentWillReceiveProps(nextProps) {
+    var component = this;
+    if(this.state.element !== nextProps.element && !!nextProps.element){
+      this.setState({element: nextProps.element});
+      getAllRooms((success, response) => {
+        if (success) {
+          component.setState({rooms: response.data.rooms});
+        }
+        else {
+          component.toastError(component,
+            translate('app.system_notice.error.text.some_thing_not_work'));
+        }
+      })
+    }
   }
 
   notifiOperation(noti_type, element) {
@@ -97,16 +108,10 @@ class RequestRoomItem extends BaseItem {
         window.location = constant.DASHBOARD_URI;
       }
       else {
-        component.toastError(component);
+        component.toastError(component,
+          translate('app.system_notice.error.text.some_thing_not_work'));
       }
     })
-  }
-
-  toastError(component) {
-    component.props.emitter.emit('AddNewErrorToast',
-    translate('app.system_notice.error.title'),
-    translate('app.system_notice.error.text.some_thing_not_work'),
-    5000, ()=>{});
   }
 
   createDialogBtnClick(element){
@@ -149,12 +154,9 @@ class RequestRoomItem extends BaseItem {
   }
 
   toastError(component, message) {
-    component.emitter.emit('AddNewErrorToast',
+    component.props.emitter.emit('AddNewErrorToast',
     translate('app.system_notice.error.title'),
     message, 5000, ()=>{});
-    setTimeout(() => {
-      window.location = constant.HOME_URI;
-    }, 5000);
   }
 
   denyDialogBtnClick(element) {

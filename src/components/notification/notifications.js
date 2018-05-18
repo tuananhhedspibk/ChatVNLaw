@@ -89,17 +89,20 @@ class Notifications extends Component{
     switch(element.type){
       case tableConstant.NOTIFICATION_TYPE.requestRoom:
         return(
-          <RequestRoomItem element={element}
+          <RequestRoomItem emitter={this.emitter}
+            element={element}
             currentUser={this.state.currentUser}/>
         )
       case tableConstant.NOTIFICATION_TYPE.refuseRoomRequest:
         return(
-          <RefuseRoomItem element={element}
+          <RefuseRoomItem emitter={this.emitter}
+            element={element}
             currentUser={this.state.currentUser}/>
         )
       case tableConstant.NOTIFICATION_TYPE.acceptRoomRequest:
         return(
-          <AcceptRoomItem element={element} 
+          <AcceptRoomItem emitter={this.emitter}
+            element={element} 
             currentUser={this.state.currentUser}/>
         )
       default:
