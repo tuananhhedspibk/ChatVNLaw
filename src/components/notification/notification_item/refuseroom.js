@@ -18,20 +18,21 @@ class RefuseRoomItem extends BaseItem{
 
   render(){
     return(
-      <div className="notifi-content">
-        <div className="notification-item green">
-          <div className="info">
-          <h1>{this.state.element.sender.displayName+translate('app.notification.new_refuse_room_request_title')}</h1>      
-          <div className='info-detail'>
-
-            <button className='button blue' display='inline-block' onClick={this.removeNotification.bind(this,this.state.element)}>
-                {translate('app.notification.already_known')}
-            </button>
+      <div className='notifi-content'>
+        <div className='notification-item green'>
+          <div className='info'>
+            <h1>{translate('app.identifier.lawyer') + this.state.element.sender.displayName
+              + translate('app.notification.new_refuse_room_request_title')}</h1>      
+            <div className='info-detail'>
+              <button className='button blue' display='inline-block'
+                onClick={this.removeNotification.bind(this,this.state.element)}>
+                  {translate('app.notification.already_known')}
+              </button>
+            </div>
           </div>
-        </div>
-        <div className='icon red'>
-          <i className='fa fa-user-times'></i>
-        </div>
+          <div className='icon red'>
+            <i className='fa fa-user-times'></i>
+          </div>
         </div>
       </div>
     )

@@ -237,7 +237,7 @@ class ApplyLawyer extends Component {
 
   renderView(){
     return (
-      <div>
+      <div className='apply-lawyer-main'>
         <div className='container'>
           <div className='apply-lawyer-container'>
             <div className='row'>

@@ -214,7 +214,7 @@ class RequestRoomItem extends BaseItem {
     if (hasRoom) {
       return (
         <button className='button blue display_none'
-          id={'button_create_'+ this.state.element.id}
+          id={'button_create_' + this.state.element.id}
           onClick={this.gotoDialogBtnClick.bind(this,
             this.state.element)}>
               {translate('app.notification.goto_dialog')}
@@ -224,7 +224,7 @@ class RequestRoomItem extends BaseItem {
     else {
       return (
         <button className='button blue display_none'
-          id={'button_create_'+this.state.element.id}
+          id={'button_create_' + this.state.element.id}
           onClick={this.createDialogBtnClick.bind(this,this.state.element)}>
             {translate('app.notification.create_dialog')}
         </button>
@@ -234,57 +234,57 @@ class RequestRoomItem extends BaseItem {
 
   render(){
     return(
-    <div className='notifi-content'>
-      <div className='notification-item green'>
-        <div className='info'>
-          <h1>
-            {this.state.element.sender.displayName +
-              translate('app.notification.new_room_request_title')}
-          </h1>      
-          <div className='info-detail'>
-            <p className='title'>
-              {translate('app.notification.detail')}
-            </p>
-            <div>
-              {this.renderDetailInfo(this.state.element)}
-            </div>
-          </div>
-          <div className='ui form' id={'form' + this.state.element.id}>
-            <label>{translate('app.notification.evaluate')}</label>
-            <div className='field'>
-              <div className='ui radio checkbox'>
-                <input type='radio' id={'radio-1-' + this.state.element.id}
-                  name={this.state.element.id} value='1'
-                  onClick={this.renderButton.bind(this,this.state.element)}/>
-                <label htmlFor={'radio-1-' + this.state.element.id}>
-                  {translate('app.notification.agree_with_case')}
-                </label>
+      <div className='notifi-content'>
+        <div className='notification-item green'>
+          <div className='info'>
+            <h1>
+              {this.state.element.sender.displayName +
+                translate('app.notification.new_room_request_title')}
+            </h1>      
+            <div className='info-detail'>
+              <p className='title'>
+                {translate('app.notification.detail')}
+              </p>
+              <div>
+                {this.renderDetailInfo(this.state.element)}
               </div>
             </div>
-            <div className='field'>
-              <div className='ui radio checkbox'>
-                <input type='radio' id={'radio-2-' + this.state.element.id}
-                  name={this.state.element.id} value='2'
-                  onClick={this.renderButton.bind(this, this.state.element)}/>
-                <label htmlFor={'radio-2-' + this.state.element.id}>
-                  {translate('app.notification.disagree_with_case')}
-                </label>
+            <div className='ui form' id={'form' + this.state.element.id}>
+              <label>{translate('app.notification.evaluate')}</label>
+              <div className='field'>
+                <div className='ui radio checkbox'>
+                  <input type='radio' id={'radio-1-' + this.state.element.id}
+                    name={this.state.element.id} value='1'
+                    onClick={this.renderButton.bind(this, this.state.element)}/>
+                  <label htmlFor={'radio-1-' + this.state.element.id}>
+                    {translate('app.notification.agree_with_case')}
+                  </label>
+                </div>
+              </div>
+              <div className='field'>
+                <div className='ui radio checkbox'>
+                  <input type='radio' id={'radio-2-' + this.state.element.id}
+                    name={this.state.element.id} value='2'
+                    onClick={this.renderButton.bind(this, this.state.element)}/>
+                  <label htmlFor={'radio-2-' + this.state.element.id}>
+                    {translate('app.notification.disagree_with_case')}
+                  </label>
+                </div>
               </div>
             </div>
+            {this.renderAcceptBtn()}
+            <button className='button blue display_none'
+              id={'button_deny_' + this.state.element.id}
+              onClick={this.denyDialogBtnClick.bind(this,
+                this.state.element)}>
+                  {translate('app.notification.deny_room_request')}
+            </button>
           </div>
-          {this.renderAcceptBtn()}
-          <button className='button blue display_none'
-            id={'button_deny_'+ this.state.element.id}
-            onClick={this.denyDialogBtnClick.bind(this,
-              this.state.element)}>
-                {translate('app.notification.deny_room_request')}
-          </button>
-        </div>
-        <div className='icon orange'>
-          <i className='fa fa-asterisk'></i>
+          <div className='icon orange'>
+            <i className='fa fa-asterisk'></i>
+          </div>
         </div>
       </div>
-    </div>
     )
   }
 }

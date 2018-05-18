@@ -27,7 +27,7 @@ class AcceptRoomItem extends BaseItem{
       <div className='notifi-content'>
       <div className='notification-item green'>
         <div className='info'>
-        <h1>{this.state.element.sender.displayName +
+        <h1>{translate('app.identifier.lawyer') + this.state.element.sender.displayName +
           translate('app.notification.new_accept_room_request_title')}
         </h1>      
         <div className='info-detail'>
