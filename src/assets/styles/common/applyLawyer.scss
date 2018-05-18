@@ -1,5 +1,9 @@
 @import './variables.scss';
 
+.apply-lawyer-main {
+  min-height: calc(100vh - 68px);
+}
+
 .apply-lawyer-container {
   border-radius: 5px;
   border: 1px solid $gray-lighter;

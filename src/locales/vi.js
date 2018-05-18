@@ -19,7 +19,8 @@ module.exports = {
       login_google: 'Đăng nhập bằng google',
       read_more: 'xem thêm',
       show_less: 'thu nhỏ',
-      no_review: 'Xin lỗi, hiện tại luật sư chưa nhận được đánh giá nào'
+      no_review: 'Xin lỗi, hiện tại luật sư chưa nhận được đánh giá nào',
+      lawyer: 'Luật sư '
     },
     button:{
       create_new_chat: 'Tạo cuộc trò chuyện',
@@ -224,7 +225,8 @@ module.exports = {
       email: 'Email',
       name: 'Tên người dùng',
       submit: 'Đăng kí',
-      new_to_us: 'Thành viên mới?'
+      new_to_us: 'Thành viên mới?',
+      already_in_use: 'Email đã được sử dụng bởi một người dùng khác, bạn vui lòng sử dụng một email mới'
     },
     dashboard: {
       home: 'Trang chủ',

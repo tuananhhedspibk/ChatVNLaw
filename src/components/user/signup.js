@@ -157,8 +157,14 @@ class UserSignUp extends Component {
         }
       }
       else{
-        component.emitter.emit('AddNewErrorToast', '', data.message, 5000, ()=>{})
-        window.location = constant.SIGN_UP_URI;                         
+        var messageError = '';
+        if(data.message === 'The email address is already in use by another account.') {
+          messageError = translate('app.signup.already_in_use');
+        }
+        component.emitter.emit('AddNewErrorToast', '', messageError, 5000, ()=>{})
+        setTimeout(() => {
+          window.location = constant.SIGN_UP_URI;
+        }, 5000); 
       }
     })
   }
