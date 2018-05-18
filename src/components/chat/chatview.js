@@ -22,7 +22,7 @@ import * as firebase from 'firebase';
 import '../../assets/styles/common/main.css';
 import '../../assets/styles/common/userIndex.css';
 
-const KEYS_TO_FILTERS = ['profile.displayName'];
+const KEYS_TO_FILTERS = ['displayName'];
 
 const options = [
   {icon_color: 'online'},
