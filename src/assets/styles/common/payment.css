@@ -16,7 +16,8 @@
   width: 100%;
   text-align: center;
   margin-top: 100px;
-  margin-bottom: 100px; }
+  margin-bottom: 100px;
+  min-height: calc(100vh - 68px); }
   .result-notification .notification-mess {
     margin-top: 20px;
     font-size: 2em; }
@@ -96,3 +97,7 @@
     opacity: 0; }
   100% {
     opacity: 0; } }
+
+@-moz-document url-prefix() {
+  .result-notification {
+    min-height: calc(100vh - 64px); } }

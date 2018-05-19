@@ -21,6 +21,7 @@
   text-align: center;
   margin-top: 100px;
   margin-bottom: 100px;
+  min-height: calc(100vh - 68px);
 
   .notification-mess {
   	margin-top: 20px;
@@ -120,5 +121,11 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@-moz-document url-prefix() {
+  .result-notification {
+    min-height: calc(100vh - 64px);
   }
 }
