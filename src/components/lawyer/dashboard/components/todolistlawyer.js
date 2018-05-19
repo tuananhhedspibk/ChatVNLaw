@@ -74,7 +74,7 @@ class TodoListLawyer extends Component {
                   {todoList.tasks.map(content => (
                     <li className={content.status === 'Done' ?
                       'checked' : 'uncheck'}>
-                        {content.text}
+                        {content.content}
                     </li>
                   ))}
                 </ul>
