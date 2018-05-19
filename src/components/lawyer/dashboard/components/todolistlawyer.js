@@ -72,8 +72,9 @@ class TodoListLawyer extends Component {
               <div id={'todo-list-lawyer' + index} className='collapse'>
                 <ul id='myUL'>
                   {todoList.tasks.map(content => (
-                    <li className={content.status} >
-                        {content.content}
+                    <li className={content.status === 'Done' ?
+                      'checked' : 'uncheck'}>
+                        {content.text}
                     </li>
                   ))}
                 </ul>
