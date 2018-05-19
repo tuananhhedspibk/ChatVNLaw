@@ -1,6 +1,10 @@
 .apply-lawyer-main {
   min-height: calc(100vh - 68px); }
 
+@-moz-document url-prefix() {
+  .apply-lawyer-main {
+    min-height: calc(100vh - 64px); } }
+
 .apply-lawyer-container {
   border-radius: 5px;
   border: 1px solid #e5ecf0;
