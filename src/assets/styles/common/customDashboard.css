@@ -1,3 +1,6 @@
+.fc-content {
+  color: #fff; }
+
 .app-header.navbar .nav-item .nav-link .badge {
   background-color: #e54040 !important;
   font-size: .5em; }
