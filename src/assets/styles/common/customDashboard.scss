@@ -1,5 +1,9 @@
 @import './variables.scss';
 
+.fc-content {
+  color: $white;
+}
+
 .app-header.navbar .nav-item .nav-link .badge {
   background-color: $red !important;
   font-size: .5em;
