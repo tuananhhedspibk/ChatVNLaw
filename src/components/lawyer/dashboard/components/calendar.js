@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import request from 'superagent';
 import $ from 'jquery';
-import * as constant from '../../../constants';
 
 require('fullcalendar-reactwrapper/dist/css/fullcalendar.min.css');
 
-const CALENDAR_ID = 'primary';
-const API_KEY = 'AIzaSyBMem-ZKdVhPS2uwB3gXLPtD1YdQQthDK0';
+const CALENDAR_ID = '2qm6bc113of43opcqnsiernk5s@group.calendar.google.com';
+const API_KEY = 'AIzaSyCGFci7s06zoPhyF0d92Lu57BpGOkiszy0';
 let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`;
-var firebase = require('firebase');
 
 export function getEvents (callback) {
   request
@@ -32,6 +30,34 @@ export function getEvents (callback) {
     })
 }
 
+let a = {
+  'summary': 'Google I/O 2015',
+  'location': '800 Howard St., San Francisco, CA 94103',
+  'description': 'A chance to hear more about Google\'s developer products.',
+  'start': {
+    'dateTime': '2015-05-28T09:00:00-07:00',
+    'timeZone': 'America/Los_Angeles'
+  },
+  'end': {
+    'dateTime': '2015-05-28T17:00:00-07:00',
+    'timeZone': 'America/Los_Angeles'
+  },
+  'recurrence': [
+    'RRULE:FREQ=DAILY;COUNT=2'
+  ],
+  'attendees': [
+    {'email': 'lpage@example.com'},
+    {'email': 'sbrin@example.com'}
+  ],
+  'reminders': {
+    'useDefault': false,
+    'overrides': [
+      {'method': 'email', 'minutes': 24 * 60},
+      {'method': 'popup', 'minutes': 10}
+    ]
+  }
+};
+
 class Calendar extends Component {
   constructor(props) {
     super(props);
@@ -42,24 +68,10 @@ class Calendar extends Component {
   }
 
   componentDidMount () {
-    if(!firebase.apps.length){
-      firebase.initializeApp(constant.APP_CONFIG);
-    }
-    var provider = new firebase.auth.GoogleAuthProvider();
-
-    provider.addScope('https://www.googleapis.com/auth/calendar');
-    firebase.auth().currentUser.linkWithPopup(provider).then(function(result) {
-      
-    }).catch(function(error) {
-      console.log(error);
-    });
-
-    
     getEvents((events) => {
       this.setState({events: events})
     });
     $('main.main').removeClass('main-customer');
-
   }
 
   showDescription(events){
