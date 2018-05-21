@@ -61,7 +61,12 @@ class ApplyLawyer extends Component {
                   id: response.data.lawyer_info.id
                 }
                 component.setState({currentLawyer: lawyer}, () => {
-                  component.setState({currentUser: user});
+                  var c_user = {
+                    uid: JSON.parse(localStorage.chat_vnlaw_user)['id'],
+                    userName: JSON.parse(localStorage.chat_vnlaw_user)['userName'],
+                    displayName: JSON.parse(localStorage.chat_vnlaw_user)['displayName']
+                  }
+                  component.setState({currentUser: c_user});
                   var properties = {};
                   properties['currentUser'] = lawyer;
                   var notificationsArr = [];
