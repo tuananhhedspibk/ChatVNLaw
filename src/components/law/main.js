@@ -28,8 +28,7 @@ class Article extends Component {
       uid: null,
       stickies: [],
       loading: true,
-      error: '',
-      statusText: ''
+      error: false
 		};
     this.getNextNode = this.getNextNode.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
@@ -43,9 +42,10 @@ class Article extends Component {
         component.setState({article: response.data, loading: false});
       })
       .catch(function (error) {
-        component.setState({error: error.response.status,
-          statusText: error.response.statusText,
-          loading: false})
+        component.setState({
+          error: true,
+          loading: true
+        });
      });
   }
 
@@ -334,18 +334,8 @@ class Article extends Component {
 				</div>
 			);
 		else {
-      if (this.state.error === 404) {
+      if (this.state.error) {
         return (<NotFoundPage />);
-      }
-      else { 
-        return (
-        <div>
-          <Nav navStyle='inverse'/>
-          <h1 className='error-notification'>
-            {this.state.errorText}
-          </h1>
-        </div>
-        );
       }
 	  }
   }
