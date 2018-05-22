@@ -9,7 +9,7 @@ import Toast from '../../notification/toast';
 import NotFound from '../../shared/notfound';
 
 import * as Lawyer from '../../../lib/user/lawyers';
-
+import * as constant from '../../constants'
 import '../../../assets/styles/common/lawyerProfile.css';
 
 class LawyerProfile extends Component {
@@ -34,8 +34,7 @@ class LawyerProfile extends Component {
 				});
 			}
 			else {
-				console.log(response);
-				//window.location = constant.BASE_URL + constant.NF_URI;
+				window.location = constant.BASE_URL + constant.NF_URI;
 			}
 		})
 	}

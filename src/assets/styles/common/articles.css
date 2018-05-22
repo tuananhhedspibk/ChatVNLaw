@@ -37,7 +37,9 @@
       .modify-container div[class^='modified-content-'] .modified-content-body h5 {
         text-align: center; }
       .modify-container div[class^='modified-content-'] .modified-content-body .modify-content-element {
-        margin-top: 10px; }
+        margin-top: 10px;
+        font-family: Arial;
+        font-size: small !important; }
 
 #modify-box {
   background-color: #E1F5FE; }
