@@ -25,7 +25,6 @@ function updatePayment(component, element, callback){
   var formData = new FormData();
   formData.append('money_account[ammount]', element.cart);
   formData.append('money_account[lawyer_id]', component.state.targetUser.id);
-  console.log(component.state.targetUser.id);
 
   instance.patch(constantUI.API_MONEY_ACCOUNT_URI, formData)
     .then(response => {
