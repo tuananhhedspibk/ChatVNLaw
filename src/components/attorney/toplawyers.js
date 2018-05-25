@@ -36,7 +36,7 @@ class TopLawyers extends Component {
     component.emitter.emit('AddNewErrorToast',
     translate('app.system_notice.error.title'),
     translate('app.system_notice.error.text.some_thing_not_work'),
-    2000, ()=>{});
+    5000, ()=>{});
   }
 
   handleOnclickLawyer(userName){

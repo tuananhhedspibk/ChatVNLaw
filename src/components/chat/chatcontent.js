@@ -213,7 +213,6 @@ class ChatContent extends Component {
       properties['content'] = textSubmit; 
       properties['component'] = component;
       Messages.chat(properties, function(){
-        component.refs.scrollbars.scrollToBottom();
       });
     }
   }

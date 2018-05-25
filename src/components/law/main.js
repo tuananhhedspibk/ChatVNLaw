@@ -30,7 +30,6 @@ class Article extends Component {
       loading: true,
       error: false
 		};
-    // this.getNextNode = this.getNextNode.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
 	}
 
@@ -49,8 +48,6 @@ class Article extends Component {
      });
   }
   componentDidUpdate() {
-    var component = this;
-    console.log(this.state)
     if (this.state.article !== '') {
       window.addEventListener('scroll',this.handleScroll);
 
@@ -85,7 +82,6 @@ class Article extends Component {
           }
         });
     }
-
   }
 
   handleScroll() {
