@@ -189,7 +189,7 @@ module.exports = {
       search_placeholder: 'Tìm kiếm theo tên luật sư',
       filter: 'Lọc kết quả theo',
       specialize: 'Lĩnh vực',
-      top_view: 'Luật sư được xem nhiều',
+      top_view: 'Luật sư tiêu biểu',
       people_vote: 'người dùng đánh giá'
     },
     nav: {
@@ -511,7 +511,8 @@ module.exports = {
       achievement: 'Thành tích',
       education: 'Giáo dục',
       regis_now: 'Đăng kí ngay',
-      review: 'Đánh giá từ khách hàng'
+      review: 'Đánh giá từ khách hàng',
+      bank_account: 'Số tiền hiện có trong tài khoản'
     },
     customer: {
       account_type: 'Loại tài khoản:',

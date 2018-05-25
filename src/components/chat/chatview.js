@@ -266,7 +266,7 @@ class ChatView extends Component {
                               {user.displayName}
                             </List.Header>
                           </List.Content>
-                          {this.renderUnreadMessages(user.id)}
+                          {this.renderUnreadMessages(user.uid)}
                         </List.Item>
                       </Link>
                     </div>

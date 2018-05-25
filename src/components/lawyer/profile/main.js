@@ -7,9 +7,13 @@ import Footer from '../../homepage/footer';
 
 import Toast from '../../notification/toast';
 import NotFound from '../../shared/notfound';
+import Loading from '../../shared/loading';
 
+import { onAuthStateChanged } from '../../../lib/user/authentication';
+import { checkAuthen } from '../../../lib/notification/toast';
 import * as Lawyer from '../../../lib/user/lawyers';
-import * as constant from '../../constants'
+import * as constant from '../../constants';
+
 import '../../../assets/styles/common/lawyerProfile.css';
 
 class LawyerProfile extends Component {
@@ -41,7 +45,32 @@ class LawyerProfile extends Component {
 
   componentWillMount() {
 		this.loadDataFromServer();
-  }
+	}
+	
+	componentDidMount() {
+		var component = this;
+		onAuthStateChanged(user =>{
+      if (user) {
+        if(localStorage.chat_vnlaw_user){
+
+				}
+				else {
+					if (component.state.currentUser.mn_acc) {
+						component.setState({isLoading: true});
+						checkAuthen(component.emitter, constant.SIGN_IN_URI, ()=>{
+						});
+					}
+				}
+			}
+			else {
+				if (component.state.currentUser.mn_acc) {
+					component.setState({isLoading: true});
+					checkAuthen(component.emitter, constant.SIGN_IN_URI, ()=>{
+					});
+				}
+			}
+		});
+	}
 
 	renderView(){
 		if(this.state.success){
@@ -68,6 +97,7 @@ class LawyerProfile extends Component {
 			return(
 				<div>
 					<Toast emitter={this.emitter}/>
+					<Loading/>
 				</div>
 			)
 		}else{

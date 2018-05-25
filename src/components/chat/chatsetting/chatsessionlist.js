@@ -97,9 +97,6 @@ class ChatSessionList extends React.Component{
     component.emitter.emit('AddNewErrorToast',
     translate('app.system_notice.error.title'),
     message, 5000, ()=>{});
-    setTimeout(() => {
-      window.location = constant.HOME_URI;
-    }, 5000);
   }
 
   payment(){
