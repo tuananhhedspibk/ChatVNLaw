@@ -61,6 +61,7 @@ a[data-toggle="popover"] {
     color: #00cc00; }
 
 .popover-body {
+  background-color: #FAFAFA !important;
   font-size: 1.2em; }
 
 .tooltip-inner {
