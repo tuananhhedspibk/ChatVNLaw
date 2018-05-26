@@ -60,6 +60,11 @@ class ArticleContent extends Component {
     })
 		var abc = $('#article-script script').html();
     eval(abc);
+    setTimeout(function(){
+      var abc = $('#article-script script').html();
+      eval(abc); 
+      console.log("DONE")
+     }, 4000);
 	}
 	  getNextNode(node, skipChildren, endNode,skipNode, defaultColor, modalContent){
     if (endNode === node) {
