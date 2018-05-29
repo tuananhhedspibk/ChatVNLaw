@@ -155,7 +155,6 @@ function chat(properties, callback){
         item[constant.MESSAGES.content] = properties.content;
         item[constant.MESSAGES.senderId] = component.state.currentUser.uid;
         item[constant.MESSAGES.timeStamp] = ('' + (new Date()).getTime());
-        properties.component.refs.scrollbars.scrollToBottom();
     }
     else {
         if (properties.contentType === 'image') {
@@ -165,7 +164,6 @@ function chat(properties, callback){
             item[constant.SHARED_FILES.height] = properties.height;
             item[constant.SHARED_FILES.contentType] = properties.contentType;
             item[constant.SHARED_FILES.timeStamp] = properties.timeStamp;
-            properties.component.refs.scrollbars.scrollToBottom();
         }
         else if (properties.contentType === 'file'){
             item[constant.SHARED_FILES.contentType] = properties.contentType;
@@ -173,7 +171,6 @@ function chat(properties, callback){
             item[constant.SHARED_FILES.downloadURL] = properties.downloadURL;
             item[constant.SHARED_FILES.timeStamp] = properties.timeStamp;
             item[constant.SHARED_FILES.senderId] = component.state.currentUser.uid;
-            properties.component.refs.scrollbars.scrollToBottom();
         }
         else if (properties.contentType === 'close_room') {
             item[constant.MESSAGES.contentType] = properties.contentType;

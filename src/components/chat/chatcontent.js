@@ -63,8 +63,7 @@ class ChatContent extends Component {
         component.refs.scrollbars.scrollToBottom();
       });
       Messages.streamingMessage(properties, () => {
-        component.refs.scrollbars.scrollToBottom();
-      })
+      });
     
       var fileButton = document.getElementById('upfile');
       fileButton.addEventListener('change', function(e){

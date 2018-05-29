@@ -126,7 +126,6 @@ class ChatBox extends Component {
         component.refs.scrollbars.scrollToBottom(); 
       });
       Messages.streamingMessage(properties, () => {
-        component.refs.scrollbars.scrollToBottom();        
       });
     }
   }
@@ -224,7 +223,6 @@ class ChatBox extends Component {
   }
 
   blockWhenVideoCalling() {
-    console.log('123');
     this.props.blockWhenVideoCalling();
   }
 
