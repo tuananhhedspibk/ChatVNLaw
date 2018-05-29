@@ -21,7 +21,6 @@ import Toast from '../../notification/toast';
 import { checkPermission, checkAuthen } from '../../../lib/notification/toast';
 import { onAuthStateChanged } from '../../../lib/user/authentication';
 import  { getUserRoleByUid } from '../../../lib/user/getuserinfo';
-import Settings from '../../user/settings';
 
 import * as constant from '../../constants';
 
@@ -141,10 +140,8 @@ class UserDashBoard extends Component {
                         <SearchUser emitter={this.emitter} {...props} />)}/>
                     <Route path={constant.DASHBOARD_URI + constant.CALENDAR_URI}
                       name='Calendar'
-                      component={Calendar}/>
-                    <Route path={constant.DASHBOARD_URI + constant.PROFILE_DASH_URI}
-                      name='Profile' 
-                      component={Settings} />
+                      render={(props) => (
+                        <Calendar emitter={this.emitter} {...props} />)}/>
                   </Switch>
               </Scrollbars>
             </Container>
