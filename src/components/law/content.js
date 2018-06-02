@@ -14,6 +14,7 @@ class ArticleContent extends Component {
 		var full_html = this.props.art_html;
 		var component = this;
 		if (this.props.modified_arr) { 
+      console.log(this.props.modified_arr)
       this.props.modified_arr.map((passage, index) => {
         var startNode = document.getElementsByName(passage.modified_post)[0];
         var endNode = document.getElementsByName(passage.nxt_post)[0];
@@ -24,6 +25,7 @@ class ArticleContent extends Component {
         });
     }
     if (this.props.modify_arr) {
+      console.log(this.props.modify_arr)
       this.props.modify_arr.map((passage, index) => {
         var modify_box = $(`.modify-box-${passage.post}`);
         if(modify_box.length) {
@@ -37,15 +39,15 @@ class ArticleContent extends Component {
       });
 		}
 	  $('.modify-text').on('click', function (event) {
-    var val = $(this).data('whatever');
-    val.sort(component.custom_sort)
-    $('.modal .modal-body').html("");
-    $('.modal .modal-body').append('<div class="timeline"></div>')
-    val.map((article,index) => {
-     	$('.modal .modal-body').append(component.renderModifiedContent(article.content, article.modify_law_title,
-          article.modify_law_date, article.modify_law_id, article.modify_law_pst));
+      var val = $(this).data('whatever');
+      val.sort(component.custom_sort)
+      $('.modal .modal-body').html("");
+      $('.modal .modal-body').append('<div class="timeline"></div>')
+      val.map((article,index) => {
+       	$('.modal .modal-body').append(component.renderModifiedContent(article.content, article.modify_law_title,
+            article.modify_law_date, article.modify_law_id, article.modify_law_pst));
+      	})
     	})
-  	})
     $('.fa-chevron-circle-right').on('click' ,function(event) {
       if($(this).prev().css('display') === 'none') {
         $(this).parent().css('width', '50%');
@@ -65,7 +67,7 @@ class ArticleContent extends Component {
       eval(abc); 
       console.log("DONE")
      }, 4000);
-	}
+    }
 	  getNextNode(node, skipChildren, endNode,skipNode, defaultColor, modalContent){
     if (endNode === node) {
       return false;

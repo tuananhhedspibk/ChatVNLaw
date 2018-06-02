@@ -33,11 +33,14 @@ class StickyHighlight extends Component {
 	}
 
 	handleModify() {
+		 // $("[class^=main]")
 		if($('.checked.sticky-modify').length) {
-			$('#modify-box').css('background-color','white');
+			$('[class^=modify-box-]').css('background-color','white');
+			$('.fa-chevron-circle-right').css('display','none');
 		}
 		else {
-			$('#modify-box').css('background-color','#E1F5FE');
+			$('[class^=modify-box-]').css('background-color','#E1F5FE');
+			$('.fa-chevron-circle-right').css('display','inline-block');
 		}
 	}
 

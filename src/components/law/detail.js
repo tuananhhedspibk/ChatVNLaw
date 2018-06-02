@@ -3,6 +3,42 @@ import React, { Component } from 'react';
 import * as translate from 'counterpart';
 
 class ArticleDetail extends Component {
+
+	componentDidMount() {
+			var script= document.createElement('script');
+	        script.type= 'application/ld+json';
+			var text = `{ 
+			  "@context": "http://schema.org", 
+			  "@type": "NewsArticle", 
+			  "mainEntityOfPage": { 
+			    "@type": "WebPage", 
+			    "@id": "https://vnlaw.datalab.vn/searchlaw" 
+			  }, 
+			  "headline": "${this.props.detail.article_type} ${this.props.detail.numerical_symbol}", 
+			  "image": [ 
+			    "https://vnlaw.datalab.vn/static/media/app_logo.5c75486f.png" 
+			   ], 
+			  "datePublished": "${this.props.detail.public_day}", 
+			  "dateModified": "${this.props.detail.public_day}", 
+			  "author": { 
+			    "@type": "Person", 
+			    "name": "${this.props.detail.signer_title} ${this.props.detail.the_signer}" 
+			  }, 
+			   "publisher": { 
+			    "@type": "Organization", 
+			    "name": "${this.props.detail.agency_issued}", 
+			    "logo": { 
+			      "@type": "ImageObject", 
+			      "url": "http://fn.thainguyen.edu.vn/UploadImages/thainguyen/hai2016/logo.png" 
+			    } 
+			  }, 
+			  "description": "${this.props.detail.title}" 
+			}`
+			var t = document.createTextNode(text); 
+			script.appendChild(t);
+			document.head.appendChild(script);
+	}
+
 	render() {
 		return (
 			<div className="article-detail">
@@ -36,7 +72,7 @@ class ArticleDetail extends Component {
 							<td colSpan={3}>{this.props.detail.agency_issued}</td>
 						</tr>				
 						<tr>
-							<th>{translate('app.article.signer_title')} ký</th>
+							<th>{translate('app.article.signer_title')}</th>
 							<td>{this.props.detail.signer_title}</td>
 							<td colSpan={2}>{this.props.detail.the_signer}</td>
 						</tr>				
