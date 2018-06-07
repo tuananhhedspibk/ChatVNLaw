@@ -23,12 +23,6 @@ class TodoListLawyer extends Component {
         targetUser: targetUser,
         currentRoomId: roomId})    
     });
-    this.props.emitter.addListener('RoomChatHasChanged',
-      function(currentUser, targetUser,roomId,roomDes) {
-        component.setState({currentUser: currentUser,
-          targetUser: targetUser,
-          currentRoomId: roomId})
-    });
   }
 
   componentDidMount(){

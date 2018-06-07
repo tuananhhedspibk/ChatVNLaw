@@ -26,14 +26,6 @@ class TodoList extends Component {
           targetUser: targetUser,
           currentRoomId: roomId})      
     });
-    this.props.emitter.addListener('RoomChatHasChanged',
-      function(currentUser, targetUser,roomId,roomDes) {
-        component.setState({
-          currentUser: currentUser,
-          targetUser: targetUser,
-          currentRoomId: roomId
-        });      
-    });
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -103,24 +95,28 @@ class TodoList extends Component {
     var data = this.state.todoList;
     var index = data.indexOf(ev);
     if(data[index]){
-      if(data[index].status === 'Doing')
-        updateTask(component.state.currentRoomId, ev.id,ev.content,"Done", (success,response) => {
-          if(success && response){
+      if(data[index].status === 'Doing') {
+        updateTask(component.state.currentRoomId, ev.id, ev.content,
+          'Done', (success,response) => {
+            if(success && response){
               $('#todo-list-ul li').eq(index).removeClass('Doing');
               $('#todo-list-ul li').eq(index).addClass('Done');
               data[index].status = 'Done';
               this.setState({todoList: data});
             }
-          });
-      else
-        updateTask(component.state.currentRoomId, ev.id,ev.content,"Doing", (success,response) => {
-          if(success && response){
+        });
+      }
+      else {
+        updateTask(component.state.currentRoomId, ev.id, ev.content,
+          'Doing', (success,response) => {
+            if(success && response){
               $('#todo-list-ul li').eq(index).removeClass('Done');
               $('#todo-list-ul li').eq(index).addClass('Doing');
               data[index].status = 'Doing';
               this.setState({todoList: data});
             }
-      });
+        });
+      }
     }
     return false;
   }
