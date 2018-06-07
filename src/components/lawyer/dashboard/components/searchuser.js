@@ -13,8 +13,6 @@ class SearchUser extends Component {
     super(props);
     this.state = {
       userName: '',
-      targetUser: '',
-      result: [],
       users: [],
       searchTerm: ''
     }
@@ -35,8 +33,7 @@ class SearchUser extends Component {
           users.push(user) 
         }
         component.setState({
-          users: users,
-          result: users
+          users: users
         });
       }
     })
@@ -47,10 +44,6 @@ class SearchUser extends Component {
   }
 
   clickUser(data){
-    var component = this;
-    component.setState({
-      targetUser: data.users
-    })
     this.props.emitter.emit('getUserSearch', data);
     document.body.classList.remove('chat-section-hidden');
     $('.video-call').hide();
