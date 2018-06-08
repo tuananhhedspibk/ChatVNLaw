@@ -46,6 +46,12 @@ class SearchUser extends Component {
   clickUser(data){
     this.props.emitter.emit('getUserSearch', data);
     document.body.classList.remove('chat-section-hidden');
+    $('.user-result').css('background-color', '#f6f6f6');
+    $('#user-' + data.uid).css('background-color', '#e5ecf0');
+    if ($('#open-chat-btn').css('display') !== 'none'){
+      $('#open-chat-btn').fadeOut();
+      $('#close-chat-btn').fadeIn();
+    }
     $('.video-call').hide();
   }
 
@@ -55,7 +61,7 @@ class SearchUser extends Component {
         <div className='users-result'>
           {filteredUsers.map(element=>{
             return(
-              <div className='user-result'
+              <div className='user-result' id={'user-' + element.uid}
                 onClick={this.clickUser.bind(this,element)}>
                   <img className='user-ava' alt='ava'
                     src={constant.API_BASE_URL + element.photoURL}

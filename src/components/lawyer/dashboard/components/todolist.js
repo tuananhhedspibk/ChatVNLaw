@@ -24,23 +24,33 @@ class TodoList extends Component {
       function(currentUser, targetUser, roomId){
         component.setState({currentUser: currentUser,
           targetUser: targetUser,
-          currentRoomId: roomId})      
+          currentRoomId: roomId});   
     });
+    this.props.emitter.addListener('RoomChatHasChanged',
+      function(currentUser, targetUser,roomId,roomDes) {
+        component.setState({
+          currentUser: currentUser,
+          targetUser: targetUser,
+          currentRoomId: roomId
+        });   
+      }
+    );
   }
 
   componentWillUpdate(nextProps, nextState){
     var component = this;
     if(component.state.currentRoomId !== nextState.currentRoomId){
-      getTasksByRoom(nextState.currentRoomId, (success,response) => {
-        var tempData = []
-        if(success && response){ 
-          for(var i in response.data.tasks){
-            tempData.push(response.data.tasks[i])
-          }
+      getTasksByRoom(nextState.currentRoomId, (success, response) => {
+        if(success && response){
+          component.setState({
+            todoList: response.data.tasks
+          });
         }
-        component.setState({
-          todoList: tempData
-        });
+        else {
+          component.setState({
+            todoList: []
+          });
+        }
       });
     }
   }
@@ -49,15 +59,16 @@ class TodoList extends Component {
     $('main.main').removeClass('main-customer');
     var component = this;
     getTasksByRoom(component.state.currentRoomId, (success,response) => {
-      var tempData = [];
-      if(success && response){ 
-        for(var i in response.data.tasks){
-          tempData.push(response.data.tasks[i]);
-        }
+      if(success && response){
+        component.setState({
+          todoList: response.data.tasks
+        });
       }
-      component.setState({
-        todoList: tempData
-      });
+      else {
+        component.setState({
+          todoList: []
+        });
+      }
     });
   }
 

@@ -183,7 +183,8 @@ class DetailSettings extends Component {
             <div className='title'>
               {translate('app.settings.acc_balance')}:
               <p className='money-value'>
-                {this.props.user.mn_acc.ammount.toLocaleString()} {translate('app.settings.money_unit')}
+                {this.props.user.mn_acc.ammount.toLocaleString()}
+                 {translate('app.settings.money_unit')}
               </p>
             </div>
             <button className='save-btn'
@@ -193,13 +194,13 @@ class DetailSettings extends Component {
             </button>
           </div>
         </div>
-        <div className="info-block">
-          <div className="title">
+        <div className='info-block'>
+          <div className='title'>
             {translate('app.settings.payment_his')}
           </div>
           <hr />
-          <div className='content'>
-            <table className="ui single line table">
+          <div className='content payment-his'>
+            <table className='ui single line table'>
               <thead>
                 <tr>
                   <th>

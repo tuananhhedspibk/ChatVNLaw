@@ -27,19 +27,18 @@ class TodoListLawyer extends Component {
 
   componentDidMount(){
     var component = this;
-    var tempData = [];
     getAllTasks(this.props.currentUser.lawyer_id, (success,response) => {
-      if(success && response){   
-        for(var i in response.data.rooms){
-            tempData.push(response.data.rooms[i])
-        }
+      if(success && response){
+        component.setState({
+          todoList: response.data.rooms
+        });
       }
       else {
-        component.toastError(component)
+        component.setState({
+          todoList: []
+        });
+        component.toastError(component);
       }
-      component.setState({
-          todoList: tempData
-      })
     });
   }
 
