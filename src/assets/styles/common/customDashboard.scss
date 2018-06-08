@@ -582,7 +582,6 @@
     padding-left: 30px;
     cursor: pointer;
     position: relative;
-    /*padding: 12px 35px 12px 40px;*/
     background: #f7f7f7;
     font-size: 1.1em;
     transition: 0.2s;
@@ -651,6 +650,8 @@
 }
 
 .search-feature {
+  font-size: 1.1em;
+
   .form-search {
     width: 100%;
 
@@ -661,7 +662,7 @@
       font-size: 1.1em;
       height: 42px;
       padding: 15px;
-      width: calc(100% - 113px);
+      width: calc(100% - 120px);
 
       &:focus {
         outline: 0;
@@ -676,11 +677,23 @@
       color: $white;
       cursor: pointer;
       font-size: 1.1em;
-      padding: 9px 20px 11px;
+      padding: 9px 20px 9px;
 
       &:focus {
         background-color: $blue-darker;
         outline: 0;
+      }
+    }
+  }
+
+  .search-input {
+    input {
+      font-size: 1.1em;
+      padding: 10px !important;
+      width: calc(100% - 1px) !important;
+
+      &:focus {
+        outline: 0 !important;
       }
     }
   }
@@ -773,8 +786,6 @@
         border: 0.5px solid #80bdff;
         border-radius: 4px;
         outline: 0;
-        /*border-color: #80bdff;*/
-        /*box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);*/
       }
     }
   }
@@ -786,7 +797,7 @@
       cursor: pointer;
       display: flex;
       padding: 15px;
-      margin-top: 20px;
+      margin-top: 17px;
       width: 100%;
 
       .user-ava {

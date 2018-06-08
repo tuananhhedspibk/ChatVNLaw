@@ -35,11 +35,11 @@ export default {
       children: [
         {
           name: 'app.dashboard.search.by_user',
-          url: '/dashboard/search_user'
+          url: '/dashboard/searchuser'
         },
         {
           name: 'app.dashboard.search.by_tag',
-          url: '/dashboard/search_tag'
+          url: '/dashboard/searchtag'
         }
       ]
     },

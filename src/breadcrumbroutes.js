@@ -3,8 +3,8 @@ const routes = {
   '/dashboard/files-shared': 'app.dashboard.file',
   '/dashboard/todos': 'app.dashboard.todo',
   '/dashboard/todolistlawyer': 'app.dashboard.todo_list',
-  '/dashboard/search_tag': 'app.dashboard.search.by_tag',
-  '/dashboard/search_user': 'app.dashboard.search.by_user',
+  '/dashboard/searchtag': 'app.dashboard.search.by_tag',
+  '/dashboard/searchuser': 'app.dashboard.search.by_user',
   '/dashboard/dashboard': 'app.dashboard.dashboard',
   '/dashboard/calendar': 'app.dashboard.calendar'
 };

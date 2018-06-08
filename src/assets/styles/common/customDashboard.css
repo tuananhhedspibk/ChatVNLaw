@@ -388,7 +388,6 @@
     padding-left: 30px;
     cursor: pointer;
     position: relative;
-    /*padding: 12px 35px 12px 40px;*/
     background: #f7f7f7;
     font-size: 1.1em;
     transition: 0.2s;
@@ -440,30 +439,38 @@
     #todo-list-ul .close:after {
       width: 0; }
 
-.search-feature .form-search {
-  width: 100%; }
-  .search-feature .form-search input {
-    border: 1px solid #e5ecf0;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+.search-feature {
+  font-size: 1.1em; }
+  .search-feature .form-search {
+    width: 100%; }
+    .search-feature .form-search input {
+      border: 1px solid #e5ecf0;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      font-size: 1.1em;
+      height: 42px;
+      padding: 15px;
+      width: calc(100% - 120px); }
+      .search-feature .form-search input:focus {
+        outline: 0; }
+    .search-feature .form-search button {
+      background-color: #2385f2;
+      border: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.1em;
+      padding: 9px 20px 9px; }
+      .search-feature .form-search button:focus {
+        background-color: #0974b8;
+        outline: 0; }
+  .search-feature .search-input input {
     font-size: 1.1em;
-    height: 42px;
-    padding: 15px;
-    width: calc(100% - 113px); }
-    .search-feature .form-search input:focus {
-      outline: 0; }
-  .search-feature .form-search button {
-    background-color: #2385f2;
-    border: 0;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1.1em;
-    padding: 9px 20px 11px; }
-    .search-feature .form-search button:focus {
-      background-color: #0974b8;
-      outline: 0; }
+    padding: 10px !important;
+    width: calc(100% - 1px) !important; }
+    .search-feature .search-input input:focus {
+      outline: 0 !important; }
 
 .search-tag .search-results {
   height: calc(100vh - 233.5px);
@@ -527,9 +534,7 @@
     padding: 5px;
     border: 0.5px solid #80bdff;
     border-radius: 4px;
-    outline: 0;
-    /*border-color: #80bdff;*/
-    /*box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);*/ }
+    outline: 0; }
   .search-user .users-result .user-result {
     align-items: center;
     background-color: #f6f6f6;
@@ -537,7 +542,7 @@
     cursor: pointer;
     display: flex;
     padding: 15px;
-    margin-top: 20px;
+    margin-top: 17px;
     width: 100%; }
     .search-user .users-result .user-result .user-ava {
       border-radius: 50%;
