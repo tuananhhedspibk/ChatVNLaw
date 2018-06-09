@@ -7,21 +7,31 @@ class SearchTool extends Component {
 	componentDidMount() {
 		$('#search-form-body').addClass('show');
 		$('.search-law-tool').find('.title').removeClass('collapsed');
-		if (this.props.group1 === 0)
+		if (this.props.group1 === 0) {
 			$('#filter1').attr('checked', true);
-		else
+		}
+		else {
 			$('#filter2').attr('checked', true);
-		if (this.props.group2_1 === 0)
+		}
+
+		if (this.props.group2_1 === 0) {
 			$('#group2_1 option[id=val3]').attr('selected','selected');
-		else if (this.props.group2_1 === 1)
+		}
+		else if (this.props.group2_1 === 1) {
 			$('#group2_1 option[id=val1]').attr('selected','selected');
-		else
+		}
+		else {
 			$('#group2_1 option[id=val2]').attr('selected','selected');
-		if (this.props.group2_2 === 0)
+		}
+		
+		if (this.props.group2_2 === 0) {
 			$('#group2_2 option[id=val1]').attr('selected','selected');
-		else
+		}
+		else {
 			$('#group2_2 option[id=val2]').attr('selected','selected');	
-		$('.text-search-box input').val(this.props.query)
+		}
+
+		$('.text-search-box input').val(this.props.query);
 	}
 
 	render() {
@@ -36,8 +46,8 @@ class SearchTool extends Component {
 			    <div className='search-law-tool-body collapse' id='search-form-body'>
 			      <div className='text-search-box'>
 			        <input type='text' name='query' id='query'
-						className='form-control'
-						placeholder={translate('app.search.search_tool.key_search')}/>
+								className='form-control'
+								placeholder={translate('app.search.search_tool.key_search')}/>
 			      </div>
 			      <div className='filter-list'>
 			        <div className='search-term'>
