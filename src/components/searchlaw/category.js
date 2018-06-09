@@ -7,81 +7,52 @@ class Category extends Component {
 
 	componentDidMount() {
 		if(this.props.group3_1 || this.props.group3_2) {
-			console.log("help")
 			$('.category-filter .title').removeClass('collapsed');
-			$('.category-filter .title').attr('aria-expanded',true);
+			$('.category-filter .title').attr('aria-expanded', true);
 			$('.category-filter .collapse').first().addClass('show');
 			if (this.props.group3_1) {
 				$('.category-filter-title.org-filter').removeClass('collapsed');
-				$('.category-filter-title.org-filter').attr('aria-expanded',true);
+				$('.category-filter-title.org-filter').attr('aria-expanded', true);
 				$('.category-organization .collapse').first().addClass('show');
-				if ($(`.category-organization #organ-content a[value='${this.props.group3_1}']`))
+				if ($(`.category-organization #organ-content a[value='${this.props.group3_1}']`)) {
 					$(`.category-organization #organ-content a[value='${this.props.group3_1}']`).parent().addClass('filtering');
+				}
 			}
 			else if (this.props.group3_2) {
 				$('.category-filter-title.type-filter').removeClass('collapsed');
-				$('.category-filter-title.type-filter').attr('aria-expanded',true);
+				$('.category-filter-title.type-filter').attr('aria-expanded', true);
 				$('.category-type .collapse').first().addClass('show');
-				if ($(`.category-type #type-content a[value='${this.props.group3_2}']`))
+				if ($(`.category-type #type-content a[value='${this.props.group3_2}']`)) {
 					$(`.category-type #type-content a[value='${this.props.group3_2}']`).parent().addClass('filtering');
+				}
 			}
 		}
 	}
 
 	renderCategory(type, numberItem) {
-		var handleFunction = '';
+		var handleFunction = this.props.handlerFilterResult;
 		var itemIndex = [];
 		for(var i = 1; i <= numberItem ; i++) {
 			itemIndex.push(i);
 		}
-		if (type === 'organ') {
-			handleFunction = this.props.handlerOrgan;
-		}
-		else if (type === 'type') {
-			handleFunction = this.props.handlerType;
-		}
-		else if (type === 'year') {
-			handleFunction = this.props.handlerYear;
-		}
-		if (type !== 'year') {
-			return(
-				itemIndex.map(i => {
-					return(
-						<div className='category-item'>
-							<a onClick={handleFunction.bind(null,translate('app.search.category_' + type +
-									'.' + type + '_' + i))}
-								value={translate('app.search.category_' + type +
+
+		return(
+			itemIndex.map(i => {
+				return(
+					<div className='category-item'>
+						<a onClick={handleFunction.bind(null,
+							translate('app.search.category_' + type +
+								'.' + type + '_' + i))}
+							value={translate('app.search.category_' + type +
+								'.' + type + '_' + i)}
+							href='#'>
+								{translate('app.search.category_' + type +
 									'.' + type + '_' + i)}
-								href='#'>
-									{translate('app.search.category_' + type +
-										'.' + type + '_' + i)}
-							</a>
-						</div>
-					)
-				})
-			)
-		}
-		else {
-			return (
-				itemIndex.map(i => {
-					return(
-						<div className='category-item'>
-							<a onClick={handleFunction.bind(null, translate('app.search.category_' +
-									type + '.' + type + '_' + i + '.from'),translate('app.search.category_' +
-									type + '.' + type + '_' + i + '.to'))}
-								from={translate('app.search.category_' +
-									type + '.' + type + '_' + i + '.from')}
-								to={translate('app.search.category_' +
-									type + '.' + type + '_' + i + '.to')}
-								href='#'>
-									{translate('app.search.category_' + type +
-										'.' + type + '_' + i + '.title')}
-							</a>
-						</div>
-					)
-				})
-			)
-		}
+						</a>
+					</div>
+				)
+			})
+		)
 	}
 
 	render() {

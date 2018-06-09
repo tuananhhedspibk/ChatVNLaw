@@ -33,7 +33,6 @@ class StickyHighlight extends Component {
 	}
 
 	handleModify() {
-		 // $("[class^=main]")
 		if($('.checked.sticky-modify').length) {
 			$('[class^=modify-box-]').css('background-color','white');
 			$('.fa-chevron-circle-right').css('display','none');

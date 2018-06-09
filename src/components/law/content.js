@@ -14,7 +14,6 @@ class ArticleContent extends Component {
 		var full_html = this.props.art_html;
 		var component = this;
 		if (this.props.modified_arr) { 
-      console.log(this.props.modified_arr)
       this.props.modified_arr.map((passage, index) => {
         var startNode = document.getElementsByName(passage.modified_post)[0];
         var endNode = document.getElementsByName(passage.nxt_post)[0];
@@ -25,7 +24,6 @@ class ArticleContent extends Component {
         });
     }
     if (this.props.modify_arr) {
-      console.log(this.props.modify_arr)
       this.props.modify_arr.map((passage, index) => {
         var modify_box = $(`.modify-box-${passage.post}`);
         if(modify_box.length) {
@@ -64,8 +62,7 @@ class ArticleContent extends Component {
     eval(abc);
     setTimeout(function(){
       var abc = $('#article-script script').html();
-      eval(abc); 
-      console.log("DONE")
+      eval(abc);
      }, 4000);
     }
 	  getNextNode(node, skipChildren, endNode,skipNode, defaultColor, modalContent){

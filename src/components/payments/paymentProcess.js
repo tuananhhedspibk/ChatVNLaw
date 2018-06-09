@@ -25,7 +25,6 @@ class PaymentProcess extends Component {
         }
         this.getCurrentAccount = this.getCurrentAccount.bind(this);
         this.getAccountBalance = this.getAccountBalance.bind(this);
-
     }
 
     componentWillMount(){
@@ -35,9 +34,9 @@ class PaymentProcess extends Component {
             if (success) {
                 component.getCurrentAccount(response.data)
             }
-        })
-        
+        });
     }
+
     getCurrentAccount(data) {
         var component = this;
         component.setState({ trueData: (data.true),currentUser: (data.uid)});
@@ -53,6 +52,7 @@ class PaymentProcess extends Component {
                 loading: false})
         }
     }
+
     getAccountBalance(data) {
         let urlParams = queryString.parse(this.props.location.search); 
         this.setState({})
@@ -64,6 +64,7 @@ class PaymentProcess extends Component {
             loading: false          
             });
     }
+
     renderView(){
         if (this.state.trueData) {
             return(
@@ -356,7 +357,7 @@ class PaymentProcess extends Component {
 
     render(){
         var view = null;
-        if(this.state.loading)
+        if(this.state.loading) {
             view = (
                 <div className='notification-waiting'>
                     <div className='waiting-icon'>
@@ -366,8 +367,10 @@ class PaymentProcess extends Component {
                     </div>
                     <p>{translate('app.payment.wait')}</p>
                 </div>);
-        else
+        }
+        else {
             view = this.renderView();
+        }
         return(
             <div>
                 <Nav navStyle='inverse'/>

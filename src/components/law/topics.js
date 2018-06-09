@@ -48,7 +48,7 @@ class ArticleTopics extends Component {
 						{translate('app.article.keyword')}
 					</div>
 					<div className='topics-detail'>
-					{this.renderTopics()}
+						{this.renderTopics()}
 					</div>
 				</div>
 			</div>

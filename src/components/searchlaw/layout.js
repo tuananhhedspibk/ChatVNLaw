@@ -39,20 +39,22 @@ class SearchLaw extends Component {
 	}
 
 	componentWillMount() {
-		var query = parse(this.props.location.search.substr(1))
+		var query = parse(this.props.location.search.substr(1));
 		if(query.group1 && query.group1 === 'Có tất cả từ trên') {
 			this.setState({group1: 1});
 		}
-		if(query.group2_1 && query.group2_1 === 'Ngày có hiệu lực') {
+
+		if(query.group2_1 && query.group2_1 === 'Ngày phát hành') {
+			this.setState({group2_1: 1});
+		}
+		else if (query.group2_1 && query.group2_1 === 'Ngày có hiệu lực') {
 			this.setState({group2_1: 2});
 		}
-		else if (query.group2_1 && query.group2_1 === 'Ngày phát hành')
-		{
-			this.setState({group2_1: 2});
-		}
+
 		if(query.group2_2 && query.group2_2 === 'Cũ tới mới') {
 			this.setState({group2_2: 1});
 		}
+
 		if(query.query) {
 			this.setState({query: query.query});
 		}
@@ -61,9 +63,6 @@ class SearchLaw extends Component {
 		}
 		if(query.group3_2) {
 			this.setState({group3_2: query.group3_2});
-		}
-		if(query.group3_3) {
-			this.setState({group3_3: query.group3_3});
 		}
 	}
 
@@ -110,72 +109,40 @@ class SearchLaw extends Component {
 		defaultParams.page = this.state.offset;
 
 		instance.get(constant.API_SEARCH_ARTICLES_URI, {params: defaultParams})
-		.then(function (response) {
-			component.setState({isLoading: false});
-			component.setState({articles: response.data.articles,
-				pageCount: response.data.limit_page,
-				number_articles: response.data.number_articles});
-				if(!pageClick) {
-					component.emitter.emit('AddNewSuccessToast', '', translate('app.search.founded') + ' ' +
-						component.state.number_articles + ' '
-						+ translate('app.search.results'), 5000, () => { })
-				}
-		})
-		.catch(function (error) {
-			component.setState({isLoading: false});
-			if(!pageClick) {
+			.then(function (response) {
+				component.setState({isLoading: false});
+				component.setState({articles: response.data.articles,
+					pageCount: response.data.limit_page,
+					number_articles: response.data.number_articles});
+					if(!pageClick) {
+						component.emitter.emit('AddNewSuccessToast', '',
+							translate('app.search.founded') + ' ' +
+							component.state.number_articles + ' '
+							+ translate('app.search.results'), 5000, () => {});
+					}
+			})
+			.catch(function (error) {
+				component.setState({isLoading: false});
 				component.emitter.emit('AddNewErrorToast', '',
 					translate('app.search.founded') + ' ' +
 					component.state.number_articles + ' '
-					+ translate('app.search.results'), 5000, () => { })
-			}
-		});
+					+ translate('app.search.results'), 5000, () => {});
+			});
 	}
 
 	componentDidMount() {
-		var queryParams = this.props.location.search;
-
-		if(queryParams.length <= 0) {
-			this.loadDataFromServer({}, false);
-		}
-		else {
-			this.loadDataFromServer({}, false);
-		}
-
-	}
-
-	checkTabIsFocusOrBlur() {
-		$(window).on('blur focus', function (e) {
-			var prevType = $(this).data('prevType');
-			if (prevType !== e.type) {
-				switch (e.type) {
-					case 'blur':
-						$('div').text('Blured');
-						break;
-					case 'focus':
-						$('div').text('Focused');
-						break;
-					default:
-						break;
-				}
-			}
-			$(this).data('prevType', e.type);
-		})
+		this.loadDataFromServer({}, false);
 	}
 
 	handlerSearch(event) {
-		if (event)
+		if (event) {
 			event.preventDefault();
-		var query = $('.text-search-box input').val()
-		var group1 = '';
-		if($('.search-term #group1 input[name=group1]:checked').length > 0) {
-			group1 = $('.search-term #group1 input[name=group1]:checked')
-				.val();
 		}
-		var group2_1 = $('.form-control[name=group2_1] option:selected')
-			.val()
-		var group2_2 = $('.form-control[name=group2_2] option:selected')
-			.val();
+
+		var query = $('.text-search-box input').val();
+		var group1 = $('.search-term #group1 input[name=group1]:checked').val();
+		var group2_1 = $('.form-control[name=group2_1] option:selected').val();
+		var group2_2 = $('.form-control[name=group2_2] option:selected').val();
 
 		var navigateURI = constant.SEARCH_LAW_URI + '?';
 		navigateURI += 'query=' + query + '&';
@@ -194,21 +161,8 @@ class SearchLaw extends Component {
 
 		window.location = navigateURI;
 	}
-	handlerCategoryType(val){
-		if ($('.category-filter .filtering a').attr('value') === val) {
-			$('.category-filter .filtering').removeClass('filtering');
-		}
-		else {
-			$('.category-filter .filtering').removeClass('filtering');
-			$(`.category-filter a[value='${val}']`).parent().addClass('filtering');	
-		}
-		this.handlerSearch()
-	}
 
-	handlerCategoryYear(e,j){
-	}
-
-	handlerCategoryOrgan(val){
+	handlerFilterResult(val){
 		$('.category-filter .filtering').removeClass('filtering');
 		$(`.category-filter a[value='${val}']`).parent().addClass('filtering');
 		this.handlerSearch();
@@ -231,13 +185,16 @@ class SearchLaw extends Component {
 					<div className='row'>
 						<div className='col-sm-12 col-md-4'>
 							<div className='side-section'>
-								<SearchTool handler={this.handlerSearch.bind(this)} group1={this.state.group1}
-									group2_1={this.state.group2_1} group2_2={this.state.group2_2} 
+								<SearchTool
+									handler={this.handlerSearch.bind(this)}
+									group1={this.state.group1}
+									group2_1={this.state.group2_1}
+									group2_2={this.state.group2_2} 
 									query={this.state.query}/>
-								<Category handlerType={this.handlerCategoryType.bind(this)}
-									handlerYear={this.handlerCategoryYear.bind(this)}
-									handlerOrgan={this.handlerCategoryOrgan.bind(this)}
-									group3_1={this.state.group3_1} group3_2={this.state.group3_2} 
+								<Category
+									handlerFilterResult={this.handlerFilterResult.bind(this)}
+									group3_1={this.state.group3_1}
+									group3_2={this.state.group3_2} 
 									group3_3={this.state.group3_3}/>
 							</div>
 						</div>
@@ -256,9 +213,9 @@ class SearchLaw extends Component {
 										</div>
 									) :
 									(
-										this.state.articles.map(function(article, i) {
+										this.state.articles.map((article, idx) => {
 											return(
-												<Result article={article} number={i}/>
+												<Result article={article} number={idx}/>
 											);
 										})
 									)

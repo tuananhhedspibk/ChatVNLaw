@@ -176,7 +176,9 @@ class Article extends Component {
                 <div className='tab-content'>
                   <div id='article_content' className='tab-pane active'>
                     <ArticleTopics topics={this.state.article.detail.topics} />
-                    <ArticleContent art_html={this.state.article.full_html} modify_arr={this.state.article.modify_arr} modified_arr={this.state.article.modified_arr} />
+                    <ArticleContent art_html={this.state.article.full_html}
+                      modify_arr={this.state.article.modify_arr}
+                      modified_arr={this.state.article.modified_arr} />
                   </div>
                   <div id='article_detail' className='tab-pane'>
                     <ArticleDetail detail={this.state.article.detail}/>
